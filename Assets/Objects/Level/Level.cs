@@ -27,18 +27,37 @@ namespace Game
         public static Level Instance { get; protected set; }
 
         public LevelPause Pause { get; protected set; }
+
+        public LevelAges Ages { get; protected set; }
+
+        public LevelProponents Proponents { get; protected set; }
+
+        new public GameCamera camera { get; protected set; }
+
         public interface IReference : IReference<Level> { }
+        public abstract class Reference : Reference<Level>
+        {
+            public Level Level { get { return Data; } }
+        }
 
         protected virtual void Awake()
         {
             Instance = this;
+
+            References.Init(this);
+
+            Pause = Dependancy.Get<LevelPause>(gameObject);
+
+            Ages = Dependancy.Get<LevelAges>(gameObject);
+
+            Proponents = FindObjectOfType<LevelProponents>();
+
+            camera = FindObjectOfType<GameCamera>();
         }
 
 		protected virtual void Start()
         {
-            References.Init(this);
-
-            Pause = Dependancy.Get<LevelPause>(gameObject);
+            
         }
 
         public virtual void Quit()

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class LevelPause : MonoBehaviour, IReference<Level>
+    public class LevelPause : Level.Reference
     {
         [SerializeField]
         protected LevelPauseState _state;
@@ -33,12 +33,6 @@ namespace Game
             {
                 StateChanged(value);
             }
-        }
-
-        Level level;
-        public void Init(Level reference)
-        {
-            level = reference;
         }
 
         public event Action<LevelPauseState> OnStateChanged;

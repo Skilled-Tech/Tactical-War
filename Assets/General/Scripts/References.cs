@@ -21,15 +21,24 @@ namespace Game
 {
     public interface IReference<T>
     {
-        void Init(T reference);
+        void Init(T data);
     }
 
-    public class References
+    public class Reference<TData> : MonoBehaviour, IReference<TData>
     {
-        public static List<IReference<TType>> Init<TType>(TType reference)
-            where TType : Component
+        protected TData Data { get; set; }
+        public virtual void Init(TData data)
         {
-            var targets = Dependancy.GetAll<IReference<TType>>(reference.gameObject);
+            this.Data = data;
+        }
+    }
+
+    public static class References
+    {
+        public static List<IReference<TData>> Init<TData>(TData reference)
+            where TData : Component
+        {
+            var targets = Dependancy.GetAll<IReference<TData>>(reference.gameObject);
 
             for (int i = 0; i < targets.Count; i++)
                 targets[i].Init(reference);

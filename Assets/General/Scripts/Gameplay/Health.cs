@@ -57,6 +57,8 @@ namespace Game
             }
         }
 
+        public float Rate { get { return Value / Max; } }
+
         protected virtual void Reset()
         {
             _value = _max;
