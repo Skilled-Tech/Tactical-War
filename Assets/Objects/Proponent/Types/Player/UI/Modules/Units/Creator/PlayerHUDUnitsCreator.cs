@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerHUDUnitCreator : PlayerHUDAge.Module
+	public class PlayerHUDUnitsCreator : PlayerHUD.Module
 	{
 		[SerializeField]
         protected GameObject template;
@@ -27,14 +27,23 @@ namespace Game
 
         public List<PlayerHUDUnitCreationTemplate> Elements { get; protected set; }
 
-        public override void Configure(PlayerHUDAge data)
+        public override void Configure(PlayerHUD data)
         {
             base.Configure(data);
 
             Elements = new List<PlayerHUDUnitCreationTemplate>();
+
+            Player.Base.Units.Creator.OnDeployment += OnUnitDeployment;
+            Player.Base.Units.OnUnitDeath += OnUnitDeath;
+            Player.Funds.OnValueChanged += OnFundsChanged;
         }
 
-        public virtual void Set(Age age)
+        void OnUnitDeath(Unit unit, Entity damager)
+        {
+            UpdateState();
+        }
+
+        public virtual void SetAge(AgeData age)
         {
             Clear();
 
@@ -46,6 +55,20 @@ namespace Game
 
                 Elements.Add(instance);
             }
+        }
+
+        void OnFundsChanged()
+        {
+            UpdateState();
+        }
+        void OnUnitDeployment(BaseUnitsCreator.Deployment deployment)
+        {
+            UpdateState();
+        }
+        void UpdateState()
+        {
+            for (int i = 0; i < Elements.Count; i++)
+                Elements[i].UpdateState();
         }
 
         public virtual PlayerHUDUnitCreationTemplate Create(UnitData data)

@@ -16,5 +16,5 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: ce11e41ca5abf084faebc02783784f28, type: 3}
   cost:
     gold: 100
-    xp: 0
+    xp: 50
   deploymentTime: 2

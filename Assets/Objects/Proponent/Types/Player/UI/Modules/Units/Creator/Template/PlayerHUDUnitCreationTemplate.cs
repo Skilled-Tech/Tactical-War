@@ -46,6 +46,16 @@ namespace Game
         void Start()
         {
             button.onClick.AddListener(OnClick);
+
+            UpdateState();
+        }
+        
+        public void UpdateState()
+        {
+            if (Deployment == null)
+            {
+                button.interactable = Player.Base.Units.Creator.CanDeploy(Data);
+            }
         }
 
         public UnitData Data { get; protected set; }
@@ -57,31 +67,30 @@ namespace Game
             image.sprite = data.Sprite;
         }
 
-        BaseUnitCreator.Procedure currentProcedure;
-
         void OnClick()
         {
-            currentProcedure = Player.Base.UnitCreator.ReadyUp(Data);
-
-            StartCoroutine(DeploymentProcedure());
+            StartCoroutine(ClickProcedure());
         }
 
-        IEnumerator DeploymentProcedure()
+        public BaseUnitsCreator.Deployment Deployment { get; protected set; }
+        IEnumerator ClickProcedure()
         {
+            Deployment = Player.Base.Units.Creator.Deploy(Data);
+
             button.interactable = false;
 
-            while(currentProcedure.Timer > 0f)
+            while(Deployment.Timer > 0f)
             {
-                Progress.Value = currentProcedure.Rate;
+                Progress.Value = Deployment.Rate;
 
                 yield return new WaitForEndOfFrame();
             }
 
             Progress.Value = 1f;
 
-            button.interactable = true;
+            Deployment = null;
 
-            currentProcedure = null;
+            UpdateState();
         }
     }
 }

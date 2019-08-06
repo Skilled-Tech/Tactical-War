@@ -30,6 +30,19 @@ namespace Game
         int xp;
         public int XP { get { return xp; } }
 
+        public int Get(CurrencyType type)
+        {
+            switch (type)
+            {
+                case CurrencyType.Gold:
+                    return gold;
+                case CurrencyType.XP:
+                    return xp;
+            }
+
+            throw new NotImplementedException();
+        }
+
         public static bool IsSufficient(Currency requirement, Currency proposal)
         {
             return IsSufficient(requirement, proposal.gold, proposal.xp);
@@ -49,5 +62,10 @@ namespace Game
             this.gold = gold;
             this.xp = xp;
         }
+    }
+
+    public enum CurrencyType
+    {
+        Gold, XP
     }
 }

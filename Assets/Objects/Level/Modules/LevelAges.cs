@@ -22,7 +22,7 @@ namespace Game
 	public class LevelAges : MonoBehaviour
 	{
 		[SerializeField]
-        protected Age[] list;
-        public Age[] List { get { return list; } }
+        protected AgeData[] list;
+        public AgeData[] List { get { return list; } }
     }
 }

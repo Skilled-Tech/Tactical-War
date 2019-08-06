@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ProponentXPFunds : ProponentFunds.Module
+	public class ProponentXPFunds : ProponentFunds.Property
     {
 		
 	}

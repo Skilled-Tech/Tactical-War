@@ -29,6 +29,15 @@ namespace Game
         protected Proponent enemy;
         public Proponent Enemy { get { return enemy; } }
 
+        public virtual Proponent GetOther(Proponent proponent)
+        {
+            if (proponent == player) return enemy;
+
+            if (proponent == enemy) return player;
+
+            throw new NotImplementedException();
+        }
+
         protected virtual void Awake()
         {
 

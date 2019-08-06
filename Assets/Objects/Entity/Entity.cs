@@ -42,14 +42,14 @@ namespace Game
             Modules.Init(this);
         }
 
-        public void DoDamage(Entity target, float damage)
+        public virtual void DoDamage(Entity target, float damage)
         {
             target.TakeDamage(this, damage);
         }
 
         public delegate void TakeDamageDelegate(Entity damager, float value);
         public event TakeDamageDelegate OnTookDamage;
-        public void TakeDamage(Entity damager, float value)
+        public virtual void TakeDamage(Entity damager, float value)
         {
             if (Health.Value == 0) return;
 
@@ -59,6 +59,11 @@ namespace Game
 
             if(Health.Value == 0)
                 Death(damager);
+        }
+
+        public virtual void Suicide()
+        {
+            TakeDamage(this, Health.Value);
         }
 
         public delegate void DeathDelegate(Entity damager);

@@ -24,13 +24,26 @@ namespace Game
 		public ProponentGoldFunds Gold { get; protected set; }
 		public ProponentXPFunds XP { get; protected set; }
 
+        public virtual Property Get(CurrencyType type)
+        {
+            switch (type)
+            {
+                case CurrencyType.Gold:
+                    return Gold;
+                case CurrencyType.XP:
+                    return XP;
+            }
+
+            throw new NotImplementedException();
+        }
+
         public event Action OnValueChanged;
 
-        public abstract class Reference : Module<ProponentFunds>
+        public abstract class Module : Module<ProponentFunds>
         {
             public ProponentFunds Funds { get { return Data; } }
         }
-        public abstract class Module : Reference
+        public abstract class Property : Module
         {
             [SerializeField]
             protected int _value;
@@ -58,10 +71,8 @@ namespace Game
             base.Configure(data);
 
             Gold = Dependancy.Get<ProponentGoldFunds>(Proponent.gameObject);
-            Gold.OnValueChanged += OnGoldChanged;
 
             XP = Dependancy.Get<ProponentXPFunds>(Proponent.gameObject);
-            XP.OnValueChanged += OnXPChanged;
 
             Modules.Configure(this);
         }
@@ -69,6 +80,10 @@ namespace Game
         public override void Init()
         {
             base.Init();
+
+            Gold.OnValueChanged += OnGoldChanged;
+
+            XP.OnValueChanged += OnXPChanged;
 
             Modules.Init(this);
         }
@@ -90,6 +105,12 @@ namespace Game
             {
                 throw new Exception("Trying to reduce " + value.ToString() + " From " + Proponent.name + " Funds but said Proponent doesn't have enough funds");
             }
+        }
+        public virtual void Add(Currency value)
+        {
+            Gold.Value += value.Gold;
+
+            XP.Value += value.XP;
         }
 
         void OnGoldChanged(float value)

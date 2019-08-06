@@ -19,8 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public abstract class UnitController : Unit.Module
-    {
+    [CreateAssetMenu]
+	public class AgeData : ScriptableObject
+	{
+        [SerializeField]
+        protected UnitData[] units;
+        public UnitData[] Units { get { return units; } }
 
+        [SerializeField]
+        protected Currency cost;
+        public Currency Cost { get { return cost; } }
     }
 }

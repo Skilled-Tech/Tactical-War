@@ -23,68 +23,72 @@ namespace Game
 	{
         public Animator Animator { get; protected set; }
 
-        [SerializeField]
-        protected float speed = 5f;
-        public float Speed { get { return speed; } }
-
-        [SerializeField]
-        protected float attackRange;
-        public float AttackRange { get { return attackRange; } }
-
-        [SerializeField]
-        protected float attackDuration;
-        public float AttackDuration { get { return attackDuration; } }
-
-        protected virtual void Start()
+        public override void Configure(Unit data)
         {
-            Animator = Dependancy.Get<Animator>(Unit.gameObject);
+            base.Configure(data);
 
-            Target = Level.Instance.Proponents.Enemy;
+            Animator = Dependancy.Get<Animator>(Unit.gameObject);
         }
 
-        public Proponent Target { get; protected set; }
+        public override void Init()
+        {
+            base.Init();
+
+            Animator.SetFloat("Cycle Offset", Random.Range(0f, 1f));
+        }
 
         void Update()
         {
-            var distanceToTarget = Vector3.Distance(transform.position, Target.Base.transform.position);
-
-            if(distanceToTarget > attackRange)
+            if(Index == 0)
             {
-                Animator.SetBool("Walk", true);
-
-                var position = transform.position;
-
-                position.x += speed * Time.deltaTime;
-
-                transform.position = position;
+                if (Enemy.Base.Units.Count > 0)
+                {
+                    ProcessTarget(Enemy.Base.Units.First);
+                }
+                else
+                {
+                    ProcessTarget(Enemy.Base, Enemy.Base.Entrance.transform.position);
+                }
             }
             else
             {
+                var target = Base.Units.List[Index - 1];
+
+                if(Navigator.MoveTo(target.transform.position - target.transform.forward * 2f, 0f))
+                {
+                    Animator.SetBool("Walk", false);
+                }
+                else
+                {
+                    Animator.SetBool("Walk", true);
+                }
+            }
+        }
+
+        void ProcessTarget(Entity target)
+        {
+            ProcessTarget(target, target.transform.position);
+        }
+        void ProcessTarget(Entity target, Vector3 position)
+        {
+            if (Navigator.MoveTo(position, 1f))
+            {
                 Animator.SetBool("Walk", false);
 
-                if(isAttacking)
+                if (Attack.IsProcessing)
                 {
 
                 }
                 else
                 {
-                    StartCoroutine(Attack());
+                    Animator.SetTrigger("Attack");
+                    Attack.Do(target);
                 }
             }
-        }
-
-        bool isAttacking = false;
-        IEnumerator Attack()
-        {
-            isAttacking = true;
-
-            Animator.SetTrigger("Attack");
-
-            yield return new WaitForSeconds(attackDuration);
-
-            Unit.DoDamage(Target.Base, 40f);
-
-            isAttacking = false;
+            else
+            {
+                Animator.SetBool("Walk", true);
+            }
         }
     }
 }

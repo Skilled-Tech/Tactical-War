@@ -21,15 +21,34 @@ namespace Game
 {
 	public class Unit : Entity
 	{
+        [SerializeField]
+        protected UnitData data;
+        public UnitData Data { get { return data; } }
+
+        public UnitController Controller { get; protected set; }
+        public UnitNavigator Navigator { get; protected set; }
+        public UnitAttack Attack { get; protected set; }
+
         new public abstract class Module : Module<Unit>
         {
             public Unit Unit { get { return Data; } }
         }
 
-        public UnitController Controller { get; protected set; }
+        protected int _index;
+        public int Index
+        {
+            get
+            {
+                return _index;
+            }
+            set
+            {
+                _index = value;
+            }
+        }
 
         public Proponent Leader { get; protected set; }
-        public virtual void Init(Proponent leader)
+        public virtual void Configure(Proponent leader)
         {
             this.Leader = leader;
         }
@@ -40,6 +59,10 @@ namespace Game
 
             Controller = Dependancy.Get<UnitController>(gameObject);
 
+            Navigator = Dependancy.Get<UnitNavigator>(gameObject);
+
+            Attack = Dependancy.Get<UnitAttack>(gameObject);
+
             Modules.Configure(this);
         }
 
@@ -48,6 +71,17 @@ namespace Game
             base.Start();
 
             Modules.Init(this);
+        }
+
+        protected override void Death(Entity damager)
+        {
+            base.Death(damager);
+
+            var unit = damager as Unit;
+            if (unit != null)
+                unit.Leader.Funds.Add(data.Cost);
+
+            Destroy(gameObject);
         }
     }
 }

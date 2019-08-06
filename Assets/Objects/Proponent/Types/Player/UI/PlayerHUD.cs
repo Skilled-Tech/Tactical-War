@@ -23,48 +23,13 @@ namespace Game
 {
 	public class PlayerHUD : PlayerProponent.Module
 	{
-        [SerializeField]
-        protected FundsData funds;
-        public FundsData Funds { get { return funds; } } 
-        [Serializable]
-        public class FundsData
-        {
-            [SerializeField]
-            protected TMP_Text gold;
-            public TMP_Text Gold { get { return gold; } } 
+        public PlayerHUDUnits Units { get; protected set; }
 
-            [SerializeField]
-            protected TMP_Text xp;
-            public TMP_Text XP { get { return xp; } } 
-
-            public void Set(Proponent proponent)
-            {
-                gold.text = "Gold: " + proponent.Funds.Gold.Value;
-
-                xp.text = "XP: " + proponent.Funds.XP.Value;
-            }
-        }
-
-        [SerializeField]
-        protected HealthData health;
-        public HealthData Health { get { return health; } }
-        [Serializable]
-        public class HealthData
-        {
-            [SerializeField]
-            protected ProgressBar player;
-            public ProgressBar Player { get { return player; } } 
-
-            [SerializeField]
-            protected ProgressBar enemy;
-            public ProgressBar Enemy { get { return enemy; } } 
-        }
-
-        public PlayerHUDAge Age { get; protected set; }
-
-        public abstract class Reference : Module<PlayerHUD>
+        public abstract class Module : Module<PlayerHUD>
         {
             public PlayerHUD HUD { get { return Data; } }
+
+            public PlayerProponent Player { get { return HUD.Player; } }
         }
 
         public Level Level { get { return Level.Instance; } }
@@ -75,7 +40,7 @@ namespace Game
         {
             base.Configure(data);
 
-            Age = Dependancy.Get<PlayerHUDAge>(gameObject);
+            Units = Dependancy.Get<PlayerHUDUnits>(gameObject);
 
             Modules.Configure(this);
         }
@@ -84,35 +49,14 @@ namespace Game
         {
             base.Init();
 
-            funds.Set(Player);
-            Player.Funds.OnValueChanged += OnFundsChanged;
-
-            Age.Set(Player.Age);
-
-            health.Player.Value = Player.Base.Health.Rate;
-            Player.Base.Health.OnValueChanged += OnBaseHealthChanged;
-
-            health.Enemy.Value = Enemy.Base.Health.Rate;
-            Enemy.Base.Health.OnValueChanged += OnBaseHealthChanged;
+            SetAge(Level.Ages.List.First());
 
             Modules.Init(this);
         }
 
-        void OnBaseHealthChanged(float value)
+        public virtual void SetAge(AgeData age)
         {
-            health.Player.Value = Player.Base.Health.Rate;
-
-            health.Enemy.Value = Enemy.Base.Health.Rate;
-        }
-
-        void OnFundsChanged()
-        {
-            funds.Set(Player);
-        }
-
-        public virtual void SetAge(Age age)
-        {
-
+            Units.SetAge(age);
         }
 	}
 }

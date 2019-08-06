@@ -30,8 +30,8 @@ namespace Game
 
         public Base Base { get; protected set; }
 
-        protected Age age;
-        public Age Age
+        protected AgeData age;
+        public AgeData Age
         {
             get
             {

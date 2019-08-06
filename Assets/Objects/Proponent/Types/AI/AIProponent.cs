@@ -21,6 +21,29 @@ namespace Game
 {
 	public class AIProponent : Proponent
 	{
-		
-	}
+        public Proponent Enemey { get { return Level.Instance.Proponents.Player; } }
+
+        BaseUnitsCreator.Deployment deployment;
+
+        private void Update()
+        {
+            if(Base.Units.Creator.CanDeploy(age.Units.First()))
+            {
+                if (Base.Units.Count < Enemey.Base.Units.Count + 1)
+                {
+                    if (deployment == null)
+                    {
+                        deployment = Base.Units.Creator.Deploy(age.Units.First());
+
+                        deployment.OnCompletion += OnDeploymentComplete;
+                    }
+                }
+            }
+        }
+
+        void OnDeploymentComplete(BaseUnitsCreator.Deployment obj)
+        {
+            deployment = null;
+        }
+    }
 }

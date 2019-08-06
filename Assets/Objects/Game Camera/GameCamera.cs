@@ -40,27 +40,11 @@ namespace Game
         {
             var position = transform.position;
 
-            position.x += PanZone.Input.x * speed * Time.deltaTime;
+            position -= PanZone.Velocity * speed * Time.deltaTime;
 
             position.x = Mathf.Clamp(position.x, -range, range);
 
             transform.position = position;
-        }
-
-        protected virtual void OnDrawGizmos()
-        {
-            if(Application.isPlaying)
-            {
-
-            }
-            else
-            {
-                Gizmos.color = Color.yellow;
-
-                Gizmos.DrawWireSphere(transform.position + Vector3.right * range, 0.25f);
-
-                Gizmos.DrawWireSphere(transform.position - Vector3.right * range, 0.25f);
-            }
         }
     }
 }

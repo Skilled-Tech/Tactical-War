@@ -23,11 +23,9 @@ namespace Game
     {
         public Proponent Proponent { get; protected set; }
 
-        [SerializeField]
-        protected Transform entrance;
-        public Transform Entrance { get { return entrance; } }
+        public BaseUnits Units { get; protected set; }
 
-        public BaseUnitCreator UnitCreator { get; protected set; }
+        public Transform Entrance { get { return Units.Creator.transform; } }
 
         new public abstract class Module : Module<Base>
         {
@@ -40,7 +38,7 @@ namespace Game
         {
             Proponent = data;
 
-            UnitCreator = Dependancy.Get<BaseUnitCreator>(gameObject);
+            Units = Dependancy.Get<BaseUnits>(gameObject);
 
             Modules.Configure(this);
         }
