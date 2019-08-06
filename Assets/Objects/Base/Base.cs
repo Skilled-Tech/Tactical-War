@@ -19,13 +19,9 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class Base : Entity, IReference<Proponent>
-	{
+    public class Base : Entity, IModule<Proponent>
+    {
         public Proponent Proponent { get; protected set; }
-        public void Init(Proponent data)
-        {
-            Proponent = data;
-        }
 
         [SerializeField]
         protected Transform entrance;
@@ -33,21 +29,25 @@ namespace Game
 
         public BaseUnitCreator UnitCreator { get; protected set; }
 
-        new public interface IReference : IReference<Base> { }
-        new public abstract class Reference : Reference<Base>
+        new public abstract class Module : Module<Base>
         {
             public Base Base { get { return Data; } }
 
             public Proponent Proponent { get { return Base.Proponent; } }
         }
 
-        protected override void Awake()
+        public virtual void Configure(Proponent data)
         {
-            base.Awake();
-
-            References.Init(this);
+            Proponent = data;
 
             UnitCreator = Dependancy.Get<BaseUnitCreator>(gameObject);
+
+            Modules.Configure(this);
+        }
+
+        public virtual void Init()
+        {
+            Modules.Init(this);
         }
     }
 }

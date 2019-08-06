@@ -23,8 +23,7 @@ namespace Game
 	{
         public ProponentFunds Funds { get; protected set; }
 
-        public interface IReference : IReference<Proponent> { }
-        public abstract class Reference : Reference<Proponent>
+        public abstract class Module : Module<Proponent>
         {
             public Proponent Proponent { get { return Data; } }
         }
@@ -48,20 +47,20 @@ namespace Game
 
         protected virtual void Awake()
         {
-            References.Init(this);
-
-            Age = Level.Ages.List.First();
-
             Funds = Dependancy.Get<ProponentFunds>(gameObject);
 
             Base = Dependancy.Get<Base>(gameObject);
 
-            Base.OnDeath += OnBaseDestroyed;
+            Modules.Configure(this);
         }
 
         protected virtual void Start()
         {
-            
+            Age = Level.Ages.List.First();
+
+            Base.OnDeath += OnBaseDestroyed;
+
+            Modules.Init(this);
         }
 
         private void OnBaseDestroyed(Entity damager)

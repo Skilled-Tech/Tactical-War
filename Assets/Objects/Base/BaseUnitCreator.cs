@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class BaseUnitCreator : Base.Reference
+	public class BaseUnitCreator : Base.Module
 	{
         public class Procedure
         {

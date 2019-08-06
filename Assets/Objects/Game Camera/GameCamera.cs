@@ -31,13 +31,9 @@ namespace Game
         protected float speed;
         public float Speed { get { return speed; } }
 
-        Vector3 anchorPosition;
-
         protected virtual void Start()
         {
             PanZone = FindObjectOfType<GameCameraPanZone>();
-
-            anchorPosition = transform.position;
         }
 
         protected virtual void Update()

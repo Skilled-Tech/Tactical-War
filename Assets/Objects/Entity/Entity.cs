@@ -25,22 +25,21 @@ namespace Game
         public bool IsAlive { get { return Health.Value > 0f; } }
         public bool IsDead { get { return Health.Value == 0f; } }
 
-        public interface IReference : IReference<Entity> { }
-        public abstract class Reference : Reference<Entity>
+        public abstract class Module : Module<Entity>
         {
             public Entity Entity { get { return Data; } }
         }
 
         protected virtual void Awake()
         {
-            References.Init(this);
-
             Health = Dependancy.Get<Health>(gameObject);
+
+            Modules.Configure(this);
         }
 
         protected virtual void Start()
         {
-            
+            Modules.Init(this);
         }
 
         public void DoDamage(Entity target, float damage)

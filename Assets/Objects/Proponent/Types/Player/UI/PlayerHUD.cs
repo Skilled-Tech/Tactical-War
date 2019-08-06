@@ -21,7 +21,7 @@ using TMPro;
 
 namespace Game
 {
-	public class PlayerHUD : MonoBehaviour
+	public class PlayerHUD : PlayerProponent.Module
 	{
         [SerializeField]
         protected FundsData funds;
@@ -62,31 +62,32 @@ namespace Game
 
         public PlayerHUDAge Age { get; protected set; }
 
-        public interface IReference : IReference<PlayerHUD> { }
-        public abstract class Reference : Reference<PlayerHUD>
+        public abstract class Reference : Module<PlayerHUD>
         {
             public PlayerHUD HUD { get { return Data; } }
         }
 
-        public LevelProponents Proponents { get { return Level.Instance.Proponents; } }
-
-        public PlayerProponent Player { get { return Proponents.Player; } }
+        public Level Level { get { return Level.Instance; } }
+        public LevelProponents Proponents { get { return Level.Proponents; } }
         public Proponent Enemy { get { return Proponents.Enemy; } }
 
-        PlayerProponent player;
-        public virtual void Init(PlayerProponent player)
+        public override void Configure(PlayerProponent data)
         {
-            this.player = player;
-
-            References.Init(this);
+            base.Configure(data);
 
             Age = Dependancy.Get<PlayerHUDAge>(gameObject);
+
+            Modules.Configure(this);
         }
 
-        protected virtual void Start()
+        public override void Init()
         {
-            player.Funds.OnValueChanged += OnFundsChanged;
-            funds.Set(player);
+            base.Init();
+
+            funds.Set(Player);
+            Player.Funds.OnValueChanged += OnFundsChanged;
+
+            Age.Set(Player.Age);
 
             health.Player.Value = Player.Base.Health.Rate;
             Player.Base.Health.OnValueChanged += OnBaseHealthChanged;
@@ -94,7 +95,7 @@ namespace Game
             health.Enemy.Value = Enemy.Base.Health.Rate;
             Enemy.Base.Health.OnValueChanged += OnBaseHealthChanged;
 
-            Age.Set(player.Age);
+            Modules.Init(this);
         }
 
         void OnBaseHealthChanged(float value)
@@ -106,7 +107,7 @@ namespace Game
 
         void OnFundsChanged()
         {
-            funds.Set(player);
+            funds.Set(Player);
         }
 
         public virtual void SetAge(Age age)

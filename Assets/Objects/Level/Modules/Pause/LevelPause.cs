@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class LevelPause : Level.Reference
+    public class LevelPause : Level.Module
     {
         [SerializeField]
         protected LevelPauseState _state;
@@ -41,9 +41,9 @@ namespace Game
             _state = target;
 
             if (State == LevelPauseState.Hard)
-                Time.timeScale = 1f;
-            else
                 Time.timeScale = 0f;
+            else
+                Time.timeScale = 1f;
 
             if (OnStateChanged != null) OnStateChanged(_state);
         }

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerHUDUnitCreator : MonoBehaviour
+	public class PlayerHUDUnitCreator : PlayerHUDAge.Module
 	{
 		[SerializeField]
         protected GameObject template;
@@ -27,8 +27,10 @@ namespace Game
 
         public List<PlayerHUDUnitCreationTemplate> Elements { get; protected set; }
 
-        protected virtual void Awake()
+        public override void Configure(PlayerHUDAge data)
         {
+            base.Configure(data);
+
             Elements = new List<PlayerHUDUnitCreationTemplate>();
         }
 

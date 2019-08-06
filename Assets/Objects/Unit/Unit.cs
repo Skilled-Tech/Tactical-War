@@ -21,8 +21,7 @@ namespace Game
 {
 	public class Unit : Entity
 	{
-        new public interface IReference : IReference<Unit> { }
-        new public abstract class Reference : Reference<Unit>
+        new public abstract class Module : Module<Unit>
         {
             public Unit Unit { get { return Data; } }
         }
@@ -30,7 +29,6 @@ namespace Game
         public UnitController Controller { get; protected set; }
 
         public Proponent Leader { get; protected set; }
-
         public virtual void Init(Proponent leader)
         {
             this.Leader = leader;
@@ -40,9 +38,16 @@ namespace Game
         {
             base.Awake();
 
-            References.Init(this);
-
             Controller = Dependancy.Get<UnitController>(gameObject);
+
+            Modules.Configure(this);
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+
+            Modules.Init(this);
         }
     }
 }

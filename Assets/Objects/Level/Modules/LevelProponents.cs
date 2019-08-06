@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class LevelProponents : Reference<Level>
+	public class LevelProponents : Module<Level>
 	{
         [SerializeField]
         protected PlayerProponent player;

@@ -26,16 +26,15 @@ namespace Game
 
         public static Level Instance { get; protected set; }
 
+        new public GameCamera camera { get; protected set; }
+
         public LevelPause Pause { get; protected set; }
 
         public LevelAges Ages { get; protected set; }
 
         public LevelProponents Proponents { get; protected set; }
 
-        new public GameCamera camera { get; protected set; }
-
-        public interface IReference : IReference<Level> { }
-        public abstract class Reference : Reference<Level>
+        public abstract class Module : Module<Level>
         {
             public Level Level { get { return Data; } }
         }
@@ -44,7 +43,7 @@ namespace Game
         {
             Instance = this;
 
-            References.Init(this);
+            Modules.Configure(this);
 
             Pause = Dependancy.Get<LevelPause>(gameObject);
 
@@ -57,7 +56,7 @@ namespace Game
 
 		protected virtual void Start()
         {
-            
+            Modules.Init(this);
         }
 
         public virtual void Quit()

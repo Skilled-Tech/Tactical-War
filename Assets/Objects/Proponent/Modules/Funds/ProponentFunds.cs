@@ -19,14 +19,18 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ProponentFunds : Proponent.Reference
+	public class ProponentFunds : Proponent.Module
     {
 		public ProponentGoldFunds Gold { get; protected set; }
 		public ProponentXPFunds XP { get; protected set; }
 
         public event Action OnValueChanged;
 
-        public abstract class Module : Proponent.Reference
+        public abstract class Reference : Module<ProponentFunds>
+        {
+            public ProponentFunds Funds { get { return Data; } }
+        }
+        public abstract class Module : Reference
         {
             [SerializeField]
             protected int _value;
@@ -49,13 +53,24 @@ namespace Game
             public event Action<float> OnValueChanged;
         }
 
-        public virtual void Start()
+        public override void Configure(Proponent data)
         {
+            base.Configure(data);
+
             Gold = Dependancy.Get<ProponentGoldFunds>(Proponent.gameObject);
             Gold.OnValueChanged += OnGoldChanged;
 
             XP = Dependancy.Get<ProponentXPFunds>(Proponent.gameObject);
             XP.OnValueChanged += OnXPChanged;
+
+            Modules.Configure(this);
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            Modules.Init(this);
         }
 
         public bool CanAfford(Currency cost)

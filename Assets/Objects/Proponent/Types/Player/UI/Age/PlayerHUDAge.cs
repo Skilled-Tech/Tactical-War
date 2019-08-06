@@ -23,9 +23,25 @@ namespace Game
 	{
         public PlayerHUDUnitCreator UnitCreator { get; protected set; }
 
-        protected virtual void Start()
+        public abstract class Module : Module<PlayerHUDAge>
         {
+            public PlayerHUDAge Age { get { return Data; } }
+        }
+
+        public override void Configure(PlayerHUD data)
+        {
+            base.Configure(data);
+
             UnitCreator = Dependancy.Get<PlayerHUDUnitCreator>(gameObject);
+
+            Modules.Configure(this);
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            Modules.Init(this);
         }
 
         public virtual void Set(Age age)

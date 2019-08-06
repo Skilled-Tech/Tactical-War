@@ -23,12 +23,27 @@ namespace Game
 	{
 		public PlayerHUD HUD { get; protected set; }
 
+        new public abstract class Module : Module<PlayerProponent>
+        {
+            public PlayerProponent Player { get { return Data; } }
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            HUD = FindObjectOfType<PlayerHUD>();
+
+            Modules.Configure(this);
+            HUD.Configure(this);
+        }
+
         protected override void Start()
         {
             base.Start();
 
-            HUD = FindObjectOfType<PlayerHUD>();
-            HUD.Init(this);
+            Modules.Init(this);
+            HUD.Init();
         }
     }
 }

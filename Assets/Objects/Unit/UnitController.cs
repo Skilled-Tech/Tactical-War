@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public abstract class UnitController : Unit.Reference
+    public abstract class UnitController : Unit.Module
     {
 
     }
