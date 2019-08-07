@@ -39,7 +39,7 @@ namespace Game
         {
             base.Init();
 
-            Enemy = Proponents.GetOther(Leader);
+            Enemy = Proponents.GetEnemy(Leader);
         }
     }
 }

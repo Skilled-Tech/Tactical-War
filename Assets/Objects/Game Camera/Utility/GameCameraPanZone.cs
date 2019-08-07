@@ -23,19 +23,25 @@ using UnityEngine.EventSystems;
 
 namespace Game
 {
-    public class GameCameraPanZone : MonoBehaviour, IDragHandler
+    public class GameCameraPanZone : MonoBehaviour, IPointerDownHandler, IDragHandler
     {
+        public Vector2 Delta { get; protected set; }
+
         public float acceleration = 10f;
 
         void Update()
         {
-            Velocity = Vector3.MoveTowards(Velocity, Vector3.zero, acceleration * Time.deltaTime);
+            Delta = Vector2.MoveTowards(Delta, Vector2.zero, acceleration * Time.deltaTime);
         }
 
-        public Vector3 Velocity { get; protected set; }
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            Delta = Vector2.zero;
+        }
+        
         public void OnDrag(PointerEventData eventData)
         {
-            Velocity = new Vector3(eventData.delta.x, 0f);
+            Delta = eventData.delta;
         }
     }
 }

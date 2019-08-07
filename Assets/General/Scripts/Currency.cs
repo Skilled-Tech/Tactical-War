@@ -47,7 +47,6 @@ namespace Game
         {
             return IsSufficient(requirement, proposal.gold, proposal.xp);
         }
-
         public static bool IsSufficient(Currency requirement, int gold, int xp)
         {
             if (requirement.gold > gold) return false;
@@ -55,6 +54,64 @@ namespace Game
             if (requirement.xp > xp) return false;
 
             return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != GetType()) return false;
+
+            var currency = (Currency)obj;
+
+            if (gold != currency.gold) return false;
+            if (xp != currency.xp) return false;
+
+            return true;
+        }
+
+        public static bool operator == (Currency one, Currency two)
+        {
+            return one.Equals(two);
+        }
+        public static bool operator != (Currency one, Currency two)
+        {
+            return !one.Equals(two);
+        }
+
+        public static bool operator > (Currency one, Currency two)
+        {
+            if (one.gold < two.gold) return false;
+            if (one.xp < two.xp) return false;
+
+            return true;
+        }
+        public static bool operator < (Currency one, Currency two)
+        {
+            if (one.gold > two.gold) return false;
+            if (one.xp > two.xp) return false;
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            return gold.GetHashCode() ^ xp.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            var text = "";
+
+            if (gold > 0)
+                text += gold.ToString() + " Gold";
+            
+            if(xp > 0)
+            {
+                if (text.Length > 0) text += ", ";
+
+                text += xp.ToString() + " XP";
+            }
+
+            return text;
         }
 
         public Currency(int gold, int xp)

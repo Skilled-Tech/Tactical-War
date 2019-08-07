@@ -43,7 +43,7 @@ namespace Game
             UpdateState();
         }
 
-        public virtual void SetAge(AgeData age)
+        public virtual void SetAge(Age age)
         {
             Clear();
 

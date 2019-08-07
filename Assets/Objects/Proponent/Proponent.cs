@@ -23,47 +23,49 @@ namespace Game
 	{
         public ProponentFunds Funds { get; protected set; }
 
+        public ProponentAge Age { get; protected set; }
+
+        public ProponentAbility Ability { get; protected set; }
+
         public abstract class Module : Module<Proponent>
         {
             public Proponent Proponent { get { return Data; } }
+
+            public Level Level { get { return Level.Instance; } }
         }
 
         public Base Base { get; protected set; }
-
-        protected AgeData age;
-        public AgeData Age
-        {
-            get
-            {
-                return age;
-            }
-            set
-            {
-                age = value;
-            }
-        }
+        public BaseUnits Units { get { return Base.Units; } }
 
         public Level Level { get { return Level.Instance; } }
+
+        public Proponent Enemey { get; protected set; }
 
         protected virtual void Awake()
         {
             Funds = Dependancy.Get<ProponentFunds>(gameObject);
 
-            Base = Dependancy.Get<Base>(gameObject);
+            Age = Dependancy.Get<ProponentAge>(gameObject);
+
+            Ability = Dependancy.Get<ProponentAbility>(gameObject);
 
             Modules.Configure(this);
+
+            Base = Dependancy.Get<Base>(gameObject);
+
+            Enemey = Level.Proponents.GetEnemy(this);
         }
 
         protected virtual void Start()
         {
-            Age = Level.Ages.List.First();
+            Age.Set(Level.Ages.List.First());
 
             Base.OnDeath += OnBaseDestroyed;
 
             Modules.Init(this);
         }
 
-        private void OnBaseDestroyed(Entity damager)
+        protected virtual void OnBaseDestroyed(Entity damager)
         {
             
         }

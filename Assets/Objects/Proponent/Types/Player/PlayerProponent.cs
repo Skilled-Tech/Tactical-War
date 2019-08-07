@@ -40,10 +40,17 @@ namespace Game
 
         protected override void Start()
         {
+            Age.OnValueChanged += OnAgeChanged;
+
             base.Start();
 
             Modules.Init(this);
             HUD.Init();
+        }
+
+        void OnAgeChanged(Age age)
+        {
+            SceneManager.LoadScene(age.Scene.Name, LoadSceneMode.Additive);
         }
     }
 }

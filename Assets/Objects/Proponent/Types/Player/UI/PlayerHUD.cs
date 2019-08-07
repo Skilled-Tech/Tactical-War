@@ -42,6 +42,8 @@ namespace Game
 
             Units = Dependancy.Get<PlayerHUDUnits>(gameObject);
 
+            Player.Age.OnValueChanged += SetAge;
+
             Modules.Configure(this);
         }
 
@@ -49,12 +51,10 @@ namespace Game
         {
             base.Init();
 
-            SetAge(Level.Ages.List.First());
-
             Modules.Init(this);
         }
 
-        public virtual void SetAge(AgeData age)
+        void SetAge(Age age)
         {
             Units.SetAge(age);
         }

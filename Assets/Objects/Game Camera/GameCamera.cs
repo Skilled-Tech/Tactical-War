@@ -19,8 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class GameCamera : MonoBehaviour
-	{
+    [RequireComponent(typeof(Camera))]
+    public class GameCamera : MonoBehaviour
+    {
+        new public Camera camera { get; protected set; }
+
         public GameCameraPanZone PanZone { get; protected set; }
 
         [SerializeField]
@@ -33,6 +36,8 @@ namespace Game
 
         protected virtual void Start()
         {
+            camera = GetComponent<Camera>();
+
             PanZone = FindObjectOfType<GameCameraPanZone>();
         }
 
@@ -40,8 +45,7 @@ namespace Game
         {
             var position = transform.position;
 
-            position -= PanZone.Velocity * speed * Time.deltaTime;
-
+            position.x -= PanZone.Delta.x * speed * Time.deltaTime;
             position.x = Mathf.Clamp(position.x, -range, range);
 
             transform.position = position;

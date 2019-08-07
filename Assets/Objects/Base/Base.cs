@@ -25,6 +25,8 @@ namespace Game
 
         public BaseUnits Units { get; protected set; }
 
+        public BaseTower Tower { get; protected set; }
+
         public Transform Entrance { get { return Units.Creator.transform; } }
 
         new public abstract class Module : Module<Base>
@@ -39,6 +41,8 @@ namespace Game
             Proponent = data;
 
             Units = Dependancy.Get<BaseUnits>(gameObject);
+
+            Tower = Dependancy.Get<BaseTower>(gameObject);
 
             Modules.Configure(this);
         }

@@ -19,15 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu]
-	public class AgeData : ScriptableObject
+	public class ProponentAbilityAgeUpgrades : Proponent.Module
 	{
-        [SerializeField]
-        protected UnitData[] units;
-        public UnitData[] Units { get { return units; } }
-
-        [SerializeField]
-        protected Currency cost;
-        public Currency Cost { get { return cost; } }
-    }
+		
+	}
 }

@@ -30,7 +30,7 @@ namespace Game
             Creator = Dependancy.Get<PlayerHUDUnitsCreator>(gameObject);
         }
 
-        public virtual void SetAge(AgeData age)
+        public virtual void SetAge(Age age)
         {
             Creator.SetAge(age);
         }

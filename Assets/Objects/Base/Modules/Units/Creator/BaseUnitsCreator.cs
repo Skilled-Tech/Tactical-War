@@ -38,25 +38,28 @@ namespace Game
             public event Action OnTick;
             public event Action<Deployment> OnCompletion;
 
-            public IEnumerator Coroutine()
+            public Coroutine Coroutine { get; protected set; }
+            public IEnumerator Procedure()
             {
                 while(Timer > 0f)
                 {
                     Timer = Mathf.MoveTowards(Timer, 0f, Time.deltaTime);
 
-                    if (OnTick != null) OnTick();
-
                     yield return new WaitForEndOfFrame();
+
+                    if (OnTick != null) OnTick();
                 }
 
                 if (OnCompletion != null) OnCompletion(this);
             }
 
-            public Deployment(UnitData unit)
+            public Deployment(MonoBehaviour behaviour, UnitData unit)
             {
                 this.Unit = unit;
 
                 Duration = Timer = unit.DeploymentTime;
+
+                Coroutine = behaviour.StartCoroutine(Procedure());
             }
         }
 
@@ -83,11 +86,9 @@ namespace Game
 
             Proponent.Funds.Take(data.Cost);
 
-            var deployment = new Deployment(data);
+            var deployment = new Deployment(this, data);
 
             Deployments.Add(deployment);
-
-            StartCoroutine(deployment.Coroutine());
 
             deployment.OnCompletion += OnDeploymentComplete;
 

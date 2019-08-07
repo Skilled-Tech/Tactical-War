@@ -77,9 +77,7 @@ namespace Game
         {
             base.Death(damager);
 
-            var unit = damager as Unit;
-            if (unit != null)
-                unit.Leader.Funds.Add(data.Cost);
+            Leader.Enemey.Funds.Add(data.Cost);
 
             Destroy(gameObject);
         }

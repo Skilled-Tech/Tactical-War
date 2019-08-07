@@ -21,23 +21,34 @@ namespace Game
 {
 	public class AIProponent : Proponent
 	{
-        public Proponent Enemey { get { return Level.Instance.Proponents.Player; } }
+        protected override void Start()
+        {
+            base.Start();
+
+            StartCoroutine(Procedure());
+        }
 
         BaseUnitsCreator.Deployment deployment;
 
-        private void Update()
+        IEnumerator Procedure()
         {
-            if(Base.Units.Creator.CanDeploy(age.Units.First()))
+            while(Base.Health.Value > 0f)
             {
-                if (Base.Units.Count < Enemey.Base.Units.Count + 1)
+                if (Base.Units.Count < Enemey.Base.Units.Count + 4)
                 {
-                    if (deployment == null)
+                    if (Base.Units.Creator.CanDeploy(Age.Value.Units[0]))
                     {
-                        deployment = Base.Units.Creator.Deploy(age.Units.First());
+                        deployment = Base.Units.Creator.Deploy(Age.Value.Units.First());
 
-                        deployment.OnCompletion += OnDeploymentComplete;
+                        yield return deployment.Coroutine;
+                    }
+                    else
+                    {
+                        yield return null;
                     }
                 }
+                else
+                    yield return null;
             }
         }
 

@@ -29,7 +29,7 @@ namespace Game
         protected Proponent enemy;
         public Proponent Enemy { get { return enemy; } }
 
-        public virtual Proponent GetOther(Proponent proponent)
+        public virtual Proponent GetEnemy(Proponent proponent)
         {
             if (proponent == player) return enemy;
 

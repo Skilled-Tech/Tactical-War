@@ -22,7 +22,26 @@ namespace Game
 	public class LevelAges : MonoBehaviour
 	{
 		[SerializeField]
-        protected AgeData[] list;
-        public AgeData[] List { get { return list; } }
+        protected Age[] list;
+        public Age[] List { get { return list; } }
+
+        public virtual void Configure(Proponent proponent)
+        {
+            proponent.Age.OnValueChanged += OnAgeChange;
+        }
+
+        void OnAgeChange(Age obj)
+        {
+            
+        }
+
+        public int IndexOf(Age age)
+        {
+            for (int i = 0; i < list.Length; i++)
+                if (list[i] == age)
+                    return i;
+
+            throw new Exception("Age " + age.name + " Not Registered with Level");
+        }
     }
 }
