@@ -102,13 +102,13 @@ namespace Game
             var text = "";
 
             if (gold > 0)
-                text += gold.ToString() + " Gold";
+                text += gold.ToString("N0") + " G";
             
             if(xp > 0)
             {
                 if (text.Length > 0) text += ", ";
 
-                text += xp.ToString() + " XP";
+                text += xp.ToString("N0") + " XP";
             }
 
             return text;

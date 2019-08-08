@@ -19,21 +19,19 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class BaseTowerSlot : Base.Module
+	public class SetTowerSlotsContextOperation : Operation
 	{
-		[SerializeField]
-        protected Currency cost = new Currency(100, 50);
-        public Currency Cost { get { return cost; } }
+        [SerializeField]
+        protected BaseTowerSlot target;
+        public BaseTowerSlot Target { get { return target; } } 
 
         [SerializeField]
-        protected Turret turret;
-        public Turret Turret { get { return turret; } }
+        protected BaseTowerSlotContextUI context;
+        public BaseTowerSlotContextUI Context { get { return context; } } 
 
-        public override void Init()
+        public override void Execute()
         {
-            base.Init();
-
-            turret.Init(this);
+            context.Show(target);
         }
     }
 }

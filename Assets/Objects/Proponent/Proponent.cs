@@ -21,12 +21,11 @@ namespace Game
 {
 	public class Proponent : MonoBehaviour
 	{
+        public int Layer { get { return gameObject.layer; } }
+
         public ProponentFunds Funds { get; protected set; }
-
         public ProponentAge Age { get; protected set; }
-
         public ProponentAbility Ability { get; protected set; }
-
         public abstract class Module : Module<Proponent>
         {
             public Proponent Proponent { get { return Data; } }

@@ -54,7 +54,7 @@ namespace Game
             {
                 var target = Base.Units.List[Index - 1];
 
-                if(Navigator.MoveTo(target.transform.position - target.transform.forward * 2f, 0f))
+                if(Navigator.MoveTo(target.transform.position - target.transform.right * 2f, 0f))
                 {
                     Animator.SetBool("Walk", false);
                 }

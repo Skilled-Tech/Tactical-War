@@ -62,6 +62,8 @@ namespace Game
         {
             var instance = Instantiate(prefab);
 
+            Tools.SetLayer(instance, User.Layer);
+
             var meteorite = instance.GetComponent<Meteorite>();
 
             meteorite.Init(this);

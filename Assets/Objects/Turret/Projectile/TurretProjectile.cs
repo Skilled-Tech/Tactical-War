@@ -19,17 +19,17 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody2D))]
 	public class TurretProjectile : MonoBehaviour
 	{
         [SerializeField]
         protected float damage;
         public float Damage { get { return damage; } } 
 
-        new public Rigidbody rigidbody { get; protected set; }
+        new public Rigidbody2D rigidbody { get; protected set; }
         public void AddForce(float force)
         {
-            rigidbody.AddForce(transform.forward * force, ForceMode.VelocityChange);
+            rigidbody.velocity = transform.right * force;
         }
 
         Turret turret;
@@ -37,10 +37,10 @@ namespace Game
         {
             this.turret = turret;
 
-            rigidbody = GetComponent<Rigidbody>();
+            rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        void OnCollisionEnter(Collision collision)
+        void OnCollisionEnter2D(Collision2D collision)
         {
             var unit = collision.gameObject.GetComponent<Unit>();
 

@@ -21,16 +21,15 @@ using UnityEngine.EventSystems;
 
 namespace Game
 {
-	public class BaseTower : Base.Module, IPointerClickHandler
+	public class BaseTower : Base.Module
 	{
-		[SerializeField]
-        protected BaseTowerSlot[] slots;
-        public BaseTowerSlot[] Slots { get { return slots; } }
+        public BaseTowerSlots Slots { get; protected set; }
 
-        public event Action OnClick;
-        public void OnPointerClick(PointerEventData eventData)
+        public override void Configure(Base data)
         {
-            if (OnClick != null) OnClick();
+            base.Configure(data);
+
+            Slots = Dependancy.Get<BaseTowerSlots>(gameObject);
         }
     }
 }

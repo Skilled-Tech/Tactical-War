@@ -33,6 +33,8 @@ namespace Game
 
             public float Timer { get; protected set; }
 
+            public bool isComplete { get { return Timer == 0f; } }
+
             public float Rate { get { return Timer / Duration; } }
 
             public event Action OnTick;
@@ -110,6 +112,8 @@ namespace Game
             var instance = Instantiate(data.Prefab, transform.position, transform.rotation);
 
             instance.name = Proponent.name + " " + data.name;
+
+            Tools.SetLayer(instance, Proponent.Layer);
 
             var unit = instance.GetComponent<Unit>();
 

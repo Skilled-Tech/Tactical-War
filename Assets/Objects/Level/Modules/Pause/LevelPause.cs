@@ -35,6 +35,8 @@ namespace Game
             }
         }
 
+        public LevelSpeed Speed { get { return Level.Speed; } }
+
         public event Action<LevelPauseState> OnStateChanged;
         protected virtual void StateChanged(LevelPauseState target)
         {
@@ -43,7 +45,7 @@ namespace Game
             if (State == LevelPauseState.Hard)
                 Time.timeScale = 0f;
             else
-                Time.timeScale = 1f;
+                Time.timeScale = Speed.Value;
 
             if (OnStateChanged != null) OnStateChanged(_state);
         }

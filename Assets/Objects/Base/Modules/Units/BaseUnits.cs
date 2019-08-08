@@ -23,6 +23,14 @@ namespace Game
 	{
 		public List<Unit> List { get; protected set; }
 
+        public Unit this[int index]
+        {
+            get
+            {
+                return List[index];
+            }
+        }
+
         public Unit First
         {
             get

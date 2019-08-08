@@ -54,46 +54,43 @@ namespace Game
 		public virtual void Init(BaseTowerSlot slot)
         {
             this.slot = slot;
-
-            StartCoroutine(Procedure());
         }
 
-        IEnumerator Procedure()
+        float timer = 0f;
+
+        void Update()
         {
-            while(true)
+            if(timer == 0f)
             {
                 if (Enemy.Units.Count > 0)
                 {
-                    yield return new WaitForSeconds(Random.Range(0f, 1f));
+                    var distance = Mathf.Abs(Enemy.Base.Units.List[0].transform.position.x - transform.position.x);
 
-                    while (Enemy.Units.Count > 0)
+                    if (distance <= range)
                     {
-                        var distance = Mathf.Abs(Enemy.Base.Units.List[0].transform.position.x - transform.position.x);
-
-                        if(distance <= range)
+                        if (AimAt(Enemy.Base.Units.List[0].transform.position) == 0f)
                         {
-                            if (AimAt(Enemy.Base.Units.List[0].transform.position) == 0f)
-                                break;
+                            Shoot();
+
+                            timer = reloadTime + Random.Range(0f, 1f);
                         }
-
-                        yield return new WaitForEndOfFrame();
                     }
-
-                    Shoot(Enemy.Base.Units.List[0]);
-
-                    yield return new WaitForSeconds(reloadTime);
                 }
-
-                yield return new WaitForEndOfFrame();
+            }
+            else
+            {
+                timer = Mathf.MoveTowards(timer, 0f, Time.deltaTime);
             }
         }
 
-        void Shoot(Unit unit)
+        void Shoot()
         {
             var instance = Instantiate(projectilePrefab);
 
             instance.transform.position = projectileSpawn.transform.position;
-            instance.transform.rotation = projectileSpawn.transform.rotation;
+            instance.transform.eulerAngles = new Vector3(0f, 0f, projectileSpawn.transform.eulerAngles.z);
+
+            Tools.SetLayer(instance, Proponent.Layer);
 
             var projectile = instance.GetComponent<TurretProjectile>();
 
@@ -108,7 +105,7 @@ namespace Game
 
             var direction = (target - transform.position).normalized;
 
-            var targetRotation = Quaternion.LookRotation(direction);
+            var targetRotation = Quaternion.LookRotation(direction, Vector2.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, aimSpeed * Time.deltaTime);
 
