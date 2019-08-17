@@ -21,14 +21,7 @@ namespace Game
 {
     public abstract class UnitController : Unit.Module
     {
-        public UnitNavigator Navigator { get { return Unit.Navigator; } }
-        public UnitAttack Attack { get { return Unit.Attack; } }
-        public int Index { get { return Unit.Index; } }
-
-        public Proponent Leader { get { return Unit.Leader; } }
-        public Base Base { get { return Leader.Base; } }
-
-        public Proponent Enemy { get; protected set; }
+        public Proponent Enemy { get { return Leader.Enemey; } }
 
         public bool IsAlive { get { return Unit.IsAlive; } }
 
@@ -39,7 +32,6 @@ namespace Game
         {
             base.Init();
 
-            Enemy = Proponents.GetEnemy(Leader);
         }
     }
 }

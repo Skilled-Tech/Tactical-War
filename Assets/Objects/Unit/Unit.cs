@@ -26,12 +26,22 @@ namespace Game
         public UnitData Data { get { return data; } }
 
         public UnitController Controller { get; protected set; }
+        public UnitBody Body { get; protected set; }
         public UnitNavigator Navigator { get; protected set; }
         public UnitAttack Attack { get; protected set; }
 
         new public abstract class Module : Module<Unit>
         {
             public Unit Unit { get { return Data; } }
+
+            public UnitController Controller { get { return Unit.Controller; } }
+            public UnitBody Body { get { return Unit.Body; } }
+            public UnitNavigator Navigator { get { return Unit.Navigator; } }
+            public UnitAttack Attack { get { return Unit.Attack; } }
+            public Proponent Leader { get { return Unit.Leader; } }
+            public Base Base { get { return Leader.Base; } }
+
+            public int Index { get { return Unit.Index; } }
         }
 
         protected int _index;
@@ -58,6 +68,8 @@ namespace Game
             base.Awake();
 
             Controller = Dependancy.Get<UnitController>(gameObject);
+
+            Body = Dependancy.Get<UnitBody>(gameObject);
 
             Navigator = Dependancy.Get<UnitNavigator>(gameObject);
 

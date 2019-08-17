@@ -15,8 +15,8 @@ MonoBehaviour:
   units:
   - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
   - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
-  - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
-  - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
+  - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+  - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
   scene:
     asset: {fileID: 102900000, guid: 84ed118c76fe7064ea615ce0853172e5, type: 3}
     name: First Age

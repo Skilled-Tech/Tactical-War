@@ -39,9 +39,11 @@ namespace Game
         protected ProgressBar progress;
         public ProgressBar Progress { get { return progress; } }
 
+
+        public Proponent Player { get; protected set; }
+        public UnitData Data { get; protected set; }
+
         public Level Level { get { return Level.Instance; } }
-        public LevelProponents Proponents { get { return Level.Proponents; } }
-        public PlayerProponent Player { get { return Proponents.Player; } }
 
         void Start()
         {
@@ -58,9 +60,10 @@ namespace Game
             }
         }
 
-        public UnitData Data { get; protected set; }
-        public virtual void Set(UnitData data)
+        
+        public virtual void Set(PlayerProponent player, UnitData data)
         {
+            this.Player = player;
             this.Data = data;
 
             label.text = data.name;

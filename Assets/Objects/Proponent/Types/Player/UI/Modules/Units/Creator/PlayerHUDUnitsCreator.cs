@@ -51,7 +51,7 @@ namespace Game
             {
                 var instance = Create(age.Units[i]);
 
-                instance.Set(age.Units[i]);
+                instance.Set(Player, age.Units[i]);
 
                 Elements.Add(instance);
             }

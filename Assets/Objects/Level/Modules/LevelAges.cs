@@ -19,21 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class LevelAges : MonoBehaviour
+	public class LevelAges : Level.Module
 	{
 		[SerializeField]
         protected Age[] list;
         public Age[] List { get { return list; } }
-
-        public virtual void Configure(Proponent proponent)
-        {
-            proponent.Age.OnValueChanged += OnAgeChange;
-        }
-
-        void OnAgeChange(Age obj)
-        {
-            
-        }
 
         public int IndexOf(Age age)
         {

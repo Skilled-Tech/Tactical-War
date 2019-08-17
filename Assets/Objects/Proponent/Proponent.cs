@@ -52,7 +52,7 @@ namespace Game
 
             Base = Dependancy.Get<Base>(gameObject);
 
-            Enemey = Level.Proponents.GetEnemy(this);
+            Enemey = Level.Proponents.GetOther(this);
         }
 
         protected virtual void Start()
@@ -66,7 +66,13 @@ namespace Game
 
         protected virtual void OnBaseDestroyed(Entity damager)
         {
-            
+            DeclareDefeat();
+        }
+
+        public event Action OnDefeat;
+        protected virtual void DeclareDefeat()
+        {
+            if (OnDefeat != null) OnDefeat();
         }
     }
 }

@@ -32,6 +32,7 @@ namespace Game
         public LevelAges Ages { get; protected set; }
         public LevelProponents Proponents { get; protected set; }
         public LevelSpeed Speed { get; protected set; }
+        public LevelMenu Menu { get; protected set; }
 
         public abstract class Module : Module<Level>
         {
@@ -47,8 +48,10 @@ namespace Game
             Pause = Dependancy.Get<LevelPause>(gameObject);
             Ages = Dependancy.Get<LevelAges>(gameObject);
             Speed = Dependancy.Get<LevelSpeed>(gameObject);
+            Proponents = Dependancy.Get<LevelProponents>(gameObject);
 
-            Proponents = FindObjectOfType<LevelProponents>();
+            Menu = FindObjectOfType<LevelMenu>();
+            Menu.Configure(this);
 
             camera = FindObjectOfType<GameCamera>();
         }
@@ -56,11 +59,31 @@ namespace Game
 		protected virtual void Start()
         {
             Modules.Init(this);
+
+            Menu.Init();
+
+            Proponents.OnDefeat += OnProponentDeafeated;
+        }
+
+        void OnProponentDeafeated(Proponent proponent)
+        {
+            Speed.Value = 0f;
+
+            Menu.End.Show(Proponents.GetOther(proponent));
         }
 
         public virtual void Quit()
         {
+            Speed.Value = 1f;
+
             SceneManager.LoadScene(0);
+        }
+
+        public virtual void Retry()
+        {
+            Speed.Value = 1f;
+
+            SceneManager.LoadScene(gameObject.scene.name);
         }
 
         protected virtual void OnDestroy()

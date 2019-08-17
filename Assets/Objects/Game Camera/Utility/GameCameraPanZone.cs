@@ -31,7 +31,7 @@ namespace Game
 
         void Update()
         {
-            Delta = Vector2.MoveTowards(Delta, Vector2.zero, acceleration * Time.deltaTime);
+            Delta = Vector2.MoveTowards(Delta, Vector2.zero, acceleration * Time.unscaledDeltaTime);
         }
 
         public void OnPointerDown(PointerEventData eventData)

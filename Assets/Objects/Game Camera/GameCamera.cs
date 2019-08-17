@@ -45,7 +45,7 @@ namespace Game
         {
             var position = transform.position;
 
-            position.x -= PanZone.Delta.x * speed * Time.deltaTime;
+            position.x -= PanZone.Delta.x * speed * Time.unscaledDeltaTime;
             position.x = Mathf.Clamp(position.x, -range, range);
 
             transform.position = position;

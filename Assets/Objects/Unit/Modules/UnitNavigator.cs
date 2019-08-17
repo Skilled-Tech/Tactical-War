@@ -61,10 +61,14 @@ namespace Game
 
                 XPosition = Mathf.MoveTowards(XPosition, destination, speed * Time.deltaTime);
 
+                Body.Animator.SetBool("Walk", true);
+
                 return false;
             }
             else
             {
+                Body.Animator.SetBool("Walk", false);
+
                 return true;
             }
         }

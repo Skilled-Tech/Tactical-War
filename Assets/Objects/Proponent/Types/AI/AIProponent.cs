@@ -27,9 +27,7 @@ namespace Game
 
             Base.Tower.Slots[0].Handle.SetActive(false);
 
-            return;
-            Base.Tower.Slots[0].Deploy();
-            Base.Tower.Slots[0].Turret.isDeployed = true;
+            DeployTower(0);
         }
 
         BaseUnitsCreator.Deployment deployment;
@@ -50,9 +48,15 @@ namespace Game
             }
         }
 
-        void OnDeploymentComplete(BaseUnitsCreator.Deployment obj)
+        void OnUnitDeploymentComplete(BaseUnitsCreator.Deployment obj)
         {
             deployment = null;
+        }
+
+        void DeployTower(int index)
+        {
+            Base.Tower.Slots[index].Deploy();
+            Base.Tower.Slots[index].Turret.isDeployed = true;
         }
     }
 }

@@ -19,28 +19,38 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class LevelProponents : Module<Level>
+	public class LevelProponents : Level.Module
 	{
         [SerializeField]
-        protected PlayerProponent player;
-        public PlayerProponent Player { get { return player; } }
+        protected Proponent proponent1;
+        public Proponent Proponent1 { get { return proponent1; } }
 
         [SerializeField]
-        protected Proponent enemy;
-        public Proponent Enemy { get { return enemy; } }
+        protected Proponent proponent2;
+        public Proponent Proponent2 { get { return proponent2; } }
 
-        public virtual Proponent GetEnemy(Proponent proponent)
+        public virtual Proponent GetOther(Proponent proponent)
         {
-            if (proponent == player) return enemy;
+            if (proponent == proponent1) return proponent2;
 
-            if (proponent == enemy) return player;
+            if (proponent == proponent2) return proponent1;
 
             throw new NotImplementedException();
         }
 
-        protected virtual void Awake()
+        public override void Init()
         {
+            base.Init();
 
+            proponent1.OnDefeat += ()=>ProponentDefeated(proponent1);
+            proponent2.OnDefeat += ()=>ProponentDefeated(proponent2);
+        }
+
+        public delegate void ProponentDefeatedDelegate(Proponent proponent);
+        public event ProponentDefeatedDelegate OnDefeat;
+        void ProponentDefeated(Proponent proponent)
+        {
+            if (OnDefeat != null) OnDefeat(proponent);
         }
     }
 }

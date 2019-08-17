@@ -42,8 +42,8 @@ namespace Game
         public Transform ProjectileSpawn { get { return projectileSpawn; } } 
 
         [SerializeField]
-        protected float force = 20;
-        public float Force { get { return force; } } 
+        protected float velocity = 25;
+        public float Velocity { get { return velocity; } } 
 
         public Base Base { get { return slot.Base; } }
         public Proponent Proponent { get { return Base.Proponent; } }
@@ -88,15 +88,15 @@ namespace Game
             var instance = Instantiate(projectilePrefab);
 
             instance.transform.position = projectileSpawn.transform.position;
-            instance.transform.eulerAngles = new Vector3(0f, 0f, projectileSpawn.transform.eulerAngles.z);
+            instance.transform.rotation = projectileSpawn.transform.rotation;
 
-            Tools.SetLayer(instance, Proponent.Layer);
+            var projectile = instance.GetComponent<Projectile>();
 
-            var projectile = instance.GetComponent<TurretProjectile>();
+            projectile.Configure(Base);
 
-            projectile.Init(this);
+            projectile.SetLayer(Proponent.Layer);
 
-            projectile.AddForce(force);
+            projectile.SetVelocity(velocity);
         }
 
         float AimAt(Vector3 target)
