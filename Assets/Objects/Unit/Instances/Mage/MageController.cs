@@ -29,9 +29,18 @@ namespace Game
         protected GameObject projectileSpawn;
         public GameObject ProjectileSpawn { get { return projectileSpawn; } }
 
+        public ProponentUpgradeProperty RangeUpgeade;
+
+        public override void Init()
+        {
+            base.Init();
+
+            RangeUpgeade = Leader.Upgrades.Contexts[1].Properties[1];
+        }
+
         void Update()
         {
-            if (Index < 3)
+            if (Index < 2 + RangeUpgeade.Number)
             {
                 if(Index == 0)
                 {
@@ -88,7 +97,7 @@ namespace Game
             }
             else
             {
-                if (Navigator.MoveTo(position, 1.5f))
+                if (Navigator.MoveTo(position, 5f))
                 {
                     if (Attack.IsProcessing)
                     {

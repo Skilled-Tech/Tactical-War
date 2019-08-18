@@ -26,6 +26,7 @@ namespace Game
         public ProponentFunds Funds { get; protected set; }
         public ProponentAge Age { get; protected set; }
         public ProponentAbility Ability { get; protected set; }
+        public ProponentUpgrades Upgrades { get; protected set; }
         public abstract class Module : Module<Proponent>
         {
             public Proponent Proponent { get { return Data; } }
@@ -47,6 +48,8 @@ namespace Game
             Age = Dependancy.Get<ProponentAge>(gameObject);
 
             Ability = Dependancy.Get<ProponentAbility>(gameObject);
+
+            Upgrades = Dependancy.Get<ProponentUpgrades>(gameObject);
 
             Modules.Configure(this);
 

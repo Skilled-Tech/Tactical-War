@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
   m_Name: Mage
   m_EditorClassIdentifier: 
+  type: {fileID: 11400000, guid: d46edbafedd3e1044a159863c637a9e1, type: 2}
   prefab: {fileID: 5569182392643639925, guid: e5461d97d79f46f4aae62e8d9ba78c00, type: 3}
   sprite: {fileID: 21300000, guid: ce11e41ca5abf084faebc02783784f28, type: 3}
   cost:

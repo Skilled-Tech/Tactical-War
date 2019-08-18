@@ -39,7 +39,7 @@ namespace Game
                 if (Base.Units.Creator.CanDeploy(Age.Value.Units[0]))
                 {
                     if(deployment == null)
-                        deployment = Base.Units.Creator.Deploy(Age.Value.Units.First());
+                        deployment = Base.Units.Creator.Deploy(Age.Value.Units[Random.Range(0, Age.Value.Units.Length)]);
                     else
                     {
                         if (deployment.isComplete) deployment = null;

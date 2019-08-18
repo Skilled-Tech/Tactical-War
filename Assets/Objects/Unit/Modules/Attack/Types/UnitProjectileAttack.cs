@@ -47,8 +47,11 @@ namespace Game
             var projectile = instance.GetComponent<Projectile>();
 
             projectile.Configure(Unit);
+
             projectile.SetLayer(Unit.Leader.Layer);
             projectile.SetVelocity(velocity);
+
+            projectile.GetComponent<ProjectileDamage>().Value = SampleDamage();
 
             return projectile;
         }

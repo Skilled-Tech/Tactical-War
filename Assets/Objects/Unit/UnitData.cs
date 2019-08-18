@@ -23,6 +23,10 @@ namespace Game
     public class UnitData : ScriptableObject
     {
         [SerializeField]
+        protected UnitType type;
+        public UnitType Type { get { return type; } } 
+
+        [SerializeField]
         protected GameObject prefab;
         public GameObject Prefab { get { return prefab; } }
 

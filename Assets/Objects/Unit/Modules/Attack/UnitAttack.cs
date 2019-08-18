@@ -25,15 +25,24 @@ namespace Game
         protected float damage = 20f;
         public float Damage { get { return damage; } }
 
+        public virtual float SampleDamage()
+        {
+            return DamageUpgrade.Sample(damage);
+        }
+
         [SerializeField]
         protected float duration = 1f;
         public float Duration { get { return duration; } }
+
+        public ProponentUpgradeProperty DamageUpgrade;
 
         public override void Init()
         {
             base.Init();
 
             Body.AnimationEvent.OnTrigger += OnAnimationTrigger;
+
+            DamageUpgrade = Leader.Upgrades.Contexts[0].Properties[0];
         }
 
         void OnAnimationTrigger(string ID)
@@ -51,7 +60,7 @@ namespace Game
 
         public virtual void DoDamage(Entity target)
         {
-            Unit.DoDamage(target, damage);
+            Unit.DoDamage(target, SampleDamage());
         }
 
         public Entity Target { get; protected set; }
