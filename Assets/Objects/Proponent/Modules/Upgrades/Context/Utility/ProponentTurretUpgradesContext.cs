@@ -19,8 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class KnightController : UnitController
+	public class ProponentTurretUpgradesContext : ProponentUpgradesContext
 	{
-        
+        protected override void PropertyUpgraded(ProponentUpgradeProperty property)
+        {
+            base.PropertyUpgraded(property);
+        }
     }
 }

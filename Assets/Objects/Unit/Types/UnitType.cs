@@ -22,8 +22,6 @@ namespace Game
     [CreateAssetMenu]
 	public class UnitType : ScriptableObject
 	{
-		[SerializeField]
-        protected UnitPropertyData[] properties;
-        public UnitPropertyData[] Properties { get { return properties; } }
+		
     }
 }

@@ -21,28 +21,45 @@ namespace Game
 {
 	public abstract class UnitAttack : Unit.Module
 	{
+        #region Damage
         [SerializeField]
-        protected float damage = 20f;
-        public float Damage { get { return damage; } }
+        protected float baseDamage = 20f;
+        public float BaseDamage { get { return baseDamage; } }
 
-        public virtual float SampleDamage()
-        {
-            return DamageUpgrade.Sample(damage);
-        }
+        public float DamageMultiplier { get; set; }
+
+        public float Damage { get { return baseDamage * DamageMultiplier; } }
+        #endregion
+
+        #region Range
+        [SerializeField]
+        protected uint baseRange = 1;
+        public uint BaseRange { get { return baseRange; } }
+
+        public uint RangeIncrease { get; set; }
+
+        public uint Range { get { return baseRange + RangeIncrease; } }
+        #endregion
+
+        #region Distance
+        [SerializeField]
+        protected float baseDistance = 1f;
+        public float BaseDistance { get { return baseDistance; } }
+
+        public float DistanceMultiplier { get; set; }
+
+        public float Distance { get { return baseDistance * DistanceMultiplier; } }
+        #endregion
 
         [SerializeField]
         protected float duration = 1f;
         public float Duration { get { return duration; } }
-
-        public ProponentUpgradeProperty DamageUpgrade;
 
         public override void Init()
         {
             base.Init();
 
             Body.AnimationEvent.OnTrigger += OnAnimationTrigger;
-
-            DamageUpgrade = Leader.Upgrades.Contexts[0].Properties[0];
         }
 
         void OnAnimationTrigger(string ID)
@@ -60,7 +77,7 @@ namespace Game
 
         public virtual void DoDamage(Entity target)
         {
-            Unit.DoDamage(target, SampleDamage());
+            Unit.DoDamage(target, Damage);
         }
 
         public Entity Target { get; protected set; }

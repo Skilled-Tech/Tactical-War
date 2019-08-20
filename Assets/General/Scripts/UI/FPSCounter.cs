@@ -8,7 +8,8 @@ public class FPSCounter : MonoBehaviour
 
     IEnumerator Start()
     {
-        Application.targetFrameRate = 60;
+        if(Application.isMobilePlatform)
+            Application.targetFrameRate = 60;
 
         GUI.depth = 2;
         while (true)
@@ -17,7 +18,7 @@ public class FPSCounter : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.1f);
                 count = (1 / Time.deltaTime);
-                label = "FPS :" + (Mathf.Round(count));
+                label = "" + (Mathf.Round(count));
             }
             else
             {
@@ -29,6 +30,6 @@ public class FPSCounter : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Label(new Rect(5, 40, 100, 25), label, new GUIStyle() { fontSize = 40 });
+        GUI.Label(new Rect(5, 5, 100, 25), label, new GUIStyle() { fontSize = 40 });
     }
 }

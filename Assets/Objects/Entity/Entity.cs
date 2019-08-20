@@ -25,20 +25,28 @@ namespace Game
         public bool IsAlive { get { return Health.Value > 0f; } }
         public bool IsDead { get { return Health.Value == 0f; } }
 
+        public EntityDefense Defense { get; protected set; }
+
         public abstract class Module : Module<Entity>
         {
             public Entity Entity { get { return Data; } }
         }
 
+        public Bounds Bounds { get; protected set; }
+
         protected virtual void Awake()
         {
             Health = Dependancy.Get<Health>(gameObject);
+
+            Defense = Dependancy.Get<EntityDefense>(gameObject);
 
             Modules.Configure(this);
         }
 
         protected virtual void Start()
         {
+            Bounds = Tools.CalculateBounds(gameObject);
+
             Modules.Init(this);
         }
 
@@ -52,6 +60,8 @@ namespace Game
         public virtual void TakeDamage(Entity damager, float value)
         {
             if (Health.Value == 0) return;
+
+            value = Defense.Sample(value);
 
             Health.Value -= value;
 
@@ -72,5 +82,10 @@ namespace Game
         {
             if (OnDeath != null) OnDeath(damager);
         }
-	}
+
+        void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawCube(Bounds.center, Bounds.size);
+        }
+    }
 }

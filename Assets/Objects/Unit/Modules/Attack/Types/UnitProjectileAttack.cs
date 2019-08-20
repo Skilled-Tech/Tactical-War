@@ -51,7 +51,7 @@ namespace Game
             projectile.SetLayer(Unit.Leader.Layer);
             projectile.SetVelocity(velocity);
 
-            projectile.GetComponent<ProjectileDamage>().Value = SampleDamage();
+            projectile.GetComponent<ProjectileDamage>().Value = Damage;
 
             return projectile;
         }

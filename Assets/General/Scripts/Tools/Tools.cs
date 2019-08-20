@@ -32,5 +32,22 @@ namespace Game
             for (int i = 0; i < transform.childCount; i++)
                 SetLayer(transform.GetChild(i), layer);
         }
-	}
+
+        public static Bounds CalculateBounds(GameObject gameObject)
+        {
+            var value = new Bounds();
+
+            var renderers = gameObject.GetComponentsInChildren<Renderer>();
+
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                if (i == 0)
+                    value = renderers[i].bounds;
+                else
+                    value.Encapsulate(renderers[i].bounds);
+            }
+
+            return value;
+        }
+    }
 }

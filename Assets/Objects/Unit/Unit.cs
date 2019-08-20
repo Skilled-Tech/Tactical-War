@@ -27,20 +27,17 @@ namespace Game
 
         public UnitType Type { get { return data.Type; } }
 
-        public UnitPropertyData[] Properties { get { return Type.Properties; } }
-
         public UnitController Controller { get; protected set; }
         public UnitBody Body { get; protected set; }
         public UnitNavigator Navigator { get; protected set; }
         public UnitAttack Attack { get; protected set; }
+        public UnitUpgrades Upgrades { get; protected set; }
 
         new public abstract class Module : Module<Unit>
         {
             public Unit Unit { get { return Data; } }
 
             public UnitType Type { get { return Unit.Type; } }
-
-            public UnitPropertyData[] Properties { get { return Type.Properties; } }
 
             public UnitController Controller { get { return Unit.Controller; } }
             public UnitBody Body { get { return Unit.Body; } }
@@ -82,6 +79,8 @@ namespace Game
             Navigator = Dependancy.Get<UnitNavigator>(gameObject);
 
             Attack = Dependancy.Get<UnitAttack>(gameObject);
+
+            Upgrades = Dependancy.Get<UnitUpgrades>(gameObject);
 
             Modules.Configure(this);
         }

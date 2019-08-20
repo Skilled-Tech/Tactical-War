@@ -19,9 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu]
-	public class UnitPropertyData : ScriptableObject
+	public class UnitRangeUpgrade : UnitUpgrades.Property
 	{
-		
-	}
+        protected override void UpdateState()
+        {
+            base.UpdateState();
+
+            Unit.Attack.RangeIncrease = UpgradeProperty.Index;
+
+            Unit.Attack.DistanceMultiplier = UpgradeProperty.Multiplier;
+        }
+    }
 }

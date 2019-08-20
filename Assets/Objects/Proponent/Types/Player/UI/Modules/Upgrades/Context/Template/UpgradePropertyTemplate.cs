@@ -82,7 +82,7 @@ namespace Game
                 price.text = Reference.Next.Cost.ToString();
             }
 
-            progression.Value = (int)Reference.Number;
+            progression.Value = (int)Reference.Index;
 
             button.interactable = Reference.CanAfford && !Reference.Maxed;
         }

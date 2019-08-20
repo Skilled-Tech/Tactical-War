@@ -32,7 +32,10 @@ namespace Game
 
         public virtual void Open()
         {
-            Context.Set(Player.Upgrades.Contexts[0]);
+            if (Context.Target == null)
+                Context.Set(Player.Upgrades.Contexts[0]);
+            else
+                Context.Set(Context.Target);
         }
     }
 }

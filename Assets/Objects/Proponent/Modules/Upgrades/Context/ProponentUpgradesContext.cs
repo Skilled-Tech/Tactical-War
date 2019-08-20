@@ -50,7 +50,7 @@ namespace Game
         }
 
         public event Action<ProponentUpgradeProperty> OnPropertyUpgraded;
-        void PropertyUpgraded(ProponentUpgradeProperty property)
+        protected virtual void PropertyUpgraded(ProponentUpgradeProperty property)
         {
             if (OnPropertyUpgraded != null) OnPropertyUpgraded(property);
         }

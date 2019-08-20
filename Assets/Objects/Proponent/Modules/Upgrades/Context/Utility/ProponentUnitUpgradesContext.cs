@@ -19,11 +19,10 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class UnitProperties : Unit.Module
+	public class ProponentUnitUpgradesContext : ProponentUpgradesContext
 	{
-		public virtual bool Has(UnitPropertyData property)
-        {
-            return Properties.Contains(property);
-        }
-	}
+		[SerializeField]
+        protected UnitType type;
+        public UnitType Type { get { return type; } }
+    }
 }

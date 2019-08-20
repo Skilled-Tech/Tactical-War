@@ -20,10 +20,10 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     public class ProponentUpgradeProperty : ProponentUpgrades.Module
-	{
+    {
         [SerializeField]
         protected UpgradeType type;
-        public UpgradeType Type { get { return type; } } 
+        public UpgradeType Type { get { return type; } }
 
         [SerializeField]
         protected Data[] list;
@@ -38,25 +38,54 @@ namespace Game
         {
             [SerializeField]
             protected Currency cost;
-            public Currency Cost { get { return cost; } } 
+            public Currency Cost { get { return cost; } }
 
             [SerializeField]
             protected float percentage;
-            public float Percentage { get { return percentage; } } 
+            public float Percentage { get { return percentage; } }
+
+            public float Multiplier
+            {
+                get
+                {
+                    return 1f + (percentage / 100);
+                }
+            }
+
+            public virtual float Sample(float value)
+            {
+                return value * Multiplier;
+            }
         }
 
-        public uint Number { get; protected set; }
+        public uint Index { get; protected set; }
 
         public Data Current
         {
             get
             {
-                if (Number == 0) return null;
+                if (Index == 0) return null;
 
-                return list[Number - 1];
+                return list[Index - 1];
             }
         }
         public bool Maxed { get { return Current == list.Last(); } }
+
+        public virtual float Sample(float value)
+        {
+            if (Current == null) return value;
+
+            return Current.Sample(value);
+        }
+        public virtual float Multiplier
+        {
+            get
+            {
+                if (Current == null) return 1f;
+
+                return Current.Multiplier;
+            }
+        }
 
         public Data Next
         {
@@ -64,7 +93,7 @@ namespace Game
             {
                 if (Maxed) return null;
 
-                return list[Number];
+                return list[Index];
             }
         }
         public bool CanAfford
@@ -77,18 +106,11 @@ namespace Game
             }
         }
 
-        public virtual float Sample(float value)
-        {
-            if (Current == null) return value;
-
-            return value + value * Current.Percentage / 100;
-        }
-
         public override void Configure(ProponentUpgrades data)
         {
             base.Configure(data);
 
-            Number = 0;
+            Index = 0;
         }
 
         public event Action OnUpgrade;
@@ -101,7 +123,7 @@ namespace Game
                 throw new Exception(Proponent.name + " can't afford upgrade " + GetType().Name + " yet they are trying to upgrade");
 
             Proponent.Funds.Take(Next.Cost);
-            Number++;
+            Index++;
 
             if (OnUpgrade != null) OnUpgrade();
         }

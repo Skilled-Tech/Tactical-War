@@ -19,8 +19,13 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class KnightController : UnitController
+	public class UnitDefenseUpgradeProperty : UnitUpgrades.Property
 	{
-        
+        protected override void UpdateState()
+        {
+            base.UpdateState();
+
+            Unit.Defense.Value = UpgradeProperty.Current == null ? 0f : UpgradeProperty.Current.Percentage;
+        }
     }
 }

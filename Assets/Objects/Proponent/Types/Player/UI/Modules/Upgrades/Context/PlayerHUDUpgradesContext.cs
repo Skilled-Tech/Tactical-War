@@ -36,8 +36,11 @@ namespace Game
             Properties = new UpgradePropertyTemplate[] { };
         }
 
+        new public ProponentUpgradesContext Target;
         public virtual void Set(ProponentUpgradesContext context)
         {
+            this.Target = context;
+
             for (int i = 0; i < Properties.Length; i++)
                 Destroy(Properties[i].gameObject);
 

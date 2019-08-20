@@ -19,8 +19,13 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class KnightController : UnitController
+	public class UnitDamageUpgradeProperty : UnitUpgrades.Property
 	{
-        
+        protected override void UpdateState()
+        {
+            base.UpdateState();
+
+            Unit.Attack.DamageMultiplier = UpgradeProperty.Multiplier;
+        }
     }
 }
