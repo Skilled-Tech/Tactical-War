@@ -17,15 +17,19 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using Assets.HeroEditor4D.Common.ExampleScripts;
+using Assets.HeroEditor4D.Common.CharacterScripts;
+
 namespace Game
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(AnimationEventsRewind))]
     public class UnitBody : Unit.Module
 	{
 		public Animator Animator { get; protected set; }
 
-        public AnimationEventsRewind AnimationEvent { get; protected set; }
+        public AnimationEvents AnimationEvents { get; protected set; }
+
+        public CharacterAnimation CharacterAnimation { get; protected set; }
 
         public override void Configure(Unit data)
         {
@@ -33,7 +37,9 @@ namespace Game
 
             Animator = Dependancy.Get<Animator>(gameObject);
 
-            AnimationEvent = Dependancy.Get<AnimationEventsRewind>(gameObject);
+            AnimationEvents = Dependancy.Get<AnimationEvents>(gameObject);
+
+            CharacterAnimation = Dependancy.Get<CharacterAnimation>(gameObject);
         }
 
         public override void Init()

@@ -61,13 +61,13 @@ namespace Game
 
                 XPosition = Mathf.MoveTowards(XPosition, destination, speed * Time.deltaTime);
 
-                Body.Animator.SetBool("Walk", true);
+                Body.CharacterAnimation.SetState(Assets.HeroEditor4D.Common.CharacterScripts.CharacterState.Walk);
 
                 return false;
             }
             else
             {
-                Body.Animator.SetBool("Walk", false);
+                Body.CharacterAnimation.SetState(Assets.HeroEditor4D.Common.CharacterScripts.CharacterState.Idle);
 
                 return true;
             }

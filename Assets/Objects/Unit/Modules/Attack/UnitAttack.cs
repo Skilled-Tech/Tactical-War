@@ -26,7 +26,7 @@ namespace Game
         protected float baseDamage = 20f;
         public float BaseDamage { get { return baseDamage; } }
 
-        public float DamageMultiplier { get; set; }
+        public float DamageMultiplier { get; set; } = 1f;
 
         public float Damage { get { return baseDamage * DamageMultiplier; } }
         #endregion
@@ -36,7 +36,7 @@ namespace Game
         protected uint baseRange = 1;
         public uint BaseRange { get { return baseRange; } }
 
-        public uint RangeIncrease { get; set; }
+        public uint RangeIncrease { get; set; } = 0;
 
         public uint Range { get { return baseRange + RangeIncrease; } }
         #endregion
@@ -46,7 +46,7 @@ namespace Game
         protected float baseDistance = 1f;
         public float BaseDistance { get { return baseDistance; } }
 
-        public float DistanceMultiplier { get; set; }
+        public float DistanceMultiplier { get; set; } = 1f;
 
         public float Distance { get { return baseDistance * DistanceMultiplier; } }
         #endregion
@@ -59,14 +59,14 @@ namespace Game
         {
             base.Init();
 
-            Body.AnimationEvent.OnTrigger += OnAnimationTrigger;
+            Body.AnimationEvents.OnCustomEvent += OnAnimationTrigger;
         }
 
         void OnAnimationTrigger(string ID)
         {
             switch (ID)
             {
-                case "Attack Connected":
+                case "Hit":
                     AttackConnected();
                     break;
 
@@ -99,7 +99,7 @@ namespace Game
         {
             yield return new WaitForSeconds(Random.Range(0f, 0.5f));
 
-            Body.Animator.SetTrigger("Attack");
+            Body.CharacterAnimation.Attack();
 
             yield return new WaitForSeconds(duration);
 

@@ -35,7 +35,7 @@ namespace Game
 
         public static Bounds CalculateBounds(GameObject gameObject)
         {
-            var value = new Bounds();
+            var value = new Bounds(gameObject.transform.position, Vector3.zero);
 
             var renderers = gameObject.GetComponentsInChildren<Renderer>();
 
@@ -46,6 +46,8 @@ namespace Game
                 else
                     value.Encapsulate(renderers[i].bounds);
             }
+
+            value.center = gameObject.transform.InverseTransformPoint(value.center);
 
             return value;
         }

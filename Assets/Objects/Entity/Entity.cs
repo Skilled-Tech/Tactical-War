@@ -40,13 +40,13 @@ namespace Game
 
             Defense = Dependancy.Get<EntityDefense>(gameObject);
 
+            Bounds = Tools.CalculateBounds(gameObject);
+
             Modules.Configure(this);
         }
 
         protected virtual void Start()
         {
-            Bounds = Tools.CalculateBounds(gameObject);
-
             Modules.Init(this);
         }
 
@@ -85,7 +85,9 @@ namespace Game
 
         void OnDrawGizmosSelected()
         {
-            Gizmos.DrawCube(Bounds.center, Bounds.size);
+            Gizmos.matrix = transform.localToWorldMatrix;
+
+            Gizmos.DrawWireCube(Bounds.center, Bounds.size);
         }
     }
 }

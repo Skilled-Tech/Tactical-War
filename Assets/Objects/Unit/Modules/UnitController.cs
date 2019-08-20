@@ -82,7 +82,10 @@ namespace Game
 
         float CalculatePersonalSpace(Entity target)
         {
-            return target.Bounds.extents.x + Unit.Bounds.extents.x;
+            if (target is Base)
+                return target.Bounds.extents.x;
+
+            return 1f;
         }
 
         private void OnDrawGizmosSelected()

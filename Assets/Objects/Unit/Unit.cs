@@ -82,6 +82,8 @@ namespace Game
 
             Upgrades = Dependancy.Get<UnitUpgrades>(gameObject);
 
+            Bounds = GetComponent<Collider2D>().bounds;
+
             Modules.Configure(this);
         }
 
