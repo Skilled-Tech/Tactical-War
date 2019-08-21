@@ -35,8 +35,6 @@ namespace Game
                 throw new Exception(proponent.name + " can't afford ability " + name);
 
             proponent.Funds.Take(cost);
-
-            Debug.Log(name + " Ability Used");
         }
 
         public event Action OnEnd;

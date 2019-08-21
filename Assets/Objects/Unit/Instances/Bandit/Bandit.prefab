@@ -58,7 +58,7 @@ MonoBehaviour:
   baseDamage: 20
   baseRange: 1
   baseDistance: 0.3
-  duration: 1
+  duration: 0.6
 --- !u!70 &9194683911867289079
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -98,13 +98,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bandit
       objectReference: {fileID: 0}
+    - target: {fileID: 1063387889929877, guid: 57a954ae8185b794bbac3d2b16c4f089, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4609134763403435, guid: 57a954ae8185b794bbac3d2b16c4f089, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4609134763403435, guid: 57a954ae8185b794bbac3d2b16c4f089, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.435
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4609134763403435, guid: 57a954ae8185b794bbac3d2b16c4f089, type: 3}
       propertyPath: m_LocalPosition.z
@@ -144,15 +148,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4609134763403435, guid: 57a954ae8185b794bbac3d2b16c4f089, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.9
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 4609134763403435, guid: 57a954ae8185b794bbac3d2b16c4f089, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.9
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 4609134763403435, guid: 57a954ae8185b794bbac3d2b16c4f089, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.9
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 114299398849526865, guid: 57a954ae8185b794bbac3d2b16c4f089,
         type: 3}
@@ -864,6 +868,22 @@ PrefabInstance:
       propertyPath: Parts.Array.data[3]
       value: 
       objectReference: {fileID: 70836365708455794}
+    - target: {fileID: 1082032747101737, guid: 57a954ae8185b794bbac3d2b16c4f089, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743181336993321, guid: 57a954ae8185b794bbac3d2b16c4f089, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1515425053732415, guid: 57a954ae8185b794bbac3d2b16c4f089, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532470361676067, guid: 57a954ae8185b794bbac3d2b16c4f089, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114577137338405995, guid: 57a954ae8185b794bbac3d2b16c4f089,
         type: 3}
       propertyPath: Sprites.Array.data[0]

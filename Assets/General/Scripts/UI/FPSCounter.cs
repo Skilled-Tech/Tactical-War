@@ -8,9 +8,6 @@ public class FPSCounter : MonoBehaviour
 
     IEnumerator Start()
     {
-        if(Application.isMobilePlatform)
-            Application.targetFrameRate = 60;
-
         GUI.depth = 2;
         while (true)
         {

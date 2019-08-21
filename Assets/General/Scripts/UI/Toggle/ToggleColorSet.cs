@@ -19,10 +19,9 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(Image))]
     public class ToggleColorSet : ToggleSet<Color>
     {
-        Image image;
+        Graphic graphic;
 
         void Reset()
         {
@@ -34,12 +33,12 @@ namespace Game
         {
             base.Awake();
 
-            image = GetComponent<Image>();
+            graphic = GetComponent<Graphic>();
         }
 
         protected override void Set(Color value)
         {
-            image.color = value;
+            graphic.color = value;
         }
     }
 }

@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Objects/Level/Level.unity
     guid: b4787435801bb7c40812a91cc8e84a8c
   - enabled: 1
-    path: Assets/Objects/Age/Types/First Age/First Age.unity
+    path: Assets/Objects/Age/Instances/First Age/First Age.unity
     guid: 84ed118c76fe7064ea615ce0853172e5
   m_configObjects: {}

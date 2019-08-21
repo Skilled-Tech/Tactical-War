@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514f9d30af0f762489edb75ca3d18313, type: 3}
   m_Name: Damage
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: ce11e41ca5abf084faebc02783784f28, type: 3}
+  icon: {fileID: 21300000, guid: da9c7144a72762449938275c1444a7b6, type: 3}

@@ -22,6 +22,14 @@ namespace Game
     [RequireComponent(typeof(Rigidbody2D))]
 	public class Projectile : MonoBehaviour
 	{
+        public static int Layer
+        {
+            get
+            {
+                return LayerMask.NameToLayer(nameof(Projectile));
+            }
+        }
+
         new public Rigidbody2D rigidbody { get; protected set; }
         public void SetVelocity(float velocity)
         {
@@ -46,9 +54,18 @@ namespace Game
             Modules.Configure(this);
         }
 
+        public virtual void SetLayer(string layer)
+        {
+            SetLayer(LayerMask.NameToLayer(layer));
+        }
         public virtual void SetLayer(int layer)
         {
             Tools.SetLayer(gameObject, layer);
+        }
+
+        public virtual void AmmendLayer(int layer)
+        {
+            SetLayer(LayerMask.LayerToName(layer) + " " + nameof(Projectile));
         }
 
         private void Start()

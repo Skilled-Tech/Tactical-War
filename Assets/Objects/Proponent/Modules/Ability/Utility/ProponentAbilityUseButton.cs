@@ -31,21 +31,39 @@ namespace Game
         public Image Icon { get { return icon; } } 
 
         [SerializeField]
-        protected ProgressBar cooldownBar;
-        public ProgressBar CooldownBar { get { return cooldownBar; } } 
+        protected Image background;
+        public Image Background { get { return background; } }
 
-        public Button button;
+        public float Grayscale
+        {
+            set
+            {
+                icon.material.SetFloat("_EffectAmount", value);
+
+                background.material.SetFloat("_EffectAmount", value);
+            }
+        }
+
+        public Button Button { get; protected set; }
+
+        public ProgressBar CooldownBar { get; protected set; }
 
         void Start()
         {
-            button = GetComponent<Button>();
-            button.onClick.AddListener(OnClick);
+            Button = GetComponent<Button>();
+            Button.onClick.AddListener(OnClick);
+
+            CooldownBar = Dependancy.Get<ProgressBar>(gameObject);
+            CooldownBar.Value = 0f;
 
             UpdateState();
 
             proponent.Ability.OnSelectionChanged += OnAbilitySelectionChanged;
             proponent.Funds.OnValueChanged += OnFundsChanged;
             proponent.Ability.Cooldown.OnStateChange += OnStateChange;
+
+            icon.material = Instantiate(icon.material);
+            background.material = Instantiate(background.material);
         }
 
         void OnClick()
@@ -68,12 +86,18 @@ namespace Game
 
         void UpdateState()
         {
-            button.interactable = proponent.Ability.CanUse;
+            Button.interactable = proponent.Ability.CanUse;
 
             if (proponent.Ability.Cooldown.Rate == 0f)
-                cooldownBar.Value = 1f;
+            {
+                CooldownBar.Value = 0f;
+                Grayscale = 0f;
+            }
             else
-                cooldownBar.Value = proponent.Ability.Cooldown.Rate;
+            {
+                CooldownBar.Value = proponent.Ability.Cooldown.Rate;
+                Grayscale = 1f;
+            }
         }
     }
 }

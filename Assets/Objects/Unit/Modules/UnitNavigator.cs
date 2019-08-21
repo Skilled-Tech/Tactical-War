@@ -56,7 +56,9 @@ namespace Game
             if(DistanceLeft > stoppingDistance)
             {
                 var difference = destination - Unit.transform.position.x;
+
                 DistanceLeft = Mathf.Abs(difference);
+
                 Direction = DistanceLeft == 0f ? 0 : Math.Sign(difference);
 
                 XPosition = Mathf.MoveTowards(XPosition, destination, speed * Time.deltaTime);

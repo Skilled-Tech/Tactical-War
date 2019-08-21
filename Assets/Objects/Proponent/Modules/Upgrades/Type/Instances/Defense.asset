@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514f9d30af0f762489edb75ca3d18313, type: 3}
   m_Name: Defense
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: ce11e41ca5abf084faebc02783784f28, type: 3}
+  icon: {fileID: 21300000, guid: c0761c773390ac9478931decf88c0fb9, type: 3}

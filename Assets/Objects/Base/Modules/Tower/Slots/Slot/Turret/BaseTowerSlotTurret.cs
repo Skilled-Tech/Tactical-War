@@ -134,7 +134,7 @@ namespace Game
 
             projectile.Configure(Base);
 
-            projectile.SetLayer(Proponent.Layer);
+            projectile.AmmendLayer(Proponent.Layer);
 
             projectile.SetVelocity(velocity);
 

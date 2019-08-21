@@ -21,24 +21,33 @@ using TMPro;
 
 namespace Game
 {
-	public class PlayerHUDUnitCreationTemplate : MonoBehaviour
-	{
-		[SerializeField]
-        protected TMP_Text label;
-        public TMP_Text Label { get { return label; } } 
+    public class PlayerHUDUnitCreationTemplate : MonoBehaviour
+    {
+        [SerializeField]
+        protected Image icon;
+        public Image Icon { get { return icon; } }
 
         [SerializeField]
-        protected Image image;
-        public Image Image { get { return image; } }
+        protected Image background;
+        public Image Background { get { return background; } }
+
+        public float Grayscale
+        {
+            set
+            {
+                icon.material.SetFloat("_EffectAmount", value);
+
+                background.material.SetFloat("_EffectAmount", value);
+            }
+        }
 
         [SerializeField]
         protected Button button;
-        public Button Button { get { return button; } } 
+        public Button Button { get { return button; } }
 
         [SerializeField]
         protected ProgressBar progress;
         public ProgressBar Progress { get { return progress; } }
-
 
         public Proponent Player { get; protected set; }
         public UnitData Data { get; protected set; }
@@ -49,25 +58,30 @@ namespace Game
         {
             button.onClick.AddListener(OnClick);
 
+            icon.material = Instantiate(icon.material);
+            background.material = Instantiate(background.material);
+
             UpdateState();
         }
-        
+
         public void UpdateState()
         {
             if (Deployment == null)
             {
                 button.interactable = Player.Base.Units.Creator.CanDeploy(Data);
+
+                Grayscale = button.interactable ? 0f : 1f;
             }
         }
-
         
         public virtual void Set(PlayerProponent player, UnitData data)
         {
             this.Player = player;
             this.Data = data;
 
-            label.text = data.name;
-            image.sprite = data.Sprite;
+            icon.sprite = data.Sprite;
+
+            Progress.Value = 0f;
         }
 
         void OnClick()
@@ -82,14 +96,17 @@ namespace Game
 
             button.interactable = false;
 
-            while(Deployment.Timer > 0f)
+            Grayscale = 1f;
+
+            while (Deployment.Timer > 0f)
             {
                 Progress.Value = Deployment.Rate;
 
                 yield return new WaitForEndOfFrame();
             }
 
-            Progress.Value = 1f;
+            Grayscale = 0f;
+            Progress.Value = 0f;
 
             Deployment = null;
 

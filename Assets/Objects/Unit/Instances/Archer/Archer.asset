@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: {fileID: 11400000, guid: daeb04fe296184c4fa34a9cc436fa263, type: 2}
   prefab: {fileID: 5569182392643639925, guid: e5461d97d79f46f4aae62e8d9ba78c00, type: 3}
-  sprite: {fileID: 21300000, guid: ce11e41ca5abf084faebc02783784f28, type: 3}
+  sprite: {fileID: 21300000, guid: de95f365bb120c9458480b8da148bd66, type: 3}
   cost:
     gold: 200
     xp: 0

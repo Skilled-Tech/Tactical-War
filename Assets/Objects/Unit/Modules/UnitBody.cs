@@ -29,6 +29,8 @@ namespace Game
 
         public AnimationEvents AnimationEvents { get; protected set; }
 
+        public Character4D Character { get; protected set; }
+
         public CharacterAnimation CharacterAnimation { get; protected set; }
 
         public override void Configure(Unit data)
@@ -39,7 +41,15 @@ namespace Game
 
             AnimationEvents = Dependancy.Get<AnimationEvents>(gameObject);
 
+            Character = Dependancy.Get<Character4D>(gameObject);
+
             CharacterAnimation = Dependancy.Get<CharacterAnimation>(gameObject);
+        }
+
+        public static bool off = false;
+        public static void ToggleOff()
+        {
+            off = !off;
         }
 
         public override void Init()
@@ -47,6 +57,11 @@ namespace Game
             base.Init();
 
             Animator.SetFloat("Cycle Offset", Random.Range(0f, 1f));
+        }
+
+        private void Update()
+        {
+            transform.GetChild(3).gameObject.SetActive(!off);
         }
     }
 }
