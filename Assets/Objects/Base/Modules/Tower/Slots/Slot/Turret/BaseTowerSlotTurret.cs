@@ -40,18 +40,10 @@ namespace Game
         [SerializeField]
         protected float damage = 20f;
         public float Damage { get { return damage; } }
-        public float SampleDamage()
-        {
-            return UpgradesContext.Properties[0].Sample(damage);
-        }
 
         [SerializeField]
         protected float range;
         public float Range { get { return range; } }
-        public float SampleRange()
-        {
-            return UpgradesContext.Properties[1].Sample(range);
-        }
 
         [SerializeField]
         protected float aimSpeed = 200f;
@@ -81,8 +73,6 @@ namespace Game
 
         public Proponent Enemy { get { return Proponent.Enemey; } }
 
-        public ProponentUpgradesContext UpgradesContext { get; protected set; }
-
         public override void Configure(Base data)
         {
             base.Configure(data);
@@ -90,23 +80,16 @@ namespace Game
             isDeployed = false;
         }
 
-        public override void Init()
-        {
-            base.Init();
-
-            UpgradesContext = Dependancy.Get<ProponentTurretUpgradesContext>(Proponent.Upgrades.gameObject);
-        }
-
         float timer = 0f;
         void Update()
         {
             if (timer == 0f)
             {
-                if (Enemy.Units.Count > 0)
+                if (Enemy.Base.Units.Count > 0)
                 {
                     var distance = Mathf.Abs(Enemy.Base.Units.List[0].transform.position.x - transform.position.x);
 
-                    if (distance <= SampleRange())
+                    if (distance <= Range)
                     {
                         if (AimAt(Enemy.Base.Units.List[0].transform.position) == 0f)
                         {
@@ -138,7 +121,7 @@ namespace Game
 
             projectile.SetVelocity(velocity);
 
-            projectile.GetComponent<ProjectileDamage>().Value = SampleDamage();
+            projectile.GetComponent<ProjectileDamage>().Value = Damage;
         }
 
         float AimAt(Vector3 target)

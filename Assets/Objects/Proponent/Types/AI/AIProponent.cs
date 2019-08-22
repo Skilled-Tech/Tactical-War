@@ -36,14 +36,24 @@ namespace Game
 
         BaseUnitsCreator.Deployment deployment;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            Funds.Configure();
+
+            Funds.Gold.Value = 99999;
+            Funds.XP.Value = 99999;
+        }
+
         void Update()
         {
             if (Base.Units.Count < Enemey.Base.Units.Count + 4)
             {
-                if (Base.Units.Creator.CanDeploy(Age.Value.Units[0]))
+                if (Base.Units.Creator.CanDeploy(UnitSelection[0]))
                 {
                     if(deployment == null)
-                        deployment = Base.Units.Creator.Deploy(Age.Value.Units[Random.Range(0, Age.Value.Units.Length)]);
+                        deployment = Base.Units.Creator.Deploy(UnitSelection[Random.Range(0, UnitSelection.Count)]);
                     else
                     {
                         if (deployment.isComplete) deployment = null;

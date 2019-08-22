@@ -25,9 +25,9 @@ namespace Game
 
         public abstract Funds Funds { get; }
 
-        public ProponentAge Age { get; protected set; }
+        public IList<UnitData> UnitSelection { get { return Core.Instance.Units.Roster.List; } }
+
         public ProponentAbility Ability { get; protected set; }
-        public ProponentUpgrades Upgrades { get; protected set; }
         public abstract class Module : Module<Proponent>
         {
             public Proponent Proponent { get { return Reference; } }
@@ -36,19 +36,14 @@ namespace Game
         }
 
         public Base Base { get; protected set; }
-        public BaseUnits Units { get { return Base.Units; } }
-
-        public Level Level { get { return Level.Instance; } }
 
         public Proponent Enemey { get; protected set; }
 
+        public Level Level { get { return Level.Instance; } }
+
         protected virtual void Awake()
         {
-            Age = Dependancy.Get<ProponentAge>(gameObject);
-
             Ability = Dependancy.Get<ProponentAbility>(gameObject);
-
-            Upgrades = Dependancy.Get<ProponentUpgrades>(gameObject);
 
             Modules.Configure(this);
 
@@ -59,8 +54,6 @@ namespace Game
 
         protected virtual void Start()
         {
-            Age.Set(Level.Ages.List.First());
-
             Base.OnDeath += OnBaseDestroyed;
 
             Modules.Init(this);

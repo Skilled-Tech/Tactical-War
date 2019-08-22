@@ -43,15 +43,15 @@ namespace Game
             UpdateState();
         }
 
-        public virtual void SetAge(Age age)
+        public virtual void SetSelection(IList<UnitData> list)
         {
             Clear();
 
-            for (int i = 0; i < age.Units.Length; i++)
+            for (int i = 0; i < list.Count; i++)
             {
-                var instance = Create(age.Units[i]);
+                var instance = Create(list[i]);
 
-                instance.Set(Player, age.Units[i]);
+                instance.Set(Player, list[i]);
 
                 Elements.Add(instance);
             }

@@ -51,8 +51,6 @@ namespace Game
 
         public BaseUnitsCreator Creator { get; protected set; }
 
-        public BaseUnitsUpgrades Upgrades { get; protected set; }
-
         public override void Configure(Base data)
         {
             base.Configure(data);
@@ -60,8 +58,6 @@ namespace Game
             List = new List<Unit>();
 
             Creator = Dependancy.Get<BaseUnitsCreator>(gameObject);
-
-            Upgrades = Dependancy.Get<BaseUnitsUpgrades>(gameObject);
         }
 
         public override void Init()

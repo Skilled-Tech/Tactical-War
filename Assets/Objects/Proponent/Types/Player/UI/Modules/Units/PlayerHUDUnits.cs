@@ -30,9 +30,9 @@ namespace Game
             Creator = Dependancy.Get<PlayerHUDUnitsCreator>(gameObject);
         }
 
-        public virtual void SetAge(Age age)
+        public virtual void Set(BaseUnits units)
         {
-            Creator.SetAge(age);
+            Creator.SetSelection(units.Proponent.UnitSelection);
         }
     }
 }

@@ -24,7 +24,6 @@ namespace Game
 	public class PlayerHUD : PlayerProponent.Module
 	{
         public PlayerHUDUnits Units { get; protected set; }
-        public PlayerHUDUpgrades Upgrades { get; protected set; }
 
         public abstract class Module : UIElement, IModule<PlayerHUD>
         {
@@ -52,9 +51,6 @@ namespace Game
             base.Configure(data);
 
             Units = Dependancy.Get<PlayerHUDUnits>(gameObject);
-            Upgrades = Dependancy.Get<PlayerHUDUpgrades>(gameObject);
-
-            Player.Age.OnValueChanged += SetAge;
 
             Modules.Configure(this);
         }
@@ -63,12 +59,9 @@ namespace Game
         {
             base.Init();
 
-            Modules.Init(this);
-        }
+            Units.Set(Player.Base.Units);
 
-        void SetAge(Age age)
-        {
-            Units.SetAge(age);
+            Modules.Init(this);
         }
     }
 }

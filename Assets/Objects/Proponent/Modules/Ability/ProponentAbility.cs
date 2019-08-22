@@ -39,7 +39,6 @@ namespace Game
         public event Action<Ability> OnSelectionChanged; 
 
         public ProponentAbilityCooldown Cooldown { get; protected set; }
-        public ProponentAbilityAgeUpgrades AgeUpgrades { get; protected set; }
 
         public virtual bool CanUse
         {
@@ -53,17 +52,7 @@ namespace Game
         {
             base.Configure(data);
 
-            AgeUpgrades = Dependancy.Get<ProponentAbilityAgeUpgrades>(gameObject);
-            AgeUpgrades.Configure(Proponent);
-
             Cooldown = Dependancy.Get<ProponentAbilityCooldown>(gameObject);
-
-            Proponent.Age.OnValueChanged += OnAgeChange;
-        }
-
-        void OnAgeChange(Age obj)
-        {
-            
         }
 
         public event Action OnUse;

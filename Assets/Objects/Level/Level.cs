@@ -29,7 +29,6 @@ namespace Game
         new public GameCamera camera { get; protected set; }
 
         public LevelPause Pause { get; protected set; }
-        public LevelAges Ages { get; protected set; }
         public LevelProponents Proponents { get; protected set; }
         public LevelSpeed Speed { get; protected set; }
         public LevelMenu Menu { get; protected set; }
@@ -46,7 +45,6 @@ namespace Game
             Modules.Configure(this);
 
             Pause = Dependancy.Get<LevelPause>(gameObject);
-            Ages = Dependancy.Get<LevelAges>(gameObject);
             Speed = Dependancy.Get<LevelSpeed>(gameObject);
             Proponents = Dependancy.Get<LevelProponents>(gameObject);
 
