@@ -36,7 +36,7 @@ namespace Game
 
         public abstract class Module : Module<Level>
         {
-            public Level Level { get { return Data; } }
+            public Level Level { get { return Reference; } }
         }
 
         protected virtual void Awake()

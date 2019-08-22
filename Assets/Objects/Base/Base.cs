@@ -31,7 +31,7 @@ namespace Game
 
         new public abstract class Module : Module<Base>
         {
-            public Base Base { get { return Data; } }
+            public Base Base { get { return Reference; } }
 
             public Proponent Proponent { get { return Base.Proponent; } }
         }

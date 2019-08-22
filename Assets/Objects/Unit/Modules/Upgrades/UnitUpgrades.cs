@@ -21,9 +21,11 @@ namespace Game
 {
     public class UnitUpgrades : Unit.Module
     {
+        public const string MenuPath = Unit.MenuPath + "Upgrades/";
+
         public abstract class Module : Module<UnitUpgrades>
         {
-            public UnitUpgrades Upgrades { get { return Data; } }
+            public UnitUpgrades Upgrades { get { return Reference; } }
 
             public ProponentUpgradesContext Context { get { return Upgrades.Context; } }
 

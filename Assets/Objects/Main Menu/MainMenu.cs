@@ -19,18 +19,22 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class MainMenu : MonoBehaviour
-	{
-		[SerializeField]
+    public class MainMenu : MonoBehaviour
+    {
+        [SerializeField]
         protected UIElement title;
         public UIElement Title { get { return title; } }
 
         [SerializeField]
         protected UIElement start;
-        public UIElement Start { get { return start; } } 
+        public UIElement Start { get { return start; } }
 
         [SerializeField]
         protected UIElement credits;
-        public UIElement Credits { get { return credits; } } 
+        public UIElement Credits { get { return credits; } }
+
+        [SerializeField]
+        protected UIElement units;
+        public UIElement Units { get { return units; } }
     }
 }

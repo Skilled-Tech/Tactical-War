@@ -25,7 +25,7 @@ namespace Game
 
 		public class Module : Module<ProponentUpgrades>
         {
-            public ProponentUpgrades Upgrades { get { return Data; } }
+            public ProponentUpgrades Upgrades { get { return Reference; } }
 
             public Proponent Proponent { get { return Upgrades.Proponent; } }
         }

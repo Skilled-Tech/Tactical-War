@@ -22,33 +22,27 @@ namespace Game
 	public abstract class UnitAttack : Unit.Module
 	{
         #region Damage
-        [SerializeField]
-        protected float baseDamage = 20f;
-        public float BaseDamage { get { return baseDamage; } }
+        public float BaseDamage { get { return Unit.Data.Attack.Damage; } }
 
         public float DamageMultiplier { get; set; } = 1f;
 
-        public float Damage { get { return baseDamage * DamageMultiplier; } }
+        public float Damage { get { return BaseDamage * DamageMultiplier; } }
         #endregion
 
         #region Range
-        [SerializeField]
-        protected uint baseRange = 1;
-        public uint BaseRange { get { return baseRange; } }
+        public uint BaseRange { get { return Unit.Data.Attack.Range; } }
 
         public uint RangeIncrease { get; set; } = 0;
 
-        public uint Range { get { return baseRange + RangeIncrease; } }
+        public uint Range { get { return BaseRange + RangeIncrease; } }
         #endregion
 
         #region Distance
-        [SerializeField]
-        protected float baseDistance = 1f;
-        public float BaseDistance { get { return baseDistance; } }
+        public float BaseDistance { get { return Unit.Data.Attack.Distance; } }
 
         public float DistanceMultiplier { get; set; } = 1f;
 
-        public float Distance { get { return baseDistance * DistanceMultiplier; } }
+        public float Distance { get { return BaseDistance * DistanceMultiplier; } }
         #endregion
 
         [SerializeField]

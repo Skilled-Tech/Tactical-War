@@ -27,10 +27,10 @@ namespace Game
 
     public abstract class Module<TData> : MonoBehaviour, IModule<TData>
     {
-        protected TData Data { get; set; }
+        protected TData Reference { get; set; }
         public virtual void Configure(TData data)
         {
-            this.Data = data;
+            this.Reference = data;
         }
 
         public virtual void Init()

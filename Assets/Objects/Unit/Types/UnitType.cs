@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = Unit.MenuPath + "Type")]
 	public class UnitType : ScriptableObject
 	{
 		

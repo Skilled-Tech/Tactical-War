@@ -14,8 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: {fileID: 11400000, guid: c31c9a7f1ebcfb24aa457da8aceba346, type: 2}
   prefab: {fileID: 8127696124609658847, guid: a951ec13909138149a08a70609b3a6bc, type: 3}
-  sprite: {fileID: 21300000, guid: 2b2dd860b51744c42b78bc49a1a7f0d7, type: 3}
-  cost:
-    gold: 100
-    xp: 0
-  deploymentTime: 2
+  icon: {fileID: 21300000, guid: 2b2dd860b51744c42b78bc49a1a7f0d7, type: 3}
+  health: 140
+  attack:
+    damage: 20
+    range: 1
+    distance: 0.3
+  upgradesTemplate: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
+  applicableUpgrades:
+  - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+  - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+  deployment:
+    cost:
+      gold: 100
+      xp: 0
+    time: 2
+  description: Basic grunt, low range, medium defense & attack

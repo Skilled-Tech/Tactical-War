@@ -92,6 +92,11 @@ namespace Game
             return true;
         }
 
+        public static Currency operator * (Currency currency, float number)
+        {
+            return new Currency(Mathf.RoundToInt(currency.gold * number), Mathf.RoundToInt(currency.xp * number));
+        }
+
         public override int GetHashCode()
         {
             return gold.GetHashCode() ^ xp.GetHashCode();

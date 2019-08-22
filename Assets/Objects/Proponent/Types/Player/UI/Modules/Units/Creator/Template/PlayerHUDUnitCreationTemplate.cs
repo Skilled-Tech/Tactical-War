@@ -79,7 +79,7 @@ namespace Game
             this.Player = player;
             this.Data = data;
 
-            icon.sprite = data.Sprite;
+            icon.sprite = data.Icon;
 
             Progress.Value = 0f;
         }

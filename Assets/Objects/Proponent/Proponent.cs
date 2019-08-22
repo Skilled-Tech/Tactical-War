@@ -19,17 +19,18 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class Proponent : MonoBehaviour
+	public abstract class Proponent : MonoBehaviour
 	{
         public int Layer { get { return gameObject.layer; } }
 
-        public ProponentFunds Funds { get; protected set; }
+        public abstract Funds Funds { get; }
+
         public ProponentAge Age { get; protected set; }
         public ProponentAbility Ability { get; protected set; }
         public ProponentUpgrades Upgrades { get; protected set; }
         public abstract class Module : Module<Proponent>
         {
-            public Proponent Proponent { get { return Data; } }
+            public Proponent Proponent { get { return Reference; } }
 
             public Level Level { get { return Level.Instance; } }
         }
@@ -43,8 +44,6 @@ namespace Game
 
         protected virtual void Awake()
         {
-            Funds = Dependancy.Get<ProponentFunds>(gameObject);
-
             Age = Dependancy.Get<ProponentAge>(gameObject);
 
             Ability = Dependancy.Get<ProponentAbility>(gameObject);

@@ -21,11 +21,15 @@ namespace Game
 {
 	public class PlayerProponent : Proponent
 	{
-		public PlayerHUD HUD { get; protected set; }
+        public override Funds Funds { get { return Core.Player.Funds; } }
+
+        public PlayerHUD HUD { get; protected set; }
+
+        public Core Core { get { return Core.Instance; } }
 
         new public abstract class Module : Module<PlayerProponent>
         {
-            public PlayerProponent Player { get { return Data; } }
+            public PlayerProponent Player { get { return Reference; } }
         }
 
         protected override void Awake()

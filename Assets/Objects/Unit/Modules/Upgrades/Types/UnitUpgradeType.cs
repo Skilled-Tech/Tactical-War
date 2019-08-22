@@ -19,8 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ProponentGoldFunds : ProponentFunds.Property
+    [CreateAssetMenu(menuName = UnitUpgrades.MenuPath + "Type")]
+	public class UnitUpgradeType : ScriptableObject
 	{
-		
-	}
+		[SerializeField]
+        protected Sprite icon;
+        public Sprite Icon { get { return icon; } }
+    }
 }

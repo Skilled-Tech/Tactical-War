@@ -29,7 +29,7 @@ namespace Game
 
         public abstract class Module : Module<Entity>
         {
-            public Entity Entity { get { return Data; } }
+            public Entity Entity { get { return Reference; } }
         }
 
         public Bounds Bounds { get; protected set; }

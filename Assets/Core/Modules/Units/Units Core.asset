@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ade6360cd918d24684a8df797bbd59e, type: 3}
+  m_Name: Units Core
+  m_EditorClassIdentifier: 
+  roster: {fileID: 11400000, guid: b60e370cc5a35c8448af7db56c9155ef, type: 2}

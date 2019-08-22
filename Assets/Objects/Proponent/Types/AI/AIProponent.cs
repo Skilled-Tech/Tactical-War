@@ -21,6 +21,10 @@ namespace Game
 {
 	public class AIProponent : Proponent
 	{
+        [SerializeField]
+        protected Funds funds;
+        public override Funds Funds { get { return funds; } }
+
         protected override void Start()
         {
             base.Start();

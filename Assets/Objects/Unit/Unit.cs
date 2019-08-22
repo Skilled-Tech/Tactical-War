@@ -21,11 +21,11 @@ namespace Game
 {
 	public class Unit : Entity
 	{
-        [SerializeField]
-        protected UnitData data;
-        public UnitData Data { get { return data; } }
+        public const string MenuPath = "Unit/";
 
-        public UnitType Type { get { return data.Type; } }
+        public UnitData Data { get; protected set; }
+
+        public UnitType Type { get { return Data.Type; } }
 
         public UnitController Controller { get; protected set; }
         public UnitBody Body { get; protected set; }
@@ -35,7 +35,9 @@ namespace Game
 
         new public abstract class Module : Module<Unit>
         {
-            public Unit Unit { get { return Data; } }
+            public Unit Unit { get { return Reference; } }
+
+            public UnitData Data { get { return Unit.Data; } }
 
             public UnitType Type { get { return Unit.Type; } }
 
@@ -63,9 +65,11 @@ namespace Game
         }
 
         public Proponent Leader { get; protected set; }
-        public virtual void Configure(Proponent leader)
+        public virtual void Configure(Proponent leader, UnitData data)
         {
             this.Leader = leader;
+
+            this.Data = data;
         }
 
         protected override void Awake()
@@ -91,6 +95,8 @@ namespace Game
         {
             base.Start();
 
+            Health.Value = Health.Max = Data.Health;
+
             Modules.Init(this);
         }
 
@@ -98,7 +104,7 @@ namespace Game
         {
             base.Death(damager);
 
-            Leader.Enemey.Funds.Add(data.Cost);
+            Leader.Enemey.Funds.Add(Data.Deployment.Cost);
 
             Destroy(gameObject);
         }

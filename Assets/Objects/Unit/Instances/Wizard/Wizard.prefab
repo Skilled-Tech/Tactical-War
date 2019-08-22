@@ -44,9 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202589e99892a8249b464d69587ee3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 50
-  baseRange: 2
-  baseDistance: 3
   duration: 1
   prefab: {fileID: 58614852322497312, guid: 30fd8472f5a4a49458ec3a835ab79abf, type: 3}
   spawn: {fileID: 3163203657581505342}
@@ -167,6 +164,686 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5569182392643639922}
     m_Modifications:
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EarRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395730829539053313}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: HairRenderer
+      value: 
+      objectReference: {fileID: 2395619471304163481}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EyebrowsRenderer
+      value: 
+      objectReference: {fileID: 2395435259054770279}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EyesRenderer
+      value: 
+      objectReference: {fileID: 2393813524123776683}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: MouthRenderer
+      value: 
+      objectReference: {fileID: 2395504021033719485}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395152450450871713}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2395625198086609217}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2395548273940975129}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2395344525633598005}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2395118775327744991}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[5]
+      value: 
+      objectReference: {fileID: 2395572071906256827}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[6]
+      value: 
+      objectReference: {fileID: 2395261251467940091}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[7]
+      value: 
+      objectReference: {fileID: 2395758773371580153}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[8]
+      value: 
+      objectReference: {fileID: 2395446025017239985}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: HelmetRenderer
+      value: 
+      objectReference: {fileID: 2395537472502144343}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: PrimaryMeleeWeaponRenderer
+      value: 
+      objectReference: {fileID: 2393851506521664493}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: SecondaryMeleeWeaponRenderer
+      value: 
+      objectReference: {fileID: 2395072714094019763}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395483079493019203}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2395837498781186535}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2395164727915351629}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2395720498666869441}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2395672355121188419}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[5]
+      value: 
+      objectReference: {fileID: 2395397196192369633}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[6]
+      value: 
+      objectReference: {fileID: 2395635476334728227}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[7]
+      value: 
+      objectReference: {fileID: 2395764602245948309}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[8]
+      value: 
+      objectReference: {fileID: 2395620721285724007}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ShieldRenderer
+      value: 
+      objectReference: {fileID: 2395826316326687701}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395625250606958685}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2393882575338379389}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2395070682154079869}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2395423846730269625}
+    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2395502118002678969}
+    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: Front
+      value: 
+      objectReference: {fileID: 2475825842979014711}
+    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: Back
+      value: 
+      objectReference: {fileID: 2475414079157353437}
+    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: Left
+      value: 
+      objectReference: {fileID: 2475141869960693981}
+    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: Right
+      value: 
+      objectReference: {fileID: 2473632934719068589}
+    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: Parts.Array.data[0]
+      value: 
+      objectReference: {fileID: 2475825842979014711}
+    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: Parts.Array.data[1]
+      value: 
+      objectReference: {fileID: 2475414079157353437}
+    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: Parts.Array.data[2]
+      value: 
+      objectReference: {fileID: 2475141869960693981}
+    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: Parts.Array.data[3]
+      value: 
+      objectReference: {fileID: 2473632934719068589}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EarRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395501723537336755}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: HairRenderer
+      value: 
+      objectReference: {fileID: 2395354966307626613}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EyebrowsRenderer
+      value: 
+      objectReference: {fileID: 2395684076457586953}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EyesRenderer
+      value: 
+      objectReference: {fileID: 2395342228090277597}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: MouthRenderer
+      value: 
+      objectReference: {fileID: 2393922353843424195}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395878228686328631}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2393828380786216825}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2395875434734359477}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2395628516145439791}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2395675943575408315}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[5]
+      value: 
+      objectReference: {fileID: 2395764597701973285}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[6]
+      value: 
+      objectReference: {fileID: 2393708913112713739}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[7]
+      value: 
+      objectReference: {fileID: 2395380253406354267}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[8]
+      value: 
+      objectReference: {fileID: 2395294157904310117}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: HelmetRenderer
+      value: 
+      objectReference: {fileID: 2395090153527930429}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: PrimaryMeleeWeaponRenderer
+      value: 
+      objectReference: {fileID: 2395710205245505325}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: SecondaryMeleeWeaponRenderer
+      value: 
+      objectReference: {fileID: 2395815087857389305}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2393835019741185269}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2395886423883769737}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2395703639767466149}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2393804468054719171}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2395444901274173541}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[5]
+      value: 
+      objectReference: {fileID: 2395796152795803449}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[6]
+      value: 
+      objectReference: {fileID: 2395251621900745657}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[7]
+      value: 
+      objectReference: {fileID: 2395606247373889585}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[8]
+      value: 
+      objectReference: {fileID: 2395667618427455469}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ShieldRenderer
+      value: 
+      objectReference: {fileID: 2395358168396999883}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2393716184106834103}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2395775098146897179}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2395301350980840987}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2395574296153269295}
+    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2393665359168465457}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EarRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2393891210726548611}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EarRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2393894994881431515}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: HairRenderer
+      value: 
+      objectReference: {fileID: 2395502683453338403}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395653503137016505}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2395768912022551937}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2393665272528087173}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2395179560095257681}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2395452548862762711}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[5]
+      value: 
+      objectReference: {fileID: 2393943757590330061}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[6]
+      value: 
+      objectReference: {fileID: 2395341348410750955}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[7]
+      value: 
+      objectReference: {fileID: 2395796327221541473}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[8]
+      value: 
+      objectReference: {fileID: 2395876065283102629}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[9]
+      value: 
+      objectReference: {fileID: 2393680641419721235}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: HelmetRenderer
+      value: 
+      objectReference: {fileID: 2393711762895604339}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: PrimaryMeleeWeaponRenderer
+      value: 
+      objectReference: {fileID: 2393832547530657835}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: SecondaryMeleeWeaponRenderer
+      value: 
+      objectReference: {fileID: 2395416374584661277}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395709970719068929}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2395653084726816127}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2395656911296076221}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2395121851624318433}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2395813757908494593}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[5]
+      value: 
+      objectReference: {fileID: 2393879805736063813}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[6]
+      value: 
+      objectReference: {fileID: 2395421056999077159}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[7]
+      value: 
+      objectReference: {fileID: 2395582952907933741}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[8]
+      value: 
+      objectReference: {fileID: 2395592852067729075}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ShieldRenderer
+      value: 
+      objectReference: {fileID: 2395175384110504751}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395390658819890493}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2395823684326772883}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2395086284908114957}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2395324514403460995}
+    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2395726925015012765}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: HeadRenderer
+      value: 
+      objectReference: {fileID: 2393890519718677919}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EarRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395135736428024583}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EarRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2393943909703088073}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: HairRenderer
+      value: 
+      objectReference: {fileID: 2395525383344514421}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EyebrowsRenderer
+      value: 
+      objectReference: {fileID: 2395147849782039713}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: EyesRenderer
+      value: 
+      objectReference: {fileID: 2395613507954332721}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: MouthRenderer
+      value: 
+      objectReference: {fileID: 2395727985073568389}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395860304704308935}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2393890519718677919}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2395855874512243661}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2395145625976185217}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2395071392628207951}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[5]
+      value: 
+      objectReference: {fileID: 2395446208782647123}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[6]
+      value: 
+      objectReference: {fileID: 2393723206450717009}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BodyRenderers.Array.data[7]
+      value: 
+      objectReference: {fileID: 2395513452304671689}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: HelmetRenderer
+      value: 
+      objectReference: {fileID: 2395395441053014733}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: PrimaryMeleeWeaponRenderer
+      value: 
+      objectReference: {fileID: 2395889890324346365}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: SecondaryMeleeWeaponRenderer
+      value: 
+      objectReference: {fileID: 2395710213776340785}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395768963839569565}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2395181238481371855}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2395408264957533497}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2395606198021318395}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2393715953132027797}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[5]
+      value: 
+      objectReference: {fileID: 2395471655305720681}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[6]
+      value: 
+      objectReference: {fileID: 2395311100455731933}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[7]
+      value: 
+      objectReference: {fileID: 2395861629779342743}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ArmorRenderers.Array.data[8]
+      value: 
+      objectReference: {fileID: 2393918877732292587}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: ShieldRenderer
+      value: 
+      objectReference: {fileID: 2395269437750263495}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2395262429155986187}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 2393851746987511907}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 2395495768701205625}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2395390519293169837}
+    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
+        type: 3}
+      propertyPath: BowRenderers.Array.data[4]
+      value: 
+      objectReference: {fileID: 2393819521872076009}
     - target: {fileID: 1063387889929877, guid: febad650fd7f8a845a2533babcdf7773, type: 3}
       propertyPath: m_Name
       value: Wizard
@@ -227,46 +904,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.82
       objectReference: {fileID: 0}
-    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: Front
-      value: 
-      objectReference: {fileID: 2475825842979014711}
-    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: Back
-      value: 
-      objectReference: {fileID: 2475414079157353437}
-    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: Left
-      value: 
-      objectReference: {fileID: 2475141869960693981}
-    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: Right
-      value: 
-      objectReference: {fileID: 2473632934719068589}
-    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: Parts.Array.data[0]
-      value: 
-      objectReference: {fileID: 2475825842979014711}
-    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: Parts.Array.data[1]
-      value: 
-      objectReference: {fileID: 2475414079157353437}
-    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: Parts.Array.data[2]
-      value: 
-      objectReference: {fileID: 2475141869960693981}
-    - target: {fileID: 114216052737847175, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: Parts.Array.data[3]
-      value: 
-      objectReference: {fileID: 2473632934719068589}
     - target: {fileID: 114299398849526865, guid: febad650fd7f8a845a2533babcdf7773,
         type: 3}
       propertyPath: Character
@@ -937,326 +1574,6 @@ PrefabInstance:
       propertyPath: SortingGroup
       value: 
       objectReference: {fileID: 2387116057502903835}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EarRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395730829539053313}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: HairRenderer
-      value: 
-      objectReference: {fileID: 2395619471304163481}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EyebrowsRenderer
-      value: 
-      objectReference: {fileID: 2395435259054770279}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EyesRenderer
-      value: 
-      objectReference: {fileID: 2393813524123776683}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: MouthRenderer
-      value: 
-      objectReference: {fileID: 2395504021033719485}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395152450450871713}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2395625198086609217}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2395548273940975129}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2395344525633598005}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[4]
-      value: 
-      objectReference: {fileID: 2395118775327744991}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[5]
-      value: 
-      objectReference: {fileID: 2395572071906256827}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[6]
-      value: 
-      objectReference: {fileID: 2395261251467940091}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[7]
-      value: 
-      objectReference: {fileID: 2395758773371580153}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[8]
-      value: 
-      objectReference: {fileID: 2395446025017239985}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: HelmetRenderer
-      value: 
-      objectReference: {fileID: 2395537472502144343}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: PrimaryMeleeWeaponRenderer
-      value: 
-      objectReference: {fileID: 2393851506521664493}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: SecondaryMeleeWeaponRenderer
-      value: 
-      objectReference: {fileID: 2395072714094019763}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395483079493019203}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2395837498781186535}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2395164727915351629}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2395720498666869441}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[4]
-      value: 
-      objectReference: {fileID: 2395672355121188419}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[5]
-      value: 
-      objectReference: {fileID: 2395397196192369633}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[6]
-      value: 
-      objectReference: {fileID: 2395635476334728227}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[7]
-      value: 
-      objectReference: {fileID: 2395764602245948309}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[8]
-      value: 
-      objectReference: {fileID: 2395620721285724007}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ShieldRenderer
-      value: 
-      objectReference: {fileID: 2395826316326687701}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395625250606958685}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2393882575338379389}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2395070682154079869}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2395423846730269625}
-    - target: {fileID: 114991171592021769, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[4]
-      value: 
-      objectReference: {fileID: 2395502118002678969}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EarRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395501723537336755}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: HairRenderer
-      value: 
-      objectReference: {fileID: 2395354966307626613}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EyebrowsRenderer
-      value: 
-      objectReference: {fileID: 2395684076457586953}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EyesRenderer
-      value: 
-      objectReference: {fileID: 2395342228090277597}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: MouthRenderer
-      value: 
-      objectReference: {fileID: 2393922353843424195}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395878228686328631}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2393828380786216825}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2395875434734359477}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2395628516145439791}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[4]
-      value: 
-      objectReference: {fileID: 2395675943575408315}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[5]
-      value: 
-      objectReference: {fileID: 2395764597701973285}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[6]
-      value: 
-      objectReference: {fileID: 2393708913112713739}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[7]
-      value: 
-      objectReference: {fileID: 2395380253406354267}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[8]
-      value: 
-      objectReference: {fileID: 2395294157904310117}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: HelmetRenderer
-      value: 
-      objectReference: {fileID: 2395090153527930429}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: PrimaryMeleeWeaponRenderer
-      value: 
-      objectReference: {fileID: 2395710205245505325}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: SecondaryMeleeWeaponRenderer
-      value: 
-      objectReference: {fileID: 2395815087857389305}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2393835019741185269}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2395886423883769737}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2395703639767466149}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2393804468054719171}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[4]
-      value: 
-      objectReference: {fileID: 2395444901274173541}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[5]
-      value: 
-      objectReference: {fileID: 2395796152795803449}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[6]
-      value: 
-      objectReference: {fileID: 2395251621900745657}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[7]
-      value: 
-      objectReference: {fileID: 2395606247373889585}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[8]
-      value: 
-      objectReference: {fileID: 2395667618427455469}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ShieldRenderer
-      value: 
-      objectReference: {fileID: 2395358168396999883}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2393716184106834103}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2395775098146897179}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2395301350980840987}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2395574296153269295}
-    - target: {fileID: 114247756022511225, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[4]
-      value: 
-      objectReference: {fileID: 2393665359168465457}
     - target: {fileID: 114462530832147223, guid: febad650fd7f8a845a2533babcdf7773,
         type: 3}
       propertyPath: Sprites.Array.data[0]
@@ -1415,161 +1732,6 @@ PrefabInstance:
     - target: {fileID: 114462530832147223, guid: febad650fd7f8a845a2533babcdf7773,
         type: 3}
       propertyPath: Sprites.Array.data[31]
-      value: 
-      objectReference: {fileID: 2395726925015012765}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EarRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2393891210726548611}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EarRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2393894994881431515}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: HairRenderer
-      value: 
-      objectReference: {fileID: 2395502683453338403}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395653503137016505}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2395768912022551937}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2393665272528087173}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2395179560095257681}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[4]
-      value: 
-      objectReference: {fileID: 2395452548862762711}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[5]
-      value: 
-      objectReference: {fileID: 2393943757590330061}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[6]
-      value: 
-      objectReference: {fileID: 2395341348410750955}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[7]
-      value: 
-      objectReference: {fileID: 2395796327221541473}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[8]
-      value: 
-      objectReference: {fileID: 2395876065283102629}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[9]
-      value: 
-      objectReference: {fileID: 2393680641419721235}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: HelmetRenderer
-      value: 
-      objectReference: {fileID: 2393711762895604339}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: PrimaryMeleeWeaponRenderer
-      value: 
-      objectReference: {fileID: 2393832547530657835}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: SecondaryMeleeWeaponRenderer
-      value: 
-      objectReference: {fileID: 2395416374584661277}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395709970719068929}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2395653084726816127}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2395656911296076221}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2395121851624318433}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[4]
-      value: 
-      objectReference: {fileID: 2395813757908494593}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[5]
-      value: 
-      objectReference: {fileID: 2393879805736063813}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[6]
-      value: 
-      objectReference: {fileID: 2395421056999077159}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[7]
-      value: 
-      objectReference: {fileID: 2395582952907933741}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[8]
-      value: 
-      objectReference: {fileID: 2395592852067729075}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ShieldRenderer
-      value: 
-      objectReference: {fileID: 2395175384110504751}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395390658819890493}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2395823684326772883}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2395086284908114957}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2395324514403460995}
-    - target: {fileID: 114547316693910905, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[4]
       value: 
       objectReference: {fileID: 2395726925015012765}
     - target: {fileID: 114707953651403323, guid: febad650fd7f8a845a2533babcdf7773,
@@ -2067,171 +2229,6 @@ PrefabInstance:
       propertyPath: Sprites.Array.data[32]
       value: 
       objectReference: {fileID: 2395423846730269625}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: HeadRenderer
-      value: 
-      objectReference: {fileID: 2393890519718677919}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EarRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395135736428024583}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EarRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2393943909703088073}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: HairRenderer
-      value: 
-      objectReference: {fileID: 2395525383344514421}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EyebrowsRenderer
-      value: 
-      objectReference: {fileID: 2395147849782039713}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: EyesRenderer
-      value: 
-      objectReference: {fileID: 2395613507954332721}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: MouthRenderer
-      value: 
-      objectReference: {fileID: 2395727985073568389}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395860304704308935}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2393890519718677919}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2395855874512243661}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2395145625976185217}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[4]
-      value: 
-      objectReference: {fileID: 2395071392628207951}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[5]
-      value: 
-      objectReference: {fileID: 2395446208782647123}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[6]
-      value: 
-      objectReference: {fileID: 2393723206450717009}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BodyRenderers.Array.data[7]
-      value: 
-      objectReference: {fileID: 2395513452304671689}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: HelmetRenderer
-      value: 
-      objectReference: {fileID: 2395395441053014733}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: PrimaryMeleeWeaponRenderer
-      value: 
-      objectReference: {fileID: 2395889890324346365}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: SecondaryMeleeWeaponRenderer
-      value: 
-      objectReference: {fileID: 2395710213776340785}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395768963839569565}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2395181238481371855}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2395408264957533497}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2395606198021318395}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[4]
-      value: 
-      objectReference: {fileID: 2393715953132027797}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[5]
-      value: 
-      objectReference: {fileID: 2395471655305720681}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[6]
-      value: 
-      objectReference: {fileID: 2395311100455731933}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[7]
-      value: 
-      objectReference: {fileID: 2395861629779342743}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ArmorRenderers.Array.data[8]
-      value: 
-      objectReference: {fileID: 2393918877732292587}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: ShieldRenderer
-      value: 
-      objectReference: {fileID: 2395269437750263495}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 2395262429155986187}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[1]
-      value: 
-      objectReference: {fileID: 2393851746987511907}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[2]
-      value: 
-      objectReference: {fileID: 2395495768701205625}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[3]
-      value: 
-      objectReference: {fileID: 2395390519293169837}
-    - target: {fileID: 114698496393639571, guid: febad650fd7f8a845a2533babcdf7773,
-        type: 3}
-      propertyPath: BowRenderers.Array.data[4]
-      value: 
-      objectReference: {fileID: 2393819521872076009}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: febad650fd7f8a845a2533babcdf7773, type: 3}
 --- !u!212 &2395764602245948309 stripped
@@ -3204,16 +3201,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 8674897446967722178, guid: eece88ec563127647ab92aff59fa687c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2182588924928811717, guid: eece88ec563127647ab92aff59fa687c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2132243744, guid: eece88ec563127647ab92aff59fa687c, type: 3}
       propertyPath: target
       value: 
@@ -3226,6 +3213,16 @@ PrefabInstance:
         type: 3}
       propertyPath: speed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2182588924928811717, guid: eece88ec563127647ab92aff59fa687c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8674897446967722178, guid: eece88ec563127647ab92aff59fa687c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3789351498364469751, guid: eece88ec563127647ab92aff59fa687c,
         type: 3}

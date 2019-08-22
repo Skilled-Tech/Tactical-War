@@ -34,7 +34,7 @@ namespace Game
         public Data this[int index] { get { return list[index]; } }
 
         [Serializable]
-        new public class Data
+        public class Data
         {
             [SerializeField]
             protected Currency cost;

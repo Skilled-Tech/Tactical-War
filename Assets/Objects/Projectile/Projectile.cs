@@ -38,7 +38,7 @@ namespace Game
 
         public class Module : Module<Projectile>
         {
-            public Projectile Projectile { get { return Data; } }
+            public Projectile Projectile { get { return Reference; } }
 
             public Entity Owner { get { return Projectile.Owner; } }
         }

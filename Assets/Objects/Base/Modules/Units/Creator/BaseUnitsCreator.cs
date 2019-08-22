@@ -59,7 +59,7 @@ namespace Game
             {
                 this.Unit = unit;
 
-                Duration = Timer = unit.DeploymentTime;
+                Duration = Timer = unit.Deployment.Time;
 
                 Coroutine = behaviour.StartCoroutine(Procedure());
             }
@@ -74,19 +74,19 @@ namespace Game
 
         public virtual bool CanDeploy(UnitData unit)
         {
-            return Units.Count + Deployments.Count < Units.Max && Proponent.Funds.CanAfford(unit.Cost);
+            return Units.Count + Deployments.Count < Units.Max && Proponent.Funds.CanAfford(unit.Deployment.Cost);
         }
 
         public event Action<Deployment> OnDeployment;
         public virtual Deployment Deploy(UnitData data)
         {
-            if(!Proponent.Funds.CanAfford(data.Cost))
+            if(!Proponent.Funds.CanAfford(data.Deployment.Cost))
                 throw new Exception(Proponent.name + "Base trying to Deploy a Unit that the Proponent can't afford, Proponent: ");
 
             if (Units.Count >= Units.Max)
                 throw new Exception(Proponent.name + " Base trying to deploy a Unit but it's reached it's maximum allowed units count");
 
-            Proponent.Funds.Take(data.Cost);
+            Proponent.Funds.Take(data.Deployment.Cost);
 
             var deployment = new Deployment(this, data);
 
@@ -117,7 +117,7 @@ namespace Game
 
             var unit = instance.GetComponent<Unit>();
 
-            unit.Configure(Proponent);
+            unit.Configure(Proponent, data);
 
             if (OnSpawn != null) OnSpawn(unit);
 

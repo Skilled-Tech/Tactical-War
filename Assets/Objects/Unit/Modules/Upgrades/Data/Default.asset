@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e2b7a9748a2684fbbb82b051037ffe, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  list:
+  - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+    ranks:
+    - cost:
+        gold: 300
+        xp: 0
+      percentage: 6
+    - cost:
+        gold: 600
+        xp: 0
+      percentage: 12
+    - cost:
+        gold: 900
+        xp: 0
+      percentage: 18
+    - cost:
+        gold: 1200
+        xp: 0
+      percentage: 24
+    - cost:
+        gold: 1500
+        xp: 0
+      percentage: 30
+    - cost:
+        gold: 1800
+        xp: 0
+      percentage: 36
+    - cost:
+        gold: 2100
+        xp: 0
+      percentage: 42
+    - cost:
+        gold: 2400
+        xp: 0
+      percentage: 48
+    - cost:
+        gold: 2700
+        xp: 0
+      percentage: 54
+    - cost:
+        gold: 3000
+        xp: 0
+      percentage: 60
+  - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+    ranks:
+    - cost:
+        gold: 300
+        xp: 0
+      percentage: 6
+    - cost:
+        gold: 600
+        xp: 0
+      percentage: 12
+    - cost:
+        gold: 900
+        xp: 0
+      percentage: 18
+    - cost:
+        gold: 1200
+        xp: 0
+      percentage: 24
+    - cost:
+        gold: 1500
+        xp: 0
+      percentage: 30
+    - cost:
+        gold: 1800
+        xp: 0
+      percentage: 36
+    - cost:
+        gold: 2100
+        xp: 0
+      percentage: 42
+    - cost:
+        gold: 2400
+        xp: 0
+      percentage: 48
+    - cost:
+        gold: 2700
+        xp: 0
+      percentage: 54
+    - cost:
+        gold: 3000
+        xp: 0
+      percentage: 60
+  - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+    ranks:
+    - cost:
+        gold: 300
+        xp: 0
+      percentage: 15
+    - cost:
+        gold: 600
+        xp: 0
+      percentage: 30
+    - cost:
+        gold: 900
+        xp: 0
+      percentage: 45
+    - cost:
+        gold: 1200
+        xp: 0
+      percentage: 60
+    - cost:
+        gold: 1500
+        xp: 0
+      percentage: 75
+    - cost:
+        gold: 1800
+        xp: 0
+      percentage: 90
+    - cost:
+        gold: 2100
+        xp: 0
+      percentage: 105
+    - cost:
+        gold: 2400
+        xp: 0
+      percentage: 120
+    - cost:
+        gold: 2700
+        xp: 0
+      percentage: 135
+    - cost:
+        gold: 3000
+        xp: 0
+      percentage: 150

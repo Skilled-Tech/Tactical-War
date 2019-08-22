@@ -51,16 +51,14 @@ namespace Game
         }
         public virtual bool MoveTo(float destination, float stoppingDistance)
         {
-            DistanceLeft = Mathf.Abs(destination - Unit.transform.position.x);
+            var difference = destination - Unit.transform.position.x;
 
-            if(DistanceLeft > stoppingDistance)
+            DistanceLeft = Mathf.Abs(difference);
+
+            Direction = DistanceLeft == 0f ? 0 : Math.Sign(difference);
+
+            if (DistanceLeft > stoppingDistance)
             {
-                var difference = destination - Unit.transform.position.x;
-
-                DistanceLeft = Mathf.Abs(difference);
-
-                Direction = DistanceLeft == 0f ? 0 : Math.Sign(difference);
-
                 XPosition = Mathf.MoveTowards(XPosition, destination, speed * Time.deltaTime);
 
                 Body.CharacterAnimation.SetState(Assets.HeroEditor4D.Common.CharacterScripts.CharacterState.Walk);

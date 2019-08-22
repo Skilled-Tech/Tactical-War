@@ -24,6 +24,11 @@ namespace Game
         [SerializeField]
         protected UIElement target;
 
+        protected virtual void Reset()
+        {
+            target = Dependancy.Get<UIElement>(gameObject, Dependancy.Scope.RecursiveToParents);
+        }
+
         public override void Execute()
         {
             target.Hide();

@@ -19,10 +19,16 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ProponentFunds : Proponent.Module
+    [CreateAssetMenu]
+	public class Funds : ScriptableObject
     {
-		public ProponentGoldFunds Gold { get; protected set; }
-		public ProponentXPFunds XP { get; protected set; }
+        [SerializeField]
+        protected Property gold;
+        public Property Gold { get { return gold; } }
+
+        [SerializeField]
+        protected Property xp;
+        public Property XP { get { return xp; } }
 
         public virtual Property Get(CurrencyType type)
         {
@@ -39,11 +45,8 @@ namespace Game
 
         public event Action OnValueChanged;
 
-        public abstract class Module : Module<ProponentFunds>
-        {
-            public ProponentFunds Funds { get { return Data; } }
-        }
-        public abstract class Property : Module
+        [Serializable]
+        public class Property
         {
             [SerializeField]
             protected int _value;
@@ -66,26 +69,11 @@ namespace Game
             public event Action<float> OnValueChanged;
         }
 
-        public override void Configure(Proponent data)
+        public virtual void Configure()
         {
-            base.Configure(data);
-
-            Gold = Dependancy.Get<ProponentGoldFunds>(Proponent.gameObject);
-
-            XP = Dependancy.Get<ProponentXPFunds>(Proponent.gameObject);
-
-            Modules.Configure(this);
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
             Gold.OnValueChanged += OnGoldChanged;
 
             XP.OnValueChanged += OnXPChanged;
-
-            Modules.Init(this);
         }
 
         public bool CanAfford(Currency cost)
@@ -103,7 +91,7 @@ namespace Game
             }
             else
             {
-                throw new Exception("Trying to reduce " + value.ToString() + " From " + Proponent.name + " Funds but said Proponent doesn't have enough funds");
+                throw new Exception("Trying to reduce " + value.ToString() + " From " + name + " but the funds are too low, man");
             }
         }
         public virtual void Add(Currency value)
