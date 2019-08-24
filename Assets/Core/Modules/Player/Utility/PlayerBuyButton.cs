@@ -21,12 +21,8 @@ using TMPro;
 namespace Game
 {
     [RequireComponent(typeof(Button))]
-	public class ProponentBuyButton : MonoBehaviour
+	public class PlayerBuyButton : MonoBehaviour
 	{
-        [SerializeField]
-        protected Proponent target;
-        public Proponent Target { get { return target; } } 
-
         [SerializeField]
         protected Currency cost;
         public Currency Cost
@@ -51,25 +47,27 @@ namespace Game
 
         Button button;
 
+        public PlayerCore Player { get { return Core.Instance.Player; } }
+
         public virtual void Init()
         {
             button = GetComponent<Button>();
             button.onClick.AddListener(OnClick);
 
-            target.Funds.OnValueChanged += OnFundsChanged;
+            Player.Funds.OnValueChanged += OnFundsChanged;
         }
 
         public virtual void UpdateState()
         {
             Text = cost.ToString();
 
-            button.interactable = target.Funds.CanAfford(cost);
+            button.interactable = Player.Funds.CanAfford(cost);
         }
 
         public event Action OnPurchase;
         void OnClick()
         {
-            target.Funds.Take(cost);
+            Player.Funds.Take(cost);
 
             if (OnPurchase != null) OnPurchase();
         }
@@ -77,6 +75,11 @@ namespace Game
         void OnFundsChanged()
         {
             UpdateState();
+        }
+
+        void OnDestroy()
+        {
+            Player.Funds.OnValueChanged -= OnFundsChanged;
         }
     }
 }

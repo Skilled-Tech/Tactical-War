@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu]
-	public class Funds : ScriptableObject
+    [Serializable]
+	public class Funds
     {
         [SerializeField]
         protected Property gold;
@@ -67,8 +67,20 @@ namespace Game
             }
 
             public event Action<float> OnValueChanged;
+
+            public Property(int value)
+            {
+                this.Value = value;
+            }
         }
 
+        public virtual void Configure(int value)
+        {
+            this.gold.Value = value;
+            this.xp.Value = value;
+
+            Configure();
+        }
         public virtual void Configure()
         {
             Gold.OnValueChanged += OnGoldChanged;
@@ -91,7 +103,7 @@ namespace Game
             }
             else
             {
-                throw new Exception("Trying to reduce " + value.ToString() + " From " + name + " but the funds are too low, man");
+                throw new Exception("Trying to reduce " + value.ToString() + " From " + ToString() + " but the funds are too low, man");
             }
         }
         public virtual void Add(Currency value)
@@ -108,6 +120,13 @@ namespace Game
         void OnXPChanged(float value)
         {
             if (OnValueChanged != null) OnValueChanged();
+        }
+
+        public Funds(int value)
+        {
+            gold = new Property(value);
+
+            xp = new Property(value);
         }
     }
 }

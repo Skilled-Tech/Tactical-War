@@ -7,12 +7,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34fa9271a639de4439d913efea70bed0, type: 3}
-  m_Name: AI Funds
+  m_Script: {fileID: 11500000, guid: 9c4bad36a548d6e4cb71c065e567cb8f, type: 3}
+  m_Name: Player Units Core
   m_EditorClassIdentifier: 
-  gold:
-    _value: 99999
-  xp:
-    _value: 99999
+  upgrades: {fileID: 11400000, guid: f86e827b0d8535e458b5abc3bb8d960d, type: 2}

@@ -22,8 +22,8 @@ namespace Game
 	public class BaseTowerSlotBuyContextUI : BaseTowerSlotContextUI.Element
     {
         [SerializeField]
-        protected ProponentBuyButton button;
-        public ProponentBuyButton Button { get { return button; } }
+        protected PlayerBuyButton button;
+        public PlayerBuyButton Button { get { return button; } }
 
         public override void Init()
         {

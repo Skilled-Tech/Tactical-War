@@ -33,6 +33,8 @@ namespace Game
         public LevelSpeed Speed { get; protected set; }
         public LevelMenu Menu { get; protected set; }
 
+        public Core Core { get { return Core.Instance; } }
+
         public abstract class Module : Module<Level>
         {
             public Level Level { get { return Reference; } }
@@ -74,7 +76,7 @@ namespace Game
         {
             Speed.Value = 1f;
 
-            SceneManager.LoadScene(0);
+            Core.Scenes.Load(Core.Scenes.MainMenu);
         }
 
         public virtual void Retry()

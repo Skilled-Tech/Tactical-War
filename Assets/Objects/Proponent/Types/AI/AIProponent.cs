@@ -22,7 +22,7 @@ namespace Game
 	public class AIProponent : Proponent
 	{
         [SerializeField]
-        protected Funds funds;
+        protected Funds funds = new Funds(99999);
         public override Funds Funds { get { return funds; } }
 
         protected override void Start()

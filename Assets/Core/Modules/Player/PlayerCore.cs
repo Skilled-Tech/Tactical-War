@@ -19,21 +19,40 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Player")]
+    [CreateAssetMenu(menuName = MenuPath + "Asset")]
 	public class PlayerCore : Core.Module
 	{
+        new public const string MenuPath = Core.Module.MenuPath + "Player/";
+
 		[SerializeField]
-        protected Funds funds;
+        protected Funds funds = new Funds(99999);
         public Funds Funds { get { return funds; } }
+
+        [SerializeField]
+        protected PlayerUnitsCore units;
+        public PlayerUnitsCore Units { get { return units; } }
+
+        public class Module : Core.Module
+        {
+            new public const string MenuPath = PlayerCore.MenuPath + "Modules/";
+
+            public PlayerCore Player { get { return Core.Player; } }
+        }
 
         public override void Configure()
         {
             base.Configure();
 
-            Funds.Configure();
+            Funds.Configure(99999);
 
-            funds.Gold.Value = 99999;
-            funds.XP.Value = 99999;
+            units.Configure();
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            units.Init();
         }
     }
 }

@@ -30,8 +30,7 @@ namespace Game
 
         public ScrollRect ScrollRect { get; protected set; }
 
-        public UnitsCore UnitsCore { get { return Core.Units; } }
-        public UnitsRoster Roster { get { return UnitsCore.Roster; } }
+        public IList<UnitData> List { get { return Core.Player.Units.List; } }
 
         public override void Configure(UnitsUI data)
         {
@@ -44,11 +43,11 @@ namespace Game
         {
             base.Init();
 
-            Templates = new UnitUITemplate[Roster.Count];
+            Templates = new UnitUITemplate[List.Count];
 
-            for (int i = 0; i < Roster.Count; i++)
+            for (int i = 0; i < List.Count; i++)
             {
-                Templates[i] = CreateTemplate(Roster[i]);
+                Templates[i] = CreateTemplate(List[i]);
 
                 Templates[i].OnClick += TemplateClicked;
             }

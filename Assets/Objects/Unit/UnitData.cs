@@ -65,18 +65,24 @@ namespace Game
         }
 
         [SerializeField]
-        protected UnitUpgradesData upgradesTemplate;
-        public UnitUpgradesData UpgradesTemplate { get { return upgradesTemplate; } }
-
-        [SerializeField]
-        protected UnitUpgradeType[] applicableUpgrades = new UnitUpgradeType[2];
-        public UnitUpgradeType[] ApplicableUpgrades { get { return applicableUpgrades; } }
-        public virtual bool isApplicableUpgrade(UnitUpgradeType type)
+        protected UpgradesData upgrades;
+        public UpgradesData Upgrades { get { return upgrades; } }
+        [Serializable]
+        public class UpgradesData
         {
-            return applicableUpgrades.Contains(type);
-        }
+            [SerializeField]
+            protected UnitUpgradesDataTemplate template;
+            public UnitUpgradesDataTemplate Template { get { return template; } }
 
-        public UnitUpgradesData Upgrades { get; protected set; }
+            [SerializeField]
+            protected UnitUpgradeType[] applicables = new UnitUpgradeType[2];
+            public UnitUpgradeType[] Applicables { get { return applicables; } }
+
+            public virtual bool isApplicable(UnitUpgradeType type)
+            {
+                return applicables.Contains(type);
+            }
+        }
 
         [SerializeField]
         protected DeploymentData deployment = new DeploymentData(new Currency(100, 0), 2f);
@@ -103,10 +109,5 @@ namespace Game
         [TextArea]
         protected string description;
         public string Description { get { return description; } }
-
-        public virtual void Configure()
-        {
-            Upgrades = Instantiate(upgradesTemplate);
-        }
     }
 }

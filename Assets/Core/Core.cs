@@ -41,7 +41,19 @@ namespace Game
             }
         }
 
-        #region Units
+        #region Modules
+        [SerializeField]
+        protected DataCore data;
+        public DataCore Data { get { return data; } }
+
+        [SerializeField]
+        protected ScenesCore scenes;
+        public ScenesCore Scenes { get { return scenes; } }
+
+        [SerializeField]
+        protected LevelsCore levels;
+        public LevelsCore Levels { get { return levels; } }
+
         [SerializeField]
         protected PlayerCore player;
         public PlayerCore Player { get { return player; } }
@@ -53,6 +65,10 @@ namespace Game
         public class Module : ScriptableObject
         {
             public const string MenuPath = Core.MenuPath + "Modules/";
+
+            public Core Core { get { return Core.Instance; } }
+
+            public DataCore Data { get { return Core.data; } }
 
             public virtual void Configure()
             {
@@ -67,6 +83,9 @@ namespace Game
 
         public virtual void ForAllModules(Action<Module> action)
         {
+            action(data);
+            action(scenes);
+            action(levels);
             action(player);
             action(units);
         }

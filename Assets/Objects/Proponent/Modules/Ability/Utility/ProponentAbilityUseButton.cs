@@ -99,5 +99,12 @@ namespace Game
                 Grayscale = 1f;
             }
         }
+
+        void OnDestroy()
+        {
+            proponent.Ability.OnSelectionChanged -= OnAbilitySelectionChanged;
+            proponent.Funds.OnValueChanged -= OnFundsChanged;
+            proponent.Ability.Cooldown.OnStateChange -= OnStateChange;
+        }
     }
 }

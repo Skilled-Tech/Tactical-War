@@ -25,7 +25,7 @@ namespace Game
 
         public abstract Funds Funds { get; }
 
-        public IList<UnitData> UnitSelection { get { return Core.Instance.Units.Roster.List; } }
+        public IList<UnitData> UnitSelection { get { return Core.Instance.Units.List; } }
 
         public ProponentAbility Ability { get; protected set; }
         public abstract class Module : Module<Proponent>

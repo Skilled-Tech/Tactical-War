@@ -20,10 +20,11 @@ MonoBehaviour:
     damage: 20
     range: 2
     distance: 3
-  upgradesTemplate: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
-  applicableUpgrades:
-  - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-  - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+  upgrades:
+    template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
+    applicables:
+    - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+    - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
   deployment:
     cost:
       gold: 200

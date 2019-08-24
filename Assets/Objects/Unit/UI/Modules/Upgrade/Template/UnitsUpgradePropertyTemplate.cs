@@ -49,17 +49,19 @@ namespace Game
         public Core Core { get { return Core.Instance; } }
         public Funds Funds { get { return Core.Player.Funds; } }
 
-        public UnitUpgradesData.Property Reference { get; protected set; }
-        public virtual void Set(UnitUpgradesData.Property reference)
+        public UnitUpgradesController.TypeController Reference { get; protected set; }
+        public virtual void Set(UnitUpgradesController.TypeController reference)
         {
             this.Reference = reference;
+
+            reference.OnUpgrade += OnUpgrade;
 
             GrayscaleController = GetComponent<UIGrayscaleController>();
             GrayscaleController.Init();
 
-            icon.sprite = reference.Type.Icon;
+            icon.sprite = reference.Target.Icon;
 
-            label.text = reference.Type.name + " Upgrade";
+            label.text = reference.Target.name + " Upgrade";
 
             button.onClick.AddListener(OnButon);
 
@@ -68,15 +70,13 @@ namespace Game
             UpdateState();
         }
 
-        void OnFundsChanged()
+        void OnUpgrade()
         {
             UpdateState();
         }
 
-        void OnButon()
+        void OnFundsChanged()
         {
-            Reference.Upgrade(Funds);
-
             UpdateState();
         }
 
@@ -102,8 +102,15 @@ namespace Game
             price.color = button.interactable ? Color.white : Color.gray;
         }
 
+        void OnButon()
+        {
+            Reference.Upgrade(Funds);
+        }
+
         void OnDestroy()
         {
+            Reference.OnUpgrade -= OnUpgrade;
+
             Funds.OnValueChanged -= OnFundsChanged;
         }
     }

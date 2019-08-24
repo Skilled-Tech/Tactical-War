@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24b1e9ad85314243b6ca8a1f240d581, type: 3}
   m_Name: Player Core
   m_EditorClassIdentifier: 
-  funds: {fileID: 11400000, guid: f760de5b2cf11f64baa090618053a882, type: 2}
+  funds:
+    gold:
+      _value: 99999
+    xp:
+      _value: 99999
+  units: {fileID: 11400000, guid: 3a4207c1a00c3734483cc00af6352acc, type: 2}

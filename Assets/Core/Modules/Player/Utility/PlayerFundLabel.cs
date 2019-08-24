@@ -22,35 +22,38 @@ using TMPro;
 namespace Game
 {
     [RequireComponent(typeof(TMP_Text))]
-	public class ProponentFundLabel : MonoBehaviour
+	public class PlayerFundLabel : MonoBehaviour
 	{
-        [SerializeField]
-        protected Proponent target;
-        public Proponent Target { get { return target; } }
-
         [SerializeField]
         protected CurrencyType type;
         public CurrencyType Type { get { return type; } }
 
         TMP_Text label;
 
+        public PlayerCore Player { get { return Core.Instance.Player; } }
+
         void Start()
         {
             label = GetComponent<TMP_Text>();
 
-            target.Funds.OnValueChanged += OnChange;
+            Player.Funds.OnValueChanged += OnChange;
 
             UpdateState();
         }
 
         void UpdateState()
         {
-            label.text = target.Funds.Get(type).Value.ToString("N0") + " " + type.ToString();
+            label.text = Player.Funds.Get(type).Value.ToString("N0") + " " + type.ToString();
         }
 
         void OnChange()
         {
             UpdateState();
+        }
+
+        void OnDestroy()
+        {
+            Player.Funds.OnValueChanged -= OnChange;
         }
     }
 }

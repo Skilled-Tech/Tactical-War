@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ade6360cd918d24684a8df797bbd59e, type: 3}
   m_Name: Units Core
   m_EditorClassIdentifier: 
-  roster: {fileID: 11400000, guid: b60e370cc5a35c8448af7db56c9155ef, type: 2}
+  list:
+  - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
+  - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+  - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
+  - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}

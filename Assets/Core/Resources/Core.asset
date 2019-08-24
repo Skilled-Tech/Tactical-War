@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1f56ec8dfe54948bc5c79e2ade83dd, type: 3}
   m_Name: Core
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: e325063720471eb42bd6fe60731c87a0, type: 2}
+  scenes: {fileID: 11400000, guid: 8afd94668da10ae4cba819ec6dac9474, type: 2}
+  levels: {fileID: 11400000, guid: 7e0e1692cfc0e684890aef41599c40e4, type: 2}
   player: {fileID: 11400000, guid: b131269aabb32444c9ad1e46af0a10f1, type: 2}
   units: {fileID: 11400000, guid: 77a8c78f4beff8c42a386cafdf0fe3e3, type: 2}

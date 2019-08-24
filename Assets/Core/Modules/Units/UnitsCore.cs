@@ -22,15 +22,8 @@ namespace Game
     [CreateAssetMenu(menuName = MenuPath + "Units")]
 	public class UnitsCore : Core.Module
 	{
-		[SerializeField]
-        protected UnitsRoster roster;
-        public UnitsRoster Roster { get { return roster; } }
-
-        public override void Configure()
-        {
-            base.Configure();
-
-            roster.Configure();
-        }
+        [SerializeField]
+        protected UnitData[] list;
+        public UnitData[] List { get { return list; } }
     }
 }

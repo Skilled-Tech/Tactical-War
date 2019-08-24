@@ -40,26 +40,23 @@ namespace Game
             Templates = new List<UnitsUpgradePropertyTemplate>();
         }
 
-        public virtual void Set(UnitData data)
+        public virtual void Set(UnitData unit, UnitUpgradesController upgrades)
         {
-            this.Data = data;
+            this.Data = unit;
 
             Clear();
 
-            foreach (var property in data.Upgrades.List)
+            foreach (var property in upgrades.Types)
             {
-                if(data.isApplicableUpgrade(property.Type))
-                {
-                    var instance = CreateProperty(property);
+                var instance = CreateProperty(property);
 
-                    Templates.Add(instance);
-                }
+                Templates.Add(instance);
             }
 
             Show();
         }
 
-        protected virtual UnitsUpgradePropertyTemplate CreateProperty(UnitUpgradesData.Property property)
+        protected virtual UnitsUpgradePropertyTemplate CreateProperty(UnitUpgradesController.TypeController property)
         {
             var instance = Instantiate(template, panel);
 

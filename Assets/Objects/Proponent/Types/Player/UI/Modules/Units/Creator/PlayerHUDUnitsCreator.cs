@@ -89,5 +89,10 @@ namespace Game
 
             Elements.Clear();
         }
+
+        void OnDestroy()
+        {
+            Player.Funds.OnValueChanged -= OnFundsChanged;
+        }
     }
 }

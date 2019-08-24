@@ -69,7 +69,7 @@ namespace Game
         {
             Hide();
 
-            UI.Upgrade.Set(Data);
+            UI.Upgrade.Set(Data, Core.Player.Units.Upgrades.Find(Data));
         }
 	}
 }

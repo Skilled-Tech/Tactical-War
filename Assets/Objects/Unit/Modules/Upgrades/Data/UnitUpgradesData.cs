@@ -19,44 +19,33 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = UnitUpgrades.MenuPath + "Data")]
-    public class UnitUpgradesData : ScriptableObject
-	{
+    [Serializable]
+    public struct UnitUpgradesData
+    {
         [SerializeField]
-        protected Property[] list = new Property[]
-        {
-            new Property(10, new Currency(300, 0), 6),
-            new Property(10, new Currency(300, 0), 6),
-            new Property(10, new Currency(300, 0), 15)
-        };
-        public Property[] List { get { return list; } }
-
-        public int Count { get { return list.Length; } }
-
-        public Property this[int index] { get { return list[index]; } }
+        TypeData[] types;
+        public TypeData[] Types { get { return types; } }
 
         [Serializable]
-        public class Property
+        public struct TypeData
         {
             [SerializeField]
-            protected UnitUpgradeType type;
-            public UnitUpgradeType Type { get { return type; } }
+            UnitUpgradeType target;
+            public UnitUpgradeType Target { get { return target; } }
 
             [SerializeField]
-            protected Data[] ranks;
-            public Data[] Ranks { get { return ranks; } }
-
-            public Data this[int index] { get { return ranks[index]; } }
+            RankData[] ranks;
+            public RankData[] Ranks { get { return ranks; } }
 
             [Serializable]
-            public class Data
+            public struct RankData
             {
                 [SerializeField]
-                protected Currency cost;
+                Currency cost;
                 public Currency Cost { get { return cost; } }
 
                 [SerializeField]
-                protected float percentage;
+                float percentage;
                 public float Percentage { get { return percentage; } }
 
                 public float Multiplier
@@ -67,12 +56,12 @@ namespace Game
                     }
                 }
 
-                public virtual float Sample(float value)
+                public float Sample(float value)
                 {
                     return value * Multiplier;
                 }
 
-                public Data(Currency cost, float percentage)
+                public RankData(Currency cost, float percentage)
                 {
                     this.cost = cost;
 
@@ -80,73 +69,36 @@ namespace Game
                 }
             }
 
-            public int Max { get { return ranks.Length; } }
-
-            public uint Index { get; protected set; } = 0;
-
-            public Data Current
+            public TypeData(UnitUpgradeType type, RankData[] ranks)
             {
-                get
-                {
-                    if (Index == 0) return null;
-
-                    return ranks[Index - 1];
-                }
-            }
-            public bool Maxed { get { return Current == ranks.Last(); } }
-
-            public virtual float Sample(float value)
-            {
-                if (Current == null) return value;
-
-                return Current.Sample(value);
-            }
-            public virtual float Multiplier
-            {
-                get
-                {
-                    if (Current == null) return 1f;
-
-                    return Current.Multiplier;
-                }
+                this.target = type;
+                this.ranks = ranks;
             }
 
-            public Data Next
+            public TypeData(UnitUpgradeType type, int ranksCount, Currency initalCost, float initialPercentage)
             {
-                get
-                {
-                    if (Maxed) return null;
+                this.target = type;
 
-                    return ranks[Index];
-                }
-            }
-            public bool CanUpgrade(Funds funds)
-            {
-                if (Maxed) return false;
-
-                return funds.CanAfford(Next.Cost);
-            }
-
-            public Property(int count, Currency cost, float percentage)
-            {
-                ranks = new Data[count];
+                ranks = new RankData[ranksCount];
 
                 for (int i = 0; i < ranks.Length; i++)
-                {
-                    ranks[i] = new Data(cost * (i + 1), percentage * (i + 1));
-                }
+                    ranks[i] = new RankData(initalCost * (i + 1), initialPercentage * (i + 1));
             }
+        }
 
-            public event Action OnUpgrade;
-            public virtual void Upgrade(Funds funds)
+        public static UnitUpgradesData Default
+        {
+            get
             {
-                if (!CanUpgrade(funds))
-                    throw new Exception("Error while trying to upgrade " + GetType().Name);
+                var data = new UnitUpgradesData();
 
-                funds.Take(Next.Cost);
-                Index++;
+                data.types = new TypeData[3];
 
-                if (OnUpgrade != null) OnUpgrade();
+                data.types[0] = new TypeData(null, 10, new Currency(0, 300), 6);
+                data.types[1] = new TypeData(null, 10, new Currency(0, 300), 6);
+                data.types[2] = new TypeData(null, 10, new Currency(0, 300), 15);
+
+                return data;
             }
         }
     }
