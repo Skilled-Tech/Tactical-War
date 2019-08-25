@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c4bad36a548d6e4cb71c065e567cb8f, type: 3}
-  m_Name: Player Units Core
+  m_Script: {fileID: 11500000, guid: fa5e7baf7b11eb5469855e32d98f974d, type: 3}
+  m_Name: Player Units Selection Core
   m_EditorClassIdentifier: 
-  upgrades: {fileID: 11400000, guid: f86e827b0d8535e458b5abc3bb8d960d, type: 2}
-  selection: {fileID: 11400000, guid: a1ce0e735cdf99d41acf406d68de5aea, type: 2}

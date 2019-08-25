@@ -16,23 +16,17 @@ using UnityEditorInternal;
 
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
-using Newtonsoft.Json.Linq;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Units")]
-	public class UnitsCore : Core.Module
-	{
-        [SerializeField]
-        protected UnitData[] list;
-        public UnitData[] List { get { return list; } }
+	public class AIProponentUnits : ProponentUnits
+    {
+		[SerializeField]
+        protected List<UnitData> selection;
+        public override IList<UnitData> Selection { get { return selection; } }
 
-        public virtual UnitData Find(string name)
+        public override UnitUpgradesController GetUpgrade(UnitData unit)
         {
-            for (int i = 0; i < list.Length; i++)
-                if (list[i].name == name)
-                    return list[i];
-
             return null;
         }
     }

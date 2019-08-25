@@ -32,7 +32,7 @@ namespace Game
 
         public virtual void Set(BaseUnits units)
         {
-            Creator.SetSelection(units.Proponent.UnitSelection);
+            Creator.SetSelection(units.Proponent.Units.Selection);
         }
     }
 }

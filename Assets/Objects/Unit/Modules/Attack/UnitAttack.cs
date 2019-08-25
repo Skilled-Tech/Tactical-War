@@ -24,7 +24,15 @@ namespace Game
         #region Damage
         public float BaseDamage { get { return Unit.Data.Attack.Damage; } }
 
-        public float DamageMultiplier { get; set; } = 1f;
+        public float DamageMultiplier
+        {
+            get
+            {
+                if (Upgrades.Damage == null) return 1f;
+
+                return Upgrades.Damage.Multiplier;
+            }
+        }
 
         public float Damage { get { return BaseDamage * DamageMultiplier; } }
         #endregion
@@ -32,7 +40,15 @@ namespace Game
         #region Range
         public uint BaseRange { get { return Unit.Data.Attack.Range; } }
 
-        public uint RangeIncrease { get; set; } = 0;
+        public uint RangeIncrease
+        {
+            get
+            {
+                if (Upgrades.Range == null) return 0;
+
+                return (uint)(Upgrades.Range.Index / 3);
+            }
+        }
 
         public uint Range { get { return BaseRange + RangeIncrease; } }
         #endregion
@@ -40,7 +56,15 @@ namespace Game
         #region Distance
         public float BaseDistance { get { return Unit.Data.Attack.Distance; } }
 
-        public float DistanceMultiplier { get; set; } = 1f;
+        public float DistanceMultiplier
+        {
+            get
+            {
+                if (Upgrades.Range == null) return 1f;
+
+                return Upgrades.Range.Multiplier;
+            }
+        }
 
         public float Distance { get { return BaseDistance * DistanceMultiplier; } }
         #endregion

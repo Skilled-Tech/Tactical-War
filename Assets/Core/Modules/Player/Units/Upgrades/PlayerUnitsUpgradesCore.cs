@@ -125,6 +125,26 @@ namespace Game
                 }
             }
 
+            public float Multiplier
+            {
+                get
+                {
+                    if (Index == 0) return 1f;
+
+                    return Current.Multiplier;
+                }
+            }
+
+            public float Percentage
+            {
+                get
+                {
+                    if (Index == 0) return 0f;
+
+                    return Current.Percentage;
+                }
+            }
+
             public UnitUpgradesData.TypeData.RankData Next
             {
                 get

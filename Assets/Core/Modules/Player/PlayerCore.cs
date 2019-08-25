@@ -25,7 +25,7 @@ namespace Game
         new public const string MenuPath = Core.Module.MenuPath + "Player/";
 
 		[SerializeField]
-        protected Funds funds = new Funds(99999);
+        protected Funds funds = new Funds(999999);
         public Funds Funds { get { return funds; } }
 
         [SerializeField]
@@ -43,7 +43,7 @@ namespace Game
         {
             base.Configure();
 
-            Funds.Configure(99999);
+            Funds.Configure(999999);
 
             units.Configure();
         }

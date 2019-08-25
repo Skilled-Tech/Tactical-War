@@ -28,6 +28,10 @@ namespace Game
         protected PlayerUnitsUpgradesCore upgrades;
         public PlayerUnitsUpgradesCore Upgrades { get { return upgrades; } }
 
+        [SerializeField]
+        protected PlayerUnitsSelectionCore selection;
+        public PlayerUnitsSelectionCore Selection { get { return selection; } }
+
         public class Module : PlayerCore.Module
         {
             new public const string MenuPath = PlayerUnitsCore.MenuPath + "Modules/";
@@ -42,6 +46,7 @@ namespace Game
             base.Configure();
 
             upgrades.Configure();
+            selection.Configure();
         }
 
         public override void Init()
@@ -49,6 +54,7 @@ namespace Game
             base.Init();
 
             upgrades.Init();
+            selection.Init();
         }
     }
 }

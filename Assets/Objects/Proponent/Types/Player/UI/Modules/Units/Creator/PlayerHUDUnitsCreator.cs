@@ -49,6 +49,9 @@ namespace Game
 
             for (int i = 0; i < list.Count; i++)
             {
+                if (list[i] == null)
+                    continue;
+
                 var instance = Create(list[i]);
 
                 instance.Set(Player, list[i]);

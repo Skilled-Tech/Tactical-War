@@ -117,7 +117,7 @@ namespace Game
 
             var unit = instance.GetComponent<Unit>();
 
-            unit.Configure(Proponent, data);
+            unit.Configure(Proponent, data, Proponent.Units.GetUpgrade(data));
 
             if (OnSpawn != null) OnSpawn(unit);
 

@@ -25,9 +25,8 @@ namespace Game
 
         public abstract Funds Funds { get; }
 
-        public IList<UnitData> UnitSelection { get { return Core.Instance.Units.List; } }
-
         public ProponentAbility Ability { get; protected set; }
+        public ProponentUnits Units { get; protected set; }
         public abstract class Module : Module<Proponent>
         {
             public Proponent Proponent { get { return Reference; } }
@@ -44,6 +43,8 @@ namespace Game
         protected virtual void Awake()
         {
             Ability = Dependancy.Get<ProponentAbility>(gameObject);
+
+            Units = Dependancy.Get<ProponentUnits>(gameObject);
 
             Modules.Configure(this);
 

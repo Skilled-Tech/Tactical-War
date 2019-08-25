@@ -105,6 +105,8 @@ namespace Game
             SceneManager.sceneLoaded += OnSceneLoaded;
 
             ForAllModules(ConfigureModule);
+
+            Newtonsoft.Json.JsonConvert.SerializeObject(1);
         }
 
         void ConfigureModule(Module module)
@@ -124,6 +126,20 @@ namespace Game
         void InitModule(Module module)
         {
             module.Init();
+        }
+
+        public static void Quit()
+        {
+            if(Application.isEditor)
+            {
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            }
+            else
+            {
+                Application.Quit();
+            }
         }
     }
 }

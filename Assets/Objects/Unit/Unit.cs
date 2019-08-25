@@ -45,6 +45,7 @@ namespace Game
             public UnitBody Body { get { return Unit.Body; } }
             public UnitNavigator Navigator { get { return Unit.Navigator; } }
             public UnitAttack Attack { get { return Unit.Attack; } }
+            public UnitUpgrades Upgrades { get { return Unit.Upgrades; } }
             public Proponent Leader { get { return Unit.Leader; } }
             public Base Base { get { return Leader.Base; } }
 
@@ -65,11 +66,15 @@ namespace Game
         }
 
         public Proponent Leader { get; protected set; }
-        public virtual void Configure(Proponent leader, UnitData data)
+
+        public virtual void Configure(Proponent leader, UnitData data, UnitUpgradesController upgradesController)
         {
             this.Leader = leader;
 
             this.Data = data;
+
+            Upgrades = Dependancy.Get<UnitUpgrades>(gameObject);
+            Upgrades.Set(upgradesController);
         }
 
         protected override void Awake()
@@ -84,7 +89,7 @@ namespace Game
 
             Attack = Dependancy.Get<UnitAttack>(gameObject);
 
-            Upgrades = Dependancy.Get<UnitUpgrades>(gameObject);
+            
 
             Bounds = GetComponent<Collider2D>().bounds;
 
@@ -98,6 +103,20 @@ namespace Game
             Health.Value = Health.Max = Data.Health;
 
             Modules.Init(this);
+        }
+
+        public override void TakeDamage(Entity damager, float value)
+        {
+            if(Upgrades.Defense == null)
+            {
+
+            }
+            else
+            {
+                value = Mathf.Lerp(value, 0f, Upgrades.Defense.Percentage / 100f);
+            }
+
+            base.TakeDamage(damager, value);
         }
 
         protected override void Death(Entity damager)

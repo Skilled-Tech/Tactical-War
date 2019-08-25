@@ -93,5 +93,15 @@ namespace Game
 
             return File.Exists(AbsolutePath + relativePath);
         }
+
+        public virtual void Reset()
+        {
+            if (Directory.Exists(AbsolutePath))
+            {
+                Directory.Delete(AbsolutePath, true);
+            }
+
+            Core.Quit();
+        }
     }
 }

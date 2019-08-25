@@ -16,6 +16,7 @@ using UnityEditorInternal;
 
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using UnityEngine.EventSystems;
 
 namespace Game
 {
@@ -50,6 +51,9 @@ namespace Game
                 Templates[i] = CreateTemplate(List[i]);
 
                 Templates[i].OnClick += TemplateClicked;
+                Templates[i].DragBeginEvent += TemplateDragBegin;
+                Templates[i].DragEvent += TemplateDrag;
+                Templates[i].DragEndEvent += TemplateDragEnd;
             }
         }
 
@@ -61,6 +65,7 @@ namespace Game
 
             var script = instance.GetComponent<UnitUITemplate>();
 
+            script.Init();
             script.Set(data);
 
             return script;
@@ -70,6 +75,58 @@ namespace Game
         void TemplateClicked(UnitUITemplate template, UnitData data)
         {
             if (OnUnitClicked != null) OnUnitClicked(template, data);
+        }
+
+        void TemplateDragBegin(UnitUITemplate template, PointerEventData pointerData)
+        {
+            if(DragTemplate == null)
+            {
+                Core.Player.Units.Selection.Context = template.Data;
+
+                DragTemplate = CreateTemplate(template.Data);
+
+                DragTemplate.CanvasGroup.blocksRaycasts = false;
+
+                DragTemplate.transform.SetParent(transform);
+
+                DragTemplate.transform.position = pointerData.position;
+            }
+            else
+            {
+
+            }
+        }
+
+        public UnitUITemplate DragTemplate { get; protected set; }
+        void TemplateDrag(UnitUITemplate template, PointerEventData pointerData)
+        {
+            if(DragTemplate == null)
+            {
+
+            }
+            else
+            {
+                if(DragTemplate.Data == template.Data)
+                {
+                    DragTemplate.transform.position = pointerData.position;
+                }
+            }
+        }
+
+        void TemplateDragEnd(UnitUITemplate template, PointerEventData pointerData)
+        {
+            if(DragTemplate == null)
+            {
+
+            }
+            else
+            {
+                Destroy(DragTemplate.gameObject);
+
+                DragTemplate = null;
+
+                Core.Player.Units.Selection.Context = null;
+            }
         }
     }
 }

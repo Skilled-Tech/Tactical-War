@@ -50,10 +50,10 @@ namespace Game
         {
             if (Base.Units.Count < Enemey.Base.Units.Count + 4)
             {
-                if (Base.Units.Creator.CanDeploy(UnitSelection[0]))
+                if (Base.Units.Creator.CanDeploy(Units.Selection[0]))
                 {
                     if(deployment == null)
-                        deployment = Base.Units.Creator.Deploy(UnitSelection[Random.Range(0, UnitSelection.Count)]);
+                        deployment = Base.Units.Creator.Deploy(Units.Selection[Random.Range(0, Units.Selection.Count)]);
                     else
                     {
                         if (deployment.isComplete) deployment = null;
