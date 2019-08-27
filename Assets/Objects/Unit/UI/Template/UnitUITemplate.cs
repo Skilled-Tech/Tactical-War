@@ -41,6 +41,9 @@ namespace Game
 
         public RectTransform RectTransform { get; protected set; }
 
+        public Core Core { get { return Core.Instance; } }
+        public PlayerCore Player { get { return Core.Player; } }
+
         public virtual void Init()
         {
             Button = GetComponent<Button>();
@@ -56,39 +59,59 @@ namespace Game
             RectTransform = GetComponent<RectTransform>();
         }
 
+        public UnitTemplate Template { get; protected set; }
         public UnitData Data { get; protected set; }
-        public virtual void Set(UnitData data)
+        public virtual void Set(UnitTemplate template)
         {
-            this.Data = data;
+            if(Data != null) Data.OnChange -= UpdateState;
 
-            icon.sprite = data.Icon;
+            this.Template = template;
+            Data = Player.Units.Dictionary[template];
+
+            Data.OnChange += UpdateState;
+
+            icon.sprite = template.Icon;
+
+            UpdateState();
         }
 
-        public delegate void ClickDelegate(UnitUITemplate template, UnitData data);
+        protected virtual void UpdateState()
+        {
+            GrayscaleController.On = !Data.Unlocked;
+        }
+
+        public delegate void ClickDelegate(UnitUITemplate template, UnitTemplate data);
         public event ClickDelegate OnClick;
         protected virtual void Click()
         {
-            if (OnClick != null) OnClick(this, Data);
+            if (OnClick != null) OnClick(this, Template);
         }
 
-        public delegate void DragDelegate(UnitUITemplate template, UnitData data, PointerEventData pointerData);
+        #region Drag
+        public delegate void DragDelegate(UnitUITemplate template, UnitTemplate data, PointerEventData pointerData);
 
         public event DragDelegate DragBeginEvent;
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (DragBeginEvent != null) DragBeginEvent(this, Data, eventData);
+            if (DragBeginEvent != null) DragBeginEvent(this, Template, eventData);
         }
 
         public event DragDelegate DragEvent;
         public void OnDrag(PointerEventData eventData)
         {
-            if (DragEvent != null) DragEvent(this, Data, eventData);
+            if (DragEvent != null) DragEvent(this, Template, eventData);
         }
 
         public event DragDelegate DragEndEvent;
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (DragEndEvent != null) DragEndEvent(this, Data, eventData);
+            if (DragEndEvent != null) DragEndEvent(this, Template, eventData);
+        }
+        #endregion
+
+        void OnDestroy()
+        {
+            if (Data != null) Data.OnChange -= UpdateState;
         }
     }
 }

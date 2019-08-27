@@ -63,13 +63,20 @@ namespace Game
 
             SceneManager.LoadScene(element.Scene, LoadSceneMode.Additive);
         }
-
+        
         public virtual void Reload()
         {
             if (Current == null)
                 Scenes.Load(SceneManager.GetActiveScene().name);
             else
                 Load(Current);
+        }
+
+        public virtual void ReturnToMainMenu()
+        {
+            Current = null;
+            
+            Scenes.Load(Scenes.MainMenu);
         }
     }
 }

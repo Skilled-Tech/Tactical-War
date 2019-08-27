@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = Unit.MenuPath + "Data")]
-    public class UnitData : ScriptableObject
+    [CreateAssetMenu(menuName = Unit.MenuPath + "Template")]
+    public class UnitTemplate : ScriptableObject
     {
         [SerializeField]
         protected UnitType type;
@@ -71,8 +71,8 @@ namespace Game
         public class UpgradesData
         {
             [SerializeField]
-            protected UnitUpgradesDataTemplate template;
-            public UnitUpgradesDataTemplate Template { get { return template; } }
+            protected UnitUpgradesTemplate template;
+            public UnitUpgradesTemplate Template { get { return template; } }
 
             [SerializeField]
             protected UnitUpgradeType[] applicables = new UnitUpgradeType[2];
@@ -81,6 +81,22 @@ namespace Game
             public virtual bool isApplicable(UnitUpgradeType type)
             {
                 return applicables.Contains(type);
+            }
+        }
+
+        [SerializeField]
+        protected UnlockData unlock = new UnlockData(new Currency(0, 400));
+        public UnlockData Unlock { get { return unlock; } }
+        [Serializable]
+        public class UnlockData
+        {
+            [SerializeField]
+            protected Currency cost;
+            public Currency Cost { get { return cost; } }
+
+            public UnlockData(Currency cost)
+            {
+                this.cost = cost;
             }
         }
 

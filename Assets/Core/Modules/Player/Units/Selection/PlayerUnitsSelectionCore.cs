@@ -30,10 +30,10 @@ namespace Game
         public int Max { get { return max; } }
 
         [SerializeField]
-        protected UnitData[] list;
-        public UnitData[] List { get { return list; } }
+        protected UnitTemplate[] list;
+        public UnitTemplate[] List { get { return list; } }
 
-        public UnitData this[int index]
+        public UnitTemplate this[int index]
         {
             get
             {
@@ -47,13 +47,13 @@ namespace Game
             }
         }
 
-        public UnitData Context;
+        public UnitTemplate Context;
 
         public override void Configure()
         {
             base.Configure();
 
-            list = new UnitData[max];
+            list = new UnitTemplate[max];
 
             Load();
         }
@@ -92,8 +92,7 @@ namespace Game
             }
             else
             {
-                for (int i = 0; i < max; i++)
-                    list[i] = Core.Units.List[i];
+                
             }
         }
     }

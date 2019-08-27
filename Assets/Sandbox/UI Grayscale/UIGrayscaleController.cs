@@ -30,7 +30,12 @@ namespace Game
                 value = Mathf.Clamp01(value);
 
                 for (int i = 0; i < Targets.Count; i++)
+                {
                     Targets[i].material.SetFloat("_EffectAmount", value);
+                }
+
+                gameObject.SetActive(false);
+                gameObject.SetActive(true);
             }
         }
 

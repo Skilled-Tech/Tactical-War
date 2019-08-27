@@ -50,7 +50,7 @@ namespace Game
         public ProgressBar Progress { get { return progress; } }
 
         public Proponent Player { get; protected set; }
-        public UnitData Data { get; protected set; }
+        public UnitTemplate Data { get; protected set; }
 
         public Level Level { get { return Level.Instance; } }
 
@@ -74,7 +74,7 @@ namespace Game
             }
         }
         
-        public virtual void Set(PlayerProponent player, UnitData data)
+        public virtual void Set(PlayerProponent player, UnitTemplate data)
         {
             this.Player = player;
             this.Data = data;

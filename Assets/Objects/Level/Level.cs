@@ -76,7 +76,7 @@ namespace Game
         {
             Speed.Value = 1f;
 
-            Core.Scenes.Load(Core.Scenes.MainMenu);
+            Core.Levels.ReturnToMainMenu();
         }
 
         public virtual void Retry()

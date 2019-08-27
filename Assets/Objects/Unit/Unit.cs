@@ -23,7 +23,7 @@ namespace Game
 	{
         public const string MenuPath = "Unit/";
 
-        public UnitData Data { get; protected set; }
+        public UnitTemplate Data { get; protected set; }
 
         public UnitType Type { get { return Data.Type; } }
 
@@ -37,7 +37,7 @@ namespace Game
         {
             public Unit Unit { get { return Reference; } }
 
-            public UnitData Data { get { return Unit.Data; } }
+            public UnitTemplate Data { get { return Unit.Data; } }
 
             public UnitType Type { get { return Unit.Type; } }
 
@@ -67,14 +67,14 @@ namespace Game
 
         public Proponent Leader { get; protected set; }
 
-        public virtual void Configure(Proponent leader, UnitData data, UnitUpgradesController upgradesController)
+        public virtual void Configure(Proponent leader, UnitTemplate data, UnitData.UpgradesData upgreades)
         {
             this.Leader = leader;
 
             this.Data = data;
 
             Upgrades = Dependancy.Get<UnitUpgrades>(gameObject);
-            Upgrades.Set(upgradesController);
+            Upgrades.Set(upgreades);
         }
 
         protected override void Awake()

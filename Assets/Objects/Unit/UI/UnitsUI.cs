@@ -23,21 +23,17 @@ namespace Game
 	{
         public UnitsListUI List { get; protected set; }
 
-        public UnitsContextUI Context { get; protected set; }
+        public UnitContextUI Context { get; protected set; }
 
-        public UnitCharacterUI Character { get; protected set; }
-
-        public UnitsUpgradeUI Upgrade { get; protected set; }
-
-        [SerializeField]
-        protected UIElement menu;
-        public UIElement Menu { get { return menu; } }
+        public UnitSelectionUI Selection { get; protected set; }
 
         public abstract class Module : UIElement, IModule<UnitsUI>
         {
             public UnitsUI UI { get; protected set; }
 
             public Core Core { get { return Core.Instance; } }
+
+            public PlayerCore Player { get { return Core.Player; } }
 
             public virtual void Configure(UnitsUI data)
             {
@@ -56,11 +52,9 @@ namespace Game
         {
             List = Dependancy.Get<UnitsListUI>(gameObject);
 
-            Context = Dependancy.Get<UnitsContextUI>(gameObject);
+            Context = Dependancy.Get<UnitContextUI>(gameObject);
 
-            Character = Dependancy.Get<UnitCharacterUI>(gameObject);
-
-            Upgrade = Dependancy.Get<UnitsUpgradeUI>(gameObject);
+            Selection = Dependancy.Get<UnitSelectionUI>(gameObject);
 
             Modules.Configure(this);
         }
@@ -72,15 +66,9 @@ namespace Game
             Modules.Init(this);
         }
 
-        void OnListUnitClicked(UnitUITemplate template, UnitData data)
+        void OnListUnitClicked(UnitUITemplate template, UnitTemplate data)
         {
-            menu.Show();
-
-            Upgrade.Hide();
-
             Context.Set(data);
-
-            Character.Set(data);
         }
     }
 }

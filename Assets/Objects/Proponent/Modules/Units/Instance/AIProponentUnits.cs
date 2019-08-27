@@ -22,10 +22,10 @@ namespace Game
 	public class AIProponentUnits : ProponentUnits
     {
 		[SerializeField]
-        protected List<UnitData> selection;
-        public override IList<UnitData> Selection { get { return selection; } }
+        protected List<UnitTemplate> selection;
+        public override IList<UnitTemplate> Selection { get { return selection; } }
 
-        public override UnitUpgradesController GetUpgrade(UnitData unit)
+        public override UnitData.UpgradesData GetUpgrade(UnitTemplate unit)
         {
             return null;
         }

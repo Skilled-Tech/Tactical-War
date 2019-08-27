@@ -33,7 +33,7 @@ namespace Game
 
         public RectTransform RectTransform { get; protected set; }
 
-        public IList<UnitData> List { get { return Core.Player.Units.List; } }
+        public IList<UnitTemplate> List { get { return Core.Units.List; } }
 
         public override void Configure(UnitsUI data)
         {
@@ -61,7 +61,7 @@ namespace Game
             }
         }
 
-        UnitUITemplate CreateTemplate(UnitData data)
+        UnitUITemplate CreateTemplate(UnitTemplate data)
         {
             var instance = Instantiate(template, ScrollRect.content);
 
@@ -76,25 +76,25 @@ namespace Game
         }
 
         public event UnitUITemplate.ClickDelegate OnClick;
-        void TemplateClicked(UnitUITemplate template, UnitData data)
+        void TemplateClicked(UnitUITemplate template, UnitTemplate data)
         {
             if (OnClick != null) OnClick(template, data);
         }
 
         public event UnitUITemplate.DragDelegate OnTemplateDragBegin;
-        void TemplateDragBegin(UnitUITemplate template, UnitData unit, PointerEventData pointerData)
+        void TemplateDragBegin(UnitUITemplate template, UnitTemplate unit, PointerEventData pointerData)
         {
             if (OnTemplateDragBegin != null) OnTemplateDragBegin(template, unit, pointerData);
         }
 
         public event UnitUITemplate.DragDelegate OnTemplateDrag;
-        void TemplateDrag(UnitUITemplate template, UnitData unit, PointerEventData pointerData)
+        void TemplateDrag(UnitUITemplate template, UnitTemplate unit, PointerEventData pointerData)
         {
             if (OnTemplateDrag != null) OnTemplateDrag(template, unit, pointerData);
         }
 
         public event UnitUITemplate.DragDelegate OnTemplateDragEnd;
-        void TemplateDragEnd(UnitUITemplate template, UnitData unit, PointerEventData pointerData)
+        void TemplateDragEnd(UnitUITemplate template, UnitTemplate unit, PointerEventData pointerData)
         {
             if (OnTemplateDragEnd != null) OnTemplateDragEnd(template, unit, pointerData);
         }

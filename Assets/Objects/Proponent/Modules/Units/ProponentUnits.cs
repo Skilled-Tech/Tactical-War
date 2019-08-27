@@ -21,8 +21,8 @@ namespace Game
 {
 	public abstract class ProponentUnits : Proponent.Module
 	{
-		public abstract IList<UnitData> Selection { get; }
+		public abstract IList<UnitTemplate> Selection { get; }
 
-        public abstract UnitUpgradesController GetUpgrade(UnitData unit);
+        public abstract UnitData.UpgradesData GetUpgrade(UnitTemplate unit);
 	}
 }

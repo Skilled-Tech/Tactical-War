@@ -21,11 +21,11 @@ namespace Game
 {
     public class PlayerProponentUnits : ProponentUnits
     {
-        public override IList<UnitData> Selection { get { return Core.Instance.Player.Units.Selection.List; } }
+        public override IList<UnitTemplate> Selection { get { return Core.Instance.Player.Units.Selection.List; } }
 
-        public override UnitUpgradesController GetUpgrade(UnitData unit)
+        public override UnitData.UpgradesData GetUpgrade(UnitTemplate unit)
         {
-            return Core.Instance.Player.Units.Upgrades.Find(unit);
+            return Core.Instance.Player.Units.Dictionary[unit].Upgrades;
         }
     }
 }

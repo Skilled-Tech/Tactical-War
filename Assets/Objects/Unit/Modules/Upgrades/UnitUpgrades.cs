@@ -23,27 +23,27 @@ namespace Game
     {
         public const string MenuPath = Unit.MenuPath + "Upgrades/";
 
-        new public UnitUpgradesController Controller { get; protected set; }
+        new public UnitData.UpgradesData Data { get; protected set; }
 
-        public UnitUpgradesController.TypeController Damage { get; protected set; }
+        public UnitData.UpgradesData.TypeData Damage { get; protected set; }
 
-        public UnitUpgradesController.TypeController Defense { get; protected set; }
+        public UnitData.UpgradesData.TypeData Defense { get; protected set; }
 
-        public UnitUpgradesController.TypeController Range { get; protected set; }
+        public UnitData.UpgradesData.TypeData Range { get; protected set; }
 
-        public virtual void Set(UnitUpgradesController controller)
+        public virtual void Set(UnitData.UpgradesData data)
         {
-            this.Controller = controller;
+            this.Data = data;
 
-            if(controller == null)
+            if(data == null)
             {
 
             }
             else
             {
-                foreach (var type in controller.Types)
+                foreach (var type in data.Types)
                 {
-                    switch (type.name) //Temporary Solution, don't laugh
+                    switch (type.Name) //Temporary Solution, don't laugh
                     {
                         case nameof(Damage):
                             Damage = type;

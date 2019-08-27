@@ -21,7 +21,7 @@ using TMPro;
 
 namespace Game
 {
-	public class UnitsUpgradeUI : UnitsUI.Module
+	public class UnitContextUpgradeUI : UnitContextUI.Module
 	{
         [SerializeField]
         protected RectTransform panel;
@@ -33,8 +33,6 @@ namespace Game
 
         public List<UnitsUpgradePropertyTemplate> Templates { get; protected set; }
 
-        public UnitData Data { get; protected set; }
-
         public override void Configure(UnitsUI data)
         {
             base.Configure(data);
@@ -42,23 +40,21 @@ namespace Game
             Templates = new List<UnitsUpgradePropertyTemplate>();
         }
 
-        public virtual void Set(UnitData unit, UnitUpgradesController upgrades)
+        public override void Show()
         {
-            this.Data = unit;
+            base.Show();
 
             Clear();
 
-            foreach (var property in upgrades.Types)
+            foreach (var property in Core.Player.Units.Dictionary[Data.Asset].Upgrades.Types)
             {
                 var instance = CreateProperty(property);
 
                 Templates.Add(instance);
             }
-
-            Show();
         }
 
-        protected virtual UnitsUpgradePropertyTemplate CreateProperty(UnitUpgradesController.TypeController property)
+        protected virtual UnitsUpgradePropertyTemplate CreateProperty(UnitData.UpgradesData.TypeData property)
         {
             var instance = Instantiate(template, panel);
 

@@ -49,29 +49,22 @@ namespace Game
         public Core Core { get { return Core.Instance; } }
         public Funds Funds { get { return Core.Player.Funds; } }
 
-        public UnitUpgradesController.TypeController Reference { get; protected set; }
-        public virtual void Set(UnitUpgradesController.TypeController reference)
+        public UnitData.UpgradesData.TypeData Data { get; protected set; }
+        public virtual void Set(UnitData.UpgradesData.TypeData data)
         {
-            this.Reference = reference;
-
-            reference.OnUpgrade += OnUpgrade;
+            this.Data = data;
 
             GrayscaleController = GetComponent<UIGrayscaleController>();
             GrayscaleController.Init();
 
-            icon.sprite = reference.Target.Icon;
+            icon.sprite = data.Template.Target.Icon;
 
-            label.text = reference.Target.name + " Upgrade";
+            label.text = data.Template.Target.name + " Upgrade";
 
             button.onClick.AddListener(OnButon);
 
             Funds.OnValueChanged += OnFundsChanged;
 
-            UpdateState();
-        }
-
-        void OnUpgrade()
-        {
             UpdateState();
         }
 
@@ -82,7 +75,7 @@ namespace Game
 
         void UpdateState()
         {
-            if (Reference.Maxed)
+            if (Data.Maxed)
             {
                 button.interactable = false;
 
@@ -90,12 +83,12 @@ namespace Game
             }
             else
             {
-                price.text = Reference.Next.Cost.ToString();
+                price.text = Data.Next.Cost.ToString();
 
-                button.interactable = Reference.CanUpgrade(Funds) && !Reference.Maxed;
+                button.interactable = Data.CanUpgrade(Funds) && !Data.Maxed;
             }
 
-            progression.Value = (int)Reference.Index;
+            progression.Value = (int)Data.Value;
 
             GrayscaleController.On = !button.interactable;
 
@@ -104,13 +97,13 @@ namespace Game
 
         void OnButon()
         {
-            Reference.Upgrade(Funds);
+            Data.Upgrade(Funds);
+
+            UpdateState();
         }
 
         void OnDestroy()
         {
-            Reference.OnUpgrade -= OnUpgrade;
-
             Funds.OnValueChanged -= OnFundsChanged;
         }
     }

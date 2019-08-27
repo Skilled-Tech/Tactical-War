@@ -19,12 +19,19 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = UnitUpgrades.MenuPath + "Data")]
-    public class UnitUpgradesDataTemplate : ScriptableObjectWrapper<UnitUpgradesData>
+	public class UnitSelectionUI : UnitsUI.Module
 	{
-        public UnitUpgradesDataTemplate()
+        public UnitSelectionListUI List { get; protected set; }
+
+        public UnitSelectionDragUI Drag { get; protected set; }
+
+        public override void Configure(UnitsUI data)
         {
-            data = UnitUpgradesData.Default;
+            base.Configure(data);
+
+            List = Dependancy.Get<UnitSelectionListUI>(gameObject);
+
+            Drag = Dependancy.Get<UnitSelectionDragUI>(gameObject);
         }
     }
 }

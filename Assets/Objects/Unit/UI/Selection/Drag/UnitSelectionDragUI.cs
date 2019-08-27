@@ -21,8 +21,8 @@ using UnityEngine.EventSystems;
 
 namespace Game
 {
-	public class UnitSelectionDrag : MonoBehaviour
-	{
+	public class UnitSelectionDragUI : UnitsUI.Module
+    {
         [SerializeField]
         protected GameObject template;
         public GameObject Template { get { return template; } }
@@ -42,15 +42,17 @@ namespace Game
                 Instance.transform.localPosition = localPoint;
         }
 
-        public Core Core { get { return Core.Instance; } }
-
-        void Awake()
+        public override void Configure(UnitsUI data)
         {
+            base.Configure(data);
+
             RectTransform = GetComponent<RectTransform>();
         }
 
-        void Start()
+        public override void Init()
         {
+            base.Init();
+
             list.OnTemplateDragBegin += ListTemplateDragBegin;
             list.OnTemplateDrag += ListTemplateDrag;
             list.OnTemplateDragEnd += ListTemplateDragEnd;
@@ -60,12 +62,12 @@ namespace Game
         {
             var instance = Instantiate(template, RectTransform);
 
-            instance.name = source.Data.name + " Drag Template";
+            instance.name = source.Template.name + " Drag Template";
 
             var script = instance.GetComponent<UnitUITemplate>();
 
             script.Init();
-            script.Set(source.Data);
+            script.Set(source.Template);
 
             script.LayoutElement.ignoreLayout = true;
             script.CanvasGroup.blocksRaycasts = false;
@@ -75,15 +77,21 @@ namespace Game
             return script;
         }
 
-        void ListTemplateDragBegin(UnitUITemplate template, UnitData unit, PointerEventData pointerData)
+        public event Action OnDragBegin;
+        void ListTemplateDragBegin(UnitUITemplate template, UnitTemplate unit, PointerEventData pointerData)
         {
             if (Instance == null)
             {
-                Core.Player.Units.Selection.Context = template.Data;
+                if(template.Data.Unlocked)
+                {
+                    Core.Player.Units.Selection.Context = template.Template;
 
-                Instance = CreateTemplate(template);
+                    Instance = CreateTemplate(template);
 
-                SetTemplatePosition(pointerData);
+                    SetTemplatePosition(pointerData);
+
+                    if (OnDragBegin != null) OnDragBegin();
+                }
             }
             else
             {
@@ -91,7 +99,7 @@ namespace Game
             }
         }
 
-        void ListTemplateDrag(UnitUITemplate template, UnitData unit, PointerEventData pointerData)
+        void ListTemplateDrag(UnitUITemplate template, UnitTemplate unit, PointerEventData pointerData)
         {
             if (Instance == null)
             {
@@ -99,14 +107,15 @@ namespace Game
             }
             else
             {
-                if (Instance.Data == template.Data)
+                if (Instance.Template == template.Template)
                 {
                     SetTemplatePosition(pointerData);
                 }
             }
         }
 
-        void ListTemplateDragEnd(UnitUITemplate template, UnitData unit, PointerEventData pointerData)
+        public event Action OnDragEnd;
+        void ListTemplateDragEnd(UnitUITemplate template, UnitTemplate unit, PointerEventData pointerData)
         {
             if (Instance == null)
             {
@@ -119,6 +128,8 @@ namespace Game
                 Instance = null;
 
                 Core.Player.Units.Selection.Context = null;
+
+                if (OnDragEnd != null) OnDragEnd();
             }
         }
     }

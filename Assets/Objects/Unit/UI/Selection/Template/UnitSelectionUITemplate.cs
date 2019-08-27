@@ -29,13 +29,11 @@ namespace Game
         protected TMP_Text label;
         public TMP_Text Label { get { return label; } }
 
-        new public RectTransform transform { get; protected set; }
-
-        public Core Core { get { return Core.Instance; } }
+        public RateTransition Transition { get; protected set; }
 
         public PlayerUnitsSelectionCore SelectionCore { get { return Core.Player.Units.Selection; } }
 
-        new public UnitData Target
+        new public UnitTemplate Target
         {
             get
             {
@@ -48,22 +46,33 @@ namespace Game
                 Set(Target);
             }
         }
-        public UnitData Context { get { return SelectionCore.Context; } }
+        public UnitTemplate Context { get { return SelectionCore.Context; } }
 
         public int Index { get; protected set; }
+
         public virtual void Init(int index)
         {
             this.Index = index;
 
+            Transition = new RateTransition(this, 1f);
+            Transition.Speed = 15f;
+            Transition.OnValueChanged += OnTransition;
+
             Init();
         }
-        public override void Init()
-        {
-            transform = GetComponent<RectTransform>();
 
-            base.Init();
+        void OnTransition(float value)
+        {
+            CanvasGroup.alpha = Mathf.Lerp(0.4f, 1f, value);
+
+            RectTransform.anchoredPosition = new Vector2(RectTransform.anchoredPosition.x, Mathf.Lerp(-RectTransform.sizeDelta.y / 3f, 0f, value));
         }
-        
+
+        public void OnTemplateDragEnd()
+        {
+            if (Template != Target) Target = Template;
+        }
+
         void OnEnable()
         {
             StartCoroutine(OnEnableProcedure());
@@ -72,17 +81,19 @@ namespace Game
         {
             yield return new WaitForEndOfFrame();
 
-            Transition = 1f;
+            Transition.Value = 1f;
 
             yield return new WaitForSeconds(0.35f);
 
-            TransitionTo(0f);
+            Transition.To(0f);
         }
 
-        public override void Set(UnitData data)
+        public override void Set(UnitTemplate data)
         {
             if(data == null)
             {
+                base.Template = data;
+
                 label.text = (Index + 1).ToString();
             }
             else
@@ -105,7 +116,9 @@ namespace Game
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            TransitionTo(1f);
+            Transition.To(1f);
+
+            RectTransform.SetAsLastSibling();
 
             if (Context == null)
             {
@@ -113,13 +126,15 @@ namespace Game
             }
             else
             {
-                Target = Context;
+                Set(Context);
             }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            TransitionTo(0f);
+            Transition.To(0f);
+
+            RectTransform.SetSiblingIndex(Index);
 
             if (Context == null)
             {
@@ -127,52 +142,8 @@ namespace Game
             }
             else
             {
-                Target = null;
+                Set(Target);
             }
-        }
-
-        public float _transition = 0f;
-        public virtual float Transition
-        {
-            get
-            {
-                return _transition;
-            }
-            set
-            {
-                value = Mathf.Clamp01(value);
-
-                _transition = value;
-
-                CanvasGroup.alpha = Mathf.Lerp(0.6f, 1f, Transition);
-
-                var position = transform.anchoredPosition;
-                position.y = Mathf.Lerp(-transform.sizeDelta.y * 0.8f, -transform.sizeDelta.y / 2f, Transition);
-                transform.anchoredPosition = position;
-            }
-        }
-
-        void TransitionTo(float height)
-        {
-            if (transitionToCoroutine != null)
-                StopCoroutine(transitionToCoroutine);
-
-            transitionToCoroutine = StartCoroutine(TransitionToProcedure(height));
-        }
-
-        Coroutine transitionToCoroutine;
-        IEnumerator TransitionToProcedure(float target)
-        {
-            var position = transform.localPosition;
-
-            while(Transition != target)
-            {
-                Transition = Mathf.MoveTowards(Transition, target, 15 * Time.deltaTime);
-
-                yield return new WaitForEndOfFrame();
-            }
-
-            transitionToCoroutine = null;
         }
     }
 }

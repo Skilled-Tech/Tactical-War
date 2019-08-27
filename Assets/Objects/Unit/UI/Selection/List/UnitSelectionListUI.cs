@@ -19,31 +19,55 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class UnitSelectionListUI : MonoBehaviour
+	public class UnitSelectionListUI : UnitsUI.Module
 	{
 		[SerializeField]
         protected GameObject template;
         public GameObject Template { get { return template; } }
 
-        public UnitSelectionUITemplate[] Templates { get; protected set; }
+        [SerializeField]
+        protected float spacing = -10f;
+        public float Spacing { get { return spacing; } }
 
-        public Core Core { get { return Core.Instance; } }
+        public UnitSelectionUITemplate[] Templates { get; protected set; }
 
         public PlayerUnitsSelectionCore SelectionCore { get { return Core.Player.Units.Selection; } }
 
-        void Start()
+        public override void Init()
         {
+            base.Init();
+
             Templates = new UnitSelectionUITemplate[SelectionCore.Max];
+
+            var templateWidth = Template.GetComponent<RectTransform>().sizeDelta.x;
+
+            var templateSpace = templateWidth + spacing;
+
+            var totalWidth = templateSpace * (SelectionCore.Max - 1);
 
             for (int i = 0; i < SelectionCore.Max; i++)
             {
+                var rate = i / (SelectionCore.Max - 1f);
+
                 Templates[i] = CreateTemplate(SelectionCore.List[i], i);
 
-                Templates[i].transform.localEulerAngles = Vector3.forward * Mathf.Lerp(10, -10, i / (SelectionCore.Max - 1f));
+                Templates[i].RectTransform.localEulerAngles = Vector3.forward * Mathf.Lerp(10, -10, rate);
+
+                var xPosition = Mathf.Lerp(-totalWidth / 2f, totalWidth / 2f, rate);
+
+                Templates[i].RectTransform.anchoredPosition = new Vector2(xPosition, 0f);
             }
+
+            UI.Selection.Drag.OnDragEnd += OnTemplateDragEnd;
         }
 
-        UnitSelectionUITemplate CreateTemplate(UnitData unit, int index)
+        void OnTemplateDragEnd()
+        {
+            for (int i = 0; i < Templates.Length; i++)
+                Templates[i].OnTemplateDragEnd();
+        }
+
+        UnitSelectionUITemplate CreateTemplate(UnitTemplate unit, int index)
         {
             var instance = Instantiate(template, transform);
 

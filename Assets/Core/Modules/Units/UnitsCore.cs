@@ -24,10 +24,14 @@ namespace Game
 	public class UnitsCore : Core.Module
 	{
         [SerializeField]
-        protected UnitData[] list;
-        public UnitData[] List { get { return list; } }
+        protected UnitTemplate[] list;
+        public UnitTemplate[] List { get { return list; } }
 
-        public virtual UnitData Find(string name)
+        public UnitTemplate this[int index] { get { return list[index]; } }
+
+        public int Count { get { return list.Length; } }
+
+        public virtual UnitTemplate Find(string name)
         {
             for (int i = 0; i < list.Length; i++)
                 if (list[i].name == name)

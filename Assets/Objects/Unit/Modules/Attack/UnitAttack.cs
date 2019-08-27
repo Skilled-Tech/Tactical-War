@@ -46,7 +46,7 @@ namespace Game
             {
                 if (Upgrades.Range == null) return 0;
 
-                return (uint)(Upgrades.Range.Index / 3);
+                return (uint)(Upgrades.Range.Value / 3);
             }
         }
 

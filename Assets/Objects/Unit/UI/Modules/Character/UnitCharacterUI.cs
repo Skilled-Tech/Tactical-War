@@ -35,9 +35,9 @@ namespace Game
         protected RectTransform slot;
         public RectTransform Slot { get { return slot; } }
 
-        public UnitData Data { get; protected set; }
+        public UnitTemplate Data { get; protected set; }
 
-        public virtual void Set(UnitData data)
+        public virtual void Set(UnitTemplate data)
         {
             label.text = data.name;
 
@@ -57,7 +57,7 @@ namespace Game
 
         public Unit Model { get; protected set; }
 
-        protected virtual Unit InstantiateModel(UnitData data)
+        protected virtual Unit InstantiateModel(UnitTemplate data)
         {
             var instance = Instantiate(data.Prefab, slot);
 

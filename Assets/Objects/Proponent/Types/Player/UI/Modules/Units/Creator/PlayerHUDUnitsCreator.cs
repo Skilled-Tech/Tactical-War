@@ -43,7 +43,7 @@ namespace Game
             UpdateState();
         }
 
-        public virtual void SetSelection(IList<UnitData> list)
+        public virtual void SetSelection(IList<UnitTemplate> list)
         {
             Clear();
 
@@ -74,7 +74,7 @@ namespace Game
                 Elements[i].UpdateState();
         }
 
-        public virtual PlayerHUDUnitCreationTemplate Create(UnitData data)
+        public virtual PlayerHUDUnitCreationTemplate Create(UnitTemplate data)
         {
             var instance = Instantiate(template, transform);
 

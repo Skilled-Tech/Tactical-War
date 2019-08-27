@@ -19,15 +19,20 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [Serializable]
-    public struct UnitUpgradesData
+    [CreateAssetMenu(menuName = UnitUpgrades.MenuPath + "Template")]
+    public class UnitUpgradesTemplate : ScriptableObject
     {
         [SerializeField]
-        TypeData[] types;
+        TypeData[] types = new TypeData[]
+            {
+                new TypeData(null, 10, new Currency(0, 300), 6),
+                new TypeData(null, 10, new Currency(0, 300), 6),
+                new TypeData(null, 10, new Currency(0, 300), 15)
+            };
         public TypeData[] Types { get { return types; } }
 
         [Serializable]
-        public struct TypeData
+        public class TypeData
         {
             [SerializeField]
             UnitUpgradeType target;
@@ -38,7 +43,7 @@ namespace Game
             public RankData[] Ranks { get { return ranks; } }
 
             [Serializable]
-            public struct RankData
+            public class RankData
             {
                 [SerializeField]
                 Currency cost;
@@ -83,22 +88,6 @@ namespace Game
 
                 for (int i = 0; i < ranks.Length; i++)
                     ranks[i] = new RankData(initalCost * (i + 1), initialPercentage * (i + 1));
-            }
-        }
-
-        public static UnitUpgradesData Default
-        {
-            get
-            {
-                var data = new UnitUpgradesData();
-
-                data.types = new TypeData[3];
-
-                data.types[0] = new TypeData(null, 10, new Currency(0, 300), 6);
-                data.types[1] = new TypeData(null, 10, new Currency(0, 300), 6);
-                data.types[2] = new TypeData(null, 10, new Currency(0, 300), 15);
-
-                return data;
             }
         }
     }

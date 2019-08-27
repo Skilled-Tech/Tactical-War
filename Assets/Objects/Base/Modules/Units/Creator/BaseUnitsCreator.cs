@@ -27,7 +27,7 @@ namespace Game
         [Serializable]
         public class Deployment
         {
-            public UnitData Unit { get; protected set; }
+            public UnitTemplate Unit { get; protected set; }
 
             public float Duration { get; protected set; }
 
@@ -55,7 +55,7 @@ namespace Game
                 if (OnCompletion != null) OnCompletion(this);
             }
 
-            public Deployment(MonoBehaviour behaviour, UnitData unit)
+            public Deployment(MonoBehaviour behaviour, UnitTemplate unit)
             {
                 this.Unit = unit;
 
@@ -72,13 +72,13 @@ namespace Game
             Deployments = new List<Deployment>();
         }
 
-        public virtual bool CanDeploy(UnitData unit)
+        public virtual bool CanDeploy(UnitTemplate unit)
         {
             return Units.Count + Deployments.Count < Units.Max && Proponent.Funds.CanAfford(unit.Deployment.Cost);
         }
 
         public event Action<Deployment> OnDeployment;
-        public virtual Deployment Deploy(UnitData data)
+        public virtual Deployment Deploy(UnitTemplate data)
         {
             if(!Proponent.Funds.CanAfford(data.Deployment.Cost))
                 throw new Exception(Proponent.name + "Base trying to Deploy a Unit that the Proponent can't afford, Proponent: ");
@@ -107,7 +107,7 @@ namespace Game
         }
 
         public event Action<Unit> OnSpawn;
-        protected virtual Unit Spawn(UnitData data)
+        protected virtual Unit Spawn(UnitTemplate data)
         {
             var instance = Instantiate(data.Prefab, transform.position, transform.rotation);
 
