@@ -26,7 +26,7 @@ namespace Game
     [RequireComponent(typeof(CanvasGroup))]
     [RequireComponent(typeof(LayoutElement))]
     public class UnitUITemplate : UIElement, IBeginDragHandler, IDragHandler, IEndDragHandler
-	{
+    {
         [SerializeField]
         protected Image icon;
         public Image Icon { get { return icon; } }
@@ -39,6 +39,8 @@ namespace Game
 
         public LayoutElement LayoutElement { get; protected set; }
 
+        public RectTransform RectTransform { get; protected set; }
+
         public virtual void Init()
         {
             Button = GetComponent<Button>();
@@ -50,6 +52,8 @@ namespace Game
             CanvasGroup = GetComponent<CanvasGroup>();
 
             LayoutElement = GetComponent<LayoutElement>();
+
+            RectTransform = GetComponent<RectTransform>();
         }
 
         public UnitData Data { get; protected set; }
@@ -67,22 +71,24 @@ namespace Game
             if (OnClick != null) OnClick(this, Data);
         }
 
-        public event Action<UnitUITemplate, PointerEventData> DragBeginEvent;
+        public delegate void DragDelegate(UnitUITemplate template, UnitData data, PointerEventData pointerData);
+
+        public event DragDelegate DragBeginEvent;
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (DragBeginEvent != null) DragBeginEvent(this, eventData);
+            if (DragBeginEvent != null) DragBeginEvent(this, Data, eventData);
         }
 
-        public event Action<UnitUITemplate, PointerEventData> DragEvent;
+        public event DragDelegate DragEvent;
         public void OnDrag(PointerEventData eventData)
         {
-            if (DragEvent != null) DragEvent(this, eventData);
+            if (DragEvent != null) DragEvent(this, Data, eventData);
         }
 
-        public event Action<UnitUITemplate, PointerEventData> DragEndEvent;
+        public event DragDelegate DragEndEvent;
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (DragEndEvent != null) DragEndEvent(this, eventData);
+            if (DragEndEvent != null) DragEndEvent(this, Data, eventData);
         }
     }
 }

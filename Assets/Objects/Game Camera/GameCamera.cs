@@ -16,12 +16,15 @@ using UnityEditorInternal;
 
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using UnityEngine.EventSystems;
 
 namespace Game
 {
     [RequireComponent(typeof(Camera))]
     public class GameCamera : MonoBehaviour
     {
+        public Transform target;
+
         new public Camera camera { get; protected set; }
 
         public GameCameraPanZone PanZone { get; protected set; }
@@ -31,24 +34,69 @@ namespace Game
         public float Range { get { return range; } }
 
         [SerializeField]
-        protected float speed;
+        protected float speed = 1f;
         public float Speed { get { return speed; } }
+
+        [SerializeField]
+        protected float deAcceleration = 10f;
+        public float DeAcceleration { get { return deAcceleration; } }
+
+        public float XPosition
+        {
+            get
+            {
+                return transform.position.x;
+            }
+            set
+            {
+                var position = transform.position;
+
+                position.x = Mathf.Clamp(value, -range, range);
+
+                transform.position = position;
+            }
+        }
+
+        public float Velocity { get; protected set; }
 
         protected virtual void Start()
         {
             camera = GetComponent<Camera>();
 
             PanZone = FindObjectOfType<GameCameraPanZone>();
+
+            PanZone.DragEvent += OnDrag;
+        }
+
+        void OnDrag(PointerEventData obj)
+        {
+            Velocity = ScreenDeltaToVelocity(-PanZone.Delta).x;
+
+            XPosition += Velocity * speed;
         }
 
         protected virtual void Update()
         {
-            var position = transform.position;
+            if(PanZone.PointerDown)
+            {
+                
+            }
+            else
+            {
+                Velocity = Mathf.MoveTowards(Velocity, 0f, deAcceleration * Time.deltaTime);
 
-            position.x -= PanZone.Delta.x * speed * Time.unscaledDeltaTime;
-            position.x = Mathf.Clamp(position.x, -range, range);
+                XPosition += Velocity * speed;
+            }
+        }
 
-            transform.position = position;
+        protected virtual Vector3 ScreenDeltaToVelocity(Vector2 delta)
+        {
+            return ScreenToWorld(delta) - ScreenToWorld(Vector3.zero);
+        }
+
+        protected virtual Vector3 ScreenToWorld(Vector3 coordinate)
+        {
+            return camera.ScreenToWorldPoint(coordinate);
         }
     }
 }

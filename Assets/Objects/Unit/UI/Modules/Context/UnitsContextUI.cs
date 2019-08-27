@@ -24,18 +24,6 @@ namespace Game
 	public class UnitsContextUI : UnitsUI.Module
 	{
         [SerializeField]
-        protected Image icon;
-        public Image Icon { get { return icon; } }
-
-        [SerializeField]
-        protected TMP_Text label;
-        public TMP_Text Label { get { return label; } }
-
-        [SerializeField]
-        protected TMP_Text type;
-        public TMP_Text Type { get { return type; } }
-
-        [SerializeField]
         protected TMP_Text description;
         public TMP_Text Description { get { return description; } }
 
@@ -53,12 +41,6 @@ namespace Game
         public virtual void Set(UnitData data)
         {
             this.Data = data;
-
-            label.text = data.name;
-
-            type.text = data.Type.name;
-
-            icon.sprite = data.Icon;
 
             description.text = data.Description;
 

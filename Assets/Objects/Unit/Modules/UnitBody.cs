@@ -46,22 +46,11 @@ namespace Game
             CharacterAnimation = Dependancy.Get<CharacterAnimation>(gameObject);
         }
 
-        public static bool off = false;
-        public static void ToggleOff()
-        {
-            off = !off;
-        }
-
         public override void Init()
         {
             base.Init();
 
             Animator.SetFloat("Cycle Offset", Random.Range(0f, 1f));
-        }
-
-        private void Update()
-        {
-            transform.GetChild(3).gameObject.SetActive(!off);
         }
     }
 }

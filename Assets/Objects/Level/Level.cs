@@ -83,7 +83,7 @@ namespace Game
         {
             Speed.Value = 1f;
 
-            SceneManager.LoadScene(gameObject.scene.name);
+            Core.Instance.Levels.Reload();
         }
 
         protected virtual void OnDestroy()

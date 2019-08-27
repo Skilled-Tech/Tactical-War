@@ -47,9 +47,6 @@ namespace Game
             else
                 Time.timeScale = Speed.Value;
 
-            if(State == LevelPauseState.None)
-                UnitBody.ToggleOff();
-
             if (OnStateChanged != null) OnStateChanged(_state);
         }
     }

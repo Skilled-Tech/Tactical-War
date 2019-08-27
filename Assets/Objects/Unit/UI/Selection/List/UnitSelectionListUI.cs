@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class UnitSelectionUI : MonoBehaviour
+	public class UnitSelectionListUI : MonoBehaviour
 	{
 		[SerializeField]
         protected GameObject template;

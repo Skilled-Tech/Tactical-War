@@ -89,8 +89,6 @@ namespace Game
 
             Attack = Dependancy.Get<UnitAttack>(gameObject);
 
-            
-
             Bounds = GetComponent<Collider2D>().bounds;
 
             Modules.Configure(this);

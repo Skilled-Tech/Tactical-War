@@ -64,9 +64,9 @@ namespace Game
                 if (Index == 0)
                     isMoving = !Navigator.MoveTo(Target.transform.position, Attack.Distance + CalculatePersonalSpace(Target));
                 else
-                    isMoving = !MoveTo(Base.Units.List[Index - 1], Vector3.left, Spacing, 0f);
+                    isMoving = !Navigator.MoveTo(Base.Units.List[Index - 1].transform.position, Spacing + CalculatePersonalSpace(Base.Units.List[Index - 1]));
 
-                if (Target != null && !isMoving && !isAttacking)
+                if (Target != null && !isMoving && !isAttacking && (Index == 0 || !Base.Units.List[Index - 1].Controller.isMoving))
                     Attack.Do(Target);
             }
         }

@@ -23,25 +23,84 @@ using UnityEngine.EventSystems;
 
 namespace Game
 {
-    public class GameCameraPanZone : MonoBehaviour, IPointerDownHandler, IDragHandler
+    public class GameCameraPanZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler, IPointerUpHandler
     {
+        public int? PointerID { get; protected set; }
+        public bool PointerDown { get { return PointerID.HasValue; } }
+
         public Vector2 Delta { get; protected set; }
 
-        public float acceleration = 10f;
-
-        void Update()
-        {
-            Delta = Vector2.MoveTowards(Delta, Vector2.zero, acceleration * Time.unscaledDeltaTime);
-        }
-
+        public event Action<PointerEventData> PointerDownEvent;
         public void OnPointerDown(PointerEventData eventData)
         {
-            Delta = Vector2.zero;
+            if (PointerID.HasValue)
+            {
+
+            }
+            else
+            {
+                PointerID = eventData.pointerId;
+
+                Delta = eventData.delta;
+
+                if (PointerDownEvent != null) PointerDownEvent(eventData);
+            }
         }
-        
+
+        public event Action<PointerEventData> DragEvent;
         public void OnDrag(PointerEventData eventData)
         {
-            Delta = eventData.delta;
+            if(PointerID.HasValue)
+            {
+                if(PointerID.Value == eventData.pointerId)
+                {
+                    Delta = eventData.delta;
+
+                    if (DragEvent != null) DragEvent(eventData);
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        public event Action<PointerEventData> DragEndEvent;
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (PointerID.HasValue)
+            {
+                if (PointerID.Value == eventData.pointerId)
+                {
+                    Delta = eventData.delta;
+
+                    if (DragEndEvent != null) DragEndEvent(eventData);
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        public event Action<PointerEventData> PointerUpEvent;
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (PointerID.HasValue)
+            {
+                if (PointerID.Value == eventData.pointerId)
+                {
+                    Delta = eventData.delta;
+
+                    PointerID = null;
+
+                    if (PointerUpEvent != null) PointerUpEvent(eventData);
+                }
+            }
+            else
+            {
+
+            }
         }
     }
 }

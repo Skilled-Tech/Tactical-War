@@ -47,11 +47,29 @@ namespace Game
 
         public ScenesCore Scenes { get { return Core.Scenes; } }
 
+        public override void Configure()
+        {
+            base.Configure();
+
+            Current = null;
+        }
+
+        public ElementData Current { get; protected set; }
         public virtual void Load(ElementData element)
         {
+            Current = element;
+
             SceneManager.LoadScene(Core.Scenes.Level.Name);
 
             SceneManager.LoadScene(element.Scene, LoadSceneMode.Additive);
+        }
+
+        public virtual void Reload()
+        {
+            if (Current == null)
+                Scenes.Load(SceneManager.GetActiveScene().name);
+            else
+                Load(Current);
         }
     }
 }

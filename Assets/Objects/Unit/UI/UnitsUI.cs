@@ -25,7 +25,13 @@ namespace Game
 
         public UnitsContextUI Context { get; protected set; }
 
+        public UnitCharacterUI Character { get; protected set; }
+
         public UnitsUpgradeUI Upgrade { get; protected set; }
+
+        [SerializeField]
+        protected UIElement menu;
+        public UIElement Menu { get { return menu; } }
 
         public abstract class Module : UIElement, IModule<UnitsUI>
         {
@@ -52,6 +58,8 @@ namespace Game
 
             Context = Dependancy.Get<UnitsContextUI>(gameObject);
 
+            Character = Dependancy.Get<UnitCharacterUI>(gameObject);
+
             Upgrade = Dependancy.Get<UnitsUpgradeUI>(gameObject);
 
             Modules.Configure(this);
@@ -59,14 +67,20 @@ namespace Game
 
         void Start()
         {
-            List.OnUnitClicked += OnListUnitClicked;
+            List.OnClick += OnListUnitClicked;
 
             Modules.Init(this);
         }
 
         void OnListUnitClicked(UnitUITemplate template, UnitData data)
         {
+            menu.Show();
+
+            Upgrade.Hide();
+
             Context.Set(data);
+
+            Character.Set(data);
         }
     }
 }

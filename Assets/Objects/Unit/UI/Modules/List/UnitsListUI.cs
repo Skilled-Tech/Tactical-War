@@ -31,6 +31,8 @@ namespace Game
 
         public ScrollRect ScrollRect { get; protected set; }
 
+        public RectTransform RectTransform { get; protected set; }
+
         public IList<UnitData> List { get { return Core.Player.Units.List; } }
 
         public override void Configure(UnitsUI data)
@@ -38,6 +40,8 @@ namespace Game
             base.Configure(data);
 
             ScrollRect = GetComponent<ScrollRect>();
+
+            RectTransform = GetComponent<RectTransform>();
         }
 
         public override void Init()
@@ -71,62 +75,28 @@ namespace Game
             return script;
         }
 
-        public event UnitUITemplate.ClickDelegate OnUnitClicked;
+        public event UnitUITemplate.ClickDelegate OnClick;
         void TemplateClicked(UnitUITemplate template, UnitData data)
         {
-            if (OnUnitClicked != null) OnUnitClicked(template, data);
+            if (OnClick != null) OnClick(template, data);
         }
 
-        void TemplateDragBegin(UnitUITemplate template, PointerEventData pointerData)
+        public event UnitUITemplate.DragDelegate OnTemplateDragBegin;
+        void TemplateDragBegin(UnitUITemplate template, UnitData unit, PointerEventData pointerData)
         {
-            if(DragTemplate == null)
-            {
-                Core.Player.Units.Selection.Context = template.Data;
-
-                DragTemplate = CreateTemplate(template.Data);
-
-                DragTemplate.CanvasGroup.blocksRaycasts = false;
-
-                DragTemplate.transform.SetParent(transform);
-
-                DragTemplate.transform.position = pointerData.position;
-            }
-            else
-            {
-
-            }
+            if (OnTemplateDragBegin != null) OnTemplateDragBegin(template, unit, pointerData);
         }
 
-        public UnitUITemplate DragTemplate { get; protected set; }
-        void TemplateDrag(UnitUITemplate template, PointerEventData pointerData)
+        public event UnitUITemplate.DragDelegate OnTemplateDrag;
+        void TemplateDrag(UnitUITemplate template, UnitData unit, PointerEventData pointerData)
         {
-            if(DragTemplate == null)
-            {
-
-            }
-            else
-            {
-                if(DragTemplate.Data == template.Data)
-                {
-                    DragTemplate.transform.position = pointerData.position;
-                }
-            }
+            if (OnTemplateDrag != null) OnTemplateDrag(template, unit, pointerData);
         }
 
-        void TemplateDragEnd(UnitUITemplate template, PointerEventData pointerData)
+        public event UnitUITemplate.DragDelegate OnTemplateDragEnd;
+        void TemplateDragEnd(UnitUITemplate template, UnitData unit, PointerEventData pointerData)
         {
-            if(DragTemplate == null)
-            {
-
-            }
-            else
-            {
-                Destroy(DragTemplate.gameObject);
-
-                DragTemplate = null;
-
-                Core.Player.Units.Selection.Context = null;
-            }
+            if (OnTemplateDragEnd != null) OnTemplateDragEnd(template, unit, pointerData);
         }
     }
 }
