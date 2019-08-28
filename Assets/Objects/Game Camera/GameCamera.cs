@@ -83,9 +83,12 @@ namespace Game
             }
             else
             {
-                Velocity = Mathf.MoveTowards(Velocity, 0f, deAcceleration * Time.deltaTime);
+                if(Time.timeScale > 0)
+                {
+                    Velocity = Mathf.MoveTowards(Velocity, 0f, deAcceleration * Time.unscaledDeltaTime);
 
-                XPosition += Velocity * speed;
+                    XPosition += Velocity * speed;
+                }
             }
         }
 

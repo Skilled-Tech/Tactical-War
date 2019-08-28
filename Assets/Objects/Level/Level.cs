@@ -69,26 +69,28 @@ namespace Game
         {
             Speed.Value = 0f;
 
+            if(proponent is PlayerProponent) //Player Lost
+            {
+                
+            }
+            else //Player Won
+            {
+                if (Core.Levels.Next == null)
+                {
+
+                }
+                else
+                {
+                    Core.Levels.Next.Unlock();
+                }
+            }
+
             Menu.End.Show(Proponents.GetOther(proponent));
-        }
-
-        public virtual void Quit()
-        {
-            Speed.Value = 1f;
-
-            Core.Levels.ReturnToMainMenu();
-        }
-
-        public virtual void Retry()
-        {
-            Speed.Value = 1f;
-
-            Core.Instance.Levels.Reload();
         }
 
         protected virtual void OnDestroy()
         {
-            Instance = null;
+            Time.timeScale = 1f;
         }
 	}
 }

@@ -22,7 +22,6 @@ using TMPro;
 namespace Game
 {
     [RequireComponent(typeof(Button))]
-    [RequireComponent(typeof(UIGrayscaleController))]
     public class LevelUITemplate : UIElement
 	{
 		[SerializeField]
@@ -37,23 +36,24 @@ namespace Game
 
         public UIGrayscaleController GrayscaleController { get; protected set; }
 
-        public LevelsCore.ElementData Element { get; protected set; }
+        public LevelData Element { get; protected set; }
 
         public Core Core { get { return Core.Instance; } }
 
-        public virtual void Set(LevelsCore.ElementData element, string text)
+        public virtual void Set(LevelData data, string text)
         {
-            this.Element = element;
+            Element = data;
 
-            icon.sprite = element.Icon;
+            Element.OnChange += UpdateState;
+
+            icon.sprite = Element.Icon;
 
             label.text = text;
 
             Button = GetComponent<Button>();
             Button.onClick.AddListener(ButtonClick);
 
-            GrayscaleController = GetComponent<UIGrayscaleController>();
-            GrayscaleController.Init();
+            GrayscaleController = new UIGrayscaleController(this);
 
             UpdateState();
         }
@@ -68,6 +68,11 @@ namespace Game
         void ButtonClick()
         {
             Core.Levels.Load(Element);
+        }
+
+        void OnDestroy()
+        {
+            if (Element != null) Element.OnChange -= UpdateState;
         }
     }
 }

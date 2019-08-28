@@ -22,7 +22,6 @@ using UnityEngine.EventSystems;
 namespace Game
 {
     [RequireComponent(typeof(Button))]
-    [RequireComponent(typeof(UIGrayscaleController))]
     [RequireComponent(typeof(CanvasGroup))]
     [RequireComponent(typeof(LayoutElement))]
     public class UnitUITemplate : UIElement, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -49,8 +48,7 @@ namespace Game
             Button = GetComponent<Button>();
             Button.onClick.AddListener(Click);
 
-            GrayscaleController = GetComponent<UIGrayscaleController>();
-            GrayscaleController.Init();
+            GrayscaleController = new UIGrayscaleController(this);
 
             CanvasGroup = GetComponent<CanvasGroup>();
 

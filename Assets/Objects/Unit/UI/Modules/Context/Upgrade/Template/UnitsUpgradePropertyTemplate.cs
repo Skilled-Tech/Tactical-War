@@ -21,7 +21,6 @@ using TMPro;
 
 namespace Game
 {
-    [RequireComponent(typeof(UIGrayscaleController))]
 	public class UnitsUpgradePropertyTemplate : MonoBehaviour
 	{
         [SerializeField]
@@ -49,13 +48,17 @@ namespace Game
         public Core Core { get { return Core.Instance; } }
         public Funds Funds { get { return Core.Player.Funds; } }
 
+        void OnEnable()
+        {
+            Funds.OnValueChanged += UpdateState;
+        }
+
         public UnitData.UpgradesData.TypeData Data { get; protected set; }
         public virtual void Set(UnitData.UpgradesData.TypeData data)
         {
             this.Data = data;
 
-            GrayscaleController = GetComponent<UIGrayscaleController>();
-            GrayscaleController.Init();
+            GrayscaleController = new UIGrayscaleController(this);
 
             icon.sprite = data.Template.Target.Icon;
 
@@ -63,13 +66,6 @@ namespace Game
 
             button.onClick.AddListener(OnButon);
 
-            Funds.OnValueChanged += OnFundsChanged;
-
-            UpdateState();
-        }
-
-        void OnFundsChanged()
-        {
             UpdateState();
         }
 
@@ -102,9 +98,9 @@ namespace Game
             UpdateState();
         }
 
-        void OnDestroy()
+        void OnDisable()
         {
-            Funds.OnValueChanged -= OnFundsChanged;
+            Funds.OnValueChanged -= UpdateState;
         }
     }
 }

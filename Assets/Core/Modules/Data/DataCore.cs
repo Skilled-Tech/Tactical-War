@@ -31,7 +31,6 @@ namespace Game
         {
             base.Configure();
 
-
         }
 
         public override void Init()

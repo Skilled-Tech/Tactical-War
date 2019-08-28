@@ -26,15 +26,31 @@ namespace Game
         protected TMP_Text info;
         public TMP_Text Info { get { return info; } }
 
+        [SerializeField]
+        protected Button next;
+        public Button Next { get { return next; } }
+
+        [SerializeField]
+        protected Button retry;
+        public Button Retry { get { return retry; } }
+
+        public Core Core { get { return Core.Instance; } }
+
         public virtual void Show(Proponent winner)
         {
             if (winner is PlayerProponent)
             {
                 info.text = "You Won";
+
+                next.gameObject.SetActive(Core.Levels.Next != null);
+                retry.gameObject.SetActive(false);
             }
             else
             {
                 info.text = "You Lost";
+
+                next.gameObject.SetActive(false);
+                retry.gameObject.SetActive(true);
             }
 
             Show();

@@ -71,6 +71,7 @@ namespace Game
 
             script.LayoutElement.ignoreLayout = true;
             script.CanvasGroup.blocksRaycasts = false;
+            script.CanvasGroup.alpha = 0.6f;
 
             script.RectTransform.sizeDelta = source.RectTransform.sizeDelta * 0.8f;
 

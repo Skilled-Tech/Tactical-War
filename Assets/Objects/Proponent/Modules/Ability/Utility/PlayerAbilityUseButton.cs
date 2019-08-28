@@ -20,12 +20,8 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(Button))]
-	public class ProponentAbilityUseButton : MonoBehaviour
+    public class PlayerAbilityUseButton : MonoBehaviour
 	{
-        [SerializeField]
-        protected Proponent proponent;
-        public Proponent Proponent { get { return proponent; } } 
-
         [SerializeField]
         protected Image icon;
         public Image Icon { get { return icon; } } 
@@ -34,41 +30,48 @@ namespace Game
         protected Image background;
         public Image Background { get { return background; } }
 
-        public float Grayscale
-        {
-            set
-            {
-                icon.material.SetFloat("_EffectAmount", value);
-
-                background.material.SetFloat("_EffectAmount", value);
-            }
-        }
+        public UIGrayscaleController GrayscaleController { get; protected set; }
 
         public Button Button { get; protected set; }
 
         public ProgressBar CooldownBar { get; protected set; }
 
-        void Start()
+        public Core Core { get { return Core.Instance; } }
+
+        public Level Level { get { return Level.Instance; } }
+        public Proponent Player { get { return Level.Proponents.Proponent1; } }
+
+        void Awake()
         {
             Button = GetComponent<Button>();
-            Button.onClick.AddListener(OnClick);
 
             CooldownBar = Dependancy.Get<ProgressBar>(gameObject);
+
+            GrayscaleController = new UIGrayscaleController(this);
+        }
+
+        void Start()
+        {
+            Button.onClick.AddListener(OnClick);
+            
             CooldownBar.Value = 0f;
-
-            UpdateState();
-
-            proponent.Ability.OnSelectionChanged += OnAbilitySelectionChanged;
-            proponent.Funds.OnValueChanged += OnFundsChanged;
-            proponent.Ability.Cooldown.OnStateChange += OnStateChange;
 
             icon.material = Instantiate(icon.material);
             background.material = Instantiate(background.material);
         }
 
+        void OnEnable()
+        {
+            UpdateState();
+
+            Player.Ability.OnSelectionChanged += OnAbilitySelectionChanged;
+            Player.Funds.OnValueChanged += OnFundsChanged;
+            Player.Ability.Cooldown.OnStateChange += OnStateChange;
+        }
+
         void OnClick()
         {
-            proponent.Ability.Use();
+            Player.Ability.Use();
         }
 
         void OnAbilitySelectionChanged(Ability ability)
@@ -86,25 +89,27 @@ namespace Game
 
         void UpdateState()
         {
-            Button.interactable = proponent.Ability.CanUse;
+            Button.interactable = Player.Ability.CanUse;
 
-            if (proponent.Ability.Cooldown.Rate == 0f)
+            if (Player.Ability.Cooldown.Rate == 0f)
             {
                 CooldownBar.Value = 0f;
-                Grayscale = 0f;
+                GrayscaleController.Ammount = 0f;
             }
             else
             {
-                CooldownBar.Value = proponent.Ability.Cooldown.Rate;
-                Grayscale = 1f;
+                CooldownBar.Value = Player.Ability.Cooldown.Rate;
+                GrayscaleController.Ammount = 1f;
             }
         }
 
-        void OnDestroy()
+        void OnDisable()
         {
-            proponent.Ability.OnSelectionChanged -= OnAbilitySelectionChanged;
-            proponent.Funds.OnValueChanged -= OnFundsChanged;
-            proponent.Ability.Cooldown.OnStateChange -= OnStateChange;
+            Player.Ability.OnSelectionChanged -= OnAbilitySelectionChanged;
+
+            Player.Funds.OnValueChanged -= OnFundsChanged;
+
+            Player.Ability.Cooldown.OnStateChange -= OnStateChange;
         }
     }
 }

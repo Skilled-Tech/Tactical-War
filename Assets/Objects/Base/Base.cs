@@ -19,6 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+    [DefaultExecutionOrder(PlayerProponent.ExecutionOrder + 1)]
     public class Base : Entity, IModule<Proponent>
     {
         public Proponent Proponent { get; protected set; }

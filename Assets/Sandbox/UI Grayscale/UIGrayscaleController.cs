@@ -19,8 +19,10 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class UIGrayscaleController : MonoBehaviour
+	public class UIGrayscaleController
 	{
+        public MonoBehaviour Behaviour { get; protected set; }
+
         public List<Graphic> Targets { get; protected set; }
 
         public float Ammount
@@ -32,26 +34,29 @@ namespace Game
                 for (int i = 0; i < Targets.Count; i++)
                 {
                     Targets[i].material.SetFloat("_EffectAmount", value);
-                }
 
-                gameObject.SetActive(false);
-                gameObject.SetActive(true);
+                    for (int x = 0; x < 2; x++)
+                        Targets[i].gameObject.SetActive(!Targets[i].gameObject.activeSelf);
+                }
             }
         }
 
         public bool On { set { Ammount = value ? 1f : 0f; } }
+        public bool Off { set { On = !value; } }
 
-        public virtual void Init()
+        public UIGrayscaleController(MonoBehaviour behaviour)
         {
+            this.Behaviour = behaviour;
+
             Targets = new List<Graphic>();
 
-            var graphics = Dependancy.GetAll<Graphic>(gameObject);
+            var graphics = Dependancy.GetAll<Graphic>(behaviour.gameObject);
 
             for (int i = 0; i < graphics.Count; i++)
             {
-                if(graphics[i].material.shader.name.Contains("Grayscale"))
+                if (graphics[i].material.shader.name.Contains("Grayscale"))
                 {
-                    graphics[i].material = Instantiate(graphics[i].material);
+                    graphics[i].material = Object.Instantiate(graphics[i].material);
 
                     Targets.Add(graphics[i]);
                 }

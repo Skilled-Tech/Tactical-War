@@ -19,22 +19,19 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(Button))]
-	public class ButtonOnKey : MonoBehaviour
+	public class NextLevelOperation : Operation
 	{
-        public KeyCode key;
+        public static LevelsCore Levels { get { return Core.Instance.Levels; } }
 
-        Button button;
-
-        void Awake()
+        public override void Execute()
         {
-            button = GetComponent<Button>();
-        }
+            if(Levels.Next == null)
+            {
+                Debug.LogWarning("No next level");
+                return;
+            }
 
-        void Update()
-        {
-            if (Input.GetKeyDown(key))
-                button.onClick.Invoke();
+            Levels.Load(Levels.Next);
         }
     }
 }

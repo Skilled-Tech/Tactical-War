@@ -30,16 +30,9 @@ namespace Game
         [SerializeField]
         protected Image background;
         public Image Background { get { return background; } }
+        public Color BackgroundOrigianlColor { get; protected set; }
 
-        public float Grayscale
-        {
-            set
-            {
-                icon.material.SetFloat("_EffectAmount", value);
-
-                background.material.SetFloat("_EffectAmount", value);
-            }
-        }
+        public UIGrayscaleController GrayscaleController { get; protected set; }
 
         [SerializeField]
         protected Button button;
@@ -54,14 +47,16 @@ namespace Game
 
         public Level Level { get { return Level.Instance; } }
 
+        void Awake()
+        {
+            BackgroundOrigianlColor = background.color;
+
+            GrayscaleController = new UIGrayscaleController(this);
+        }
+        
         void Start()
         {
             button.onClick.AddListener(OnClick);
-
-            icon.material = Instantiate(icon.material);
-            background.material = Instantiate(background.material);
-
-            UpdateState();
         }
 
         public void UpdateState()
@@ -70,8 +65,18 @@ namespace Game
             {
                 button.interactable = Player.Base.Units.Creator.CanDeploy(Data);
 
-                Grayscale = button.interactable ? 0f : 1f;
+                GrayscaleController.Off = button.interactable;
+
+                Progress.Value = 0f;
             }
+            else
+            {
+                button.interactable = false;
+
+                GrayscaleController.On = true;
+            }
+
+            Background.color = button.interactable ? BackgroundOrigianlColor : Color.Lerp(Color.grey, Color.black, 0.6f);
         }
         
         public virtual void Set(PlayerProponent player, UnitTemplate data)
@@ -81,7 +86,7 @@ namespace Game
 
             icon.sprite = data.Icon;
 
-            Progress.Value = 0f;
+            UpdateState();
         }
 
         void OnClick()
@@ -96,7 +101,8 @@ namespace Game
 
             button.interactable = false;
 
-            Grayscale = 1f;
+            Progress.Value = 1f;
+            UpdateState();
 
             while (Deployment.Timer > 0f)
             {
@@ -105,10 +111,9 @@ namespace Game
                 yield return new WaitForEndOfFrame();
             }
 
-            Grayscale = 0f;
-            Progress.Value = 0f;
-
             Deployment = null;
+
+            Progress.Value = 0f;
 
             UpdateState();
         }

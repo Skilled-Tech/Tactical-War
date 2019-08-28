@@ -17,24 +17,15 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using UnityEngine.EventSystems;
+
 namespace Game
 {
-    [RequireComponent(typeof(Button))]
-	public class ButtonOnKey : MonoBehaviour
-	{
-        public KeyCode key;
-
-        Button button;
-
-        void Awake()
+    public class Sandbox : MonoBehaviour
+    {
+        private void OnEnable()
         {
-            button = GetComponent<Button>();
-        }
-
-        void Update()
-        {
-            if (Input.GetKeyDown(key))
-                button.onClick.Invoke();
+            
         }
     }
 }

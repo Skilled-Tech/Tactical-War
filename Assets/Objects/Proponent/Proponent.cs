@@ -19,8 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+    [DefaultExecutionOrder(ExecutionOrder)]
 	public abstract class Proponent : MonoBehaviour
 	{
+        public const int ExecutionOrder = Level.ExecutionOrder + 1;
+
         public int Layer { get { return gameObject.layer; } }
 
         public abstract Funds Funds { get; }

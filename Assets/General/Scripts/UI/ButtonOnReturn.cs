@@ -19,11 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(Button))]
-	public class ButtonOnKey : MonoBehaviour
+	public class ButtonOnReturn : MonoBehaviour
 	{
-        public KeyCode key;
-
         Button button;
 
         void Awake()
@@ -33,7 +30,7 @@ namespace Game
 
         void Update()
         {
-            if (Input.GetKeyDown(key))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Home))
                 button.onClick.Invoke();
         }
     }

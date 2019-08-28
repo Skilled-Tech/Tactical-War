@@ -44,6 +44,11 @@ namespace Game
             {
                 
             }
+
+            protected virtual void OnEnable()
+            {
+
+            }
         }
 
         public Core Core { get { return Core.Instance; } }

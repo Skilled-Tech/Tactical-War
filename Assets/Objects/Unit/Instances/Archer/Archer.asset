@@ -25,6 +25,10 @@ MonoBehaviour:
     applicables:
     - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
     - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+  unlock:
+    cost:
+      gold: 0
+      xp: 800
   deployment:
     cost:
       gold: 200

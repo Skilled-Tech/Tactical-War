@@ -32,10 +32,13 @@ namespace Game
 
         public PlayerCore Player { get { return Core.Instance.Player; } }
 
-        void Start()
+        void Awake()
         {
             label = GetComponent<TMP_Text>();
+        }
 
+        void OnEnable()
+        {
             Player.Funds.OnValueChanged += OnChange;
 
             UpdateState();
@@ -51,7 +54,7 @@ namespace Game
             UpdateState();
         }
 
-        void OnDestroy()
+        void OnDisable()
         {
             Player.Funds.OnValueChanged -= OnChange;
         }

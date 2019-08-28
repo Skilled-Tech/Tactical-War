@@ -44,6 +44,11 @@ namespace Game
 
             unlock.onClick.AddListener(UnlockClick);
             upgrade.onClick.AddListener(UpgradeClick);
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
 
             Player.Funds.OnValueChanged += UpdateState;
         }
@@ -71,6 +76,8 @@ namespace Game
             {
                 unlock.interactable = Player.Funds.CanAfford(Data.Asset.Unlock.Cost);
 
+                price.color = unlock.interactable ? Color.white : Color.grey;
+
                 price.text = Data.Asset.Unlock.Cost.ToString();
             }
         }
@@ -87,7 +94,7 @@ namespace Game
             Context.Upgrade.Show();
         }
 
-        void OnDestroy()
+        void OnDisable()
         {
             Player.Funds.OnValueChanged -= UpdateState;
         }

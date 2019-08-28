@@ -17,20 +17,35 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using TMPro;
+
 namespace Game
 {
 	public class BaseTowerSlotBuyContextUI : BaseTowerSlotContextUI.Element
     {
         [SerializeField]
-        protected PlayerBuyButton button;
-        public PlayerBuyButton Button { get { return button; } }
+        protected Button button;
+        public Button Button { get { return button; } }
+
+        [SerializeField]
+        protected TMP_Text price;
+        public TMP_Text Price { get { return price; } }
+
+        public Core Core { get { return Core.Instance; } }
+        public PlayerCore Player { get { return Core.Player; } }
 
         public override void Init()
         {
             base.Init();
 
-            button.Init();
-            button.OnPurchase += OnPurchase;
+            button.onClick.AddListener(OnButton);
+        }
+
+        void OnEnable()
+        {
+            Player.Funds.OnValueChanged += UpdateState;
+
+            UpdateState();
         }
 
         protected override bool IsApplicaple(BaseTowerSlot slot)
@@ -38,18 +53,23 @@ namespace Game
             return !slot.isDeployed;
         }
 
-        public override void Show()
+        void UpdateState()
         {
-            base.Show();
+            button.interactable = Player.Funds.CanAfford(Target.Cost);
 
-            button.Cost = Target.Cost;
+            price.text = Target.Cost.ToString();
         }
 
-        void OnPurchase()
+        void OnButton()
         {
             Target.Deploy();
 
             UpdateTarget();
+        }
+
+        void OnDisable()
+        {
+            Player.Funds.OnValueChanged -= UpdateState;
         }
     }
 }

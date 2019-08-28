@@ -17,33 +17,21 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Levels")]
 	public class LevelsCore : Core.Module
 	{
         [SerializeField]
-        protected ElementData[] list;
-        public ElementData[] List { get { return list; } }
-        [Serializable]
-        public class ElementData
-        {
-            [SerializeField]
-            protected GameScene scene;
-            public GameScene Scene { get { return scene; } }
-
-            [SerializeField]
-            protected Sprite icon;
-            public Sprite Icon { get { return icon; } }
-
-            [SerializeField]
-            protected bool unclocked;
-            public bool Unlocked { get { return unclocked; } }
-        }
+        protected LevelData[] list;
+        public LevelData[] List { get { return list; } }
 
         public int Count { get { return list.Length; } }
 
-        public ElementData this[int index] { get { return list[index]; } }
+        public LevelData this[int index] { get { return list[index]; } }
 
         public ScenesCore Scenes { get { return Core.Scenes; } }
 
@@ -52,10 +40,59 @@ namespace Game
             base.Configure();
 
             Current = null;
+
+            LoadData();
+
+            for (int i = 0; i < list.Length; i++)
+                list[i].OnChange += OnDataChange;
         }
 
-        public ElementData Current { get; protected set; }
-        public virtual void Load(ElementData element)
+        void OnDataChange()
+        {
+            SaveData();
+        }
+
+        void SaveData()
+        {
+            var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+
+            Data.Save(DataPath, json);
+        }
+        public const string DataPath = "Player/Levels.json";
+        void LoadData()
+        {
+            if(Data.Exists(DataPath))
+            {
+                var json = Data.LoadText(DataPath);
+
+                var jArray = JArray.Parse(json);
+
+                for (int i = 0; i < list.Length; i++)
+                    list[i].Load(jArray[i]);
+            }
+            else
+            {
+                for (int i = 0; i < list.Length; i++)
+                    list[i].Unlocked = i == 0;
+            }
+        }
+
+        public LevelData Current { get; protected set; }
+        public LevelData Next
+        {
+            get
+            {
+                if (Current == null) return null;
+
+                var index = Array.IndexOf(list, Current);
+
+                if (index + 1 >= list.Length) return null;
+
+                return list[index + 1];
+            }
+        }
+
+        public virtual void Load(LevelData element)
         {
             Current = element;
 
@@ -64,7 +101,7 @@ namespace Game
             SceneManager.LoadScene(element.Scene, LoadSceneMode.Additive);
         }
         
-        public virtual void Reload()
+        public virtual void Retry()
         {
             if (Current == null)
                 Scenes.Load(SceneManager.GetActiveScene().name);
@@ -72,11 +109,60 @@ namespace Game
                 Load(Current);
         }
 
-        public virtual void ReturnToMainMenu()
+        public virtual void Quit()
         {
             Current = null;
             
             Scenes.Load(Scenes.MainMenu);
+        }
+    }
+
+    [Serializable]
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class LevelData
+    {
+        [SerializeField]
+        protected GameScene scene;
+        public GameScene Scene { get { return scene; } }
+
+        [JsonProperty(Order = 1)]
+        public string name { get { return scene.Name; } }
+
+        [SerializeField]
+        protected Sprite icon;
+        public Sprite Icon { get { return icon; } }
+
+        [JsonProperty(Order = 2)]
+        [SerializeField]
+        protected bool unlocked;
+        public bool Unlocked
+        {
+            get
+            {
+                return unlocked;
+            }
+            set
+            {
+                unlocked = value;
+
+                InvokeChange();
+            }
+        }
+
+        public virtual void Unlock()
+        {
+            Unlocked = true;
+        }
+
+        public event Action OnChange;
+        public virtual void InvokeChange()
+        {
+            if (OnChange != null) OnChange();
+        }
+
+        public virtual void Load(JToken token)
+        {
+            Unlocked = token[nameof(unlocked)].ToObject<bool>();
         }
     }
 }

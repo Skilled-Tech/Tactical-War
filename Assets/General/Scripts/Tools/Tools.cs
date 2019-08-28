@@ -51,5 +51,15 @@ namespace Game
 
             return value;
         }
+
+        public static T AddAndReturn<T>(this IList<T> list, T element)
+        {
+            if (list.IsReadOnly)
+                throw new InvalidOperationException("Can't add element to list: " + list.ToString() + " as it's a read only collection");
+
+            list.Add(element);
+
+            return element;
+        }
     }
 }

@@ -17,13 +17,22 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using TMPro;
+
 namespace Game
 {
 	public class BaseTowerSlotsUseContextUI : BaseTowerSlotContextUI.Element
     {
         [SerializeField]
-        protected PlayerBuyButton button;
-        public PlayerBuyButton Button { get { return button; } } 
+        protected Button button;
+        public Button Button { get { return button; } } 
+
+        [SerializeField]
+        protected TMP_Text price;
+        public TMP_Text Price { get { return price; } }
+
+        public Core Core { get { return Core.Instance; } }
+        public PlayerCore Player { get { return Core.Player; } }
 
         protected override bool IsApplicaple(BaseTowerSlot slot)
         {
@@ -34,22 +43,33 @@ namespace Game
         {
             base.Init();
 
-            button.Init();
-            button.OnPurchase += OnPurchase;
+            button.onClick.AddListener(OnButton);
         }
 
-        public override void Show()
+        void OnEnable()
         {
-            base.Show();
+            Player.Funds.OnValueChanged += UpdateState;
 
-            button.Cost = Target.Turret.Cost;
+            UpdateState();
         }
 
-        void OnPurchase()
+        void UpdateState()
+        {
+            button.interactable = Player.Funds.CanAfford(Target.Turret.Cost);
+
+            price.text = Target.Cost.ToString();
+        }
+
+        void OnButton()
         {
             Target.Turret.isDeployed = true;
 
             Context.Hide();
+        }
+
+        void OnDisable()
+        {
+            Player.Funds.OnValueChanged -= UpdateState;
         }
     }
 }

@@ -1121,7 +1121,6 @@ GameObject:
   - component: {fileID: 3100627470964406510}
   - component: {fileID: 3100627470964406515}
   - component: {fileID: 3100627470964406514}
-  - component: {fileID: 3100627470964406513}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1266,22 +1265,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &3100627470964406513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3100627470964406504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0c2766fb81c6e647ad5524ff78091cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cost:
-    gold: 0
-    xp: 0
-  label: {fileID: 0}
 --- !u!1 &3100627471122633215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,7 +1500,6 @@ GameObject:
   - component: {fileID: 3100627471604380417}
   - component: {fileID: 3100627471604380668}
   - component: {fileID: 449337482685579810}
-  - component: {fileID: 5916059301166690501}
   m_Layer: 5
   m_Name: Unit Upgrade Property Template
   m_TagString: Untagged
@@ -1636,18 +1618,6 @@ MonoBehaviour:
   progression: {fileID: 5955943371251053524}
   button: {fileID: 3100627470964406510}
   price: {fileID: 3100627471416889708}
---- !u!114 &5916059301166690501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3100627471604380670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c417cfcd50e4bf468109305506507cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6597594306578509539
 GameObject:
   m_ObjectHideFlags: 0

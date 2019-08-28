@@ -32,9 +32,14 @@ namespace Game
             base.Configure(data);
 
             Elements = new List<PlayerHUDUnitCreationTemplate>();
+        }
 
+        void OnEnable()
+        {
             Player.Base.Units.Creator.OnDeployment += OnUnitDeployment;
+
             Player.Base.Units.OnUnitDeath += OnUnitDeath;
+
             Player.Funds.OnValueChanged += OnFundsChanged;
         }
 
@@ -93,8 +98,12 @@ namespace Game
             Elements.Clear();
         }
 
-        void OnDestroy()
+        void OnDisable()
         {
+            Player.Base.Units.Creator.OnDeployment -= OnUnitDeployment;
+
+            Player.Base.Units.OnUnitDeath -= OnUnitDeath;
+
             Player.Funds.OnValueChanged -= OnFundsChanged;
         }
     }

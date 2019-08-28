@@ -34,7 +34,7 @@ namespace Game
         public UIElement Credits { get { return credits; } }
 
         [SerializeField]
-        protected UIElement units;
-        public UIElement Units { get { return units; } }
+        protected UnitsUI units;
+        public UnitsUI Units { get { return units; } }
     }
 }

@@ -23,7 +23,7 @@ namespace Game
 	{
         public override void Execute()
         {
-            Level.Instance.Retry();
+            Core.Instance.Levels.Retry();
         }
     }
 }

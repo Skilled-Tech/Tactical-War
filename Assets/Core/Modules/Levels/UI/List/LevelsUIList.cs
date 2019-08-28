@@ -48,7 +48,7 @@ namespace Game
             }
         }
 
-        LevelUITemplate Create(LevelsCore.ElementData element, int index)
+        LevelUITemplate Create(LevelData element, int index)
         {
             var instance = Instantiate(template, ScrollRect.content);
 

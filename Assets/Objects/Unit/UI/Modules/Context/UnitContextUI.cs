@@ -39,6 +39,13 @@ namespace Game
             {
                 base.Show();
 
+                
+            }
+
+            protected override void OnEnable()
+            {
+                base.OnEnable();
+
                 UpdateState();
             }
 
