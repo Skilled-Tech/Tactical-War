@@ -30,11 +30,25 @@ namespace Game
         public UIElement Start { get { return start; } }
 
         [SerializeField]
-        protected UIElement credits;
-        public UIElement Credits { get { return credits; } }
+        protected UIElement levels;
+        public UIElement Levels { get { return levels; } }
 
         [SerializeField]
         protected UnitsUI units;
         public UnitsUI Units { get { return units; } }
+
+        [SerializeField]
+        protected UIElement credits;
+        public UIElement Credits { get { return credits; } }
+
+        void Awake()
+        {
+            title.Show();
+
+            start.Hide();
+            levels.Hide();
+            units.Hide();
+            credits.Hide();
+        }
     }
 }

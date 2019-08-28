@@ -63,7 +63,7 @@ namespace Game
 
         void OnTransition(float value)
         {
-            CanvasGroup.alpha = Mathf.Lerp(0.4f, 1f, value);
+            CanvasGroup.alpha = Mathf.Lerp(0.65f, 1f, value);
 
             RectTransform.anchoredPosition = new Vector2(RectTransform.anchoredPosition.x, Mathf.Lerp(-RectTransform.sizeDelta.y / 3f, 0f, value));
         }

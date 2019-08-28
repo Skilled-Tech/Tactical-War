@@ -54,7 +54,7 @@ namespace Game
             {
                 var data = new UnitData(Core.Units[i]);
 
-                data = LoadData(data);
+                data = LoadData(data, i);
 
                 data.OnChange += ()=> OnDataChanged(data);
 
@@ -86,7 +86,7 @@ namespace Game
 
             Data.Save(FormatSavePath(unit), json);
         }
-        public virtual UnitData LoadData(UnitData data)
+        public virtual UnitData LoadData(UnitData data, int index)
         {
             var path = FormatSavePath(data.Unit);
 
@@ -95,6 +95,11 @@ namespace Game
                 var json = Data.LoadText(path);
 
                 data.Load(JObject.Parse(json));
+            }
+            else
+            {
+                if (index < 2)
+                    data.Unlocked = true;
             }
 
             return data;
@@ -119,7 +124,7 @@ namespace Game
             {
                 return unlocked;
             }
-            protected set
+            set
             {
                 unlocked = value;
 

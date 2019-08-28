@@ -68,7 +68,7 @@ namespace Game
 
             meteorite.Init(this);
 
-            prefab.transform.position = transform.position + (transform.right * Random.Range(-range / 2f, range / 2f));
+            instance.transform.position = transform.position + (transform.right * Random.Range(-range / 2f, range / 2f));
         }
 
         void OnDrawGizmos()

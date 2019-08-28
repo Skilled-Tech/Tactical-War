@@ -88,7 +88,7 @@ namespace Game
 
             GrayscaleController.On = !button.interactable;
 
-            price.color = button.interactable ? Color.white : Color.gray;
+            price.color = button.interactable ? Color.white : Color.Lerp(Color.white, Color.black, 0.75f);
         }
 
         void OnButon()
