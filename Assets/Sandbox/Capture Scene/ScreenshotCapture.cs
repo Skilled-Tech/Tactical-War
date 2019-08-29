@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.IO;
 
 using UnityEngine;
@@ -24,6 +25,8 @@ public class ScreenshotCapture : MonoBehaviour
     [SerializeField]
     new Camera camera;
 
+    public GameObject[] subjects;
+
     public static int Width { get { return Screen.width; } }
     public static int Height { get { return Screen.height; } }
 
@@ -38,7 +41,17 @@ public class ScreenshotCapture : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        Capture();
+        foreach (var subject in subjects)
+            subject.SetActive(false);
+
+        foreach (var subject in subjects)
+        {
+            subject.SetActive(true);
+
+            Capture();
+
+            subject.SetActive(false);
+        }
     }
 
     void Capture()
@@ -50,6 +63,8 @@ public class ScreenshotCapture : MonoBehaviour
         WriteScreenToTexture(Texture);
 
         SaveTexture(Texture);
+
+        EditorApplication.isPlaying = false;
     }
 
     void WriteScreenToTexture(Texture2D texture)
@@ -70,7 +85,7 @@ public class ScreenshotCapture : MonoBehaviour
         if (Directory.Exists(directory) == false)
             Directory.CreateDirectory(directory);
 
-        File.WriteAllBytes(directory + "Shot " + DateTime.Now.ToString("HH-mm-ss") + ".png", png);
+        File.WriteAllBytes(directory + "Shot " + DateTime.Now.ToString("HH-mm-ss-fff") + ".png", png);
     }
 
 #if UNITY_EDITOR
@@ -94,3 +109,4 @@ public class ScreenshotCapture : MonoBehaviour
     }
 #endif
 }
+#endif

@@ -88,6 +88,8 @@ namespace Game
 
             Proponent.Funds.Take(data.Deployment.Cost);
 
+            Spawn(data);
+
             var deployment = new Deployment(this, data);
 
             Deployments.Add(deployment);
@@ -101,8 +103,6 @@ namespace Game
 
         protected virtual void OnDeploymentComplete(Deployment deployment)
         {
-            Spawn(deployment.Unit);
-
             Deployments.Remove(deployment);
         }
 
@@ -112,6 +112,8 @@ namespace Game
             var instance = Instantiate(data.Prefab, transform.position, transform.rotation);
 
             instance.name = Proponent.name + " " + data.name;
+
+            instance.transform.localScale = transform.lossyScale;
 
             Tools.SetLayer(instance, Proponent.Layer);
 

@@ -132,6 +132,10 @@ namespace Game
         protected Sprite icon;
         public Sprite Icon { get { return icon; } }
 
+        [SerializeField]
+        protected LevelBackgroundData background;
+        public LevelBackgroundData Background { get { return background; } }
+
         [JsonProperty(Order = 2)]
         [SerializeField]
         protected bool unlocked;
