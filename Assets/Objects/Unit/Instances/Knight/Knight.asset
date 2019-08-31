@@ -19,7 +19,7 @@ MonoBehaviour:
   attack:
     damage: 50
     range: 1
-    distance: 0.3
+    distance: 0
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicables:

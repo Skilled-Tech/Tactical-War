@@ -59,6 +59,8 @@ namespace Game
 
         public float Rate { get { return Value / Max; } }
 
+        public float Percentage { get { return Rate * 100f; } }
+
         protected virtual void Reset()
         {
             _value = _max;

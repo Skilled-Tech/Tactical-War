@@ -33,18 +33,37 @@ namespace Game
                 SetLayer(transform.GetChild(i), layer);
         }
 
-        public static Bounds CalculateBounds(GameObject gameObject)
+        public static Bounds CalculateRenderersBounds(GameObject gameObject)
+        {
+            Bounds Func(Renderer component) { return component.bounds; }
+
+            return CalculateBounds<Renderer>(gameObject, Func);
+        }
+        public static Bounds CalculateCollidersBounds(GameObject gameObject)
+        {
+            Bounds Func(Collider component) { return component.bounds; }
+
+            return CalculateBounds<Collider>(gameObject, Func);
+        }
+        public static Bounds CalculateColliders2DBounds(GameObject gameObject)
+        {
+            Bounds Func(Collider2D component) { return component.bounds; }
+
+            return CalculateBounds<Collider2D>(gameObject, Func);
+        }
+
+        public static Bounds CalculateBounds<TSource>(GameObject gameObject, Func<TSource, Bounds> extractor)
         {
             var value = new Bounds(gameObject.transform.position, Vector3.zero);
 
-            var renderers = gameObject.GetComponentsInChildren<Renderer>();
+            var components = Dependancy.GetAll<TSource>(gameObject);
 
-            for (int i = 0; i < renderers.Length; i++)
+            for (int i = 0; i < components.Count; i++)
             {
                 if (i == 0)
-                    value = renderers[i].bounds;
+                    value = extractor(components[i]);
                 else
-                    value.Encapsulate(renderers[i].bounds);
+                    value.Encapsulate(extractor(components[i]));
             }
 
             value.center = gameObject.transform.InverseTransformPoint(value.center);

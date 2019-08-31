@@ -33,14 +33,6 @@ namespace Game
         public bool isMoving { get; protected set; }
         public bool isAttacking { get { return Attack.IsProcessing; } }
 
-        public float Spacing
-        {
-            get
-            {
-                return 1f;
-            }
-        }
-
         void Update()
         {
             if(isAttacking)
@@ -62,42 +54,23 @@ namespace Game
                 }
 
                 if (Index == 0)
-                    isMoving = !Navigator.MoveTo(Target.transform.position, Attack.Distance + CalculatePersonalSpace(Target));
+                    isMoving = !MoveTo(Target, Attack.Distance + 0.5f);
                 else
-                    isMoving = !Navigator.MoveTo(Base.Units.List[Index - 1].transform.position, Spacing + CalculatePersonalSpace(Base.Units.List[Index - 1]));
+                    isMoving = !MoveTo(Base.Units.List[Index - 1], 1f);
 
                 if (Target != null && !isMoving && !isAttacking && (Index == 0 || !Base.Units.List[Index - 1].Controller.isMoving))
                     Attack.Do(Target);
             }
         }
 
-        bool MoveTo(Entity target, Vector3 direction, float space, float stoppingDistance)
+        bool MoveTo(Entity target, float stoppingDistance)
         {
-            var position = target.transform.position;
-
-            position += target.transform.right * direction.x * (CalculatePersonalSpace(target) + space);
-
-            return Navigator.MoveTo(position, stoppingDistance);
+            return Navigator.MoveTo(target.Center, CalculatePersonalSpace(target) + stoppingDistance);
         }
 
         float CalculatePersonalSpace(Entity target)
         {
-            if (target is Base)
-                return target.Bounds.extents.x;
-
-            return 1f;
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            if(Target != null && Index == 0)
-            {
-                var position = Target.transform.position;
-
-                position += Target.transform.right * Vector3.right.x * (Target.Bounds.extents.x + Unit.Bounds.extents.x + Spacing);
-
-                Gizmos.DrawSphere(position, 0.4f);
-            }
+            return target.Bounds.extents.x + Unit.Bounds.extents.x;
         }
     }
 }

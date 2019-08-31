@@ -100,6 +100,10 @@ namespace Game
 
             SceneManager.LoadScene(element.Scene, LoadSceneMode.Additive);
         }
+        public virtual void Load(int index)
+        {
+            Load(list[index]);
+        }
         
         public virtual void Retry()
         {

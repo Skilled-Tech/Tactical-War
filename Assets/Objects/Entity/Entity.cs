@@ -34,13 +34,21 @@ namespace Game
 
         public Bounds Bounds { get; protected set; }
 
+        public Vector3 Center
+        {
+            get
+            {
+                return transform.TransformPoint(Bounds.center);
+            }
+        }
+
         protected virtual void Awake()
         {
             Health = Dependancy.Get<Health>(gameObject);
 
             Defense = Dependancy.Get<EntityDefense>(gameObject);
 
-            Bounds = Tools.CalculateBounds(gameObject);
+            Bounds = Tools.CalculateColliders2DBounds(gameObject);
 
             Modules.Configure(this);
         }
@@ -85,6 +93,8 @@ namespace Game
 
         void OnDrawGizmosSelected()
         {
+            Gizmos.color = Color.red;
+
             Gizmos.matrix = transform.localToWorldMatrix;
 
             Gizmos.DrawWireCube(Bounds.center, Bounds.size);

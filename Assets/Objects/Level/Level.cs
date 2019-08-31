@@ -58,6 +58,9 @@ namespace Game
 
 		protected virtual void Start()
         {
+            if (Core.Levels.Current == null)
+                Core.Levels.Load(0);
+
             Modules.Init(this);
 
             Menu.Init();
