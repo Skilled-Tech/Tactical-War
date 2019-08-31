@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec87b41d67cb414d931b34b4e3192d2, type: 3}
+  m_Name: Grass Land
+  m_EditorClassIdentifier: 
+  elements:
+  - prefab: {fileID: 6034383480380216377, guid: 50cd743860af7b349b4cbfab09725961,
+      type: 3}
+    parallax: 1
+  - prefab: {fileID: 6760373309477454360, guid: 4e63f0e9f91d7464b884ab2f6c827773,
+      type: 3}
+    parallax: 0.8
+  - prefab: {fileID: 4121587723551330645, guid: 4d6edd32ee6fd0e4aacdf7ecdaa26c7f,
+      type: 3}
+    parallax: 0.75
+  - prefab: {fileID: 8520206455326370716, guid: c077dab8a21c52c4ea6014e0f38648ce,
+      type: 3}
+    parallax: 0.5
+  - prefab: {fileID: 3780997326273144110, guid: 0b4793e581168ff47a91f4a4aecf8628,
+      type: 3}
+    parallax: 0.2
+  - prefab: {fileID: 1810764315388061646, guid: 4bde6aa6ee64151439c07c321fc0d960,
+      type: 3}
+    parallax: 0
