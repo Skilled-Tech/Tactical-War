@@ -22,8 +22,15 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-    public class Sandbox : MonoBehaviour
-    {
-        
+	public class Login : MonoBehaviour
+	{
+		[SerializeField]
+        protected PopupUI popup;
+        public PopupUI Popup { get { return popup; } }
+
+        void Start()
+        {
+            
+        }
     }
 }
