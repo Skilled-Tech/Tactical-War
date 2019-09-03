@@ -29,12 +29,15 @@ namespace Game
 
         public List<CatalogItem> Items { get; protected set; }
 
-        public int Size { get { return Items.Count; } }
+        public virtual bool Valid { get { return Items != null; } }
 
+        public int Size { get { return Items.Count; } }
         public CatalogItem this[int index] { get { return Items[index]; } }
 
         public virtual void Request()
         {
+            Items = null;
+
             var request = new GetCatalogItemsRequest
             {
                 CatalogVersion = Version,

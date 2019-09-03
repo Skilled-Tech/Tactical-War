@@ -35,6 +35,10 @@ namespace Game
         protected PlayFabCatalogsCore catalogs;
         public PlayFabCatalogsCore Catalogs { get { return catalogs; } }
 
+        [SerializeField]
+        protected PlayFabInventoryCore inventory;
+        public PlayFabInventoryCore Inventory { get { return inventory; } }
+
         public class Module : Core.Module
         {
             public PlayFabCore PlayFab { get { return Core.PlayFab; } }
@@ -47,8 +51,8 @@ namespace Game
             base.Configure();
 
             requests.Configure();
-
             catalogs.Configure();
+            inventory.Configure();
 
             Requests.EmailLogin.OnResult += OnLogin;
         }
@@ -58,8 +62,8 @@ namespace Game
             base.Init();
 
             catalogs.Init();
-
             requests.Init();
+            inventory.Init();
         }
 
         public virtual void Login()

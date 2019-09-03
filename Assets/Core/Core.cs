@@ -111,7 +111,7 @@ namespace Game
 
             ForAllModules(ConfigureModule);
 
-            Newtonsoft.Json.JsonConvert.SerializeObject(1);
+            Application.runInBackground = true;
         }
 
         void ConfigureModule(Module module)

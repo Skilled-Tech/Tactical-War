@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requests: {fileID: 11400000, guid: 38a3ea2b505680243aff5f2e200661ac, type: 2}
   catalogs: {fileID: 11400000, guid: bfe74ec5457e88943af2609a7b15b4e3, type: 2}
+  inventory: {fileID: 11400000, guid: a732d0b192904244395b4965ecdd7eb1, type: 2}

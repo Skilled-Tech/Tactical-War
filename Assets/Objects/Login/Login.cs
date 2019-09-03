@@ -33,7 +33,6 @@ namespace Game
         public ScenesCore Scenes { get { return Core.Scenes; } }
 
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
-        public PlayFabRequestsCore Requests { get { return PlayFab.Requests; } }
 
         void Start()
         {
@@ -61,13 +60,13 @@ namespace Game
 
             Popup.Text = "Retrieving Inventory";
 
-            Requests.GetUserInventory.OnResult += OnGetUserInventory;
-            Requests.GetUserInventory.Request();
+            PlayFab.Inventory.OnRetrieved += OnInventoryRetrieved;
+            PlayFab.Inventory.Request();
         }
 
-        void OnGetUserInventory(GetUserInventoryResult result)
+        void OnInventoryRetrieved(PlayFabInventoryCore inventory)
         {
-            Requests.GetUserInventory.OnResult -= OnGetUserInventory;
+            PlayFab.Inventory.OnRetrieved -= OnInventoryRetrieved;
 
             Finish();
         }

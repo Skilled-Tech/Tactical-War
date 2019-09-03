@@ -28,6 +28,18 @@ namespace Game
         protected PlayFabCatalog[] elements;
         public PlayFabCatalog[] Elements { get { return elements; } }
 
+        public virtual bool AllValid
+        {
+            get
+            {
+                for (int i = 0; i < elements.Length; i++)
+                    if (elements[i].Valid == false)
+                        return false;
+
+                return true;
+            }
+        }
+
         public class Module : PlayFabCore.Module
         {
             new public const string MenuPath = PlayFabCatalogsCore.MenuPath + "Modules/";
@@ -53,8 +65,6 @@ namespace Game
 
         public virtual void Request()
         {
-            retrievals = (uint)elements.Length;
-
             for (int i = 0; i < elements.Length; i++)
             {
                 elements[i].OnRetrieved += ElementRetrieved;
@@ -62,14 +72,11 @@ namespace Game
             }
         }
 
-        uint retrievals = 0;
         void ElementRetrieved(PlayFabCatalog element)
         {
             element.OnRetrieved -= ElementRetrieved;
 
-            retrievals--;
-
-            if (retrievals == 0)
+            if (AllValid)
                 Retrieved();
         }
 
