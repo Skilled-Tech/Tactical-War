@@ -31,8 +31,14 @@ namespace Game
         protected PlayFabRequestsCore requests;
         public PlayFabRequestsCore Requests { get { return requests; } }
 
+        [SerializeField]
+        protected PlayFabCatalogsCore catalogs;
+        public PlayFabCatalogsCore Catalogs { get { return catalogs; } }
+
         public class Module : Core.Module
         {
+            public PlayFabCore PlayFab { get { return Core.PlayFab; } }
+
             new public const string MenuPath = PlayFabCore.MenuPath + "Modules/";
         }
 
@@ -41,13 +47,35 @@ namespace Game
             base.Configure();
 
             requests.Configure();
+
+            catalogs.Configure();
+
+            Requests.EmailLogin.OnResult += OnLogin;
         }
 
         public override void Init()
         {
             base.Init();
 
+            catalogs.Init();
+
             requests.Init();
+        }
+
+        public virtual void Login()
+        {
+            Requests.EmailLogin.Request("Moe4Baker@gmail.com", "Password");
+        }
+
+        public event PlayFabRequestsCore.EmailLoginHandler.ResaultDelegate LoginEvent;
+        void OnLogin(LoginResult result)
+        {
+            if (LoginEvent != null) LoginEvent(result);
+        }
+
+        public virtual void OnError(PlayFabError error)
+        {
+
         }
     }
 }

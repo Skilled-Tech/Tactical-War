@@ -28,9 +28,53 @@ namespace Game
         protected PopupUI popup;
         public PopupUI Popup { get { return popup; } }
 
+        public Core Core { get { return Core.Instance; } }
+
+        public ScenesCore Scenes { get { return Core.Scenes; } }
+
+        public PlayFabCore PlayFab { get { return Core.PlayFab; } }
+        public PlayFabRequestsCore Requests { get { return PlayFab.Requests; } }
+
         void Start()
         {
-            
+            popup.Show("Logging In", null, null);
+
+            PlayFab.LoginEvent += OnLogin;
+            PlayFab.Login();
+        }
+
+        void OnLogin(LoginResult result)
+        {
+            PlayFab.LoginEvent -= OnLogin;
+
+            Debug.Log("Login Successful");
+
+            Popup.Text = "Retrieving Catalogs";
+
+            PlayFab.Catalogs.OnRetrieved += OnCatalogsRetrieved;
+            PlayFab.Catalogs.Request();
+        }
+
+        void OnCatalogsRetrieved(PlayFabCatalogsCore catalogs)
+        {
+            PlayFab.Catalogs.OnRetrieved -= OnCatalogsRetrieved;
+
+            Popup.Text = "Retrieving Inventory";
+
+            Requests.GetUserInventory.OnResult += OnGetUserInventory;
+            Requests.GetUserInventory.Request();
+        }
+
+        void OnGetUserInventory(GetUserInventoryResult result)
+        {
+            Requests.GetUserInventory.OnResult -= OnGetUserInventory;
+
+            Finish();
+        }
+
+        void Finish()
+        {
+            Scenes.Load(Scenes.MainMenu);
         }
     }
 }

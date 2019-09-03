@@ -17,3 +17,4 @@ MonoBehaviour:
   levels: {fileID: 11400000, guid: 7e0e1692cfc0e684890aef41599c40e4, type: 2}
   player: {fileID: 11400000, guid: b131269aabb32444c9ad1e46af0a10f1, type: 2}
   units: {fileID: 11400000, guid: 77a8c78f4beff8c42a386cafdf0fe3e3, type: 2}
+  playFab: {fileID: 11400000, guid: 5b2a1003fb510f141820547dcc57367d, type: 2}

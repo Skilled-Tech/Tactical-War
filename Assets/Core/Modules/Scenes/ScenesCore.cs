@@ -22,7 +22,11 @@ namespace Game
     [CreateAssetMenu(menuName = MenuPath + "Scenes")]
 	public class ScenesCore : Core.Module
 	{
-		[SerializeField]
+        [SerializeField]
+        protected GameScene scene;
+        public GameScene Scene { get { return scene; } }
+
+        [SerializeField]
         protected GameScene mainMenu;
         public GameScene MainMenu { get { return mainMenu; } }
 

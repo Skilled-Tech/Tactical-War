@@ -17,6 +17,9 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using PlayFab;
+using PlayFab.ClientModels;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = Unit.MenuPath + "Template")]
@@ -125,5 +128,12 @@ namespace Game
         [TextArea]
         protected string description;
         public string Description { get { return description; } }
+
+        public CatalogItem CatalogItem { get; protected set; }
+
+        public virtual void Configure()
+        {
+
+        }
     }
 }

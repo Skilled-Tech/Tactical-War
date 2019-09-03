@@ -25,7 +25,7 @@ namespace Game
     [CreateAssetMenu(menuName = MenuPath + "Requests")]
 	public class PlayFabRequestsCore : PlayFabCore.Module
 	{
-        EmailLoginHandler EmailLogin;
+        public EmailLoginHandler EmailLogin { get; protected set; }
         public class EmailLoginHandler : Handler<LoginWithEmailAddressRequest, LoginResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.LoginWithEmailAddress;
@@ -41,7 +41,7 @@ namespace Game
             }
         }
 
-        GetCatalogHandler GetCatalog;
+        public GetCatalogHandler GetCatalog { get; protected set; }
         public class GetCatalogHandler : Handler<GetCatalogItemsRequest, GetCatalogItemsResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.GetCatalogItems;
@@ -56,7 +56,7 @@ namespace Game
             }
         }
 
-        GetUserInventoryHandler GetUserInventory;
+        public GetUserInventoryHandler GetUserInventory { get; protected set; }
         public class GetUserInventoryHandler : Handler<GetUserInventoryRequest, GetUserInventoryResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.GetUserInventory;
@@ -69,7 +69,7 @@ namespace Game
             }
         }
 
-        ListUserCharactersHandler ListUserCharacters;
+        public ListUserCharactersHandler ListUserCharacters { get; protected set; }
         public class ListUserCharactersHandler : Handler<ListUsersCharactersRequest, ListUsersCharactersResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.GetAllUsersCharacters;
@@ -82,7 +82,7 @@ namespace Game
             }
         }
 
-        PurchaseItemHandler PurchaseItem;
+        public PurchaseItemHandler PurchaseItem { get; protected set; }
         public class PurchaseItemHandler : Handler<PurchaseItemRequest, PurchaseItemResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.PurchaseItem;
@@ -105,7 +105,7 @@ namespace Game
             }
         }
 
-        ExecuteCloudScriptHandler ExecuteCloudScript;
+        public ExecuteCloudScriptHandler ExecuteCloudScript { get; protected set; }
         public class ExecuteCloudScriptHandler : Handler<ExecuteCloudScriptRequest, ExecuteCloudScriptResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.ExecuteCloudScript;

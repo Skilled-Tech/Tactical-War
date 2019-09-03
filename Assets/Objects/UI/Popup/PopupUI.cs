@@ -27,6 +27,8 @@ namespace Game
         protected TMP_Text label;
         public TMP_Text Label { get { return label; } }
 
+        public string Text { get { return label.text; } set { label.text = value; } }
+
         [SerializeField]
         protected Button button;
         public Button Button { get { return button; } }

@@ -62,6 +62,10 @@ namespace Game
         protected UnitsCore units;
         public UnitsCore Units { get { return units; } }
 
+        [SerializeField]
+        protected PlayFabCore playFab;
+        public PlayFabCore PlayFab { get { return playFab; } }
+
         public class Module : ScriptableObject
         {
             public const string MenuPath = Core.MenuPath + "Modules/";
@@ -88,6 +92,7 @@ namespace Game
             action(levels);
             action(player);
             action(units);
+            action(playFab);
         }
         #endregion
 
