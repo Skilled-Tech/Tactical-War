@@ -38,37 +38,63 @@ namespace Game
         {
             popup.Show("Logging In", null, null);
 
-            PlayFab.LoginEvent += OnLogin;
-            PlayFab.Login();
+            PlayFab.Login.OnResponse += OnLoginResponse;
+            PlayFab.Login.Perform();
         }
 
-        void OnLogin(LoginResult result)
+        void OnLoginResponse(PlayFabLoginCore result, PlayFabError error)
         {
-            PlayFab.LoginEvent -= OnLogin;
+            if(error == null)
+            {
+                PlayFab.Login.OnResponse -= OnLoginResponse;
 
-            Debug.Log("Login Successful");
+                Popup.Text = "Retrieving Catalogs";
 
-            Popup.Text = "Retrieving Catalogs";
-
-            PlayFab.Catalogs.OnRetrieved += OnCatalogsRetrieved;
-            PlayFab.Catalogs.Request();
+                PlayFab.Catalogs.OnResponse += OnCatalogsResponse;
+                PlayFab.Catalogs.Request();
+            }
+            else
+            {
+                RaiseError(error);
+            }
         }
 
-        void OnCatalogsRetrieved(PlayFabCatalogsCore catalogs)
+        void OnCatalogsResponse(PlayFabCatalogsCore catalogs, PlayFabError error)
         {
-            PlayFab.Catalogs.OnRetrieved -= OnCatalogsRetrieved;
+            PlayFab.Catalogs.OnResponse -= OnCatalogsResponse;
 
-            Popup.Text = "Retrieving Inventory";
+            if (error == null)
+            {
+                Popup.Text = "Retrieving Inventory";
 
-            PlayFab.Inventory.OnRetrieved += OnInventoryRetrieved;
-            PlayFab.Inventory.Request();
+                PlayFab.Inventory.OnResponse += OnInventoryResponse;
+                PlayFab.Inventory.Request();
+            }
+            else
+            {
+                RaiseError(error);
+            }
         }
 
-        void OnInventoryRetrieved(PlayFabInventoryCore inventory)
+        void OnInventoryResponse(PlayFabInventoryCore inventory, PlayFabError error)
         {
-            PlayFab.Inventory.OnRetrieved -= OnInventoryRetrieved;
+            PlayFab.Inventory.OnResponse -= OnInventoryResponse;
 
-            Finish();
+            if (error == null)
+            {
+                Finish();
+            }
+            else
+            {
+                RaiseError(error);
+            }
+        }
+
+        void RaiseError(PlayFabError error)
+        {
+            Debug.LogError("Login Error: " + error.GenerateErrorReport());
+
+            Popup.Show("Playfab Error", null, null);
         }
 
         void Finish()

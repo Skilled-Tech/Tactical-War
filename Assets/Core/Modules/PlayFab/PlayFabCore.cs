@@ -28,6 +28,10 @@ namespace Game
         new public const string MenuPath = Core.Module.MenuPath + "PlayFab/";
 
         [SerializeField]
+        protected PlayFabLoginCore login;
+        public PlayFabLoginCore Login { get { return login; } }
+
+        [SerializeField]
         protected PlayFabRequestsCore requests;
         public PlayFabRequestsCore Requests { get { return requests; } }
 
@@ -45,41 +49,25 @@ namespace Game
 
             new public const string MenuPath = PlayFabCore.MenuPath + "Modules/";
         }
-
+        
         public override void Configure()
         {
             base.Configure();
 
+            login.Configure();
             requests.Configure();
             catalogs.Configure();
             inventory.Configure();
-
-            Requests.EmailLogin.OnResult += OnLogin;
         }
 
         public override void Init()
         {
             base.Init();
 
+            catalogs.Configure();
             catalogs.Init();
             requests.Init();
             inventory.Init();
-        }
-
-        public virtual void Login()
-        {
-            Requests.EmailLogin.Request("Moe4Baker@gmail.com", "Password");
-        }
-
-        public event PlayFabRequestsCore.EmailLoginHandler.ResaultDelegate LoginEvent;
-        void OnLogin(LoginResult result)
-        {
-            if (LoginEvent != null) LoginEvent(result);
-        }
-
-        public virtual void OnError(PlayFabError error)
-        {
-
         }
     }
 }

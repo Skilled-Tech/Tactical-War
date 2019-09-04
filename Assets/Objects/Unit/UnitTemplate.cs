@@ -25,6 +25,8 @@ namespace Game
     [CreateAssetMenu(menuName = Unit.MenuPath + "Template")]
     public class UnitTemplate : ScriptableObject
     {
+        public string itemID { get { return name; } }
+
         [SerializeField]
         protected UnitType type;
         public UnitType Type { get { return type; } }
@@ -130,10 +132,18 @@ namespace Game
         public string Description { get { return description; } }
 
         public CatalogItem CatalogItem { get; protected set; }
-
-        public virtual void Configure()
+        public virtual void Load(PlayFabCatalog catalog)
         {
+            CatalogItem = null;
 
+            for (int i = 0; i < catalog.Size; i++)
+            {
+                if(catalog[i].ItemId == itemID)
+                {
+                    CatalogItem = catalog[i];
+                    break;
+                }
+            }
         }
     }
 }

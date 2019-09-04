@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using PlayFab;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Asset")]
@@ -27,18 +29,6 @@ namespace Game
         [SerializeField]
         protected PlayFabCatalog[] elements;
         public PlayFabCatalog[] Elements { get { return elements; } }
-
-        public virtual bool AllValid
-        {
-            get
-            {
-                for (int i = 0; i < elements.Length; i++)
-                    if (elements[i].Valid == false)
-                        return false;
-
-                return true;
-            }
-        }
 
         public class Module : PlayFabCore.Module
         {
@@ -52,7 +42,12 @@ namespace Game
             base.Configure();
 
             for (int i = 0; i < elements.Length; i++)
+            {
                 elements[i].Configure();
+
+                elements[i].OnRetrieved += OnElementRetrieved;
+                elements[i].OnResponse += OnElementResponse;
+            }
         }
 
         public override void Init()
@@ -66,24 +61,28 @@ namespace Game
         public virtual void Request()
         {
             for (int i = 0; i < elements.Length; i++)
-            {
-                elements[i].OnRetrieved += ElementRetrieved;
                 elements[i].Request();
+        }
+
+        public event PlayFabRequestsUtility.ResaultDelegate<PlayFabCatalogsCore> OnResult;
+        void OnElementRetrieved(PlayFabCatalog result)
+        {
+            if (elements.All(x => x.Valid))
+                if (OnResult != null) OnResult(this);
+        }
+
+        public event PlayFabRequestsUtility.ResponseDelegate<PlayFabCatalogsCore> OnResponse;
+        void OnElementResponse(PlayFabCatalog result, PlayFabError error)
+        {
+            if(error == null)
+            {
+                if (elements.All(x => x.Valid))
+                    if (OnResponse != null) OnResponse(this, error);
+            }
+            else
+            {
+                if (OnResponse != null) OnResponse(this, error);
             }
         }
-
-        void ElementRetrieved(PlayFabCatalog element)
-        {
-            element.OnRetrieved -= ElementRetrieved;
-
-            if (AllValid)
-                Retrieved();
-        }
-
-        public event Action<PlayFabCatalogsCore> OnRetrieved;
-        void Retrieved()
-        {
-            if (OnRetrieved != null) OnRetrieved(this);
-        }
-	}
+    }
 }

@@ -46,7 +46,7 @@ namespace Game
 
             Clear();
 
-            foreach (var property in Core.Player.Units.Dictionary[Data.Asset].Upgrades.Types)
+            foreach (var property in Core.Player.Units.Dictionary[Data.Template].Upgrades.Types)
             {
                 var instance = CreateProperty(property);
 

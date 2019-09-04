@@ -25,34 +25,50 @@ namespace Game
     [CreateAssetMenu(menuName = MenuPath + "Inventory")]
 	public class PlayFabInventoryCore : PlayFabCore.Module
 	{
-        public List<ItemInstance> Items { get; protected set; }
+        public RequestHandler GetRequest { get; protected set; }
+        public class RequestHandler : PlayFabRequestHandler<GetUserInventoryRequest, GetUserInventoryResult>
+        {
+            public override AskDelegate Ask => PlayFabClientAPI.GetUserInventory;
 
-        public Dictionary<string, int> Balances { get; protected set; }
+            public virtual void Send()
+            {
+                var request = CreateRequest();
+
+                Send(request);
+            }
+        }
+
+        public List<ItemInstance> Items { get { return GetRequest.Latest.Inventory; } }
+
+        public Dictionary<string, int> Currencies { get { return GetRequest.Latest.VirtualCurrency; } }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            GetRequest = new RequestHandler();
+
+            GetRequest.OnResponse += ResponseCallback;
+        }
+
+        public virtual bool Contains(CatalogItem item)
+        {
+            for (int i = 0; i < Items.Count; i++)
+                if (Items[i].ItemId == item.ItemId)
+                    return true;
+
+            return false;
+        }
 
         public virtual void Request()
         {
-            var request = new GetUserInventoryRequest
-            {
-
-            };
-
-            PlayFabClientAPI.GetUserInventory(request, Retrieved, Error);
+            GetRequest.Send();
         }
 
-        public event Action<PlayFabInventoryCore> OnRetrieved;
-        public virtual void Retrieved(GetUserInventoryResult result)
+        public event PlayFabRequestsUtility.ResponseDelegate<PlayFabInventoryCore> OnResponse;
+        void ResponseCallback(GetUserInventoryResult result, PlayFabError error)
         {
-            Debug.Log("Retrieved Inventory");
-
-            Items = result.Inventory;
-            Balances = result.VirtualCurrency;
-
-            if (OnRetrieved != null) OnRetrieved(this);
-        }
-
-        public virtual void Error(PlayFabError error)
-        {
-
+            if (OnResponse != null) OnResponse(this, error);
         }
     }
 }

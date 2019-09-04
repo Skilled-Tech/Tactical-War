@@ -132,16 +132,6 @@ namespace Game
             }
         }
 
-        public virtual void Unlock(Funds funds)
-        {
-            if (!funds.CanAfford(Unit.Unlock.Cost))
-                throw new Exception();
-
-            funds.Take(Unit.Unlock.Cost);
-
-            Unlocked = true;
-        }
-
         [JsonProperty]
         protected UpgradesData upgrades;
         public UpgradesData Upgrades { get { return upgrades; } }

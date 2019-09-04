@@ -25,30 +25,16 @@ namespace Game
     [CreateAssetMenu(menuName = MenuPath + "Requests")]
 	public class PlayFabRequestsCore : PlayFabCore.Module
 	{
-        public EmailLoginHandler EmailLogin { get; protected set; }
-        public class EmailLoginHandler : Handler<LoginWithEmailAddressRequest, LoginResult>
-        {
-            public override AskDelegate Ask => PlayFabClientAPI.LoginWithEmailAddress;
-
-            public virtual void Request(string email, string password)
-            {
-                var request = GetRequest();
-
-                request.Email = email;
-                request.Password = password;
-
-                Send(request);
-            }
-        }
+        
 
         public GetCatalogHandler GetCatalog { get; protected set; }
-        public class GetCatalogHandler : Handler<GetCatalogItemsRequest, GetCatalogItemsResult>
+        public class GetCatalogHandler : PlayFabRequestHandler<GetCatalogItemsRequest, GetCatalogItemsResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.GetCatalogItems;
 
             public virtual void Request(string version)
             {
-                var request = GetRequest();
+                var request = CreateRequest();
 
                 request.CatalogVersion = version;
 
@@ -57,39 +43,39 @@ namespace Game
         }
 
         public GetUserInventoryHandler GetUserInventory { get; protected set; }
-        public class GetUserInventoryHandler : Handler<GetUserInventoryRequest, GetUserInventoryResult>
+        public class GetUserInventoryHandler : PlayFabRequestHandler<GetUserInventoryRequest, GetUserInventoryResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.GetUserInventory;
 
             public virtual void Request()
             {
-                var request = GetRequest();
+                var request = CreateRequest();
 
                 Send(request);
             }
         }
 
         public ListUserCharactersHandler ListUserCharacters { get; protected set; }
-        public class ListUserCharactersHandler : Handler<ListUsersCharactersRequest, ListUsersCharactersResult>
+        public class ListUserCharactersHandler : PlayFabRequestHandler<ListUsersCharactersRequest, ListUsersCharactersResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.GetAllUsersCharacters;
 
             public virtual void Request()
             {
-                var request = GetRequest();
+                var request = CreateRequest();
 
                 Send(request);
             }
         }
 
         public PurchaseItemHandler PurchaseItem { get; protected set; }
-        public class PurchaseItemHandler : Handler<PurchaseItemRequest, PurchaseItemResult>
+        public class PurchaseItemHandler : PlayFabRequestHandler<PurchaseItemRequest, PurchaseItemResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.PurchaseItem;
 
             public virtual void Request(string catalogVersion, string itemID, string currency, int price)
             {
-                var request = GetRequest();
+                var request = CreateRequest();
 
                 request.CatalogVersion = catalogVersion;
                 request.ItemId = itemID;
@@ -106,13 +92,13 @@ namespace Game
         }
 
         public ExecuteCloudScriptHandler ExecuteCloudScript { get; protected set; }
-        public class ExecuteCloudScriptHandler : Handler<ExecuteCloudScriptRequest, ExecuteCloudScriptResult>
+        public class ExecuteCloudScriptHandler : PlayFabRequestHandler<ExecuteCloudScriptRequest, ExecuteCloudScriptResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.ExecuteCloudScript;
 
             public virtual void Request(string name, object parameter)
             {
-                var request = GetRequest();
+                var request = CreateRequest();
 
                 request.FunctionName = name;
                 request.FunctionParameter = parameter;
@@ -121,49 +107,9 @@ namespace Game
             }
         }
 
-        public abstract class Handler<TRequest, TResult>
-        where TRequest : class, new()
-        where TResult : class
-        {
-            public TResult Latest { get; protected set; }
-
-            public delegate void AskDelegate(TRequest request, Action<TResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null);
-            public abstract AskDelegate Ask { get; }
-
-            public virtual void Send(TRequest request)
-            {
-                Ask(request, ResultCallback, ErrorCallback);
-            }
-
-            public virtual TRequest GetRequest()
-            {
-                return new TRequest();
-            }
-
-            public delegate void ResaultDelegate(TResult result);
-            public event ResaultDelegate OnResult;
-            public virtual void ResultCallback(TResult result)
-            {
-                Latest = result;
-
-                if (OnResult != null) OnResult(result);
-            }
-
-            public delegate void ErrorDelegate(PlayFabError error);
-            public event ErrorDelegate OnError;
-            public virtual void ErrorCallback(PlayFabError error)
-            {
-                Debug.LogError("Error On Request, Report: " + error.GenerateErrorReport());
-
-                if (OnError != null) OnError(error);
-            }
-        }
-
         public override void Configure()
         {
             base.Configure();
-
-            EmailLogin = new EmailLoginHandler();
 
             GetCatalog = new GetCatalogHandler();
 
@@ -174,6 +120,66 @@ namespace Game
             PurchaseItem = new PurchaseItemHandler();
 
             ExecuteCloudScript = new ExecuteCloudScriptHandler();
+        }
+    }
+
+    public static class PlayFabRequestsUtility
+    {
+        public delegate void ResaultDelegate<TResult>(TResult result);
+
+        public delegate void ResponseDelegate<TResult>(TResult result, PlayFabError error);
+    }
+
+    public abstract class PlayFabRequestHandler<TRequest, TResult>
+        where TRequest : class, new()
+        where TResult : class
+    {
+        public TResult Latest { get; protected set; }
+        public virtual void Clear()
+        {
+            Latest = null;
+        }
+
+        public delegate void AskDelegate(TRequest request, Action<TResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null);
+        public abstract AskDelegate Ask { get; }
+
+        public virtual void Send(TRequest request)
+        {
+            Clear();
+
+            Ask(request, ResultCallback, ErrorCallback);
+        }
+
+        public virtual TRequest CreateRequest()
+        {
+            return new TRequest();
+        }
+
+        public event PlayFabRequestsUtility.ResaultDelegate<TResult> OnResult;
+        public virtual void ResultCallback(TResult result)
+        {
+            Latest = result;
+
+            if (OnResult != null) OnResult(result);
+
+            Respond(result, null);
+        }
+
+        public event PlayFabRequestsUtility.ResponseDelegate<TResult> OnResponse;
+        public virtual void Respond(TResult result, PlayFabError error)
+        {
+            if (OnResponse != null) OnResponse(result, error);
+        }
+
+        public delegate void ErrorDelegate(PlayFabError error);
+        public event ErrorDelegate OnError;
+        public virtual void ErrorCallback(PlayFabError error)
+        {
+            Debug.LogError("Error On Request, Report: " + error.GenerateErrorReport());
+
+            if (OnError != null) OnError(error);
+
+            Respond(null, error);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Game
         {
             base.Show();
 
-            description.text = Data.Asset.Description;
+            description.text = Data.Template.Description;
         }
 
         public override void UpdateState()
@@ -74,17 +74,18 @@ namespace Game
             }
             else
             {
-                unlock.interactable = Player.Funds.CanAfford(Data.Asset.Unlock.Cost);
+                unlock.interactable = Player.Funds.CanAfford(Data.Template.Unlock.Cost);
 
                 price.color = unlock.interactable ? Color.white : Color.grey;
 
-                price.text = Data.Asset.Unlock.Cost.ToString();
+                price.text = Data.Template.Unlock.Cost.ToString();
             }
         }
 
         void UnlockClick()
         {
-            Data.Instance.Unlock(Player.Funds);
+            //TODO
+            throw new NotImplementedException();
         }
 
         void UpgradeClick()

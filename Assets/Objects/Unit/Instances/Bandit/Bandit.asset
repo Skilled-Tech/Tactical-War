@@ -28,7 +28,7 @@ MonoBehaviour:
   unlock:
     cost:
       gold: 0
-      xp: 400
+      xp: 2000
   deployment:
     cost:
       gold: 100

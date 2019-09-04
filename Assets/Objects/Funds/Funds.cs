@@ -106,6 +106,7 @@ namespace Game
                 throw new Exception("Trying to reduce " + value.ToString() + " From " + ToString() + " but the funds are too low, man");
             }
         }
+
         public virtual void Add(Currency value)
         {
             Gold.Value += value.Gold;

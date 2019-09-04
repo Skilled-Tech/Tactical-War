@@ -18,6 +18,8 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using Newtonsoft.Json.Linq;
 
+using PlayFab;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Units")]
@@ -30,6 +32,25 @@ namespace Game
         public UnitTemplate this[int index] { get { return list[index]; } }
 
         public int Count { get { return list.Length; } }
+
+        [SerializeField]
+        protected PlayFabCatalog catalog;
+        public PlayFabCatalog Catalog { get { return catalog; } }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            catalog.OnRetrieved += OnCatalogsRetrieved;
+        }
+
+        void OnCatalogsRetrieved(PlayFabCatalog result)
+        {
+            for (int i = 0; i < list.Length; i++)
+            {
+                list[i].Load(catalog);
+            }
+        }
 
         public virtual UnitTemplate Find(string name)
         {

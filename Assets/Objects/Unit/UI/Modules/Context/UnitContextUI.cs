@@ -69,13 +69,13 @@ namespace Game
         public DataElement Data;
         public class DataElement
         {
-            public UnitTemplate Asset { get; protected set; }
+            public UnitTemplate Template { get; protected set; }
 
             public UnitData Instance { get; protected set; }
 
             public DataElement(UnitTemplate unit)
             {
-                this.Asset = unit;
+                this.Template = unit;
 
                 this.Instance = Core.Instance.Player.Units.Dictionary[unit];
             }

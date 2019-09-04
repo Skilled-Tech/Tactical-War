@@ -25,40 +25,55 @@ namespace Game
     [CreateAssetMenu(menuName = MenuPath + "Catalog")]
     public class PlayFabCatalog : PlayFabCatalogsCore.Module
 	{
+        public RequestHandler GetRequest;
+        public class RequestHandler : PlayFabRequestHandler<GetCatalogItemsRequest, GetCatalogItemsResult>
+        {
+            public override AskDelegate Ask => PlayFabClientAPI.GetCatalogItems;
+
+            public virtual void Send(string version)
+            {
+                var request = CreateRequest();
+
+                request.CatalogVersion = version;
+
+                Send(request);
+            }
+        }
+
         public virtual string Version { get { return name; } }
 
-        public List<CatalogItem> Items { get; protected set; }
+        public List<CatalogItem> Items { get { return GetRequest.Latest.Catalog; } }
 
         public virtual bool Valid { get { return Items != null; } }
 
         public int Size { get { return Items.Count; } }
+
         public CatalogItem this[int index] { get { return Items[index]; } }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            GetRequest = new RequestHandler();
+            GetRequest.OnResponse += ResponseCallback;
+            GetRequest.OnResult += RetrieveCallback;
+        }
 
         public virtual void Request()
         {
-            Items = null;
-
-            var request = new GetCatalogItemsRequest
-            {
-                CatalogVersion = Version,
-            };
-
-            PlayFabClientAPI.GetCatalogItems(request, Retrieved, OnError);
+            GetRequest.Send(Version);
         }
 
-        public event Action<PlayFabCatalog> OnRetrieved;
-        public virtual void Retrieved(GetCatalogItemsResult result)
+        public event PlayFabRequestsUtility.ResponseDelegate<PlayFabCatalog> OnResponse;
+        void ResponseCallback(GetCatalogItemsResult result, PlayFabError error)
         {
-            Debug.Log("Retrieved " + Version + " Catalog");
+            if (OnResponse != null) OnResponse(this, error);
+        }
 
-            Items = result.Catalog;
-
+        public event PlayFabRequestsUtility.ResaultDelegate<PlayFabCatalog> OnRetrieved;
+        void RetrieveCallback(GetCatalogItemsResult result)
+        {
             if (OnRetrieved != null) OnRetrieved(this);
-        }
-
-        public virtual void OnError(PlayFabError error)
-        {
-            
         }
     }
 }
