@@ -17,6 +17,9 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using PlayFab;
+using PlayFab.ClientModels;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Asset")]
@@ -45,7 +48,14 @@ namespace Game
 
             Funds.Configure(999999);
 
+            Core.PlayFab.Inventory.OnRetrieved += OnInventoryRetrieved;
+
             units.Configure();
+        }
+
+        void OnInventoryRetrieved(PlayFabInventoryCore result)
+        {
+            funds.Load(result.Currencies);
         }
 
         public override void Init()

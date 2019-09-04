@@ -94,7 +94,7 @@ namespace Game
         {
             Debug.LogError("Login Error: " + error.GenerateErrorReport());
 
-            Popup.Show("Playfab Error", null, null);
+            Popup.Show(error.ErrorMessage);
         }
 
         void Finish()

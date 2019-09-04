@@ -217,6 +217,11 @@ namespace PlayFab.Internal
 #if PLAYFAB_REQUEST_TIMING
                 var startTime = DateTime.UtcNow;
 #endif
+                { //God Damn Code Stripping: https://github.com/PlayFab/UnitySDK/issues/216
+                    var temp = PlayFabSimpleJson.DeserializeObject<HttpResponseObject>(response);
+                    temp.ToString();
+                }
+
                 var serializer = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer);
                 var httpResult = serializer.DeserializeObject<HttpResponseObject>(response);
 

@@ -49,6 +49,8 @@ namespace Game
             GetRequest = new RequestHandler();
 
             GetRequest.OnResponse += ResponseCallback;
+
+            GetRequest.OnResult += RetrieveCallback;
         }
 
         public virtual bool Contains(CatalogItem item)
@@ -69,6 +71,12 @@ namespace Game
         void ResponseCallback(GetUserInventoryResult result, PlayFabError error)
         {
             if (OnResponse != null) OnResponse(this, error);
+        }
+
+        public event PlayFabRequestsUtility.ResaultDelegate<PlayFabInventoryCore> OnRetrieved;
+        void RetrieveCallback(GetUserInventoryResult result)
+        {
+            if (OnRetrieved != null) OnRetrieved(this);
         }
     }
 }

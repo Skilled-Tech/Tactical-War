@@ -25,12 +25,12 @@ namespace Game
     [CreateAssetMenu(menuName = MenuPath + "Login")]
 	public class PlayFabLoginCore : PlayFabCore.Module
 	{
-        public EmailHandler Email { get; protected set; }
-        public class EmailHandler : PlayFabRequestHandler<LoginWithEmailAddressRequest, LoginResult>
+        public EmaiLoginHandler EmailLogin { get; protected set; }
+        public class EmaiLoginHandler : PlayFabRequestHandler<LoginWithEmailAddressRequest, LoginResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.LoginWithEmailAddress;
 
-            public virtual void Request(string email, string password)
+            public virtual void Send(string email, string password)
             {
                 var request = CreateRequest();
 
@@ -41,18 +41,50 @@ namespace Game
             }
         }
 
+        public AndroidLoginHandler AndroidIDLogin;
+        public class AndroidLoginHandler : PlayFabRequestHandler<LoginWithAndroidDeviceIDRequest, LoginResult>
+        {
+            public override AskDelegate Ask => PlayFabClientAPI.LoginWithAndroidDeviceID;
+
+            public virtual void Send()
+            {
+                var request = CreateRequest();
+
+                request.CreateAccount = true;
+
+                request.AndroidDeviceId = SystemInfo.deviceUniqueIdentifier;
+                request.AndroidDevice = SystemInfo.deviceModel;
+                request.OS = SystemInfo.operatingSystem;
+
+                Send(request);
+            }
+        }
+
         public override void Configure()
         {
             base.Configure();
 
-            Email = new EmailHandler();
+            EmailLogin = new EmaiLoginHandler();
+            EmailLogin.OnResponse += ResponseCallback;
 
-            Email.OnResponse += ResponseCallback;
+            AndroidIDLogin = new AndroidLoginHandler();
+            AndroidIDLogin.OnResponse += ResponseCallback;
         }
 
         public virtual void Perform()
         {
-            Email.Request("Moe4Baker@gmail.com", "Password");
+            if(Application.isEditor)
+            {
+                EmailLogin.Send("Moe4Baker@gmail.com", "Password");
+            }
+            else if(Application.platform == RuntimePlatform.Android)
+            {
+                AndroidIDLogin.Send();
+            }
+            else
+            {
+
+            }
         }
 
         public event PlayFabRequestsUtility.ResponseDelegate<PlayFabLoginCore> OnResponse;

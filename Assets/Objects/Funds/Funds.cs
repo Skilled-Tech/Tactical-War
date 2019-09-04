@@ -17,18 +17,40 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using PlayFab;
+
 namespace Game
 {
     [Serializable]
 	public class Funds
     {
         [SerializeField]
-        protected Property gold;
-        public Property Gold { get { return gold; } }
+        protected GoldProperty gold;
+        public GoldProperty Gold { get { return gold; } }
+        public class GoldProperty : Property
+        {
+            public override string Code => "GD";
+
+            public GoldProperty(int value) : base(value)
+            {
+
+            }
+        }
 
         [SerializeField]
-        protected Property xp;
-        public Property XP { get { return xp; } }
+        protected JewelsProperty jewels;
+        public JewelsProperty Jewels { get { return jewels; } }
+        public class JewelsProperty : Property
+        {
+            public override string Code => "JL";
+
+            public JewelsProperty(int value) : base(value)
+            {
+
+            }
+        }
+
+        public event Action OnValueChanged;
 
         public virtual Property Get(CurrencyType type)
         {
@@ -36,18 +58,25 @@ namespace Game
             {
                 case CurrencyType.Gold:
                     return Gold;
-                case CurrencyType.XP:
-                    return XP;
+                case CurrencyType.Jewels:
+                    return Jewels;
             }
 
             throw new NotImplementedException();
         }
 
-        public event Action OnValueChanged;
+        public virtual void Load(Dictionary<string, int> dictionary)
+        {
+            gold.Value = dictionary[gold.Code];
+
+            jewels.Value = dictionary[jewels.Code];
+        }
 
         [Serializable]
-        public class Property
+        public abstract class Property
         {
+            public abstract string Code { get; }
+
             [SerializeField]
             protected int _value;
             public int Value
@@ -77,7 +106,7 @@ namespace Game
         public virtual void Configure(int value)
         {
             this.gold.Value = value;
-            this.xp.Value = value;
+            this.jewels.Value = value;
 
             Configure();
         }
@@ -85,12 +114,12 @@ namespace Game
         {
             Gold.OnValueChanged += OnGoldChanged;
 
-            XP.OnValueChanged += OnXPChanged;
+            Jewels.OnValueChanged += OnJewelsChanged;
         }
 
         public bool CanAfford(Currency cost)
         {
-            return Currency.IsSufficient(cost, Gold.Value, XP.Value);
+            return Currency.IsSufficient(cost, Gold.Value, Jewels.Value);
         }
 
         public virtual void Take(Currency value)
@@ -99,35 +128,39 @@ namespace Game
             {
                 Gold.Value -= value.Gold;
 
-                XP.Value -= value.XP;
+                Jewels.Value -= value.Jewels;
             }
             else
             {
                 throw new Exception("Trying to reduce " + value.ToString() + " From " + ToString() + " but the funds are too low, man");
             }
         }
-
         public virtual void Add(Currency value)
         {
             Gold.Value += value.Gold;
 
-            XP.Value += value.XP;
+            Jewels.Value += value.Jewels;
         }
 
         void OnGoldChanged(float value)
         {
             if (OnValueChanged != null) OnValueChanged();
         }
-        void OnXPChanged(float value)
+        void OnJewelsChanged(float value)
         {
             if (OnValueChanged != null) OnValueChanged();
         }
 
+        public override string ToString()
+        {
+            return Currency.FormatText(gold.Value, jewels.Value);
+        }
+
         public Funds(int value)
         {
-            gold = new Property(value);
+            gold = new GoldProperty(value);
 
-            xp = new Property(value);
+            jewels = new JewelsProperty(value);
         }
     }
 }

@@ -43,31 +43,38 @@ namespace Game
         protected PlayFabInventoryCore inventory;
         public PlayFabInventoryCore Inventory { get { return inventory; } }
 
+        [SerializeField]
+        protected PlayFabPurchaseCore purchase;
+        public PlayFabPurchaseCore Purchase { get { return purchase; } }
+
         public class Module : Core.Module
         {
             public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
             new public const string MenuPath = PlayFabCore.MenuPath + "Modules/";
         }
+
+        public virtual void ForAllModules(Action<Module> action)
+        {
+            action(login);
+            action(requests);
+            action(catalogs);
+            action(inventory);
+            action(purchase);
+        }
         
         public override void Configure()
         {
             base.Configure();
 
-            login.Configure();
-            requests.Configure();
-            catalogs.Configure();
-            inventory.Configure();
+            ForAllModules(x => x.Configure());
         }
 
         public override void Init()
         {
             base.Init();
 
-            catalogs.Configure();
-            catalogs.Init();
-            requests.Init();
-            inventory.Init();
+            ForAllModules(x => x.Init());
         }
     }
 }

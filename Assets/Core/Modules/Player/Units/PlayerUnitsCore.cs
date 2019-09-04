@@ -63,6 +63,14 @@ namespace Game
 
             upgrades.Configure();
             selection.Configure();
+
+            Core.PlayFab.Inventory.OnRetrieved += OnInventoryRetireved;
+        }
+
+        void OnInventoryRetireved(PlayFabInventoryCore result)
+        {
+            foreach (var pair in Dictionary)
+                pair.Value.Unlocked = Core.PlayFab.Inventory.Contains(pair.Key.CatalogItem);
         }
 
         void OnDataChanged(UnitData data)

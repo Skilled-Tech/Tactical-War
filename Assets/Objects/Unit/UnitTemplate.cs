@@ -97,7 +97,17 @@ namespace Game
         {
             [SerializeField]
             protected Currency cost;
-            public Currency Cost { get { return cost; } }
+            public Currency Cost
+            {
+                get
+                {
+                    return cost;
+                }
+                set
+                {
+                    cost = value;
+                }
+            }
 
             public UnlockData(Currency cost)
             {
@@ -113,7 +123,17 @@ namespace Game
         {
             [SerializeField]
             protected Currency cost;
-            public Currency Cost { get { return cost; } }
+            public Currency Cost
+            {
+                get
+                {
+                    return cost;
+                }
+                set
+                {
+                    cost = value;
+                }
+            }
 
             [SerializeField]
             protected float time;
@@ -140,10 +160,16 @@ namespace Game
             {
                 if(catalog[i].ItemId == itemID)
                 {
-                    CatalogItem = catalog[i];
+                    Load(catalog[i]);
                     break;
                 }
             }
+        }
+        public virtual void Load(CatalogItem item)
+        {
+            CatalogItem = item;
+
+            unlock.Cost = new Currency(item.VirtualCurrencyPrices);
         }
     }
 }

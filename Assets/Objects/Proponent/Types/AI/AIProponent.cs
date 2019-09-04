@@ -43,7 +43,7 @@ namespace Game
             Funds.Configure();
 
             Funds.Gold.Value = 99999;
-            Funds.XP.Value = 99999;
+            Funds.Jewels.Value = 99999;
         }
 
         void Update()

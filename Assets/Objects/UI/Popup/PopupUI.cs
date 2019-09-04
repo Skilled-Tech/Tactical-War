@@ -42,6 +42,10 @@ namespace Game
             button.onClick.AddListener(OnButton);
         }
 
+        public virtual void Show(string text)
+        {
+            Show(text, null, null);
+        }
         public virtual void Show(string text, Action action, string instructions)
         {
             label.text = text;

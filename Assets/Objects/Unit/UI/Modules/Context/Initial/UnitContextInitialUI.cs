@@ -38,6 +38,8 @@ namespace Game
         protected Button upgrade;
         public Button Upgrade { get { return upgrade; } }
 
+        public PopupUI Popup { get { return MainMenu.Instance.Popup; } }
+
         public override void Init()
         {
             base.Init();
@@ -78,14 +80,51 @@ namespace Game
 
                 price.color = unlock.interactable ? Color.white : Color.grey;
 
-                price.text = Data.Template.Unlock.Cost.ToString();
+                price.text = Currency.FormatText(0, (int)Data.Template.CatalogItem.VirtualCurrencyPrices[Core.Player.Funds.Jewels.Code]);
             }
         }
 
         void UnlockClick()
         {
-            //TODO
-            throw new NotImplementedException();
+            Context.Character.Slot.gameObject.SetActive(false);
+
+            Popup.Show("Processing Purchase");
+
+            Core.PlayFab.Purchase.OnResponse += OnPurchaseResponse;
+            Core.PlayFab.Purchase.Perform(Data.Template.CatalogItem, Core.Player.Funds.Jewels.Code);
+        }
+
+        void OnPurchaseResponse(PlayFab.ClientModels.PurchaseItemResult result, PlayFab.PlayFabError error)
+        {
+            Core.PlayFab.Purchase.OnResponse -= OnPurchaseResponse;
+
+            if(error == null)
+            {
+                Popup.Show("Retrieving Inventory");
+
+                Core.PlayFab.Inventory.OnResponse += OnInventoryResponse;
+                Core.PlayFab.Inventory.Request();
+            }
+            else
+            {
+                Popup.Show(error.ErrorMessage, Popup.Hide, "Close");
+            }
+        }
+
+        void OnInventoryResponse(PlayFabInventoryCore result, PlayFab.PlayFabError error)
+        {
+            Core.PlayFab.Inventory.OnResponse -= OnInventoryResponse;
+
+            if (error == null)
+            {
+                Popup.Hide();
+
+                Context.Character.Slot.gameObject.SetActive(true);
+            }
+            else
+            {
+                Popup.Show(error.ErrorMessage, Popup.Hide, "Close");
+            }
         }
 
         void UpgradeClick()

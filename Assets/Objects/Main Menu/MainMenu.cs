@@ -19,8 +19,13 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class MainMenu : MonoBehaviour
+    [DefaultExecutionOrder(ExecutionOrder)]
+    public class MainMenu : UIElement
     {
+        public const int ExecutionOrder = -200;
+
+        public static MainMenu Instance { get; protected set; }
+
         [SerializeField]
         protected UIElement title;
         public UIElement Title { get { return title; } }
@@ -41,8 +46,14 @@ namespace Game
         protected UIElement credits;
         public UIElement Credits { get { return credits; } }
 
+        [SerializeField]
+        protected PopupUI popup;
+        public PopupUI Popup { get { return popup; } }
+
         void Awake()
         {
+            Instance = this;
+
             title.Show();
 
             start.Hide();

@@ -27,8 +27,8 @@ namespace Game
         public int Gold { get { return gold; } }
 
         [SerializeField]
-        int xp;
-        public int XP { get { return xp; } }
+        int jewels;
+        public int Jewels { get { return jewels; } }
 
         public int Get(CurrencyType type)
         {
@@ -36,8 +36,8 @@ namespace Game
             {
                 case CurrencyType.Gold:
                     return gold;
-                case CurrencyType.XP:
-                    return xp;
+                case CurrencyType.Jewels:
+                    return jewels;
             }
 
             throw new NotImplementedException();
@@ -45,13 +45,13 @@ namespace Game
 
         public static bool IsSufficient(Currency requirement, Currency proposal)
         {
-            return IsSufficient(requirement, proposal.gold, proposal.xp);
+            return IsSufficient(requirement, proposal.gold, proposal.jewels);
         }
         public static bool IsSufficient(Currency requirement, int gold, int xp)
         {
             if (requirement.gold > gold) return false;
 
-            if (requirement.xp > xp) return false;
+            if (requirement.jewels > xp) return false;
 
             return true;
         }
@@ -63,11 +63,12 @@ namespace Game
             var currency = (Currency)obj;
 
             if (gold != currency.gold) return false;
-            if (xp != currency.xp) return false;
+            if (jewels != currency.jewels) return false;
 
             return true;
         }
 
+        #region Operators
         public static bool operator == (Currency one, Currency two)
         {
             return one.Equals(two);
@@ -80,40 +81,46 @@ namespace Game
         public static bool operator > (Currency one, Currency two)
         {
             if (one.gold < two.gold) return false;
-            if (one.xp < two.xp) return false;
+            if (one.jewels < two.jewels) return false;
 
             return true;
         }
         public static bool operator < (Currency one, Currency two)
         {
             if (one.gold > two.gold) return false;
-            if (one.xp > two.xp) return false;
+            if (one.jewels > two.jewels) return false;
 
             return true;
         }
 
         public static Currency operator * (Currency currency, float number)
         {
-            return new Currency(Mathf.RoundToInt(currency.gold * number), Mathf.RoundToInt(currency.xp * number));
+            return new Currency(Mathf.RoundToInt(currency.gold * number), Mathf.RoundToInt(currency.jewels * number));
         }
+        #endregion
 
         public override int GetHashCode()
         {
-            return gold.GetHashCode() ^ xp.GetHashCode();
+            return gold.GetHashCode() ^ jewels.GetHashCode();
         }
 
         public override string ToString()
         {
+            return FormatText(gold, jewels);
+        }
+
+        public static string FormatText(int gold, int jewels)
+        {
             var text = "";
 
             if (gold > 0)
-                text += gold.ToString("N0") + " G";
-            
-            if(xp > 0)
+                text += gold.ToString("N0") + " GD";
+
+            if (jewels > 0)
             {
                 if (text.Length > 0) text += ", ";
 
-                text += xp.ToString("N0") + " XP";
+                text += jewels.ToString("N0") + " JL";
             }
 
             return text;
@@ -122,12 +129,30 @@ namespace Game
         public Currency(int gold, int xp)
         {
             this.gold = gold;
-            this.xp = xp;
+            this.jewels = xp;
+        }
+        public Currency(Dictionary<string, uint> Prices)
+        {
+            if (Prices.ContainsKey(CurrencyCodes.Gold))
+                gold = (int)Prices[CurrencyCodes.Gold];
+            else
+                gold = 0;
+
+            if (Prices.ContainsKey(CurrencyCodes.Jewels))
+                jewels = (int)Prices[CurrencyCodes.Jewels];
+            else
+                jewels = 0;
         }
     }
 
     public enum CurrencyType
     {
-        Gold, XP
+        Gold, Jewels
+    }
+
+    public static class CurrencyCodes
+    {
+        public const string Gold = "GD";
+        public const string Jewels = "JL";
     }
 }
