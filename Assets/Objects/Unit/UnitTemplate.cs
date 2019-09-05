@@ -25,7 +25,7 @@ namespace Game
     [CreateAssetMenu(menuName = Unit.MenuPath + "Template")]
     public class UnitTemplate : ScriptableObject
     {
-        public string itemID { get { return name; } }
+        public string ID { get { return name; } }
 
         [SerializeField]
         protected UnitType type;
@@ -82,6 +82,15 @@ namespace Game
             [SerializeField]
             protected UnitUpgradeType[] applicables = new UnitUpgradeType[2];
             public UnitUpgradeType[] Applicables { get { return applicables; } }
+
+            IEnumerable<UnitUpgradesTemplate.TypeData> GetApplicable()
+            {
+                for (int i = 0; i < template.Types.Length; i++)
+                {
+                    if(isApplicable(template.Types[i].Target))
+                        yield return template.Types[i];
+                }
+            }
 
             public virtual bool isApplicable(UnitUpgradeType type)
             {
@@ -158,7 +167,7 @@ namespace Game
 
             for (int i = 0; i < catalog.Size; i++)
             {
-                if(catalog[i].ItemId == itemID)
+                if(catalog[i].ItemId == ID)
                 {
                     Load(catalog[i]);
                     break;

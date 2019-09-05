@@ -48,8 +48,23 @@ namespace Game
             {
                 PlayFab.Login.OnResponse -= OnLoginResponse;
 
-                Popup.Text = "Retrieving Catalogs";
+                Popup.Text = "Retrieving Title Data";
 
+                PlayFab.Title.OnResponse += OnTitleResponse;
+                PlayFab.Title.Request();
+            }
+            else
+            {
+                RaiseError(error);
+            }
+        }
+
+        void OnTitleResponse(PlayFabTitleCore result, PlayFabError error)
+        {
+            PlayFab.Title.OnResponse -= OnTitleResponse;
+
+            if(error == null)
+            {
                 PlayFab.Catalogs.OnResponse += OnCatalogsResponse;
                 PlayFab.Catalogs.Request();
             }

@@ -1,6 +1,5 @@
 <linker>
   <assembly fullname="Assembly-CSharp">
-    <namespace fullname="PlayFab" preserve="all"/>
     <type fullname="PlayFab.*" preserve="all"/>
   </assembly>
 </linker>

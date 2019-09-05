@@ -32,8 +32,8 @@ namespace Game
         public PlayFabLoginCore Login { get { return login; } }
 
         [SerializeField]
-        protected PlayFabRequestsCore requests;
-        public PlayFabRequestsCore Requests { get { return requests; } }
+        protected PlayFabTitleCore title;
+        public PlayFabTitleCore Title { get { return title; } }
 
         [SerializeField]
         protected PlayFabCatalogsCore catalogs;
@@ -57,7 +57,7 @@ namespace Game
         public virtual void ForAllModules(Action<Module> action)
         {
             action(login);
-            action(requests);
+            action(title);
             action(catalogs);
             action(inventory);
             action(purchase);
