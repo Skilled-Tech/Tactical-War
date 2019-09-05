@@ -26,7 +26,7 @@ namespace Game
     public class PlayFabCatalog : PlayFabCore.CatalogsCore.Module
 	{
         public RequestHandler GetRequest;
-        public class RequestHandler : PlayFabRequestHandler<GetCatalogItemsRequest, GetCatalogItemsResult>
+        public class RequestHandler : PlayFabCore.RequestHandler<GetCatalogItemsRequest, GetCatalogItemsResult>
         {
             public override AskDelegate Ask => PlayFabClientAPI.GetCatalogItems;
 
@@ -64,13 +64,13 @@ namespace Game
             GetRequest.Send(Version);
         }
 
-        public event PlayFabRequestsUtility.ResponseDelegate<PlayFabCatalog> OnResponse;
+        public event PlayFabCore.Utility.ResponseDelegate<PlayFabCatalog> OnResponse;
         void ResponseCallback(GetCatalogItemsResult result, PlayFabError error)
         {
             if (OnResponse != null) OnResponse(this, error);
         }
 
-        public event PlayFabRequestsUtility.ResaultDelegate<PlayFabCatalog> OnRetrieved;
+        public event PlayFabCore.Utility.ResaultDelegate<PlayFabCatalog> OnRetrieved;
         void RetrieveCallback(GetCatalogItemsResult result)
         {
             if (OnRetrieved != null) OnRetrieved(this);

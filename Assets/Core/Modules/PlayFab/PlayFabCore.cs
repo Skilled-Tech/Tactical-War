@@ -34,7 +34,7 @@ namespace Game
         public class LoginCore : PlayFabCore.Property
         {
             public EmaiLoginHandler EmailLogin { get; protected set; }
-            public class EmaiLoginHandler : PlayFabRequestHandler<LoginWithEmailAddressRequest, LoginResult>
+            public class EmaiLoginHandler : PlayFabCore.RequestHandler<LoginWithEmailAddressRequest, LoginResult>
             {
                 public override AskDelegate Ask => PlayFabClientAPI.LoginWithEmailAddress;
 
@@ -50,7 +50,7 @@ namespace Game
             }
 
             public AndroidLoginHandler AndroidIDLogin;
-            public class AndroidLoginHandler : PlayFabRequestHandler<LoginWithAndroidDeviceIDRequest, LoginResult>
+            public class AndroidLoginHandler : PlayFabCore.RequestHandler<LoginWithAndroidDeviceIDRequest, LoginResult>
             {
                 public override AskDelegate Ask => PlayFabClientAPI.LoginWithAndroidDeviceID;
 
@@ -95,7 +95,7 @@ namespace Game
                 }
             }
 
-            public event PlayFabRequestsUtility.ResponseDelegate<LoginCore> OnResponse;
+            public event PlayFabCore.Utility.ResponseDelegate<LoginCore> OnResponse;
             void ResponseCallback(LoginResult result, PlayFabError error)
             {
                 if (OnResponse != null) OnResponse(this, error);
@@ -115,7 +115,7 @@ namespace Game
             public class DataCore
             {
                 public GetRequestHandler GetRequest { get; protected set; }
-                public class GetRequestHandler : PlayFabRequestHandler<GetTitleDataRequest, GetTitleDataResult>
+                public class GetRequestHandler : PlayFabCore.RequestHandler<GetTitleDataRequest, GetTitleDataResult>
                 {
                     public override AskDelegate Ask => PlayFabClientAPI.GetTitleData;
 
@@ -141,7 +141,7 @@ namespace Game
                     GetRequest.Send();
                 }
 
-                public event PlayFabRequestsUtility.ResponseDelegate<DataCore> OnResponse;
+                public event PlayFabCore.Utility.ResponseDelegate<DataCore> OnResponse;
                 void ResponseCallback(GetTitleDataResult result, PlayFabError error)
                 {
                     if (OnResponse != null) OnResponse(this, error);
@@ -167,7 +167,7 @@ namespace Game
                 ResponseCompleted(error);
             }
 
-            public event PlayFabRequestsUtility.ResponseDelegate<TitleCore> OnResponse;
+            public event PlayFabCore.Utility.ResponseDelegate<TitleCore> OnResponse;
             public virtual void ResponseCompleted(PlayFabError error)
             {
                 if (OnResponse != null) OnResponse(this, error);
@@ -216,14 +216,14 @@ namespace Game
                     elements[i].Request();
             }
 
-            public event PlayFabRequestsUtility.ResaultDelegate<CatalogsCore> OnResult;
+            public event PlayFabCore.Utility.ResaultDelegate<CatalogsCore> OnResult;
             void OnElementRetrieved(PlayFabCatalog result)
             {
                 if (elements.All(x => x.Valid))
                     if (OnResult != null) OnResult(this);
             }
 
-            public event PlayFabRequestsUtility.ResponseDelegate<CatalogsCore> OnResponse;
+            public event PlayFabCore.Utility.ResponseDelegate<CatalogsCore> OnResponse;
             void OnElementResponse(PlayFabCatalog result, PlayFabError error)
             {
                 if (error == null)
@@ -245,7 +245,7 @@ namespace Game
         public class InventoryCore : PlayFabCore.Property
         {
             public RequestHandler GetRequest { get; protected set; }
-            public class RequestHandler : PlayFabRequestHandler<GetUserInventoryRequest, GetUserInventoryResult>
+            public class RequestHandler : PlayFabCore.RequestHandler<GetUserInventoryRequest, GetUserInventoryResult>
             {
                 public override AskDelegate Ask => PlayFabClientAPI.GetUserInventory;
 
@@ -286,13 +286,13 @@ namespace Game
                 GetRequest.Send();
             }
 
-            public event PlayFabRequestsUtility.ResponseDelegate<InventoryCore> OnResponse;
+            public event PlayFabCore.Utility.ResponseDelegate<InventoryCore> OnResponse;
             void ResponseCallback(GetUserInventoryResult result, PlayFabError error)
             {
                 if (OnResponse != null) OnResponse(this, error);
             }
 
-            public event PlayFabRequestsUtility.ResaultDelegate<InventoryCore> OnRetrieved;
+            public event PlayFabCore.Utility.ResaultDelegate<InventoryCore> OnRetrieved;
             void RetrieveCallback(GetUserInventoryResult result)
             {
                 if (OnRetrieved != null) OnRetrieved(this);
@@ -306,7 +306,7 @@ namespace Game
         public class PurchaseCore : PlayFabCore.Property
         {
             public RequestHandler Request { get; protected set; }
-            public class RequestHandler : PlayFabRequestHandler<PurchaseItemRequest, PurchaseItemResult>
+            public class RequestHandler : PlayFabCore.RequestHandler<PurchaseItemRequest, PurchaseItemResult>
             {
                 public override AskDelegate Ask => PlayFabClientAPI.PurchaseItem;
 
@@ -336,7 +336,7 @@ namespace Game
                 Request.Send(item, currency);
             }
 
-            public event PlayFabRequestsUtility.ResponseDelegate<PurchaseItemResult> OnResponse;
+            public event PlayFabCore.Utility.ResponseDelegate<PurchaseItemResult> OnResponse;
             void ResponseCallback(PurchaseItemResult result, PlayFabError error)
             {
                 if (OnResponse != null) OnResponse(result, error);
@@ -378,65 +378,65 @@ namespace Game
 
             ForAllElements(x => x.Init());
         }
-    }
 
-    public static class PlayFabRequestsUtility
-    {
-        public delegate void ResaultDelegate<TResult>(TResult result);
-
-        public delegate void ResponseDelegate<TResult>(TResult result, PlayFabError error);
-    }
-
-    public abstract class PlayFabRequestHandler<TRequest, TResult>
-        where TRequest : class, new()
-        where TResult : class
-    {
-        public TResult Latest { get; protected set; }
-        public virtual void Clear()
+        public static class Utility
         {
-            Latest = null;
+            public delegate void ResaultDelegate<TResult>(TResult result);
+
+            public delegate void ResponseDelegate<TResult>(TResult result, PlayFabError error);
         }
 
-        public delegate void AskDelegate(TRequest request, Action<TResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null);
-        public abstract AskDelegate Ask { get; }
-
-        public virtual void Send(TRequest request)
+        public abstract class RequestHandler<TRequest, TResult>
+            where TRequest : class, new()
+            where TResult : class
         {
-            Clear();
+            public TResult Latest { get; protected set; }
+            public virtual void Clear()
+            {
+                Latest = null;
+            }
 
-            Ask(request, ResultCallback, ErrorCallback);
-        }
+            public delegate void AskDelegate(TRequest request, Action<TResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null);
+            public abstract AskDelegate Ask { get; }
 
-        public virtual TRequest CreateRequest()
-        {
-            return new TRequest();
-        }
+            public virtual void Send(TRequest request)
+            {
+                Clear();
 
-        public event PlayFabRequestsUtility.ResaultDelegate<TResult> OnResult;
-        public virtual void ResultCallback(TResult result)
-        {
-            Latest = result;
+                Ask(request, ResultCallback, ErrorCallback);
+            }
 
-            if (OnResult != null) OnResult(result);
+            public virtual TRequest CreateRequest()
+            {
+                return new TRequest();
+            }
 
-            Respond(result, null);
-        }
+            public event PlayFabCore.Utility.ResaultDelegate<TResult> OnResult;
+            public virtual void ResultCallback(TResult result)
+            {
+                Latest = result;
 
-        public event PlayFabRequestsUtility.ResponseDelegate<TResult> OnResponse;
-        public virtual void Respond(TResult result, PlayFabError error)
-        {
-            if (OnResponse != null) OnResponse(result, error);
-        }
+                if (OnResult != null) OnResult(result);
 
-        public delegate void ErrorDelegate(PlayFabError error);
-        public event ErrorDelegate OnError;
-        public virtual void ErrorCallback(PlayFabError error)
-        {
-            Debug.LogError("Error On Request, Report: " + error.GenerateErrorReport());
+                Respond(result, null);
+            }
 
-            if (OnError != null) OnError(error);
+            public event PlayFabCore.Utility.ResponseDelegate<TResult> OnResponse;
+            public virtual void Respond(TResult result, PlayFabError error)
+            {
+                if (OnResponse != null) OnResponse(result, error);
+            }
 
-            Respond(null, error);
+            public delegate void ErrorDelegate(PlayFabError error);
+            public event ErrorDelegate OnError;
+            public virtual void ErrorCallback(PlayFabError error)
+            {
+                Debug.LogError("Error On Request, Report: " + error.GenerateErrorReport());
+
+                if (OnError != null) OnError(error);
+
+                Respond(null, error);
+            }
         }
     }
 }
