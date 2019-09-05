@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f153d6a8f1b2ede488ff7b58a09a3954, type: 3}
   m_Name: Play Fab Core
   m_EditorClassIdentifier: 
-  login: {fileID: 11400000, guid: eb9f1349f08348544abf3db402fd74a0, type: 2}
-  title: {fileID: 11400000, guid: 38a3ea2b505680243aff5f2e200661ac, type: 2}
-  catalogs: {fileID: 11400000, guid: bfe74ec5457e88943af2609a7b15b4e3, type: 2}
-  inventory: {fileID: 11400000, guid: a732d0b192904244395b4965ecdd7eb1, type: 2}
-  purchase: {fileID: 11400000, guid: 61bbf0e2d2d168341adb9cd02ff6f0d5, type: 2}
+  title: {}
+  catalogs:
+    elements:
+    - {fileID: 11400000, guid: c54d6750413f0e449ba6e9224302dd01, type: 2}

@@ -111,7 +111,7 @@ namespace Game
             }
         }
 
-        void OnInventoryResponse(PlayFabInventoryCore result, PlayFab.PlayFabError error)
+        void OnInventoryResponse(PlayFabCore.InventoryCore result, PlayFab.PlayFabError error)
         {
             Core.PlayFab.Inventory.OnResponse -= OnInventoryResponse;
 

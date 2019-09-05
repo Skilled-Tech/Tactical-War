@@ -67,7 +67,7 @@ namespace Game
             Core.PlayFab.Inventory.OnRetrieved += OnInventoryRetireved;
         }
 
-        void OnInventoryRetireved(PlayFabInventoryCore result)
+        void OnInventoryRetireved(PlayFabCore.InventoryCore result)
         {
             foreach (var pair in Dictionary)
                 pair.Value.Unlocked = Core.PlayFab.Inventory.Contains(pair.Key.CatalogItem);
@@ -92,15 +92,15 @@ namespace Game
 
             var json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
-            Data.Save(FormatSavePath(unit), json);
+            Core.Data.Save(FormatSavePath(unit), json);
         }
         public virtual UnitData LoadData(UnitData data, int index)
         {
             var path = FormatSavePath(data.Unit);
 
-            if(Data.Exists(path))
+            if(Core.Data.Exists(path))
             {
-                var json = Data.LoadText(path);
+                var json = Core.Data.LoadText(path);
 
                 data.Load(JObject.Parse(json));
             }

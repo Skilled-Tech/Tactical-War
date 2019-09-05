@@ -41,7 +41,14 @@ namespace Game
             }
         }
 
-        #region Modules
+        #region Elements
+        public interface IElement
+        {
+            void Configure();
+
+            void Init();
+        }
+
         [SerializeField]
         protected DataCore data;
         public DataCore Data { get { return data; } }
@@ -66,13 +73,11 @@ namespace Game
         protected PlayFabCore playFab;
         public PlayFabCore PlayFab { get { return playFab; } }
 
-        public class Module : ScriptableObject
+        public class Module : ScriptableObject, IElement
         {
             public const string MenuPath = Core.MenuPath + "Modules/";
 
             public Core Core { get { return Core.Instance; } }
-
-            public DataCore Data { get { return Core.data; } }
 
             public virtual void Configure()
             {
@@ -85,7 +90,23 @@ namespace Game
             }
         }
 
-        public virtual void ForAllModules(Action<Module> action)
+        [Serializable]
+        public abstract class Property : IElement
+        {
+            public Core Core { get { return Core.Instance; } }
+
+            public virtual void Configure()
+            {
+
+            }
+
+            public virtual void Init()
+            {
+
+            }
+        }
+
+        public virtual void ForAllElements(Action<IElement> action)
         {
             action(data);
             action(scenes);
@@ -109,12 +130,12 @@ namespace Game
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
 
-            ForAllModules(ConfigureModule);
+            ForAllElements(ConfigureModule);
 
             Application.runInBackground = true;
         }
 
-        void ConfigureModule(Module module)
+        void ConfigureModule(IElement module)
         {
             module.Configure();
         }
@@ -126,9 +147,9 @@ namespace Game
 
         void Init()
         {
-            ForAllModules(InitModule);
+            ForAllElements(InitModule);
         }
-        void InitModule(Module module)
+        void InitModule(IElement module)
         {
             module.Init();
         }

@@ -28,24 +28,326 @@ namespace Game
         new public const string MenuPath = Core.Module.MenuPath + "PlayFab/";
 
         [SerializeField]
-        protected PlayFabLoginCore login;
-        public PlayFabLoginCore Login { get { return login; } }
+        protected LoginCore login;
+        public LoginCore Login { get { return login; } }
+        [Serializable]
+        public class LoginCore : PlayFabCore.Property
+        {
+            public EmaiLoginHandler EmailLogin { get; protected set; }
+            public class EmaiLoginHandler : PlayFabRequestHandler<LoginWithEmailAddressRequest, LoginResult>
+            {
+                public override AskDelegate Ask => PlayFabClientAPI.LoginWithEmailAddress;
+
+                public virtual void Send(string email, string password)
+                {
+                    var request = CreateRequest();
+
+                    request.Email = email;
+                    request.Password = password;
+
+                    Send(request);
+                }
+            }
+
+            public AndroidLoginHandler AndroidIDLogin;
+            public class AndroidLoginHandler : PlayFabRequestHandler<LoginWithAndroidDeviceIDRequest, LoginResult>
+            {
+                public override AskDelegate Ask => PlayFabClientAPI.LoginWithAndroidDeviceID;
+
+                public virtual void Send()
+                {
+                    var request = CreateRequest();
+
+                    request.CreateAccount = true;
+
+                    request.AndroidDeviceId = SystemInfo.deviceUniqueIdentifier;
+                    request.AndroidDevice = SystemInfo.deviceModel;
+                    request.OS = SystemInfo.operatingSystem;
+
+                    Send(request);
+                }
+            }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                EmailLogin = new EmaiLoginHandler();
+                EmailLogin.OnResponse += ResponseCallback;
+
+                AndroidIDLogin = new AndroidLoginHandler();
+                AndroidIDLogin.OnResponse += ResponseCallback;
+            }
+
+            public virtual void Perform()
+            {
+                if (Application.isEditor)
+                {
+                    EmailLogin.Send("Moe4Baker@gmail.com", "Password");
+                }
+                else if (Application.platform == RuntimePlatform.Android)
+                {
+                    AndroidIDLogin.Send();
+                }
+                else
+                {
+
+                }
+            }
+
+            public event PlayFabRequestsUtility.ResponseDelegate<LoginCore> OnResponse;
+            void ResponseCallback(LoginResult result, PlayFabError error)
+            {
+                if (OnResponse != null) OnResponse(this, error);
+            }
+        }
 
         [SerializeField]
-        protected PlayFabTitleCore title;
-        public PlayFabTitleCore Title { get { return title; } }
+        protected TitleCore title;
+        public TitleCore Title { get { return title; } }
+        [Serializable]
+        public class TitleCore : PlayFabCore.Property
+        {
+            [SerializeField]
+            protected DataCore data;
+            public DataCore Data { get { return data; } }
+            [Serializable]
+            public class DataCore
+            {
+                public GetRequestHandler GetRequest { get; protected set; }
+                public class GetRequestHandler : PlayFabRequestHandler<GetTitleDataRequest, GetTitleDataResult>
+                {
+                    public override AskDelegate Ask => PlayFabClientAPI.GetTitleData;
+
+                    public virtual void Send()
+                    {
+                        var request = CreateRequest();
+
+                        Send(request);
+                    }
+                }
+
+                public Dictionary<string, string> Value { get { return GetRequest.Latest.Data; } }
+
+                public virtual void Configure()
+                {
+                    GetRequest = new GetRequestHandler();
+
+                    GetRequest.OnResponse += ResponseCallback;
+                }
+
+                public virtual void Request()
+                {
+                    GetRequest.Send();
+                }
+
+                public event PlayFabRequestsUtility.ResponseDelegate<DataCore> OnResponse;
+                void ResponseCallback(GetTitleDataResult result, PlayFabError error)
+                {
+                    if (OnResponse != null) OnResponse(this, error);
+                }
+            }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                data.Configure();
+            }
+
+            public virtual void Request()
+            {
+                Data.OnResponse += OnDataResponse;
+
+                Data.Request();
+            }
+
+            void OnDataResponse(DataCore result, PlayFabError error)
+            {
+                ResponseCompleted(error);
+            }
+
+            public event PlayFabRequestsUtility.ResponseDelegate<TitleCore> OnResponse;
+            public virtual void ResponseCompleted(PlayFabError error)
+            {
+                if (OnResponse != null) OnResponse(this, error);
+            }
+        }
 
         [SerializeField]
-        protected PlayFabCatalogsCore catalogs;
-        public PlayFabCatalogsCore Catalogs { get { return catalogs; } }
+        protected CatalogsCore catalogs;
+        public CatalogsCore Catalogs { get { return catalogs; } }
+        [Serializable]
+        public class CatalogsCore : PlayFabCore.Property
+        {
+            [SerializeField]
+            protected PlayFabCatalog[] elements;
+            public PlayFabCatalog[] Elements { get { return elements; } }
+
+            public class Module : PlayFabCore.Module
+            {
+                public CatalogsCore Catalogs { get { return PlayFab.Catalogs; } }
+            }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                for (int i = 0; i < elements.Length; i++)
+                {
+                    elements[i].Configure();
+
+                    elements[i].OnRetrieved += OnElementRetrieved;
+                    elements[i].OnResponse += OnElementResponse;
+                }
+            }
+
+            public override void Init()
+            {
+                base.Init();
+
+                for (int i = 0; i < elements.Length; i++)
+                    elements[i].Init();
+            }
+
+            public virtual void Request()
+            {
+                for (int i = 0; i < elements.Length; i++)
+                    elements[i].Request();
+            }
+
+            public event PlayFabRequestsUtility.ResaultDelegate<CatalogsCore> OnResult;
+            void OnElementRetrieved(PlayFabCatalog result)
+            {
+                if (elements.All(x => x.Valid))
+                    if (OnResult != null) OnResult(this);
+            }
+
+            public event PlayFabRequestsUtility.ResponseDelegate<CatalogsCore> OnResponse;
+            void OnElementResponse(PlayFabCatalog result, PlayFabError error)
+            {
+                if (error == null)
+                {
+                    if (elements.All(x => x.Valid))
+                        if (OnResponse != null) OnResponse(this, error);
+                }
+                else
+                {
+                    if (OnResponse != null) OnResponse(this, error);
+                }
+            }
+        }
 
         [SerializeField]
-        protected PlayFabInventoryCore inventory;
-        public PlayFabInventoryCore Inventory { get { return inventory; } }
+        protected InventoryCore inventory;
+        public InventoryCore Inventory { get { return inventory; } }
+        [Serializable]
+        public class InventoryCore : PlayFabCore.Property
+        {
+            public RequestHandler GetRequest { get; protected set; }
+            public class RequestHandler : PlayFabRequestHandler<GetUserInventoryRequest, GetUserInventoryResult>
+            {
+                public override AskDelegate Ask => PlayFabClientAPI.GetUserInventory;
+
+                public virtual void Send()
+                {
+                    var request = CreateRequest();
+
+                    Send(request);
+                }
+            }
+
+            public List<ItemInstance> Items { get { return GetRequest.Latest.Inventory; } }
+
+            public Dictionary<string, int> Currencies { get { return GetRequest.Latest.VirtualCurrency; } }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                GetRequest = new RequestHandler();
+
+                GetRequest.OnResponse += ResponseCallback;
+
+                GetRequest.OnResult += RetrieveCallback;
+            }
+
+            public virtual bool Contains(CatalogItem item)
+            {
+                for (int i = 0; i < Items.Count; i++)
+                    if (Items[i].ItemId == item.ItemId)
+                        return true;
+
+                return false;
+            }
+
+            public virtual void Request()
+            {
+                GetRequest.Send();
+            }
+
+            public event PlayFabRequestsUtility.ResponseDelegate<InventoryCore> OnResponse;
+            void ResponseCallback(GetUserInventoryResult result, PlayFabError error)
+            {
+                if (OnResponse != null) OnResponse(this, error);
+            }
+
+            public event PlayFabRequestsUtility.ResaultDelegate<InventoryCore> OnRetrieved;
+            void RetrieveCallback(GetUserInventoryResult result)
+            {
+                if (OnRetrieved != null) OnRetrieved(this);
+            }
+        }
 
         [SerializeField]
-        protected PlayFabPurchaseCore purchase;
-        public PlayFabPurchaseCore Purchase { get { return purchase; } }
+        protected PurchaseCore purchase;
+        public PurchaseCore Purchase { get { return purchase; } }
+        [Serializable]
+        public class PurchaseCore : PlayFabCore.Property
+        {
+            public RequestHandler Request { get; protected set; }
+            public class RequestHandler : PlayFabRequestHandler<PurchaseItemRequest, PurchaseItemResult>
+            {
+                public override AskDelegate Ask => PlayFabClientAPI.PurchaseItem;
+
+                public virtual void Send(CatalogItem item, string currency)
+                {
+                    var request = CreateRequest();
+
+                    request.CatalogVersion = item.CatalogVersion;
+                    request.ItemId = item.ItemId;
+                    request.Price = (int)item.VirtualCurrencyPrices[currency];
+                    request.VirtualCurrency = currency;
+
+                    Send(request);
+                }
+            }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                Request = new RequestHandler();
+                Request.OnResponse += ResponseCallback;
+            }
+
+            public virtual void Perform(CatalogItem item, string currency)
+            {
+                Request.Send(item, currency);
+            }
+
+            public event PlayFabRequestsUtility.ResponseDelegate<PurchaseItemResult> OnResponse;
+            void ResponseCallback(PurchaseItemResult result, PlayFabError error)
+            {
+                if (OnResponse != null) OnResponse(result, error);
+            }
+        }
+
+        [Serializable]
+        public class Property : Core.Property
+        {
+            public PlayFabCore PlayFab { get { return Core.PlayFab; } }
+        }
 
         public class Module : Core.Module
         {
@@ -54,7 +356,7 @@ namespace Game
             new public const string MenuPath = PlayFabCore.MenuPath + "Modules/";
         }
 
-        public virtual void ForAllModules(Action<Module> action)
+        public virtual void ForAllElements(Action<Core.IElement> action)
         {
             action(login);
             action(title);
@@ -67,14 +369,74 @@ namespace Game
         {
             base.Configure();
 
-            ForAllModules(x => x.Configure());
+            ForAllElements(x => x.Configure());
         }
 
         public override void Init()
         {
             base.Init();
 
-            ForAllModules(x => x.Init());
+            ForAllElements(x => x.Init());
+        }
+    }
+
+    public static class PlayFabRequestsUtility
+    {
+        public delegate void ResaultDelegate<TResult>(TResult result);
+
+        public delegate void ResponseDelegate<TResult>(TResult result, PlayFabError error);
+    }
+
+    public abstract class PlayFabRequestHandler<TRequest, TResult>
+        where TRequest : class, new()
+        where TResult : class
+    {
+        public TResult Latest { get; protected set; }
+        public virtual void Clear()
+        {
+            Latest = null;
+        }
+
+        public delegate void AskDelegate(TRequest request, Action<TResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null);
+        public abstract AskDelegate Ask { get; }
+
+        public virtual void Send(TRequest request)
+        {
+            Clear();
+
+            Ask(request, ResultCallback, ErrorCallback);
+        }
+
+        public virtual TRequest CreateRequest()
+        {
+            return new TRequest();
+        }
+
+        public event PlayFabRequestsUtility.ResaultDelegate<TResult> OnResult;
+        public virtual void ResultCallback(TResult result)
+        {
+            Latest = result;
+
+            if (OnResult != null) OnResult(result);
+
+            Respond(result, null);
+        }
+
+        public event PlayFabRequestsUtility.ResponseDelegate<TResult> OnResponse;
+        public virtual void Respond(TResult result, PlayFabError error)
+        {
+            if (OnResponse != null) OnResponse(result, error);
+        }
+
+        public delegate void ErrorDelegate(PlayFabError error);
+        public event ErrorDelegate OnError;
+        public virtual void ErrorCallback(PlayFabError error)
+        {
+            Debug.LogError("Error On Request, Report: " + error.GenerateErrorReport());
+
+            if (OnError != null) OnError(error);
+
+            Respond(null, error);
         }
     }
 }

@@ -22,8 +22,8 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Catalog")]
-    public class PlayFabCatalog : PlayFabCatalogsCore.Module
+    [CreateAssetMenu(menuName = PlayFabCore.MenuPath + "Catalog")]
+    public class PlayFabCatalog : PlayFabCore.CatalogsCore.Module
 	{
         public RequestHandler GetRequest;
         public class RequestHandler : PlayFabRequestHandler<GetCatalogItemsRequest, GetCatalogItemsResult>

@@ -76,16 +76,16 @@ namespace Game
 
             var json = JsonConvert.SerializeObject(array, Formatting.Indented);
 
-            Data.Save(DataPath, json);
+            Core.Data.Save(DataPath, json);
         }
 
         public string DataPath { get { return "Player/Units/Selection.json"; } }
 
         public virtual void Load()
         {
-            if (Data.Exists(DataPath))
+            if (Core.Data.Exists(DataPath))
             {
-                var array = JArray.Parse(Data.LoadText(DataPath));
+                var array = JArray.Parse(Core.Data.LoadText(DataPath));
 
                 for (int i = 0; i < max; i++)
                     list[i] = Core.Units.Find(array[i].ToString());

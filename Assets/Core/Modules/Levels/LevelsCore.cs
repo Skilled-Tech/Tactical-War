@@ -56,14 +56,14 @@ namespace Game
         {
             var json = JsonConvert.SerializeObject(list, Formatting.Indented);
 
-            Data.Save(DataPath, json);
+            Core.Data.Save(DataPath, json);
         }
         public const string DataPath = "Player/Levels.json";
         void LoadData()
         {
-            if(Data.Exists(DataPath))
+            if(Core.Data.Exists(DataPath))
             {
-                var json = Data.LoadText(DataPath);
+                var json = Core.Data.LoadText(DataPath);
 
                 var jArray = JArray.Parse(json);
 

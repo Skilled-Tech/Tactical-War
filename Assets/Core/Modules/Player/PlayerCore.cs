@@ -53,7 +53,7 @@ namespace Game
             units.Configure();
         }
 
-        void OnInventoryRetrieved(PlayFabInventoryCore result)
+        void OnInventoryRetrieved(PlayFabCore.InventoryCore result)
         {
             funds.Load(result.Currencies);
         }

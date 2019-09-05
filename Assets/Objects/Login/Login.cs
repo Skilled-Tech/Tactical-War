@@ -42,7 +42,7 @@ namespace Game
             PlayFab.Login.Perform();
         }
 
-        void OnLoginResponse(PlayFabLoginCore result, PlayFabError error)
+        void OnLoginResponse(PlayFabCore.LoginCore result, PlayFabError error)
         {
             if(error == null)
             {
@@ -59,12 +59,14 @@ namespace Game
             }
         }
 
-        void OnTitleResponse(PlayFabTitleCore result, PlayFabError error)
+        void OnTitleResponse(PlayFabCore.TitleCore result, PlayFabError error)
         {
             PlayFab.Title.OnResponse -= OnTitleResponse;
 
             if(error == null)
             {
+                Popup.Show("Retrieving Catalog");
+
                 PlayFab.Catalogs.OnResponse += OnCatalogsResponse;
                 PlayFab.Catalogs.Request();
             }
@@ -74,7 +76,7 @@ namespace Game
             }
         }
 
-        void OnCatalogsResponse(PlayFabCatalogsCore catalogs, PlayFabError error)
+        void OnCatalogsResponse(PlayFabCore.CatalogsCore catalogs, PlayFabError error)
         {
             PlayFab.Catalogs.OnResponse -= OnCatalogsResponse;
 
@@ -91,7 +93,7 @@ namespace Game
             }
         }
 
-        void OnInventoryResponse(PlayFabInventoryCore inventory, PlayFabError error)
+        void OnInventoryResponse(PlayFabCore.InventoryCore inventory, PlayFabError error)
         {
             PlayFab.Inventory.OnResponse -= OnInventoryResponse;
 
