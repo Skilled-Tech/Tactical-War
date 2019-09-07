@@ -107,16 +107,62 @@ namespace Game
             }
         }
 
+        void Finish()
+        {
+            Debug.Log("Finished");
+            return;
+
+            Scenes.Load(Scenes.MainMenu);
+        }
+
+        void Update()
+        {
+            if(Core.Instance.PlayFab.Inventory.Items != null)
+            {
+                var item = Core.Instance.PlayFab.Inventory.Items[0];
+
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    Upgrade(item.ItemInstanceId, "Damage");
+                }
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    Upgrade(item.ItemInstanceId, "Defense");
+                }
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    Upgrade(item.ItemInstanceId, "Range");
+                }
+            }
+        }
+
+        void Upgrade(string itemInstanceID, string type)
+        {
+            var request = new ExecuteCloudScriptRequest
+            {
+                FunctionName = "UpgradeItem",
+                FunctionParameter =
+                new
+                {
+                    ItemInstanceId = itemInstanceID,
+                    UpgradeType = type,
+                },
+                GeneratePlayStreamEvent = true,
+            };
+
+            PlayFabClientAPI.ExecuteCloudScript(request, UpgradeItemCallback, RaiseError);
+        }
+
+        void UpgradeItemCallback(ExecuteCloudScriptResult result)
+        {
+            Debug.Log(result.FunctionResult);
+        }
+
         void RaiseError(PlayFabError error)
         {
             Debug.LogError("Login Error: " + error.GenerateErrorReport());
 
             Popup.Show(error.ErrorMessage);
-        }
-
-        void Finish()
-        {
-            Scenes.Load(Scenes.MainMenu);
         }
     }
 }

@@ -24,6 +24,9 @@ namespace Game
 {
     public class Sandbox : MonoBehaviour
     {
-        
+        void Start()
+        {
+            
+        }
     }
 }

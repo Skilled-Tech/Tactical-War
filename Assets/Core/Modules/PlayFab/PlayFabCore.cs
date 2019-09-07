@@ -257,9 +257,25 @@ namespace Game
                 }
             }
 
-            public List<ItemInstance> Items { get { return GetRequest.Latest.Inventory; } }
+            public List<ItemInstance> Items
+            {
+                get
+                {
+                    if (GetRequest.Latest == null) return null;
 
-            public Dictionary<string, int> Currencies { get { return GetRequest.Latest.VirtualCurrency; } }
+                    return GetRequest.Latest.Inventory;
+                }
+            }
+
+            public Dictionary<string, int> Currencies
+            {
+                get
+                {
+                    if (GetRequest.Latest == null) return null;
+
+                    return GetRequest.Latest.VirtualCurrency;
+                }
+            }
 
             public override void Configure()
             {
@@ -274,11 +290,27 @@ namespace Game
 
             public virtual bool Contains(CatalogItem item)
             {
+                return Contains(item.ItemId);
+            }
+            public virtual bool Contains(string itemID)
+            {
                 for (int i = 0; i < Items.Count; i++)
-                    if (Items[i].ItemId == item.ItemId)
+                    if (Items[i].ItemId == itemID)
                         return true;
 
                 return false;
+            }
+
+            public virtual ItemInstance FindInstance(string itemID)
+            {
+                if(Items != null)
+                {
+                    for (int i = 0; i < Items.Count; i++)
+                        if (Items[i].ItemId == itemID)
+                            return Items[i];
+                }
+
+                return null;
             }
 
             public virtual void Request()
@@ -343,6 +375,56 @@ namespace Game
             }
         }
 
+        [SerializeField]
+        protected UpgradeCore upgrade;
+        public UpgradeCore Upgrade { get { return upgrade; } }
+        [Serializable]
+        public class UpgradeCore : Property
+        {
+            public RequestHandler Request { get; protected set; }
+            public class RequestHandler : RequestHandler<ExecuteCloudScriptRequest, ExecuteCloudScriptResult>
+            {
+                public override AskDelegate Ask => PlayFabClientAPI.ExecuteCloudScript;
+
+                public virtual void Send(string instanceID, string type)
+                {
+                    var request = CreateRequest();
+
+                    request.FunctionName = "UpgradeItem";
+
+                    request.FunctionParameter = new
+                    {
+                        ItemInstanceId = instanceID,
+                        UpgradeType = type,
+                    };
+
+                    request.GeneratePlayStreamEvent = true;
+
+                    Send(request);
+                }
+            }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                Request.OnResponse += ResponseCallback;
+
+                Request = new RequestHandler();
+            }
+
+            public virtual void Perform(string itemInstanceID, string type)
+            {
+                Request.Send(itemInstanceID, type);
+            }
+
+            public event Utility.ResponseDelegate<ExecuteCloudScriptResult> OnResponse;
+            void ResponseCallback(ExecuteCloudScriptResult result, PlayFabError error)
+            {
+                if (OnResponse != null) OnResponse(result, error);
+            }
+        }
+
         [Serializable]
         public class Property : Core.Property
         {
@@ -363,6 +445,7 @@ namespace Game
             action(catalogs);
             action(inventory);
             action(purchase);
+            action(upgrade);
         }
         
         public override void Configure()
