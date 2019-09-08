@@ -22,14 +22,16 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Asset")]
-	public class PlayerCore : Core.Module
+    [Serializable]
+    public class PlayerCore : Core.Module
 	{
-        new public const string MenuPath = Core.Module.MenuPath + "Player/";
-
 		[SerializeField]
         protected Funds funds = new Funds(999999);
         public Funds Funds { get { return funds; } }
+
+        [SerializeField]
+        protected PlayerInventoryCore inventory;
+        public PlayerInventoryCore Inventory { get { return inventory; } }
 
         [SerializeField]
         protected PlayerUnitsCore units;
@@ -37,8 +39,6 @@ namespace Game
 
         public class Module : Core.Module
         {
-            new public const string MenuPath = PlayerCore.MenuPath + "Modules/";
-
             public PlayerCore Player { get { return Core.Player; } }
         }
 
@@ -48,20 +48,22 @@ namespace Game
 
             Funds.Configure(999999);
 
-            Core.PlayFab.Inventory.OnRetrieved += OnInventoryRetrieved;
+            Inventory.OnRetrieved += OnInventoryResult;
 
+            inventory.Configure();
             units.Configure();
         }
-
-        void OnInventoryRetrieved(PlayFabCore.InventoryCore result)
+        
+        void OnInventoryResult(PlayerInventoryCore inventory)
         {
-            funds.Load(result.Currencies);
+            funds.Load(inventory.VirtualCurrency);
         }
 
         public override void Init()
         {
             base.Init();
 
+            inventory.Init();
             units.Init();
         }
     }

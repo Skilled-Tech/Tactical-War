@@ -22,8 +22,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Upgrades")]
-	public class PlayerUnitsUpgradesCore : PlayerUnitsCore.Module
+    [Serializable]
+    public class PlayerUnitsUpgradesCore : PlayerUnitsCore.Module
 	{
         
     }

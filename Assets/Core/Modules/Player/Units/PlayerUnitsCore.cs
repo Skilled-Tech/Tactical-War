@@ -22,11 +22,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Assets")]
-	public class PlayerUnitsCore : PlayerCore.Module
+    [Serializable]
+    public class PlayerUnitsCore : PlayerCore.Module
 	{
-        new public const string MenuPath = PlayerCore.Module.MenuPath + "Units/";
-
         [SerializeField]
         protected PlayerUnitsUpgradesCore upgrades;
         public PlayerUnitsUpgradesCore Upgrades { get { return upgrades; } }
@@ -39,8 +37,6 @@ namespace Game
 
         public class Module : PlayerCore.Module
         {
-            new public const string MenuPath = PlayerUnitsCore.MenuPath + "Modules/";
-
             public PlayerUnitsCore Units { get { return Player.Units; } }
         }
 
@@ -64,13 +60,13 @@ namespace Game
             upgrades.Configure();
             selection.Configure();
 
-            Core.PlayFab.Inventory.OnRetrieved += OnInventoryRetireved;
+            Player.Inventory.OnRetrieved += OnInventoryRetrieved;
         }
 
-        void OnInventoryRetireved(PlayFabCore.InventoryCore result)
+        void OnInventoryRetrieved(PlayerInventoryCore inventory)
         {
             foreach (var pair in Dictionary)
-                pair.Value.Unlocked = Core.PlayFab.Inventory.Contains(pair.Key.CatalogItem);
+                pair.Value.Unlocked = Player.Inventory.Contains(pair.Key.CatalogItem);
         }
 
         void OnDataChanged(UnitData data)

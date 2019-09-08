@@ -12,9 +12,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1f56ec8dfe54948bc5c79e2ade83dd, type: 3}
   m_Name: Core
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: e325063720471eb42bd6fe60731c87a0, type: 2}
-  scenes: {fileID: 11400000, guid: 8afd94668da10ae4cba819ec6dac9474, type: 2}
-  levels: {fileID: 11400000, guid: 7e0e1692cfc0e684890aef41599c40e4, type: 2}
-  player: {fileID: 11400000, guid: b131269aabb32444c9ad1e46af0a10f1, type: 2}
-  units: {fileID: 11400000, guid: 77a8c78f4beff8c42a386cafdf0fe3e3, type: 2}
-  playFab: {fileID: 11400000, guid: 5b2a1003fb510f141820547dcc57367d, type: 2}
+  scenes:
+    login:
+      asset: {fileID: 102900000, guid: 4a3ed4e77f4122b4fa8b8f74b05d1a9f, type: 3}
+      name: Login
+    mainMenu:
+      asset: {fileID: 102900000, guid: 679471899b386524f9ff02e4ea169768, type: 3}
+      name: Main Menu
+    level:
+      asset: {fileID: 102900000, guid: b4787435801bb7c40812a91cc8e84a8c, type: 3}
+      name: Level
+  levels:
+    list:
+    - scene:
+        asset: {fileID: 102900000, guid: e9b64affa49cd884d8adafb0ab167deb, type: 3}
+        name: Level 1
+      icon: {fileID: 0}
+      background: {fileID: 11400000, guid: 77047b9d69e330a42bb39005a86f7092, type: 2}
+      unlocked: 0
+    - scene:
+        asset: {fileID: 102900000, guid: 09b6f8f4cf9eb29458d92ce2215a877e, type: 3}
+        name: Level 2
+      icon: {fileID: 0}
+      background: {fileID: 11400000, guid: 77047b9d69e330a42bb39005a86f7092, type: 2}
+      unlocked: 0
+    - scene:
+        asset: {fileID: 102900000, guid: e827a4b247a67db4b85b0df9386c0a58, type: 3}
+        name: Level 3
+      icon: {fileID: 0}
+      background: {fileID: 11400000, guid: 77047b9d69e330a42bb39005a86f7092, type: 2}
+      unlocked: 0
+  player:
+    funds:
+      gold:
+        _value: 999999
+      jewels:
+        _value: 999999
+    units:
+      selection:
+        max: 4
+        list: []
+        Context: {fileID: 0}
+  units:
+    list:
+    - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
+    - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+    - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
+    - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
+  playFab:
+    title: {}

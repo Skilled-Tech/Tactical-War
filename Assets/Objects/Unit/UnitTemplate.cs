@@ -161,7 +161,7 @@ namespace Game
         public string Description { get { return description; } }
 
         public CatalogItem CatalogItem { get; protected set; }
-        public virtual void Load(PlayFabCatalog catalog)
+        public virtual void Load(PlayFabCatalogCore catalog)
         {
             CatalogItem = null;
 

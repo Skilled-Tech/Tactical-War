@@ -19,12 +19,12 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Scenes")]
+    [Serializable]
 	public class ScenesCore : Core.Module
 	{
         [SerializeField]
-        protected GameScene scene;
-        public GameScene Scene { get { return scene; } }
+        protected GameScene login;
+        public GameScene Login { get { return login; } }
 
         [SerializeField]
         protected GameScene mainMenu;

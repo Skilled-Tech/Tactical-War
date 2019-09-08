@@ -32,6 +32,8 @@ namespace Game
 
         public ScenesCore Scenes { get { return Core.Scenes; } }
 
+        public PlayerCore Player { get { return Core.Player; } }
+
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
         void Start()
@@ -42,12 +44,12 @@ namespace Game
             PlayFab.Login.Perform();
         }
 
-        void OnLoginResponse(PlayFabCore.LoginCore result, PlayFabError error)
+        void OnLoginResponse(PlayFabLoginCore login, LoginResult result, PlayFabError error)
         {
-            if(error == null)
-            {
-                PlayFab.Login.OnResponse -= OnLoginResponse;
+            PlayFab.Login.OnResponse -= OnLoginResponse;
 
+            if (error == null)
+            {
                 Popup.Text = "Retrieving Title Data";
 
                 PlayFab.Title.OnResponse += OnTitleResponse;
@@ -59,16 +61,16 @@ namespace Game
             }
         }
 
-        void OnTitleResponse(PlayFabCore.TitleCore result, PlayFabError error)
+        void OnTitleResponse(PlayFabTitleCore data, PlayFabError error)
         {
             PlayFab.Title.OnResponse -= OnTitleResponse;
 
-            if(error == null)
+            if (error == null)
             {
                 Popup.Show("Retrieving Catalog");
 
-                PlayFab.Catalogs.OnResponse += OnCatalogsResponse;
-                PlayFab.Catalogs.Request();
+                PlayFab.Catalog.OnResponse += OnCatalogResponse;
+                PlayFab.Catalog.Request();
             }
             else
             {
@@ -76,16 +78,16 @@ namespace Game
             }
         }
 
-        void OnCatalogsResponse(PlayFabCore.CatalogsCore catalogs, PlayFabError error)
+        void OnCatalogResponse(PlayFabCatalogCore catalog, PlayFabError error)
         {
-            PlayFab.Catalogs.OnResponse -= OnCatalogsResponse;
+            PlayFab.Catalog.OnResponse -= OnCatalogResponse;
 
             if (error == null)
             {
                 Popup.Text = "Retrieving Inventory";
 
-                PlayFab.Inventory.OnResponse += OnInventoryResponse;
-                PlayFab.Inventory.Request();
+                Player.Inventory.OnResponse += OnInventoryResponse;
+                Player.Inventory.Request();
             }
             else
             {
@@ -93,9 +95,9 @@ namespace Game
             }
         }
 
-        void OnInventoryResponse(PlayFabCore.InventoryCore inventory, PlayFabError error)
+        void OnInventoryResponse(PlayerInventoryCore inventory, PlayFabError error)
         {
-            PlayFab.Inventory.OnResponse -= OnInventoryResponse;
+            Player.Inventory.OnResponse -= OnInventoryResponse;
 
             if (error == null)
             {
@@ -110,52 +112,10 @@ namespace Game
         void Finish()
         {
             Debug.Log("Finished");
-            return;
+
+            //return;
 
             Scenes.Load(Scenes.MainMenu);
-        }
-
-        void Update()
-        {
-            if(Core.Instance.PlayFab.Inventory.Items != null)
-            {
-                var item = Core.Instance.PlayFab.Inventory.Items[0];
-
-                if (Input.GetKeyDown(KeyCode.D))
-                {
-                    Upgrade(item.ItemInstanceId, "Damage");
-                }
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    Upgrade(item.ItemInstanceId, "Defense");
-                }
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    Upgrade(item.ItemInstanceId, "Range");
-                }
-            }
-        }
-
-        void Upgrade(string itemInstanceID, string type)
-        {
-            var request = new ExecuteCloudScriptRequest
-            {
-                FunctionName = "UpgradeItem",
-                FunctionParameter =
-                new
-                {
-                    ItemInstanceId = itemInstanceID,
-                    UpgradeType = type,
-                },
-                GeneratePlayStreamEvent = true,
-            };
-
-            PlayFabClientAPI.ExecuteCloudScript(request, UpgradeItemCallback, RaiseError);
-        }
-
-        void UpgradeItemCallback(ExecuteCloudScriptResult result)
-        {
-            Debug.Log(result.FunctionResult);
         }
 
         void RaiseError(PlayFabError error)

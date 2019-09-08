@@ -22,8 +22,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Levels")]
-	public class LevelsCore : Core.Module
+    [Serializable]
+    public class LevelsCore : Core.Module
 	{
         [SerializeField]
         protected LevelData[] list;

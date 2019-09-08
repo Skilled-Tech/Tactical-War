@@ -22,8 +22,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Selection")]
-	public class PlayerUnitsSelectionCore : PlayerUnitsCore.Module
+    [Serializable]
+    public class PlayerUnitsSelectionCore : PlayerUnitsCore.Module
 	{
 		[SerializeField]
         protected int max = 4;

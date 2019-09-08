@@ -27,6 +27,7 @@ namespace Game
         [SerializeField]
         protected GoldProperty gold;
         public GoldProperty Gold { get { return gold; } }
+        [Serializable]
         public class GoldProperty : Property
         {
             public override string Code => "GD";
@@ -40,6 +41,7 @@ namespace Game
         [SerializeField]
         protected JewelsProperty jewels;
         public JewelsProperty Jewels { get { return jewels; } }
+        [Serializable]
         public class JewelsProperty : Property
         {
             public override string Code => "JL";

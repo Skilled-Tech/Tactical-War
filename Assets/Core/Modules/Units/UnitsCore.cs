@@ -22,7 +22,7 @@ using PlayFab;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Units")]
+    [Serializable]
 	public class UnitsCore : Core.Module
 	{
         [SerializeField]
@@ -33,18 +33,14 @@ namespace Game
 
         public int Count { get { return list.Length; } }
 
-        [SerializeField]
-        protected PlayFabCatalog catalog;
-        public PlayFabCatalog Catalog { get { return catalog; } }
-
         public override void Configure()
         {
             base.Configure();
 
-            catalog.OnRetrieved += OnCatalogsRetrieved;
+            Core.PlayFab.Catalog.OnRetrieved += OnCatalogRetrieved;
         }
 
-        void OnCatalogsRetrieved(PlayFabCatalog result)
+        void OnCatalogRetrieved(PlayFabCatalogCore catalog)
         {
             for (int i = 0; i < list.Length; i++)
             {

@@ -17,6 +17,7 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using TMPro;
+using PlayFab.ClientModels;
 
 namespace Game
 {
@@ -94,16 +95,16 @@ namespace Game
             Core.PlayFab.Purchase.Perform(Data.Template.CatalogItem, Core.Player.Funds.Jewels.Code);
         }
 
-        void OnPurchaseResponse(PlayFab.ClientModels.PurchaseItemResult result, PlayFab.PlayFabError error)
+        void OnPurchaseResponse(PlayFabPurchaseCore purchase, PurchaseItemResult result, PlayFab.PlayFabError error)
         {
             Core.PlayFab.Purchase.OnResponse -= OnPurchaseResponse;
 
-            if(error == null)
+            if (error == null)
             {
                 Popup.Show("Retrieving Inventory");
 
-                Core.PlayFab.Inventory.OnResponse += OnInventoryResponse;
-                Core.PlayFab.Inventory.Request();
+                Player.Inventory.OnResponse += OnInventoryResponse;
+                Player.Inventory.Request();
             }
             else
             {
@@ -111,9 +112,9 @@ namespace Game
             }
         }
 
-        void OnInventoryResponse(PlayFabCore.InventoryCore result, PlayFab.PlayFabError error)
+        void OnInventoryResponse(PlayerInventoryCore result, PlayFab.PlayFabError error)
         {
-            Core.PlayFab.Inventory.OnResponse -= OnInventoryResponse;
+            Player.Inventory.OnResponse -= OnInventoryResponse;
 
             if (error == null)
             {

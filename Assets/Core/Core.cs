@@ -41,14 +41,7 @@ namespace Game
             }
         }
 
-        #region Elements
-        public interface IElement
-        {
-            void Configure();
-
-            void Init();
-        }
-
+        #region Modules
         [SerializeField]
         protected DataCore data;
         public DataCore Data { get { return data; } }
@@ -73,25 +66,8 @@ namespace Game
         protected PlayFabCore playFab;
         public PlayFabCore PlayFab { get { return playFab; } }
 
-        public class Module : ScriptableObject, IElement
-        {
-            public const string MenuPath = Core.MenuPath + "Modules/";
-
-            public Core Core { get { return Core.Instance; } }
-
-            public virtual void Configure()
-            {
-
-            }
-
-            public virtual void Init()
-            {
-
-            }
-        }
-
         [Serializable]
-        public abstract class Property : IElement
+        public class Module
         {
             public Core Core { get { return Core.Instance; } }
 
@@ -106,7 +82,7 @@ namespace Game
             }
         }
 
-        public virtual void ForAllElements(Action<IElement> action)
+        public virtual void ForAllModules(Action<Module> action)
         {
             action(data);
             action(scenes);
@@ -130,12 +106,12 @@ namespace Game
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
 
-            ForAllElements(ConfigureModule);
+            ForAllModules(ConfigureModule);
 
             Application.runInBackground = true;
         }
 
-        void ConfigureModule(IElement module)
+        void ConfigureModule(Module module)
         {
             module.Configure();
         }
@@ -147,9 +123,9 @@ namespace Game
 
         void Init()
         {
-            ForAllElements(InitModule);
+            ForAllModules(InitModule);
         }
-        void InitModule(IElement module)
+        void InitModule(Module module)
         {
             module.Init();
         }

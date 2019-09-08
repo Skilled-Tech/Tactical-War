@@ -22,7 +22,7 @@ using Newtonsoft.Json;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Data")]
+    [Serializable]
 	public class DataCore : Core.Module
 	{
         public string AbsolutePath { get { return Application.persistentDataPath + "/Data"; } }
