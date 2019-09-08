@@ -408,9 +408,9 @@ namespace Game
             {
                 base.Configure();
 
-                Request.OnResponse += ResponseCallback;
-
                 Request = new RequestHandler();
+
+                Request.OnResponse += ResponseCallback;
             }
 
             public virtual void Perform(string itemInstanceID, string type)
