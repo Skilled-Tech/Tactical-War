@@ -2,9 +2,8 @@
 // (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
 
 Constants = {
-    Units : {
-        Currency: "JL",
-        Catalog: "Units",
+    Catalog : {
+        Version: "Default",
     },
     Upgrades : {
         Name: "Upgrades",
@@ -29,15 +28,15 @@ handlers.UpgradeItem = function(args)
 
     var upgradeTemplate = GetUpgradeTemplate(catalogItem);
 
-    if(upgradeTemplate.Types[args.UpgradeType] == null)
+    if(upgradeTemplate[args.UpgradeType] == null)
         return FormatError("Upgrade Type Isn't Defined Within The Upgrade Template");
 
     var upgradesData = GetItemInstanceUpgradeData(itemInstance, args.UpgradeType);
 
-    if(upgradesData[args.UpgradeType] >= upgradeTemplate.Types[args.UpgradeType].Ranks.length)
+    if(upgradesData[args.UpgradeType] >= upgradeTemplate[args.UpgradeType].length)
         return FormatError("Maximum Upgrade Level Achieved");
     
-    var rank = upgradeTemplate.Types[args.UpgradeType].Ranks[upgradesData[args.UpgradeType]];
+    var rank = upgradeTemplate[args.UpgradeType][upgradesData[args.UpgradeType]];
 
     if(inventory.VirtualCurrency[Constants.Upgrades.Currency] < rank.Cost)
         return FormatError("Insufficient Funds");
@@ -78,9 +77,12 @@ function GetCatalog(version)
 
 function GetUpgradeTemplate(catalogItem)
 {
-    var request = server.GetTitleInternalData({
+    var request = server.GetTitleData({
         keys: [Constants.Upgrades.Name]
     });
+
+    log.debug(request.Data);
+    log.debug(request.Data[Constants.Upgrades.Name]);
 
     var templates = JSON.parse(request.Data[Constants.Upgrades.Name]);
 

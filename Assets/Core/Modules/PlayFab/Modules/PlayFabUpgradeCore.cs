@@ -42,6 +42,10 @@ namespace Game
 
             PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
         }
+        public virtual void Perform(ItemInstance itemInstance, string type)
+        {
+            Perform(itemInstance.ItemInstanceId, type);
+        }
 
         public delegate void ResultDelegate(PlayFabUpgradeCore upgrade, ExecuteCloudScriptResult result);
         public event ResultDelegate OnResult;

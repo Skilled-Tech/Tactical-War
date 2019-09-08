@@ -112,10 +112,29 @@ namespace Game
         void Finish()
         {
             Debug.Log("Finished");
-
-            //return;
-
+            return;
             Scenes.Load(Scenes.MainMenu);
+        }
+
+        void Update()
+        {
+            if(Player.Inventory.Items != null)
+            {
+                if (Input.GetKeyDown(KeyCode.R))
+                    PlayFab.Upgrade.Perform(Player.Inventory.Items.First().ItemInstanceId, "Range");
+            }
+        }
+
+        void OnResponse(PlayFabUpgradeCore upgrade, ExecuteCloudScriptResult result, PlayFabError error)
+        {
+            if(error == null)
+            {
+                Debug.Log(result.FunctionResult);
+            }
+            else
+            {
+                Debug.LogWarning(error.GenerateErrorReport());
+            }
         }
 
         void RaiseError(PlayFabError error)
