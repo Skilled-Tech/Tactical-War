@@ -112,6 +112,7 @@ namespace Game
         void Finish()
         {
             Debug.Log("Finished");
+            PlayFab.Upgrade.OnResponse += OnResponse;
             return;
             Scenes.Load(Scenes.MainMenu);
         }
