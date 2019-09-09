@@ -63,7 +63,8 @@ namespace Game
 
             if (data.Value == 0 || data.Value > template.List.Length) return null;
 
-            return template.List[data.Value];
+
+            return template.List[data.Value - 1];
         }
         public virtual float GetCurrentPercentage(UnitUpgradeType type)
         {

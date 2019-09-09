@@ -113,7 +113,7 @@ namespace Game
         {
             Debug.Log("Finished");
             PlayFab.Upgrade.OnResponse += OnResponse;
-            return;
+            //return;
             Scenes.Load(Scenes.MainMenu);
         }
 
@@ -122,7 +122,7 @@ namespace Game
             if(Player.Inventory.Items != null)
             {
                 if (Input.GetKeyDown(KeyCode.R))
-                    PlayFab.Upgrade.Perform(Player.Inventory.Items.First().ItemInstanceId, "Range");
+                    PlayFab.Upgrade.Perform(Player.Inventory.Items.First().ItemInstanceId, "Defense");
             }
         }
 
@@ -131,6 +131,8 @@ namespace Game
             if(error == null)
             {
                 Debug.Log(result.FunctionResult);
+
+                Player.Inventory.Request();
             }
             else
             {

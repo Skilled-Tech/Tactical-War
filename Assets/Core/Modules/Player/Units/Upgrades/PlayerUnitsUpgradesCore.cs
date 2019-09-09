@@ -28,30 +28,33 @@ namespace Game
     [Serializable]
     public class PlayerUnitsUpgradesCore : PlayerUnitsCore.Module
 	{
-        public Dictionary<UnitTemplate, UnitUpgradeData> Dictionary { get; protected set; }
+        public Dictionary<string, UnitUpgradeData> Dictionary { get; protected set; }
 
         public List<UnitUpgradeData> List;
 
-        public UnitUpgradeData this[UnitTemplate template] { get { return Dictionary[template]; } }
+        public UnitUpgradeData Find(UnitTemplate template)
+        {
+            if (Dictionary.ContainsKey(template.CatalogItem.ItemId) == false) return null;
+
+            return Dictionary[template.CatalogItem.ItemId];
+        }
 
         public override void Configure()
         {
             base.Configure();
 
-            Dictionary = new Dictionary<UnitTemplate, UnitUpgradeData>();
+            Dictionary = new Dictionary<string, UnitUpgradeData>();
 
             Player.Inventory.OnRetrieved += OnInventoryRetrieved;
         }
 
         void OnInventoryRetrieved(PlayerInventoryCore inventory)
         {
+            Dictionary.Clear();
+
             foreach (var item in inventory.Items)
             {
-                var element = new UnitUpgradeData();
-
-                element.Load(item);
-
-                List.Add(element);
+                Dictionary.Add(item.ItemId, new UnitUpgradeData(item));
             }
         }
     }
@@ -103,6 +106,10 @@ namespace Game
                 list.Add(element);
             }
         }
+        public void Load(string json)
+        {
+            Load(JObject.Parse(json));
+        }
         public void Load(ItemInstance item)
         {
             if (item.CustomData == null)
@@ -113,11 +120,11 @@ namespace Game
             {
                 if(item.CustomData.ContainsKey(UnitsUpgradesCore.Key))
                 {
-                    list.Clear();
+                    Load(item.CustomData[UnitsUpgradesCore.Key]);
                 }
                 else
                 {
-                    Load(JObject.Parse(item.CustomData[UnitsUpgradesCore.Key]));
+                    list.Clear();
                 }
             }
         }
@@ -125,6 +132,10 @@ namespace Game
         public UnitUpgradeData()
         {
             list = new List<ElementData>();
+        }
+        public UnitUpgradeData(ItemInstance item) : this()
+        {
+            Load(item);
         }
     }
 }

@@ -86,12 +86,10 @@ namespace Game
             protected UnitUpgradeType[] applicables = new UnitUpgradeType[2];
             public UnitUpgradeType[] Applicables { get { return applicables; } }
 
-            public const string Override = "Upgrades-Override";
+            public const string Override = UnitsUpgradesCore.Key + "-" + "Override";
 
             public virtual void Load(CatalogItem item)
             {
-                Debug.Log(item.CustomData);
-
                 if (string.IsNullOrEmpty(item.CustomData))
                 {
 

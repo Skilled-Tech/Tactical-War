@@ -28,7 +28,7 @@ namespace Game
         {
             get
             {
-                return Upgrades.Damage / 100f;
+                return 1f + Upgrades.Damage / 100f;
             }
         }
 
@@ -56,7 +56,7 @@ namespace Game
         {
             get
             {
-                return Upgrades.Range / 100f;
+                return 1f + Upgrades.Range / 100f;
             }
         }
 

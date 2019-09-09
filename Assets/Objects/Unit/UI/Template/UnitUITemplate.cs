@@ -50,6 +50,8 @@ namespace Game
 
             GrayscaleController = new UIGrayscaleController(this);
 
+            Player.Inventory.OnRetrieved += OnInventoryRetrieved;
+
             CanvasGroup = GetComponent<CanvasGroup>();
 
             LayoutElement = GetComponent<LayoutElement>();
@@ -67,9 +69,21 @@ namespace Game
             UpdateState();
         }
 
+        void OnInventoryRetrieved(PlayerInventoryCore inventory)
+        {
+            UpdateState();
+        }
+
         protected virtual void UpdateState()
         {
-            GrayscaleController.On = Player.Inventory.Contains(Template.CatalogItem);
+            if(Template == null)
+            {
+
+            }
+            else
+            {
+                GrayscaleController.Off = Player.Inventory.Contains(Template.CatalogItem);
+            }
         }
 
         public delegate void ClickDelegate(UnitUITemplate template, UnitTemplate data);
@@ -103,7 +117,7 @@ namespace Game
 
         void OnDestroy()
         {
-            
+            Player.Inventory.OnRetrieved -= OnInventoryRetrieved;
         }
     }
 }

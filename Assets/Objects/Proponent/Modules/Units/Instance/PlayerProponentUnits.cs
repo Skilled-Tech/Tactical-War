@@ -25,7 +25,7 @@ namespace Game
 
         public override UnitUpgradeData GetUpgrade(UnitTemplate unit)
         {
-            return Core.Instance.Player.Units.Upgrades[unit];
+            return Core.Instance.Player.Units.Upgrades.Find(unit);
         }
     }
 }

@@ -122,6 +122,8 @@ namespace Game
             {
                 Popup.Hide();
 
+                UpdateState();
+
                 Context.Character.Slot.gameObject.SetActive(true);
             }
             else
