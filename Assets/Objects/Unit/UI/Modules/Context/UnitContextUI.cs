@@ -33,7 +33,7 @@ namespace Game
         {
             public UnitContextUI Context { get { return UI.Context; } }
 
-            public DataElement Data { get { return Context.Data; } }
+            public UnitTemplate Template { get { return Context.Template; } }
 
             public override void Show()
             {
@@ -66,31 +66,13 @@ namespace Game
             Upgrade = Dependancy.Get<UnitContextUpgradeUI>(gameObject);
         }
 
-        public DataElement Data;
-        public class DataElement
+        public UnitTemplate Template { get; protected set; }
+
+        public virtual void Set(UnitTemplate template)
         {
-            public UnitTemplate Template { get; protected set; }
+            Template = template;
 
-            public UnitData Instance { get; protected set; }
-
-            public DataElement(UnitTemplate unit)
-            {
-                this.Template = unit;
-
-                this.Instance = Core.Instance.Player.Units.Dictionary[unit];
-            }
-        }
-
-        public virtual void Set(UnitTemplate unit)
-        {
-            if(Data != null)
-                Data.Instance.OnChange -= UpdateState;
-
-            Data = new DataElement(unit);
-
-            Data.Instance.OnChange += UpdateState;
-
-            Character.Set(unit);
+            Character.Set(template);
 
             Initial.Show();
             Upgrade.Hide();
@@ -107,8 +89,7 @@ namespace Game
 
         void OnDestroy()
         {
-            if(Data != null)
-                Data.Instance.OnChange -= UpdateState;
+            
         }
     }
 }

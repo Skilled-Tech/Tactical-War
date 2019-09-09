@@ -126,10 +126,10 @@ namespace Game
             return text;
         }
 
-        public Currency(int gold, int xp)
+        public Currency(int gold, int jewels)
         {
             this.gold = gold;
-            this.jewels = xp;
+            this.jewels = jewels;
         }
         public Currency(Dictionary<string, uint> Prices)
         {

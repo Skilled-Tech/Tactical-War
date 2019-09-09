@@ -23,9 +23,9 @@ namespace Game
 	{
         public const string MenuPath = "Unit/";
 
-        public UnitTemplate Data { get; protected set; }
+        public UnitTemplate Template { get; protected set; }
 
-        public UnitType Type { get { return Data.Type; } }
+        public UnitType Type { get { return Template.Type; } }
 
         public UnitController Controller { get; protected set; }
         public UnitBody Body { get; protected set; }
@@ -37,19 +37,27 @@ namespace Game
         {
             public Unit Unit { get { return Reference; } }
 
-            public UnitTemplate Data { get { return Unit.Data; } }
+            public UnitTemplate Template { get { return Unit.Template; } }
 
             public UnitType Type { get { return Unit.Type; } }
 
             public UnitController Controller { get { return Unit.Controller; } }
+
             public UnitBody Body { get { return Unit.Body; } }
+
             public UnitNavigator Navigator { get { return Unit.Navigator; } }
+
             public UnitAttack Attack { get { return Unit.Attack; } }
+
             public UnitUpgrades Upgrades { get { return Unit.Upgrades; } }
+
             public Proponent Leader { get { return Unit.Leader; } }
+
             public Base Base { get { return Leader.Base; } }
 
             public int Index { get { return Unit.Index; } }
+
+            public Core Core { get { return Core.Instance; } }
         }
 
         protected int _index;
@@ -67,11 +75,11 @@ namespace Game
 
         public Proponent Leader { get; protected set; }
 
-        public virtual void Configure(Proponent leader, UnitTemplate data, UnitData.UpgradesData upgreades)
+        public virtual void Configure(Proponent leader, UnitTemplate template, UnitUpgradeData upgreades)
         {
             this.Leader = leader;
 
-            this.Data = data;
+            this.Template = template;
 
             Upgrades = Dependancy.Get<UnitUpgrades>(gameObject);
             Upgrades.Set(upgreades);
@@ -96,21 +104,14 @@ namespace Game
         {
             base.Start();
 
-            Health.Value = Health.Max = Data.Health;
+            Health.Value = Health.Max = Template.Health;
 
             Modules.Init(this);
         }
 
         public override void TakeDamage(Entity damager, float value)
         {
-            if(Upgrades.Defense == null)
-            {
-
-            }
-            else
-            {
-                value = Mathf.Lerp(value, 0f, Upgrades.Defense.Percentage / 100f);
-            }
+            value = Mathf.Lerp(value, 0f, Upgrades.Defense / 100f);
 
             base.TakeDamage(damager, value);
         }
@@ -119,7 +120,7 @@ namespace Game
         {
             base.Death(damager);
 
-            Leader.Enemey.Funds.Add(Data.Deployment.Cost);
+            Leader.Enemey.Funds.Add(Template.Deployment.Cost);
 
             Destroy(gameObject);
         }

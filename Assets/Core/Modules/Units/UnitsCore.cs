@@ -25,6 +25,7 @@ namespace Game
     [Serializable]
 	public class UnitsCore : Core.Module
 	{
+        #region List
         [SerializeField]
         protected UnitTemplate[] list;
         public UnitTemplate[] List { get { return list; } }
@@ -32,12 +33,32 @@ namespace Game
         public UnitTemplate this[int index] { get { return list[index]; } }
 
         public int Count { get { return list.Length; } }
+        #endregion
+
+        [SerializeField]
+        protected UnitsUpgradesCore upgrades;
+        public UnitsUpgradesCore Upgrades { get { return upgrades; } }
+
+        [Serializable]
+        public class Module : Core.Module
+        {
+            public UnitsCore Units { get { return Core.Units; } }
+        }
 
         public override void Configure()
         {
             base.Configure();
 
             Core.PlayFab.Catalog.OnRetrieved += OnCatalogRetrieved;
+
+            upgrades.Configure();
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            upgrades.Init();
         }
 
         void OnCatalogRetrieved(PlayFabCatalogCore catalog)

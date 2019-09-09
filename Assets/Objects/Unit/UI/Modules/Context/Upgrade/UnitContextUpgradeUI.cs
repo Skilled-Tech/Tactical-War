@@ -29,7 +29,6 @@ namespace Game
 
         [SerializeField]
         protected GameObject template;
-        public GameObject Template { get { return template; } }
 
         public List<UnitsUpgradePropertyTemplate> Templates { get; protected set; }
 
@@ -46,21 +45,25 @@ namespace Game
 
             Clear();
 
-            foreach (var property in Core.Player.Units.Dictionary[Data.Template].Upgrades.Types)
+            //TODO
+            /*
+            foreach (var property in Template)
             {
                 var instance = CreateProperty(property);
 
                 Templates.Add(instance);
             }
+            */
         }
 
-        protected virtual UnitsUpgradePropertyTemplate CreateProperty(UnitData.UpgradesData.TypeData property)
+        protected virtual UnitsUpgradePropertyTemplate CreateProperty(UnitTemplate template, UnitUpgradeType type)
         {
-            var instance = Instantiate(template, panel);
+            var instance = Instantiate(this.template, panel);
 
             var script = instance.GetComponent<UnitsUpgradePropertyTemplate>();
 
-            script.Set(property);
+            script.Init();
+            script.Set(template, type);
 
             return script;
         }

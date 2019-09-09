@@ -60,28 +60,30 @@ namespace Game
         {
             base.Show();
 
-            description.text = Data.Template.Description;
+            description.text = Template.Description;
         }
 
         public override void UpdateState()
         {
             base.UpdateState();
 
-            Unlock.gameObject.SetActive(!Data.Instance.Unlocked);
+            var unlocked = Player.Inventory.Contains(Template.CatalogItem);
 
-            Upgrade.gameObject.SetActive(Data.Instance.Unlocked);
+            Unlock.gameObject.SetActive(!unlocked);
 
-            if (Data.Instance.Unlocked)
+            Upgrade.gameObject.SetActive(unlocked);
+
+            if (unlocked)
             {
                 
             }
             else
             {
-                unlock.interactable = Player.Funds.CanAfford(Data.Template.Unlock.Cost);
+                unlock.interactable = Player.Funds.CanAfford(Template.Unlock.Cost);
 
                 price.color = unlock.interactable ? Color.white : Color.grey;
 
-                price.text = Currency.FormatText(0, (int)Data.Template.CatalogItem.VirtualCurrencyPrices[Core.Player.Funds.Jewels.Code]);
+                price.text = Template.Unlock.Cost.ToString();
             }
         }
 
@@ -92,7 +94,7 @@ namespace Game
             Popup.Show("Processing Purchase");
 
             Core.PlayFab.Purchase.OnResponse += OnPurchaseResponse;
-            Core.PlayFab.Purchase.Perform(Data.Template.CatalogItem, Core.Player.Funds.Jewels.Code);
+            Core.PlayFab.Purchase.Perform(Template.CatalogItem, Core.Player.Funds.Jewels.Code);
         }
 
         void OnPurchaseResponse(PlayFabPurchaseCore purchase, PurchaseItemResult result, PlayFab.PlayFabError error)

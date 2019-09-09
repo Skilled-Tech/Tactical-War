@@ -20,9 +20,9 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [CreateAssetMenu(menuName = UnitUpgrades.MenuPath + "Type")]
-	public class UnitUpgradeType : ScriptableObject
-	{
-		[SerializeField]
+    public class UnitUpgradeType : ScriptableObject
+    {
+        [SerializeField]
         protected Sprite icon;
         public Sprite Icon { get { return icon; } }
     }

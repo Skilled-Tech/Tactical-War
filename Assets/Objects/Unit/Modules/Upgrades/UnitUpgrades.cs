@@ -23,40 +23,60 @@ namespace Game
     {
         public const string MenuPath = Unit.MenuPath + "Upgrades/";
 
-        new public UnitData.UpgradesData Data { get; protected set; }
+        public UnitUpgradeData Data { get; protected set; }
 
-        public UnitData.UpgradesData.TypeData Damage { get; protected set; }
+        public float Damage
+        {
+            get
+            {
+                return GetCurrentPercentage(Core.Units.Upgrades.Types.Find(nameof(Damage)));
+            }
+        }
+        public float Defense
+        {
+            get
+            {
+                return GetCurrentPercentage(Core.Units.Upgrades.Types.Find(nameof(Defense)));
+            }
+        }
+        public float Range
+        {
+            get
+            {
+                return GetCurrentPercentage(Core.Units.Upgrades.Types.Find(nameof(Range)));
+            }
+        }
 
-        public UnitData.UpgradesData.TypeData Defense { get; protected set; }
+        public virtual UnitUpgradesTemplate.ElementData.RankData FindCurrentRank(UnitUpgradeType type)
+        {
+            if (Data == null) return null;
 
-        public UnitData.UpgradesData.TypeData Range { get; protected set; }
 
-        public virtual void Set(UnitData.UpgradesData data)
+            var template = Template.Upgrades.Template.Find(type);
+
+            if (template == null) return null;
+
+
+            var data = Data.Find(type);
+
+            if (data == null) return null;
+
+            if (data.Value == 0 || data.Value > template.List.Length) return null;
+
+            return template.List[data.Value];
+        }
+        public virtual float GetCurrentPercentage(UnitUpgradeType type)
+        {
+            var rank = FindCurrentRank(type);
+
+            if (rank == null) return 0f;
+
+            return rank.Percentage;
+        }
+
+        public virtual void Set(UnitUpgradeData data)
         {
             this.Data = data;
-
-            if(data == null)
-            {
-
-            }
-            else
-            {
-                foreach (var type in data.Types)
-                {
-                    switch (type.Name) //Temporary Solution, don't laugh
-                    {
-                        case nameof(Damage):
-                            Damage = type;
-                            break;
-                        case nameof(Defense):
-                            Defense = type;
-                            break;
-                        case nameof(Range):
-                            Range = type;
-                            break;
-                    }
-                }
-            }
         }
     }
 }

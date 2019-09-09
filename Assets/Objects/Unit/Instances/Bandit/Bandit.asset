@@ -28,10 +28,10 @@ MonoBehaviour:
   unlock:
     cost:
       gold: 0
-      xp: 2000
+      jewels: 2000
   deployment:
     cost:
       gold: 100
-      xp: 0
+      jewels: 0
     time: 2
   description: Basic grunt, low range, medium defense & attack

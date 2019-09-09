@@ -20,6 +20,9 @@ using Random = UnityEngine.Random;
 using PlayFab;
 using PlayFab.ClientModels;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = Unit.MenuPath + "Template")]
@@ -83,18 +86,31 @@ namespace Game
             protected UnitUpgradeType[] applicables = new UnitUpgradeType[2];
             public UnitUpgradeType[] Applicables { get { return applicables; } }
 
-            IEnumerable<UnitUpgradesTemplate.TypeData> GetApplicable()
-            {
-                for (int i = 0; i < template.Types.Length; i++)
-                {
-                    if(isApplicable(template.Types[i].Target))
-                        yield return template.Types[i];
-                }
-            }
+            public const string Override = "Upgrades-Override";
 
-            public virtual bool isApplicable(UnitUpgradeType type)
+            public virtual void Load(CatalogItem item)
             {
-                return applicables.Contains(type);
+                Debug.Log(item.CustomData);
+
+                if (string.IsNullOrEmpty(item.CustomData))
+                {
+
+                }
+                else
+                {
+                    var jObject = JObject.Parse(item.CustomData);
+
+                    if(jObject[Override] == null)
+                    {
+                        template = Core.Units.Upgrades.Templates.Default;
+                    }
+                    else
+                    {
+                        template = Core.Units.Upgrades.Templates.Find(jObject[Override].ToObject<string>());
+
+                        if (template == null) template = Core.Units.Upgrades.Templates.Default;
+                    }
+                }
             }
         }
 
@@ -116,6 +132,11 @@ namespace Game
                 {
                     cost = value;
                 }
+            }
+
+            public virtual void Load(CatalogItem item)
+            {
+                cost = new Currency(item.VirtualCurrencyPrices);
             }
 
             public UnlockData(Currency cost)
@@ -160,6 +181,8 @@ namespace Game
         protected string description;
         public string Description { get { return description; } }
 
+        public static Core Core { get { return Core.Instance; } }
+
         public CatalogItem CatalogItem { get; protected set; }
         public virtual void Load(PlayFabCatalogCore catalog)
         {
@@ -178,7 +201,8 @@ namespace Game
         {
             CatalogItem = item;
 
-            unlock.Cost = new Currency(item.VirtualCurrencyPrices);
+            unlock.Load(item);
+            upgrades.Load(item);
         }
     }
 }

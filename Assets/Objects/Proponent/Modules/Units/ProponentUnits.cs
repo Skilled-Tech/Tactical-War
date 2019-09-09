@@ -23,6 +23,6 @@ namespace Game
 	{
 		public abstract IList<UnitTemplate> Selection { get; }
 
-        public abstract UnitData.UpgradesData GetUpgrade(UnitTemplate unit);
+        public abstract UnitUpgradeData GetUpgrade(UnitTemplate unit);
 	}
 }

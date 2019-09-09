@@ -23,9 +23,9 @@ namespace Game
     {
         public override IList<UnitTemplate> Selection { get { return Core.Instance.Player.Units.Selection.List; } }
 
-        public override UnitData.UpgradesData GetUpgrade(UnitTemplate unit)
+        public override UnitUpgradeData GetUpgrade(UnitTemplate unit)
         {
-            return Core.Instance.Player.Units.Dictionary[unit].Upgrades;
+            return Core.Instance.Player.Units.Upgrades[unit];
         }
     }
 }

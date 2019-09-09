@@ -28,10 +28,10 @@ MonoBehaviour:
   unlock:
     cost:
       gold: 0
-      xp: 4000
+      jewels: 4000
   deployment:
     cost:
       gold: 200
-      xp: 0
+      jewels: 0
     time: 2
   description: Shoots arrows from a far, low defense, medium range & attack

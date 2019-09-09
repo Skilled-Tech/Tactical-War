@@ -58,15 +58,9 @@ namespace Game
         }
 
         public UnitTemplate Template { get; protected set; }
-        public UnitData Data { get; protected set; }
         public virtual void Set(UnitTemplate template)
         {
-            if(Data != null) Data.OnChange -= UpdateState;
-
             this.Template = template;
-            Data = Player.Units.Dictionary[template];
-
-            Data.OnChange += UpdateState;
 
             icon.sprite = template.Icon;
 
@@ -75,7 +69,7 @@ namespace Game
 
         protected virtual void UpdateState()
         {
-            GrayscaleController.On = !Data.Unlocked;
+            GrayscaleController.On = Player.Inventory.Contains(Template.CatalogItem);
         }
 
         public delegate void ClickDelegate(UnitUITemplate template, UnitTemplate data);
@@ -109,7 +103,7 @@ namespace Game
 
         void OnDestroy()
         {
-            if (Data != null) Data.OnChange -= UpdateState;
+            
         }
     }
 }

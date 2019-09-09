@@ -10,7 +10,7 @@ Constants = {
         Name: "Upgrades",
         Template: {
             Default: "Default",
-            Override: "Upgrades_Template",
+            Override: "Upgrades-Override",
         },
         Currency: "JL",
     }

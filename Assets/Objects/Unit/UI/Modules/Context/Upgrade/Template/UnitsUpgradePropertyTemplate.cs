@@ -53,16 +53,22 @@ namespace Game
             Funds.OnValueChanged += UpdateState;
         }
 
-        public UnitData.UpgradesData.TypeData Data { get; protected set; }
-        public virtual void Set(UnitData.UpgradesData.TypeData data)
+        public virtual void Init()
         {
-            this.Data = data;
-
             GrayscaleController = new UIGrayscaleController(this);
+        }
 
-            icon.sprite = data.Template.Target.Icon;
-
-            label.text = data.Template.Target.name + " Upgrade";
+        public UnitTemplate Template { get; protected set; }
+        public UnitUpgradeType Type { get; protected set; }
+        public virtual void Set(UnitTemplate template, UnitUpgradeType type)
+        {
+            this.Template = template;
+            
+            //TODO
+            /*
+            icon.sprite = Template.Data.Icon;
+            label.text = Template.Data.name + " Upgrade";
+            */
 
             button.onClick.AddListener(OnButon);
 
@@ -71,6 +77,8 @@ namespace Game
 
         void UpdateState()
         {
+            //TODO
+            /*
             if (Data.Maxed)
             {
                 button.interactable = false;
@@ -89,13 +97,12 @@ namespace Game
             GrayscaleController.On = !button.interactable;
 
             price.color = button.interactable ? Color.white : Color.Lerp(Color.white, Color.black, 0.75f);
+            */
         }
 
         void OnButon()
         {
-            Data.Upgrade(Funds);
-
-            UpdateState();
+            //TODO
         }
 
         void OnDisable()

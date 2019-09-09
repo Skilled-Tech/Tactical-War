@@ -17,31 +17,34 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = UnitUpgrades.MenuPath + "Template")]
     public class UnitUpgradesTemplate : ScriptableObject
     {
-        [SerializeField]
-        TypeData[] types = new TypeData[]
-            {
-                new TypeData(null, 10, new Currency(0, 300), 6),
-                new TypeData(null, 10, new Currency(0, 300), 6),
-                new TypeData(null, 10, new Currency(0, 300), 15)
-            };
-        public TypeData[] Types { get { return types; } }
+        public static Core Core { get { return Core.Instance; } }
 
+        [SerializeField]
+        protected List<ElementData> list = new List<ElementData>()
+        {
+            new ElementData(5, new Currency(0, 200), 10),
+            new ElementData(5, new Currency(0, 200), 10),
+            new ElementData(5, new Currency(0, 200), 20),
+        };
+        public List<ElementData> List { get { return list; } }
         [Serializable]
-        public class TypeData
+        public class ElementData
         {
             [SerializeField]
-            UnitUpgradeType target;
-            public UnitUpgradeType Target { get { return target; } }
+            protected UnitUpgradeType type;
+            public UnitUpgradeType Type { get { return type; } }
 
             [SerializeField]
-            RankData[] ranks;
-            public RankData[] Ranks { get { return ranks; } }
-
+            protected RankData[] list;
+            public RankData[] List { get { return list; } }
             [Serializable]
             public class RankData
             {
@@ -53,17 +56,11 @@ namespace Game
                 float percentage;
                 public float Percentage { get { return percentage; } }
 
-                public float Multiplier
+                public virtual void Load(JToken token)
                 {
-                    get
-                    {
-                        return 1f + (percentage / 100);
-                    }
-                }
+                    cost = new Currency(0, token[nameof(Cost)].ToObject<int>());
 
-                public float Sample(float value)
-                {
-                    return value * Multiplier;
+                    percentage = token[nameof(Percentage)].ToObject<float>();
                 }
 
                 public RankData(Currency cost, float percentage)
@@ -72,22 +69,52 @@ namespace Game
 
                     this.percentage = percentage;
                 }
+                public RankData(JToken token)
+                {
+                    Load(token);
+                }
             }
 
-            public TypeData(UnitUpgradeType type, RankData[] ranks)
+            public ElementData(int count, Currency initalCost, float initialPercentage)
             {
-                this.target = type;
-                this.ranks = ranks;
+                list = new RankData[count];
+
+                for (int i = 0; i < list.Length; i++)
+                    list[i] = new RankData(initalCost * (i + 1), initialPercentage * (i + 1));
             }
 
-            public TypeData(UnitUpgradeType type, int ranksCount, Currency initalCost, float initialPercentage)
+            public ElementData(JProperty property)
             {
-                this.target = type;
+                type = Core.Units.Upgrades.Types.Find(property.Name);
 
-                ranks = new RankData[ranksCount];
+                var jArray = JArray.FromObject(property.Value);
 
-                for (int i = 0; i < ranks.Length; i++)
-                    ranks[i] = new RankData(initalCost * (i + 1), initialPercentage * (i + 1));
+                list = new RankData[jArray.Count];
+
+                for (int i = 0; i < jArray.Count; i++)
+                    list[i] = new RankData(jArray[i]);
+            }
+        }
+
+        public virtual ElementData Find(UnitUpgradeType type)
+        {
+            for (int i = 0; i < list.Count; i++)
+                if (list[i].Type == type)
+                    return list[i];
+
+            return null;
+        }
+
+        public virtual void Load(JProperty property)
+        {
+            name = property.Name;
+
+            list.Clear();
+            foreach (var item in property.Value.Children<JProperty>())
+            {
+                var element = new ElementData(item);
+
+                list.Add(element);
             }
         }
     }

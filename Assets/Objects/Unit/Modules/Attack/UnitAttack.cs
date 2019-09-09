@@ -22,15 +22,13 @@ namespace Game
 	public abstract class UnitAttack : Unit.Module
 	{
         #region Damage
-        public float BaseDamage { get { return Unit.Data.Attack.Damage; } }
+        public float BaseDamage { get { return Unit.Template.Attack.Damage; } }
 
         public float DamageMultiplier
         {
             get
             {
-                if (Upgrades.Damage == null) return 1f;
-
-                return Upgrades.Damage.Multiplier;
+                return Upgrades.Damage / 100f;
             }
         }
 
@@ -38,15 +36,13 @@ namespace Game
         #endregion
 
         #region Range
-        public uint BaseRange { get { return Unit.Data.Attack.Range; } }
+        public uint BaseRange { get { return Unit.Template.Attack.Range; } }
 
         public uint RangeIncrease
         {
             get
             {
-                if (Upgrades.Range == null) return 0;
-
-                return (uint)(Upgrades.Range.Value / 3);
+                return (uint)(Upgrades.Range / 50f);
             }
         }
 
@@ -54,15 +50,13 @@ namespace Game
         #endregion
 
         #region Distance
-        public float BaseDistance { get { return Unit.Data.Attack.Distance; } }
+        public float BaseDistance { get { return Unit.Template.Attack.Distance; } }
 
         public float DistanceMultiplier
         {
             get
             {
-                if (Upgrades.Range == null) return 1f;
-
-                return Upgrades.Range.Multiplier;
+                return Upgrades.Range / 100f;
             }
         }
 

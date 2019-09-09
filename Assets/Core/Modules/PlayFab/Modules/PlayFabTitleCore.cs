@@ -43,14 +43,14 @@ namespace Game
             Data.Request();
         }
 
-        void OnDataResponse(PlayFabTitleDataCore data, PlayFabError error)
+        void OnDataResponse(PlayFabTitleDataCore title, PlayFabError error)
         {
             Data.OnResponse -= OnDataResponse;
 
             ResponseCompleted(error);
         }
 
-        public delegate void ResponseCallback(PlayFabTitleCore data, PlayFabError error);
+        public delegate void ResponseCallback(PlayFabTitleCore title, PlayFabError error);
         public event ResponseCallback OnResponse;
         public virtual void ResponseCompleted(PlayFabError error)
         {
@@ -74,12 +74,12 @@ namespace Game
         }
 
         public delegate void ResultDelegate(PlayFabTitleDataCore data);
-        public event ResultDelegate OnResult;
+        public event ResultDelegate OnRetrieved;
         void ResultCallback(GetTitleDataResult result)
         {
             Value = result.Data;
 
-            if (OnResult != null) OnResult(this);
+            if (OnRetrieved != null) OnRetrieved(this);
 
             Respond(result, null);
         }

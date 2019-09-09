@@ -28,10 +28,10 @@ MonoBehaviour:
   unlock:
     cost:
       gold: 0
-      xp: 6000
+      jewels: 6000
   deployment:
     cost:
       gold: 400
-      xp: 0
+      jewels: 0
     time: 4
   description: Heavily armored warrior, low range, high attack & defense

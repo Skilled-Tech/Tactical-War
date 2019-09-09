@@ -79,15 +79,15 @@ namespace Game
         }
 
         public event Action OnDragBegin;
-        void ListTemplateDragBegin(UnitUITemplate template, UnitTemplate unit, PointerEventData pointerData)
+        void ListTemplateDragBegin(UnitUITemplate UITemplate, UnitTemplate template, PointerEventData pointerData)
         {
             if (Instance == null)
             {
-                if(template.Data.Unlocked)
+                if(Player.Inventory.Contains(template.CatalogItem))
                 {
-                    Core.Player.Units.Selection.Context = template.Template;
+                    Core.Player.Units.Selection.Context = UITemplate.Template;
 
-                    Instance = CreateTemplate(template);
+                    Instance = CreateTemplate(UITemplate);
 
                     SetTemplatePosition(pointerData);
 
