@@ -26,10 +26,9 @@ using Newtonsoft.Json.Linq;
 namespace Game
 {
     [CreateAssetMenu(menuName = Unit.MenuPath + "Template")]
-    public class UnitTemplate : ScriptableObject
+    public class UnitTemplate : ItemTemplate
     {
-        public string ID { get { return name; } }
-
+        [Space]
         [SerializeField]
         protected UnitType type;
         public UnitType Type { get { return type; } }
@@ -37,10 +36,6 @@ namespace Game
         [SerializeField]
         protected GameObject prefab;
         public GameObject Prefab { get { return prefab; } }
-
-        [SerializeField]
-        protected Sprite icon;
-        public Sprite Icon { get { return icon; } }
 
         [SerializeField]
         protected float health = 100f;
@@ -73,77 +68,6 @@ namespace Game
         }
 
         [SerializeField]
-        protected UpgradesData upgrades;
-        public UpgradesData Upgrades { get { return upgrades; } }
-        [Serializable]
-        public class UpgradesData
-        {
-            [SerializeField]
-            protected UnitUpgradesTemplate template;
-            public UnitUpgradesTemplate Template { get { return template; } }
-
-            [SerializeField]
-            protected UnitUpgradeType[] applicables = new UnitUpgradeType[2];
-            public UnitUpgradeType[] Applicables { get { return applicables; } }
-
-            public const string Override = UnitsUpgradesCore.Key + "-" + "Override";
-
-            public virtual void Load(CatalogItem item)
-            {
-                if (string.IsNullOrEmpty(item.CustomData))
-                {
-
-                }
-                else
-                {
-                    var jObject = JObject.Parse(item.CustomData);
-
-                    if(jObject[Override] == null)
-                    {
-                        template = Core.Units.Upgrades.Templates.Default;
-                    }
-                    else
-                    {
-                        template = Core.Units.Upgrades.Templates.Find(jObject[Override].ToObject<string>());
-
-                        if (template == null) template = Core.Units.Upgrades.Templates.Default;
-                    }
-                }
-            }
-        }
-
-        [SerializeField]
-        protected UnlockData unlock = new UnlockData(new Currency(0, 400));
-        public UnlockData Unlock { get { return unlock; } }
-        [Serializable]
-        public class UnlockData
-        {
-            [SerializeField]
-            protected Currency cost;
-            public Currency Cost
-            {
-                get
-                {
-                    return cost;
-                }
-                set
-                {
-                    cost = value;
-                }
-            }
-
-            public virtual void Load(CatalogItem item)
-            {
-                cost = new Currency(item.VirtualCurrencyPrices);
-            }
-
-            public UnlockData(Currency cost)
-            {
-                this.cost = cost;
-            }
-        }
-
-        [SerializeField]
         protected DeploymentData deployment = new DeploymentData(new Currency(100, 0), 2f);
         public DeploymentData Deployment { get { return deployment; } }
         [Serializable]
@@ -172,35 +96,6 @@ namespace Game
                 this.cost = cost;
                 this.time = time;
             }
-        }
-
-        [SerializeField]
-        [TextArea]
-        protected string description;
-        public string Description { get { return description; } }
-
-        public static Core Core { get { return Core.Instance; } }
-
-        public CatalogItem CatalogItem { get; protected set; }
-        public virtual void Load(PlayFabCatalogCore catalog)
-        {
-            CatalogItem = null;
-
-            for (int i = 0; i < catalog.Size; i++)
-            {
-                if(catalog[i].ItemId == ID)
-                {
-                    Load(catalog[i]);
-                    break;
-                }
-            }
-        }
-        public virtual void Load(CatalogItem item)
-        {
-            CatalogItem = item;
-
-            unlock.Load(item);
-            upgrades.Load(item);
         }
     }
 }

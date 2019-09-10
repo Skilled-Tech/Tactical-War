@@ -122,7 +122,16 @@ namespace Game
             if(Player.Inventory.Items != null)
             {
                 if (Input.GetKeyDown(KeyCode.R))
+                    PlayFab.Upgrade.Perform(Player.Inventory.Items.First().ItemInstanceId, "Range");
+
+                if (Input.GetKeyDown(KeyCode.D))
+                    PlayFab.Upgrade.Perform(Player.Inventory.Items.First().ItemInstanceId, "Damage");
+
+                if (Input.GetKeyDown(KeyCode.E))
                     PlayFab.Upgrade.Perform(Player.Inventory.Items.First().ItemInstanceId, "Defense");
+
+                if(Input.GetKeyDown(KeyCode.S))
+                    Scenes.Load(Scenes.MainMenu);
             }
         }
 

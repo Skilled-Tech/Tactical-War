@@ -33,7 +33,7 @@ namespace Game
 
         public RectTransform RectTransform { get; protected set; }
 
-        public IList<UnitTemplate> List { get { return Core.Units.List; } }
+        public IList<UnitTemplate> List { get { return Core.Items.Units.List; } }
 
         public override void Configure(UnitsUI data)
         {

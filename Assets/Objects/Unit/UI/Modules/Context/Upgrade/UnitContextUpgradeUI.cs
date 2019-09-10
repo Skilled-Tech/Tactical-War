@@ -56,7 +56,7 @@ namespace Game
             */
         }
 
-        protected virtual UnitsUpgradePropertyTemplate CreateProperty(UnitTemplate template, UnitUpgradeType type)
+        protected virtual UnitsUpgradePropertyTemplate CreateProperty(UnitTemplate template, ItemUpgradeType type)
         {
             var instance = Instantiate(this.template, panel);
 

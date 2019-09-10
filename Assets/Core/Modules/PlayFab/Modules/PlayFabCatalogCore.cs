@@ -33,6 +33,16 @@ namespace Game
 
         public CatalogItem this[int index] { get { return Items[index]; } }
 
+        public virtual CatalogItem Find(string itemID)
+        {
+            for (int i = 0; i < Items.Count; i++)
+                if (Items[i].ItemId == itemID)
+                    return Items[i];
+
+            return null;
+        }
+
+        #region Request
         public virtual void Request()
         {
             var request = new GetCatalogItemsRequest
@@ -69,5 +79,6 @@ namespace Game
         {
             if (OnResponse != null) OnResponse(this, error);
         }
+        #endregion
     }
 }

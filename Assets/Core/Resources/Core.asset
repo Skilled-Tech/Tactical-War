@@ -35,7 +35,7 @@ MonoBehaviour:
         name: Level 2
       icon: {fileID: 0}
       background: {fileID: 11400000, guid: 77047b9d69e330a42bb39005a86f7092, type: 2}
-      unlocked: 0
+      unlocked: 1
     - scene:
         asset: {fileID: 102900000, guid: e827a4b247a67db4b85b0df9386c0a58, type: 3}
         name: Level 3
@@ -45,10 +45,12 @@ MonoBehaviour:
   player:
     funds:
       gold:
-        _value: 999999
+        _value: 100000
       jewels:
-        _value: 999999
+        _value: 820800
     units:
+      upgrades:
+        List: []
       selection:
         max: 4
         list:
@@ -57,10 +59,10 @@ MonoBehaviour:
         - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
         - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
         Context: {fileID: 0}
-  units:
+  items:
     list:
-    - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
     - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+    - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
     - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
     - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
     upgrades:

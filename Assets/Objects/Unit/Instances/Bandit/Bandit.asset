@@ -12,26 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
   m_Name: Bandit
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2b2dd860b51744c42b78bc49a1a7f0d7, type: 3}
+  description: Basic grunt, low range, medium defense & attack
+  price:
+    gold: 0
+    jewels: 2000
   type: {fileID: 11400000, guid: c31c9a7f1ebcfb24aa457da8aceba346, type: 2}
   prefab: {fileID: 8127696124609658847, guid: a951ec13909138149a08a70609b3a6bc, type: 3}
-  icon: {fileID: 21300000, guid: 2b2dd860b51744c42b78bc49a1a7f0d7, type: 3}
   health: 140
   attack:
     damage: 20
     range: 1
     distance: 0
   upgrades:
-    template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
+    template: {fileID: 0}
     applicables:
     - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
     - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
-  unlock:
-    cost:
-      gold: 0
-      jewels: 2000
   deployment:
     cost:
       gold: 100
       jewels: 0
     time: 2
-  description: Basic grunt, low range, medium defense & attack

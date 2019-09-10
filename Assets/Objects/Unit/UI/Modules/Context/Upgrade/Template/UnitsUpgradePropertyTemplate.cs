@@ -59,8 +59,8 @@ namespace Game
         }
 
         public UnitTemplate Template { get; protected set; }
-        public UnitUpgradeType Type { get; protected set; }
-        public virtual void Set(UnitTemplate template, UnitUpgradeType type)
+        public ItemUpgradeType Type { get; protected set; }
+        public virtual void Set(UnitTemplate template, ItemUpgradeType type)
         {
             this.Template = template;
             

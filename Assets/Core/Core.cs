@@ -59,8 +59,8 @@ namespace Game
         public PlayerCore Player { get { return player; } }
 
         [SerializeField]
-        protected UnitsCore units;
-        public UnitsCore Units { get { return units; } }
+        protected ItemsCore items;
+        public ItemsCore Items { get { return items; } }
 
         [SerializeField]
         protected PlayFabCore playFab;
@@ -88,7 +88,7 @@ namespace Game
             action(scenes);
             action(levels);
             action(player);
-            action(units);
+            action(items);
             action(playFab);
         }
         #endregion
