@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e2b7a9748a2684fbbb82b051037ffe, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: 
-  list:
-  - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
-    list:
+  elements:
+  - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+    ranks:
     - cost:
         gold: 0
         jewels: 100
@@ -35,8 +35,8 @@ MonoBehaviour:
         gold: 0
         jewels: 1000
       percentage: 50
-  - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-    list:
+  - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+    ranks:
     - cost:
         gold: 0
         jewels: 100
@@ -58,24 +58,24 @@ MonoBehaviour:
         jewels: 1000
       percentage: 50
   - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
-    list:
+    ranks:
     - cost:
         gold: 0
         jewels: 100
-      percentage: 30
+      percentage: 20
     - cost:
         gold: 0
         jewels: 200
-      percentage: 60
+      percentage: 40
     - cost:
         gold: 0
         jewels: 400
-      percentage: 90
+      percentage: 60
     - cost:
         gold: 0
         jewels: 800
-      percentage: 120
+      percentage: 80
     - cost:
         gold: 0
         jewels: 1000
-      percentage: 150
+      percentage: 100

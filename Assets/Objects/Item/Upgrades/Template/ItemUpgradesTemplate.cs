@@ -27,14 +27,16 @@ namespace Game
     {
         public static Core Core { get { return Core.Instance; } }
 
+        public const string Name = "Name";
+
         [SerializeField]
-        protected List<ElementData> list = new List<ElementData>()
+        protected ElementData[] elements = new ElementData[]
         {
             new ElementData(5, new Currency(0, 200), 10),
             new ElementData(5, new Currency(0, 200), 10),
             new ElementData(5, new Currency(0, 200), 20),
         };
-        public List<ElementData> List { get { return list; } }
+        public ElementData[] Elements { get { return elements; } }
         [Serializable]
         public class ElementData
         {
@@ -43,8 +45,8 @@ namespace Game
             public ItemUpgradeType Type { get { return type; } }
 
             [SerializeField]
-            protected RankData[] list;
-            public RankData[] List { get { return list; } }
+            protected RankData[] ranks;
+            public RankData[] Ranks { get { return ranks; } }
             [Serializable]
             public class RankData
             {
@@ -77,44 +79,44 @@ namespace Game
 
             public ElementData(int count, Currency initalCost, float initialPercentage)
             {
-                list = new RankData[count];
+                ranks = new RankData[count];
 
-                for (int i = 0; i < list.Length; i++)
-                    list[i] = new RankData(initalCost * (i + 1), initialPercentage * (i + 1));
+                for (int i = 0; i < ranks.Length; i++)
+                    ranks[i] = new RankData(initalCost * (i + 1), initialPercentage * (i + 1));
             }
 
-            public ElementData(JProperty property)
+            public ElementData(JToken token)
             {
-                type = Core.Items.Upgrades.Types.Find(property.Name);
+                type = Core.Items.Upgrades.Types.Find(token[nameof(Type)].ToObject<string>());
 
-                var jArray = JArray.FromObject(property.Value);
+                var jArray = token[nameof(Ranks)] as JArray;
 
-                list = new RankData[jArray.Count];
+                ranks = new RankData[jArray.Count];
 
                 for (int i = 0; i < jArray.Count; i++)
-                    list[i] = new RankData(jArray[i]);
+                    ranks[i] = new RankData(jArray[i]);
             }
         }
 
         public virtual ElementData Find(ItemUpgradeType type)
         {
-            for (int i = 0; i < list.Count; i++)
-                if (list[i].Type == type)
-                    return list[i];
+            for (int i = 0; i < elements.Length; i++)
+                if (elements[i].Type == type)
+                    return elements[i];
 
             return null;
         }
 
-        public virtual void Load(JProperty property)
+        public virtual void Load(JToken token)
         {
-            name = property.Name;
+            name = token[Name].ToObject<string>();
 
-            list.Clear();
-            foreach (var item in property.Value.Children<JProperty>())
+            var jArray = token[nameof(Elements)] as JArray;
+            elements = new ElementData[jArray.Count];
+            
+            for (int i = 0; i < jArray.Count; i++)
             {
-                var element = new ElementData(item);
-
-                list.Add(element);
+                elements[i] = new ElementData(jArray[i]);
             }
         }
     }

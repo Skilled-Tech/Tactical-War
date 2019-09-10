@@ -1,138 +1,82 @@
-{
-    "Default": {
-      "Defense": [
-        {
-          "Cost": 100,
-          "Percentage": 10
-        },
-        {
-          "Cost": 200,
-          "Percentage": 20
-        },
-        {
-          "Cost": 400,
-          "Percentage": 30
-        },
-        {
-          "Cost": 800,
-          "Percentage": 40
-        },
-        {
-          "Cost": 1000,
-          "Percentage": 50
-        }
-      ],
-      "Damage": [
-        {
-          "Cost": 100,
-          "Percentage": 10
-        },
-        {
-          "Cost": 200,
-          "Percentage": 20
-        },
-        {
-          "Cost": 400,
-          "Percentage": 30
-        },
-        {
-          "Cost": 800,
-          "Percentage": 40
-        },
-        {
-          "Cost": 1000,
-          "Percentage": 50
-        }
-      ],
-      "Range": [
-        {
-          "Cost": 100,
-          "Percentage": 30
-        },
-        {
-          "Cost": 200,
-          "Percentage": 60
-        },
-        {
-          "Cost": 400,
-          "Percentage": 90
-        },
-        {
-          "Cost": 800,
-          "Percentage": 120
-        },
-        {
-          "Cost": 1000,
-          "Percentage": 150
-        }
-      ]
-    },
-    "Override": {
-      "Defense": [
-        {
-          "Cost": 100,
-          "Percentage": 10
-        },
-        {
-          "Cost": 200,
-          "Percentage": 20
-        },
-        {
-          "Cost": 400,
-          "Percentage": 30
-        },
-        {
-          "Cost": 800,
-          "Percentage": 40
-        },
-        {
-          "Cost": 1000,
-          "Percentage": 50
-        }
-      ],
-      "Damage": [
-        {
-          "Cost": 100,
-          "Percentage": 10
-        },
-        {
-          "Cost": 200,
-          "Percentage": 20
-        },
-        {
-          "Cost": 400,
-          "Percentage": 30
-        },
-        {
-          "Cost": 800,
-          "Percentage": 40
-        },
-        {
-          "Cost": 1000,
-          "Percentage": 50
-        }
-      ],
-      "Range": [
-        {
-          "Cost": 100,
-          "Percentage": 30
-        },
-        {
-          "Cost": 200,
-          "Percentage": 60
-        },
-        {
-          "Cost": 400,
-          "Percentage": 90
-        },
-        {
-          "Cost": 800,
-          "Percentage": 120
-        },
-        {
-          "Cost": 1000,
-          "Percentage": 150
-        }
-      ]
-    }
+[
+  {
+    "Name": "Default",
+    "Elements": [
+      {
+        "Type": "Damage",
+        "Ranks": [
+          {
+            "Cost": 100,
+            "Percentage": 10
+          },
+          {
+            "Cost": 200,
+            "Percentage": 20
+          },
+          {
+            "Cost": 400,
+            "Percentage": 30
+          },
+          {
+            "Cost": 800,
+            "Percentage": 40
+          },
+          {
+            "Cost": 1000,
+            "Percentage": 50
+          }
+        ]
+      },
+      {
+        "Type": "Defense",
+        "Ranks": [
+          {
+            "Cost": 100,
+            "Percentage": 10
+          },
+          {
+            "Cost": 200,
+            "Percentage": 20
+          },
+          {
+            "Cost": 400,
+            "Percentage": 30
+          },
+          {
+            "Cost": 800,
+            "Percentage": 40
+          },
+          {
+            "Cost": 1000,
+            "Percentage": 50
+          }
+        ]
+      },
+      {
+        "Type": "Range",
+        "Ranks": [
+          {
+            "Cost": 100,
+            "Percentage": 20
+          },
+          {
+            "Cost": 200,
+            "Percentage": 40
+          },
+          {
+            "Cost": 400,
+            "Percentage": 60
+          },
+          {
+            "Cost": 800,
+            "Percentage": 80
+          },
+          {
+            "Cost": 1000,
+            "Percentage": 100
+          }
+        ]
+      }
+    ]
   }
+]

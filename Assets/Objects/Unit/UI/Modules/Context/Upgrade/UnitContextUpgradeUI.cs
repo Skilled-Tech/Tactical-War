@@ -45,15 +45,12 @@ namespace Game
 
             Clear();
 
-            //TODO
-            /*
-            foreach (var property in Template)
+            for (int i = 0; i < Template.Upgrades.Applicable.Length; i++)
             {
-                var instance = CreateProperty(property);
+                var instance = CreateProperty(Template, Template.Upgrades.Applicable[i]);
 
                 Templates.Add(instance);
             }
-            */
         }
 
         protected virtual UnitsUpgradePropertyTemplate CreateProperty(UnitTemplate template, ItemUpgradeType type)

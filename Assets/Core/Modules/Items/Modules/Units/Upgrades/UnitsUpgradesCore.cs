@@ -45,6 +45,10 @@ namespace Game
 
                 return null;
             }
+            public virtual ItemUpgradeType Find(JToken token)
+            {
+                return Find(token.ToObject<string>());
+            }
         }
 
         [SerializeField]
@@ -58,21 +62,19 @@ namespace Game
             public ItemUpgradesTemplate Default { get { return _default; } }
 
             [SerializeField]
-            protected List<ItemUpgradesTemplate> list;
-            public List<ItemUpgradesTemplate> List { get { return list; } }
+            protected ItemUpgradesTemplate[] list;
+            public ItemUpgradesTemplate[] List { get { return list; } }
 
             public override void Configure()
             {
                 base.Configure();
-
-                list = new List<ItemUpgradesTemplate>();
 
                 Core.PlayFab.Title.Data.OnRetrieved += OnTitleDataRetrieved;
             }
 
             public virtual ItemUpgradesTemplate Find(string name)
             {
-                for (int i = 0; i < list.Count; i++)
+                for (int i = 0; i < list.Length; i++)
                     if (list[i].name == name)
                         return list[i];
 
@@ -81,21 +83,22 @@ namespace Game
 
             void OnTitleDataRetrieved(PlayFabTitleDataCore data)
             {
-                var jObject = JObject.Parse(data.Value[ItemsUpgradesCore.Key]);
+                var jArray = JArray.Parse(data.Value[ItemsUpgradesCore.Key]);
 
-                List.Clear();
-                foreach (var item in jObject.Properties())
+                list = new ItemUpgradesTemplate[jArray.Count];
+
+                for (int i = 0; i < jArray.Count; i++)
                 {
                     ItemUpgradesTemplate template = null;
 
-                    if (item.Name == nameof(Default))
+                    if (jArray[i][ItemUpgradesTemplate.Name].ToObject<string>() == nameof(Default))
                         template = Default;
                     else
                         template = ScriptableObject.CreateInstance<ItemUpgradesTemplate>();
 
-                    template.Load(item);
+                    template.Load(jArray[i]);
 
-                    List.Add(template);
+                    List[i] = template;
                 }
 
                 var target = list.Last();

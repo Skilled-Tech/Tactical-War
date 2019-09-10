@@ -61,10 +61,10 @@ namespace Game
 
             if (data == null) return null;
 
-            if (data.Value == 0 || data.Value > template.List.Length) return null;
+            if (data.Value == 0 || data.Value > template.Ranks.Length) return null;
 
 
-            return template.List[data.Value - 1];
+            return template.Ranks[data.Value - 1];
         }
         public virtual float GetCurrentPercentage(ItemUpgradeType type)
         {

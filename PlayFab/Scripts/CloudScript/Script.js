@@ -1,294 +1,195 @@
 // (https://api.playfab.com/playstream/docs/PlayStreamEventModels)
 // (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
-
-handlers.UpgradeItem = function(args)
-{
+handlers.UpgradeItem = function (args) {
     var inventory = GetInventory(currentPlayerId);
     var itemInstance = inventory.Items.find(x => x.ItemInstanceId === args.ItemInstanceId);
-    
-    if(itemInstance == null)
+    if (itemInstance == null)
         return FormatError("Invalid Instance ID");
-
     var catalog = GetCatalog(itemInstance.CatalogVersion);
     var catalogItem = catalog.Items.find(x => x.ItemId == itemInstance.ItemId);
-
     var arguments = Upgrades.Arguments.Load(catalogItem);
-
-    if(arguments == null)
+    if (arguments == null)
         return FormatError("Current Item Can't Be Upgraded");
-
     var titleData = GetTitleData();
-
     var template = Upgrades.Template.Find(titleData[Upgrades.Name], arguments.Template);
-
-    if(template == null)
+    if (template == null)
         return FormatError(arguments.Template + " Upgrades Template Not Defined");
-
     var data = Upgrades.Data.Load(itemInstance);
-
-    if(data.Contains(args.UpgradeType) == false) data.Add(args.UpgradeType);
-
-    if(data.Find(args.UpgradeType).Value >= template.Find(args.UpgradeType).Ranks.length)
+    if (data.Contains(args.UpgradeType) == false)
+        data.Add(args.UpgradeType);
+    if (data.Find(args.UpgradeType).Value >= template.Find(args.UpgradeType).Ranks.length)
         return FormatError("Maximum Upgrade Level Achieved");
-
     var rank = template.Match(args.UpgradeType, data);
-
-    if(inventory.VirtualCurrency[Upgrades.Currency] < rank.Cost)
+    if (inventory.VirtualCurrency[Upgrades.Currency] < rank.Cost)
         return FormatError("Insufficient Funds");
-
     SubtractCurrency(currentPlayerId, Upgrades.Currency, rank.Cost);
-
     log.info((data == null) + "");
     log.info((data.Find(args.UpgradeType).Type) + "");
     log.info((data.Find(args.UpgradeType).Value) + "");
     data.Find(args.UpgradeType).Value++;
-
     UpdateUserInventoryItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
-
-    return { message: "Success" }
-}
-
-namespace Upgrades
-{
-    export const Name = "Upgrades";
-
-    export const Currency = "JL";
-
-    export namespace Data
-    {
-        export function Load(itemInstance : PlayFabServerModels.ItemInstance) : Instance
-        {
-            if(itemInstance.CustomData == null)
-            {
+    return { message: "Success" };
+};
+var Upgrades;
+(function (Upgrades) {
+    Upgrades.Name = "Upgrades";
+    Upgrades.Currency = "JL";
+    let Data;
+    (function (Data) {
+        function Load(itemInstance) {
+            if (itemInstance.CustomData == null) {
                 return new Instance();
             }
-            else
-            {
-                if(itemInstance.CustomData[Upgrades.Name] == null)
-                {
+            else {
+                if (itemInstance.CustomData[Upgrades.Name] == null) {
                     return new Instance();
                 }
-                else
-                {
+                else {
                     var object = JSON.parse(itemInstance.CustomData[Upgrades.Name]);
-
                     var instance = new Instance();
-
                     instance.Load(object);
-
                     return instance;
                 }
             }
         }
-
-        export class Instance
-        {
-            List : Element[];
-
-            public Add(type : string)
-            {
-                this.List.push(new Element(type, 0));
-            }
-
-            public Contains(type : string) : boolean
-            {
-                for (var i = 0; i < this.List.length; i++)
-                    if(this.List[i].Type == type)
-                        return true;
-
-                return false;
-            }
-
-            public Find(type : string) : Element
-            {
-                for (var i = 0; i < this.List.length; i++)
-                    if(this.List[i].Type == type)
-                        return this.List[i];
-
-                return null;
-            }
-
-            public Load(object : object)
-            {
-                this.List = Object.assign([], object);
-            }
-
-            public ToJson() : string
-            {
-                return JSON.stringify(this.List);
-            }
-
-            constructor()
-            {
+        Data.Load = Load;
+        class Instance {
+            constructor() {
                 this.List = [];
             }
-        }
-
-        class Element
-        {
-            Type : string;
-            Value : number;
-
-            public Increament() : void
-            {
-                this.Value++;
+            Add(type) {
+                this.List.push(new Element(type, 0));
             }
-
-            constructor(name : string, value : number)
-            {
+            Contains(type) {
+                for (var i = 0; i < this.List.length; i++)
+                    if (this.List[i].Type == type)
+                        return true;
+                return false;
+            }
+            Find(type) {
+                for (var i = 0; i < this.List.length; i++)
+                    if (this.List[i].Type == type)
+                        return this.List[i];
+                return null;
+            }
+            Load(object) {
+                this.List = Object.assign([], object);
+            }
+            ToJson() {
+                return JSON.stringify(this.List);
+            }
+        }
+        Data.Instance = Instance;
+        class Element {
+            constructor(name, value) {
                 this.Type = name;
                 this.Value = value;
             }
-        }
-    }
-
-    export namespace Arguments
-    {
-        export const Default = "Default";
-
-        export function Load(catalogItem : PlayFabServerModels.CatalogItem) : Instance
-        {
-            if(catalogItem == null) return null;
-
-            if(catalogItem.CustomData == null) return null;
-
-            var object = JSON.parse(catalogItem.CustomData);
-
-            if(object[Name] == null)
-            {
-
+            Increament() {
+                this.Value++;
             }
-
-            var data = Object.assign(new Instance(), object[Name]) as Instance;
-
-            if(data.Template == null) data.Template = Default;
-
+        }
+    })(Data = Upgrades.Data || (Upgrades.Data = {}));
+    let Arguments;
+    (function (Arguments) {
+        Arguments.Default = "Default";
+        function Load(catalogItem) {
+            if (catalogItem == null)
+                return null;
+            if (catalogItem.CustomData == null)
+                return null;
+            var object = JSON.parse(catalogItem.CustomData);
+            if (object[Upgrades.Name] == null) {
+            }
+            var data = Object.assign(new Instance(), object[Upgrades.Name]);
+            if (data.Template == null)
+                data.Template = Arguments.Default;
             return data;
         }
-
-        export class Instance
-        {
-            Template: string;
-            Applicable: string[];
+        Arguments.Load = Load;
+        class Instance {
         }
-    }
-
-    export namespace Template
-    {
-        export function Find(json : string, name : string) : Instance
-        {
-            if(json == null) return null;
-
-            if(name == null) return null;
-
+        Arguments.Instance = Instance;
+    })(Arguments = Upgrades.Arguments || (Upgrades.Arguments = {}));
+    let Template;
+    (function (Template) {
+        function Find(json, name) {
+            if (json == null)
+                return null;
+            if (name == null)
+                return null;
             var object = JSON.parse(json);
-            
             var target = object.find(x => x.Name == name);
-            
             var template = Object.assign(new Instance(), target);
-
             return template;
         }
-        export function Parse(json : string) : Instance
-        {
+        Template.Find = Find;
+        function Parse(json) {
             var object = JSON.parse(json);
-
             var instance = Object.assign(new Instance(), object);
-
             return instance;
         }
-
-        export class Instance
-        {
-            Name : string;
-            Elements : Element[];
-
-            Find(name : string) : Element
-            {
+        Template.Parse = Parse;
+        class Instance {
+            Find(name) {
                 for (var i = 0; i < this.Elements.length; i++)
-                    if(this.Elements[i].Type == name)
+                    if (this.Elements[i].Type == name)
                         return this.Elements[i];
-                
                 return null;
             }
-
-            Match(name : string, data : Upgrades.Data.Instance) : Rank
-            {
+            Match(name, data) {
                 return this.Find(name).Ranks[data.Find(name).Value];
             }
         }
-        
-        export class Element
-        {
-            Type : string;
-            Ranks : Rank[];
+        Template.Instance = Instance;
+        class Element {
         }
-        
-        export class Rank
-        {
-            Cost : number;
-            Percentage : number;
+        Template.Element = Element;
+        class Rank {
         }
-    }
-}
-
-function GetInventory(playerID)
-{
-    var result = server.GetUserInventory(
-        {
-            PlayFabId: playerID,
-        }
-    );
-
+        Template.Rank = Rank;
+    })(Template = Upgrades.Template || (Upgrades.Template = {}));
+})(Upgrades || (Upgrades = {}));
+function GetInventory(playerID) {
+    var result = server.GetUserInventory({
+        PlayFabId: playerID,
+    });
     return {
-        Items : result.Inventory,
-        VirtualCurrency : result.VirtualCurrency
+        Items: result.Inventory,
+        VirtualCurrency: result.VirtualCurrency
     };
 }
-
-function GetCatalog(version)
-{
+function GetCatalog(version) {
     var result = server.GetCatalogItems({
         CatalogVersion: version,
     });
-
     return {
         Items: result.Catalog,
-    }
+    };
 }
-
-function GetTitleData()
-{
+function GetTitleData() {
     var result = server.GetTitleData({
-        Keys : [Upgrades.Name],
-    })
-
+        Keys: [Upgrades.Name],
+    });
     return result.Data;
 }
-
-function SubtractCurrency(playerID, currency, ammout)
-{
+function SubtractCurrency(playerID, currency, ammout) {
     var request = server.SubtractUserVirtualCurrency({
         PlayFabId: playerID,
         VirtualCurrency: currency,
         Amount: ammout
     });
 }
-
-function UpdateUserInventoryItemData(playerID, itemInstanceID, key, value)
-{
+function UpdateUserInventoryItemData(playerID, itemInstanceID, key, value) {
     var data = {};
-    
     data[key] = value;
-
     var request = server.UpdateUserInventoryItemCustomData({
         PlayFabId: playerID,
         ItemInstanceId: itemInstanceID,
         Data: data
     });
 }
-
-function FormatError(message)
-{
+function FormatError(message) {
     return message;
 }
+//# sourceMappingURL=Script.js.map

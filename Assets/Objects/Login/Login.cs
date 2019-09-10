@@ -113,7 +113,7 @@ namespace Game
         {
             Debug.Log("Finished");
             PlayFab.Upgrade.OnResponse += OnResponse;
-            //return;
+            return;
             Scenes.Load(Scenes.MainMenu);
         }
 
@@ -151,6 +151,7 @@ namespace Game
 
         void RaiseError(PlayFabError error)
         {
+            
             Debug.LogError("Login Error: " + error.GenerateErrorReport());
 
             Popup.Show(error.ErrorMessage);

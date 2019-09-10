@@ -65,8 +65,8 @@ namespace Game
         public static Core Core { get { return Core.Instance; } }
 
         [SerializeField]
-        protected List<ElementData> list;
-        public List<ElementData> List { get { return list; } }
+        protected ElementData[] list;
+        public ElementData[] List { get { return list; } }
         [Serializable]
         public class ElementData
         {
@@ -78,43 +78,41 @@ namespace Game
             protected int value;
             public int Value { get { return value; } }
 
-            public ElementData(JProperty property)
+            public ElementData(JToken token)
             {
-                type = Core.Items.Upgrades.Types.Find(property.Name);
+                type = Core.Items.Upgrades.Types.Find(token[nameof(Type)]);
 
-                value = property.Value.ToObject<int>();
+                value = token[nameof(Value)].ToObject<int>();
             }
         }
 
         public virtual ElementData Find(ItemUpgradeType type)
         {
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < list.Length; i++)
                 if (list[i].Type == type)
                     return list[i];
 
             return null;
         }
 
-        public void Load(JObject jObject)
+        public void Load(JArray array)
         {
-            list.Clear();
+            list = new ElementData[array.Count];
 
-            foreach (var property in jObject.Properties())
+            for (int i = 0; i < array.Count; i++)
             {
-                var element = new ElementData(property);
-
-                list.Add(element);
+                list[i] = new ElementData(array[i]);
             }
         }
         public void Load(string json)
         {
-            Load(JObject.Parse(json));
+            Load(JArray.Parse(json));
         }
         public void Load(ItemInstance item)
         {
             if (item.CustomData == null)
             {
-                list.Clear();
+                list = new ElementData[] { };
             }
             else
             {
@@ -124,14 +122,14 @@ namespace Game
                 }
                 else
                 {
-                    list.Clear();
+                    list = new ElementData[] { };
                 }
             }
         }
 
         public UnitUpgradeData()
         {
-            list = new List<ElementData>();
+            list = new ElementData[] { };
         }
         public UnitUpgradeData(ItemInstance item) : this()
         {

@@ -46,7 +46,13 @@ namespace Game
         public UIGrayscaleController GrayscaleController { get; protected set; }
 
         public Core Core { get { return Core.Instance; } }
-        public Funds Funds { get { return Core.Player.Funds; } }
+
+        public PlayerCore Player { get { return Core.Player; } }
+        public Funds Funds { get { return Player.Funds; } }
+
+        public PlayFabCore PlayFab { get { return Core.PlayFab; } }
+
+        public PopupUI Popup { get { return MainMenu.Instance.Popup; } }
 
         void OnEnable()
         {
@@ -64,11 +70,8 @@ namespace Game
         {
             this.Template = template;
             
-            //TODO
-            /*
-            icon.sprite = Template.Data.Icon;
-            label.text = Template.Data.name + " Upgrade";
-            */
+            icon.sprite = type.Icon;
+            label.text = type.name + " Upgrade";
 
             button.onClick.AddListener(OnButon);
 
@@ -77,9 +80,10 @@ namespace Game
 
         void UpdateState()
         {
-            //TODO
-            /*
-            if (Data.Maxed)
+            var data = Player.Units.Upgrades.Find(Template).Find(Type);
+            var template = Template.Upgrades.Template.Find(Type);
+
+            if (data.Value >= template.Ranks.Length)
             {
                 button.interactable = false;
 
@@ -87,22 +91,57 @@ namespace Game
             }
             else
             {
-                price.text = Data.Next.Cost.ToString();
+                price.text = template.Ranks[data.Value].Cost.ToString();
 
-                button.interactable = Data.CanUpgrade(Funds) && !Data.Maxed;
+                button.interactable = Funds.CanAfford(template.Ranks[data.Value].Cost);
             }
 
-            progression.Value = (int)Data.Value;
+            progression.Value = data.Value;
 
             GrayscaleController.On = !button.interactable;
 
             price.color = button.interactable ? Color.white : Color.Lerp(Color.white, Color.black, 0.75f);
-            */
         }
 
         void OnButon()
         {
-            //TODO
+            var instance = Player.Inventory.Find(Template.CatalogItem);
+
+            Popup.Show("Processing Upgrade");
+
+            PlayFab.Upgrade.OnResponse += OnResponse;
+            PlayFab.Upgrade.Perform(instance, Funds.Jewels.Code);
+        }
+
+        void OnResponse(PlayFabUpgradeCore upgrade, PlayFab.ClientModels.ExecuteCloudScriptResult result, PlayFab.PlayFabError error)
+        {
+            PlayFab.Upgrade.OnResponse -= OnResponse;
+
+            if (error == null)
+            {
+                Popup.Show("Retriving Inventory");
+
+                Player.Inventory.Request();
+                Player.Inventory.OnResponse += OnInventoryResponse;
+            }
+            else
+            {
+                Popup.Show(error.ErrorMessage, Popup.Hide, "Close");
+            }
+        }
+
+        void OnInventoryResponse(PlayerInventoryCore inventory, PlayFab.PlayFabError error)
+        {
+            Player.Inventory.OnResponse -= OnInventoryResponse;
+
+            if (error == null)
+            {
+                Popup.Hide();
+            }
+            else
+            {
+                Popup.Show(error.ErrorMessage, Popup.Hide, "Close");
+            }
         }
 
         void OnDisable()
