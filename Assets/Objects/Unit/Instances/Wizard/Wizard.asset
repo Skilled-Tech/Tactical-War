@@ -17,6 +17,12 @@ MonoBehaviour:
   price:
     gold: 0
     jewels: 8000
+  upgrades:
+    template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
+    applicable:
+    - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+    - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+    - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
   type: {fileID: 11400000, guid: d46edbafedd3e1044a159863c637a9e1, type: 2}
   prefab: {fileID: 5569182392643639925, guid: 40dbf5ed10379804b885a366bddd58e1, type: 3}
   health: 80
@@ -24,11 +30,6 @@ MonoBehaviour:
     damage: 50
     range: 3
     distance: 4
-  upgrades:
-    template: {fileID: 0}
-    applicables:
-    - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-    - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
   deployment:
     cost:
       gold: 600

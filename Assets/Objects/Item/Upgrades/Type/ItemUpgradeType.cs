@@ -22,6 +22,8 @@ namespace Game
     [CreateAssetMenu(menuName = ItemTemplate.UpgradesData.MenuPath + "Type")]
     public class ItemUpgradeType : ScriptableObject
     {
+        public string ID { get { return name; } }
+
         [SerializeField]
         protected Sprite icon;
         public Sprite Icon { get { return icon; } }

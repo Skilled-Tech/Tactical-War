@@ -18,6 +18,7 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 using TMPro;
+using PlayFab.ClientModels;
 
 namespace Game
 {
@@ -69,6 +70,7 @@ namespace Game
         public virtual void Set(UnitTemplate template, ItemUpgradeType type)
         {
             this.Template = template;
+            this.Type = type;
             
             icon.sprite = type.Icon;
             label.text = type.name + " Upgrade";
@@ -110,15 +112,19 @@ namespace Game
             Popup.Show("Processing Upgrade");
 
             PlayFab.Upgrade.OnResponse += OnResponse;
-            PlayFab.Upgrade.Perform(instance, Funds.Jewels.Code);
+            PlayFab.Upgrade.Perform(instance, Type.ID);
+
+            FindObjectOfType<UnitContextUI>().Character.Slot.gameObject.SetActive(false);
         }
 
-        void OnResponse(PlayFabUpgradeCore upgrade, PlayFab.ClientModels.ExecuteCloudScriptResult result, PlayFab.PlayFabError error)
+        void OnResponse(PlayFabUpgradeCore upgrade, ExecuteCloudScriptResult result, PlayFab.PlayFabError error)
         {
             PlayFab.Upgrade.OnResponse -= OnResponse;
 
             if (error == null)
             {
+                Debug.Log(result.FunctionResult);
+
                 Popup.Show("Retriving Inventory");
 
                 Player.Inventory.Request();
@@ -137,6 +143,10 @@ namespace Game
             if (error == null)
             {
                 Popup.Hide();
+
+                UpdateState();
+
+                FindObjectOfType<UnitContextUI>().Character.Slot.gameObject.SetActive(true);
             }
             else
             {

@@ -87,8 +87,8 @@ namespace Game
             action(data);
             action(scenes);
             action(levels);
-            action(player);
             action(items);
+            action(player);
             action(playFab);
         }
         #endregion

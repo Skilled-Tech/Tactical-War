@@ -3,8 +3,13 @@
 
 handlers.UpgradeItem = function(args)
 {
+    var arg = {
+        itemInstanceID: args.ItemInstanceId,
+        upgradeType: args.UpgradeType,
+    }
+
     var inventory = GetInventory(currentPlayerId);
-    var itemInstance = inventory.Items.find(x => x.ItemInstanceId === args.ItemInstanceId);
+    var itemInstance = inventory.Items.find(x => x.ItemInstanceId === arg.itemInstanceID);
     
     if(itemInstance == null)
         return FormatError("Invalid Instance ID");
@@ -24,24 +29,23 @@ handlers.UpgradeItem = function(args)
     if(template == null)
         return FormatError(arguments.Template + " Upgrades Template Not Defined");
 
+    if(template.Find(arg.upgradeType) == null)
+        return FormatError(arg.upgradeType + " Upgrade Type Not Defined");
+
     var data = Upgrades.Data.Load(itemInstance);
+    if(data.Contains(arg.upgradeType) == false) data.Add(arg.upgradeType);
 
-    if(data.Contains(args.UpgradeType) == false) data.Add(args.UpgradeType);
-
-    if(data.Find(args.UpgradeType).Value >= template.Find(args.UpgradeType).Ranks.length)
+    if(data.Find(arg.upgradeType).Value >= template.Find(arg.upgradeType).Ranks.length)
         return FormatError("Maximum Upgrade Level Achieved");
 
-    var rank = template.Match(args.UpgradeType, data);
+    var rank = template.Match(arg.upgradeType, data);
 
     if(inventory.VirtualCurrency[Upgrades.Currency] < rank.Cost)
         return FormatError("Insufficient Funds");
 
     SubtractCurrency(currentPlayerId, Upgrades.Currency, rank.Cost);
 
-    log.info((data == null) + "");
-    log.info((data.Find(args.UpgradeType).Type) + "");
-    log.info((data.Find(args.UpgradeType).Value) + "");
-    data.Find(args.UpgradeType).Value++;
+    data.Find(arg.upgradeType).Value++;
 
     UpdateUserInventoryItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
 
