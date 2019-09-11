@@ -28,11 +28,13 @@ namespace Game
     [Serializable]
     public class PlayerUnitsUpgradesCore : PlayerUnitsCore.Module
 	{
-        public Dictionary<UnitTemplate, UnitUpgradeData> Dictionary { get; protected set; }
+        public Dictionary<ItemTemplate, ItemUpgradeData> Dictionary { get; protected set; }
 
-        public List<UnitUpgradeData> List;
+        public List<ItemUpgradeData> Values;
 
-        public UnitUpgradeData Find(UnitTemplate template)
+        public ItemsCore Items { get { return Core.Items; } }
+
+        public ItemUpgradeData Find(ItemTemplate template)
         {
             if (Dictionary.ContainsKey(template) == false) return null;
 
@@ -43,40 +45,38 @@ namespace Game
         {
             base.Configure();
 
-            Dictionary = new Dictionary<UnitTemplate, UnitUpgradeData>();
-
-            for (int i = 0; i < Core.Items.Units.Count; i++)
-            {
-                var template = Core.Items.Units[i];
-                var instance = Player.Inventory.Find(Core.Items.Units[i].CatalogItem);
-                var data = new UnitUpgradeData(instance, template);
-
-                Dictionary.Add(template, data);
-            }
-
-            List = Dictionary.Values.ToList();
+            Dictionary = new Dictionary<ItemTemplate, ItemUpgradeData>();
+            Values = Dictionary.Values.ToList();
 
             Player.Inventory.OnRetrieved += OnInventoryRetrieved;
         }
 
         void OnInventoryRetrieved(PlayerInventoryCore inventory)
         {
-            foreach (var pair in Dictionary)
-            {
-                var itemInstance = inventory.Find(pair.Key.CatalogItem);
+            Dictionary.Clear();
 
-                pair.Value.Load(itemInstance, pair.Key);
+            for (int i = 0; i < inventory.Items.Count; i++)
+            {
+                var template = Items.Find(inventory.Items[i].ItemId);
+
+                if (Items.Upgrades.IsUpgradable(template.CatalogItem))
+                {
+                    var data = new ItemUpgradeData(inventory.Items[i], template);
+
+                    Dictionary.Add(template, data);
+                }
             }
 
-            List = Dictionary.Values.ToList();
+            Values = Dictionary.Values.ToList();
         }
     }
 
     [Serializable]
-    public class UnitUpgradeData
+    public class ItemUpgradeData
     {
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }
+        public string ID { get; protected set; }
 
         [SerializeField]
         protected List<ElementData> list;
@@ -130,7 +130,7 @@ namespace Game
         {
             Load(JArray.Parse(json));
         }
-        public void Load(ItemInstance instance, ItemTemplate template)
+        void Load(ItemInstance instance)
         {
             if (instance.CustomData == null)
             {
@@ -143,12 +143,14 @@ namespace Game
                 else
                     list.Clear();
             }
-
-            AddDefaults(template);
         }
 
-        void AddDefaults(ItemTemplate template)
+        public ItemUpgradeData(ItemInstance item, ItemTemplate template)
         {
+            list = new List<ElementData>();
+
+            Load(item);
+
             IList<ItemUpgradeType> applicables = template.Upgrades.Applicable;
 
             for (int i = 0; i < applicables.Count; i++)
@@ -160,15 +162,6 @@ namespace Game
                     list.Add(element);
                 }
             }
-        }
-
-        public UnitUpgradeData()
-        {
-            list = new List<ElementData>();
-        }
-        public UnitUpgradeData(ItemInstance item, ItemTemplate template) : this()
-        {
-            Load(item, template);
         }
     }
 }

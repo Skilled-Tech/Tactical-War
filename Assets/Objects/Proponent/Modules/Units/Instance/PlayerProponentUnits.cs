@@ -23,7 +23,7 @@ namespace Game
     {
         public override IList<UnitTemplate> Selection { get { return Core.Instance.Player.Units.Selection.List; } }
 
-        public override UnitUpgradeData GetUpgrade(UnitTemplate unit)
+        public override ItemUpgradeData GetUpgrade(UnitTemplate unit)
         {
             return Core.Instance.Player.Units.Upgrades.Find(unit);
         }

@@ -26,6 +26,7 @@ namespace Game
     public class ItemUpgradesTemplate : ScriptableObject
     {
         public static Core Core { get { return Core.Instance; } }
+        public static ItemsCore Items { get { return Core.Items; } }
 
         public const string Name = "Name";
 
@@ -58,11 +59,30 @@ namespace Game
                 float percentage;
                 public float Percentage { get { return percentage; } }
 
+                [SerializeField]
+                protected ItemRequirementData[] requirements;
+                public ItemRequirementData[] Requirements { get { return requirements; } }
+
                 public virtual void Load(JToken token)
                 {
+                    void LoadRequirements(JArray jArray)
+                    {
+                        if (jArray == null)
+                            requirements = new ItemRequirementData[] { };
+                        else
+                        {
+                            requirements = new ItemRequirementData[jArray.Count];
+
+                            for (int i = 0; i < jArray.Count; i++)
+                                requirements[i] = new ItemRequirementData(jArray[i]);
+                        }
+                    }
+
                     cost = new Currency(0, token[nameof(Cost)].ToObject<int>());
 
                     percentage = token[nameof(Percentage)].ToObject<float>();
+
+                    LoadRequirements(token[nameof(Requirements)] as JArray);
                 }
 
                 public RankData(Currency cost, float percentage)

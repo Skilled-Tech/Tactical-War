@@ -47,10 +47,34 @@ MonoBehaviour:
       gold:
         _value: 100000
       jewels:
-        _value: 820800
+        _value: 803600
     units:
       upgrades:
-        List: []
+        List:
+        - list:
+          - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+            value: 5
+          - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+            value: 5
+          - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+            value: 0
+        - list:
+          - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+            value: 4
+          - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+            value: 4
+        - list:
+          - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+            value: 2
+          - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+            value: 0
+        - list:
+          - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+            value: 5
+          - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+            value: 5
+          - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+            value: 5
       selection:
         max: 4
         list:
@@ -65,6 +89,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
     - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
     - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
+    - {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
+    - {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
     upgrades:
       types:
         list:
@@ -73,6 +99,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
       templates:
         _default: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
-        list: []
+        list:
+        - {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
   playFab:
     title: {}

@@ -68,8 +68,7 @@ namespace Game
             public ItemUpgradesTemplate Template { get { return template; } }
 
             [SerializeField]
-            [UnityEngine.Serialization.FormerlySerializedAs("applicables")]
-            protected ItemUpgradeType[] applicable = new ItemUpgradeType[2];
+            protected ItemUpgradeType[] applicable = new ItemUpgradeType[] { };
             public ItemUpgradeType[] Applicable { get { return applicable; } }
 
             public virtual bool isApplicable(ItemUpgradeType type)

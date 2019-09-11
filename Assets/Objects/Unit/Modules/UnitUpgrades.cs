@@ -23,7 +23,7 @@ namespace Game
     {
         public const string MenuPath = Unit.MenuPath + "Upgrades/";
 
-        public UnitUpgradeData Data { get; protected set; }
+        public ItemUpgradeData Data { get; protected set; }
 
         public float Damage
         {
@@ -75,7 +75,7 @@ namespace Game
             return rank.Percentage;
         }
 
-        public virtual void Set(UnitUpgradeData data)
+        public virtual void Set(ItemUpgradeData data)
         {
             this.Data = data;
         }

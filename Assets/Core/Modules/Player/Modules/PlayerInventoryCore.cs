@@ -41,9 +41,33 @@ namespace Game
 
             return false;
         }
+        public virtual bool Contains(string itemID, int count)
+        {
+            for (int i = 0; i < Items.Count; i++)
+                if (Items[i].ItemId == itemID)
+                    if (Items[i].RemainingUses >= count)
+                        return true;
+
+            return false;
+        }
+
+        public virtual bool CompliesWith(ItemRequirementData[] requirements)
+        {
+            for (int i = 0; i < requirements.Length; i++)
+            {
+                if (Contains(requirements[i].Item.ID, requirements[i].Count))
+                    continue;
+                else
+                    return false;
+            }
+
+            return true;
+        }
 
         public virtual ItemInstance Find(CatalogItem item)
         {
+            if (item == null) return null;
+
             return Find(item.ItemId);
         }
         public virtual ItemInstance Find(string itemID)

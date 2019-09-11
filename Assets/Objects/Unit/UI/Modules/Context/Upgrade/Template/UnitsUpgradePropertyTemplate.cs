@@ -37,6 +37,10 @@ namespace Game
         public SlotsIndicator Progression { get { return progression; } }
 
         [SerializeField]
+        protected ItemRequirementsUI requiremnets;
+        public ItemRequirementsUI Requirements { get { return requiremnets; } }
+
+        [SerializeField]
         protected Button button;
         public Button Button { get { return button; } }
 
@@ -63,6 +67,8 @@ namespace Game
         public virtual void Init()
         {
             GrayscaleController = new UIGrayscaleController(this);
+
+            requiremnets.Init();
         }
 
         public UnitTemplate Template { get; protected set; }
@@ -90,12 +96,18 @@ namespace Game
                 button.interactable = false;
 
                 price.text = "FULL";
+
+                requiremnets.Set(null);
             }
             else
             {
-                price.text = template.Ranks[data.Value].Cost.ToString();
+                var rank = template.Ranks[data.Value];
 
-                button.interactable = Funds.CanAfford(template.Ranks[data.Value].Cost);
+                price.text = rank.Cost.ToString();
+
+                button.interactable = Funds.CanAfford(rank.Cost) && Player.Inventory.CompliesWith(rank.Requirements);
+
+                requiremnets.Set(rank.Requirements);
             }
 
             progression.Value = data.Value;

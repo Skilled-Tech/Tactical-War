@@ -20,6 +20,8 @@ using Random = UnityEngine.Random;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using PlayFab.ClientModels;
+
 namespace Game
 {
     [Serializable]
@@ -124,6 +126,20 @@ namespace Game
 
             types.Init();
             templates.Init();
+        }
+
+        public virtual bool IsUpgradable(CatalogItem item)
+        {
+            if (item == null)
+                throw new NullReferenceException();
+
+            if (item.CustomData == null) return false;
+
+            var jObject = JObject.Parse(item.CustomData);
+
+            if (jObject[ItemsUpgradesCore.Key] == null) return false;
+
+            return true;
         }
     }
 }
