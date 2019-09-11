@@ -1,16 +1,16 @@
 // (https://api.playfab.com/playstream/docs/PlayStreamEventModels)
 // (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
-handlers.UpgradeItem = function (args) {
-    var arg = {
-        itemInstanceID: args.ItemInstanceId,
-        upgradeType: args.UpgradeType,
+handlers.UpgradeItem = function ($args) {
+    var args = {
+        itemInstanceID: $args.ItemInstanceId,
+        upgradeType: $args.UpgradeType,
     };
-    var inventory = GetInventory(currentPlayerId);
-    var itemInstance = inventory.Items.find(x => x.ItemInstanceId === arg.itemInstanceID);
+    var inventory = Inventory.Retrieve(currentPlayerId);
+    var itemInstance = inventory.FindWithInstanceID(args.itemInstanceID);
     if (itemInstance == null)
         return FormatError("Invalid Instance ID");
-    var catalog = GetCatalog(itemInstance.CatalogVersion);
-    var catalogItem = catalog.Items.find(x => x.ItemId == itemInstance.ItemId);
+    var catalog = Catalog.Retrieve(itemInstance.CatalogVersion);
+    var catalogItem = catalog.FindWithID(itemInstance.ItemId);
     var arguments = Upgrades.Arguments.Load(catalogItem);
     if (arguments == null)
         return FormatError("Current Item Can't Be Upgraded");
@@ -18,19 +18,32 @@ handlers.UpgradeItem = function (args) {
     var template = Upgrades.Template.Find(titleData[Upgrades.Name], arguments.Template);
     if (template == null)
         return FormatError(arguments.Template + " Upgrades Template Not Defined");
-    if (template.Find(arg.upgradeType) == null)
-        return FormatError(arg.upgradeType + " Upgrade Type Not Defined");
+    if (template.Find(args.upgradeType) == null)
+        return FormatError(args.upgradeType + " Upgrade Type Not Defined");
     var data = Upgrades.Data.Load(itemInstance);
-    if (data.Contains(arg.upgradeType) == false)
-        data.Add(arg.upgradeType);
-    if (data.Find(arg.upgradeType).Value >= template.Find(arg.upgradeType).Ranks.length)
+    if (data.Contains(args.upgradeType) == false)
+        data.Add(args.upgradeType);
+    if (data.Find(args.upgradeType).Value >= template.Find(args.upgradeType).Ranks.length)
         return FormatError("Maximum Upgrade Level Achieved");
-    var rank = template.Match(arg.upgradeType, data);
+    var rank = template.Match(args.upgradeType, data);
+    if (rank.Requirements != null) {
+        if (inventory.CompliesWithRequirements(rank.Requirements) == false)
+            return FormatError("Player Doesn't The Required Items For the Upgrade");
+    }
     if (inventory.VirtualCurrency[Upgrades.Currency] < rank.Cost)
         return FormatError("Insufficient Funds");
-    SubtractCurrency(currentPlayerId, Upgrades.Currency, rank.Cost);
-    data.Find(arg.upgradeType).Value++;
-    UpdateUserInventoryItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
+    //Validation Completed, Start Processing Request
+    {
+        SubtractCurrency(currentPlayerId, Upgrades.Currency, rank.Cost);
+        if (rank.Requirements != null) {
+            for (let i = 0; i < rank.Requirements.length; i++) {
+                var itemInstance = inventory.FindWithID(rank.Requirements[i].Item);
+                Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, rank.Requirements[i].Count);
+            }
+        }
+        data.Find(args.upgradeType).Value++;
+        UpdateUserInventoryItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
+    }
     return { message: "Success" };
 };
 var Upgrades;
@@ -153,23 +166,77 @@ var Upgrades;
         Template.Rank = Rank;
     })(Template = Upgrades.Template || (Upgrades.Template = {}));
 })(Upgrades || (Upgrades = {}));
-function GetInventory(playerID) {
-    var result = server.GetUserInventory({
-        PlayFabId: playerID,
-    });
-    return {
-        Items: result.Inventory,
-        VirtualCurrency: result.VirtualCurrency
-    };
+class ItemRequirementData {
 }
-function GetCatalog(version) {
-    var result = server.GetCatalogItems({
-        CatalogVersion: version,
-    });
-    return {
-        Items: result.Catalog,
-    };
-}
+var Inventory;
+(function (Inventory) {
+    function Retrieve(playerID) {
+        var result = server.GetUserInventory({
+            PlayFabId: playerID,
+        });
+        return new Data(result.Inventory, result.VirtualCurrency);
+    }
+    Inventory.Retrieve = Retrieve;
+    function Consume(playerID, itemInstanceID, count) {
+        var result = server.ConsumeItem({
+            PlayFabId: playerID,
+            ItemInstanceId: itemInstanceID,
+            ConsumeCount: count,
+        });
+    }
+    Inventory.Consume = Consume;
+    class Data {
+        constructor(Items, VirtualCurrency) {
+            this.Items = Items;
+            this.VirtualCurrency = VirtualCurrency;
+        }
+        FindWithID(itemID) {
+            for (let i = 0; i < this.Items.length; i++)
+                if (this.Items[i].ItemId == itemID)
+                    return this.Items[i];
+            return null;
+        }
+        FindWithInstanceID(itemInstanceID) {
+            for (let i = 0; i < this.Items.length; i++)
+                if (this.Items[i].ItemInstanceId == itemInstanceID)
+                    return this.Items[i];
+            return null;
+        }
+        CompliesWithRequirements(requirements) {
+            for (let i = 0; i < requirements.length; i++) {
+                var instance = this.FindWithID(requirements[i].Item);
+                if (instance == null)
+                    return false;
+                if (instance.RemainingUses < requirements[i].Count)
+                    return false;
+            }
+            return true;
+        }
+    }
+    Inventory.Data = Data;
+})(Inventory || (Inventory = {}));
+var Catalog;
+(function (Catalog) {
+    function Retrieve(version) {
+        var result = server.GetCatalogItems({
+            CatalogVersion: version,
+        });
+        return new Data(result.Catalog);
+    }
+    Catalog.Retrieve = Retrieve;
+    class Data {
+        constructor(Items) {
+            this.Items = Items;
+        }
+        FindWithID(itemID) {
+            for (let i = 0; i < this.Items.length; i++)
+                if (this.Items[i].ItemId == itemID)
+                    return this.Items[i];
+            return null;
+        }
+    }
+    Catalog.Data = Data;
+})(Catalog || (Catalog = {}));
 function GetTitleData() {
     var result = server.GetTitleData({
         Keys: [Upgrades.Name],

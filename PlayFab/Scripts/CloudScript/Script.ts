@@ -1,21 +1,21 @@
 // (https://api.playfab.com/playstream/docs/PlayStreamEventModels)
 // (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
 
-handlers.UpgradeItem = function(args)
+handlers.UpgradeItem = function($args)
 {
-    var arg = {
-        itemInstanceID: args.ItemInstanceId,
-        upgradeType: args.UpgradeType,
+    var args = {
+        itemInstanceID: $args.ItemInstanceId,
+        upgradeType: $args.UpgradeType,
     }
 
-    var inventory = GetInventory(currentPlayerId);
-    var itemInstance = inventory.Items.find(x => x.ItemInstanceId === arg.itemInstanceID);
+    var inventory = Inventory.Retrieve(currentPlayerId);
+    var itemInstance = inventory.FindWithInstanceID(args.itemInstanceID);
     
     if(itemInstance == null)
         return FormatError("Invalid Instance ID");
 
-    var catalog = GetCatalog(itemInstance.CatalogVersion);
-    var catalogItem = catalog.Items.find(x => x.ItemId == itemInstance.ItemId);
+    var catalog = Catalog.Retrieve(itemInstance.CatalogVersion);
+    var catalogItem = catalog.FindWithID(itemInstance.ItemId);
 
     var arguments = Upgrades.Arguments.Load(catalogItem);
 
@@ -29,25 +29,44 @@ handlers.UpgradeItem = function(args)
     if(template == null)
         return FormatError(arguments.Template + " Upgrades Template Not Defined");
 
-    if(template.Find(arg.upgradeType) == null)
-        return FormatError(arg.upgradeType + " Upgrade Type Not Defined");
+    if(template.Find(args.upgradeType) == null)
+        return FormatError(args.upgradeType + " Upgrade Type Not Defined");
 
     var data = Upgrades.Data.Load(itemInstance);
-    if(data.Contains(arg.upgradeType) == false) data.Add(arg.upgradeType);
+    if(data.Contains(args.upgradeType) == false) data.Add(args.upgradeType);
 
-    if(data.Find(arg.upgradeType).Value >= template.Find(arg.upgradeType).Ranks.length)
+    if(data.Find(args.upgradeType).Value >= template.Find(args.upgradeType).Ranks.length)
         return FormatError("Maximum Upgrade Level Achieved");
+        
+    var rank = template.Match(args.upgradeType, data);
 
-    var rank = template.Match(arg.upgradeType, data);
+    if(rank.Requirements != null)
+    {
+        if(inventory.CompliesWithRequirements(rank.Requirements) == false)
+        return FormatError("Player Doesn't The Required Items For the Upgrade");
+    }
 
     if(inventory.VirtualCurrency[Upgrades.Currency] < rank.Cost)
         return FormatError("Insufficient Funds");
 
+    //Validation Completed, Start Processing Request
+    {
     SubtractCurrency(currentPlayerId, Upgrades.Currency, rank.Cost);
 
-    data.Find(arg.upgradeType).Value++;
+    if(rank.Requirements != null)
+    {
+        for (let i = 0; i < rank.Requirements.length; i++)
+        {
+            var itemInstance = inventory.FindWithID(rank.Requirements[i].Item);
+
+            Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, rank.Requirements[i].Count);
+        }
+    }
+
+    data.Find(args.upgradeType).Value++;
 
     UpdateUserInventoryItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
+    }
 
     return { message: "Success" }
 }
@@ -232,32 +251,113 @@ namespace Upgrades
         {
             Cost : number;
             Percentage : number;
+            Requirements : ItemRequirementData[]
         }
     }
 }
 
-function GetInventory(playerID)
+class ItemRequirementData
 {
-    var result = server.GetUserInventory(
-        {
-            PlayFabId: playerID,
-        }
-    );
-
-    return {
-        Items : result.Inventory,
-        VirtualCurrency : result.VirtualCurrency
-    };
+    Item : string;
+    Count : number;
 }
 
-function GetCatalog(version)
+namespace Inventory
 {
-    var result = server.GetCatalogItems({
-        CatalogVersion: version,
-    });
+    export function Retrieve(playerID : string) : Data
+    {
+        var result = server.GetUserInventory(
+            {
+                PlayFabId: playerID,
+            }
+        );
+    
+        return new Data(result.Inventory, result.VirtualCurrency);
+    }
 
-    return {
-        Items: result.Catalog,
+    export function Consume(playerID : string, itemInstanceID, count : number)
+    {
+        var result = server.ConsumeItem({
+            PlayFabId : playerID,
+            ItemInstanceId: itemInstanceID,
+            ConsumeCount : count,
+        });
+    }
+
+    export class Data
+    {
+        Items : PlayFabServerModels.ItemInstance[];
+        VirtualCurrency : { [key: string]: number };
+
+        public FindWithID(itemID : string) : PlayFabServerModels.ItemInstance
+        {
+            for (let i = 0; i < this.Items.length; i++)
+                if(this.Items[i].ItemId == itemID)
+                    return this.Items[i];
+
+            return null;
+        }
+        public FindWithInstanceID(itemInstanceID : string) : PlayFabServerModels.ItemInstance
+        {
+            for (let i = 0; i < this.Items.length; i++)
+                if(this.Items[i].ItemInstanceId == itemInstanceID)
+                    return this.Items[i];
+
+            return null;
+        }
+
+        public CompliesWithRequirements(requirements : ItemRequirementData[]) : boolean
+        {
+            for (let i = 0; i < requirements.length; i++)
+            {
+                var instance = this.FindWithID(requirements[i].Item);
+
+                if(instance == null) return false;
+                
+                if(instance.RemainingUses < requirements[i].Count) return false;
+            }
+
+            return true;
+        }
+
+        constructor(Items : PlayFabServerModels.ItemInstance[], VirtualCurrency : { [key: string]: number })
+        {
+            this.Items = Items;
+            this.VirtualCurrency = VirtualCurrency;
+        }
+    }
+}
+
+namespace Catalog
+{
+    export function Retrieve(version : string) : Data
+    {
+        var result = server.GetCatalogItems(
+            {
+                CatalogVersion: version,
+            }
+        );
+    
+        return new Data(result.Catalog);
+    }
+
+    export class Data
+    {
+        Items : PlayFabServerModels.CatalogItem[];
+
+        public FindWithID(itemID : string) : PlayFabServerModels.CatalogItem
+        {
+            for (let i = 0; i < this.Items.length; i++)
+                if(this.Items[i].ItemId == itemID)
+                    return this.Items[i];                
+
+            return null;
+        }
+
+        constructor(Items : PlayFabServerModels.CatalogItem[])
+        {
+            this.Items = Items;
+        }
     }
 }
 

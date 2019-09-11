@@ -11,19 +11,51 @@
           },
           {
             "Cost": 200,
-            "Percentage": 20
+            "Percentage": 20,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 1
+              }
+            ]
           },
           {
             "Cost": 400,
-            "Percentage": 30
+            "Percentage": 30,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 2
+              }
+            ]
           },
           {
             "Cost": 800,
-            "Percentage": 40
+            "Percentage": 40,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 2
+              },
+              {
+                "Item": "Wood_Shield",
+                "Count": 1
+              }
+            ]
           },
           {
             "Cost": 1000,
-            "Percentage": 50
+            "Percentage": 50,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 2
+              },
+              {
+                "Item": "Wood_Shield",
+                "Count": 2
+              }
+            ]
           }
         ]
       },
@@ -36,19 +68,51 @@
           },
           {
             "Cost": 200,
-            "Percentage": 20
+            "Percentage": 20,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 1
+              }
+            ]
           },
           {
             "Cost": 400,
-            "Percentage": 30
+            "Percentage": 30,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 2
+              }
+            ]
           },
           {
             "Cost": 800,
-            "Percentage": 40
+            "Percentage": 40,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 2
+              },
+              {
+                "Item": "Wood_Shield",
+                "Count": 1
+              }
+            ]
           },
           {
             "Cost": 1000,
-            "Percentage": 50
+            "Percentage": 50,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 2
+              },
+              {
+                "Item": "Wood_Shield",
+                "Count": 2
+              }
+            ]
           }
         ]
       },
@@ -61,19 +125,51 @@
           },
           {
             "Cost": 200,
-            "Percentage": 40
+            "Percentage": 40,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 1
+              }
+            ]
           },
           {
             "Cost": 400,
-            "Percentage": 60
+            "Percentage": 60,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 2
+              }
+            ]
           },
           {
             "Cost": 800,
-            "Percentage": 80
+            "Percentage": 80,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 2
+              },
+              {
+                "Item": "Wood_Shield",
+                "Count": 1
+              }
+            ]
           },
           {
             "Cost": 1000,
-            "Percentage": 100
+            "Percentage": 100,
+            "Requirements": [
+              {
+                "Item": "Wood_Sword",
+                "Count": 2
+              },
+              {
+                "Item": "Wood_Shield",
+                "Count": 2
+              }
+            ]
           }
         ]
       }

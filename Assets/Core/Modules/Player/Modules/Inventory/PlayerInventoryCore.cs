@@ -51,11 +51,20 @@ namespace Game
             return false;
         }
 
+        public virtual bool CompliesWith(ItemRequirementData requirement)
+        {
+            for (int i = 0; i < Items.Count; i++)
+                if (Items[i].ItemId == requirement.Item.ID)
+                    if (Items[i].RemainingUses >= requirement.Count)
+                        return true;
+
+            return false;
+        }
         public virtual bool CompliesWith(ItemRequirementData[] requirements)
         {
             for (int i = 0; i < requirements.Length; i++)
             {
-                if (Contains(requirements[i].Item.ID, requirements[i].Count))
+                if (CompliesWith(requirements[i]))
                     continue;
                 else
                     return false;

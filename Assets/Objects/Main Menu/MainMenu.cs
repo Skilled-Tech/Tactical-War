@@ -52,6 +52,12 @@ namespace Game
 
         void Awake()
         {
+            if(!PlayFab.PlayFabClientAPI.IsClientLoggedIn())
+            {
+                Core.Instance.Scenes.Load(Core.Instance.Scenes.Login.Name);
+                return;
+            }
+
             Instance = this;
 
             title.Show();
