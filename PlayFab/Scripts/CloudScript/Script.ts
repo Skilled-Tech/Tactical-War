@@ -23,10 +23,10 @@ handlers.UpgradeItem = function ($args) {
 
     var titleData = GetTitleData();
 
-    var template = Upgrades.Template.Find(titleData[Upgrades.Name], arguments.Template);
+    var template = Upgrades.Template.Find(titleData[Upgrades.Name], arguments.template);
 
     if (template == null)
-        return FormatError(arguments.Template + " Upgrades Template Not Defined");
+        return FormatError(arguments.template + " Upgrades Template Not Defined");
 
     if (template.Find(args.upgradeType) == null)
         return FormatError(args.upgradeType + " Upgrade Type Not Defined");
@@ -34,32 +34,32 @@ handlers.UpgradeItem = function ($args) {
     var data = Upgrades.Data.Load(itemInstance);
     if (data.Contains(args.upgradeType) == false) data.Add(args.upgradeType);
 
-    if (data.Find(args.upgradeType).Value >= template.Find(args.upgradeType).Ranks.length)
+    if (data.Find(args.upgradeType).value >= template.Find(args.upgradeType).ranks.length)
         return FormatError("Maximum Upgrade Level Achieved");
 
     var rank = template.Match(args.upgradeType, data);
 
-    if (rank.Requirements != null) {
-        if (inventory.CompliesWithRequirements(rank.Requirements) == false)
+    if (rank.requirements != null) {
+        if (inventory.CompliesWithRequirements(rank.requirements) == false)
             return FormatError("Player Doesn't The Required Items For the Upgrade");
     }
 
-    if (inventory.VirtualCurrency[Upgrades.Currency] < rank.Cost)
+    if (inventory.virtualCurrency[Upgrades.Currency] < rank.cost)
         return FormatError("Insufficient Funds");
 
     //Validation Completed, Start Processing Request
     {
-        SubtractCurrency(currentPlayerId, Upgrades.Currency, rank.Cost);
+        SubtractCurrency(currentPlayerId, Upgrades.Currency, rank.cost);
 
-        if (rank.Requirements != null) {
-            for (let i = 0; i < rank.Requirements.length; i++) {
-                var itemInstance = inventory.FindWithID(rank.Requirements[i].Item);
+        if (rank.requirements != null) {
+            for (let i = 0; i < rank.requirements.length; i++) {
+                var itemInstance = inventory.FindWithID(rank.requirements[i].item);
 
-                Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, rank.Requirements[i].Count);
+                Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, rank.requirements[i].count);
             }
         }
 
-        data.Find(args.upgradeType).Value++;
+        data.Find(args.upgradeType).value++;
 
         UpdateUserInventoryItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
     }
@@ -68,7 +68,7 @@ handlers.UpgradeItem = function ($args) {
 }
 
 namespace Upgrades {
-    export const Name = "Upgrades";
+    export const Name = "upgrades";
 
     export const Currency = "JL";
 
@@ -94,52 +94,52 @@ namespace Upgrades {
         }
 
         export class Instance {
-            List: Element[];
+            list: Element[];
 
             public Add(type: string) {
-                this.List.push(new Element(type, 0));
+                this.list.push(new Element(type, 0));
             }
 
             public Contains(type: string): boolean {
-                for (var i = 0; i < this.List.length; i++)
-                    if (this.List[i].Type == type)
+                for (var i = 0; i < this.list.length; i++)
+                    if (this.list[i].type == type)
                         return true;
 
                 return false;
             }
 
             public Find(type: string): Element {
-                for (var i = 0; i < this.List.length; i++)
-                    if (this.List[i].Type == type)
-                        return this.List[i];
+                for (var i = 0; i < this.list.length; i++)
+                    if (this.list[i].type == type)
+                        return this.list[i];
 
                 return null;
             }
 
             public Load(object: object) {
-                this.List = Object.assign([], object);
+                this.list = Object.assign([], object);
             }
 
             public ToJson(): string {
-                return JSON.stringify(this.List);
+                return JSON.stringify(this.list);
             }
 
             constructor() {
-                this.List = [];
+                this.list = [];
             }
         }
 
         class Element {
-            Type: string;
-            Value: number;
+            type: string;
+            value: number;
 
             public Increament(): void {
-                this.Value++;
+                this.value++;
             }
 
             constructor(name: string, value: number) {
-                this.Type = name;
-                this.Value = value;
+                this.type = name;
+                this.value = value;
             }
         }
     }
@@ -160,14 +160,14 @@ namespace Upgrades {
 
             var data = Object.assign(new Instance(), object[Name]) as Instance;
 
-            if (data.Template == null) data.Template = Default;
+            if (data.template == null) data.template = Default;
 
             return data;
         }
 
         export class Instance {
-            Template: string;
-            Applicable: string[];
+            template: string;
+            applicable: string[];
         }
     }
 
@@ -194,38 +194,38 @@ namespace Upgrades {
         }
 
         export class Instance {
-            Name: string;
-            Elements: Element[];
+            name: string;
+            elements: Element[];
 
             Find(name: string): Element {
-                for (var i = 0; i < this.Elements.length; i++)
-                    if (this.Elements[i].Type == name)
-                        return this.Elements[i];
+                for (var i = 0; i < this.elements.length; i++)
+                    if (this.elements[i].type == name)
+                        return this.elements[i];
 
                 return null;
             }
 
             Match(name: string, data: Upgrades.Data.Instance): Rank {
-                return this.Find(name).Ranks[data.Find(name).Value];
+                return this.Find(name).ranks[data.Find(name).value];
             }
         }
 
         export class Element {
-            Type: string;
-            Ranks: Rank[];
+            type: string;
+            ranks: Rank[];
         }
 
         export class Rank {
-            Cost: number;
-            Percentage: number;
-            Requirements: ItemRequirementData[]
+            cost: number;
+            percentage: number;
+            requirements: ItemRequirementData[]
         }
     }
 }
 
 class ItemRequirementData {
-    Item: string;
-    Count: number;
+    item: string;
+    count: number;
 }
 
 namespace Inventory {
@@ -248,39 +248,39 @@ namespace Inventory {
     }
 
     export class Data {
-        Items: PlayFabServerModels.ItemInstance[];
-        VirtualCurrency: { [key: string]: number };
+        items: PlayFabServerModels.ItemInstance[];
+        virtualCurrency: { [key: string]: number };
 
         public FindWithID(itemID: string): PlayFabServerModels.ItemInstance {
-            for (let i = 0; i < this.Items.length; i++)
-                if (this.Items[i].ItemId == itemID)
-                    return this.Items[i];
+            for (let i = 0; i < this.items.length; i++)
+                if (this.items[i].ItemId == itemID)
+                    return this.items[i];
 
             return null;
         }
         public FindWithInstanceID(itemInstanceID: string): PlayFabServerModels.ItemInstance {
-            for (let i = 0; i < this.Items.length; i++)
-                if (this.Items[i].ItemInstanceId == itemInstanceID)
-                    return this.Items[i];
+            for (let i = 0; i < this.items.length; i++)
+                if (this.items[i].ItemInstanceId == itemInstanceID)
+                    return this.items[i];
 
             return null;
         }
 
         public CompliesWithRequirements(requirements: ItemRequirementData[]): boolean {
             for (let i = 0; i < requirements.length; i++) {
-                var instance = this.FindWithID(requirements[i].Item);
+                var instance = this.FindWithID(requirements[i].item);
 
                 if (instance == null) return false;
 
-                if (instance.RemainingUses < requirements[i].Count) return false;
+                if (instance.RemainingUses < requirements[i].count) return false;
             }
 
             return true;
         }
 
         constructor(Items: PlayFabServerModels.ItemInstance[], VirtualCurrency: { [key: string]: number }) {
-            this.Items = Items;
-            this.VirtualCurrency = VirtualCurrency;
+            this.items = Items;
+            this.virtualCurrency = VirtualCurrency;
         }
     }
 }
@@ -297,18 +297,18 @@ namespace Catalog {
     }
 
     export class Data {
-        Items: PlayFabServerModels.CatalogItem[];
+        items: PlayFabServerModels.CatalogItem[];
 
         public FindWithID(itemID: string): PlayFabServerModels.CatalogItem {
-            for (let i = 0; i < this.Items.length; i++)
-                if (this.Items[i].ItemId == itemID)
-                    return this.Items[i];
+            for (let i = 0; i < this.items.length; i++)
+                if (this.items[i].ItemId == itemID)
+                    return this.items[i];
 
             return null;
         }
 
         constructor(Items: PlayFabServerModels.CatalogItem[]) {
-            this.Items = Items;
+            this.items = Items;
         }
     }
 }

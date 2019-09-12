@@ -117,9 +117,9 @@ namespace Game
                     }
                     else
                     {
-                        LoadTemplate(jObject[Key][nameof(Template)]);
+                        LoadTemplate(jObject[Key][nameof(template)]);
 
-                        LoadApplicable(jObject[Key][nameof(Applicable)] as JArray);
+                        LoadApplicable(jObject[Key][nameof(applicable)] as JArray);
                     }
                 }
             }

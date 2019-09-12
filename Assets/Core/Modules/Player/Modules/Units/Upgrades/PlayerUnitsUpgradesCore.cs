@@ -119,7 +119,8 @@ namespace Game
 
         void Load(string json)
         {
-            list = JsonConvert.DeserializeObject<ElementData[]>(json);
+            Debug.Log(json);
+            JsonConvert.PopulateObject(json, list);
         }
         void Load(ItemInstance instance)
         {
@@ -138,8 +139,6 @@ namespace Game
 
         public ItemUpgradeData(ItemInstance item, ItemTemplate template)
         {
-            list = new ElementData[] { };
-
             Load(item);
         }
     }

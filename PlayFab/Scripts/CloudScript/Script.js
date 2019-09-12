@@ -15,40 +15,40 @@ handlers.UpgradeItem = function ($args) {
     if (arguments == null)
         return FormatError("Current Item Can't Be Upgraded");
     var titleData = GetTitleData();
-    var template = Upgrades.Template.Find(titleData[Upgrades.Name], arguments.Template);
+    var template = Upgrades.Template.Find(titleData[Upgrades.Name], arguments.template);
     if (template == null)
-        return FormatError(arguments.Template + " Upgrades Template Not Defined");
+        return FormatError(arguments.template + " Upgrades Template Not Defined");
     if (template.Find(args.upgradeType) == null)
         return FormatError(args.upgradeType + " Upgrade Type Not Defined");
     var data = Upgrades.Data.Load(itemInstance);
     if (data.Contains(args.upgradeType) == false)
         data.Add(args.upgradeType);
-    if (data.Find(args.upgradeType).Value >= template.Find(args.upgradeType).Ranks.length)
+    if (data.Find(args.upgradeType).value >= template.Find(args.upgradeType).ranks.length)
         return FormatError("Maximum Upgrade Level Achieved");
     var rank = template.Match(args.upgradeType, data);
-    if (rank.Requirements != null) {
-        if (inventory.CompliesWithRequirements(rank.Requirements) == false)
+    if (rank.requirements != null) {
+        if (inventory.CompliesWithRequirements(rank.requirements) == false)
             return FormatError("Player Doesn't The Required Items For the Upgrade");
     }
-    if (inventory.VirtualCurrency[Upgrades.Currency] < rank.Cost)
+    if (inventory.virtualCurrency[Upgrades.Currency] < rank.cost)
         return FormatError("Insufficient Funds");
     //Validation Completed, Start Processing Request
     {
-        SubtractCurrency(currentPlayerId, Upgrades.Currency, rank.Cost);
-        if (rank.Requirements != null) {
-            for (let i = 0; i < rank.Requirements.length; i++) {
-                var itemInstance = inventory.FindWithID(rank.Requirements[i].Item);
-                Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, rank.Requirements[i].Count);
+        SubtractCurrency(currentPlayerId, Upgrades.Currency, rank.cost);
+        if (rank.requirements != null) {
+            for (let i = 0; i < rank.requirements.length; i++) {
+                var itemInstance = inventory.FindWithID(rank.requirements[i].item);
+                Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, rank.requirements[i].count);
             }
         }
-        data.Find(args.upgradeType).Value++;
+        data.Find(args.upgradeType).value++;
         UpdateUserInventoryItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
     }
     return { message: "Success" };
 };
 var Upgrades;
 (function (Upgrades) {
-    Upgrades.Name = "Upgrades";
+    Upgrades.Name = "upgrades";
     Upgrades.Currency = "JL";
     let Data;
     (function (Data) {
@@ -71,38 +71,38 @@ var Upgrades;
         Data.Load = Load;
         class Instance {
             constructor() {
-                this.List = [];
+                this.list = [];
             }
             Add(type) {
-                this.List.push(new Element(type, 0));
+                this.list.push(new Element(type, 0));
             }
             Contains(type) {
-                for (var i = 0; i < this.List.length; i++)
-                    if (this.List[i].Type == type)
+                for (var i = 0; i < this.list.length; i++)
+                    if (this.list[i].type == type)
                         return true;
                 return false;
             }
             Find(type) {
-                for (var i = 0; i < this.List.length; i++)
-                    if (this.List[i].Type == type)
-                        return this.List[i];
+                for (var i = 0; i < this.list.length; i++)
+                    if (this.list[i].type == type)
+                        return this.list[i];
                 return null;
             }
             Load(object) {
-                this.List = Object.assign([], object);
+                this.list = Object.assign([], object);
             }
             ToJson() {
-                return JSON.stringify(this.List);
+                return JSON.stringify(this.list);
             }
         }
         Data.Instance = Instance;
         class Element {
             constructor(name, value) {
-                this.Type = name;
-                this.Value = value;
+                this.type = name;
+                this.value = value;
             }
             Increament() {
-                this.Value++;
+                this.value++;
             }
         }
     })(Data = Upgrades.Data || (Upgrades.Data = {}));
@@ -118,8 +118,8 @@ var Upgrades;
             if (object[Upgrades.Name] == null) {
             }
             var data = Object.assign(new Instance(), object[Upgrades.Name]);
-            if (data.Template == null)
-                data.Template = Arguments.Default;
+            if (data.template == null)
+                data.template = Arguments.Default;
             return data;
         }
         Arguments.Load = Load;
@@ -148,13 +148,13 @@ var Upgrades;
         Template.Parse = Parse;
         class Instance {
             Find(name) {
-                for (var i = 0; i < this.Elements.length; i++)
-                    if (this.Elements[i].Type == name)
-                        return this.Elements[i];
+                for (var i = 0; i < this.elements.length; i++)
+                    if (this.elements[i].type == name)
+                        return this.elements[i];
                 return null;
             }
             Match(name, data) {
-                return this.Find(name).Ranks[data.Find(name).Value];
+                return this.Find(name).ranks[data.Find(name).value];
             }
         }
         Template.Instance = Instance;
@@ -187,27 +187,27 @@ var Inventory;
     Inventory.Consume = Consume;
     class Data {
         constructor(Items, VirtualCurrency) {
-            this.Items = Items;
-            this.VirtualCurrency = VirtualCurrency;
+            this.items = Items;
+            this.virtualCurrency = VirtualCurrency;
         }
         FindWithID(itemID) {
-            for (let i = 0; i < this.Items.length; i++)
-                if (this.Items[i].ItemId == itemID)
-                    return this.Items[i];
+            for (let i = 0; i < this.items.length; i++)
+                if (this.items[i].ItemId == itemID)
+                    return this.items[i];
             return null;
         }
         FindWithInstanceID(itemInstanceID) {
-            for (let i = 0; i < this.Items.length; i++)
-                if (this.Items[i].ItemInstanceId == itemInstanceID)
-                    return this.Items[i];
+            for (let i = 0; i < this.items.length; i++)
+                if (this.items[i].ItemInstanceId == itemInstanceID)
+                    return this.items[i];
             return null;
         }
         CompliesWithRequirements(requirements) {
             for (let i = 0; i < requirements.length; i++) {
-                var instance = this.FindWithID(requirements[i].Item);
+                var instance = this.FindWithID(requirements[i].item);
                 if (instance == null)
                     return false;
-                if (instance.RemainingUses < requirements[i].Count)
+                if (instance.RemainingUses < requirements[i].count)
                     return false;
             }
             return true;
@@ -226,12 +226,12 @@ var Catalog;
     Catalog.Retrieve = Retrieve;
     class Data {
         constructor(Items) {
-            this.Items = Items;
+            this.items = Items;
         }
         FindWithID(itemID) {
-            for (let i = 0; i < this.Items.length; i++)
-                if (this.Items[i].ItemId == itemID)
-                    return this.Items[i];
+            for (let i = 0; i < this.items.length; i++)
+                if (this.items[i].ItemId == itemID)
+                    return this.items[i];
             return null;
         }
     }

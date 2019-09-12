@@ -21,8 +21,8 @@ using TMPro;
 
 namespace Game
 {
-	public class UnitCharacterUI : UnitsUI.Module
-	{
+    public class UnitCharacterUI : UnitsUI.Module
+    {
         [SerializeField]
         protected TMP_Text label;
         public TMP_Text Label { get { return label; } }
@@ -43,7 +43,7 @@ namespace Game
 
             type.text = data.Type.name;
 
-            if(Model == null)
+            if (Model == null)
             {
 
             }

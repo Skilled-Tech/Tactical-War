@@ -27,7 +27,7 @@ namespace Game
     [Serializable]
     public class ItemsUpgradesCore : ItemsCore.Module
     {
-        public const string Key = "Upgrades";
+        public const string Key = "upgrades";
 
         [SerializeField]
         protected TypesCore types;
@@ -135,11 +135,12 @@ namespace Game
 
             if (item.CustomData == null) return false;
 
-            var jObject = JObject.Parse(item.CustomData);
+            if (item.Tags == null) return false;
 
-            if (jObject[ItemsUpgradesCore.Key] == null) return false;
-
-            return true;
+            if (item.Tags.Contains("upgradable"))
+                return true;
+            else
+                return false;
         }
     }
 }

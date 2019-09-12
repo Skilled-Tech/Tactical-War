@@ -1,54 +1,144 @@
 fileFormatVersion: 2
 guid: 231286f2cb498164284d9b4e8625b20b
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: FrontHead
-    21300002: FrontArmR
-    21300004: FrontBody
-    21300006: FrontArmL
-    21300008: FrontLegR
-    21300010: FrontLegL
-    21300012: BackHead
-    21300014: SideHead
-    21300016: BackArmL
-    21300018: BackBody
-    21300020: BackArmR
-    21300022: BackLegL
-    21300024: BackLegR
-    21300026: SideArmR
-    21300028: SideBody
-    21300030: SideLegR
-    21300032: SideLegL
-    21300034: SideArmL
-    21300036: FrontHand
-    21300038: BackHand
-    21300040: HandR
-    21300042: SideHandL
-    21300044: SideHandR
-    21300046: FrontHandCover
-    21300048: BackHandCover
-    21300050: SideHandCoverL
-    21300052: SideHandCoverR
-    21300054: FrontHandL
-    21300056: BackHandR
-    21300058: FrontHandCoverL
-    21300060: BackHandCoverR
-    21300062: FrontHandR
-    21300064: FrontHandCoverR
-    21300066: BackHandL
-    21300068: BackHandCoverL
-    21300070: FrontSleeveL
-    21300072: BackGloveR
-    21300074: SideSleeveR
-    21300076: FrontSleeveR
-    21300078: BackGloveL
-    21300080: SideSleeveL
-    21300082: SideGloveR
-    21300084: BackFingersR
-    21300086: BackFingersL
-    21300088: SideFingersR
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: FrontHead
+  - first:
+      213: 21300002
+    second: FrontArmR
+  - first:
+      213: 21300004
+    second: FrontBody
+  - first:
+      213: 21300006
+    second: FrontArmL
+  - first:
+      213: 21300008
+    second: FrontLegR
+  - first:
+      213: 21300010
+    second: FrontLegL
+  - first:
+      213: 21300012
+    second: BackHead
+  - first:
+      213: 21300014
+    second: SideHead
+  - first:
+      213: 21300016
+    second: BackArmL
+  - first:
+      213: 21300018
+    second: BackBody
+  - first:
+      213: 21300020
+    second: BackArmR
+  - first:
+      213: 21300022
+    second: BackLegL
+  - first:
+      213: 21300024
+    second: BackLegR
+  - first:
+      213: 21300026
+    second: SideArmR
+  - first:
+      213: 21300028
+    second: SideBody
+  - first:
+      213: 21300030
+    second: SideLegR
+  - first:
+      213: 21300032
+    second: SideLegL
+  - first:
+      213: 21300034
+    second: SideArmL
+  - first:
+      213: 21300036
+    second: FrontHand
+  - first:
+      213: 21300038
+    second: BackHand
+  - first:
+      213: 21300040
+    second: HandR
+  - first:
+      213: 21300042
+    second: SideHandL
+  - first:
+      213: 21300044
+    second: SideHandR
+  - first:
+      213: 21300046
+    second: FrontHandCover
+  - first:
+      213: 21300048
+    second: BackHandCover
+  - first:
+      213: 21300050
+    second: SideHandCoverL
+  - first:
+      213: 21300052
+    second: SideHandCoverR
+  - first:
+      213: 21300054
+    second: FrontHandL
+  - first:
+      213: 21300056
+    second: BackHandR
+  - first:
+      213: 21300058
+    second: FrontHandCoverL
+  - first:
+      213: 21300060
+    second: BackHandCoverR
+  - first:
+      213: 21300062
+    second: FrontHandR
+  - first:
+      213: 21300064
+    second: FrontHandCoverR
+  - first:
+      213: 21300066
+    second: BackHandL
+  - first:
+      213: 21300068
+    second: BackHandCoverL
+  - first:
+      213: 21300070
+    second: FrontSleeveL
+  - first:
+      213: 21300072
+    second: BackGloveR
+  - first:
+      213: 21300074
+    second: SideSleeveR
+  - first:
+      213: 21300076
+    second: FrontSleeveR
+  - first:
+      213: 21300078
+    second: BackGloveL
+  - first:
+      213: 21300080
+    second: SideSleeveL
+  - first:
+      213: 21300082
+    second: SideGloveR
+  - first:
+      213: 21300084
+    second: BackFingersR
+  - first:
+      213: 21300086
+    second: BackFingersL
+  - first:
+      213: 21300088
+    second: SideFingersR
   externalObjects: {}
-  serializedVersion: 4
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -66,6 +156,8 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
   isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -76,7 +168,7 @@ TextureImporter:
     serializedVersion: 2
     filterMode: -1
     aniso: -1
-    mipBias: -1
+    mipBias: -100
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -96,11 +188,13 @@ TextureImporter:
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
+  singleChannelComponent: 0
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   platformSettings:
-  - buildTarget: DefaultTexturePlatform
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -110,7 +204,9 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: Standalone
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -120,6 +216,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -137,6 +234,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 02305410000000000800000000000000
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: FrontArmR
       rect:
@@ -151,6 +255,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 22305410000000000800000000000000
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: FrontBody
       rect:
@@ -165,6 +276,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 42305410000000000800000000000000
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: FrontArmL
       rect:
@@ -179,6 +297,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 62305410000000000800000000000000
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: FrontLegR
       rect:
@@ -193,6 +318,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 82305410000000000800000000000000
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: FrontLegL
       rect:
@@ -207,6 +339,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: a2305410000000000800000000000000
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: BackHead
       rect:
@@ -221,6 +360,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: c2305410000000000800000000000000
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: SideHead
       rect:
@@ -235,6 +381,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: e2305410000000000800000000000000
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: BackArmL
       rect:
@@ -249,6 +402,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 03305410000000000800000000000000
+      internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: BackBody
       rect:
@@ -263,6 +423,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 23305410000000000800000000000000
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: BackArmR
       rect:
@@ -277,6 +444,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 43305410000000000800000000000000
+      internalID: 21300020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: BackLegL
       rect:
@@ -291,6 +465,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 63305410000000000800000000000000
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: BackLegR
       rect:
@@ -305,6 +486,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 83305410000000000800000000000000
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: SideArmR
       rect:
@@ -319,6 +507,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: a3305410000000000800000000000000
+      internalID: 21300026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: SideBody
       rect:
@@ -333,6 +528,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: c3305410000000000800000000000000
+      internalID: 21300028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: SideLegR
       rect:
@@ -347,6 +549,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: e3305410000000000800000000000000
+      internalID: 21300030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: SideLegL
       rect:
@@ -361,6 +570,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 04305410000000000800000000000000
+      internalID: 21300032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: SideArmL
       rect:
@@ -375,6 +591,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 24305410000000000800000000000000
+      internalID: 21300034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: FrontHandL
       rect:
@@ -389,6 +612,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 65305410000000000800000000000000
+      internalID: 21300054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: BackHandR
       rect:
@@ -403,6 +633,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 85305410000000000800000000000000
+      internalID: 21300056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: SideHandL
       rect:
@@ -417,6 +654,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: a4305410000000000800000000000000
+      internalID: 21300042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: SideHandR
       rect:
@@ -431,6 +675,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: c4305410000000000800000000000000
+      internalID: 21300044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: FrontSleeveL
       rect:
@@ -445,6 +696,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 66305410000000000800000000000000
+      internalID: 21300070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: BackFingersR
       rect:
@@ -459,6 +717,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 47305410000000000800000000000000
+      internalID: 21300084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: FrontHandR
       rect:
@@ -473,6 +738,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: e5305410000000000800000000000000
+      internalID: 21300062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: FrontSleeveR
       rect:
@@ -487,6 +759,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: c6305410000000000800000000000000
+      internalID: 21300076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: BackHandL
       rect:
@@ -501,6 +780,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 26305410000000000800000000000000
+      internalID: 21300066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: BackFingersL
       rect:
@@ -515,6 +801,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 67305410000000000800000000000000
+      internalID: 21300086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: SideSleeveL
       rect:
@@ -529,6 +822,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 07305410000000000800000000000000
+      internalID: 21300080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: SideFingersR
       rect:
@@ -543,9 +843,26 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: -1
+      bones: []
+      spriteID: 87305410000000000800000000000000
+      internalID: 21300088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
   spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
