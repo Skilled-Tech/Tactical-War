@@ -79,8 +79,8 @@ namespace Game
 
         [JsonProperty]
         [SerializeField]
-        protected List<ElementData> list;
-        public List<ElementData> List { get { return list; } }
+        protected ElementData[] list;
+        public ElementData[] List { get { return list; } }
         [Serializable]
         public class ElementData
         {
@@ -90,6 +90,7 @@ namespace Game
             protected ItemUpgradeType type;
             public ItemUpgradeType Type { get { return type; } }
 
+            [JsonProperty]
             [SerializeField]
             protected int value;
             public int Value { get { return value; } }
@@ -109,7 +110,7 @@ namespace Game
 
         public virtual ElementData Find(ItemUpgradeType type)
         {
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < list.Length; i++)
                 if (list[i].Type == type)
                     return list[i];
 
@@ -118,40 +119,28 @@ namespace Game
 
         void Load(string json)
         {
-            JsonConvert.PopulateObject(json, list);
+            list = JsonConvert.DeserializeObject<ElementData[]>(json);
         }
         void Load(ItemInstance instance)
         {
             if (instance.CustomData == null)
             {
-                list.Clear();
+                list = new ElementData[] { };
             }
             else
             {
                 if (instance.CustomData.ContainsKey(ItemsUpgradesCore.Key))
                     Load(instance.CustomData[ItemsUpgradesCore.Key]);
                 else
-                    list.Clear();
+                    list = new ElementData[] { };
             }
         }
 
         public ItemUpgradeData(ItemInstance item, ItemTemplate template)
         {
-            list = new List<ElementData>();
+            list = new ElementData[] { };
 
             Load(item);
-
-            IList<ItemUpgradeType> applicables = template.Upgrades.Applicable;
-
-            for (int i = 0; i < applicables.Count; i++)
-            {
-                if (Find(applicables[i]) == null)
-                {
-                    var element = new ElementData(applicables[i]);
-
-                    list.Add(element);
-                }
-            }
         }
     }
 }
