@@ -79,8 +79,8 @@ namespace Game
 
         [JsonProperty]
         [SerializeField]
-        protected ElementData[] list;
-        public ElementData[] List { get { return list; } }
+        protected List<ElementData> list;
+        public List<ElementData> List { get { return list; } }
         [Serializable]
         public class ElementData
         {
@@ -110,7 +110,7 @@ namespace Game
 
         public virtual ElementData Find(ItemUpgradeType type)
         {
-            for (int i = 0; i < list.Length; i++)
+            for (int i = 0; i < list.Count; i++)
                 if (list[i].Type == type)
                     return list[i];
 
@@ -119,27 +119,45 @@ namespace Game
 
         void Load(string json)
         {
-            Debug.Log(json);
             JsonConvert.PopulateObject(json, list);
         }
         void Load(ItemInstance instance)
         {
             if (instance.CustomData == null)
             {
-                list = new ElementData[] { };
+                list.Clear();
             }
             else
             {
                 if (instance.CustomData.ContainsKey(ItemsUpgradesCore.Key))
                     Load(instance.CustomData[ItemsUpgradesCore.Key]);
                 else
-                    list = new ElementData[] { };
+                    list.Clear();
+            }
+        }
+
+        void CheckDefaults(ItemUpgradeType[] types)
+        {
+            for (int i = 0; i < types.Length; i++)
+            {
+                var element = Find(types[i]);
+
+                if (element == null)
+                {
+                    var instance = new ElementData(types[i]);
+
+                    list.Add(instance);
+                }
             }
         }
 
         public ItemUpgradeData(ItemInstance item, ItemTemplate template)
         {
+            list = new List<ElementData>();
+
             Load(item);
+
+            CheckDefaults(template.Upgrades.Applicable);
         }
     }
 }

@@ -53,6 +53,8 @@ namespace Game
 
         public virtual bool CompliesWith(ItemRequirementData requirement)
         {
+            if (requirement == null) return true;
+
             for (int i = 0; i < Items.Count; i++)
                 if (Items[i].ItemId == requirement.Item.ID)
                     if (Items[i].RemainingUses >= requirement.Count)
@@ -62,6 +64,8 @@ namespace Game
         }
         public virtual bool CompliesWith(ItemRequirementData[] requirements)
         {
+            if (requirements == null) return true;
+
             for (int i = 0; i < requirements.Length; i++)
             {
                 if (CompliesWith(requirements[i]))

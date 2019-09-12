@@ -39,25 +39,9 @@ namespace Game
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }
 
-        public virtual void Load(JToken token)
-        {
-            item = Items.Find(token[nameof(Item)].ToObject<string>());
-
-            count = token[nameof(Count)].ToObject<int>();
-        }
-
         public ItemRequirementData()
         {
 
-        }
-        public ItemRequirementData(JToken token)
-        {
-            Load(token);
-        }
-        public ItemRequirementData(ItemTemplate item, int count)
-        {
-            this.item = item;
-            this.count = count;
         }
     }
 }

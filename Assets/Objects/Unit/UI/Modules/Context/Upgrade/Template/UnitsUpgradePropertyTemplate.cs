@@ -22,8 +22,8 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-	public class UnitsUpgradePropertyTemplate : MonoBehaviour
-	{
+    public class UnitsUpgradePropertyTemplate : MonoBehaviour
+    {
         [SerializeField]
         protected Image icon;
         public Image Icon { get { return icon; } }
@@ -77,7 +77,7 @@ namespace Game
         {
             this.Template = template;
             this.Type = type;
-            
+
             icon.sprite = type.Icon;
             label.text = type.name + " Upgrade";
 

@@ -71,28 +71,6 @@ namespace Game
                 protected ItemRequirementData[] requirements;
                 public ItemRequirementData[] Requirements { get { return requirements; } }
 
-                public virtual void Load(JToken token)
-                {
-                    void LoadRequirements(JArray jArray)
-                    {
-                        if (jArray == null)
-                            requirements = new ItemRequirementData[] { };
-                        else
-                        {
-                            requirements = new ItemRequirementData[jArray.Count];
-
-                            for (int i = 0; i < jArray.Count; i++)
-                                requirements[i] = new ItemRequirementData(jArray[i]);
-                        }
-                    }
-
-                    cost = new Currency(0, token[nameof(Cost)].ToObject<int>());
-
-                    percentage = token[nameof(Percentage)].ToObject<float>();
-
-                    LoadRequirements(token[nameof(Requirements)] as JArray);
-                }
-
                 public RankData()
                 {
 
@@ -102,10 +80,6 @@ namespace Game
                     this.cost = cost;
 
                     this.percentage = percentage;
-                }
-                public RankData(JToken token)
-                {
-                    Load(token);
                 }
             }
 
@@ -120,18 +94,6 @@ namespace Game
                 for (int i = 0; i < ranks.Length; i++)
                     ranks[i] = new RankData(initalCost * (i + 1), initialPercentage * (i + 1));
             }
-
-            public ElementData(JToken token)
-            {
-                type = Core.Items.Upgrades.Types.Find(token[nameof(Type)].ToObject<string>());
-
-                var jArray = token[nameof(Ranks)] as JArray;
-
-                ranks = new RankData[jArray.Count];
-
-                for (int i = 0; i < jArray.Count; i++)
-                    ranks[i] = new RankData(jArray[i]);
-            }
         }
 
         public virtual ElementData Find(ItemUpgradeType type)
@@ -141,19 +103,6 @@ namespace Game
                     return elements[i];
 
             return null;
-        }
-
-        public virtual void Load(JToken token)
-        {
-            name = token[Name].ToObject<string>();
-
-            var jArray = token[nameof(Elements)] as JArray;
-            elements = new ElementData[jArray.Count];
-
-            for (int i = 0; i < jArray.Count; i++)
-            {
-                elements[i] = new ElementData(jArray[i]);
-            }
         }
 
         public virtual void Load(string json)

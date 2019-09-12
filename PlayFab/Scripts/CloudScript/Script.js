@@ -35,12 +35,7 @@ handlers.UpgradeItem = function ($args) {
     //Validation Completed, Start Processing Request
     {
         SubtractCurrency(currentPlayerId, Upgrades.Currency, rank.cost);
-        if (rank.requirements != null) {
-            for (let i = 0; i < rank.requirements.length; i++) {
-                var itemInstance = inventory.FindWithID(rank.requirements[i].item);
-                Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, rank.requirements[i].count);
-            }
-        }
+        ItemRequirement.ConsumeAll(inventory, rank.requirements);
         data.Find(args.upgradeType).value++;
         UpdateUserInventoryItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
     }
@@ -53,20 +48,18 @@ var Upgrades;
     let Data;
     (function (Data) {
         function Load(itemInstance) {
+            var instance = new Instance;
             if (itemInstance.CustomData == null) {
-                return new Instance();
             }
             else {
                 if (itemInstance.CustomData[Upgrades.Name] == null) {
-                    return new Instance();
                 }
                 else {
                     var object = JSON.parse(itemInstance.CustomData[Upgrades.Name]);
-                    var instance = new Instance();
                     instance.Load(object);
-                    return instance;
                 }
             }
+            return instance;
         }
         Data.Load = Load;
         class Instance {
@@ -101,9 +94,6 @@ var Upgrades;
                 this.type = name;
                 this.value = value;
             }
-            Increament() {
-                this.value++;
-            }
         }
     })(Data = Upgrades.Data || (Upgrades.Data = {}));
     let Arguments;
@@ -135,7 +125,7 @@ var Upgrades;
             if (name == null)
                 return null;
             var object = JSON.parse(json);
-            var target = object.find(x => x.Name == name);
+            var target = object.find(x => x.name == name);
             var template = Object.assign(new Instance(), target);
             return template;
         }
@@ -166,8 +156,21 @@ var Upgrades;
         Template.Rank = Rank;
     })(Template = Upgrades.Template || (Upgrades.Template = {}));
 })(Upgrades || (Upgrades = {}));
-class ItemRequirementData {
-}
+var ItemRequirement;
+(function (ItemRequirement) {
+    function ConsumeAll(inventory, requirements) {
+        if (requirements == null)
+            return;
+        for (let i = 0; i < requirements.length; i++) {
+            var itemInstance = inventory.FindWithID(requirements[i].item);
+            Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, requirements[i].count);
+        }
+    }
+    ItemRequirement.ConsumeAll = ConsumeAll;
+    class Data {
+    }
+    ItemRequirement.Data = Data;
+})(ItemRequirement || (ItemRequirement = {}));
 var Inventory;
 (function (Inventory) {
     function Retrieve(playerID) {
