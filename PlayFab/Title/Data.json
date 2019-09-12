@@ -1,173 +1,173 @@
 [
   {
-    "Name": "Default",
-    "Elements": [
+    "name": "Default",
+    "elements": [
       {
-        "Type": "Damage",
-        "Ranks": [
+        "type": "Damage",
+        "ranks": [
           {
-            "Cost": 100,
-            "Percentage": 10
+            "cost": 100,
+            "percentage": 10
           },
           {
-            "Cost": 200,
-            "Percentage": 20,
-            "Requirements": [
+            "cost": 200,
+            "percentage": 20,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 1
+                "item": "Wood_Sword",
+                "count": 1
               }
             ]
           },
           {
-            "Cost": 400,
-            "Percentage": 30,
-            "Requirements": [
+            "cost": 400,
+            "percentage": 30,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 2
+                "item": "Wood_Sword",
+                "count": 2
               }
             ]
           },
           {
-            "Cost": 800,
-            "Percentage": 40,
-            "Requirements": [
+            "cost": 800,
+            "percentage": 40,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 2
+                "item": "Wood_Sword",
+                "count": 2
               },
               {
-                "Item": "Wood_Shield",
-                "Count": 1
+                "item": "Wood_Shield",
+                "count": 1
               }
             ]
           },
           {
-            "Cost": 1000,
-            "Percentage": 50,
-            "Requirements": [
+            "cost": 1000,
+            "percentage": 50,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 2
+                "item": "Wood_Sword",
+                "count": 2
               },
               {
-                "Item": "Wood_Shield",
-                "Count": 2
+                "item": "Wood_Shield",
+                "count": 2
               }
             ]
           }
         ]
       },
       {
-        "Type": "Defense",
-        "Ranks": [
+        "type": "Defense",
+        "ranks": [
           {
-            "Cost": 100,
-            "Percentage": 10
+            "cost": 100,
+            "percentage": 10
           },
           {
-            "Cost": 200,
-            "Percentage": 20,
-            "Requirements": [
+            "cost": 200,
+            "percentage": 20,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 1
+                "item": "Wood_Sword",
+                "count": 1
               }
             ]
           },
           {
-            "Cost": 400,
-            "Percentage": 30,
-            "Requirements": [
+            "cost": 400,
+            "percentage": 30,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 2
+                "item": "Wood_Sword",
+                "count": 2
               }
             ]
           },
           {
-            "Cost": 800,
-            "Percentage": 40,
-            "Requirements": [
+            "cost": 800,
+            "percentage": 40,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 2
+                "item": "Wood_Sword",
+                "count": 2
               },
               {
-                "Item": "Wood_Shield",
-                "Count": 1
+                "item": "Wood_Shield",
+                "count": 1
               }
             ]
           },
           {
-            "Cost": 1000,
-            "Percentage": 50,
-            "Requirements": [
+            "cost": 1000,
+            "percentage": 50,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 2
+                "item": "Wood_Sword",
+                "count": 2
               },
               {
-                "Item": "Wood_Shield",
-                "Count": 2
+                "item": "Wood_Shield",
+                "count": 2
               }
             ]
           }
         ]
       },
       {
-        "Type": "Range",
-        "Ranks": [
+        "type": "Range",
+        "ranks": [
           {
-            "Cost": 100,
-            "Percentage": 20
+            "cost": 100,
+            "percentage": 20
           },
           {
-            "Cost": 200,
-            "Percentage": 40,
-            "Requirements": [
+            "cost": 200,
+            "percentage": 40,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 1
+                "item": "Wood_Sword",
+                "count": 1
               }
             ]
           },
           {
-            "Cost": 400,
-            "Percentage": 60,
-            "Requirements": [
+            "cost": 400,
+            "percentage": 60,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 2
+                "item": "Wood_Sword",
+                "count": 2
               }
             ]
           },
           {
-            "Cost": 800,
-            "Percentage": 80,
-            "Requirements": [
+            "cost": 800,
+            "percentage": 80,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 2
+                "item": "Wood_Sword",
+                "count": 2
               },
               {
-                "Item": "Wood_Shield",
-                "Count": 1
+                "item": "Wood_Shield",
+                "count": 1
               }
             ]
           },
           {
-            "Cost": 1000,
-            "Percentage": 100,
-            "Requirements": [
+            "cost": 1000,
+            "percentage": 100,
+            "requirements": [
               {
-                "Item": "Wood_Sword",
-                "Count": 2
+                "item": "Wood_Sword",
+                "count": 2
               },
               {
-                "Item": "Wood_Shield",
-                "Count": 2
+                "item": "Wood_Shield",
+                "count": 2
               }
             ]
           }

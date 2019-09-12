@@ -27,7 +27,7 @@ namespace Game
 {
     [Serializable]
     public class PlayerUnitsUpgradesCore : PlayerUnitsCore.Module
-	{
+    {
         public Dictionary<ItemTemplate, ItemUpgradeData> Dictionary { get; protected set; }
 
         public List<ItemUpgradeData> Values;
@@ -76,14 +76,16 @@ namespace Game
     {
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }
-        public string ID { get; protected set; }
 
+        [JsonProperty]
         [SerializeField]
         protected List<ElementData> list;
         public List<ElementData> List { get { return list; } }
         [Serializable]
         public class ElementData
         {
+            [JsonProperty]
+            [JsonConverter(typeof(ItemUpgradeType.Converter))]
             [SerializeField]
             protected ItemUpgradeType type;
             public ItemUpgradeType Type { get { return type; } }
@@ -92,12 +94,11 @@ namespace Game
             protected int value;
             public int Value { get { return value; } }
 
-            public ElementData(JToken token)
+            public ElementData()
             {
-                type = Items.Upgrades.Types.Find(token[nameof(Type)]);
 
-                value = token[nameof(Value)].ToObject<int>();
             }
+
             public ElementData(ItemUpgradeType type)
             {
                 this.type = type;
@@ -115,20 +116,9 @@ namespace Game
             return null;
         }
 
-        void Load(JArray array)
-        {
-            list = new List<ElementData>();
-
-            for (int i = 0; i < array.Count; i++)
-            {
-                var element = new ElementData(array[i]);
-
-                list.Add(element);
-            }
-        }
         void Load(string json)
         {
-            Load(JArray.Parse(json));
+            JsonConvert.PopulateObject(json, list);
         }
         void Load(ItemInstance instance)
         {
@@ -138,7 +128,7 @@ namespace Game
             }
             else
             {
-                if(instance.CustomData.ContainsKey(ItemsUpgradesCore.Key))
+                if (instance.CustomData.ContainsKey(ItemsUpgradesCore.Key))
                     Load(instance.CustomData[ItemsUpgradesCore.Key]);
                 else
                     list.Clear();

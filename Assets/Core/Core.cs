@@ -1,13 +1,12 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.IO;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -20,8 +19,8 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Asset")]
-	public class Core : ScriptableObject
-	{
+    public class Core : ScriptableObject
+    {
         public const string MenuPath = "Core/";
 
         static Core _instance;
@@ -132,7 +131,7 @@ namespace Game
 
         public static void Quit()
         {
-            if(Application.isEditor)
+            if (Application.isEditor)
             {
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;

@@ -26,8 +26,8 @@ using Newtonsoft.Json.Linq;
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Template")]
-	public class ItemTemplate : ScriptableObject
-	{
+    public class ItemTemplate : ScriptableObject
+    {
         public const string MenuPath = "Item/";
 
         public string ID { get { return base.name; } }
@@ -88,7 +88,7 @@ namespace Game
                     {
                         var value = token.ToObject<string>();
 
-                        if(string.IsNullOrEmpty(value))
+                        if (string.IsNullOrEmpty(value))
                             template = null;
                         else
                             template = Items.Upgrades.Templates.Find(value);
@@ -113,7 +113,7 @@ namespace Game
 
                     if (jObject[Key] == null)
                     {
-                        
+
                     }
                     else
                     {
@@ -149,6 +149,32 @@ namespace Game
             price = new Currency(item.VirtualCurrencyPrices);
 
             upgrades.Load(item);
+        }
+
+        public class Converter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return typeof(ItemTemplate).IsAssignableFrom(objectType);
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                if (reader.Value == null) return null;
+
+                var ID = reader.Value as string;
+
+                var template = Items.Find(ID);
+
+                return template;
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                var template = value as ItemTemplate;
+
+                serializer.Serialize(writer, template.ID);
+            }
         }
     }
 }

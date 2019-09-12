@@ -23,8 +23,8 @@ using PlayFab.ClientModels;
 namespace Game
 {
     [Serializable]
-	public class PlayerInventoryCore : PlayerCore.Module
-	{
+    public class PlayerInventoryCore : PlayerCore.Module
+    {
         public List<ItemInstance> Items { get; protected set; }
 
         public Dictionary<string, int> VirtualCurrency { get; protected set; }
@@ -93,7 +93,7 @@ namespace Game
         {
             var request = new GetUserInventoryRequest
             {
-                
+
             };
 
             PlayFabClientAPI.GetUserInventory(request, ResultCallback, ErrorCallback);

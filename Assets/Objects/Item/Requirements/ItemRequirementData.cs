@@ -18,16 +18,20 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Game
 {
     [Serializable]
     public class ItemRequirementData
     {
+        [JsonProperty]
+        [JsonConverter(typeof(ItemTemplate.Converter))]
         [SerializeField]
         protected ItemTemplate item;
         public ItemTemplate Item { get { return item; } }
 
+        [JsonProperty]
         [SerializeField]
         protected int count;
         public int Count { get { return count; } }
@@ -42,6 +46,10 @@ namespace Game
             count = token[nameof(Count)].ToObject<int>();
         }
 
+        public ItemRequirementData()
+        {
+
+        }
         public ItemRequirementData(JToken token)
         {
             Load(token);

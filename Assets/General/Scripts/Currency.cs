@@ -17,12 +17,14 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using Newtonsoft.Json;
+
 namespace Game
 {
     [Serializable]
-	public struct Currency
-	{
-		[SerializeField]
+    public struct Currency
+    {
+        [SerializeField]
         int gold;
         public int Gold { get { return gold; } }
 
@@ -69,23 +71,23 @@ namespace Game
         }
 
         #region Operators
-        public static bool operator == (Currency one, Currency two)
+        public static bool operator ==(Currency one, Currency two)
         {
             return one.Equals(two);
         }
-        public static bool operator != (Currency one, Currency two)
+        public static bool operator !=(Currency one, Currency two)
         {
             return !one.Equals(two);
         }
 
-        public static bool operator > (Currency one, Currency two)
+        public static bool operator >(Currency one, Currency two)
         {
             if (one.gold < two.gold) return false;
             if (one.jewels < two.jewels) return false;
 
             return true;
         }
-        public static bool operator < (Currency one, Currency two)
+        public static bool operator <(Currency one, Currency two)
         {
             if (one.gold > two.gold) return false;
             if (one.jewels > two.jewels) return false;
@@ -93,7 +95,7 @@ namespace Game
             return true;
         }
 
-        public static Currency operator * (Currency currency, float number)
+        public static Currency operator *(Currency currency, float number)
         {
             return new Currency(Mathf.RoundToInt(currency.gold * number), Mathf.RoundToInt(currency.jewels * number));
         }
@@ -142,6 +144,28 @@ namespace Game
                 jewels = (int)Prices[CurrencyCodes.Jewels];
             else
                 jewels = 0;
+        }
+
+        public class JewelsConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return objectType == typeof(Currency);
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                var jewels = Convert.ToInt32(reader.Value);
+
+                return new Currency(0, jewels);
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                var currency = (Currency)value;
+
+                serializer.Serialize(writer, currency.jewels);
+            }
         }
     }
 

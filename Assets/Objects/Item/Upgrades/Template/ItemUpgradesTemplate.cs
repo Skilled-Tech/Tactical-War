@@ -28,8 +28,9 @@ namespace Game
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }
 
-        public const string Name = "Name";
+        public const string Name = "name";
 
+        [JsonProperty]
         [SerializeField]
         protected ElementData[] elements = new ElementData[]
         {
@@ -41,24 +42,31 @@ namespace Game
         [Serializable]
         public class ElementData
         {
+            [JsonProperty]
+            [JsonConverter(typeof(ItemUpgradeType.Converter))]
             [SerializeField]
             protected ItemUpgradeType type;
             public ItemUpgradeType Type { get { return type; } }
 
+            [JsonProperty]
             [SerializeField]
             protected RankData[] ranks;
             public RankData[] Ranks { get { return ranks; } }
             [Serializable]
             public class RankData
             {
+                [JsonProperty]
+                [JsonConverter(typeof(Currency.JewelsConverter))]
                 [SerializeField]
                 Currency cost;
                 public Currency Cost { get { return cost; } }
 
+                [JsonProperty]
                 [SerializeField]
                 float percentage;
                 public float Percentage { get { return percentage; } }
 
+                [JsonProperty]
                 [SerializeField]
                 protected ItemRequirementData[] requirements;
                 public ItemRequirementData[] Requirements { get { return requirements; } }
@@ -85,6 +93,10 @@ namespace Game
                     LoadRequirements(token[nameof(Requirements)] as JArray);
                 }
 
+                public RankData()
+                {
+
+                }
                 public RankData(Currency cost, float percentage)
                 {
                     this.cost = cost;
@@ -97,6 +109,10 @@ namespace Game
                 }
             }
 
+            public ElementData()
+            {
+
+            }
             public ElementData(int count, Currency initalCost, float initialPercentage)
             {
                 ranks = new RankData[count];
@@ -133,11 +149,16 @@ namespace Game
 
             var jArray = token[nameof(Elements)] as JArray;
             elements = new ElementData[jArray.Count];
-            
+
             for (int i = 0; i < jArray.Count; i++)
             {
                 elements[i] = new ElementData(jArray[i]);
             }
+        }
+
+        public virtual void Load(string json)
+        {
+            JsonConvert.PopulateObject(json, this);
         }
     }
 }

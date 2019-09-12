@@ -25,8 +25,8 @@ using PlayFab.ClientModels;
 namespace Game
 {
     [Serializable]
-	public class ItemsUpgradesCore : ItemsCore.Module
-	{
+    public class ItemsUpgradesCore : ItemsCore.Module
+    {
         public const string Key = "Upgrades";
 
         [SerializeField]
@@ -98,7 +98,7 @@ namespace Game
                     else
                         template = ScriptableObject.CreateInstance<ItemUpgradesTemplate>();
 
-                    template.Load(jArray[i]);
+                    template.Load(jArray[i].ToString());
 
                     List[i] = template;
                 }

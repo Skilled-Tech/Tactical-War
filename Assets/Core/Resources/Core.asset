@@ -47,34 +47,10 @@ MonoBehaviour:
       gold:
         _value: 100000
       jewels:
-        _value: 803600
+        _value: 792600
     units:
       upgrades:
-        List:
-        - list:
-          - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
-            value: 5
-          - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-            value: 5
-          - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
-            value: 0
-        - list:
-          - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-            value: 4
-          - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
-            value: 4
-        - list:
-          - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-            value: 2
-          - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
-            value: 0
-        - list:
-          - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
-            value: 5
-          - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-            value: 5
-          - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
-            value: 5
+        Values: []
       selection:
         max: 4
         list:
@@ -99,7 +75,6 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
       templates:
         _default: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
-        list:
-        - {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
+        list: []
   playFab:
     title: {}

@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using Newtonsoft.Json;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = ItemTemplate.UpgradesData.MenuPath + "Type")]
@@ -27,5 +29,34 @@ namespace Game
         [SerializeField]
         protected Sprite icon;
         public Sprite Icon { get { return icon; } }
+
+        public static Core Core { get { return Core.Instance; } }
+        public static ItemsCore Items { get { return Core.Items; } }
+
+        public class Converter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return typeof(ItemUpgradeType).IsAssignableFrom(objectType);
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                if (reader.Value == null) return null;
+
+                var ID = reader.Value as string;
+
+                var template = Items.Upgrades.Types.Find(ID);
+
+                return template;
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                var type = value as ItemUpgradeType;
+
+                serializer.Serialize(writer, type.ID);
+            }
+        }
     }
 }

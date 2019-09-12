@@ -21,8 +21,8 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-	public class InventoryUI : UIElement
-	{
+    public class InventoryUI : UIElement
+    {
         [SerializeField]
         protected GameObject template;
         public GameObject Template { get { return template; } }
@@ -78,6 +78,8 @@ namespace Game
         ItemInstanceUITemplate CreateInstance(ItemInstance instance, ItemTemplate template)
         {
             var gameObject = Instantiate(this.template, panel);
+
+            gameObject.name = template.ID;
 
             var script = gameObject.GetComponent<ItemInstanceUITemplate>();
 
