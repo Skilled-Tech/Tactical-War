@@ -1,15 +1,49 @@
 // (https://api.playfab.com/playstream/docs/PlayStreamEventModels)
 // (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
 
-handlers.UpgradeItem = function ($args)
+handlers.OnLoggedIn = function (context, args)
 {
-    var args = {
-        itemInstanceID: $args.ItemInstanceId,
-        upgradeType: $args.UpgradeType,
+
+}
+
+function GrantItem(playerID: string, annotation: string, itemID: string, ammount: number)
+{
+    var inventory = Inventory.Retrieve(currentPlayerId);
+
+    var itemInstance = inventory.FindWithID(itemID);
+
+    if (itemInstance == null)
+    {
+        var result = server.GrantItemsToUser({
+            PlayFabId: playerID,
+            Annotation: "Loggin Bonus",
+            CatalogVersion: Catalog.Default,
+            ItemIds: [itemID],
+        });
+
+        itemInstance = result.ItemGrantResults[0];
     }
 
+    server.ModifyItemUses({
+        PlayFabId: playerID,
+        ItemInstanceId: itemInstance.ItemInstanceId,
+        UsesToAdd: itemInstance.RemainingUses + ammount,
+    });
+}
+
+handlers.UpgradeItem = function (args)
+{
+    var argggggs = {
+        itemInstanceID: args.itemInstanceId,
+        upgradeType: args.upgradeType,
+    }
+
+    log.info(currentPlayerId);
+    log.info(argggggs.itemInstanceID);
+    log.info(argggggs.upgradeType);
+
     var inventory = Inventory.Retrieve(currentPlayerId);
-    var itemInstance = inventory.FindWithInstanceID(args.itemInstanceID);
+    var itemInstance = inventory.FindWithInstanceID(argggggs.itemInstanceID);
 
     if (itemInstance == null)
         return FormatError("Invalid Instance ID");
@@ -29,16 +63,16 @@ handlers.UpgradeItem = function ($args)
     if (template == null)
         return FormatError(arguments.template + " Upgrades Template Not Defined");
 
-    if (template.Find(args.upgradeType) == null)
-        return FormatError(args.upgradeType + " Upgrade Type Not Defined");
+    if (template.Find(argggggs.upgradeType) == null)
+        return FormatError(argggggs.upgradeType + " Upgrade Type Not Defined");
 
     var data = Upgrades.Data.Load(itemInstance);
-    if (data.Contains(args.upgradeType) == false) data.Add(args.upgradeType);
+    if (data.Contains(argggggs.upgradeType) == false) data.Add(argggggs.upgradeType);
 
-    if (data.Find(args.upgradeType).value >= template.Find(args.upgradeType).ranks.length)
+    if (data.Find(argggggs.upgradeType).value >= template.Find(argggggs.upgradeType).ranks.length)
         return FormatError("Maximum Upgrade Level Achieved");
 
-    var rank = template.Match(args.upgradeType, data);
+    var rank = template.Match(argggggs.upgradeType, data);
 
     if (rank.requirements != null)
     {
@@ -55,7 +89,7 @@ handlers.UpgradeItem = function ($args)
 
         ItemRequirement.ConsumeAll(inventory, rank.requirements);
 
-        data.Find(args.upgradeType).value++;
+        data.Find(argggggs.upgradeType).value++;
 
         UpdateUserInventoryItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
     }
@@ -331,6 +365,8 @@ namespace Inventory
 
 namespace Catalog
 {
+    export const Default = "Default";
+
     export function Retrieve(version: string): Data
     {
         var result = server.GetCatalogItems(

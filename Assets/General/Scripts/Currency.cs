@@ -166,6 +166,12 @@ namespace Game
 
                 serializer.Serialize(writer, currency.jewels);
             }
+
+            [Preserve]
+            public JewelsConverter()
+            {
+
+            }
         }
     }
 

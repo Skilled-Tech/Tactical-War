@@ -30,8 +30,6 @@ namespace Game
     {
         public Dictionary<ItemTemplate, ItemUpgradeData> Dictionary { get; protected set; }
 
-        public List<ItemUpgradeData> Values;
-
         public ItemsCore Items { get { return Core.Items; } }
 
         public ItemUpgradeData Find(ItemTemplate template)
@@ -46,7 +44,6 @@ namespace Game
             base.Configure();
 
             Dictionary = new Dictionary<ItemTemplate, ItemUpgradeData>();
-            Values = Dictionary.Values.ToList();
 
             Player.Inventory.OnRetrieved += OnInventoryRetrieved;
         }
@@ -66,8 +63,6 @@ namespace Game
                     Dictionary.Add(template, data);
                 }
             }
-
-            Values = Dictionary.Values.ToList();
         }
     }
 

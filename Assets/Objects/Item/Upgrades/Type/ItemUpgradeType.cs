@@ -57,6 +57,16 @@ namespace Game
 
                 serializer.Serialize(writer, type.ID);
             }
+
+            [Preserve]
+            public Converter()
+            {
+
+            }
         }
+    }
+
+    internal class PreserveAttribute : Attribute
+    {
     }
 }

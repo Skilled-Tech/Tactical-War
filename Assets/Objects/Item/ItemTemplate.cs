@@ -175,6 +175,12 @@ namespace Game
 
                 serializer.Serialize(writer, template.ID);
             }
+
+            [Preserve]
+            public Converter()
+            {
+
+            }
         }
     }
 }

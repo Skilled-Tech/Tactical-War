@@ -23,8 +23,8 @@ using PlayFab.ClientModels;
 namespace Game
 {
     [Serializable]
-	public class PlayFabLoginCore : PlayFabCore.Module
-	{
+    public class PlayFabLoginCore : PlayFabCore.Module
+    {
         public virtual void Perform()
         {
             if (Application.isEditor)
@@ -51,7 +51,13 @@ namespace Game
             }
             else
             {
+                var request = new LoginWithEmailAddressRequest
+                {
+                    Email = "Moe4Baker@gmail.com",
+                    Password = "Password",
+                };
 
+                PlayFabClientAPI.LoginWithEmailAddress(request, ResultCallback, ErrorCallback);
             }
         }
 

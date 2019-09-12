@@ -1,0 +1,16 @@
+{
+    "data one": [
+        {
+            "name": "defense",
+            "value": 3
+        },
+        {
+            "name": "defense",
+            "value": 5
+        }
+    ],
+    "data two": {
+        "damage": 3,
+        "defense": 5
+    }
+}

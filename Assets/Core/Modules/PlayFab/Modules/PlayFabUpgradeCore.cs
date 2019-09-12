@@ -23,22 +23,33 @@ using PlayFab.ClientModels;
 namespace Game
 {
     [Serializable]
-	public class PlayFabUpgradeCore : PlayFabCore.Module
-	{
+    public class PlayFabUpgradeCore : PlayFabCore.Module
+    {
+        struct ParametersData
+        {
+            public string itemInstanceId;
+            public string upgradeType;
+
+            public ParametersData(string itemInstanceId, string upgradeType)
+            {
+                this.itemInstanceId = itemInstanceId;
+                this.upgradeType = upgradeType;
+            }
+        }
+
         public virtual void Perform(string itemInstanceID, string type)
         {
             var request = new ExecuteCloudScriptRequest()
             {
                 FunctionName = "UpgradeItem",
 
-                FunctionParameter = new
-                {
-                    ItemInstanceId = itemInstanceID,
-                    UpgradeType = type,
-                },
+                FunctionParameter = new ParametersData(itemInstanceID, type),
 
                 GeneratePlayStreamEvent = true,
-            };          
+            };
+
+            Debug.LogError(itemInstanceID);
+            Debug.LogError(type);
 
             PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
         }

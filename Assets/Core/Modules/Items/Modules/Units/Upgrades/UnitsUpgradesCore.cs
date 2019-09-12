@@ -63,9 +63,7 @@ namespace Game
             protected ItemUpgradesTemplate _default;
             public ItemUpgradesTemplate Default { get { return _default; } }
 
-            [SerializeField]
-            protected ItemUpgradesTemplate[] list;
-            public ItemUpgradesTemplate[] List { get { return list; } }
+            public ItemUpgradesTemplate[] List { get; protected set; }
 
             public override void Configure()
             {
@@ -76,9 +74,9 @@ namespace Game
 
             public virtual ItemUpgradesTemplate Find(string name)
             {
-                for (int i = 0; i < list.Length; i++)
-                    if (list[i].name == name)
-                        return list[i];
+                for (int i = 0; i < List.Length; i++)
+                    if (List[i].name == name)
+                        return List[i];
 
                 return null;
             }
@@ -87,7 +85,7 @@ namespace Game
             {
                 var jArray = JArray.Parse(data.Value[ItemsUpgradesCore.Key]);
 
-                list = new ItemUpgradesTemplate[jArray.Count];
+                List = new ItemUpgradesTemplate[jArray.Count];
 
                 for (int i = 0; i < jArray.Count; i++)
                 {
@@ -103,7 +101,7 @@ namespace Game
                     List[i] = template;
                 }
 
-                var target = list.Last();
+                var target = List.Last();
             }
         }
 
