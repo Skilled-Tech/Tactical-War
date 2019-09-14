@@ -43,6 +43,7 @@ namespace Game
         [SerializeField]
         protected Button button;
         public Button Button { get { return button; } }
+        public TMP_Text ButtonLabel { get; protected set; }
 
         [SerializeField]
         protected TMP_Text price;
@@ -69,6 +70,8 @@ namespace Game
             GrayscaleController = new UIGrayscaleController(this);
 
             requiremnets.Init();
+
+            ButtonLabel = button.GetComponentInChildren<TMP_Text>();
         }
 
         public UnitTemplate Template { get; protected set; }
@@ -114,7 +117,7 @@ namespace Game
 
             GrayscaleController.On = !button.interactable;
 
-            price.color = button.interactable ? Color.white : Color.Lerp(Color.white, Color.black, 0.75f);
+            ButtonLabel.color = button.interactable ? Color.white : Color.Lerp(Color.white, Color.black, 0.75f);
         }
 
         void OnButon()

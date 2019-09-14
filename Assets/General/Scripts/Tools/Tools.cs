@@ -19,13 +19,13 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public static class Tools
-	{
-		public static void SetLayer(GameObject gameObject, int layer)
+    public static class Tools
+    {
+        public static void SetLayer(GameObject gameObject, int layer)
         {
             SetLayer(gameObject.transform, layer);
         }
-		public static void SetLayer(Transform transform, int layer)
+        public static void SetLayer(Transform transform, int layer)
         {
             transform.gameObject.layer = layer;
 

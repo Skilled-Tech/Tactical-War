@@ -22,52 +22,44 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
+    [JsonObject]
     public struct Currency
     {
+        [JsonProperty]
+        [JsonConverter(typeof(CurrencyTypeJsonConverter))]
         [SerializeField]
-        int gold;
-        public int Gold { get { return gold; } }
+        private CurrencyType type;
+        public CurrencyType Type { get { return type; } }
 
+        [JsonProperty]
         [SerializeField]
-        int jewels;
-        public int Jewels { get { return jewels; } }
-
-        public int Get(CurrencyType type)
-        {
-            switch (type)
-            {
-                case CurrencyType.Gold:
-                    return gold;
-                case CurrencyType.Jewels:
-                    return jewels;
-            }
-
-            throw new NotImplementedException();
-        }
-
-        public static bool IsSufficient(Currency requirement, Currency proposal)
-        {
-            return IsSufficient(requirement, proposal.gold, proposal.jewels);
-        }
-        public static bool IsSufficient(Currency requirement, int gold, int xp)
-        {
-            if (requirement.gold > gold) return false;
-
-            if (requirement.jewels > xp) return false;
-
-            return true;
-        }
+        private long value;
+        public long Value { get { return this.value; } }
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() != GetType()) return false;
+            if (obj.GetType() == GetType())
+            {
+                var target = (Currency)obj;
 
-            var currency = (Currency)obj;
+                if (target.type != type) return false;
 
-            if (gold != currency.gold) return false;
-            if (jewels != currency.jewels) return false;
+                if (target.value != value) return false;
 
-            return true;
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return type.GetHashCode() ^ value.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return value.ToString() + " " + type.ToString();
         }
 
         #region Operators
@@ -80,98 +72,28 @@ namespace Game
             return !one.Equals(two);
         }
 
-        public static bool operator >(Currency one, Currency two)
+        public static Currency operator *(Currency target, long number)
         {
-            if (one.gold < two.gold) return false;
-            if (one.jewels < two.jewels) return false;
-
-            return true;
-        }
-        public static bool operator <(Currency one, Currency two)
-        {
-            if (one.gold > two.gold) return false;
-            if (one.jewels > two.jewels) return false;
-
-            return true;
-        }
-
-        public static Currency operator *(Currency currency, float number)
-        {
-            return new Currency(Mathf.RoundToInt(currency.gold * number), Mathf.RoundToInt(currency.jewels * number));
+            return new Currency(target.type, target.Value * number);
         }
         #endregion
 
-        public override int GetHashCode()
+        public Currency(CurrencyType type, long value)
         {
-            return gold.GetHashCode() ^ jewels.GetHashCode();
+            this.type = type;
+            this.value = value;
         }
-
-        public override string ToString()
+        public Currency(string typeCode, long value) : this(CurrencyCode.To(typeCode), value)
         {
-            return FormatText(gold, jewels);
+
         }
-
-        public static string FormatText(int gold, int jewels)
+        public Currency(KeyValuePair<string, int> pair) : this(pair.Key, pair.Value)
         {
-            var text = "";
 
-            if (gold > 0)
-                text += gold.ToString("N0") + " GD";
-
-            if (jewels > 0)
-            {
-                if (text.Length > 0) text += ", ";
-
-                text += jewels.ToString("N0") + " JL";
-            }
-
-            return text;
         }
-
-        public Currency(int gold, int jewels)
+        public Currency(KeyValuePair<string, uint> pair) : this(pair.Key, (int)pair.Value)
         {
-            this.gold = gold;
-            this.jewels = jewels;
-        }
-        public Currency(Dictionary<string, uint> Prices)
-        {
-            if (Prices.ContainsKey(CurrencyCodes.Gold))
-                gold = (int)Prices[CurrencyCodes.Gold];
-            else
-                gold = 0;
 
-            if (Prices.ContainsKey(CurrencyCodes.Jewels))
-                jewels = (int)Prices[CurrencyCodes.Jewels];
-            else
-                jewels = 0;
-        }
-
-        public class JewelsConverter : JsonConverter
-        {
-            public override bool CanConvert(Type objectType)
-            {
-                return objectType == typeof(Currency);
-            }
-
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-            {
-                var jewels = Convert.ToInt32(reader.Value);
-
-                return new Currency(0, jewels);
-            }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                var currency = (Currency)value;
-
-                serializer.Serialize(writer, currency.jewels);
-            }
-
-            [Preserve]
-            public JewelsConverter()
-            {
-
-            }
         }
     }
 
@@ -180,9 +102,62 @@ namespace Game
         Gold, Jewels
     }
 
-    public static class CurrencyCodes
+    public class CurrencyTypeJsonConverter : JsonConverter
     {
-        public const string Gold = "GD";
-        public const string Jewels = "JL";
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(CurrencyType);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var type = CurrencyCode.To(reader.Value as string);
+
+            return type;
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            serializer.Serialize(writer, value.ToString());
+        }
+    }
+
+    public static class CurrencyCode
+    {
+        static readonly ElementData[] list = new ElementData[]
+        {
+            new ElementData(CurrencyType.Gold, "GD"),
+            new ElementData(CurrencyType.Jewels, "JL"),
+        };
+        [Serializable]
+        public struct ElementData
+        {
+            public CurrencyType type { get; private set; }
+            public string Code { get; private set; }
+
+            public ElementData(CurrencyType type, string code)
+            {
+                this.type = type;
+                this.Code = code;
+            }
+        }
+
+        public static string From(CurrencyType type)
+        {
+            for (int i = 0; i < list.Length; i++)
+                if (list[i].type == type)
+                    return list[i].Code;
+
+            throw new NotImplementedException();
+        }
+
+        public static CurrencyType To(string code)
+        {
+            for (int i = 0; i < list.Length; i++)
+                if (list[i].Code == code)
+                    return list[i].type;
+
+            throw new NotImplementedException();
+        }
     }
 }

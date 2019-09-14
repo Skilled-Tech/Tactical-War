@@ -22,66 +22,22 @@ using PlayFab;
 namespace Game
 {
     [Serializable]
-	public class Funds
+    public class Funds
     {
+        #region  Elements
         [SerializeField]
-        protected GoldProperty gold;
-        public GoldProperty Gold { get { return gold; } }
+        private ElementData[] elements;
+        public ElementData[] Elements { get { return elements; } }
         [Serializable]
-        public class GoldProperty : Property
+        public class ElementData
         {
-            public override string Code => "GD";
-
-            public GoldProperty(int value) : base(value)
-            {
-
-            }
-        }
-
-        [SerializeField]
-        protected JewelsProperty jewels;
-        public JewelsProperty Jewels { get { return jewels; } }
-        [Serializable]
-        public class JewelsProperty : Property
-        {
-            public override string Code => "JL";
-
-            public JewelsProperty(int value) : base(value)
-            {
-
-            }
-        }
-
-        public event Action OnValueChanged;
-
-        public virtual Property Get(CurrencyType type)
-        {
-            switch (type)
-            {
-                case CurrencyType.Gold:
-                    return Gold;
-                case CurrencyType.Jewels:
-                    return Jewels;
-            }
-
-            throw new NotImplementedException();
-        }
-
-        public virtual void Load(Dictionary<string, int> dictionary)
-        {
-            gold.Value = dictionary[gold.Code];
-
-            jewels.Value = dictionary[jewels.Code];
-        }
-
-        [Serializable]
-        public abstract class Property
-        {
-            public abstract string Code { get; }
+            [SerializeField]
+            private CurrencyType type;
+            public CurrencyType Type { get { return type; } }
 
             [SerializeField]
-            protected int _value;
-            public int Value
+            protected long _value;
+            public long Value
             {
                 get
                 {
@@ -97,72 +53,103 @@ namespace Game
                 }
             }
 
-            public event Action<float> OnValueChanged;
+            public event Action<long> OnValueChanged;
 
-            public Property(int value)
+            public ElementData(CurrencyType type, long value)
             {
+                this.type = type;
                 this.Value = value;
+            }
+            public ElementData(string typeCode, long value) : this(CurrencyCode.To(typeCode), value)
+            {
+
+            }
+            public ElementData(KeyValuePair<string, long> pair) : this(pair.Key, pair.Value)
+            {
+
             }
         }
 
-        public virtual void Configure(int value)
-        {
-            this.gold.Value = value;
-            this.jewels.Value = value;
+        public event Action OnValueChanged;
 
+        public virtual ElementData Find(CurrencyType type)
+        {
+            for (int i = 0; i < elements.Length; i++)
+                if (elements[i].Type == type)
+                    return elements[i];
+
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        public virtual void Configure(long value)
+        {
             Configure();
         }
         public virtual void Configure()
         {
-            Gold.OnValueChanged += OnGoldChanged;
+            for (int i = 0; i < elements.Length; i++)
+            {
+                var element = elements[i];
 
-            Jewels.OnValueChanged += OnJewelsChanged;
+                element.OnValueChanged += (long value) => OnElementValueChanged(element, value);
+            }
         }
 
         public bool CanAfford(Currency cost)
         {
-            return Currency.IsSufficient(cost, Gold.Value, Jewels.Value);
+            var element = Find(cost.Type);
+
+            return element.Value >= cost.Value;
         }
 
-        public virtual void Take(Currency value)
+        public virtual void Take(Currency currency)
         {
-            if(CanAfford(value))
-            {
-                Gold.Value -= value.Gold;
+            var element = Find(currency.Type);
 
-                Jewels.Value -= value.Jewels;
+            if (CanAfford(currency))
+            {
+                element.Value -= currency.Value;
             }
             else
             {
-                throw new Exception("Trying to reduce " + value.ToString() + " From " + ToString() + " but the funds are too low, man");
+                throw new Exception("Trying to reduce " + currency.ToString() + " From " + element.ToString() + " but the funds are too low, man");
             }
         }
-        public virtual void Add(Currency value)
+        public virtual void Add(Currency currency)
         {
-            Gold.Value += value.Gold;
+            var element = Find(currency.Type);
 
-            Jewels.Value += value.Jewels;
+            element.Value += currency.Value;
         }
 
-        void OnGoldChanged(float value)
+        public virtual void Load(Dictionary<string, int> dictionary)
+        {
+            foreach (var pair in dictionary)
+            {
+                var type = CurrencyCode.To(pair.Key);
+
+                var element = Find(type);
+
+                element.Value = pair.Value;
+            }
+        }
+
+        void OnElementValueChanged(ElementData element, long value)
         {
             if (OnValueChanged != null) OnValueChanged();
-        }
-        void OnJewelsChanged(float value)
-        {
-            if (OnValueChanged != null) OnValueChanged();
-        }
-
-        public override string ToString()
-        {
-            return Currency.FormatText(gold.Value, jewels.Value);
         }
 
         public Funds(int value)
         {
-            gold = new GoldProperty(value);
+            var types = Enum.GetValues(typeof(CurrencyType));
 
-            jewels = new JewelsProperty(value);
+            elements = new ElementData[types.Length];
+
+            for (int i = 0; i < elements.Length; i++)
+            {
+                elements[i] = new ElementData((CurrencyType)types.GetValue(i), value);
+            }
         }
     }
 }

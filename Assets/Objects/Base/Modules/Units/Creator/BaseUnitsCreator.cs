@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class BaseUnitsCreator : Base.Module
-	{
+    public class BaseUnitsCreator : Base.Module
+    {
         public BaseUnits Units { get { return Base.Units; } }
 
         public List<Deployment> Deployments { get; protected set; }
@@ -43,7 +43,7 @@ namespace Game
             public Coroutine Coroutine { get; protected set; }
             public IEnumerator Procedure()
             {
-                while(Timer > 0f)
+                while (Timer > 0f)
                 {
                     Timer = Mathf.MoveTowards(Timer, 0f, Time.deltaTime);
 
@@ -74,19 +74,19 @@ namespace Game
 
         public virtual bool CanDeploy(UnitTemplate unit)
         {
-            return Units.Count + Deployments.Count < Units.Max && Proponent.Funds.CanAfford(unit.Deployment.Cost);
+            return Units.Count + Deployments.Count < Units.Max && Proponent.Energy.Value >= unit.Deployment.Cost;
         }
 
         public event Action<Deployment> OnDeployment;
         public virtual Deployment Deploy(UnitTemplate data)
         {
-            if(!Proponent.Funds.CanAfford(data.Deployment.Cost))
-                throw new Exception(Proponent.name + "Base trying to Deploy a Unit that the Proponent can't afford, Proponent: ");
+            if (Proponent.Energy.Value < data.Deployment.Cost)
+                throw new Exception(Proponent.name + "Base trying to Deploy a Unit that the Proponent can't afford to spend Energy on");
 
             if (Units.Count >= Units.Max)
                 throw new Exception(Proponent.name + " Base trying to deploy a Unit but it's reached it's maximum allowed units count");
 
-            Proponent.Funds.Take(data.Deployment.Cost);
+            Proponent.Energy.Value -= data.Deployment.Cost;
 
             Spawn(data);
 

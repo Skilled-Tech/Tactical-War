@@ -21,15 +21,15 @@ using TMPro;
 
 namespace Game
 {
-	public class BaseTowerSlotSellContextUI : BaseTowerSlotContextUI.Element
+    public class BaseTowerSlotSellContextUI : BaseTowerSlotContextUI.Element
     {
         [SerializeField]
         protected Button button;
-        public Button Button { get { return button; } } 
+        public Button Button { get { return button; } }
 
         [SerializeField]
         protected TMP_Text gain;
-        public TMP_Text Gain { get { return gain; } } 
+        public TMP_Text Gain { get { return gain; } }
 
         protected override bool IsApplicaple(BaseTowerSlot slot)
         {
@@ -54,7 +54,7 @@ namespace Game
         {
             Target.Turret.isDeployed = false;
 
-            Target.Proponent.Funds.Add(Target.Turret.Cost);
+            Target.Proponent.Energy.Value += Target.Turret.Cost;
 
             UpdateTarget();
         }

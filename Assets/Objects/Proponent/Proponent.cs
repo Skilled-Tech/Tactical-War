@@ -20,16 +20,15 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [DefaultExecutionOrder(ExecutionOrder)]
-	public abstract class Proponent : MonoBehaviour
-	{
+    public abstract class Proponent : MonoBehaviour
+    {
         public const int ExecutionOrder = Level.ExecutionOrder + 1;
 
         public int Layer { get { return gameObject.layer; } }
 
-        public abstract Funds Funds { get; }
-
         public ProponentAbility Ability { get; protected set; }
         public ProponentUnits Units { get; protected set; }
+        public ProponentEnergy Energy { get; protected set; }
         public abstract class Module : Module<Proponent>
         {
             public Proponent Proponent { get { return Reference; } }
@@ -48,6 +47,8 @@ namespace Game
             Ability = Dependancy.Get<ProponentAbility>(gameObject);
 
             Units = Dependancy.Get<ProponentUnits>(gameObject);
+
+            Energy = Dependancy.Get<ProponentEnergy>(gameObject);
 
             Modules.Configure(this);
 

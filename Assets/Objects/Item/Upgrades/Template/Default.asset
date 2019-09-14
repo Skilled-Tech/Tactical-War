@@ -16,27 +16,27 @@ MonoBehaviour:
   - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
     ranks:
     - cost:
-        gold: 0
-        jewels: 100
+        type: 0
+        value: 100
       percentage: 10
       requirements: []
     - cost:
-        gold: 0
-        jewels: 200
+        type: 0
+        value: 200
       percentage: 20
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
         count: 1
     - cost:
-        gold: 0
-        jewels: 400
+        type: 0
+        value: 400
       percentage: 30
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
         count: 2
     - cost:
-        gold: 0
-        jewels: 800
+        type: 0
+        value: 800
       percentage: 40
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
@@ -44,8 +44,8 @@ MonoBehaviour:
       - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
         count: 1
     - cost:
-        gold: 0
-        jewels: 1000
+        type: 0
+        value: 1000
       percentage: 50
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
@@ -55,27 +55,27 @@ MonoBehaviour:
   - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
     ranks:
     - cost:
-        gold: 0
-        jewels: 100
+        type: 0
+        value: 100
       percentage: 10
       requirements: []
     - cost:
-        gold: 0
-        jewels: 200
+        type: 0
+        value: 200
       percentage: 20
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
         count: 1
     - cost:
-        gold: 0
-        jewels: 400
+        type: 0
+        value: 400
       percentage: 30
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
         count: 2
     - cost:
-        gold: 0
-        jewels: 800
+        type: 0
+        value: 800
       percentage: 40
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
@@ -83,8 +83,8 @@ MonoBehaviour:
       - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
         count: 1
     - cost:
-        gold: 0
-        jewels: 1000
+        type: 0
+        value: 1000
       percentage: 50
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
@@ -94,27 +94,27 @@ MonoBehaviour:
   - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
     ranks:
     - cost:
-        gold: 0
-        jewels: 100
+        type: 0
+        value: 100
       percentage: 20
       requirements: []
     - cost:
-        gold: 0
-        jewels: 200
+        type: 0
+        value: 200
       percentage: 40
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
         count: 1
     - cost:
-        gold: 0
-        jewels: 400
+        type: 0
+        value: 400
       percentage: 60
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
         count: 2
     - cost:
-        gold: 0
-        jewels: 800
+        type: 0
+        value: 800
       percentage: 80
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
@@ -122,8 +122,8 @@ MonoBehaviour:
       - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
         count: 1
     - cost:
-        gold: 0
-        jewels: 1000
+        type: 0
+        value: 1000
       percentage: 100
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}

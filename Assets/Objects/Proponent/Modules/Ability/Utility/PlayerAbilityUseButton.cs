@@ -21,10 +21,10 @@ namespace Game
 {
     [RequireComponent(typeof(Button))]
     public class PlayerAbilityUseButton : MonoBehaviour
-	{
+    {
         [SerializeField]
         protected Image icon;
-        public Image Icon { get { return icon; } } 
+        public Image Icon { get { return icon; } }
 
         [SerializeField]
         protected Image background;
@@ -39,7 +39,7 @@ namespace Game
         public Core Core { get { return Core.Instance; } }
 
         public Level Level { get { return Level.Instance; } }
-        public Proponent Player { get { return Level.Proponents.Proponent1; } }
+        public Proponent Proponent { get { return Level.Proponents.Proponent1; } }
 
         void Awake()
         {
@@ -53,25 +53,25 @@ namespace Game
         void Start()
         {
             Button.onClick.AddListener(OnClick);
-            
+
             CooldownBar.Value = 0f;
 
             icon.material = Instantiate(icon.material);
             background.material = Instantiate(background.material);
+
+            Proponent.Ability.OnSelectionChanged += OnAbilitySelectionChanged;
+            Proponent.Energy.OnChanged += OnEnergyChanged;
+            Proponent.Ability.Cooldown.OnStateChange += OnStateChange;
         }
 
         void OnEnable()
         {
             UpdateState();
-
-            Player.Ability.OnSelectionChanged += OnAbilitySelectionChanged;
-            Player.Funds.OnValueChanged += OnFundsChanged;
-            Player.Ability.Cooldown.OnStateChange += OnStateChange;
         }
 
         void OnClick()
         {
-            Player.Ability.Use();
+            Proponent.Ability.Use();
         }
 
         void OnAbilitySelectionChanged(Ability ability)
@@ -82,34 +82,32 @@ namespace Game
         {
             UpdateState();
         }
-        void OnFundsChanged()
+        void OnEnergyChanged()
         {
             UpdateState();
         }
 
         void UpdateState()
         {
-            Button.interactable = Player.Ability.CanUse;
+            Button.interactable = Proponent.Ability.CanUse;
 
-            if (Player.Ability.Cooldown.Rate == 0f)
+            if (Proponent.Ability.Cooldown.Rate == 0f)
             {
                 CooldownBar.Value = 0f;
                 GrayscaleController.Ammount = 0f;
             }
             else
             {
-                CooldownBar.Value = Player.Ability.Cooldown.Rate;
+                CooldownBar.Value = Proponent.Ability.Cooldown.Rate;
                 GrayscaleController.Ammount = 1f;
             }
         }
 
-        void OnDisable()
+        void OnDestroy()
         {
-            Player.Ability.OnSelectionChanged -= OnAbilitySelectionChanged;
-
-            Player.Funds.OnValueChanged -= OnFundsChanged;
-
-            Player.Ability.Cooldown.OnStateChange -= OnStateChange;
+            Proponent.Ability.OnSelectionChanged -= OnAbilitySelectionChanged;
+            Proponent.Energy.OnChanged -= OnEnergyChanged;
+            Proponent.Ability.Cooldown.OnStateChange -= OnStateChange;
         }
     }
 }

@@ -21,15 +21,18 @@ using TMPro;
 
 namespace Game
 {
-	public class PlayerHUD : PlayerProponent.Module
-	{
+    public class PlayerHUD : PlayerProponent.Module
+    {
         public PlayerHUDUnits Units { get; protected set; }
 
         public abstract class Module : UIElement, IModule<PlayerHUD>
         {
             public PlayerHUD HUD { get; protected set; }
 
-            public PlayerProponent Player { get { return HUD.Player; } }
+            public PlayerProponent Proponent { get { return HUD.Player; } }
+
+            public Core Core { get { return Core.Instance; } }
+            public PlayerCore Player { get { return Core.Player; } }
 
             public virtual void Configure(PlayerHUD data)
             {
@@ -38,7 +41,7 @@ namespace Game
 
             public virtual void Init()
             {
-                
+
             }
         }
 

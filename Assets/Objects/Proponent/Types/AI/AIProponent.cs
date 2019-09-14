@@ -19,12 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class AIProponent : Proponent
-	{
-        [SerializeField]
-        protected Funds funds = new Funds(99999);
-        public override Funds Funds { get { return funds; } }
-
+    public class AIProponent : Proponent
+    {
         protected override void Start()
         {
             base.Start();
@@ -36,23 +32,13 @@ namespace Game
 
         BaseUnitsCreator.Deployment deployment;
 
-        protected override void Awake()
-        {
-            base.Awake();
-
-            Funds.Configure();
-
-            Funds.Gold.Value = 99999;
-            Funds.Jewels.Value = 99999;
-        }
-
         void Update()
         {
             if (Base.Units.Count < Enemey.Base.Units.Count + 4)
             {
                 if (Base.Units.Creator.CanDeploy(Units.Selection[0]))
                 {
-                    if(deployment == null)
+                    if (deployment == null)
                         deployment = Base.Units.Creator.Deploy(Units.Selection[Random.Range(0, Units.Selection.Count)]);
                     else
                     {
@@ -62,9 +48,9 @@ namespace Game
             }
         }
 
-        void OnUnitDeploymentComplete(BaseUnitsCreator.Deployment obj)
+        void OnUnitDeploymentComplete(BaseUnitsCreator.Deployment deployment)
         {
-            deployment = null;
+            this.deployment = null;
         }
 
         void DeployTower(int index)

@@ -21,7 +21,7 @@ using TMPro;
 
 namespace Game
 {
-	public class BaseTowerSlotBuyContextUI : BaseTowerSlotContextUI.Element
+    public class BaseTowerSlotBuyContextUI : BaseTowerSlotContextUI.Element
     {
         [SerializeField]
         protected Button button;
@@ -32,19 +32,18 @@ namespace Game
         public TMP_Text Price { get { return price; } }
 
         public Core Core { get { return Core.Instance; } }
-        public PlayerCore Player { get { return Core.Player; } }
 
         public override void Init()
         {
             base.Init();
+
+            Proponent.Energy.OnChanged += UpdateState;
 
             button.onClick.AddListener(OnButton);
         }
 
         void OnEnable()
         {
-            Player.Funds.OnValueChanged += UpdateState;
-
             UpdateState();
         }
 
@@ -55,13 +54,15 @@ namespace Game
 
         void UpdateState()
         {
-            button.interactable = Player.Funds.CanAfford(Target.Cost);
+            button.interactable = Proponent.Energy.Value >= Target.Cost;
 
             price.text = Target.Cost.ToString();
         }
 
         void OnButton()
         {
+            Proponent.Energy.Value -= Target.Cost;
+
             Target.Deploy();
 
             UpdateTarget();
@@ -69,7 +70,7 @@ namespace Game
 
         void OnDisable()
         {
-            Player.Funds.OnValueChanged -= UpdateState;
+
         }
     }
 }

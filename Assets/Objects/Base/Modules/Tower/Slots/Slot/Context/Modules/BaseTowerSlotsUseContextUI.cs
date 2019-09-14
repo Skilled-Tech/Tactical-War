@@ -21,18 +21,15 @@ using TMPro;
 
 namespace Game
 {
-	public class BaseTowerSlotsUseContextUI : BaseTowerSlotContextUI.Element
+    public class BaseTowerSlotsUseContextUI : BaseTowerSlotContextUI.Element
     {
         [SerializeField]
         protected Button button;
-        public Button Button { get { return button; } } 
+        public Button Button { get { return button; } }
 
         [SerializeField]
         protected TMP_Text price;
         public TMP_Text Price { get { return price; } }
-
-        public Core Core { get { return Core.Instance; } }
-        public PlayerCore Player { get { return Core.Player; } }
 
         protected override bool IsApplicaple(BaseTowerSlot slot)
         {
@@ -43,19 +40,19 @@ namespace Game
         {
             base.Init();
 
+            Proponent.Energy.OnChanged += UpdateState;
+
             button.onClick.AddListener(OnButton);
         }
 
         void OnEnable()
         {
-            Player.Funds.OnValueChanged += UpdateState;
-
             UpdateState();
         }
 
         void UpdateState()
         {
-            button.interactable = Player.Funds.CanAfford(Target.Turret.Cost);
+            button.interactable = Proponent.Energy.Value >= Target.Turret.Cost;
 
             price.text = Target.Cost.ToString();
         }
@@ -65,11 +62,6 @@ namespace Game
             Target.Turret.isDeployed = true;
 
             Context.Hide();
-        }
-
-        void OnDisable()
-        {
-            Player.Funds.OnValueChanged -= UpdateState;
         }
     }
 }

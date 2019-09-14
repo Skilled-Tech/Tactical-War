@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class BaseTowerSlotContextUI : UIElement
-	{
+    public class BaseTowerSlotContextUI : UIElement
+    {
         public BaseTowerSlotBuyContextUI Buy { get; protected set; }
         public BaseTowerSlotsUseContextUI Use { get; protected set; }
         public BaseTowerSlotBuyContextUI Sell { get; protected set; }
@@ -30,6 +30,10 @@ namespace Game
             public BaseTowerSlotContextUI Context { get; protected set; }
 
             new public BaseTowerSlot Target { get { return Context.Target; } }
+
+            public Base Base { get { return Target.Base; } }
+
+            public Proponent Proponent { get { return Base.Proponent; } }
 
             public virtual void Configure(BaseTowerSlotContextUI data)
             {

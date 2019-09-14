@@ -1,49 +1,21 @@
 // (https://api.playfab.com/playstream/docs/PlayStreamEventModels)
 // (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
 
-handlers.OnLoggedIn = function (context, args)
+handlers.OnLoggedIn = function (args, context: IPlayFabContext)
 {
-
+    GrantItem(context.playerProfile.PlayerId, "Wood_Sword", Catalog.Default, 5, "Login Bonus");
+    GrantItem(context.playerProfile.PlayerId, "Wood_Shield", Catalog.Default, 5, "Login Bonus");
 }
 
-function GrantItem(playerID: string, annotation: string, itemID: string, ammount: number)
+handlers.UpgradeItem = function (_args_)
 {
-    var inventory = Inventory.Retrieve(currentPlayerId);
-
-    var itemInstance = inventory.FindWithID(itemID);
-
-    if (itemInstance == null)
-    {
-        var result = server.GrantItemsToUser({
-            PlayFabId: playerID,
-            Annotation: "Loggin Bonus",
-            CatalogVersion: Catalog.Default,
-            ItemIds: [itemID],
-        });
-
-        itemInstance = result.ItemGrantResults[0];
+    var args = {
+        itemInstanceID: _args_.itemInstanceId,
+        upgradeType: _args_.upgradeType,
     }
 
-    server.ModifyItemUses({
-        PlayFabId: playerID,
-        ItemInstanceId: itemInstance.ItemInstanceId,
-        UsesToAdd: itemInstance.RemainingUses + ammount,
-    });
-}
-
-handlers.UpgradeItem = function (args)
-{
-    var argggggs = {
-        itemInstanceID: args.itemInstanceId,
-        upgradeType: args.upgradeType,
-    }
-
-    log.info(currentPlayerId);
-    log.info(argggggs.itemInstanceID);
-    log.info(argggggs.upgradeType);
-
     var inventory = Inventory.Retrieve(currentPlayerId);
-    var itemInstance = inventory.FindWithInstanceID(argggggs.itemInstanceID);
+    var itemInstance = inventory.FindWithInstanceID(args.itemInstanceID);
 
     if (itemInstance == null)
         return FormatError("Invalid Instance ID");
@@ -63,16 +35,16 @@ handlers.UpgradeItem = function (args)
     if (template == null)
         return FormatError(arguments.template + " Upgrades Template Not Defined");
 
-    if (template.Find(argggggs.upgradeType) == null)
-        return FormatError(argggggs.upgradeType + " Upgrade Type Not Defined");
+    if (template.Find(args.upgradeType) == null)
+        return FormatError(args.upgradeType + " Upgrade Type Not Defined");
 
     var data = Upgrades.Data.Load(itemInstance);
-    if (data.Contains(argggggs.upgradeType) == false) data.Add(argggggs.upgradeType);
+    if (data.Contains(args.upgradeType) == false) data.Add(args.upgradeType);
 
-    if (data.Find(argggggs.upgradeType).value >= template.Find(argggggs.upgradeType).ranks.length)
+    if (data.Find(args.upgradeType).value >= template.Find(args.upgradeType).ranks.length)
         return FormatError("Maximum Upgrade Level Achieved");
 
-    var rank = template.Match(argggggs.upgradeType, data);
+    var rank = template.Match(args.upgradeType, data);
 
     if (rank.requirements != null)
     {
@@ -80,18 +52,18 @@ handlers.UpgradeItem = function (args)
             return FormatError("Player Doesn't The Required Items For the Upgrade");
     }
 
-    if (inventory.virtualCurrency[Upgrades.Currency] < rank.cost)
+    if (inventory.virtualCurrency[rank.cost.type] < rank.cost.value)
         return FormatError("Insufficient Funds");
 
     //Validation Completed, Start Processing Request
     {
-        SubtractCurrency(currentPlayerId, Upgrades.Currency, rank.cost);
+        SubtractCurrency(currentPlayerId, rank.cost.type, rank.cost.value);
 
         ItemRequirement.ConsumeAll(inventory, rank.requirements);
 
-        data.Find(argggggs.upgradeType).value++;
+        data.Find(args.upgradeType).value++;
 
-        UpdateUserInventoryItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
+        Inventory.UpdateItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
     }
 
     return { message: "Success" }
@@ -100,8 +72,6 @@ handlers.UpgradeItem = function (args)
 namespace Upgrades
 {
     export const Name = "upgrades";
-
-    export const Currency = "JL";
 
     export namespace Data
     {
@@ -269,10 +239,19 @@ namespace Upgrades
 
         export class Rank
         {
-            cost: number;
+            cost: Cost.Data;
             percentage: number;
             requirements: ItemRequirement.Data[]
         }
+    }
+}
+
+namespace Cost
+{
+    export class Data
+    {
+        type: string;
+        value: number;
     }
 }
 
@@ -316,6 +295,19 @@ namespace Inventory
             PlayFabId: playerID,
             ItemInstanceId: itemInstanceID,
             ConsumeCount: count,
+        });
+    }
+
+    export function UpdateItemData(playerID, itemInstanceID, key, value)
+    {
+        var data = {};
+
+        data[key] = value;
+
+        var request = server.UpdateUserInventoryItemCustomData({
+            PlayFabId: playerID,
+            ItemInstanceId: itemInstanceID,
+            Data: data
         });
     }
 
@@ -407,7 +399,7 @@ function GetTitleData()
     return result.Data;
 }
 
-function SubtractCurrency(playerID, currency, ammout)
+function SubtractCurrency(playerID, currency: string, ammout: number)
 {
     var request = server.SubtractUserVirtualCurrency({
         PlayFabId: playerID,
@@ -416,20 +408,22 @@ function SubtractCurrency(playerID, currency, ammout)
     });
 }
 
-function UpdateUserInventoryItemData(playerID, itemInstanceID, key, value)
+function GrantItem(playerID: string, itemID, catalogVersion: string, ammount: number, annotation: string, )
 {
-    var data = {};
+    var items = [];
 
-    data[key] = value;
+    for (let i = 0; i < ammount; i++)
+        items.push(itemID);
 
-    var request = server.UpdateUserInventoryItemCustomData({
+    server.GrantItemsToUser({
         PlayFabId: playerID,
-        ItemInstanceId: itemInstanceID,
-        Data: data
+        Annotation: annotation,
+        CatalogVersion: catalogVersion,
+        ItemIds: items,
     });
 }
 
 function FormatError(message)
 {
-    return message;
+    return new Error(message);
 }

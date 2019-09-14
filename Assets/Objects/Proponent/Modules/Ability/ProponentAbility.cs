@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ProponentAbility : Proponent.Module
-	{
+    public class ProponentAbility : Proponent.Module
+    {
         [SerializeField]
         protected Ability _selection;
         public Ability Selection
@@ -36,7 +36,7 @@ namespace Game
                 if (OnSelectionChanged != null) OnSelectionChanged(Selection);
             }
         }
-        public event Action<Ability> OnSelectionChanged; 
+        public event Action<Ability> OnSelectionChanged;
 
         public ProponentAbilityCooldown Cooldown { get; protected set; }
 
@@ -44,7 +44,7 @@ namespace Game
         {
             get
             {
-                return Cooldown.Timer == 0f && Proponent.Funds.CanAfford(Selection.Cost);
+                return Cooldown.Timer == 0f && Proponent.Energy.Value > Selection.Cost;
             }
         }
 

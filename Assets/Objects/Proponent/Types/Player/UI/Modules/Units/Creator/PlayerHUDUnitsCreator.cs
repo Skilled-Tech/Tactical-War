@@ -19,11 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerHUDUnitsCreator : PlayerHUD.Module
-	{
-		[SerializeField]
+    public class PlayerHUDUnitsCreator : PlayerHUD.Module
+    {
+        [SerializeField]
         protected GameObject template;
-        public GameObject Tempalate { get { return template; } } 
+        public GameObject Tempalate { get { return template; } }
 
         public List<PlayerHUDUnitCreationTemplate> Elements { get; protected set; }
 
@@ -36,9 +36,9 @@ namespace Game
 
         void OnEnable()
         {
-            Player.Base.Units.Creator.OnDeployment += OnUnitDeployment;
+            Proponent.Base.Units.Creator.OnDeployment += OnUnitDeployment;
 
-            Player.Base.Units.OnUnitDeath += OnUnitDeath;
+            Proponent.Base.Units.OnUnitDeath += OnUnitDeath;
 
             Player.Funds.OnValueChanged += OnFundsChanged;
         }
@@ -59,7 +59,7 @@ namespace Game
 
                 var instance = Create(list[i]);
 
-                instance.Set(Player, list[i]);
+                instance.Set(Proponent, list[i]);
 
                 Elements.Add(instance);
             }
@@ -100,9 +100,9 @@ namespace Game
 
         void OnDisable()
         {
-            Player.Base.Units.Creator.OnDeployment -= OnUnitDeployment;
+            Proponent.Base.Units.Creator.OnDeployment -= OnUnitDeployment;
 
-            Player.Base.Units.OnUnitDeath -= OnUnitDeath;
+            Proponent.Base.Units.OnUnitDeath -= OnUnitDeath;
 
             Player.Funds.OnValueChanged -= OnFundsChanged;
         }

@@ -190,7 +190,6 @@ namespace PlayFab.PfEditor
                     GUILayout.FlexibleSpace();
                 }
 
-                //TODO Add plugin upgrade option here (if available);
                 if (ShowEdExUpgrade())
                 {
                     using (new UnityHorizontal())

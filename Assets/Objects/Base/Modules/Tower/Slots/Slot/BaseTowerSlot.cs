@@ -21,11 +21,11 @@ using UnityEngine.EventSystems;
 
 namespace Game
 {
-	public class BaseTowerSlot : Base.Module, IPointerClickHandler
-	{
-		[SerializeField]
-        protected Currency cost = new Currency(100, 50);
-        public Currency Cost { get { return cost; } }
+    public class BaseTowerSlot : Base.Module, IPointerClickHandler
+    {
+        [SerializeField]
+        protected int cost = 100;
+        public int Cost { get { return cost; } }
 
         [SerializeField]
         protected GameObject graphics;

@@ -19,22 +19,23 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class Ability : MonoBehaviour
-	{
+    public class Ability : MonoBehaviour
+    {
         [SerializeField]
-        protected Currency cost = new Currency(500, 100);
-        public Currency Cost { get { return cost; } }
+        protected int cost = 500;
+        public int Cost { get { return cost; } }
 
         public Proponent User { get; protected set; }
+        public virtual bool InUse { get { return User != null; } }
 
         public virtual void Activate(Proponent proponent)
         {
             User = proponent;
 
-            if (!proponent.Funds.CanAfford(cost))
-                throw new Exception(proponent.name + " can't afford ability " + name);
+            if (User.Energy.Value < cost)
+                throw new Exception(proponent.name + " can't afford to use ability " + name);
 
-            proponent.Funds.Take(cost);
+            User.Energy.Value -= cost;
         }
 
         public event Action OnEnd;
@@ -42,21 +43,5 @@ namespace Game
         {
             if (OnEnd != null) OnEnd();
         }
-
-        //Utility
-        public static List<Unit> Query(IList<Unit> list, Vector3 position, float range)
-        {
-            List<Unit> targets = new List<Unit>();
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                var distance = Vector3.Distance(list[i].transform.position, position);
-
-                if (distance <= range)
-                    targets.Add(list[i]);
-            }
-
-            return targets;
-        }
-	}
+    }
 }

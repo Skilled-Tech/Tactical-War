@@ -23,7 +23,7 @@ using PlayFab.ClientModels;
 namespace Game
 {
     [Serializable]
-	public class PlayFabPurchaseCore : PlayFabCore.Module
+    public class PlayFabPurchaseCore : PlayFabCore.Module
     {
         public RequestHandler Request { get; protected set; }
         public class RequestHandler : PlayFabCore.RequestHandler<PurchaseItemRequest, PurchaseItemResult>
@@ -48,16 +48,22 @@ namespace Game
             var request = new PurchaseItemRequest
             {
                 CatalogVersion = PlayFabCatalogCore.Version,
-            ItemId = itemID,
-            Price = price,
-            VirtualCurrency = currency,
-        };
+                ItemId = itemID,
+                Price = price,
+                VirtualCurrency = currency,
+            };
 
             PlayFabClientAPI.PurchaseItem(request, ResultCallback, ErrorCallback);
         }
         public virtual void Perform(CatalogItem item, string currency)
         {
             Perform(item.ItemId, (int)item.VirtualCurrencyPrices[currency], currency);
+        }
+        public void Perform(CatalogItem item)
+        {
+            var currency = item.VirtualCurrencyPrices.First().Key;
+
+            Perform(item, currency);
         }
 
         public delegate void ResultDelegate(PlayFabPurchaseCore purchase, PurchaseItemResult result);

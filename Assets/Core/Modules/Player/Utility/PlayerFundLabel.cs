@@ -22,8 +22,8 @@ using TMPro;
 namespace Game
 {
     [RequireComponent(typeof(TMP_Text))]
-	public class PlayerFundLabel : MonoBehaviour
-	{
+    public class PlayerFundLabel : MonoBehaviour
+    {
         [SerializeField]
         protected CurrencyType type;
         public CurrencyType Type { get { return type; } }
@@ -46,7 +46,7 @@ namespace Game
 
         void UpdateState()
         {
-            label.text = Player.Funds.Get(type).Value.ToString("N0") + " " + type.ToString();
+            label.text = Player.Funds.Find(type).Value.ToString("N0") + " " + type.ToString();
         }
 
         void OnChange()

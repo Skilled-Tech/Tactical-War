@@ -42,7 +42,7 @@ namespace Game
         public string Description { get { return description; } }
 
         [SerializeField]
-        protected Currency price = new Currency(0, 400);
+        protected Currency price = new Currency(CurrencyType.Gold, 400);
         public Currency Price
         {
             get
@@ -146,7 +146,13 @@ namespace Game
         {
             CatalogItem = item;
 
-            price = new Currency(item.VirtualCurrencyPrices);
+            if (item.VirtualCurrencyPrices == null || item.VirtualCurrencyPrices.Count == 0)
+            {
+                //price = new Currency(null, 0);
+            }
+
+            else
+                price = new Currency(item.VirtualCurrencyPrices.First());
 
             upgrades.Load(item);
         }

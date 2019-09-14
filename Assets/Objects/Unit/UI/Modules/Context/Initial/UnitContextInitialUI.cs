@@ -21,7 +21,7 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-	public class UnitContextInitialUI : UnitContextUI.Module
+    public class UnitContextInitialUI : UnitContextUI.Module
     {
         [SerializeField]
         protected TMP_Text description;
@@ -75,7 +75,7 @@ namespace Game
 
             if (unlocked)
             {
-                
+
             }
             else
             {
@@ -94,7 +94,7 @@ namespace Game
             Popup.Show("Processing Purchase");
 
             Core.PlayFab.Purchase.OnResponse += OnPurchaseResponse;
-            Core.PlayFab.Purchase.Perform(Template.CatalogItem, Core.Player.Funds.Jewels.Code);
+            Core.PlayFab.Purchase.Perform(Template.CatalogItem);
         }
 
         void OnPurchaseResponse(PlayFabPurchaseCore purchase, PurchaseItemResult result, PlayFab.PlayFabError error)

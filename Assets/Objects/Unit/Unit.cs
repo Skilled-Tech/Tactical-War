@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class Unit : Entity
-	{
+    public class Unit : Entity
+    {
         public const string MenuPath = "Unit/";
 
         public UnitTemplate Template { get; protected set; }
@@ -120,7 +120,7 @@ namespace Game
         {
             base.Death(damager);
 
-            Leader.Enemey.Funds.Add(Template.Deployment.Cost);
+            Leader.Enemey.Energy.Value += Template.Deployment.Cost;
 
             Destroy(gameObject);
         }

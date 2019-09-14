@@ -56,7 +56,6 @@ namespace Game
             public class RankData
             {
                 [JsonProperty]
-                [JsonConverter(typeof(Currency.JewelsConverter))]
                 [SerializeField]
                 Currency cost;
                 public Currency Cost { get { return cost; } }

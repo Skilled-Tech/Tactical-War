@@ -68,14 +68,14 @@ namespace Game
         }
 
         [SerializeField]
-        protected DeploymentData deployment = new DeploymentData(new Currency(100, 0), 2f);
+        protected DeploymentData deployment = new DeploymentData(200, 2f);
         public DeploymentData Deployment { get { return deployment; } }
         [Serializable]
         public class DeploymentData
         {
             [SerializeField]
-            protected Currency cost;
-            public Currency Cost
+            protected int cost;
+            public int Cost
             {
                 get
                 {
@@ -91,7 +91,7 @@ namespace Game
             protected float time;
             public float Time { get { return time; } }
 
-            public DeploymentData(Currency cost, float time)
+            public DeploymentData(int cost, float time)
             {
                 this.cost = cost;
                 this.time = time;

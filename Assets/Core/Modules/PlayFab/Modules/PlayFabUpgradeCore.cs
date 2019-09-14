@@ -48,9 +48,6 @@ namespace Game
                 GeneratePlayStreamEvent = true,
             };
 
-            Debug.LogError(itemInstanceID);
-            Debug.LogError(type);
-
             PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
         }
         public virtual void Perform(ItemInstance itemInstance, string type)

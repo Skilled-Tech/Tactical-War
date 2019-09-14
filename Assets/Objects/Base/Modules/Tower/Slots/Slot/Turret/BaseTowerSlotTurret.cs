@@ -22,8 +22,8 @@ namespace Game
     public class BaseTowerSlotTurret : Base.Module
     {
         [SerializeField]
-        protected Currency cost;
-        public Currency Cost { get { return cost; } }
+        protected int cost;
+        public int Cost { get { return cost; } }
 
         public bool isDeployed
         {

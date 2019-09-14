@@ -19,10 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerProponent : Proponent
-	{
-        public override Funds Funds { get { return Core.Player.Funds; } }
-
+    public class PlayerProponent : Proponent
+    {
         public PlayerHUD HUD { get; protected set; }
 
         public Core Core { get { return Core.Instance; } }
