@@ -931,15 +931,14 @@ MonoBehaviour:
   m_text: '# Jewels'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c77b63386e9d2fd4f9d041f7b040ad5c, type: 2}
-  m_sharedMaterial: {fileID: 21634651713687560, guid: c77b63386e9d2fd4f9d041f7b040ad5c,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 9bc0047758a28004eaed971e835490b1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285398847
-  m_fontColor: {r: 0.25098038, g: 1, b: 0.43059954, a: 1}
+    rgba: 4294960447
+  m_fontColor: {r: 0.25098038, g: 0.89901453, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1970,8 +1969,7 @@ MonoBehaviour:
   m_text: '# Gold'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c77b63386e9d2fd4f9d041f7b040ad5c, type: 2}
-  m_sharedMaterial: {fileID: 21634651713687560, guid: c77b63386e9d2fd4f9d041f7b040ad5c,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 9bc0047758a28004eaed971e835490b1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13143,15 +13141,14 @@ MonoBehaviour:
   m_text: '#/# Units'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c77b63386e9d2fd4f9d041f7b040ad5c, type: 2}
-  m_sharedMaterial: {fileID: 21634651713687560, guid: c77b63386e9d2fd4f9d041f7b040ad5c,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 9bc0047758a28004eaed971e835490b1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294951743
-  m_fontColor: {r: 0.25098038, g: 0.7670811, b: 1, a: 1}
+    rgba: 4282335743
+  m_fontColor: {r: 1, g: 0.25696367, b: 0.25098038, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -13936,8 +13933,7 @@ MonoBehaviour:
   m_text: 'Energy: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c77b63386e9d2fd4f9d041f7b040ad5c, type: 2}
-  m_sharedMaterial: {fileID: 21634651713687560, guid: c77b63386e9d2fd4f9d041f7b040ad5c,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 9bc0047758a28004eaed971e835490b1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

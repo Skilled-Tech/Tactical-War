@@ -9,7 +9,7 @@ Preset:
   m_Name: Outline
   m_TargetType:
     m_NativeTypeID: 114
-    m_ManagedTypePPtr: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c,
+    m_ManagedTypePPtr: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86,
       type: 3}
     m_ManagedTypeFallback: 
   m_Properties:

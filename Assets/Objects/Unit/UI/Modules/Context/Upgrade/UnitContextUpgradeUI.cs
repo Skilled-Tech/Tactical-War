@@ -21,8 +21,8 @@ using TMPro;
 
 namespace Game
 {
-	public class UnitContextUpgradeUI : UnitContextUI.Module
-	{
+    public class UnitContextUpgradeUI : UnitContextUI.Module
+    {
         [SerializeField]
         protected RectTransform panel;
         public RectTransform Panel { get { return panel; } }
@@ -30,13 +30,13 @@ namespace Game
         [SerializeField]
         protected GameObject template;
 
-        public List<UnitsUpgradePropertyTemplate> Templates { get; protected set; }
+        public List<ItemUpgradeTypeUITemplate> Templates { get; protected set; }
 
         public override void Configure(UnitsUI data)
         {
             base.Configure(data);
 
-            Templates = new List<UnitsUpgradePropertyTemplate>();
+            Templates = new List<ItemUpgradeTypeUITemplate>();
         }
 
         public override void Show()
@@ -53,11 +53,11 @@ namespace Game
             }
         }
 
-        protected virtual UnitsUpgradePropertyTemplate CreateProperty(UnitTemplate template, ItemUpgradeType type)
+        protected virtual ItemUpgradeTypeUITemplate CreateProperty(UnitTemplate template, ItemUpgradeType type)
         {
             var instance = Instantiate(this.template, panel);
 
-            var script = instance.GetComponent<UnitsUpgradePropertyTemplate>();
+            var script = instance.GetComponent<ItemUpgradeTypeUITemplate>();
 
             script.Init();
             script.Set(template, type);
@@ -72,5 +72,5 @@ namespace Game
 
             Templates.Clear();
         }
-	}
+    }
 }

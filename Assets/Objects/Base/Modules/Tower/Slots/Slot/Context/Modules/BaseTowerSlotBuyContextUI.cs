@@ -37,13 +37,13 @@ namespace Game
         {
             base.Init();
 
-            Proponent.Energy.OnChanged += UpdateState;
-
             button.onClick.AddListener(OnButton);
         }
 
         void OnEnable()
         {
+            Proponent.Energy.OnChanged += UpdateState;
+
             UpdateState();
         }
 
@@ -70,7 +70,7 @@ namespace Game
 
         void OnDisable()
         {
-
+            Proponent.Energy.OnChanged -= UpdateState;
         }
     }
 }

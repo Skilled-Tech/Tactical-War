@@ -22,7 +22,7 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-    public class UnitsUpgradePropertyTemplate : MonoBehaviour
+    public class ItemUpgradeTypeUITemplate : MonoBehaviour
     {
         [SerializeField]
         protected Image icon;

@@ -42,7 +42,7 @@ namespace Game
 
         void UpdateState()
         {
-            Label.text = "Energy: " + Proponent.Energy.Value.ToString();
+            Label.text = "Energy: " + Proponent.Energy.Value.ToString("N0");
         }
     }
 }

@@ -40,13 +40,13 @@ namespace Game
         {
             base.Init();
 
-            Proponent.Energy.OnChanged += UpdateState;
-
             button.onClick.AddListener(OnButton);
         }
 
         void OnEnable()
         {
+            Proponent.Energy.OnChanged += UpdateState;
+
             UpdateState();
         }
 
@@ -62,6 +62,11 @@ namespace Game
             Target.Turret.isDeployed = true;
 
             Context.Hide();
+        }
+
+        void OnDisable()
+        {
+            Proponent.Energy.OnChanged -= UpdateState;
         }
     }
 }
