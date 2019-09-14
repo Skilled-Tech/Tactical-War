@@ -24,25 +24,10 @@ namespace Game
 {
     [Serializable]
     public class PlayerCore : Core.Module
-    {
-        [SerializeField]
+	{
+		[SerializeField]
         protected Funds funds = new Funds(999999);
         public Funds Funds { get { return funds; } }
-
-        [SerializeField]
-        protected ColorsData colors;
-        public ColorsData Colors { get { return colors; } }
-        [Serializable]
-        public class ColorsData
-        {
-            [SerializeField]
-            protected Color gold = Color.yellow;
-            public Color Gold { get { return gold; } }
-
-            [SerializeField]
-            protected Color jewels = Color.blue;
-            public Color Jewels { get { return jewels; } }
-        }
 
         [SerializeField]
         protected PlayerInventoryCore inventory;
@@ -68,7 +53,7 @@ namespace Game
             inventory.Configure();
             units.Configure();
         }
-
+        
         void OnInventoryResult(PlayerInventoryCore inventory)
         {
             funds.Load(inventory.VirtualCurrency);

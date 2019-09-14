@@ -44,15 +44,13 @@ MonoBehaviour:
       unlocked: 0
   player:
     funds:
-      elements:
-      - type: 0
-        _value: 999999
-      - type: 1
-        _value: 999999
-    colors:
-      gold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-      jewels: {r: 0, g: 0, b: 1, a: 1}
+      gold:
+        _value: 100000
+      jewels:
+        _value: 792600
     units:
+      upgrades:
+        Values: []
       selection:
         max: 4
         list:
@@ -77,5 +75,6 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
       templates:
         _default: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
+        list: []
   playFab:
     title: {}

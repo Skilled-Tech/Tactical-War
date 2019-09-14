@@ -98,7 +98,7 @@ namespace Game
             {
                 button.interactable = false;
 
-                price.gameObject.SetActive(false);
+                price.text = "FULL";
 
                 requiremnets.Set(null);
             }
@@ -106,8 +106,7 @@ namespace Game
             {
                 var rank = template.Ranks[data.Value];
 
-                price.gameObject.SetActive(true);
-                price.text = "Cost: " + rank.Cost.ToString();
+                price.text = rank.Cost.ToString();
 
                 button.interactable = Funds.CanAfford(rank.Cost) && Player.Inventory.CompliesWith(rank.Requirements);
 

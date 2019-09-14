@@ -35,8 +35,8 @@ MonoBehaviour:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
         count: 2
     - cost:
-        type: 0
-        value: 800
+        type: 1
+        value: 400
       percentage: 40
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
@@ -44,8 +44,8 @@ MonoBehaviour:
       - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
         count: 1
     - cost:
-        type: 0
-        value: 1000
+        type: 1
+        value: 400
       percentage: 50
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
@@ -74,8 +74,8 @@ MonoBehaviour:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
         count: 2
     - cost:
-        type: 0
-        value: 800
+        type: 1
+        value: 200
       percentage: 40
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
@@ -83,8 +83,8 @@ MonoBehaviour:
       - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
         count: 1
     - cost:
-        type: 0
-        value: 1000
+        type: 1
+        value: 400
       percentage: 50
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
@@ -113,8 +113,8 @@ MonoBehaviour:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
         count: 2
     - cost:
-        type: 0
-        value: 800
+        type: 1
+        value: 200
       percentage: 80
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
@@ -122,8 +122,8 @@ MonoBehaviour:
       - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
         count: 1
     - cost:
-        type: 0
-        value: 1000
+        type: 1
+        value: 400
       percentage: 100
       requirements:
       - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
