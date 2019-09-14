@@ -33,6 +33,7 @@ namespace Game
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }
 
+        [Preserve]
         public class Converter : JsonConverter
         {
             public override bool CanConvert(Type objectType)
@@ -58,7 +59,6 @@ namespace Game
                 serializer.Serialize(writer, type.ID);
             }
 
-            [Preserve]
             public Converter()
             {
 

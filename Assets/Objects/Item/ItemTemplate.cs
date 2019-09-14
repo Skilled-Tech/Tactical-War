@@ -157,6 +157,7 @@ namespace Game
             upgrades.Load(item);
         }
 
+        [Preserve]
         public class Converter : JsonConverter
         {
             public override bool CanConvert(Type objectType)
@@ -182,7 +183,6 @@ namespace Game
                 serializer.Serialize(writer, template.ID);
             }
 
-            [Preserve]
             public Converter()
             {
 

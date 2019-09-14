@@ -59,7 +59,7 @@ namespace Game
 
         public override string ToString()
         {
-            return value.ToString() + " " + type.ToString();
+            return value.ToString("N0") + " " + type.ToString();
         }
 
         #region Operators
@@ -102,6 +102,7 @@ namespace Game
         Gold, Jewels
     }
 
+    [Preserve]
     public class CurrencyTypeJsonConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
@@ -119,6 +120,11 @@ namespace Game
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             serializer.Serialize(writer, value.ToString());
+        }
+
+        public CurrencyTypeJsonConverter()
+        {
+
         }
     }
 
