@@ -21,7 +21,7 @@ namespace Game
 {
     public class PlayerProponent : Proponent
     {
-        public PlayerHUD HUD { get; protected set; }
+        public PlayerUI HUD { get; protected set; }
 
         public Core Core { get { return Core.Instance; } }
 
@@ -34,7 +34,7 @@ namespace Game
         {
             base.Awake();
 
-            HUD = FindObjectOfType<PlayerHUD>();
+            HUD = FindObjectOfType<PlayerUI>();
 
             Modules.Configure(this);
             HUD.Configure(this);

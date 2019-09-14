@@ -20,8 +20,8 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [DefaultExecutionOrder(ExecutionOrder)]
-	public class Level : MonoBehaviour
-	{
+    public class Level : MonoBehaviour
+    {
         public const int ExecutionOrder = -200;
 
         public static Level Instance { get; protected set; }
@@ -42,6 +42,8 @@ namespace Game
 
         protected virtual void Awake()
         {
+            Core.EnsureLogin();
+
             Instance = this;
 
             Modules.Configure(this);
@@ -56,7 +58,7 @@ namespace Game
             camera = FindObjectOfType<GameCamera>();
         }
 
-		protected virtual void Start()
+        protected virtual void Start()
         {
             if (Core.Levels.Current == null)
                 Core.Levels.Load(0);
@@ -72,9 +74,9 @@ namespace Game
         {
             Speed.Value = 0f;
 
-            if(proponent is PlayerProponent) //Player Lost
+            if (proponent is PlayerProponent) //Player Lost
             {
-                
+
             }
             else //Player Won
             {
@@ -95,5 +97,5 @@ namespace Game
         {
             Time.timeScale = 1f;
         }
-	}
+    }
 }

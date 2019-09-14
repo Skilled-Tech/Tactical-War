@@ -16,6 +16,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using PlayFab;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Asset")]
@@ -127,6 +129,18 @@ namespace Game
         void InitModule(Module module)
         {
             module.Init();
+        }
+
+        public static void EnsureLogin()
+        {
+            if (PlayFabClientAPI.IsClientLoggedIn())
+            {
+
+            }
+            else
+            {
+                Core.Instance.Scenes.Load(Core.Instance.Scenes.Login.Name);
+            }
         }
 
         public static void Quit()

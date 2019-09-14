@@ -19,15 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerHUDUnits : PlayerHUD.Module
-	{
-		public PlayerHUDUnitsCreator Creator { get; protected set; }
+    public class ProponentUnitsUI : PlayerUI.Module
+    {
+        public ProponentUnitsCreatorUI Creator { get; protected set; }
 
-        public override void Configure(PlayerHUD data)
+        public override void Configure(PlayerUI data)
         {
             base.Configure(data);
 
-            Creator = Dependancy.Get<PlayerHUDUnitsCreator>(gameObject);
+            Creator = Dependancy.Get<ProponentUnitsCreatorUI>(gameObject);
         }
 
         public virtual void Set(BaseUnits units)

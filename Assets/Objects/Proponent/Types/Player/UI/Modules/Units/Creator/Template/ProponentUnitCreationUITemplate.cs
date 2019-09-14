@@ -21,7 +21,7 @@ using TMPro;
 
 namespace Game
 {
-    public class PlayerHUDUnitCreationTemplate : MonoBehaviour
+    public class ProponentUnitCreationUITemplate : MonoBehaviour
     {
         [SerializeField]
         protected Image icon;
@@ -53,7 +53,7 @@ namespace Game
 
             GrayscaleController = new UIGrayscaleController(this);
         }
-        
+
         void Start()
         {
             button.onClick.AddListener(OnClick);
@@ -78,7 +78,7 @@ namespace Game
 
             Background.color = button.interactable ? BackgroundOrigianlColor : Color.Lerp(Color.grey, Color.black, 0.6f);
         }
-        
+
         public virtual void Set(PlayerProponent player, UnitTemplate data)
         {
             this.Player = player;

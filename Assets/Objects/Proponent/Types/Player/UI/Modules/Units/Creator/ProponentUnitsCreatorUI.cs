@@ -19,19 +19,19 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class PlayerHUDUnitsCreator : PlayerHUD.Module
+    public class ProponentUnitsCreatorUI : PlayerUI.Module
     {
         [SerializeField]
         protected GameObject template;
         public GameObject Tempalate { get { return template; } }
 
-        public List<PlayerHUDUnitCreationTemplate> Elements { get; protected set; }
+        public List<ProponentUnitCreationUITemplate> Elements { get; protected set; }
 
-        public override void Configure(PlayerHUD data)
+        public override void Configure(PlayerUI data)
         {
             base.Configure(data);
 
-            Elements = new List<PlayerHUDUnitCreationTemplate>();
+            Elements = new List<ProponentUnitCreationUITemplate>();
         }
 
         void OnEnable()
@@ -79,11 +79,11 @@ namespace Game
                 Elements[i].UpdateState();
         }
 
-        public virtual PlayerHUDUnitCreationTemplate Create(UnitTemplate data)
+        public virtual ProponentUnitCreationUITemplate Create(UnitTemplate data)
         {
             var instance = Instantiate(template, transform);
 
-            var script = instance.GetComponent<PlayerHUDUnitCreationTemplate>();
+            var script = instance.GetComponent<ProponentUnitCreationUITemplate>();
 
             return script;
         }
