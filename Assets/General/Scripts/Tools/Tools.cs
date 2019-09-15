@@ -33,6 +33,19 @@ namespace Game
                 SetLayer(transform.GetChild(i), layer);
         }
 
+        public static void SetSortingLayer(GameObject gameObject, string layer)
+        {
+            SetSortingLayer(gameObject.transform, layer);
+        }
+        public static void SetSortingLayer(Transform transform, string layer)
+        {
+            var renderes = Dependancy.GetAll<Renderer>(transform.gameObject);
+
+            for (int i = 0; i < renderes.Count; i++)
+                renderes[i].sortingLayerName = layer;
+        }
+
+        #region Bounds
         public static Bounds CalculateRenderersBounds(GameObject gameObject)
         {
             Bounds Func(Renderer component) { return component.bounds; }
@@ -51,7 +64,6 @@ namespace Game
 
             return CalculateBounds<Collider2D>(gameObject, Func);
         }
-
         public static Bounds CalculateBounds<TSource>(GameObject gameObject, Func<TSource, Bounds> extractor)
         {
             var value = new Bounds(gameObject.transform.position, Vector3.zero);
@@ -70,6 +82,7 @@ namespace Game
 
             return value;
         }
+        #endregion
 
         public static T AddAndReturn<T>(this IList<T> list, T element)
         {

@@ -20,15 +20,19 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(Rigidbody2D))]
-	public class Meteorite : MonoBehaviour
-	{
-		[SerializeField]
+    public class Meteorite : MonoBehaviour
+    {
+        [SerializeField]
         protected float damage = 120;
         public float Damage { get { return damage; } }
 
         [SerializeField]
+        protected GameObject explosion;
+        public GameObject Explosion { get { return explosion; } }
+
+        [SerializeField]
         protected Vector3 velocity;
-        public Vector3 Velocity { get { return velocity; } } 
+        public Vector3 Velocity { get { return velocity; } }
 
         new Rigidbody2D rigidbody;
 
@@ -45,8 +49,10 @@ namespace Game
         {
             var unit = collision.gameObject.GetComponent<Unit>();
 
-            if(unit != null)
+            if (unit != null)
                 ability.User.Base.DoDamage(unit, damage);
+
+            var instance = Instantiate(explosion, transform.position, transform.rotation);
 
             Destroy(gameObject);
         }

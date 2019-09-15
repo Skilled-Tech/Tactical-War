@@ -24,10 +24,17 @@ namespace Game
 {
     [Serializable]
     public class PlayFabCore : Core.Module
-	{
+    {
         [SerializeField]
         protected PlayFabLoginCore login;
         public PlayFabLoginCore Login { get { return login; } }
+
+        public bool isLoggedIn { get { return PlayFabClientAPI.IsClientLoggedIn(); } }
+
+        public string FormatFilePath(string name)
+        {
+            return "PlayFab/" + name;
+        }
 
         [SerializeField]
         protected PlayFabTitleCore title;
@@ -50,7 +57,7 @@ namespace Game
         {
             public PlayFabCore PlayFab { get { return Core.PlayFab; } }
         }
-        
+
         public virtual void ForAllElements(Action<Module> action)
         {
             action(login);
@@ -59,7 +66,7 @@ namespace Game
             action(purchase);
             action(upgrade);
         }
-        
+
         public override void Configure()
         {
             base.Configure();

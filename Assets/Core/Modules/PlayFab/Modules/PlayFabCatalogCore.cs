@@ -20,11 +20,13 @@ using Random = UnityEngine.Random;
 using PlayFab;
 using PlayFab.ClientModels;
 
+using Newtonsoft.Json;
+
 namespace Game
 {
     [Serializable]
     public class PlayFabCatalogCore : PlayFabCore.Module
-	{
+    {
         public const string Version = "Default";
 
         public List<CatalogItem> Items { get; protected set; }
@@ -43,20 +45,58 @@ namespace Game
         }
 
         #region Request
+        public const string FileName = "Catalog.json";
+
         public virtual void Request()
         {
-            var request = new GetCatalogItemsRequest
+            if (PlayFab.isLoggedIn)
             {
-                CatalogVersion = Version
-            };
+                var request = new GetCatalogItemsRequest
+                {
+                    CatalogVersion = Version
+                };
 
-            PlayFabClientAPI.GetCatalogItems(request, ResultCallback, ErrorCallback);
+                PlayFabClientAPI.GetCatalogItems(request, ResultCallback, ErrorCallback);
+            }
+            else
+            {
+                RetrieveSaved();
+            }
+        }
+
+        protected virtual void RetrieveSaved()
+        {
+            var filePath = PlayFab.FormatFilePath(FileName);
+
+            if (Core.Data.Exists(filePath))
+            {
+
+            }
+            else
+            {
+                var error = new PlayFabError()
+                {
+                    ErrorMessage = "No Save Data Found"
+                };
+
+                ErrorCallback(error);
+            }
+        }
+
+        protected virtual void SaveRequrest(GetCatalogItemsResult request)
+        {
+            var json = JsonConvert.SerializeObject(request);
+
+
+            Core.Data.Save(PlayFab.FormatFilePath(FileName), json);
         }
 
         public delegate void ResultDelegate(PlayFabCatalogCore catalog);
         public event ResultDelegate OnRetrieved;
         void ResultCallback(GetCatalogItemsResult result)
         {
+            Debug.Log(Newtonsoft.Json.JsonConvert.SerializeObject(result, Newtonsoft.Json.Formatting.Indented));
+
             Items = result.Catalog;
 
             if (OnRetrieved != null) OnRetrieved(this);
