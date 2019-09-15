@@ -31,6 +31,8 @@ namespace Game
 
         public bool IsLoggedIn { get { return PlayFabClientAPI.IsClientLoggedIn(); } }
 
+        public bool Activated { get; set; }
+
         [SerializeField]
         protected PlayFabTitleCore title;
         public PlayFabTitleCore Title { get { return title; } }
@@ -76,6 +78,8 @@ namespace Game
         public override void Configure()
         {
             base.Configure();
+
+            Activated = false;
 
             ForAllElements(x => x.Configure());
         }

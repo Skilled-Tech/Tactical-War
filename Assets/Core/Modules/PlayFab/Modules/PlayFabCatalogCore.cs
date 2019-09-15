@@ -79,7 +79,7 @@ namespace Game
             {
                 var error = new PlayFabError()
                 {
-                    ErrorMessage = "No Save Data Found"
+                    ErrorMessage = "No Local Data Found"
                 };
 
                 ErrorCallback(error);

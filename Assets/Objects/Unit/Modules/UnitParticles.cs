@@ -62,7 +62,10 @@ namespace Game
 
         void OnDamage(Entity damager, float value)
         {
-            Spawn(hit);
+            var effect = Spawn(hit);
+
+            if (Unit.Health.Value == 0f)
+                effect.transform.SetParent(null);
         }
 
         void OnDeath(Entity killer)

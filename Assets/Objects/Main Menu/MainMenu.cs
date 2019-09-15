@@ -52,7 +52,7 @@ namespace Game
 
         void Awake()
         {
-            Core.EnsureLogin();
+            Core.EnsurePlayFabActivation();
 
             Instance = this;
 

@@ -38,8 +38,6 @@ namespace Game
 
         void Start()
         {
-            PlayFab.Catalog.Request();
-
             popup.Show("Logging In", null, null);
 
             PlayFab.Login.OnResponse += OnLoginResponse;
@@ -50,16 +48,21 @@ namespace Game
         {
             PlayFab.Login.OnResponse -= OnLoginResponse;
 
-            if (error == null)
+            void Progress()
             {
                 Popup.Text = "Retrieving Title Data";
 
                 PlayFab.Title.OnResponse += OnTitleResponse;
                 PlayFab.Title.Request();
             }
+
+            if (error == null)
+            {
+                Progress();
+            }
             else
             {
-                RaiseError(error);
+                Popup.Show("Failed To Connect, Play Offline ?", Progress, "Ok");
             }
         }
 
@@ -113,6 +116,8 @@ namespace Game
 
         void Finish()
         {
+            PlayFab.Activated = true;
+
             Scenes.Load(Scenes.MainMenu);
         }
 

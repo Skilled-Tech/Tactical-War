@@ -131,15 +131,15 @@ namespace Game
             module.Init();
         }
 
-        public static void EnsureLogin()
+        public static void EnsurePlayFabActivation()
         {
-            if (PlayFabClientAPI.IsClientLoggedIn())
+            if (Instance.PlayFab.Activated)
             {
 
             }
             else
             {
-                Core.Instance.Scenes.Load(Core.Instance.Scenes.Login.Name);
+                Instance.Scenes.Load(Instance.Scenes.Login.Name);
             }
         }
 

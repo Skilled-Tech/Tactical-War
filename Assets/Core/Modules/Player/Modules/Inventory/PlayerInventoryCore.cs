@@ -74,9 +74,14 @@ namespace Game
         public virtual bool Contains(string itemID, int count)
         {
             for (int i = 0; i < Items.Length; i++)
+            {
                 if (Items[i].ItemID == itemID)
-                    if (Items[i].Instance.RemainingUses >= count)
-                        return true;
+                {
+                    if (count <= 1) return true;
+
+                    if (Items[i].Instance.RemainingUses >= count) return true;
+                }
+            }
 
             return false;
         }
@@ -101,9 +106,7 @@ namespace Game
         {
             if (requirement == null) return true;
 
-            var data = Find(requirement.Item.ID);
-
-            return data.Instance.RemainingUses >= requirement.Count;
+            return Contains(requirement.Item.ID, requirement.Count);
         }
         public virtual bool CompliesWith(ItemRequirementData[] requirements)
         {

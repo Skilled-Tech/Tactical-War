@@ -31,6 +31,7 @@ namespace Game
 
         public Dictionary<string, int> VirtualCurrency { get; protected set; }
 
+        /*
         public virtual bool Contains(CatalogItem item)
         {
             return Contains(item.ItemId);
@@ -67,6 +68,7 @@ namespace Game
 
             return null;
         }
+        */
 
         #region Request
         public virtual void Request()
@@ -101,7 +103,7 @@ namespace Game
             {
                 var error = new PlayFabError()
                 {
-                    ErrorMessage = "No Save Data Found"
+                    ErrorMessage = "No Local Data Found"
                 };
 
                 ErrorCallback(error);
