@@ -43,25 +43,18 @@ namespace Game
 
             UpdateState();
 
-            Inventory.OnRetrieved += OnInventoryRetrieved;
-        }
-
-        void OnInventoryRetrieved(PlayerInventoryCore inventory)
-        {
-            UpdateState();
+            Inventory.OnChange += UpdateState;
         }
 
         void UpdateState()
         {
             Clear();
 
-            for (int i = 0; i < Inventory.Items.Count; i++)
+            for (int i = 0; i < Inventory.Items.Length; i++)
             {
-                var template = Core.Items.Find(Inventory.Items[i].ItemId);
+                if (Inventory.Items[i].Template is UnitTemplate) continue;
 
-                if (template is UnitTemplate) continue;
-
-                var instance = CreateInstance(Inventory.Items[i], template);
+                var instance = CreateInstance(Inventory.Items[i]);
 
                 Elements.Add(instance);
             }
@@ -75,18 +68,23 @@ namespace Game
             Elements.Clear();
         }
 
-        ItemInstanceUITemplate CreateInstance(ItemInstance instance, ItemTemplate template)
+        ItemInstanceUITemplate CreateInstance(PlayerInventoryCore.ItemData itemData)
         {
             var gameObject = Instantiate(this.template, panel);
 
-            gameObject.name = template.ID;
+            gameObject.name = itemData.Template.ID;
 
             var script = gameObject.GetComponent<ItemInstanceUITemplate>();
 
             script.Init();
-            script.Set(instance, template);
+            script.Set(itemData);
 
             return script;
+        }
+
+        void OnDestroy()
+        {
+            Player.Inventory.OnChange -= UpdateState;
         }
     }
 }

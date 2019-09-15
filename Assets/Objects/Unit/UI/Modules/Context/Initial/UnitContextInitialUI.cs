@@ -41,6 +41,8 @@ namespace Game
 
         public PopupUI Popup { get { return MainMenu.Instance.Popup; } }
 
+        public PlayFabCore PlayFab { get { return Core.PlayFab; } }
+
         public override void Init()
         {
             base.Init();
@@ -105,8 +107,8 @@ namespace Game
             {
                 Popup.Show("Retrieving Inventory");
 
-                Player.Inventory.OnResponse += OnInventoryResponse;
-                Player.Inventory.Request();
+                PlayFab.Inventory.OnResponse += OnInventoryResponse;
+                PlayFab.Inventory.Request();
             }
             else
             {
@@ -114,9 +116,9 @@ namespace Game
             }
         }
 
-        void OnInventoryResponse(PlayerInventoryCore result, PlayFab.PlayFabError error)
+        void OnInventoryResponse(PlayFabInventoryCore result, PlayFab.PlayFabError error)
         {
-            Player.Inventory.OnResponse -= OnInventoryResponse;
+            PlayFab.Inventory.OnResponse -= OnInventoryResponse;
 
             if (error == null)
             {

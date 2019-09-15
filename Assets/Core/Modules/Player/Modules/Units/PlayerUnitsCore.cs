@@ -27,7 +27,7 @@ namespace Game
 {
     [Serializable]
     public class PlayerUnitsCore : PlayerCore.Module
-	{
+    {
         [SerializeField]
         protected PlayerUnitsUpgradesCore upgrades;
         public PlayerUnitsUpgradesCore Upgrades { get { return upgrades; } }
@@ -47,13 +47,6 @@ namespace Game
 
             upgrades.Configure();
             selection.Configure();
-
-            Player.Inventory.OnRetrieved += OnInventoryRetrieved;
-        }
-
-        void OnInventoryRetrieved(PlayerInventoryCore inventory)
-        {
-            
         }
 
         public override void Init()

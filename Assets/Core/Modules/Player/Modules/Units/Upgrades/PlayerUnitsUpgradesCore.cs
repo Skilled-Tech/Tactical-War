@@ -39,28 +39,28 @@ namespace Game
             return Dictionary[template];
         }
 
+        public PlayerInventoryCore Inventory { get { return Player.Inventory; } }
+
         public override void Configure()
         {
             base.Configure();
 
             Dictionary = new Dictionary<ItemTemplate, ItemUpgradeData>();
 
-            Player.Inventory.OnRetrieved += OnInventoryRetrieved;
+            Player.Inventory.OnChange += OnInventoryChanged;
         }
 
-        void OnInventoryRetrieved(PlayerInventoryCore inventory)
+        void OnInventoryChanged()
         {
             Dictionary.Clear();
 
-            for (int i = 0; i < inventory.Items.Count; i++)
+            for (int i = 0; i < Inventory.Items.Length; i++)
             {
-                var template = Items.Find(inventory.Items[i].ItemId);
-
-                if (Items.Upgrades.IsUpgradable(template.CatalogItem))
+                if (Items.Upgrades.IsUpgradable(Inventory.Items[i].Template.CatalogItem))
                 {
-                    var data = new ItemUpgradeData(inventory.Items[i], template);
+                    var data = new ItemUpgradeData(Inventory.Items[i]);
 
-                    Dictionary.Add(template, data);
+                    Dictionary.Add(Inventory.Items[i].Template, data);
                 }
             }
         }
@@ -146,13 +146,13 @@ namespace Game
             }
         }
 
-        public ItemUpgradeData(ItemInstance item, ItemTemplate template)
+        public ItemUpgradeData(PlayerInventoryCore.ItemData item)
         {
             list = new List<ElementData>();
 
-            Load(item);
+            Load(item.Instance);
 
-            CheckDefaults(template.Upgrades.Applicable);
+            CheckDefaults(item.Template.Upgrades.Applicable);
         }
     }
 }

@@ -20,14 +20,26 @@ using Random = UnityEngine.Random;
 using PlayFab;
 using PlayFab.ClientModels;
 
+using Newtonsoft.Json;
+
 namespace Game
 {
     [Serializable]
     public class PlayFabTitleCore : PlayFabCore.Module
-	{
+    {
         [SerializeField]
         protected PlayFabTitleDataCore data;
         public PlayFabTitleDataCore Data { get { return data; } }
+
+        public class Module : PlayFabCore.Module
+        {
+            public PlayFabTitleCore Title { get { return PlayFab.Title; } }
+
+            new public static string FormatFilePath(string name)
+            {
+                return PlayFabCore.Module.FormatFilePath("Data/" + name);
+            }
+        }
 
         public override void Configure()
         {
@@ -59,24 +71,66 @@ namespace Game
     }
 
     [Serializable]
-    public class PlayFabTitleDataCore : PlayFabCore.Module
+    public class PlayFabTitleDataCore : PlayFabTitleCore.Module
     {
         public Dictionary<string, string> Value { get; protected set; }
 
         public virtual void Request()
         {
-            var request = new GetTitleDataRequest
+            if (IsLoggedIn)
             {
+                var request = new GetTitleDataRequest
+                {
 
-            };
+                };
 
-            PlayFabClientAPI.GetTitleData(request, ResultCallback, ErrorCallback);
+                PlayFabClientAPI.GetTitleData(request, ResultCallback, ErrorCallback);
+            }
+            else
+            {
+                LoadResult();
+            }
+        }
+
+        public const string FileName = "Title Data.json";
+        protected virtual void LoadResult()
+        {
+            var filePath = FormatFilePath(FileName);
+
+            if (Core.Data.Exists(filePath))
+            {
+                var json = Core.Data.LoadText(filePath);
+
+                var request = JsonConvert.DeserializeObject<GetTitleDataResult>(json);
+
+                ResultCallback(request);
+            }
+            else
+            {
+                var error = new PlayFabError()
+                {
+                    ErrorMessage = "No Save Data Found"
+                };
+
+                ErrorCallback(error);
+            }
+        }
+        protected virtual void SaveResult(GetTitleDataResult request)
+        {
+            var json = JsonConvert.SerializeObject(request, Formatting.Indented);
+
+            Core.Data.Save(FormatFilePath(FileName), json);
         }
 
         public delegate void ResultDelegate(PlayFabTitleDataCore data);
         public event ResultDelegate OnRetrieved;
         void ResultCallback(GetTitleDataResult result)
         {
+            if (IsLoggedIn)
+            {
+                SaveResult(result);
+            }
+
             Value = result.Data;
 
             if (OnRetrieved != null) OnRetrieved(this);

@@ -38,6 +38,8 @@ namespace Game
 
         void Start()
         {
+            PlayFab.Catalog.Request();
+
             popup.Show("Logging In", null, null);
 
             PlayFab.Login.OnResponse += OnLoginResponse;
@@ -86,8 +88,8 @@ namespace Game
             {
                 Popup.Text = "Retrieving Inventory";
 
-                Player.Inventory.OnResponse += OnInventoryResponse;
-                Player.Inventory.Request();
+                PlayFab.Inventory.OnResponse += OnInventoryResponse;
+                PlayFab.Inventory.Request();
             }
             else
             {
@@ -95,9 +97,9 @@ namespace Game
             }
         }
 
-        void OnInventoryResponse(PlayerInventoryCore inventory, PlayFabError error)
+        void OnInventoryResponse(PlayFabInventoryCore inventory, PlayFabError error)
         {
-            Player.Inventory.OnResponse -= OnInventoryResponse;
+            PlayFab.Inventory.OnResponse -= OnInventoryResponse;
 
             if (error == null)
             {

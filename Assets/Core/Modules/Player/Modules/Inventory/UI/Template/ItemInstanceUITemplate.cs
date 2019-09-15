@@ -23,9 +23,9 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-	public class ItemInstanceUITemplate : UIElement
-	{
-		[SerializeField]
+    public class ItemInstanceUITemplate : UIElement
+    {
+        [SerializeField]
         protected Image icon;
         public Image Icon { get { return icon; } }
 
@@ -38,15 +38,15 @@ namespace Game
 
         }
 
-        public virtual void Set(ItemInstance instance, ItemTemplate template)
+        public virtual void Set(PlayerInventoryCore.ItemData itemData)
         {
-            icon.sprite = template.Icon;
+            icon.sprite = itemData.Template.Icon;
 
-            if(instance.RemainingUses.HasValue)
+            if (itemData.Instance.RemainingUses.HasValue)
             {
                 uses.gameObject.SetActive(true);
 
-                uses.text = "x" + instance.RemainingUses.ToString();
+                uses.text = "x" + itemData.Instance.RemainingUses.ToString();
             }
             else
             {

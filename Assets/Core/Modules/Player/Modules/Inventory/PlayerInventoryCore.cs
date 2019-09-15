@@ -25,9 +25,43 @@ namespace Game
     [Serializable]
     public class PlayerInventoryCore : PlayerCore.Module
     {
-        public List<ItemInstance> Items { get; protected set; }
+        [SerializeField]
+        protected Funds funds = new Funds(999999);
+        public Funds Funds { get { return funds; } }
 
-        public Dictionary<string, int> VirtualCurrency { get; protected set; }
+        public ItemData[] Items { get; protected set; }
+        [Serializable]
+        public struct ItemData
+        {
+            public ItemTemplate Template { get; private set; }
+
+            public string ItemID { get { return Template.CatalogItem.ItemId; } }
+
+            public ItemInstance Instance { get; private set; }
+
+            public ItemData(ItemTemplate template, ItemInstance instance)
+            {
+                this.Template = template;
+                this.Instance = instance;
+            }
+        }
+
+        public PlayFabCore PlayFab { get { return Core.PlayFab; } }
+
+        public event Action OnChange;
+        protected virtual void TriggerChagne()
+        {
+            if (OnChange != null) OnChange();
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Funds.Configure();
+
+            PlayFab.Inventory.OnResponse += OnPlayFabInventoryRetrieved;
+        }
 
         public virtual bool Contains(CatalogItem item)
         {
@@ -35,32 +69,41 @@ namespace Game
         }
         public virtual bool Contains(string itemID)
         {
-            for (int i = 0; i < Items.Count; i++)
-                if (Items[i].ItemId == itemID)
-                    return true;
-
-            return false;
+            return Contains(itemID, 1);
         }
         public virtual bool Contains(string itemID, int count)
         {
-            for (int i = 0; i < Items.Count; i++)
-                if (Items[i].ItemId == itemID)
-                    if (Items[i].RemainingUses >= count)
+            for (int i = 0; i < Items.Length; i++)
+                if (Items[i].ItemID == itemID)
+                    if (Items[i].Instance.RemainingUses >= count)
                         return true;
 
             return false;
+        }
+
+        public virtual ItemData Find(CatalogItem item)
+        {
+            if (item == null)
+                throw new ArgumentException();
+
+            return Find(item.ItemId);
+        }
+        public virtual ItemData Find(string itemID)
+        {
+            for (int i = 0; i < Items.Length; i++)
+                if (Items[i].ItemID == itemID)
+                    return Items[i];
+
+            throw new ArgumentException();
         }
 
         public virtual bool CompliesWith(ItemRequirementData requirement)
         {
             if (requirement == null) return true;
 
-            for (int i = 0; i < Items.Count; i++)
-                if (Items[i].ItemId == requirement.Item.ID)
-                    if (Items[i].RemainingUses >= requirement.Count)
-                        return true;
+            var data = Find(requirement.Item.ID);
 
-            return false;
+            return data.Instance.RemainingUses >= requirement.Count;
         }
         public virtual bool CompliesWith(ItemRequirementData[] requirements)
         {
@@ -77,60 +120,32 @@ namespace Game
             return true;
         }
 
-        public virtual ItemInstance Find(CatalogItem item)
+        void OnPlayFabInventoryRetrieved(PlayFabInventoryCore inventory, PlayFabError error)
         {
-            if (item == null) return null;
-
-            return Find(item.ItemId);
-        }
-        public virtual ItemInstance Find(string itemID)
-        {
-            for (int i = 0; i < Items.Count; i++)
-                if (Items[i].ItemId == itemID)
-                    return Items[i];
-
-            return null;
-        }
-
-        #region Request
-        public virtual void Request()
-        {
-            var request = new GetUserInventoryRequest
+            if (error == null)
+            {
+                Load(inventory);
+            }
+            else
             {
 
-            };
-
-            PlayFabClientAPI.GetUserInventory(request, ResultCallback, ErrorCallback);
+            }
         }
 
-        public delegate void ResultDelegate(PlayerInventoryCore inventory);
-        public event ResultDelegate OnRetrieved;
-        void ResultCallback(GetUserInventoryResult result)
+        void Load(PlayFabInventoryCore inventory)
         {
-            Items = result.Inventory;
+            funds.Load(inventory.VirtualCurrency);
 
-            VirtualCurrency = result.VirtualCurrency;
+            Items = new ItemData[inventory.Items.Count];
 
-            if (OnRetrieved != null) OnRetrieved(this);
+            for (int i = 0; i < inventory.Items.Count; i++)
+            {
+                var template = Core.Items.Find(inventory.Items[i].ItemId);
 
-            Respond(null);
+                Items[i] = new ItemData(template, inventory.Items[i]);
+            }
+
+            TriggerChagne();
         }
-
-        public delegate void ErrorDelegate(PlayFabError error);
-        public event ErrorDelegate OnError;
-        void ErrorCallback(PlayFabError error)
-        {
-            if (OnError != null) OnError(error);
-
-            Respond(error);
-        }
-
-        public delegate void ResponseCallback(PlayerInventoryCore inventory, PlayFabError error);
-        public event ResponseCallback OnResponse;
-        void Respond(PlayFabError error)
-        {
-            if (OnResponse != null) OnResponse(this, error);
-        }
-        #endregion
     }
 }

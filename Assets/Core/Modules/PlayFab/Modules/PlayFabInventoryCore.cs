@@ -25,17 +25,41 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-    public class PlayFabCatalogCore : PlayFabCore.Module
+    public class PlayFabInventoryCore : PlayFabCore.Module
     {
-        public const string Version = "Default";
+        public List<ItemInstance> Items { get; protected set; }
 
-        public List<CatalogItem> Items { get; protected set; }
+        public Dictionary<string, int> VirtualCurrency { get; protected set; }
 
-        public virtual int Size { get { return Items.Count; } }
+        public virtual bool Contains(CatalogItem item)
+        {
+            return Contains(item.ItemId);
+        }
+        public virtual bool Contains(string itemID)
+        {
+            for (int i = 0; i < Items.Count; i++)
+                if (Items[i].ItemId == itemID)
+                    return true;
 
-        public CatalogItem this[int index] { get { return Items[index]; } }
+            return false;
+        }
+        public virtual bool Contains(string itemID, int count)
+        {
+            for (int i = 0; i < Items.Count; i++)
+                if (Items[i].ItemId == itemID)
+                    if (Items[i].RemainingUses >= count)
+                        return true;
 
-        public virtual CatalogItem Find(string itemID)
+            return false;
+        }
+
+        public virtual ItemInstance Find(CatalogItem item)
+        {
+            if (item == null) return null;
+
+            return Find(item.ItemId);
+        }
+        public virtual ItemInstance Find(string itemID)
         {
             for (int i = 0; i < Items.Count; i++)
                 if (Items[i].ItemId == itemID)
@@ -49,20 +73,18 @@ namespace Game
         {
             if (IsLoggedIn)
             {
-                var request = new GetCatalogItemsRequest
+                var request = new GetUserInventoryRequest
                 {
-                    CatalogVersion = Version
+
                 };
 
-                PlayFabClientAPI.GetCatalogItems(request, ResultCallback, ErrorCallback);
+                PlayFabClientAPI.GetUserInventory(request, ResultCallback, ErrorCallback);
             }
             else
-            {
                 LoadResult();
-            }
         }
 
-        public const string FileName = "Catalog.json";
+        public const string FileName = "Inventory.json";
         protected virtual void LoadResult()
         {
             var filePath = FormatFilePath(FileName);
@@ -71,7 +93,7 @@ namespace Game
             {
                 var json = Core.Data.LoadText(filePath);
 
-                var request = JsonConvert.DeserializeObject<GetCatalogItemsResult>(json);
+                var request = JsonConvert.DeserializeObject<GetUserInventoryResult>(json);
 
                 ResultCallback(request);
             }
@@ -85,23 +107,23 @@ namespace Game
                 ErrorCallback(error);
             }
         }
-        protected virtual void SaveResult(GetCatalogItemsResult request)
+        protected virtual void SaveResult(GetUserInventoryResult request)
         {
             var json = JsonConvert.SerializeObject(request, Formatting.Indented);
 
             Core.Data.Save(FormatFilePath(FileName), json);
         }
 
-        public delegate void ResultDelegate(PlayFabCatalogCore catalog);
+        public delegate void ResultDelegate(PlayFabInventoryCore inventory);
         public event ResultDelegate OnRetrieved;
-        void ResultCallback(GetCatalogItemsResult result)
+        void ResultCallback(GetUserInventoryResult result)
         {
             if (IsLoggedIn)
-            {
                 SaveResult(result);
-            }
 
-            Items = result.Catalog;
+            Items = result.Inventory;
+
+            VirtualCurrency = result.VirtualCurrency;
 
             if (OnRetrieved != null) OnRetrieved(this);
 
@@ -117,7 +139,7 @@ namespace Game
             Respond(error);
         }
 
-        public delegate void ResponseCallback(PlayFabCatalogCore catalog, PlayFabError error);
+        public delegate void ResponseCallback(PlayFabInventoryCore inventory, PlayFabError error);
         public event ResponseCallback OnResponse;
         void Respond(PlayFabError error)
         {

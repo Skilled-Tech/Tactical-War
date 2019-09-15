@@ -123,12 +123,12 @@ namespace Game
 
         void OnButon()
         {
-            var instance = Player.Inventory.Find(Template.CatalogItem);
+            var data = Player.Inventory.Find(Template.CatalogItem);
 
             Popup.Show("Processing Upgrade");
 
             PlayFab.Upgrade.OnResponse += OnResponse;
-            PlayFab.Upgrade.Perform(instance, Type.ID);
+            PlayFab.Upgrade.Perform(data.Instance, Type.ID);
 
             FindObjectOfType<UnitContextUI>().Character.Slot.gameObject.SetActive(false);
         }
@@ -143,8 +143,8 @@ namespace Game
 
                 Popup.Show("Retriving Inventory");
 
-                Player.Inventory.Request();
-                Player.Inventory.OnResponse += OnInventoryResponse;
+                PlayFab.Inventory.Request();
+                PlayFab.Inventory.OnResponse += OnInventoryResponse;
             }
             else
             {
@@ -152,9 +152,9 @@ namespace Game
             }
         }
 
-        void OnInventoryResponse(PlayerInventoryCore inventory, PlayFab.PlayFabError error)
+        void OnInventoryResponse(PlayFabInventoryCore inventory, PlayFab.PlayFabError error)
         {
-            Player.Inventory.OnResponse -= OnInventoryResponse;
+            PlayFab.Inventory.OnResponse -= OnInventoryResponse;
 
             if (error == null)
             {

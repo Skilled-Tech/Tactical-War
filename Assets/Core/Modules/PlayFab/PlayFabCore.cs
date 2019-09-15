@@ -29,12 +29,7 @@ namespace Game
         protected PlayFabLoginCore login;
         public PlayFabLoginCore Login { get { return login; } }
 
-        public bool isLoggedIn { get { return PlayFabClientAPI.IsClientLoggedIn(); } }
-
-        public string FormatFilePath(string name)
-        {
-            return "PlayFab/" + name;
-        }
+        public bool IsLoggedIn { get { return PlayFabClientAPI.IsClientLoggedIn(); } }
 
         [SerializeField]
         protected PlayFabTitleCore title;
@@ -43,6 +38,10 @@ namespace Game
         [SerializeField]
         protected PlayFabCatalogCore catalog;
         public PlayFabCatalogCore Catalog { get { return catalog; } }
+
+        [SerializeField]
+        protected PlayFabInventoryCore inventory;
+        public PlayFabInventoryCore Inventory { get { return inventory; } }
 
         [SerializeField]
         protected PlayFabPurchaseCore purchase;
@@ -56,6 +55,13 @@ namespace Game
         public class Module : Core.Module
         {
             public PlayFabCore PlayFab { get { return Core.PlayFab; } }
+
+            public bool IsLoggedIn { get { return PlayFab.IsLoggedIn; } }
+
+            public static string FormatFilePath(string name)
+            {
+                return "PlayFab/" + name;
+            }
         }
 
         public virtual void ForAllElements(Action<Module> action)

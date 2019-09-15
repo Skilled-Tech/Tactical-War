@@ -24,14 +24,12 @@ namespace Game
 {
     [Serializable]
     public class PlayerCore : Core.Module
-	{
-		[SerializeField]
-        protected Funds funds = new Funds(999999);
-        public Funds Funds { get { return funds; } }
-
+    {
         [SerializeField]
         protected PlayerInventoryCore inventory;
         public PlayerInventoryCore Inventory { get { return inventory; } }
+
+        public Funds Funds { get { return inventory.Funds; } }
 
         [SerializeField]
         protected PlayerUnitsCore units;
@@ -46,17 +44,8 @@ namespace Game
         {
             base.Configure();
 
-            Funds.Configure(999999);
-
-            Inventory.OnRetrieved += OnInventoryResult;
-
             inventory.Configure();
             units.Configure();
-        }
-        
-        void OnInventoryResult(PlayerInventoryCore inventory)
-        {
-            funds.Load(inventory.VirtualCurrency);
         }
 
         public override void Init()

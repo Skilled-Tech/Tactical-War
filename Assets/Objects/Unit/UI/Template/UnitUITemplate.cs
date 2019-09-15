@@ -50,7 +50,7 @@ namespace Game
 
             GrayscaleController = new UIGrayscaleController(this);
 
-            Player.Inventory.OnRetrieved += OnInventoryRetrieved;
+            Player.Inventory.OnChange += UpdateState;
 
             CanvasGroup = GetComponent<CanvasGroup>();
 
@@ -69,14 +69,9 @@ namespace Game
             UpdateState();
         }
 
-        void OnInventoryRetrieved(PlayerInventoryCore inventory)
-        {
-            UpdateState();
-        }
-
         protected virtual void UpdateState()
         {
-            if(Template == null)
+            if (Template == null)
             {
 
             }
@@ -117,7 +112,7 @@ namespace Game
 
         void OnDestroy()
         {
-            Player.Inventory.OnRetrieved -= OnInventoryRetrieved;
+            Player.Inventory.OnChange -= UpdateState;
         }
     }
 }
