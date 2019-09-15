@@ -22,9 +22,9 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-	public class Login : MonoBehaviour
-	{
-		[SerializeField]
+    public class Login : MonoBehaviour
+    {
+        [SerializeField]
         protected PopupUI popup;
         public PopupUI Popup { get { return popup; } }
 
