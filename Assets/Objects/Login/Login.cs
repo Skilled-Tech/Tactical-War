@@ -36,12 +36,22 @@ namespace Game
 
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
-        void Start()
+        IEnumerator Start()
         {
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+
             popup.Show("Logging In", null, null);
 
-            PlayFab.Login.OnResponse += OnLoginResponse;
-            PlayFab.Login.Perform();
+            if (Input.GetMouseButton(0) && Application.isEditor)
+            {
+                OnLoginResponse(PlayFab.Login, null, new PlayFabError());
+            }
+            else
+            {
+                PlayFab.Login.OnResponse += OnLoginResponse;
+                PlayFab.Login.Perform();
+            }
         }
 
         void OnLoginResponse(PlayFabLoginCore login, LoginResult result, PlayFabError error)

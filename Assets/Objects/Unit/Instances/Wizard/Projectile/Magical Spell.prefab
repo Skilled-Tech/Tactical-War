@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 58614852322497343}
   - component: {fileID: 58614852322497342}
   - component: {fileID: 2827635869835872834}
+  - component: {fileID: 1688058473717999115}
   - component: {fileID: 521996579605874216}
   - component: {fileID: 8712437483786886554}
   m_Layer: 0
@@ -61,6 +62,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: 20
+--- !u!114 &1688058473717999115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58614852322497312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d259a73c11347147a062374fd4b708d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6846914995694807306, guid: 009d36cd9010be74584b812065074720, type: 3}
 --- !u!50 &521996579605874216
 Rigidbody2D:
   serializedVersion: 4
@@ -250,7 +264,7 @@ PrefabInstance:
       propertyPath: prewarm
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 198239873435490960, guid: e88b1a61e48ccc74688a46b4b1fd0616,
+    - target: {fileID: 198520814631179416, guid: e88b1a61e48ccc74688a46b4b1fd0616,
         type: 3}
       propertyPath: prewarm
       value: 1
@@ -260,9 +274,14 @@ PrefabInstance:
       propertyPath: prewarm
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 198520814631179416, guid: e88b1a61e48ccc74688a46b4b1fd0616,
+    - target: {fileID: 198239873435490960, guid: e88b1a61e48ccc74688a46b4b1fd0616,
         type: 3}
       propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198239873435490960, guid: e88b1a61e48ccc74688a46b4b1fd0616,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -23,20 +23,9 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-	public class DataCore : Core.Module
-	{
+    public class DataCore : Core.Module
+    {
         public string AbsolutePath { get { return Application.persistentDataPath + "/Data"; } }
-
-        public override void Configure()
-        {
-            base.Configure();
-
-        }
-
-        public override void Init()
-        {
-            base.Init();
-        }
 
         public virtual void Save(string relativePath, byte[] data)
         {

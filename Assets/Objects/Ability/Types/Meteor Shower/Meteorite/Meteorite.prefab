@@ -325,7 +325,7 @@ MonoBehaviour:
   damage: 200
   explosion: {fileID: 1190642088086644734, guid: f1971312eba53f24aa44f6c7d4c54e14,
     type: 3}
-  velocity: {x: 0, y: -20, z: 0}
+  velocity: {x: 5, y: -20, z: 0}
 --- !u!50 &8191555174920768822
 Rigidbody2D:
   serializedVersion: 4
