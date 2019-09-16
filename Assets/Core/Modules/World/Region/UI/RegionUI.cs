@@ -17,10 +17,16 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using TMPro;
+
 namespace Game
 {
 	public class RegionUI : WorldUI.Element
 	{
+        [SerializeField]
+        protected TMP_Text label;
+        public TMP_Text Label { get { return label; } }
+
         public LevelsUIList Levels { get; protected set; }
 
         public class Element : UIElement, IModule<RegionUI>
@@ -45,6 +51,8 @@ namespace Game
         {
             base.Configure(data);
 
+            Levels = Dependancy.Get<LevelsUIList>(gameObject);
+
             Modules.Configure(this);
         }
 
@@ -59,9 +67,13 @@ namespace Game
 
         public virtual void Set(RegionCore data)
         {
-            this.Region = data;
+            Region = data;
+
+            label.text = data.name;
 
             Levels.Set(data);
+
+            Show();
         }
     }
 }

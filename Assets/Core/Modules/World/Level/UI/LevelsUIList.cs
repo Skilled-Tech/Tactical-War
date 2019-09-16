@@ -52,7 +52,7 @@ namespace Game
 
         protected virtual LevelUITemplate Create(LevelCore level)
         {
-            var instance = Instantiate(template);
+            var instance = Instantiate(template, transform);
 
             var script = instance.GetComponent<LevelUITemplate>();
 

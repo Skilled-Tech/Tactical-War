@@ -38,9 +38,11 @@ namespace Game
             public RegionUITemplate UITemplate { get { return _UITemplate; } }
 #pragma warning restore CS0649
 
-            public void Set()
+            public void Init()
             {
-                _UITemplate.Set(core);
+                UITemplate.Init();
+
+                UITemplate.Set(core);
             }
         }
 
@@ -52,7 +54,7 @@ namespace Game
             {
                 region.UITemplate.OnClick += ()=> ClickCallback(region);
 
-                region.Set();
+                region.Init();
             }
         }
 

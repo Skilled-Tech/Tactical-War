@@ -26,8 +26,8 @@ MonoBehaviour:
     level:
       asset: {fileID: 102900000, guid: b4787435801bb7c40812a91cc8e84a8c, type: 3}
       name: Level
-  regions:
-    list:
+  world:
+    regions:
     - {fileID: 11400000, guid: d12dbb645a133814faa51f25497e0283, type: 2}
   player:
     inventory:

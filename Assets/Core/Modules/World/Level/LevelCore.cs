@@ -34,8 +34,6 @@ namespace Game
         public void Set(RegionCore region)
         {
             this.Region = region;
-
-            Debug.Log(name + " : " + region.name);
         }
     }
 }

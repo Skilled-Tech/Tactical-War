@@ -43,7 +43,7 @@ namespace Game
         public event Action OnClick;
         void ClickAction()
         {
-            if (OnClick != null) ClickAction();
+            if (OnClick != null) OnClick();
         }
     }
 }
