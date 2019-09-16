@@ -9286,7 +9286,6 @@ MonoBehaviour:
   levels: {fileID: 1655629232}
   units: {fileID: 1333855979}
   credits: {fileID: 76442660}
-  popup: {fileID: 1486045269}
 --- !u!1 &2106855320
 GameObject:
   m_ObjectHideFlags: 0

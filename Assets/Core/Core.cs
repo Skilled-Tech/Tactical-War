@@ -48,6 +48,10 @@ namespace Game
         public DataCore Data { get { return data; } }
 
         [SerializeField]
+        protected UICore _UI;
+        public UICore UI { get { return _UI; } }
+
+        [SerializeField]
         protected ScenesCore scenes;
         public ScenesCore Scenes { get { return scenes; } }
 
@@ -77,15 +81,24 @@ namespace Game
 
             }
 
+            public event Action OnInit;
             public virtual void Init()
             {
+                if (OnInit != null) OnInit();
+            }
 
+            public virtual void Register(Module module)
+            {
+                module.Configure();
+
+                OnInit += module.Init;
             }
         }
 
         public virtual void ForAllModules(Action<Module> action)
         {
             action(data);
+            action(UI);
             action(scenes);
             action(levels);
             action(items);
@@ -111,7 +124,6 @@ namespace Game
 
             Application.runInBackground = true;
         }
-
         void ConfigureModule(Module module)
         {
             module.Configure();

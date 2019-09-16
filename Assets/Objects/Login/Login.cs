@@ -24,9 +24,7 @@ namespace Game
 {
     public class Login : MonoBehaviour
     {
-        [SerializeField]
-        protected PopupUI popup;
-        public PopupUI Popup { get { return popup; } }
+        public PopupUI Popup { get { return Core.UI.Popup.Instance; } }
 
         public Core Core { get { return Core.Instance; } }
 
@@ -41,9 +39,9 @@ namespace Game
             yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
 
-            popup.Show("Logging In", null, null);
+            Popup.Show("Logging In", null, null);
 
-            if (Input.GetMouseButton(0) && Application.isEditor)
+            if (Input.GetKey(KeyCode.X) && Application.isEditor)
             {
                 OnLoginResponse(PlayFab.Login, null, new PlayFabError());
             }
@@ -126,6 +124,8 @@ namespace Game
 
         void Finish()
         {
+            Popup.Hide();
+
             PlayFab.Activated = true;
 
             Scenes.Load(Scenes.MainMenu);

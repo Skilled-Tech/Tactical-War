@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1f56ec8dfe54948bc5c79e2ade83dd, type: 3}
   m_Name: Core
   m_EditorClassIdentifier: 
+  _UI:
+    popup:
+      prefab: {fileID: 8285693176523596214, guid: d1a3b746dc7c32c4d984fcff16903fbf,
+        type: 3}
   scenes:
     login:
       asset: {fileID: 102900000, guid: 4a3ed4e77f4122b4fa8b8f74b05d1a9f, type: 3}
@@ -43,20 +47,20 @@ MonoBehaviour:
       background: {fileID: 11400000, guid: 77047b9d69e330a42bb39005a86f7092, type: 2}
       unlocked: 0
   player:
-    funds:
-      gold:
-        _value: 100000
-      jewels:
-        _value: 792600
+    inventory:
+      funds:
+        elements:
+        - type: 0
+          _value: 81700
+        - type: 1
+          _value: 751300
     units:
-      upgrades:
-        Values: []
       selection:
         max: 4
         list:
-        - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
         - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
-        - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
+        - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+        - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
         - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
         Context: {fileID: 0}
   items:
@@ -75,6 +79,5 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
       templates:
         _default: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
-        list: []
   playFab:
     title: {}

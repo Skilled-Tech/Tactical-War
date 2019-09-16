@@ -39,8 +39,6 @@ namespace Game
         protected Button upgrade;
         public Button Upgrade { get { return upgrade; } }
 
-        public PopupUI Popup { get { return MainMenu.Instance.Popup; } }
-
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
         public override void Init()

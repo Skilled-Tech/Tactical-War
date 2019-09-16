@@ -46,9 +46,8 @@ namespace Game
         protected UIElement credits;
         public UIElement Credits { get { return credits; } }
 
-        [SerializeField]
-        protected PopupUI popup;
-        public PopupUI Popup { get { return popup; } }
+        public Core Core { get { return Core.Instance; } }
+        public PopupUI Popup { get { return Core.UI.Popup.Instance; } }
 
         void Awake()
         {
