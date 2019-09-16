@@ -15,6 +15,6 @@ MonoBehaviour:
   unlocked: 1
   icon: {fileID: 21300000, guid: ce11e41ca5abf084faebc02783784f28, type: 3}
   scene:
-    asset: {fileID: 102900000, guid: e9b64affa49cd884d8adafb0ab167deb, type: 3}
-    name: Grass - 1
-  background: {fileID: 11400000, guid: 77047b9d69e330a42bb39005a86f7092, type: 2}
+    asset: {fileID: 102900000, guid: 2b22f4fc8c1de2c4eb757596c54be13e, type: 3}
+    name: Snow - 1
+  background: {fileID: 11400000, guid: eba9839d70219ff46b71dc0c9abbe6d1, type: 2}

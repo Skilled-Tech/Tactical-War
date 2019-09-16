@@ -32,8 +32,9 @@ namespace Game
         public LevelProponents Proponents { get; protected set; }
         public LevelSpeed Speed { get; protected set; }
         public LevelMenu Menu { get; protected set; }
+        public LevelBackground Background { get; protected set; }
 
-        public Core Core { get { return Core.Instance; } }
+        public static Core Core { get { return Core.Instance; } }
 
         public abstract class Module : Module<Level>
         {
@@ -56,6 +57,8 @@ namespace Game
 
             Menu = FindObjectOfType<LevelMenu>();
             Menu.Configure(this);
+
+            Background = Dependancy.Get<LevelBackground>(gameObject);
 
             camera = FindObjectOfType<GameCamera>();
         }
@@ -98,6 +101,25 @@ namespace Game
         protected virtual void OnDestroy()
         {
             Time.timeScale = 1f;
+        }
+
+        //Utility
+        public static void Quit()
+        {
+            Core.Scenes.Load(Core.Scenes.MainMenu);
+        }
+
+        public static void Retry()
+        {
+            var current = RegionCore.Current;
+
+            current.Region.Load(current);
+        }
+
+        public static void Next()
+        {
+            //TODO
+            throw new NotImplementedException();
         }
     }
 }

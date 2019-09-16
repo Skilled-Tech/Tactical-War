@@ -30,6 +30,10 @@ namespace Game
         protected GameScene scene;
         public GameScene Scene { get { return scene; } }
 
+        [SerializeField]
+        protected LevelBackgroundData background;
+        public LevelBackgroundData Background { get { return background; } }
+
         public RegionCore Region { get; protected set; }
         public void Set(RegionCore region)
         {

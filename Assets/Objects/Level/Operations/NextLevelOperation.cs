@@ -25,16 +25,7 @@ namespace Game
 
         public override void Execute()
         {
-            //TODO
-            /*
-            if(Levels.Next == null)
-            {
-                Debug.LogWarning("No next level");
-                return;
-            }
-
-            Levels.Load(Levels.Next);
-            */
+            Level.Next();
         }
     }
 }

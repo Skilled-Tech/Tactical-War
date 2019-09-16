@@ -23,7 +23,7 @@ namespace Game
 	{
         public override void Execute()
         {
-            //TODO Core.Instance.Regions.Quit();
+            Level.Quit();
         }
     }
 }

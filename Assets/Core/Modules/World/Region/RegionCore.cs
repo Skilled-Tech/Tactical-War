@@ -64,8 +64,11 @@ namespace Game
             }
         }
 
+        public static LevelCore Current;
         public virtual void Load(LevelCore level)
         {
+            Current = level; //TODO Replace this monstrosity
+
             SceneManager.LoadScene(Scenes.Level, LoadSceneMode.Single);
 
             SceneManager.LoadScene(level.Scene.Name, LoadSceneMode.Additive);

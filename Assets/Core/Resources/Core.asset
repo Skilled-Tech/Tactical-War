@@ -29,22 +29,23 @@ MonoBehaviour:
   world:
     regions:
     - {fileID: 11400000, guid: d12dbb645a133814faa51f25497e0283, type: 2}
+    - {fileID: 11400000, guid: ab493a314bd3827428015f5116d77014, type: 2}
   player:
     inventory:
       funds:
         elements:
         - type: 0
-          _value: 81700
+          _value: 80300
         - type: 1
-          _value: 751300
+          _value: 749900
     units:
       selection:
         max: 4
         list:
-        - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
-        - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
-        - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
-        - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
         Context: {fileID: 0}
   items:
     list:
