@@ -52,6 +52,10 @@ namespace Game
             {
 
             }
+            else if(entity is Base) //Very Crude, Don't judge me
+            {
+
+            }
             else
             {
                 Owner.DoDamage(entity, Value);

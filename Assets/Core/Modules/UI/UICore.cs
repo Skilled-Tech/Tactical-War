@@ -38,11 +38,6 @@ namespace Game
 
             Register(popup);
         }
-
-        public override void Init()
-        {
-            base.Init();
-        }
     }
 
     [Serializable]
@@ -70,6 +65,8 @@ namespace Game
             instance.name = "Popup";
 
             var script = Dependancy.Get<PopupUI>(instance);
+
+            script.Hide();
 
             return script;
         }

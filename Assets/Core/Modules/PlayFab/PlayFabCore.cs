@@ -79,6 +79,18 @@ namespace Game
             Register(upgrade);
         }
 
+        public virtual void EnsureActivation()
+        {
+            if (Activated)
+            {
+
+            }
+            else
+            {
+                Core.Scenes.Load(Core.Scenes.Login.Name);
+            }
+        }
+
         public static class Utility
         {
             public delegate void ResaultDelegate<TResult>(TResult result);

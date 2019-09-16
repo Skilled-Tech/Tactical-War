@@ -42,7 +42,7 @@ namespace Game
 
         protected virtual void Awake()
         {
-            Core.EnsurePlayFabActivation();
+            Core.PlayFab.EnsureActivation();
 
             Instance = this;
 

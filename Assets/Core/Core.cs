@@ -94,17 +94,6 @@ namespace Game
                 OnInit += module.Init;
             }
         }
-
-        public virtual void ForAllModules(Action<Module> action)
-        {
-            action(data);
-            action(UI);
-            action(scenes);
-            action(levels);
-            action(items);
-            action(player);
-            action(playFab);
-        }
         #endregion
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -120,13 +109,22 @@ namespace Game
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
 
-            ForAllModules(ConfigureModule);
-
             Application.runInBackground = true;
+
+            Register(data);
+            Register(UI);
+            Register(scenes);
+            Register(levels);
+            Register(items);
+            Register(player);
+            Register(playFab);
         }
-        void ConfigureModule(Module module)
+
+        public virtual void Register(Module module)
         {
             module.Configure();
+
+            OnInit += module.Init;
         }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -134,25 +132,10 @@ namespace Game
             Init();
         }
 
+        public event Action OnInit;
         void Init()
         {
-            ForAllModules(InitModule);
-        }
-        void InitModule(Module module)
-        {
-            module.Init();
-        }
-
-        public static void EnsurePlayFabActivation()
-        {
-            if (Instance.PlayFab.Activated)
-            {
-
-            }
-            else
-            {
-                Instance.Scenes.Load(Instance.Scenes.Login.Name);
-            }
+            if (OnInit != null) OnInit();
         }
 
         public static void Quit()

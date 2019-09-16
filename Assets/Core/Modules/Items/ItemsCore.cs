@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using PlayFab.ClientModels;
+
 namespace Game
 {
     [Serializable]
@@ -56,6 +58,10 @@ namespace Game
             Register(units);
         }
 
+        public virtual ItemTemplate Find(CatalogItem item)
+        {
+            return Find(item.ItemId);
+        }
         public virtual ItemTemplate Find(string itemID)
         {
             for (int i = 0; i < list.Length; i++)

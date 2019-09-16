@@ -62,11 +62,11 @@ namespace Game
         {
             var instance = Instantiate(prefab);
 
-            Tools.SetLayer(instance, User.Layer);
+            var script = instance.GetComponent<Projectile>();
 
-            var meteorite = instance.GetComponent<Meteorite>();
+            script.Configure(User.Base);
 
-            meteorite.Init(this);
+            script.SetLayer(User.Layer);
 
             instance.transform.position = transform.position + (transform.right * Random.Range(-range / 2f, range / 2f));
         }
