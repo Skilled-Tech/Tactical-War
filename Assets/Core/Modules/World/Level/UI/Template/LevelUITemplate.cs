@@ -36,22 +36,24 @@ namespace Game
 
         public UIGrayscaleController GrayscaleController { get; protected set; }
 
-        public LevelCore Element { get; protected set; }
-
         public Core Core { get { return Core.Instance; } }
 
-        public virtual void Set(LevelCore data)
+        public virtual void Init()
         {
-            Element = data;
-
-            icon.sprite = Element.Icon;
-
-            label.text = data.name;
-
             Button = GetComponent<Button>();
             Button.onClick.AddListener(ButtonClick);
 
             GrayscaleController = new UIGrayscaleController(this);
+        }
+
+        public LevelCore Level { get; protected set; }
+        public virtual void Set(LevelCore data)
+        {
+            Level = data;
+
+            icon.sprite = Level.Icon;
+
+            label.text = data.name;
 
             UpdateState();
         }

@@ -19,8 +19,45 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class RegionUI : MonoBehaviour
+	public class RegionUI : WorldUI.Element
 	{
-		
-	}
+        public class Element : UIElement, IModule<RegionUI>
+        {
+            public RegionUI Region { get; protected set; }
+
+            public Core Core { get { return Core.Instance; } }
+            public ScenesCore Scenes { get { return Core.Scenes; } }
+
+            public virtual void Configure(RegionUI data)
+            {
+                this.Region = data;
+            }
+
+            public virtual void Init()
+            {
+
+            }
+        }
+
+        public override void Configure(WorldUI data)
+        {
+            base.Configure(data);
+
+            Modules.Configure(this);
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            Modules.Init(this);
+        }
+
+        public RegionUITemplate Region { get; protected set; }
+
+        public virtual void Set(RegionUITemplate region)
+        {
+            this.Region = region;
+        }
+    }
 }
