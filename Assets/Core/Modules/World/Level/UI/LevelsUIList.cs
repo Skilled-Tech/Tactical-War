@@ -58,8 +58,15 @@ namespace Game
 
             script.Init();
             script.Set(level);
+            script.OnClick += ()=> TemplateClickedCallback(script);
 
             return script;
+        }
+
+        public event Action<LevelUITemplate> OnSelect;
+        void TemplateClickedCallback(LevelUITemplate template)
+        {
+            if (OnSelect != null) OnSelect(template);
         }
     }
 }

@@ -21,6 +21,8 @@ namespace Game
 {
 	public class RegionUI : WorldUI.Element
 	{
+        public LevelsUIList Levels { get; protected set; }
+
         public class Element : UIElement, IModule<RegionUI>
         {
             public RegionUI Region { get; protected set; }
@@ -53,11 +55,13 @@ namespace Game
             Modules.Init(this);
         }
 
-        public RegionUITemplate Region { get; protected set; }
+        public RegionCore Region { get; protected set; }
 
-        public virtual void Set(RegionUITemplate region)
+        public virtual void Set(RegionCore data)
         {
-            this.Region = region;
+            this.Region = data;
+
+            Levels.Set(data);
         }
     }
 }

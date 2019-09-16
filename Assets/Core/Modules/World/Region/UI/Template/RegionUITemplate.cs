@@ -31,7 +31,7 @@ namespace Game
         public virtual void Init()
         {
             Button = GetComponent<Button>();
-            Button.onClick.AddListener(OnClick);
+            Button.onClick.AddListener(ClickAction);
         }
 
         public RegionCore Region { get; protected set; }
@@ -40,9 +40,10 @@ namespace Game
             icon.sprite = region.Icon;
         }
 
-        void OnClick()
+        public event Action OnClick;
+        void ClickAction()
         {
-
+            if (OnClick != null) ClickAction();
         }
     }
 }

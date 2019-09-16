@@ -29,9 +29,9 @@ namespace Game
         {
             [SerializeField]
 #pragma warning disable CS0649
-            RegionCore element;
+            RegionCore core;
 
-            public RegionCore Element { get { return element; } }
+            public RegionCore Core { get { return core; } }
 
             [SerializeField]
             private RegionUITemplate _UITemplate;
@@ -40,8 +40,26 @@ namespace Game
 
             public void Set()
             {
-                _UITemplate.Set(element);
+                _UITemplate.Set(core);
             }
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            foreach (var region in regions)
+            {
+                region.UITemplate.OnClick += ()=> ClickCallback(region);
+
+                region.Set();
+            }
+        }
+
+        public event Action<RegionData> OnSelect;
+        void ClickCallback(RegionData region)
+        {
+            if (OnSelect != null) OnSelect(region);
         }
     }
 }

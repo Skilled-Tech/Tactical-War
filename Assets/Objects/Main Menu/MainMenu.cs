@@ -35,8 +35,8 @@ namespace Game
         public UIElement Start { get { return start; } }
 
         [SerializeField]
-        protected UIElement regions;
-        public UIElement Regions { get { return regions; } }
+        protected UIElement world;
+        public UIElement World { get { return world; } }
 
         [SerializeField]
         protected UnitsUI units;
@@ -58,7 +58,7 @@ namespace Game
             title.Show();
 
             start.Hide();
-            regions.Hide();
+            world.Hide();
             units.Hide();
             credits.Hide();
         }

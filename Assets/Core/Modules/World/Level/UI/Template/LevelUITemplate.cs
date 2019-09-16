@@ -65,9 +65,10 @@ namespace Game
             GrayscaleController.On = !Button.interactable;
         }
 
+        public event Action OnClick;
         void ButtonClick()
         {
-            //TODO Core.Regions.Load(Element.Scene);
+            if (OnClick != null) OnClick();
         }
 
         void OnDestroy()
