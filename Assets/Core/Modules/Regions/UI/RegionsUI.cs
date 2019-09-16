@@ -21,6 +21,26 @@ namespace Game
 {
     public class RegionsUI : UIElement
     {
+        [SerializeField]
+        protected TemplatesData[] templates;
+        public TemplatesData[] Templates { get { return templates; } }
+        [Serializable]
+        public struct TemplatesData
+        {
+            [SerializeField]
+            RegionElement element;
+            public RegionElement Element { get { return element; } }
+
+            [SerializeField]
+            RegionUITemplate instance;
+            public RegionUITemplate Instance { get { return instance; } }
+
+            public void Set()
+            {
+                instance.Set(element);
+            }
+        }
+
         public Core Core { get { return Core.Instance; } }
         public ScenesCore Scenes { get { return Core.Scenes; } }
         public RegionsCore Regions { get { return Core.Regions; } }

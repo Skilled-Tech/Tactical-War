@@ -25,12 +25,34 @@ namespace Game
         public const string MenuPath = Core.MenuPath + "Regions/";
 
         [SerializeField]
-        protected RegionLevelElement level;
-        public RegionLevelElement Level { get { return level; } }
+        protected Sprite icon;
+        public Sprite Icon { get { return icon; } }
+
+        #region Levels
+        [SerializeField]
+        protected RegionLevelElement[] levels;
+        public RegionLevelElement[] Levels { get { return levels; } }
+
+        public int Size { get { return levels.Length; } }
+
+        public RegionLevelElement this[int index] { get { return levels[index]; } }
+        #endregion
 
         public class Module : RegionsCore.Element
         {
             public const string MenuPath = RegionElement.MenuPath + "Modules/";
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            for (int i = 0; i < levels.Length; i++)
+            {
+                Register(levels[i]);
+
+                levels[i].Set(this);
+            }
         }
     }
 }

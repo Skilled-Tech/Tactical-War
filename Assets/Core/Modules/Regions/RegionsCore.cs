@@ -41,7 +41,10 @@ namespace Game
         {
             base.Configure();
 
-
+            for (int i = 0; i < list.Length; i++)
+            {
+                Register(list[i]);
+            }
         }
 
         [Serializable]
@@ -52,6 +55,20 @@ namespace Game
 
         public class Element : ScriptableObject, Core.IModule
         {
+            [SerializeField]
+            protected bool unlocked;
+            public bool Unlocked
+            {
+                get
+                {
+                    return unlocked;
+                }
+                set
+                {
+                    unlocked = value;
+                }
+            }
+
             public Core Core { get { return Core.Instance; } }
 
             public RegionsCore Regions { get { return Core.Regions; } }
@@ -63,9 +80,17 @@ namespace Game
                 
             }
 
+            public virtual void Register(Core.IModule module)
+            {
+                module.Configure();
+
+                OnInit += module.Init;
+            }
+
+            public event Action OnInit;
             public virtual void Init()
             {
-                
+                if (OnInit != null) OnInit();
             }
         }
     }

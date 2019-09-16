@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb4d06f9115bf44dbb5045ec8607739, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
+  unlocked: 1
   icon: {fileID: 21300000, guid: ce11e41ca5abf084faebc02783784f28, type: 3}
   scene:
     asset: {fileID: 102900000, guid: e9b64affa49cd884d8adafb0ab167deb, type: 3}

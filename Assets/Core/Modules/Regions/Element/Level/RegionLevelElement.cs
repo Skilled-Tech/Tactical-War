@@ -29,5 +29,13 @@ namespace Game
         [SerializeField]
         protected GameScene scene;
         public GameScene Scene { get { return scene; } }
+
+        public RegionElement Region { get; protected set; }
+        public void Set(RegionElement region)
+        {
+            this.Region = region;
+
+            Debug.Log(name + " : " + region.name);
+        }
     }
 }
