@@ -42,7 +42,7 @@ namespace Game
             {
                 info.text = "You Won";
 
-                next.gameObject.SetActive(Core.Levels.Next != null);
+                //TODO next.gameObject.SetActive(Core.Regions.Next != null);
                 retry.gameObject.SetActive(false);
             }
             else

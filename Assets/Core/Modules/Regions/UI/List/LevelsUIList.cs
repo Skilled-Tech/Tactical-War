@@ -19,11 +19,5 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class RetryLevelOperation : Operation
-	{
-        public override void Execute()
-        {
-            //TODO Core.Instance.Regions.Retry();
-        }
-    }
+	
 }

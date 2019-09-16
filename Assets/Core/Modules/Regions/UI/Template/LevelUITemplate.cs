@@ -36,19 +36,17 @@ namespace Game
 
         public UIGrayscaleController GrayscaleController { get; protected set; }
 
-        public LevelData Element { get; protected set; }
+        public RegionLevelElement Element { get; protected set; }
 
         public Core Core { get { return Core.Instance; } }
 
-        public virtual void Set(LevelData data, string text)
+        public virtual void Set(RegionLevelElement data)
         {
             Element = data;
 
-            Element.OnChange += UpdateState;
-
             icon.sprite = Element.Icon;
 
-            label.text = text;
+            label.text = data.name;
 
             Button = GetComponent<Button>();
             Button.onClick.AddListener(ButtonClick);
@@ -60,19 +58,19 @@ namespace Game
 
         void UpdateState()
         {
-            Button.interactable = Element.Unlocked;
+            //TODO Button.interactable = Element.Unlocked;
 
             GrayscaleController.On = !Button.interactable;
         }
 
         void ButtonClick()
         {
-            Core.Levels.Load(Element);
+            //TODO Core.Regions.Load(Element.Scene);
         }
 
         void OnDestroy()
         {
-            if (Element != null) Element.OnChange -= UpdateState;
+            
         }
     }
 }

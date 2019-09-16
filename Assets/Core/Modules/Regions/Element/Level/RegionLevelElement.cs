@@ -19,11 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class RetryLevelOperation : Operation
+    [CreateAssetMenu(menuName = MenuPath + "Level")]
+	public class RegionLevelElement : RegionElement.Module
 	{
-        public override void Execute()
-        {
-            //TODO Core.Instance.Regions.Retry();
-        }
+        [SerializeField]
+        protected Sprite icon;
+        public Sprite Icon { get { return icon; } }
+
+        [SerializeField]
+        protected GameScene scene;
+        public GameScene Scene { get { return scene; } }
     }
 }

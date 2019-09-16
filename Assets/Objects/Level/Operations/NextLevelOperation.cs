@@ -21,10 +21,12 @@ namespace Game
 {
 	public class NextLevelOperation : Operation
 	{
-        public static LevelsCore Levels { get { return Core.Instance.Levels; } }
+        public static RegionsCore Levels { get { return Core.Instance.Regions; } }
 
         public override void Execute()
         {
+            //TODO
+            /*
             if(Levels.Next == null)
             {
                 Debug.LogWarning("No next level");
@@ -32,6 +34,7 @@ namespace Game
             }
 
             Levels.Load(Levels.Next);
+            */
         }
     }
 }

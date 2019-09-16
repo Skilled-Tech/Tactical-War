@@ -44,6 +44,8 @@ namespace Game
         {
             Core.PlayFab.EnsureActivation();
 
+            //TODO if (Core.Regions.Current == null) Core.Regions.Load(0);
+
             Instance = this;
 
             Modules.Configure(this);
@@ -60,9 +62,6 @@ namespace Game
 
         protected virtual void Start()
         {
-            if (Core.Levels.Current == null)
-                Core.Levels.Load(0);
-
             Modules.Init(this);
 
             Menu.Init();
@@ -80,14 +79,17 @@ namespace Game
             }
             else //Player Won
             {
-                if (Core.Levels.Next == null)
+                //TODO
+                /*
+                if (Core.Regions.Next == null)
                 {
 
                 }
                 else
                 {
-                    Core.Levels.Next.Unlock();
+                    Core.Regions.Next.Unlock();
                 }
+                */
             }
 
             Menu.End.Show(Proponents.GetOther(proponent));

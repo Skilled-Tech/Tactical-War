@@ -56,8 +56,8 @@ namespace Game
         public ScenesCore Scenes { get { return scenes; } }
 
         [SerializeField]
-        protected LevelsCore levels;
-        public LevelsCore Levels { get { return levels; } }
+        protected RegionsCore regions;
+        public RegionsCore Regions { get { return regions; } }
 
         [SerializeField]
         protected PlayerCore player;
@@ -71,8 +71,15 @@ namespace Game
         protected PlayFabCore playFab;
         public PlayFabCore PlayFab { get { return playFab; } }
 
+        public interface IModule
+        {
+            void Configure();
+
+            void Init();
+        }
+
         [Serializable]
-        public class Module
+        public class Module : IModule
         {
             public Core Core { get { return Core.Instance; } }
 
@@ -87,7 +94,7 @@ namespace Game
                 if (OnInit != null) OnInit();
             }
 
-            public virtual void Register(Module module)
+            public virtual void Register(IModule module)
             {
                 module.Configure();
 
@@ -114,7 +121,7 @@ namespace Game
             Register(data);
             Register(UI);
             Register(scenes);
-            Register(levels);
+            Register(regions);
             Register(items);
             Register(player);
             Register(playFab);
