@@ -36,6 +36,15 @@ namespace Game
         public int Size { get { return levels.Length; } }
 
         public LevelCore this[int index] { get { return levels[index]; } }
+
+        public int IndexOf(LevelCore level)
+        {
+            for (int i = 0; i < levels.Length; i++)
+                if (levels[i] == level)
+                    return i;
+
+            throw new ArgumentException();
+        }
         #endregion
 
         public class Module : WorldCore.Element
@@ -53,6 +62,13 @@ namespace Game
 
                 levels[i].Set(this);
             }
+        }
+
+        public virtual void Load(LevelCore level)
+        {
+            SceneManager.LoadScene(Scenes.Level, LoadSceneMode.Single);
+
+            SceneManager.LoadScene(level.Scene.Name, LoadSceneMode.Additive);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Game
 
             for (int i = 0; i < region.Size; i++)
             {
-                var instance = Create(region[i]);
+                var instance = Create(region[i], i);
 
                 Templates[i] = instance;
             }
@@ -50,14 +50,14 @@ namespace Game
                 Destroy(Templates[i].gameObject);
         }
 
-        protected virtual LevelUITemplate Create(LevelCore level)
+        protected virtual LevelUITemplate Create(LevelCore level, int index)
         {
             var instance = Instantiate(template, transform);
 
             var script = instance.GetComponent<LevelUITemplate>();
 
             script.Init();
-            script.Set(level);
+            script.Set(level, index);
             script.OnClick += ()=> TemplateClickedCallback(script);
 
             return script;

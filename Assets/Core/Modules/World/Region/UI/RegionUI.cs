@@ -60,6 +60,8 @@ namespace Game
         {
             base.Init();
 
+            Levels.OnSelect += OnLevelSelected;
+
             Modules.Init(this);
         }
 
@@ -74,6 +76,11 @@ namespace Game
             Levels.Set(data);
 
             Show();
+        }
+
+        void OnLevelSelected(LevelUITemplate selection)
+        {
+            Region.Load(selection.Level);
         }
     }
 }

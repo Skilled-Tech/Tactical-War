@@ -34,6 +34,10 @@ namespace Game
         public void Set(RegionCore region)
         {
             this.Region = region;
+
+            this.Index = region.IndexOf(this);
         }
+
+        public int Index { get; protected set; }
     }
 }

@@ -47,13 +47,13 @@ namespace Game
         }
 
         public LevelCore Level { get; protected set; }
-        public virtual void Set(LevelCore data)
+        public virtual void Set(LevelCore data, int index)
         {
             Level = data;
 
             icon.sprite = Level.Icon;
 
-            label.text = data.name;
+            label.text = (index + 1).ToString();
 
             UpdateState();
         }
