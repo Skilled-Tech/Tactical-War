@@ -36,14 +36,12 @@ namespace Game
         {
             base.Configure();
 
-            popup.Configure();
+            Register(popup);
         }
 
         public override void Init()
         {
             base.Init();
-
-            popup.Init();
         }
     }
 

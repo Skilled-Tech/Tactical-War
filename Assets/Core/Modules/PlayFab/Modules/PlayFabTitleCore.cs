@@ -45,7 +45,7 @@ namespace Game
         {
             base.Configure();
 
-            data.Configure();
+            Register(data);
         }
 
         public virtual void Request()

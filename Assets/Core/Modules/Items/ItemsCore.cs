@@ -52,16 +52,8 @@ namespace Game
 
             Core.PlayFab.Catalog.OnRetrieved += OnCatalogRetrieved;
 
-            upgrades.Configure();
-            units.Configure();
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            upgrades.Init();
-            units.Init();
+            Register(upgrades);
+            Register(units);
         }
 
         public virtual ItemTemplate Find(string itemID)

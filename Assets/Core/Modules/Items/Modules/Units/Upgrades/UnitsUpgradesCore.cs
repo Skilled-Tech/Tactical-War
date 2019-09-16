@@ -114,16 +114,8 @@ namespace Game
         {
             base.Configure();
 
-            types.Configure();
-            templates.Configure();
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            types.Init();
-            templates.Init();
+            Register(types);
+            Register(templates);
         }
 
         public virtual bool IsUpgradable(CatalogItem item)

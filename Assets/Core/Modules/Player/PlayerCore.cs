@@ -44,16 +44,8 @@ namespace Game
         {
             base.Configure();
 
-            inventory.Configure();
-            units.Configure();
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            inventory.Init();
-            units.Init();
+            Register(inventory);
+            Register(units);
         }
     }
 }

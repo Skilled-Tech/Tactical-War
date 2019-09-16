@@ -45,16 +45,8 @@ namespace Game
         {
             base.Configure();
 
-            upgrades.Configure();
-            selection.Configure();
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            upgrades.Init();
-            selection.Init();
+            Register(upgrades);
+            Register(selection);
         }
     }
 }

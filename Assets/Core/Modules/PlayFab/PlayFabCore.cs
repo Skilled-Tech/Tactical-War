@@ -66,29 +66,17 @@ namespace Game
             }
         }
 
-        public virtual void ForAllElements(Action<Module> action)
-        {
-            action(login);
-            action(title);
-            action(catalog);
-            action(purchase);
-            action(upgrade);
-        }
-
         public override void Configure()
         {
             base.Configure();
 
             Activated = false;
 
-            ForAllElements(x => x.Configure());
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            ForAllElements(x => x.Init());
+            Register(login);
+            Register(title);
+            Register(catalog);
+            Register(purchase);
+            Register(upgrade);
         }
 
         public static class Utility
