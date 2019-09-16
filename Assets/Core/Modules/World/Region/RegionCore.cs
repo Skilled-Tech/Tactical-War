@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Element")]
-    public class RegionElement : RegionsCore.Element
+    public class RegionCore : WorldCore.Element
     {
         public const string MenuPath = Core.MenuPath + "Regions/";
 
@@ -30,17 +30,17 @@ namespace Game
 
         #region Levels
         [SerializeField]
-        protected RegionLevelElement[] levels;
-        public RegionLevelElement[] Levels { get { return levels; } }
+        protected LevelCore[] levels;
+        public LevelCore[] Levels { get { return levels; } }
 
         public int Size { get { return levels.Length; } }
 
-        public RegionLevelElement this[int index] { get { return levels[index]; } }
+        public LevelCore this[int index] { get { return levels[index]; } }
         #endregion
 
-        public class Module : RegionsCore.Element
+        public class Module : WorldCore.Element
         {
-            public const string MenuPath = RegionElement.MenuPath + "Modules/";
+            public const string MenuPath = RegionCore.MenuPath + "Modules/";
         }
 
         public override void Configure()

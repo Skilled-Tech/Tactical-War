@@ -23,16 +23,16 @@ using Newtonsoft.Json.Linq;
 namespace Game
 {
     [Serializable]
-    public class RegionsCore : Core.Module
+    public class WorldCore : Core.Module
 	{
-        #region List
+        #region Regions
         [SerializeField]
-        protected RegionElement[] list;
-        public RegionElement[] List { get { return list; } }
+        protected RegionCore[] regions;
+        public RegionCore[] Regions { get { return regions; } }
 
-        public int Count { get { return list.Length; } }
+        public int Size { get { return regions.Length; } }
 
-        public RegionElement this[int index] { get { return list[index]; } }
+        public RegionCore this[int index] { get { return regions[index]; } }
         #endregion
 
         public ScenesCore Scenes { get { return Core.Scenes; } }
@@ -41,9 +41,9 @@ namespace Game
         {
             base.Configure();
 
-            for (int i = 0; i < list.Length; i++)
+            for (int i = 0; i < regions.Length; i++)
             {
-                Register(list[i]);
+                Register(regions[i]);
             }
         }
 
@@ -71,7 +71,7 @@ namespace Game
 
             public Core Core { get { return Core.Instance; } }
 
-            public RegionsCore Regions { get { return Core.Regions; } }
+            public WorldCore Regions { get { return Core.World; } }
 
             public ScenesCore Scenes { get { return Core.Scenes; } }
 

@@ -19,42 +19,45 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class RegionsUI : UIElement
+    public class WorldUI : UIElement
     {
         [SerializeField]
-        protected TemplatesData[] templates;
-        public TemplatesData[] Templates { get { return templates; } }
+        protected RegionData[] regions;
+        public RegionData[] Regions { get { return regions; } }
         [Serializable]
-        public struct TemplatesData
+        public struct RegionData
         {
             [SerializeField]
-            RegionElement element;
-            public RegionElement Element { get { return element; } }
+#pragma warning disable CS0649
+            RegionCore element;
+
+            public RegionCore Element { get { return element; } }
 
             [SerializeField]
-            RegionUITemplate instance;
-            public RegionUITemplate Instance { get { return instance; } }
+            private RegionUITemplate _UITemplate;
+            public RegionUITemplate UITemplate { get { return _UITemplate; } }
+#pragma warning restore CS0649
 
             public void Set()
             {
-                instance.Set(element);
+                _UITemplate.Set(element);
             }
         }
 
         public Core Core { get { return Core.Instance; } }
         public ScenesCore Scenes { get { return Core.Scenes; } }
-        public RegionsCore Regions { get { return Core.Regions; } }
+        public WorldCore World { get { return Core.World; } }
 
-        public class Module : UIElement, IModule<RegionsUI>
+        public class Module : UIElement, IModule<WorldUI>
         {
-            public RegionsUI Regions { get; protected set; }
+            public WorldUI World { get; protected set; }
 
             public Core Core { get { return Core.Instance; } }
             public ScenesCore Scenes { get { return Core.Scenes; } }
 
-            public virtual void Configure(RegionsUI data)
+            public virtual void Configure(WorldUI data)
             {
-                this.Regions = data;
+                this.World = data;
             }
 
             public virtual void Init()

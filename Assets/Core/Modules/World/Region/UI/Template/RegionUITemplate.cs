@@ -34,8 +34,8 @@ namespace Game
             Button.onClick.AddListener(OnClick);
         }
 
-        public RegionElement Region { get; protected set; }
-        public virtual void Set(RegionElement region)
+        public RegionCore Region { get; protected set; }
+        public virtual void Set(RegionCore region)
         {
             icon.sprite = region.Icon;
         }

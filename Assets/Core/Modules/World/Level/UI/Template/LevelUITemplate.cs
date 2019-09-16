@@ -36,11 +36,11 @@ namespace Game
 
         public UIGrayscaleController GrayscaleController { get; protected set; }
 
-        public RegionLevelElement Element { get; protected set; }
+        public LevelCore Element { get; protected set; }
 
         public Core Core { get { return Core.Instance; } }
 
-        public virtual void Set(RegionLevelElement data)
+        public virtual void Set(LevelCore data)
         {
             Element = data;
 

@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Level")]
-	public class RegionLevelElement : RegionElement.Module
+	public class LevelCore : RegionCore.Module
 	{
         [SerializeField]
         protected Sprite icon;
@@ -30,8 +30,8 @@ namespace Game
         protected GameScene scene;
         public GameScene Scene { get { return scene; } }
 
-        public RegionElement Region { get; protected set; }
-        public void Set(RegionElement region)
+        public RegionCore Region { get; protected set; }
+        public void Set(RegionCore region)
         {
             this.Region = region;
 

@@ -56,8 +56,8 @@ namespace Game
         public ScenesCore Scenes { get { return scenes; } }
 
         [SerializeField]
-        protected RegionsCore regions;
-        public RegionsCore Regions { get { return regions; } }
+        protected WorldCore world;
+        public WorldCore World { get { return world; } }
 
         [SerializeField]
         protected PlayerCore player;
@@ -121,7 +121,7 @@ namespace Game
             Register(data);
             Register(UI);
             Register(scenes);
-            Register(regions);
+            Register(world);
             Register(items);
             Register(player);
             Register(playFab);
