@@ -79,11 +79,28 @@ namespace Game
         {
             Debug.Log(result.FunctionResult);
 
-            Popup.Hide();
+            Popup.Show("Retrieving Inventory");
 
             Data.Level.Complete();
 
-            Menu.End.Show(Proponents.Player);
+            PlayFab.Inventory.OnResponse += InventoryResponseCallback;
+            PlayFab.Inventory.Request();
+        }
+
+        void InventoryResponseCallback(PlayFabInventoryCore inventory, PlayFabError error)
+        {
+            PlayFab.Inventory.OnResponse -= InventoryResponseCallback;
+
+            if (error == null)
+            {
+                Popup.Hide();
+
+                Menu.End.Show(Proponents.Player);
+            }
+            else
+            {
+                ErrorCallback(error);
+            }
         }
 
         protected virtual void ErrorCallback(PlayFabError error)

@@ -4,7 +4,7 @@
       "name": "Grassland",
       "levels": [
         {
-          "rewards": {
+          "reward": {
             "items": [
               "Wood_Sword",
               "Wood_Shield"
