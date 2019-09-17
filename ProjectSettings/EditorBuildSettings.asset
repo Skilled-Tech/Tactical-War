@@ -15,9 +15,6 @@ EditorBuildSettings:
     path: Assets/Objects/Level/Level.unity
     guid: b4787435801bb7c40812a91cc8e84a8c
   - enabled: 1
-    path: Assets/Core/Modules/World/Region/Instances/Grassland/Levels/Grass - 1.unity
+    path: Assets/Core/Modules/World/Region/Instances/Grassland/Levels/Grass World.unity
     guid: e9b64affa49cd884d8adafb0ab167deb
-  - enabled: 1
-    path: Assets/Core/Modules/World/Region/Instances/Snowland/Levels/Snow - 1.unity
-    guid: 2b22f4fc8c1de2c4eb757596c54be13e
   m_configObjects: {}

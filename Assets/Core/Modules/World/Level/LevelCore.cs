@@ -23,6 +23,20 @@ namespace Game
 	public class LevelCore : RegionCore.Module
 	{
         [SerializeField]
+        protected bool unlocked;
+        public bool Unlocked
+        {
+            get
+            {
+                return unlocked;
+            }
+            set
+            {
+                unlocked = value;
+            }
+        }
+
+        [SerializeField]
         protected Sprite icon;
         public Sprite Icon { get { return icon; } }
 
@@ -42,14 +56,41 @@ namespace Game
             this.Index = region.IndexOf(this);
         }
 
+        public Level Instance { get { return Level.Instance; } }
+
         public int Index { get; protected set; }
 
         public virtual bool IsFirst { get { return Index == 0; } }
         public virtual bool IsLast { get { return Index >= Region.Size - 1; } }
 
+        public virtual void Finish(Proponent winner)
+        {
+            if(winner is PlayerProponent)
+            {
+                if(IsLast)
+                {
+                    Region.Complete();
+                }
+                else
+                {
+                    var next = Region[Index + 1];
+
+                    next.Unlocked = true;
+                }
+            }
+            else
+            {
+
+            }
+        }
+
         public virtual void Load()
         {
             Region.Load(this);
+        }
+        public virtual void Reload()
+        {
+            Load();
         }
     }
 }

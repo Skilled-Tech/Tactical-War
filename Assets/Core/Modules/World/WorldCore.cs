@@ -33,6 +33,15 @@ namespace Game
         public int Size { get { return regions.Length; } }
 
         public RegionCore this[int index] { get { return regions[index]; } }
+
+        public int IndexOf(RegionCore region)
+        {
+            for (int i = 0; i < regions.Length; i++)
+                if (regions[i] == region)
+                    return i;
+
+            throw new ArgumentException();
+        }
         #endregion
 
         [Serializable]
@@ -43,20 +52,6 @@ namespace Game
 
         public class Element : ScriptableObject, Core.IModule
         {
-            [SerializeField]
-            protected bool unlocked;
-            public bool Unlocked
-            {
-                get
-                {
-                    return unlocked;
-                }
-                set
-                {
-                    unlocked = value;
-                }
-            }
-
             public Core Core { get { return Core.Instance; } }
 
             public WorldCore World { get { return Core.World; } }

@@ -34,7 +34,7 @@ namespace Game
 
         public Button Button { get; protected set; }
 
-        public UIGrayscaleController GrayscaleController { get; protected set; }
+        public UIGrayscaleController Grayscale { get; protected set; }
 
         public Core Core { get { return Core.Instance; } }
 
@@ -43,7 +43,7 @@ namespace Game
             Button = GetComponent<Button>();
             Button.onClick.AddListener(ButtonClick);
 
-            GrayscaleController = new UIGrayscaleController(this);
+            Grayscale = new UIGrayscaleController(this);
         }
 
         public LevelCore Level { get; protected set; }
@@ -60,9 +60,9 @@ namespace Game
 
         void UpdateState()
         {
-            //TODO Button.interactable = Element.Unlocked;
+            Button.interactable = Level.Unlocked;
 
-            GrayscaleController.On = !Button.interactable;
+            Grayscale.Off = Button.interactable;
         }
 
         public event Action OnClick;

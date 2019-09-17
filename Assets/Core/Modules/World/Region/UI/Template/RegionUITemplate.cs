@@ -28,16 +28,29 @@ namespace Game
 
         public Button Button { get; protected set; }
 
+        public UIGrayscaleController Grayscale { get; protected set; }
+
         public virtual void Init()
         {
             Button = GetComponent<Button>();
             Button.onClick.AddListener(ClickAction);
+
+            Grayscale = new UIGrayscaleController(this);
         }
 
         public RegionCore Region { get; protected set; }
         public virtual void Set(RegionCore region)
         {
             icon.sprite = region.Icon;
+
+            UpdateState();
+        }
+
+        protected virtual void UpdateState()
+        {
+            Button.interactable = Region.Unlocked;
+
+            Grayscale.Off = Button.interactable;
         }
 
         public event Action OnClick;

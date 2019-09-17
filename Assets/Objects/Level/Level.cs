@@ -35,10 +35,16 @@ namespace Game
         public LevelBackground Background { get; protected set; }
 
         public static Core Core { get { return Core.Instance; } }
+        public static WorldCore World { get { return Core.World; } }
+        public static WorldCore.CurrentData Data { get { return World.Current; } }
 
         public abstract class Module : Module<Level>
         {
             public Level Level { get { return Reference; } }
+
+            public Core Core { get { return Core.Instance; } }
+            public WorldCore World { get { return Core.World; } }
+            public WorldCore.CurrentData Data { get { return World.Current; } }
         }
 
         protected virtual void Awake()
@@ -74,28 +80,25 @@ namespace Game
 
         void OnProponentDeafeated(Proponent proponent)
         {
+            Finish(Proponents.GetOther(proponent));
+        }
+
+        void Finish(Proponent winner)
+        {
             Speed.Value = 0f;
 
-            if (proponent is PlayerProponent) //Player Lost
+            Data.Level.Finish(winner);
+
+            if (winner is PlayerProponent)
             {
 
             }
-            else //Player Won
+            else
             {
-                //TODO
-                /*
-                if (Core.Regions.Next == null)
-                {
-
-                }
-                else
-                {
-                    Core.Regions.Next.Unlock();
-                }
-                */
+                
             }
 
-            Menu.End.Show(Proponents.GetOther(proponent));
+            Menu.End.Show(winner);
         }
 
         protected virtual void OnDestroy()
@@ -111,15 +114,17 @@ namespace Game
 
         public static void Retry()
         {
-            var current = RegionCore.Current;
-
-            current.Region.Load(current);
+            Data.Level.Reload();
         }
 
         public static void Next()
         {
-            //TODO
-            throw new NotImplementedException();
+            if (Data.Level.IsLast)
+                throw new InvalidOperationException(Data.Level.name + " is the last Level in the " + Data.Region.name + ", Can't Progress any further");
+
+            var target = Data.Region[Data.Level.Index + 1];
+
+            target.Load();
         }
     }
 }

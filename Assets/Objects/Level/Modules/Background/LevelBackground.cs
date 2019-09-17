@@ -27,7 +27,7 @@ namespace Game
         {
             base.Init();
 
-            Set(RegionCore.Current.Background);
+            Set(Data.Level.Background);
         }
 
         public virtual void Set(LevelBackgroundData template)
