@@ -29,7 +29,7 @@ namespace Game
         protected Funds funds = new Funds(999999);
         public Funds Funds { get { return funds; } }
 
-        public ItemData[] Items { get; protected set; }
+        public List<ItemData> Items { get; protected set; }
         [Serializable]
         public struct ItemData
         {
@@ -49,7 +49,7 @@ namespace Game
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
         public event Action OnChange;
-        protected virtual void TriggerChagne()
+        protected virtual void TriggerChange()
         {
             if (OnChange != null) OnChange();
         }
@@ -59,6 +59,7 @@ namespace Game
             base.Configure();
 
             Funds.Configure();
+            Items = new List<ItemData>();
 
             PlayFab.Inventory.OnResponse += OnPlayFabInventoryRetrieved;
         }
@@ -73,7 +74,7 @@ namespace Game
         }
         public virtual bool Contains(string itemID, int count)
         {
-            for (int i = 0; i < Items.Length; i++)
+            for (int i = 0; i < Items.Count; i++)
             {
                 if (Items[i].ItemID == itemID)
                 {
@@ -95,7 +96,7 @@ namespace Game
         }
         public virtual ItemData Find(string itemID)
         {
-            for (int i = 0; i < Items.Length; i++)
+            for (int i = 0; i < Items.Count; i++)
                 if (Items[i].ItemID == itemID)
                     return Items[i];
 
@@ -139,16 +140,24 @@ namespace Game
         {
             funds.Load(inventory.VirtualCurrency);
 
-            Items = new ItemData[inventory.Items.Count];
+            Items.Clear();
 
             for (int i = 0; i < inventory.Items.Count; i++)
             {
                 var template = Core.Items.Find(inventory.Items[i].ItemId);
 
-                Items[i] = new ItemData(template, inventory.Items[i]);
+                if (template == null)
+                {
+                    Debug.LogWarning("No Item Template defined for item with ID " + inventory.Items[i].ItemId + ", Skipping");
+                    continue;
+                }
+
+                var data=  new ItemData(template, inventory.Items[i]);
+
+                Items.Add(data);
             }
 
-            TriggerChagne();
+            TriggerChange();
         }
     }
 }

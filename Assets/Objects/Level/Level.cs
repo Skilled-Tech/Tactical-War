@@ -33,6 +33,7 @@ namespace Game
         public LevelSpeed Speed { get; protected set; }
         public LevelMenu Menu { get; protected set; }
         public LevelBackground Background { get; protected set; }
+        public LevelFinish Finish { get; protected set; }
 
         public static Core Core { get { return Core.Instance; } }
         public static WorldCore World { get { return Core.World; } }
@@ -66,6 +67,8 @@ namespace Game
 
             Background = Dependancy.Get<LevelBackground>(gameObject);
 
+            Finish = Dependancy.Get<LevelFinish>(gameObject);
+
             camera = FindObjectOfType<GameCamera>();
         }
 
@@ -80,27 +83,9 @@ namespace Game
 
         void OnProponentDeafeated(Proponent proponent)
         {
-            Finish(Proponents.GetOther(proponent));
+            Finish.Process(Proponents.GetOther(proponent));
         }
-
-        void Finish(Proponent winner)
-        {
-            Speed.Value = 0f;
-
-            Data.Level.Finish(winner);
-
-            if (winner is PlayerProponent)
-            {
-
-            }
-            else
-            {
-                
-            }
-
-            Menu.End.Show(winner);
-        }
-
+        
         protected virtual void OnDestroy()
         {
             Time.timeScale = 1f;

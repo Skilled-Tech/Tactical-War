@@ -54,7 +54,7 @@ namespace Game
         {
             Dictionary.Clear();
 
-            for (int i = 0; i < Inventory.Items.Length; i++)
+            for (int i = 0; i < Inventory.Items.Count; i++)
             {
                 if (Items.Upgrades.IsUpgradable(Inventory.Items[i].Template.CatalogItem))
                 {

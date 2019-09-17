@@ -52,7 +52,7 @@ namespace Game
             {
 
             }
-            else if(entity is Base) //Very Crude, Don't judge me
+            else if(Owner is Base && entity is Base) //Very Crude, Don't judge me
             {
 
             }

@@ -29,6 +29,8 @@ namespace Game
         {
             public LevelMenu Menu { get; protected set; }
 
+            public Level Level { get { return Level.Instance; } }
+
             public virtual void Configure(LevelMenu data)
             {
                 Menu = data;

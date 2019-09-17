@@ -41,6 +41,8 @@ namespace Game
         public RegionCore Region { get; protected set; }
         public virtual void Set(RegionCore region)
         {
+            this.Region = region;
+
             icon.sprite = region.Icon;
 
             UpdateState();

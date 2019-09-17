@@ -1,13 +1,74 @@
 // (https://api.playfab.com/playstream/docs/PlayStreamEventModels)
 // (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
 handlers.OnLoggedIn = function (args, context) {
-    GrantItem(context.playerProfile.PlayerId, "Wood_Sword", Catalog.Default, 5, "Login Bonus");
-    GrantItem(context.playerProfile.PlayerId, "Wood_Shield", Catalog.Default, 5, "Login Bonus");
+    GrantItem(context.playerProfile.PlayerId, "Wood_Sword", 5, "Login Bonus");
+    GrantItem(context.playerProfile.PlayerId, "Wood_Shield", 5, "Login Bonus");
 };
-handlers.UpgradeItem = function (_args_) {
+handlers.FinishLevel = function ($args) {
     var args = {
-        itemInstanceID: _args_.itemInstanceId,
-        upgradeType: _args_.upgradeType,
+        region: $args.region,
+        level: $args.level,
+    };
+    var world = World.Retrieve();
+    var region = world.FindRegion(args.region);
+    if (region == null)
+        return FormatError(args.region + " Region Doesn't Exist");
+    var level = region.levels[args.level];
+    if (level == null)
+        return FormatError("Level Doesn't Exist");
+    Rewards.Grant(currentPlayerId, level.rewards, "Level Award");
+};
+var World;
+(function (World) {
+    World.Name = "world";
+    function Retrieve() {
+        var titleData = GetTitleData([World.Name]);
+        var json = titleData[World.Name];
+        var object = JSON.parse(json);
+        var data = Object.assign(new Data(), object);
+        return data;
+    }
+    World.Retrieve = Retrieve;
+    class Data {
+        FindRegion(name) {
+            for (let i = 0; i < this.regions.length; i++)
+                if (this.regions[i].name == name)
+                    return this.regions[i];
+            return null;
+        }
+    }
+    World.Data = Data;
+    let Region;
+    (function (Region) {
+        class Data {
+        }
+        Region.Data = Data;
+    })(Region = World.Region || (World.Region = {}));
+    let Level;
+    (function (Level) {
+        class Data {
+        }
+        Level.Data = Data;
+    })(Level = World.Level || (World.Level = {}));
+})(World || (World = {}));
+var Rewards;
+(function (Rewards) {
+    function Grant(playerID, data, annotation) {
+        GrantItem(currentPlayerId, data.bundle, 1, annotation);
+        ProcessTable(currentPlayerId, data.droptable, annotation);
+    }
+    Rewards.Grant = Grant;
+    class Data {
+    }
+    Rewards.Data = Data;
+    class DropTable {
+    }
+    Rewards.DropTable = DropTable;
+})(Rewards || (Rewards = {}));
+handlers.UpgradeItem = function ($args) {
+    var args = {
+        itemInstanceID: $args.itemInstanceId,
+        upgradeType: $args.upgradeType,
     };
     var inventory = Inventory.Retrieve(currentPlayerId);
     var itemInstance = inventory.FindWithInstanceID(args.itemInstanceID);
@@ -18,8 +79,8 @@ handlers.UpgradeItem = function (_args_) {
     var arguments = Upgrades.Arguments.Load(catalogItem);
     if (arguments == null)
         return FormatError("Current Item Can't Be Upgraded");
-    var titleData = GetTitleData();
-    var template = Upgrades.Template.Find(titleData[Upgrades.Name], arguments.template);
+    var upgradesTitleData = GetTitleData([Upgrades.Name]);
+    var template = Upgrades.Template.Find(upgradesTitleData[Upgrades.Name], arguments.template);
     if (template == null)
         return FormatError(arguments.template + " Upgrades Template Not Defined");
     if (template.Find(args.upgradeType) == null)
@@ -260,9 +321,9 @@ var Catalog;
     }
     Catalog.Data = Data;
 })(Catalog || (Catalog = {}));
-function GetTitleData() {
+function GetTitleData(keys) {
     var result = server.GetTitleData({
-        Keys: [Upgrades.Name],
+        Keys: keys,
     });
     return result.Data;
 }
@@ -273,16 +334,43 @@ function SubtractCurrency(playerID, currency, ammout) {
         Amount: ammout
     });
 }
-function GrantItem(playerID, itemID, catalogVersion, ammount, annotation) {
+function GrantItem(playerID, itemID, ammount, annotation) {
+    if (ammount <= 0)
+        return;
     var items = [];
     for (let i = 0; i < ammount; i++)
         items.push(itemID);
+    GrantItems(playerID, items, annotation);
+}
+function GrantItems(playerID, itemIDs, annotation) {
+    if (itemIDs == null || itemIDs.length == 0)
+        return;
     server.GrantItemsToUser({
         PlayFabId: playerID,
         Annotation: annotation,
-        CatalogVersion: catalogVersion,
-        ItemIds: items,
+        CatalogVersion: Catalog.Default,
+        ItemIds: itemIDs
     });
+}
+function EvaluateTable(tableID) {
+    var result = server.EvaluateRandomResultTable({
+        CatalogVersion: Catalog.Default,
+        TableId: tableID
+    });
+    return result.ResultItemId;
+}
+function ProcessTable(playerID, table, annotation) {
+    var items = [];
+    for (let i = 0; i < table.iterations; i++) {
+        var item = EvaluateTable(table.ID);
+        if (item == null) {
+        }
+        else {
+            items.push(item);
+        }
+    }
+    if (items.length > 0)
+        GrantItems(playerID, items, annotation);
 }
 function FormatError(message) {
     return new Error(message);

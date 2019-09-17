@@ -1,0 +1,18 @@
+{
+  "regions": [
+    {
+      "name": "Grassland",
+      "levels": [
+        {
+          "rewards": {
+            "bundle": "Level-Default-Bundle",
+            "droptable": {
+              "ID": "Level-Default-DropTable",
+              "iterations": 3
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

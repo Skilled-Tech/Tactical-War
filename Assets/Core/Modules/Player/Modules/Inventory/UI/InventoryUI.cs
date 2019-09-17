@@ -50,7 +50,7 @@ namespace Game
         {
             Clear();
 
-            for (int i = 0; i < Inventory.Items.Length; i++)
+            for (int i = 0; i < Inventory.Items.Count; i++)
             {
                 if (Inventory.Items[i].Template is UnitTemplate) continue;
 
