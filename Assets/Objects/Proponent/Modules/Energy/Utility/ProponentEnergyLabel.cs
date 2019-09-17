@@ -26,7 +26,7 @@ namespace Game
     {
         public TMP_Text Label { get; protected set; }
 
-        public Proponent Proponent { get { return Level.Instance.Proponents.Proponent1; } }
+        public Proponent Proponent { get { return Level.Instance.Proponents.Player; } }
 
         void Awake()
         {

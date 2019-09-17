@@ -36,14 +36,24 @@ namespace Game
 
         public Core Core { get { return Core.Instance; } }
 
+        public WorldCore.CurrentData Data { get { return Level.Data; } }
+
         public virtual void Show(Proponent winner)
         {
             if (winner is PlayerProponent)
             {
                 info.text = "You Won";
 
-                next.gameObject.SetActive(!Level.Data.Level.IsLast);
-                retry.gameObject.SetActive(false);
+                if (Data.Level.IsLast)
+                {
+                    next.gameObject.SetActive(false);
+                    retry.gameObject.SetActive(false);
+                }
+                else
+                {
+                    next.gameObject.SetActive(level.Region[level.Index + 1].Unlocked);
+                    retry.gameObject.SetActive(false);
+                }
             }
             else
             {

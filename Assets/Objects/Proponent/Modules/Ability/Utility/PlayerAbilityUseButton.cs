@@ -39,7 +39,7 @@ namespace Game
         public Core Core { get { return Core.Instance; } }
 
         public Level Level { get { return Level.Instance; } }
-        public Proponent Proponent { get { return Level.Proponents.Proponent1; } }
+        public Proponent Proponent { get { return Level.Proponents.Player; } }
 
         void Awake()
         {

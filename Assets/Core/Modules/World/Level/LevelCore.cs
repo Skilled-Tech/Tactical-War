@@ -63,24 +63,34 @@ namespace Game
         public virtual bool IsFirst { get { return Index == 0; } }
         public virtual bool IsLast { get { return Index >= Region.Size - 1; } }
 
-        public virtual void Finish(Proponent winner)
+        public virtual LevelCore Previous
         {
-            if(winner is PlayerProponent)
+            get
             {
-                if(IsLast)
-                {
-                    Region.Complete();
-                }
-                else
-                {
-                    var next = Region[Index + 1];
+                if (IsFirst) return null;
 
-                    next.Unlocked = true;
-                }
+                return Region[Index - 1];
+            }
+        }
+        public virtual LevelCore Next
+        {
+            get
+            {
+                if (IsLast) return null;
+
+                return Region[Index + 1];
+            }
+        }
+
+        public virtual void Complete()
+        {
+            if (IsLast)
+            {
+                Region.Complete();
             }
             else
             {
-
+                Next.Unlocked = true;
             }
         }
 

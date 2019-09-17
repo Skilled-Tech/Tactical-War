@@ -96,6 +96,25 @@ namespace Game
         public virtual bool IsFirst { get { return Index == 0; } }
         public virtual bool IsLast { get { return Index >= World.Size - 1; } }
 
+        public virtual RegionCore Previous
+        {
+            get
+            {
+                if (IsFirst) return null;
+
+                return World[Index - 1];
+            }
+        }
+        public virtual RegionCore Next
+        {
+            get
+            {
+                if (IsLast) return null;
+
+                return World[Index + 1];
+            }
+        }
+
         public virtual void Load(LevelCore level)
         {
             if (Contains(level) == false)

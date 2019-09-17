@@ -47,7 +47,7 @@ namespace Game
 
         public Level Level { get { return Level.Instance; } }
         public LevelProponents Proponents { get { return Level.Proponents; } }
-        public Proponent Enemy { get { return Proponents.Proponent2; } }
+        public Proponent Enemy { get { return Proponents.AI; } }
 
         public override void Configure(PlayerProponent data)
         {
