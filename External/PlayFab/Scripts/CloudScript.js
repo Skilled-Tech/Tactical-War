@@ -1,6 +1,7 @@
 // (https://api.playfab.com/playstream/docs/PlayStreamEventModels)
 // (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
 handlers.OnLoggedIn = function (args, context) {
+    return;
     GrantItem(context.playerProfile.PlayerId, "Wood_Sword", 5, "Login Bonus");
     GrantItem(context.playerProfile.PlayerId, "Wood_Shield", 5, "Login Bonus");
 };
@@ -16,7 +17,8 @@ handlers.FinishLevel = function ($args) {
     var level = region.levels[args.level];
     if (level == null)
         return FormatError("Level Doesn't Exist");
-    Rewards.Grant(currentPlayerId, level.rewards, "Level Award");
+    var IDs = Rewards.Grant(currentPlayerId, level.rewards, "Level Award");
+    return IDs;
 };
 var World;
 (function (World) {
@@ -54,8 +56,17 @@ var World;
 var Rewards;
 (function (Rewards) {
     function Grant(playerID, data, annotation) {
-        GrantItem(currentPlayerId, data.bundle, 1, annotation);
-        ProcessTable(currentPlayerId, data.droptable, annotation);
+        var itemInstances = Array();
+        var instances = GrantItem(currentPlayerId, data.bundle, 1, annotation);
+        if (instances != null)
+            itemInstances = itemInstances.concat(instances);
+        var instances = ProcessTable(currentPlayerId, data.droptable, annotation);
+        if (instances != null)
+            itemInstances = itemInstances.concat(instances);
+        var IDs = Array(itemInstances.length);
+        for (let i = 0; i < itemInstances.length; i++)
+            IDs[i] = itemInstances[i].ItemId;
+        return IDs;
     }
     Rewards.Grant = Grant;
     class Data {
@@ -104,7 +115,7 @@ handlers.UpgradeItem = function ($args) {
         data.Find(args.upgradeType).value++;
         Inventory.UpdateItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
     }
-    return { message: "Success" };
+    return "Success";
 };
 var Upgrades;
 (function (Upgrades) {
@@ -335,22 +346,21 @@ function SubtractCurrency(playerID, currency, ammout) {
     });
 }
 function GrantItem(playerID, itemID, ammount, annotation) {
-    if (ammount <= 0)
-        return;
     var items = [];
     for (let i = 0; i < ammount; i++)
         items.push(itemID);
-    GrantItems(playerID, items, annotation);
+    return GrantItems(playerID, items, annotation);
 }
 function GrantItems(playerID, itemIDs, annotation) {
     if (itemIDs == null || itemIDs.length == 0)
-        return;
-    server.GrantItemsToUser({
+        return [];
+    var result = server.GrantItemsToUser({
         PlayFabId: playerID,
         Annotation: annotation,
         CatalogVersion: Catalog.Default,
         ItemIds: itemIDs
     });
+    return result.ItemGrantResults;
 }
 function EvaluateTable(tableID) {
     var result = server.EvaluateRandomResultTable({
@@ -360,7 +370,7 @@ function EvaluateTable(tableID) {
     return result.ResultItemId;
 }
 function ProcessTable(playerID, table, annotation) {
-    var items = [];
+    var items = Array();
     for (let i = 0; i < table.iterations; i++) {
         var item = EvaluateTable(table.ID);
         if (item == null) {
@@ -369,8 +379,12 @@ function ProcessTable(playerID, table, annotation) {
             items.push(item);
         }
     }
-    if (items.length > 0)
-        GrantItems(playerID, items, annotation);
+    if (items.length > 0) {
+        var instances = GrantItems(playerID, items, annotation);
+        return instances;
+    }
+    else
+        return null;
 }
 function FormatError(message) {
     return new Error(message);

@@ -131,9 +131,7 @@ namespace Game
             }
             else
             {
-                var next = World[Index + 1];
-
-                next.Unlock();
+                Next.Unlock();
             }
         }
     }

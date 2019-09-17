@@ -3,8 +3,10 @@
 
 handlers.OnLoggedIn = function (args, context: IPlayFabContext)
 {
-    GrantItem(context.playerProfile.PlayerId, "Wood_Sword", 5, "Login Bonus");
-    GrantItem(context.playerProfile.PlayerId, "Wood_Shield", 5, "Login Bonus");
+    return;
+
+    Calls.Item.Grant(context.playerProfile.PlayerId, "Wood_Sword", 5, "Login Bonus");
+    Calls.Item.Grant(context.playerProfile.PlayerId, "Wood_Shield", 5, "Login Bonus");
 }
 
 handlers.FinishLevel = function ($args)
@@ -26,7 +28,9 @@ handlers.FinishLevel = function ($args)
     if (level == null)
         return FormatError("Level Doesn't Exist");
 
-    Rewards.Grant(currentPlayerId, level.rewards, "Level Award");
+    var IDs = Rewards.Grant(currentPlayerId, level.rewards, "Level Award");
+
+    return IDs;
 }
 
 namespace World
@@ -35,7 +39,7 @@ namespace World
 
     export function Retrieve(): Data
     {
-        var titleData = GetTitleData([Name]);
+        var titleData = Calls.Title.Data.Retrieve([Name]);
 
         var json = titleData[Name];
 
@@ -80,16 +84,24 @@ namespace World
 
 namespace Rewards
 {
-    export function Grant(playerID: string, data: Data, annotation: string)
+    export function Grant(playerID: string, data: Data, annotation: string): string[]
     {
-        GrantItem(currentPlayerId, data.bundle, 1, annotation);
+        var IDs = Array<string>();
 
-        ProcessTable(currentPlayerId, data.droptable, annotation);
+        IDs = IDs.concat(data.items);
+
+        var result = Calls.Tables.Process(data.droptable);
+        if (result != null)
+            IDs = IDs.concat(result);
+
+        Calls.Item.GrantAll(playerID, IDs, annotation);
+
+        return IDs;
     }
 
     export class Data
     {
-        bundle: string;
+        items: [string];
         droptable: DropTable;
     }
 
@@ -121,7 +133,7 @@ handlers.UpgradeItem = function ($args)
     if (arguments == null)
         return FormatError("Current Item Can't Be Upgraded");
 
-    var upgradesTitleData = GetTitleData([Upgrades.Name]);
+    var upgradesTitleData = Calls.Title.Data.Retrieve([Upgrades.Name]);
 
     var template = Upgrades.Template.Find(upgradesTitleData[Upgrades.Name], arguments.template);
 
@@ -150,7 +162,7 @@ handlers.UpgradeItem = function ($args)
 
     //Validation Completed, Start Processing Request
     {
-        SubtractCurrency(currentPlayerId, rank.cost.type, rank.cost.value);
+        Calls.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
 
         ItemRequirement.ConsumeAll(inventory, rank.requirements);
 
@@ -159,7 +171,7 @@ handlers.UpgradeItem = function ($args)
         Inventory.UpdateItemData(currentPlayerId, itemInstance.ItemInstanceId, Upgrades.Name, data.ToJson());
     }
 
-    return { message: "Success" }
+    return "Success";
 }
 
 namespace Upgrades
@@ -483,78 +495,88 @@ namespace Catalog
     }
 }
 
-function GetTitleData(keys: string[])
+export namespace Calls
 {
-    var result = server.GetTitleData({
-        Keys: keys,
-    })
-
-    return result.Data;
-}
-
-function SubtractCurrency(playerID, currency: string, ammout: number)
-{
-    var request = server.SubtractUserVirtualCurrency({
-        PlayFabId: playerID,
-        VirtualCurrency: currency,
-        Amount: ammout
-    });
-}
-
-function GrantItem(playerID: string, itemID, ammount: number, annotation: string, )
-{
-    if (ammount <= 0) return;
-
-    var items = [];
-
-    for (let i = 0; i < ammount; i++)
-        items.push(itemID);
-
-    GrantItems(playerID, items, annotation);
-}
-
-function GrantItems(playerID: string, itemIDs: string[], annotation: string)
-{
-    if (itemIDs == null || itemIDs.length == 0) return;
-
-    server.GrantItemsToUser({
-        PlayFabId: playerID,
-        Annotation: annotation,
-        CatalogVersion: Catalog.Default,
-        ItemIds: itemIDs
-    })
-}
-
-function EvaluateTable(tableID: string): string
-{
-    var result = server.EvaluateRandomResultTable({
-        CatalogVersion: Catalog.Default,
-        TableId: tableID
-    });
-
-    return result.ResultItemId;
-}
-
-function ProcessTable(playerID: string, table: Rewards.DropTable, annotation: string)
-{
-    var items = [];
-
-    for (let i = 0; i < table.iterations; i++)
+    export namespace Currency
     {
-        var item = EvaluateTable(table.ID);
-
-        if (item == null)
+        export function Subtract(playerID, currency: string, ammout: number)
         {
-
-        }
-        else
-        {
-            items.push(item);
+            var request = server.SubtractUserVirtualCurrency({
+                PlayFabId: playerID,
+                VirtualCurrency: currency,
+                Amount: ammout
+            });
         }
     }
 
-    if (items.length > 0)
-        GrantItems(playerID, items, annotation);
+    export namespace Title
+    {
+        export namespace Data
+        {
+            export function Retrieve(keys: string[])
+            {
+                var result = server.GetTitleData({
+                    Keys: keys,
+                })
+
+                return result.Data;
+            }
+        }
+    }
+
+    export namespace Item
+    {
+        export function Grant(playerID: string, itemID, ammount: number, annotation: string, ): Array<PlayFabServerModels.ItemInstance>
+        {
+            var items = [];
+
+            for (let i = 0; i < ammount; i++)
+                items.push(itemID);
+
+            return GrantAll(playerID, items, annotation);
+        }
+
+        export function GrantAll(playerID: string, itemIDs: string[], annotation: string): Array<PlayFabServerModels.ItemInstance>
+        {
+            if (itemIDs == null || itemIDs.length == 0) return [];
+
+            var result = server.GrantItemsToUser({
+                PlayFabId: playerID,
+                Annotation: annotation,
+                CatalogVersion: Catalog.Default,
+                ItemIds: itemIDs
+            });
+
+            return result.ItemGrantResults;
+        }
+    }
+
+    export namespace Tables
+    {
+        export function Evaluate(tableID: string): string
+        {
+            var result = server.EvaluateRandomResultTable({
+                CatalogVersion: Catalog.Default,
+                TableId: tableID
+            });
+
+            return result.ResultItemId;
+        }
+
+        export function Process(table: Rewards.DropTable): Array<string>
+        {
+            var items = Array<string>();
+
+            for (let i = 0; i < table.iterations; i++)
+            {
+                var item = Evaluate(table.ID);
+
+                items.push(item);
+            }
+
+            return items;
+        }
+    }
 }
 
 function FormatError(message)

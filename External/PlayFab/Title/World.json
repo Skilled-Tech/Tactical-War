@@ -5,7 +5,10 @@
       "levels": [
         {
           "rewards": {
-            "bundle": "Level-Default-Bundle",
+            "items": [
+              "Wood_Sword",
+              "Wood_Shield"
+            ],
             "droptable": {
               "ID": "Level-Default-DropTable",
               "iterations": 3

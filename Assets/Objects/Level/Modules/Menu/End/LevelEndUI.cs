@@ -51,7 +51,7 @@ namespace Game
                 }
                 else
                 {
-                    next.gameObject.SetActive(level.Region[level.Index + 1].Unlocked);
+                    next.gameObject.SetActive(Data.Level.Next.Unlocked);
                     retry.gameObject.SetActive(false);
                 }
             }

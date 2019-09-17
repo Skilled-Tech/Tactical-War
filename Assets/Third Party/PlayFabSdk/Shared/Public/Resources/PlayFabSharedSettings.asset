@@ -15,7 +15,7 @@ MonoBehaviour:
   TitleId: 364D2
   DeveloperSecretKey: E9GYXPUKJ3QUKZFAGNO6FUQ8C1BDATKTIBC134WBFXSFJWBEX8
   ProductionEnvironmentUrl: 
-  RequestType: 2
+  RequestType: 0
   AdvertisingIdType: 
   AdvertisingIdValue: 
   DisableAdvertising: 0

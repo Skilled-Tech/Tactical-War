@@ -30,21 +30,33 @@ namespace Game
 
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
+        public PopupUI Popup { get { return Core.UI.Popup.Instance; } }
+
         public delegate void ProcessDelegate(Proponent winner);
         public event ProcessDelegate OnProcess;
         public virtual void Process(Proponent winner)
         {
-            Level.Speed.Value = 0f;
+            Level.Speed.Value = 1f;
 
             if(winner is PlayerProponent)
             {
                 if (PlayFab.IsLoggedIn)
+                {
+                    Popup.Show("Retrieving End Results");
+
                     Request(Data.Level);
+                }
                 else
+                {
+                    Level.Speed.Value = 0f;
+
                     Menu.End.Show(winner);
+                }
             }
             else
             {
+                Level.Speed.Value = 0f;
+
                 Menu.End.Show(winner);
             }
 
@@ -67,6 +79,8 @@ namespace Game
         {
             Debug.Log(result.FunctionResult);
 
+            Popup.Hide();
+
             Data.Level.Complete();
 
             Menu.End.Show(Proponents.Player);
@@ -74,6 +88,8 @@ namespace Game
 
         protected virtual void ErrorCallback(PlayFabError error)
         {
+            Popup.Hide();
+
             Menu.End.Show(Proponents.Player);
         }
         
