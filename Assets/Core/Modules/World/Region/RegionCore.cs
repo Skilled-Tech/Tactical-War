@@ -47,6 +47,15 @@ namespace Game
         }
         #endregion
 
+        public virtual bool Contains(LevelCore level)
+        {
+            for (int i = 0; i < levels.Length; i++)
+                if (levels[i] == level)
+                    return true;
+
+            return false;
+        }
+
         public class Module : WorldCore.Element
         {
             public const string MenuPath = RegionCore.MenuPath + "Modules/";
@@ -64,14 +73,12 @@ namespace Game
             }
         }
 
-        public static LevelCore Current;
         public virtual void Load(LevelCore level)
         {
-            Current = level; //TODO Replace this monstrosity
+            if (Contains(level) == false)
+                throw new ArgumentException("Trying to load " + level.name + " But it's not a part of the " + name + " Region");
 
-            SceneManager.LoadScene(Scenes.Level, LoadSceneMode.Single);
-
-            SceneManager.LoadScene(level.Scene.Name, LoadSceneMode.Additive);
+            World.Load(this, level);
         }
     }
 }

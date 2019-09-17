@@ -35,18 +35,6 @@ namespace Game
         public RegionCore this[int index] { get { return regions[index]; } }
         #endregion
 
-        public ScenesCore Scenes { get { return Core.Scenes; } }
-
-        public override void Configure()
-        {
-            base.Configure();
-
-            for (int i = 0; i < regions.Length; i++)
-            {
-                Register(regions[i]);
-            }
-        }
-
         [Serializable]
         public class Module : Core.Module
         {
@@ -71,13 +59,13 @@ namespace Game
 
             public Core Core { get { return Core.Instance; } }
 
-            public WorldCore Regions { get { return Core.World; } }
+            public WorldCore World { get { return Core.World; } }
 
             public ScenesCore Scenes { get { return Core.Scenes; } }
 
             public virtual void Configure()
             {
-                
+
             }
 
             public virtual void Register(Core.IModule module)
@@ -92,6 +80,45 @@ namespace Game
             {
                 if (OnInit != null) OnInit();
             }
+        }
+
+        public ScenesCore Scenes { get { return Core.Scenes; } }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            for (int i = 0; i < regions.Length; i++)
+            {
+                Register(regions[i]);
+            }
+        }
+
+        public CurrentData Current { get; protected set; }
+        [Serializable]
+        public class CurrentData
+        {
+            public LevelCore Level { get; set; }
+
+            public RegionCore Region { get { return Level.Region; } }
+
+            public virtual void Set(LevelCore level)
+            {
+                this.Level = level;
+            }
+
+            public CurrentData(LevelCore level)
+            {
+                Set(level);
+            }
+        }
+        public virtual void Load(RegionCore region, LevelCore level)
+        {
+            Current.Set(level);
+
+            SceneManager.LoadScene(Scenes.Level, LoadSceneMode.Single);
+
+            SceneManager.LoadScene(level.Scene.Name, LoadSceneMode.Additive);
         }
     }
 }

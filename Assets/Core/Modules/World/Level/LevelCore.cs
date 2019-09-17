@@ -43,5 +43,13 @@ namespace Game
         }
 
         public int Index { get; protected set; }
+
+        public virtual bool IsFirst { get { return Index == 0; } }
+        public virtual bool IsLast { get { return Index >= Region.Size - 1; } }
+
+        public virtual void Load()
+        {
+            Region.Load(this);
+        }
     }
 }
