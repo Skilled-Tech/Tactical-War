@@ -21,7 +21,11 @@ namespace Game
 {
 	public class LevelMenu : Level.Module
 	{
-		[SerializeField]
+        [SerializeField]
+        protected LevelRewardsUI rewards;
+        public LevelRewardsUI Rewards { get { return rewards; } }
+
+        [SerializeField]
         protected LevelEndUI end;
         public LevelEndUI End { get { return end; } }
 

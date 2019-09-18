@@ -87,39 +87,66 @@ namespace Game
             }
             else
             {
-                if (result.FunctionResult == null)
-                {
+                var array = result.FunctionResult as JsonArray;
 
-                }
+                var rewards = GetRewards(array);
+
+                if (rewards.Count == 0)
+                    RetrieveInventory();
                 else
-                {
-                    var array = result.FunctionResult as JsonArray;
-
-                    List<string> IDs = null;
-
-                    if (array == null || array.Count == 0)
-                        IDs = new List<string>();
-                    else
-                        IDs = array.ConvertAll(x => x.ToString());
-
-                    var items = ItemRequirementData.FromIDs(IDs);
-
-                    for (int i = 0; i < items.Count; i++)
-                        Debug.Log(items[i]);
-                }
-
-                Popup.Show("Retrieving Inventory");
-
-                Data.Level.Complete();
-
-                PlayFab.Inventory.OnResponse += InventoryResponseCallback;
-                PlayFab.Inventory.Request();
+                    ProcessRewards(rewards);
             }
+        }
+
+        IList<ItemRequirementData> GetRewards(JsonArray jArray)
+        {
+            List<string> IDs = null;
+
+            if (jArray == null || jArray.Count == 0)
+                IDs = new List<string>();
+            else
+                IDs = jArray.ConvertAll(x => x.ToString());
+
+            var items = ItemRequirementData.FromIDs(IDs);
+
+            return items;
+        }
+        void ProcessRewards(IList<ItemRequirementData> list)
+        {
+            Menu.Rewards.OnFinish += RetrieveInventory;
+            Menu.Rewards.Show(list);
+        }
+
+        void RetrieveInventory()
+        {
+            Menu.Rewards.OnFinish -= RetrieveInventory;
+
+            Popup.Show("Retrieving Inventory");
+
+            PlayFab.Inventory.OnResponse += InventoryResponseCallback;
+            PlayFab.Inventory.Request();
         }
 
         void InventoryResponseCallback(PlayFabInventoryCore inventory, PlayFabError error)
         {
             PlayFab.Inventory.OnResponse -= InventoryResponseCallback;
+
+            if (error == null)
+            {
+                Popup.Show("Retrieving Player Profile");
+
+                PlayFab.Player.OnResponse += OnPlayFabPlayerResponse;
+                PlayFab.Player.Retrieve();
+            }
+            else
+            {
+                ErrorCallback(error);
+            }
+        }
+
+        void OnPlayFabPlayerResponse(PlayFabPlayerCore result, PlayFabError error)
+        {
+            PlayFab.Player.OnResponse -= OnPlayFabPlayerResponse;
 
             if (error == null)
             {
@@ -129,15 +156,20 @@ namespace Game
             }
             else
             {
-                ErrorCallback(error);
+
             }
         }
 
         protected virtual void ErrorCallback(PlayFabError error)
         {
-            Popup.Hide();
+            void Continue()
+            {
+                Popup.Hide();
 
-            Menu.End.Show(Proponents.Player);
+                Menu.End.Show(Proponents.Player);
+            }
+
+            Popup.Show(error.ErrorMessage, Continue, "Continue");
         }
         
         struct ParametersData
