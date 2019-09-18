@@ -72,7 +72,7 @@ namespace Game
         {
             return Contains(itemID, 1);
         }
-        public virtual bool Contains(string itemID, int count)
+        public virtual bool Contains(string itemID, uint count)
         {
             for (int i = 0; i < Items.Count; i++)
             {

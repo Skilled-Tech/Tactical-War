@@ -22,18 +22,17 @@ namespace Game
     [CreateAssetMenu(menuName = MenuPath + "Level")]
 	public class LevelCore : RegionCore.Module
 	{
-        [SerializeField]
-        protected bool unlocked;
         public bool Unlocked
         {
             get
             {
-                return unlocked;
+                return Index < Region.Progress;
             }
-            set
-            {
-                unlocked = value;
-            }
+        }
+
+        public virtual void Unlock()
+        {
+            Region.Unlock(this);
         }
 
         [SerializeField]
@@ -90,7 +89,7 @@ namespace Game
             }
             else
             {
-                Next.Unlocked = true;
+                Next.Unlock();
             }
         }
 

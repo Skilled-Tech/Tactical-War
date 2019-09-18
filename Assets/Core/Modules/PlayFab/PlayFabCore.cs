@@ -34,8 +34,8 @@ namespace Game
         public bool Activated { get; set; }
 
         [SerializeField]
-        protected PlayfabPlayerCore player;
-        public PlayfabPlayerCore Player { get { return player; } }
+        protected PlayFabPlayerCore player;
+        public PlayFabPlayerCore Player { get { return player; } }
 
         [SerializeField]
         protected PlayFabTitleCore title;

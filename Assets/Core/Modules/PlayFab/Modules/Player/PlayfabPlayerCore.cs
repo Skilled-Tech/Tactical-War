@@ -23,7 +23,7 @@ using PlayFab.ClientModels;
 namespace Game
 {
     [Serializable]
-	public class PlayfabPlayerCore : PlayFabCore.Module
+	public class PlayFabPlayerCore : PlayFabCore.Module
 	{
         [SerializeField]
         protected PlayFabPlayerCombinedInfoCore combinedInfo;
@@ -36,7 +36,7 @@ namespace Game
         [Serializable]
 		public class Module : PlayFabCore.Module
         {
-            public PlayfabPlayerCore Player { get { return PlayFab.Player; } }
+            public PlayFabPlayerCore Player { get { return PlayFab.Player; } }
         }
 
         public override void Configure()
@@ -49,7 +49,7 @@ namespace Game
     }
 
     [Serializable]
-    public class PlayFabPlayerCombinedInfoCore : PlayfabPlayerCore.Module
+    public class PlayFabPlayerCombinedInfoCore : PlayFabPlayerCore.Module
     {
         public virtual void Request()
         {
@@ -99,7 +99,7 @@ namespace Game
     }
 
     [Serializable]
-    public class PlayFabPlayerReadOnlyData : PlayfabPlayerCore.Module
+    public class PlayFabPlayerReadOnlyData : PlayFabPlayerCore.Module
     {
         public Dictionary<string, UserDataRecord> Data { get; protected set; }
         public uint Version { get; protected set; }

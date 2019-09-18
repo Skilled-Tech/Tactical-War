@@ -37,7 +37,16 @@ namespace Game
         }
         public virtual void Unlock()
         {
-            levels[0].Unlocked = true;
+            Unlock(levels[0]);
+        }
+
+        [SerializeField]
+        protected int progress = 0;
+        public int Progress { get { return progress; } }
+
+        public virtual void Unlock(LevelCore level)
+        {
+            progress = level.Index + 1;
         }
 
         [SerializeField]

@@ -40,7 +40,7 @@ namespace Game
             Grayscale = new UIGrayscaleController(this);
         }
 
-        public virtual void Set(ItemTemplate template, int count)
+        public virtual void Set(ItemTemplate template, uint count)
         {
             icon.sprite = template.Icon;
 

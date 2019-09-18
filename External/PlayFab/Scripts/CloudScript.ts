@@ -21,12 +21,12 @@ handlers.FinishLevel = function ($args)
     var region = world.FindRegion(args.region);
 
     if (region == null)
-        return FormatError(args.region + " Region Doesn't Exist");
+        throw FormatError(args.region + " Region Doesn't Exist");
 
     var level = region.levels[args.level];
 
     if (level == null)
-        return FormatError("Level Doesn't Exist");
+        throw FormatError("Level Doesn't Exist");
 
     var IDs = Reward.Grant(currentPlayerId, level.reward, "Level Award");
 
@@ -517,6 +517,32 @@ namespace API
             return items;
         }
     }
+
+    export namespace CloudScript
+    {
+        export namespace Error
+        {
+            export class Type implements PlayFabServerModels.ScriptExecutionError
+            {
+                Error?: string;
+                /** Details about the error */
+                Message?: string;
+                /** Point during the execution of the script at which the error occurred, if any */
+                StackTrace?: string;
+
+                constructor(code: string, message: string)
+                {
+                    this.Error = code;
+                    this.Message = message;
+                }
+            }
+
+            export function Fomat(code: string, message: string): PlayFabServerModels.ScriptExecutionError
+            {
+                return new Type(code, message);
+            }
+        }
+    }
 }
 
 //#region Types
@@ -580,8 +606,3 @@ namespace ItemRequirement
     }
 }
 //#endregion
-
-function FormatError(message)
-{
-    return new Error(message);
-}

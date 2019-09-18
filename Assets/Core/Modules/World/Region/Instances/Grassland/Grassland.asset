@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62b4cb5bfe914d49a689ef3e1101c8c, type: 3}
   m_Name: Grassland
   m_EditorClassIdentifier: 
-  unlocked: 1
+  progress: 1
   icon: {fileID: 0}
   levels:
   - {fileID: 11400000, guid: e66b8d2185713ec4eb5624afab79d085, type: 2}

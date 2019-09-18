@@ -19,6 +19,7 @@ using Random = UnityEngine.Random;
 
 using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.Json;
 
 namespace Game
 {
@@ -77,7 +78,35 @@ namespace Game
 
         protected virtual void ResultCallback(ExecuteCloudScriptResult result)
         {
-            Debug.Log(result.FunctionResult);
+            if(result.Error == null)
+            {
+
+            }
+            else
+            {
+
+            }
+
+            if(result.FunctionResult == null)
+            {
+
+            }
+            else
+            {
+                var array = result.FunctionResult as JsonArray;
+
+                List<string> IDs = null;
+
+                if (array == null || array.Count == 0)
+                    IDs = new List<string>();
+                else
+                    IDs = array.ConvertAll(x => x.ToString());
+
+                var items = ItemRequirementData.FromIDs(IDs);
+
+                for (int i = 0; i < items.Count; i++)
+                    Debug.Log(items[i]);
+            }
 
             Popup.Show("Retrieving Inventory");
 
