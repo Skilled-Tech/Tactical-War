@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62b4cb5bfe914d49a689ef3e1101c8c, type: 3}
   m_Name: Grassland
   m_EditorClassIdentifier: 
-  progress: 1
+  progress: 2
   icon: {fileID: 0}
   levels:
   - {fileID: 11400000, guid: e66b8d2185713ec4eb5624afab79d085, type: 2}
@@ -20,6 +20,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ae91468f650acc49ab1db88c5e6bb09, type: 2}
   - {fileID: 11400000, guid: bbdc9a9c4a3e013469b93d17ee2bd7a8, type: 2}
   - {fileID: 11400000, guid: 5ba1937da82f1d54db52603e1d534fdd, type: 2}
-  - {fileID: 11400000, guid: 6a21ea1062b88644696f49fd452603e4, type: 2}
-  - {fileID: 11400000, guid: f98be79f7990fc14daea69b07e5783ac, type: 2}
-  - {fileID: 11400000, guid: 83f482837cd4576489ff4034241e50ce, type: 2}
