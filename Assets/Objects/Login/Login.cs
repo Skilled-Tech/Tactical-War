@@ -80,6 +80,23 @@ namespace Game
 
             if (error == null)
             {
+                Popup.Show("Retrieving Player Data");
+
+                PlayFab.Player.Retrieve();
+                PlayFab.Player.OnResponse += OnPlayerDataResponse;
+            }
+            else
+            {
+                RaiseError(error);
+            }
+        }
+
+        void OnPlayerDataResponse(PlayFabPlayerCore result, PlayFabError error)
+        {
+            PlayFab.Player.OnResponse -= OnPlayerDataResponse;
+
+            if (error == null)
+            {
                 Popup.Show("Retrieving Catalog");
 
                 PlayFab.Catalog.OnResponse += OnCatalogResponse;

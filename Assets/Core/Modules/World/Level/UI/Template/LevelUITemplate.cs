@@ -53,7 +53,7 @@ namespace Game
 
             icon.sprite = Level.Icon;
 
-            label.text = (index + 1).ToString();
+            label.text = index.ToString();
 
             UpdateState();
         }

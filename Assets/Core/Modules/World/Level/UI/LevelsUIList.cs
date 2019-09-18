@@ -33,7 +33,7 @@ namespace Game
 
             Templates = new LevelUITemplate[region.Size];
 
-            for (int i = 0; i < region.Size; i++)
+            for (int i = 1; i < region.Size; i++)
             {
                 var instance = Create(region[i], i);
 

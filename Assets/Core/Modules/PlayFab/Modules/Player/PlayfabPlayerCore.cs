@@ -39,6 +39,26 @@ namespace Game
             public PlayFabPlayerCore Player { get { return PlayFab.Player; } }
         }
 
+        public virtual void Retrieve()
+        {
+            readonlyData.OnResponse += ReadOnlyDataResponseCallback;
+
+            readonlyData.Retrieve();
+        }
+
+        void ReadOnlyDataResponseCallback(PlayFabPlayerReadOnlyData result, PlayFabError error)
+        {
+            readonlyData.OnResponse -= ReadOnlyDataResponseCallback;
+
+            Respond(error);
+        }
+
+        public event Delegates.ResponseDelegate<PlayFabPlayerCore> OnResponse;
+        void Respond(PlayFabError error)
+        {
+            if (OnResponse != null) OnResponse(this, error);
+        }
+
         public override void Configure()
         {
             base.Configure();
@@ -104,7 +124,7 @@ namespace Game
         public Dictionary<string, UserDataRecord> Data { get; protected set; }
         public uint Version { get; protected set; }
 
-        public virtual void Request()
+        public virtual void Retrieve()
         {
             var request = new GetUserDataRequest
             {

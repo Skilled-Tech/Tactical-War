@@ -44,6 +44,15 @@ namespace Game
 
             throw new ArgumentException();
         }
+
+        public RegionCore Find(string name)
+        {
+            for (int i = 0; i < regions.Length; i++)
+                if (regions[i].name == name)
+                    return regions[i];
+
+            return null;
+        }
         #endregion
 
         [Serializable]
@@ -107,11 +116,27 @@ namespace Game
                     var json = module.Data[Name].Value;
 
                     var jObject = JObject.Parse(json);
+
+                    Load(jObject);
                 }
                 else
                 {
 
                 }
+            }
+        }
+
+        void Load(JObject jObject)
+        {
+            var jArray = jObject[nameof(regions)] as JArray;
+
+            for (int i = 0; i < jArray.Count; i++)
+            {
+                var name = jArray[i]["name"].ToObject<string>();
+
+                var region = Find(name);
+
+                region.Load(jArray[i]);
             }
         }
 

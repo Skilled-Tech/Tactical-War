@@ -22,6 +22,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Game
 {
+    //Indexes for levels start from 1, because screw you
     [CreateAssetMenu(menuName = MenuPath + "Element")]
     public class RegionCore : WorldCore.Element
     {
@@ -49,7 +50,7 @@ namespace Game
 
         public virtual void Unlock(LevelCore level)
         {
-            progress = level.Index + 1;
+            progress = level.Index;
         }
 
         [SerializeField]
@@ -61,15 +62,15 @@ namespace Game
         protected LevelCore[] levels;
         public LevelCore[] Levels { get { return levels; } }
 
-        public int Size { get { return levels.Length; } }
+        public int Size { get { return levels.Length + 1; } }
 
-        public LevelCore this[int index] { get { return levels[index]; } }
+        public LevelCore this[int index] { get { return levels[index - 1]; } }
 
         public int IndexOf(LevelCore level)
         {
             for (int i = 0; i < levels.Length; i++)
                 if (levels[i] == level)
-                    return i;
+                    return i + 1;
 
             throw new ArgumentException();
         }
@@ -129,9 +130,9 @@ namespace Game
         }
         #endregion
 
-        public virtual void Load(JObject jObject)
+        public virtual void Load(JToken jToken)
         {
-            progress = jObject[nameof(progress)].ToObject<int>();
+            progress = jToken[nameof(progress)].ToObject<int>();
         }
 
         public virtual void Load(LevelCore level)

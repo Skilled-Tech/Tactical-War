@@ -25,7 +25,7 @@ handlers.FinishLevel = function ($args)
         return;
     }
 
-    var level = region.levels[args.level];
+    var level = region.levels[args.level - 1];
     if (level == null)
     {
         log.error("Level", "Level " + args.level + " Doesn't Exist");
@@ -34,14 +34,8 @@ handlers.FinishLevel = function ($args)
 
     var data = API.World.Data.Retrieve(currentPlayerId);
 
-    if (data.Contains(region.name))
-    {
-
-    }
-    else
-    {
+    if (!data.Contains(region.name))
         data.Add(region.name);
-    }
 
     if (data.Find(region.name).progress > args.level) //Player Completed Level Before
     {
