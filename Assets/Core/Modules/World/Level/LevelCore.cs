@@ -26,7 +26,7 @@ namespace Game
         {
             get
             {
-                return Index <= Region.Progress;
+                return Region.Progress > Index;
             }
         }
 
@@ -59,8 +59,8 @@ namespace Game
 
         public int Index { get; protected set; }
 
-        public virtual bool IsFirst { get { return Index == 1; } }
-        public virtual bool IsLast { get { return Index >= Region.Size; } }
+        public virtual bool IsFirst { get { return Index == 0; } }
+        public virtual bool IsLast { get { return Index >= Region.Size - 1; } }
 
         public virtual LevelCore Previous
         {

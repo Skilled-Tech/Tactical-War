@@ -42,7 +42,7 @@ namespace Game
         {
             if (winner is PlayerProponent)
             {
-                info.text = "You Won";
+                info.text = "Level Complete";
 
                 if (Data.Level.IsLast)
                 {
@@ -57,7 +57,7 @@ namespace Game
             }
             else
             {
-                info.text = "You Lost";
+                info.text = "You Lost!";
 
                 next.gameObject.SetActive(false);
                 retry.gameObject.SetActive(true);

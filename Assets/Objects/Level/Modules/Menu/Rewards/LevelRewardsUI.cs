@@ -42,6 +42,8 @@ namespace Game
         {
             base.Configure(data);
 
+            Debug.Log("Configure");
+
             button.onClick.AddListener(ClickAction);
         }
 
@@ -66,7 +68,7 @@ namespace Game
         {
             label.text = data.Item.name;
 
-            ammount.text = data.Count.ToString();
+            ammount.text = "x" + data.Count.ToString();
 
             icon.sprite = data.Item.Icon;
         }

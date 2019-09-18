@@ -76,6 +76,7 @@ namespace Game
             PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
         }
 
+        ExecuteCloudScriptResult cloudscriptResult;
         protected virtual void ResultCallback(ExecuteCloudScriptResult result)
         {
             if(result.FunctionResult == null)
@@ -87,44 +88,13 @@ namespace Game
             }
             else
             {
-                var array = result.FunctionResult as JsonArray;
+                cloudscriptResult = result;
 
-                var rewards = GetRewards(array);
+                Popup.Show("Retrieving Inventory");
 
-                if (rewards.Count == 0)
-                    RetrieveInventory();
-                else
-                    ProcessRewards(rewards);
+                PlayFab.Inventory.OnResponse += InventoryResponseCallback;
+                PlayFab.Inventory.Request();
             }
-        }
-
-        IList<ItemRequirementData> GetRewards(JsonArray jArray)
-        {
-            List<string> IDs = null;
-
-            if (jArray == null || jArray.Count == 0)
-                IDs = new List<string>();
-            else
-                IDs = jArray.ConvertAll(x => x.ToString());
-
-            var items = ItemRequirementData.FromIDs(IDs);
-
-            return items;
-        }
-        void ProcessRewards(IList<ItemRequirementData> list)
-        {
-            Menu.Rewards.OnFinish += RetrieveInventory;
-            Menu.Rewards.Show(list);
-        }
-
-        void RetrieveInventory()
-        {
-            Menu.Rewards.OnFinish -= RetrieveInventory;
-
-            Popup.Show("Retrieving Inventory");
-
-            PlayFab.Inventory.OnResponse += InventoryResponseCallback;
-            PlayFab.Inventory.Request();
         }
 
         void InventoryResponseCallback(PlayFabInventoryCore inventory, PlayFabError error)
@@ -150,14 +120,54 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Hide();
+                var array = cloudscriptResult.FunctionResult as JsonArray;
 
-                Menu.End.Show(Proponents.Player);
+                var rewards = GetRewards(array);
+
+                if (rewards.Count == 0)
+                {
+                    ShowDialog();
+                }
+                else
+                {
+                    Popup.Hide();
+
+                    Menu.Rewards.OnFinish += OnRewardsProcessed;
+                    Menu.Rewards.Show(rewards);
+                }
             }
             else
             {
 
             }
+        }
+
+        IList<ItemRequirementData> GetRewards(JsonArray jArray)
+        {
+            List<string> IDs = null;
+
+            if (jArray == null || jArray.Count == 0)
+                IDs = new List<string>();
+            else
+                IDs = jArray.ConvertAll(x => x.ToString());
+
+            var items = ItemRequirementData.FromIDs(IDs);
+
+            return items;
+        }
+
+        void OnRewardsProcessed()
+        {
+            Menu.Rewards.Hide();
+
+            ShowDialog();
+        }
+        
+        void ShowDialog()
+        {
+            Popup.Hide();
+
+            Menu.End.Show(Proponents.Player);
         }
 
         protected virtual void ErrorCallback(PlayFabError error)

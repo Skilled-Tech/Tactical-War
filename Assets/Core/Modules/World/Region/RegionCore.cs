@@ -50,7 +50,7 @@ namespace Game
 
         public virtual void Unlock(LevelCore level)
         {
-            progress = level.Index;
+            progress = level.Index + 1;
         }
 
         [SerializeField]
@@ -62,15 +62,15 @@ namespace Game
         protected LevelCore[] levels;
         public LevelCore[] Levels { get { return levels; } }
 
-        public int Size { get { return levels.Length + 1; } }
+        public int Size { get { return levels.Length; } }
 
-        public LevelCore this[int index] { get { return levels[index - 1]; } }
+        public LevelCore this[int index] { get { return levels[index]; } }
 
         public int IndexOf(LevelCore level)
         {
             for (int i = 0; i < levels.Length; i++)
                 if (levels[i] == level)
-                    return i + 1;
+                    return i;
 
             throw new ArgumentException();
         }

@@ -14,6 +14,119 @@
               "iterations": 3
             }
           }
+        },
+        {
+          "reward": {
+            "items": [
+              "Wood_Sword",
+              "Wood_Shield"
+            ],
+            "droptable": {
+              "ID": "Level-Default-DropTable",
+              "iterations": 3
+            }
+          }
+        },
+        {
+          "reward": {
+            "items": [
+              "Wood_Sword",
+              "Wood_Shield"
+            ],
+            "droptable": {
+              "ID": "Level-Default-DropTable",
+              "iterations": 3
+            }
+          }
+        },
+        {
+          "reward": {
+            "items": [
+              "Wood_Sword",
+              "Wood_Shield"
+            ],
+            "droptable": {
+              "ID": "Level-Default-DropTable",
+              "iterations": 3
+            }
+          }
+        },
+        {
+          "reward": {
+            "items": [
+              "Wood_Sword",
+              "Wood_Shield"
+            ],
+            "droptable": {
+              "ID": "Level-Default-DropTable",
+              "iterations": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Snowland",
+      "levels": [
+        {
+          "reward": {
+            "items": [
+              "Wood_Sword",
+              "Wood_Shield"
+            ],
+            "droptable": {
+              "ID": "Level-Default-DropTable",
+              "iterations": 3
+            }
+          }
+        },
+        {
+          "reward": {
+            "items": [
+              "Wood_Sword",
+              "Wood_Shield"
+            ],
+            "droptable": {
+              "ID": "Level-Default-DropTable",
+              "iterations": 3
+            }
+          }
+        },
+        {
+          "reward": {
+            "items": [
+              "Wood_Sword",
+              "Wood_Shield"
+            ],
+            "droptable": {
+              "ID": "Level-Default-DropTable",
+              "iterations": 3
+            }
+          }
+        },
+        {
+          "reward": {
+            "items": [
+              "Wood_Sword",
+              "Wood_Shield"
+            ],
+            "droptable": {
+              "ID": "Level-Default-DropTable",
+              "iterations": 3
+            }
+          }
+        },
+        {
+          "reward": {
+            "items": [
+              "Wood_Sword",
+              "Wood_Shield"
+            ],
+            "droptable": {
+              "ID": "Level-Default-DropTable",
+              "iterations": 3
+            }
+          }
         }
       ]
     }

@@ -45,5 +45,19 @@ namespace Game
                 
             }
         }
+
+        public override void Configure(Level data)
+        {
+            base.Configure(data);
+
+            Modules.Configure(this);
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            Modules.Init(this);
+        }
     }
 }
