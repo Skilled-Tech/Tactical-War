@@ -59,14 +59,34 @@ namespace Game
         {
             Data.OnResponse -= OnDataResponse;
 
-            ResponseCompleted(error);
+            Respond(error);
         }
 
-        public delegate void ResponseCallback(PlayFabTitleCore title, PlayFabError error);
-        public event ResponseCallback OnResponse;
-        public virtual void ResponseCompleted(PlayFabError error)
+        public event Delegates.ResponseDelegate<PlayFabTitleCore> OnResponse;
+        void Respond(PlayFabError error)
         {
             if (OnResponse != null) OnResponse(this, error);
+
+            if(error == null)
+            {
+                RetrieveCallback();
+            }
+            else
+            {
+                ErrorCallback(error);
+            }
+        }
+
+        public event Delegates.ResultDelegate<PlayFabTitleCore> OnRetrieved;
+        void RetrieveCallback()
+        {
+            if (OnRetrieved != null) OnRetrieved(this);
+        }
+
+        public event Delegates.ErrorDelegate OnError;
+        void ErrorCallback(PlayFabError error)
+        {
+            if (OnError != null) OnError(error);
         }
     }
 

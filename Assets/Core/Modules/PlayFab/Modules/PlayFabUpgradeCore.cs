@@ -54,18 +54,24 @@ namespace Game
         {
             Perform(itemInstance.ItemInstanceId, type);
         }
+        public virtual void Perform(ItemInstance itemInstance, ItemUpgradeType type)
+        {
+            Perform(itemInstance, type.ID);
+        }
+        public virtual void Perform(PlayerInventoryCore.ItemData item, ItemUpgradeType type)
+        {
+            Perform(item.Instance, type.ID);
+        }
 
-        public delegate void ResultDelegate(PlayFabUpgradeCore upgrade, ExecuteCloudScriptResult result);
-        public event ResultDelegate OnResult;
+        public event Delegates.ResultDelegate<ExecuteCloudScriptResult> OnResult;
         void ResultCallback(ExecuteCloudScriptResult result)
         {
-            if (OnResult != null) OnResult(this, result);
+            if (OnResult != null) OnResult(result);
 
             Respond(result, null);
         }
 
-        public delegate void ErrorDelegate(PlayFabError error);
-        public event ErrorDelegate OnError;
+        public event Delegates.ErrorDelegate OnError;
         void ErrorCallback(PlayFabError error)
         {
             if (OnError != null) OnError(error);
@@ -73,11 +79,10 @@ namespace Game
             Respond(null, error);
         }
 
-        public delegate void ResponseCallback(PlayFabUpgradeCore upgrade, ExecuteCloudScriptResult result, PlayFabError error);
-        public event ResponseCallback OnResponse;
+        public event Delegates.ResponseDelegate<ExecuteCloudScriptResult> OnResponse;
         void Respond(ExecuteCloudScriptResult result, PlayFabError error)
         {
-            if (OnResponse != null) OnResponse(this, result, error);
+            if (OnResponse != null) OnResponse(result, error);
         }
     }
 }

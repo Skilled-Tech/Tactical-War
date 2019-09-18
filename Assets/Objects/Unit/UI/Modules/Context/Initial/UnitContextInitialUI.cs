@@ -18,6 +18,7 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using TMPro;
 using PlayFab.ClientModels;
+using PlayFab;
 
 namespace Game
 {
@@ -87,19 +88,20 @@ namespace Game
             }
         }
 
+        #region Unlock
         void UnlockClick()
         {
             Context.Character.Slot.gameObject.SetActive(false);
 
             Popup.Show("Processing Purchase");
 
-            Core.PlayFab.Purchase.OnResponse += OnPurchaseResponse;
+            Core.PlayFab.Purchase.OnResponse += PurchaseResponse;
             Core.PlayFab.Purchase.Perform(Template.CatalogItem);
         }
 
-        void OnPurchaseResponse(PlayFabPurchaseCore purchase, PurchaseItemResult result, PlayFab.PlayFabError error)
+        void PurchaseResponse(PurchaseItemResult result, PlayFabError error)
         {
-            Core.PlayFab.Purchase.OnResponse -= OnPurchaseResponse;
+            Core.PlayFab.Purchase.OnResponse -= PurchaseResponse;
 
             if (error == null)
             {
@@ -110,7 +112,7 @@ namespace Game
             }
             else
             {
-                Popup.Show(error.ErrorMessage, Popup.Hide, "Close");
+                RaiseError(error);
             }
         }
 
@@ -128,8 +130,14 @@ namespace Game
             }
             else
             {
-                Popup.Show(error.ErrorMessage, Popup.Hide, "Close");
+                RaiseError(error);
             }
+        }
+        #endregion
+
+        void RaiseError(PlayFabError error)
+        {
+            Popup.Show(error.ErrorMessage, Popup.Hide, "Close");
         }
 
         void UpgradeClick()

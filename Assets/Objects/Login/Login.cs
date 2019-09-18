@@ -43,7 +43,7 @@ namespace Game
 
             if (Input.GetKey(KeyCode.X) && Application.isEditor)
             {
-                OnLoginResponse(PlayFab.Login, null, new PlayFabError());
+                OnLoginResponse(null, new PlayFabError());
             }
             else
             {
@@ -52,7 +52,7 @@ namespace Game
             }
         }
 
-        void OnLoginResponse(PlayFabLoginCore login, LoginResult result, PlayFabError error)
+        void OnLoginResponse(LoginResult result, PlayFabError error)
         {
             PlayFab.Login.OnResponse -= OnLoginResponse;
 

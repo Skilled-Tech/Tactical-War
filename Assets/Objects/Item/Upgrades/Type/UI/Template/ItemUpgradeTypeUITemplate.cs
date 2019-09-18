@@ -128,12 +128,12 @@ namespace Game
             Popup.Show("Processing Upgrade");
 
             PlayFab.Upgrade.OnResponse += OnResponse;
-            PlayFab.Upgrade.Perform(data.Instance, Type.ID);
+            PlayFab.Upgrade.Perform(data, Type);
 
             FindObjectOfType<UnitContextUI>().Character.Slot.gameObject.SetActive(false);
         }
 
-        void OnResponse(PlayFabUpgradeCore upgrade, ExecuteCloudScriptResult result, PlayFab.PlayFabError error)
+        void OnResponse(ExecuteCloudScriptResult result, PlayFab.PlayFabError error)
         {
             PlayFab.Upgrade.OnResponse -= OnResponse;
 
