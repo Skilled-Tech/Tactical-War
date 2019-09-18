@@ -25,24 +25,6 @@ namespace Game
     [Serializable]
     public class PlayFabPurchaseCore : PlayFabCore.Module
     {
-        public RequestHandler Request { get; protected set; }
-        public class RequestHandler : PlayFabCore.RequestHandler<PurchaseItemRequest, PurchaseItemResult>
-        {
-            public override AskDelegate Ask => PlayFabClientAPI.PurchaseItem;
-
-            public virtual void Send(CatalogItem item, string currency)
-            {
-                var request = CreateRequest();
-
-                request.CatalogVersion = item.CatalogVersion;
-                request.ItemId = item.ItemId;
-                request.Price = (int)item.VirtualCurrencyPrices[currency];
-                request.VirtualCurrency = currency;
-
-                Send(request);
-            }
-        }
-
         public virtual void Perform(string itemID, int price, string currency)
         {
             var request = new PurchaseItemRequest
@@ -74,8 +56,7 @@ namespace Game
             Respond(result, null);
         }
 
-        public delegate void ErrorDelegate(PlayFabError error);
-        public event ErrorDelegate OnError;
+        public event Delegates.ErrorDelegate OnError;
         void ErrorCallback(PlayFabError error)
         {
             if (OnError != null) OnError(error);
@@ -83,11 +64,10 @@ namespace Game
             Respond(null, error);
         }
 
-        public delegate void ResponseCallback(PlayFabPurchaseCore purchase, PurchaseItemResult result, PlayFabError error);
-        public event ResponseCallback OnResponse;
+        public event Delegates.ResponseDelegate<PurchaseItemResult> OnResponse;
         void Respond(PurchaseItemResult result, PlayFabError error)
         {
-            if (OnResponse != null) OnResponse(this, result, error);
+            if (OnResponse != null) OnResponse(result, error);
         }
     }
 }

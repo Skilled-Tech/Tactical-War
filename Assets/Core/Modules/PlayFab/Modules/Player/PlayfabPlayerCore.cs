@@ -91,7 +91,7 @@ namespace Game
             Respond(null, error);
         }
 
-        public event Delegates.ResponseCallback<GetPlayerCombinedInfoResult> OnResponse;
+        public event Delegates.ResponseDelegate<GetPlayerCombinedInfoResult> OnResponse;
         void Respond(GetPlayerCombinedInfoResult result, PlayFabError error)
         {
             if (OnResponse != null) OnResponse(result, error);
@@ -133,7 +133,7 @@ namespace Game
             Respond(null, error);
         }
 
-        public event Delegates.ResponseCallback<PlayFabPlayerReadOnlyData> OnResponse;
+        public event Delegates.ResponseDelegate<PlayFabPlayerReadOnlyData> OnResponse;
         void Respond(GetUserDataResult result, PlayFabError error)
         {
             if (OnResponse != null) OnResponse(this, error);

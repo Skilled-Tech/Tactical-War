@@ -84,7 +84,7 @@ namespace Game
 
                 };
 
-                PlayFabClientAPI.GetTitleData(request, ResultCallback, ErrorCallback);
+                PlayFabClientAPI.GetTitleData(request, RetrieveCallbac, ErrorCallback);
             }
             else
             {
@@ -103,7 +103,7 @@ namespace Game
 
                 var request = JsonConvert.DeserializeObject<GetTitleDataResult>(json);
 
-                ResultCallback(request);
+                RetrieveCallbac(request);
             }
             else
             {
@@ -122,24 +122,20 @@ namespace Game
             Core.Data.Save(FormatFilePath(FileName), json);
         }
 
-        public delegate void ResultDelegate(PlayFabTitleDataCore data);
-        public event ResultDelegate OnRetrieved;
-        void ResultCallback(GetTitleDataResult result)
+        public event Delegates.ResultDelegate<PlayFabTitleDataCore> OnRetrieved;
+        void RetrieveCallbac(GetTitleDataResult result)
         {
-            if (IsLoggedIn)
-            {
-                SaveResult(result);
-            }
-
             Value = result.Data;
 
             if (OnRetrieved != null) OnRetrieved(this);
 
             Respond(result, null);
+
+            if (IsLoggedIn)
+                SaveResult(result);
         }
 
-        public delegate void ErrorDelegate(PlayFabError error);
-        public event ErrorDelegate OnError;
+        public event Delegates.ErrorDelegate OnError;
         void ErrorCallback(PlayFabError error)
         {
             if (OnError != null) OnError(error);
@@ -147,8 +143,7 @@ namespace Game
             Respond(null, error);
         }
 
-        public delegate void ResponseCallback(PlayFabTitleDataCore data, PlayFabError error);
-        public event ResponseCallback OnResponse;
+        public event Delegates.ResponseDelegate<PlayFabTitleDataCore> OnResponse;
         void Respond(GetTitleDataResult result, PlayFabError error)
         {
             if (OnResponse != null) OnResponse(this, error);

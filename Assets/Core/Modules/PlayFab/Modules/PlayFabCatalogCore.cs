@@ -113,7 +113,7 @@ namespace Game
             Respond(error);
         }
 
-        public event Delegates.ResponseCallback<PlayFabCatalogCore> OnResponse;
+        public event Delegates.ResponseDelegate<PlayFabCatalogCore> OnResponse;
         void Respond(PlayFabError error)
         {
             if (OnResponse != null) OnResponse(this, error);

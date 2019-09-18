@@ -79,8 +79,8 @@ namespace Game
 
                 public delegate void ErrorDelegate(PlayFabError error);
 
-                public delegate void ResponseCallback<TModule, TResult> (TModule module, TResult result, PlayFabError error);
-                public delegate void ResponseCallback<TResult> (TResult result, PlayFabError error);
+                public delegate void ResponseDelegate<TModule, TResult> (TModule module, TResult result, PlayFabError error);
+                public delegate void ResponseDelegate<TResult> (TResult result, PlayFabError error);
             }
         }
 

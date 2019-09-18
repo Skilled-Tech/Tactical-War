@@ -77,7 +77,7 @@ namespace Game
             Respond(null, error);
         }
 
-        public event Delegates.ResponseCallback<LoginResult> OnResponse;
+        public event Delegates.ResponseDelegate<LoginResult> OnResponse;
         void Respond(LoginResult result, PlayFabError error)
         {
             if (OnResponse != null) OnResponse(result, error);

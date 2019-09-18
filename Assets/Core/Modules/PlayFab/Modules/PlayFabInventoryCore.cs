@@ -138,7 +138,7 @@ namespace Game
             Respond(error);
         }
 
-        public event Delegates.ResponseCallback<PlayFabInventoryCore> OnResponse;
+        public event Delegates.ResponseDelegate<PlayFabInventoryCore> OnResponse;
         void Respond(PlayFabError error)
         {
             if (OnResponse != null) OnResponse(this, error);
