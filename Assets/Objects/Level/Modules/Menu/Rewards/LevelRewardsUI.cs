@@ -20,7 +20,6 @@ using TMPro;
 
 namespace Game
 {
-    [RequireComponent(typeof(Button))]
 	public class LevelRewardsUI : LevelMenu.Element
 	{
 		[SerializeField]
@@ -35,14 +34,15 @@ namespace Game
         protected TMP_Text ammount;
         public TMP_Text Ammount { get { return ammount; } }
 
-        public Button Button { get; protected set; }
+        [SerializeField]
+        protected Button button;
+        public Button Button { get { return button; } }
 
         public override void Configure(LevelMenu data)
         {
             base.Configure(data);
 
-            Button = GetComponent<Button>();
-            Button.onClick.AddListener(ClickAction);
+            button.onClick.AddListener(ClickAction);
         }
 
         public List<ItemRequirementData> List { get; protected set; }
