@@ -17,6 +17,9 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Element")]
@@ -100,6 +103,7 @@ namespace Game
             }
         }
 
+        #region Query
         public int Index { get; protected set; }
 
         public virtual bool IsFirst { get { return Index == 0; } }
@@ -122,6 +126,12 @@ namespace Game
 
                 return World[Index + 1];
             }
+        }
+        #endregion
+
+        public virtual void Load(JObject jObject)
+        {
+            progress = jObject[nameof(progress)].ToObject<int>();
         }
 
         public virtual void Load(LevelCore level)

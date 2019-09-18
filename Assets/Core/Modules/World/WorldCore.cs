@@ -25,6 +25,8 @@ namespace Game
     [Serializable]
     public class WorldCore : Core.Module
 	{
+        public const string Name = "world";
+
         #region Regions
         [SerializeField]
         protected RegionCore[] regions;
@@ -78,6 +80,7 @@ namespace Game
         }
 
         public ScenesCore Scenes { get { return Core.Scenes; } }
+        public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
         public override void Configure()
         {
@@ -86,6 +89,29 @@ namespace Game
             for (int i = 0; i < regions.Length; i++)
             {
                 Register(regions[i]);
+            }
+
+            PlayFab.Player.ReadonlyData.OnRetrieved += OnPlayerReadOnlyDataRetrieved;
+        }
+
+        void OnPlayerReadOnlyDataRetrieved(PlayFabPlayerReadOnlyData module)
+        {
+            if(module.Data == null)
+            {
+
+            }
+            else
+            {
+                if(module.Data.ContainsKey(Name))
+                {
+                    var json = module.Data[Name].Value;
+
+                    var jObject = JObject.Parse(json);
+                }
+                else
+                {
+
+                }
             }
         }
 

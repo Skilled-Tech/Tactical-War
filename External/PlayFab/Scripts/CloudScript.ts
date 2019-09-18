@@ -16,21 +16,51 @@ handlers.FinishLevel = function ($args)
         level: $args.level as number,
     }
 
-    var world = API.World.Retrieve();
+    var world = API.World.Template.Retrieve();
 
     var region = world.FindRegion(args.region);
-
     if (region == null)
-        throw FormatError(args.region + " Region Doesn't Exist");
+    {
+        log.error(args.region + " Region Doesn't Exist");
+        return;
+    }
 
     var level = region.levels[args.level];
-
     if (level == null)
-        throw FormatError("Level Doesn't Exist");
+    {
+        log.error("Level", "Level " + args.level + " Doesn't Exist");
+        return;
+    }
 
-    var IDs = Reward.Grant(currentPlayerId, level.reward, "Level Award");
+    var data = API.World.Data.Retrieve(currentPlayerId);
 
-    return IDs;
+    if (data.Contains(region.name))
+    {
+
+    }
+    else
+    {
+        data.Add(region.name);
+    }
+
+    if (data.Find(region.name).progress > args.level) //Player Completed Level Before
+    {
+        return [];
+    }
+    else if (data.Find(region.name).progress < args.level) //Player Trying to Complete a level without completing the levels before
+    {
+
+    }
+    else //Firs time the player is completing this level
+    {
+        data.Find(region.name).progress++;
+
+        API.Player.ReadOnlyData.Write(currentPlayerId, API.World.Name, JSON.stringify(data));
+
+        var IDs = Reward.Grant(currentPlayerId, level.reward, "Level Award");
+
+        return IDs;
+    }
 }
 
 handlers.UpgradeItem = function ($args)
@@ -44,7 +74,10 @@ handlers.UpgradeItem = function ($args)
     var itemInstance = inventory.FindWithInstanceID(args.itemInstanceID);
 
     if (itemInstance == null)
-        return FormatError("Invalid Instance ID");
+    {
+        log.error(args.itemInstanceID + " is an Invalid Instance ID");
+        return;
+    }
 
     var catalog = API.Catalog.Retrieve(itemInstance.CatalogVersion);
     var catalogItem = catalog.FindWithID(itemInstance.ItemId);
@@ -52,34 +85,52 @@ handlers.UpgradeItem = function ($args)
     var arguments = API.Upgrades.Arguments.Load(catalogItem);
 
     if (arguments == null)
-        return FormatError("Current Item Can't Be Upgraded");
+    {
+        log.error("Current Item Can't Be Upgraded");
+        return;
+    }
 
     var titleData = API.Title.Data.Retrieve([API.Upgrades.Name]);
 
     var template = API.Upgrades.Template.Find(titleData[API.Upgrades.Name], arguments.template);
 
     if (template == null)
-        return FormatError(arguments.template + " Upgrades Template Not Defined");
+    {
+        log.error(arguments.template + " Upgrades Template Not Defined");
+        return;
+    }
 
     if (template.Find(args.upgradeType) == null)
-        return FormatError(args.upgradeType + " Upgrade Type Not Defined");
+    {
+        log.error(args.upgradeType + " Upgrade Type Not Defined");
+        return;
+    }
 
     var data = API.Upgrades.Data.Load(itemInstance);
     if (data.Contains(args.upgradeType) == false) data.Add(args.upgradeType);
 
     if (data.Find(args.upgradeType).value >= template.Find(args.upgradeType).ranks.length)
-        return FormatError("Maximum Upgrade Level Achieved");
+    {
+        log.error("Maximum Upgrade Level Achieved");
+        return;
+    }
 
     var rank = template.Match(args.upgradeType, data);
 
     if (rank.requirements != null)
     {
         if (inventory.CompliesWithRequirements(rank.requirements) == false)
-            return FormatError("Player Doesn't The Required Items For the Upgrade");
+        {
+            log.error("Player Doesn't The Required Items For the Upgrade");
+            return;
+        }
     }
 
     if (inventory.virtualCurrency[rank.cost.type] < rank.cost.value)
-        return FormatError("Insufficient Funds");
+    {
+        log.error("Insufficient Funds");
+        return;
+    }
 
     //Validation Completed, Start Processing Request
     {
@@ -101,47 +152,118 @@ namespace API
     {
         export const Name = "world";
 
-        export function Retrieve(): Data
+        export namespace Data
         {
-            var titleData = API.Title.Data.Retrieve([Name]);
-
-            var json = titleData[Name];
-
-            var object = JSON.parse(json);
-
-            var data = Object.assign(new Data(), object);
-
-            return data;
-        }
-
-        export class Data
-        {
-            regions: Region.Data[];
-
-            public FindRegion(name: string)
+            export function Retrieve(playerID: string): Instance
             {
-                for (let i = 0; i < this.regions.length; i++)
-                    if (this.regions[i].name == name)
-                        return this.regions[i];
+                var playerData = Player.ReadOnlyData.Read(playerID, [Name]);
 
-                return null;
+                if (playerData.Data[Name] == null)
+                    return new Instance();
+
+                var json = playerData.Data[Name].Value;
+
+                var object = JSON.parse(json);
+
+                var instance = Object.assign(new Instance(), object);
+
+                return instance;
             }
-        }
 
-        export namespace Region
-        {
-            export class Data
+            export class Instance
+            {
+                regions: Region[];
+
+                Add(name: string): Region
+                {
+                    var instance = new Region(name);
+
+                    this.regions.push(instance);
+
+                    return instance;
+                }
+
+                Contains(name: string): boolean
+                {
+                    for (let i = 0; i < this.regions.length; i++)
+                        if (this.regions[i].name == name)
+                            return true;
+
+                    return false;
+                }
+
+                Find(name: string): Region
+                {
+                    for (let i = 0; i < this.regions.length; i++)
+                        if (this.regions[i].name == name)
+                            return this.regions[i];
+
+                    return null;
+                }
+
+                constructor()
+                {
+                    this.regions = [];
+                }
+            }
+
+            export class Region
             {
                 name: string;
-                levels: Level.Data[];
+                progress: number;
+
+                constructor(name: string)
+                {
+                    this.name = name;
+                    this.progress = 0;
+                }
             }
         }
 
-        export namespace Level
+        export namespace Template
         {
+            export function Retrieve(): Data
+            {
+                var titleData = API.Title.Data.Retrieve([Name]);
+
+                var json = titleData[Name];
+
+                var object = JSON.parse(json);
+
+                var data = Object.assign(new Data(), object);
+
+                return data;
+            }
+
             export class Data
             {
-                reward: Reward.Data;
+                regions: Region.Data[];
+
+                public FindRegion(name: string)
+                {
+                    for (let i = 0; i < this.regions.length; i++)
+                        if (this.regions[i].name == name)
+                            return this.regions[i];
+
+                    return null;
+                }
+            }
+
+            export namespace Region
+            {
+                export class Data
+                {
+                    name: string;
+                    levels: Level.Data[];
+                }
+            }
+
+            export namespace Level
+            {
+                export class Data
+                {
+                    reward: Reward.Data;
+                }
             }
         }
     }
@@ -433,6 +555,34 @@ namespace API
             constructor(Items: PlayFabServerModels.CatalogItem[])
             {
                 this.items = Items;
+            }
+        }
+    }
+
+    export namespace Player
+    {
+        export namespace ReadOnlyData
+        {
+            export function Read(playerID: string, keys: string[]): PlayFabServerModels.GetUserDataResult
+            {
+                var result = server.GetUserReadOnlyData({
+                    PlayFabId: playerID,
+                    Keys: keys
+                });
+
+                return result;
+            }
+
+            export function Write(playerID: string, key: string, value: string)
+            {
+                var data = {};
+
+                data[key] = value;
+
+                server.UpdateUserReadOnlyData({
+                    PlayFabId: playerID,
+                    Data: data,
+                })
             }
         }
     }

@@ -78,42 +78,43 @@ namespace Game
 
         protected virtual void ResultCallback(ExecuteCloudScriptResult result)
         {
-            if(result.Error == null)
-            {
-
-            }
-            else
-            {
-
-            }
-
             if(result.FunctionResult == null)
             {
+                Debug.Log(result.FunctionResult);
 
+                for (int i = 0; i < result.Logs.Count; i++)
+                    Debug.LogError(result.Logs[i].Data);
             }
             else
             {
-                var array = result.FunctionResult as JsonArray;
+                if (result.FunctionResult == null)
+                {
 
-                List<string> IDs = null;
-
-                if (array == null || array.Count == 0)
-                    IDs = new List<string>();
+                }
                 else
-                    IDs = array.ConvertAll(x => x.ToString());
+                {
+                    var array = result.FunctionResult as JsonArray;
 
-                var items = ItemRequirementData.FromIDs(IDs);
+                    List<string> IDs = null;
 
-                for (int i = 0; i < items.Count; i++)
-                    Debug.Log(items[i]);
+                    if (array == null || array.Count == 0)
+                        IDs = new List<string>();
+                    else
+                        IDs = array.ConvertAll(x => x.ToString());
+
+                    var items = ItemRequirementData.FromIDs(IDs);
+
+                    for (int i = 0; i < items.Count; i++)
+                        Debug.Log(items[i]);
+                }
+
+                Popup.Show("Retrieving Inventory");
+
+                Data.Level.Complete();
+
+                PlayFab.Inventory.OnResponse += InventoryResponseCallback;
+                PlayFab.Inventory.Request();
             }
-
-            Popup.Show("Retrieving Inventory");
-
-            Data.Level.Complete();
-
-            PlayFab.Inventory.OnResponse += InventoryResponseCallback;
-            PlayFab.Inventory.Request();
         }
 
         void InventoryResponseCallback(PlayFabInventoryCore inventory, PlayFabError error)
