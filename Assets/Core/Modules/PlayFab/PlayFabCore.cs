@@ -34,6 +34,10 @@ namespace Game
         public bool Activated { get; set; }
 
         [SerializeField]
+        protected PlayfabPlayerCore player;
+        public PlayfabPlayerCore Player { get { return player; } }
+
+        [SerializeField]
         protected PlayFabTitleCore title;
         public PlayFabTitleCore Title { get { return title; } }
 
@@ -64,6 +68,19 @@ namespace Game
             {
                 return "PlayFab/" + name;
             }
+
+            public static class Delegates
+            {
+                public delegate void ResultDelegate<TModule, TResult>(TModule module, TResult result);
+                public delegate void ResultDelegate<TResult>(TResult result);
+
+                public delegate void LoadDelegate<TModule>(TModule module);
+
+                public delegate void ErrorDelegate(PlayFabError error);
+
+                public delegate void ResponseCallback<TModule, TResult> (TModule module, TResult result, PlayFabError error);
+                public delegate void ResponseCallback<TResult> (TResult result, PlayFabError error);
+            }
         }
 
         public override void Configure()
@@ -72,6 +89,7 @@ namespace Game
 
             Activated = false;
 
+            Register(player);
             Register(login);
             Register(title);
             Register(catalog);
