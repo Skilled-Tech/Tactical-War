@@ -61,17 +61,15 @@ namespace Game
             }
         }
 
-        public delegate void ResultDelegate(PlayFabLoginCore login, LoginResult result);
-        public event ResultDelegate OnResult;
+        public event Delegates.RetrievedDelegate<LoginResult> OnResult;
         void ResultCallback(LoginResult result)
         {
-            if (OnResult != null) OnResult(this, result);
+            if (OnResult != null) OnResult(result);
 
             Respond(result, null);
         }
 
-        public delegate void ErrorDelegate(PlayFabError error);
-        public event ErrorDelegate OnError;
+        public event Delegates.ErrorDelegate OnError;
         void ErrorCallback(PlayFabError error)
         {
             if (OnError != null) OnError(error);
@@ -79,11 +77,10 @@ namespace Game
             Respond(null, error);
         }
 
-        public delegate void ResponseCallback(PlayFabLoginCore login, LoginResult result, PlayFabError error);
-        public event ResponseCallback OnResponse;
+        public event Delegates.ResponseCallback<LoginResult> OnResponse;
         void Respond(LoginResult result, PlayFabError error)
         {
-            if (OnResponse != null) OnResponse(this, result, error);
+            if (OnResponse != null) OnResponse(result, error);
         }
     }
 }

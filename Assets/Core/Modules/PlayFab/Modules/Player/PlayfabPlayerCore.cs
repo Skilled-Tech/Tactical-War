@@ -72,13 +72,13 @@ namespace Game
                 }
             };
 
-            PlayFabClientAPI.GetPlayerCombinedInfo(request, ResultCallback, ErrorCallback);
+            PlayFabClientAPI.GetPlayerCombinedInfo(request, RetrieveCallbac, ErrorCallback);
         }
 
-        public event Delegates.ResultDelegate<GetPlayerCombinedInfoResult> OnResult;
-        void ResultCallback(GetPlayerCombinedInfoResult result)
+        public event Delegates.RetrievedDelegate<GetPlayerCombinedInfoResult> OnRetrieved;
+        void RetrieveCallbac(GetPlayerCombinedInfoResult result)
         {
-            if (OnResult != null) OnResult(result);
+            if (OnRetrieved != null) OnRetrieved(result);
 
             Respond(result, null);
         }
@@ -104,18 +104,6 @@ namespace Game
         public Dictionary<string, UserDataRecord> Data { get; protected set; }
         public uint Version { get; protected set; }
 
-        public override void Configure()
-        {
-            base.Configure();
-
-            Player.CombinedInfo.OnResult += CombinedDataRetrievedCallback;
-        }
-
-        private void CombinedDataRetrievedCallback(GetPlayerCombinedInfoResult result)
-        {
-            
-        }
-
         public virtual void Request()
         {
             var request = new GetUserDataRequest
@@ -123,26 +111,18 @@ namespace Game
                 
             };
 
-            PlayFabClientAPI.GetUserReadOnlyData(request, ResultCallback, ErrorCallback);
+            PlayFabClientAPI.GetUserReadOnlyData(request, RetrieveCallback, ErrorCallback);
         }
 
-        public event Delegates.ResultDelegate<PlayFabPlayerReadOnlyData> OnResult;
-        void ResultCallback(GetUserDataResult result)
+        public event Delegates.RetrievedDelegate<PlayFabPlayerReadOnlyData> OnRetrieved;
+        void RetrieveCallback(GetUserDataResult result)
         {
-            Load(result.Data, result.DataVersion);
+            this.Data = result.Data;
+            this.Version = result.DataVersion;
 
-            if (OnResult != null) OnResult(this);
+            if (OnRetrieved != null) OnRetrieved(this);
 
             Respond(result, null);
-        }
-
-        public event Delegates.LoadDelegate<PlayFabPlayerReadOnlyData> OnLoad;
-        void Load(Dictionary<string, UserDataRecord> data, uint version)
-        {
-            this.Data = data;
-            this.Version = version;
-
-            if (OnLoad != null) OnLoad(this);
         }
 
         public event Delegates.ErrorDelegate OnError;

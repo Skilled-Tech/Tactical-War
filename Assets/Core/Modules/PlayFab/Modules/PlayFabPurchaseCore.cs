@@ -66,11 +66,10 @@ namespace Game
             Perform(item, currency);
         }
 
-        public delegate void ResultDelegate(PlayFabPurchaseCore purchase, PurchaseItemResult result);
-        public event ResultDelegate OnResult;
+        public event Delegates.ResultDelegate<PurchaseItemResult> OnResult;
         void ResultCallback(PurchaseItemResult result)
         {
-            if (OnResult != null) OnResult(this, result);
+            if (OnResult != null) OnResult(result);
 
             Respond(result, null);
         }

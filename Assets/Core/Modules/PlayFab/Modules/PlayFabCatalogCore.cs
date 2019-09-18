@@ -54,7 +54,7 @@ namespace Game
                     CatalogVersion = Version
                 };
 
-                PlayFabClientAPI.GetCatalogItems(request, ResultCallback, ErrorCallback);
+                PlayFabClientAPI.GetCatalogItems(request, RetrieveCallback, ErrorCallback);
             }
             else
             {
@@ -73,7 +73,7 @@ namespace Game
 
                 var request = JsonConvert.DeserializeObject<GetCatalogItemsResult>(json);
 
-                ResultCallback(request);
+                RetrieveCallback(request);
             }
             else
             {
@@ -92,24 +92,20 @@ namespace Game
             Core.Data.Save(FormatFilePath(FileName), json);
         }
 
-        public delegate void ResultDelegate(PlayFabCatalogCore catalog);
-        public event ResultDelegate OnRetrieved;
-        void ResultCallback(GetCatalogItemsResult result)
+        public event Delegates.RetrievedDelegate<PlayFabCatalogCore> OnRetrieved;
+        void RetrieveCallback(GetCatalogItemsResult result)
         {
-            if (IsLoggedIn)
-            {
-                SaveResult(result);
-            }
-
             Items = result.Catalog;
 
             if (OnRetrieved != null) OnRetrieved(this);
 
             Respond(null);
+
+            if (IsLoggedIn)
+                SaveResult(result);
         }
 
-        public delegate void ErrorDelegate(PlayFabError error);
-        public event ErrorDelegate OnError;
+        public event Delegates.ErrorDelegate OnError;
         void ErrorCallback(PlayFabError error)
         {
             if (OnError != null) OnError(error);
@@ -117,8 +113,7 @@ namespace Game
             Respond(error);
         }
 
-        public delegate void ResponseCallback(PlayFabCatalogCore catalog, PlayFabError error);
-        public event ResponseCallback OnResponse;
+        public event Delegates.ResponseCallback<PlayFabCatalogCore> OnResponse;
         void Respond(PlayFabError error)
         {
             if (OnResponse != null) OnResponse(this, error);

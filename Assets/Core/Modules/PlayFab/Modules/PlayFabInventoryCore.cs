@@ -31,7 +31,7 @@ namespace Game
 
         public Dictionary<string, int> VirtualCurrency { get; protected set; }
 
-        /*
+        #region Query
         public virtual bool Contains(CatalogItem item)
         {
             return Contains(item.ItemId);
@@ -68,7 +68,7 @@ namespace Game
 
             return null;
         }
-        */
+        #endregion
 
         #region Request
         public virtual void Request()
@@ -80,7 +80,7 @@ namespace Game
 
                 };
 
-                PlayFabClientAPI.GetUserInventory(request, ResultCallback, ErrorCallback);
+                PlayFabClientAPI.GetUserInventory(request, RetrieveCallback, ErrorCallback);
             }
             else
                 LoadResult();
@@ -97,7 +97,7 @@ namespace Game
 
                 var request = JsonConvert.DeserializeObject<GetUserInventoryResult>(json);
 
-                ResultCallback(request);
+                RetrieveCallback(request);
             }
             else
             {
@@ -116,24 +116,21 @@ namespace Game
             Core.Data.Save(FormatFilePath(FileName), json);
         }
 
-        public delegate void ResultDelegate(PlayFabInventoryCore inventory);
-        public event ResultDelegate OnRetrieved;
-        void ResultCallback(GetUserInventoryResult result)
+        public event Delegates.RetrievedDelegate<PlayFabInventoryCore> OnRetrieved;
+        void RetrieveCallback(GetUserInventoryResult result)
         {
-            if (IsLoggedIn)
-                SaveResult(result);
-
-            Items = result.Inventory;
-
-            VirtualCurrency = result.VirtualCurrency;
+            this.Items = result.Inventory;
+            this.VirtualCurrency = result.VirtualCurrency;
 
             if (OnRetrieved != null) OnRetrieved(this);
 
             Respond(null);
+
+            if (IsLoggedIn)
+                SaveResult(result);
         }
 
-        public delegate void ErrorDelegate(PlayFabError error);
-        public event ErrorDelegate OnError;
+        public event Delegates.ErrorDelegate OnError;
         void ErrorCallback(PlayFabError error)
         {
             if (OnError != null) OnError(error);
@@ -141,8 +138,7 @@ namespace Game
             Respond(error);
         }
 
-        public delegate void ResponseCallback(PlayFabInventoryCore inventory, PlayFabError error);
-        public event ResponseCallback OnResponse;
+        public event Delegates.ResponseCallback<PlayFabInventoryCore> OnResponse;
         void Respond(PlayFabError error)
         {
             if (OnResponse != null) OnResponse(this, error);

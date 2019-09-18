@@ -71,10 +71,11 @@ namespace Game
 
             public static class Delegates
             {
+                public delegate void RetrievedDelegate<TModule, TResult>(TModule module, TResult result);
+                public delegate void RetrievedDelegate<TResult>(TResult module);
+
                 public delegate void ResultDelegate<TModule, TResult>(TModule module, TResult result);
                 public delegate void ResultDelegate<TResult>(TResult result);
-
-                public delegate void LoadDelegate<TModule>(TModule module);
 
                 public delegate void ErrorDelegate(PlayFabError error);
 
