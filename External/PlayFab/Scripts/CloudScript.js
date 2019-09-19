@@ -6,9 +6,9 @@ handlers.OnLoggedIn = function (args, context) {
     PlayFab.Title.Catalog.Item.Grant(context.playerProfile.PlayerId, "Wood_Shield", 5, "Login Bonus");
 };
 handlers.FinishLevel = function (args) {
-    let world = API.World.World.Retrieve();
+    let world = API.World.Template.Retrieve();
     try {
-        API.World.World.Validate(world, args.region, args.level);
+        API.World.Template.Validate(world, args);
     }
     catch (error) {
         log.error(error);
@@ -16,7 +16,7 @@ handlers.FinishLevel = function (args) {
     }
     let data = API.World.Data.Retrieve(currentPlayerId);
     try {
-        API.World.Data.Validate(data, world, args.region, args.level);
+        API.World.Data.Validate(data, world, args);
     }
     catch (error) {
         log.error(error);
@@ -33,20 +33,16 @@ handlers.FinishLevel = function (args) {
     var level = world.Find(args.region).levels[args.level];
     if (args.level == progress - 1) //Initial
      {
-        var text = "initial/n";
-        text += JSON.stringify(level.reward.initial);
-        log.info(text);
-        data.Find(args.region).progress++;
+        log.info("Initial Completion");
+        API.World.Data.Incremenet(data, world, args);
         PlayFab.Player.Data.ReadOnly.Write(currentPlayerId, API.World.Name, JSON.stringify(data));
-        let items = API.Reward.Grant(currentPlayerId, level.reward.initial, "Level Completing Award");
+        let items = API.Reward.Grant(currentPlayerId, level.reward.initial, "Level Completion Award");
         IDs = IDs.concat(items);
     }
     if (args.level < progress - 1) //Recurring
      {
-        var text = "recurring/n";
-        text += JSON.stringify(level.reward.constant);
-        log.info(text);
-        let items = API.Reward.Grant(currentPlayerId, level.reward.constant, "Level Completing Award");
+        log.info("Recurring Completion");
+        let items = API.Reward.Grant(currentPlayerId, level.reward.constant, "Level Completion Award");
         IDs = IDs.concat(items);
     }
     return IDs;
@@ -105,34 +101,51 @@ handlers.UpgradeItem = function (args) {
 var API;
 (function (API) {
     let World;
-    (function (World_1) {
-        World_1.Name = "world";
+    (function (World) {
+        World.Name = "world";
         let Data;
         (function (Data) {
             function Retrieve(playerID) {
-                let playerData = PlayFab.Player.Data.ReadOnly.Read(playerID, [World_1.Name]);
-                if (playerData.Data[World_1.Name] == null)
+                let playerData = PlayFab.Player.Data.ReadOnly.Read(playerID, [World.Name]);
+                if (playerData.Data[World.Name] == null)
                     return new Instance();
-                let json = playerData.Data[World_1.Name].Value;
+                let json = playerData.Data[World.Name].Value;
                 let object = JSON.parse(json);
                 let instance = Object.assign(new Instance(), object);
                 return instance;
             }
             Data.Retrieve = Retrieve;
-            function Validate(data, template, region, level) {
-                if (data.Contains(region)) {
+            function Validate(data, world, args) {
+                if (data.Contains(args.region)) {
                 }
                 else {
-                    if (region == template.regions[0].name) {
-                        let instance = new Region(region, 1);
+                    if (args.region == world.regions[0].name) {
+                        let instance = new Region(args.region, 1);
                         data.Add(instance);
                     }
                     else {
-                        throw "Can't begin data indexing from " + region + " region";
+                        throw "Can't begin data indexing from " + args.region + " region";
                     }
                 }
             }
             Data.Validate = Validate;
+            function Incremenet(data, world, args) {
+                let progress = data.Find(args.region).progress++;
+                let region = world.Find(args.region);
+                if (progress == region.levels.length) //Completed All Levels
+                 {
+                    let index = world.IndexOf(region.name);
+                    if (index >= world.regions.length - 1) //Completed All Regions
+                     {
+                    }
+                    else {
+                        let next = world.regions[index + 1];
+                        let instance = new Region(next.name, 1);
+                        data.Add(instance);
+                    }
+                }
+            }
+            Data.Incremenet = Incremenet;
             class Instance {
                 constructor() {
                     this.regions = [];
@@ -161,31 +174,32 @@ var API;
                 }
             }
             Data.Region = Region;
-        })(Data = World_1.Data || (World_1.Data = {}));
-        let World;
-        (function (World) {
+        })(Data = World.Data || (World.Data = {}));
+        let Template;
+        (function (Template) {
             function Retrieve() {
-                let titleData = PlayFab.Title.Data.Retrieve([World_1.Name]);
-                let json = titleData[World_1.Name];
+                let titleData = PlayFab.Title.Data.Retrieve([World.Name]);
+                let json = titleData[World.Name];
                 let object = JSON.parse(json);
                 let data = Object.assign(new Data(), object);
                 return data;
             }
-            World.Retrieve = Retrieve;
-            function Validate(data, region, level) {
-                if (data.Contains(region)) {
-                    if (level >= 0 && level < data.Find(region).levels.length) {
+            Template.Retrieve = Retrieve;
+            function Validate(data, args) {
+                let region = data.Find(args.region);
+                if (region == null) {
+                    throw args.region + " region doesn't exist";
+                }
+                else {
+                    if (args.level >= 0 && args.level < region.levels.length) {
                         return;
                     }
                     else {
-                        throw "Level " + level + " on " + region + " region doesn't exist";
+                        throw "Level " + args.level + " on " + args.region + " region doesn't exist";
                     }
                 }
-                else {
-                    throw region + " region doesn't exist";
-                }
             }
-            World.Validate = Validate;
+            Template.Validate = Validate;
             class Data {
                 Find(name) {
                     for (let i = 0; i < this.regions.length; i++)
@@ -199,18 +213,24 @@ var API;
                             return true;
                     return false;
                 }
+                IndexOf(name) {
+                    for (let i = 0; i < this.regions.length; i++)
+                        if (this.regions[i].name == name)
+                            return i;
+                    return null;
+                }
             }
-            World.Data = Data;
+            Template.Data = Data;
             class Region {
             }
-            World.Region = Region;
+            Template.Region = Region;
             class Level {
             }
-            World.Level = Level;
+            Template.Level = Level;
             class Rewards {
             }
-            World.Rewards = Rewards;
-        })(World = World_1.World || (World_1.World = {}));
+            Template.Rewards = Rewards;
+        })(Template = World.Template || (World.Template = {}));
     })(World = API.World || (API.World = {}));
     let Upgrades;
     (function (Upgrades) {

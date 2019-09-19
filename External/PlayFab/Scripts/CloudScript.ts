@@ -11,10 +11,10 @@ handlers.OnLoggedIn = function (args, context: IPlayFabContext)
 
 handlers.FinishLevel = function (args: IFinishLevelArguments)
 {
-    let world = API.World.World.Retrieve();
+    let world = API.World.Template.Retrieve();
     try
     {
-        API.World.World.Validate(world, args);
+        API.World.Template.Validate(world, args);
     }
     catch (error)
     {
@@ -51,7 +51,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
     {
         log.info("Initial Completion");
 
-        data.Find(args.region).progress++;
+        API.World.Data.Incremenet(data, world, args);
         PlayFab.Player.Data.ReadOnly.Write(currentPlayerId, API.World.Name, JSON.stringify(data));
 
         let items = API.Reward.Grant(currentPlayerId, level.reward.initial, "Level Completion Award");
@@ -181,7 +181,7 @@ namespace API
                 return instance;
             }
 
-            export function Validate(data: Instance, world: World.Data, args: IFinishLevelArguments)
+            export function Validate(data: Instance, world: Template.Data, args: IFinishLevelArguments)
             {
                 if (data.Contains(args.region))
                 {
@@ -202,7 +202,7 @@ namespace API
                 }
             }
 
-            export function Incremenet(data: Instance, world: World.Data, args: IFinishLevelArguments)
+            export function Incremenet(data: Instance, world: Template.Data, args: IFinishLevelArguments)
             {
                 let progress = data.Find(args.region).progress++;
 
@@ -220,7 +220,7 @@ namespace API
                     {
                         let next = world.regions[index + 1];
 
-                        let instance = new Region(region.name, 1);
+                        let instance = new Region(next.name, 1);
 
                         data.Add(instance);
                     }
@@ -273,7 +273,7 @@ namespace API
             }
         }
 
-        export namespace World
+        export namespace Template
         {
             export function Retrieve(): Data
             {
@@ -298,7 +298,7 @@ namespace API
                 }
                 else
                 {
-                    if (args.level >= 0 && args.level < data.Find(args.region).levels.length)
+                    if (args.level >= 0 && args.level < region.levels.length)
                     {
                         return;
                     }

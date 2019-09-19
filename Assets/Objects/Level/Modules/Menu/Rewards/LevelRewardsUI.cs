@@ -42,8 +42,6 @@ namespace Game
         {
             base.Configure(data);
 
-            Debug.Log("Configure");
-
             button.onClick.AddListener(ClickAction);
         }
 

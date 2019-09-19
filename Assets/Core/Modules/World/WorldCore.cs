@@ -130,13 +130,20 @@ namespace Game
         {
             var jArray = jObject[nameof(regions)] as JArray;
 
+            var dictionary = new Dictionary<string, JToken>();
             for (int i = 0; i < jArray.Count; i++)
+                dictionary.Add(jArray[i]["name"].ToObject<string>(), jArray[i]);
+
+            for (int i = 0; i < regions.Length; i++)
             {
-                var name = jArray[i]["name"].ToObject<string>();
-
-                var region = Find(name);
-
-                region.Load(jArray[i]);
+                if(dictionary.ContainsKey(regions[i].name))
+                {
+                    regions[i].Load(dictionary[regions[i].name]);
+                }
+                else
+                {
+                    regions[i].Lock();
+                }
             }
         }
 

@@ -52,6 +52,10 @@ namespace Game
         {
             progress = level.Index + 1;
         }
+        public virtual void Lock()
+        {
+            progress = 0;
+        }
 
         [SerializeField]
         protected Sprite icon;
