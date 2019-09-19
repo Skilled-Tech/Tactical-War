@@ -121,7 +121,13 @@ namespace Game
                 }
                 else
                 {
-
+                    for (int i = 0; i < regions.Length; i++)
+                    {
+                        if (i == 0)
+                            regions[i].Unlock();
+                        else
+                            regions[i].Lock();
+                    }
                 }
             }
         }
@@ -167,7 +173,7 @@ namespace Game
         }
         public virtual void Load(RegionCore region, LevelCore level)
         {
-            Current.Set(level);
+            Current = new CurrentData(level);
 
             SceneManager.LoadScene(Scenes.Level, LoadSceneMode.Single);
 

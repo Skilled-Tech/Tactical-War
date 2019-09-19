@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3e2e7da7c4ae745be1bbd12dadbefb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vector: {x: 5, y: -20}
+  vector: {x: 5, y: -30}
 --- !u!114 &8231442200290163265
 MonoBehaviour:
   m_ObjectHideFlags: 0
