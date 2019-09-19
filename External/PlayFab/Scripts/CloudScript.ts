@@ -14,7 +14,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
     let world = API.World.World.Retrieve();
     try
     {
-        API.World.World.Validate(world, args.region, args.level);
+        API.World.World.Validate(world, args);
     }
     catch (error)
     {
@@ -25,7 +25,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
     let data = API.World.Data.Retrieve(currentPlayerId);
     try
     {
-        API.World.Data.Validate(data, world, args.region, args.level);
+        API.World.Data.Validate(data, world, args);
     }
     catch (error)
     {
@@ -202,24 +202,27 @@ namespace API
                 }
             }
 
-            export function Completion(data: Instance, world: World.Data, args: IFinishLevelArguments)
+            export function Incremenet(data: Instance, world: World.Data, args: IFinishLevelArguments)
             {
                 let progress = data.Find(args.region).progress++;
 
                 let region = world.Find(args.region);
-                let level = region.levels[args.level];
 
                 if (progress == region.levels.length) //Completed All Levels
                 {
                     let index = world.IndexOf(region.name);
 
-                    if (index >= world.regions.length - 1)
+                    if (index >= world.regions.length - 1) //Completed All Regions
                     {
 
                     }
                     else
                     {
+                        let next = world.regions[index + 1];
 
+                        let instance = new Region(region.name, 1);
+
+                        data.Add(instance);
                     }
                 }
             }
@@ -285,22 +288,24 @@ namespace API
                 return data;
             }
 
-            export function Validate(data: Data, region: string, level: number)
+            export function Validate(data: Data, args: IFinishLevelArguments)
             {
-                if (data.Contains(region))
+                let region = data.Find(args.region);
+
+                if (region == null)
                 {
-                    if (level >= 0 && level < data.Find(region).levels.length)
+                    throw args.region + " region doesn't exist";
+                }
+                else
+                {
+                    if (args.level >= 0 && args.level < data.Find(args.region).levels.length)
                     {
                         return;
                     }
                     else
                     {
-                        throw "Level " + level + " on " + region + " region doesn't exist";
+                        throw "Level " + args.level + " on " + args.region + " region doesn't exist";
                     }
-                }
-                else
-                {
-                    throw region + " region doesn't exist";
                 }
             }
 
