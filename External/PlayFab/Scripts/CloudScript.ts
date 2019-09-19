@@ -5,78 +5,90 @@ handlers.OnLoggedIn = function (args, context: IPlayFabContext)
 {
     return;
 
-    API.Item.Grant(context.playerProfile.PlayerId, "Wood_Sword", 5, "Login Bonus");
-    API.Item.Grant(context.playerProfile.PlayerId, "Wood_Shield", 5, "Login Bonus");
+    PlayFab.Title.Catalog.Item.Grant(context.playerProfile.PlayerId, "Wood_Sword", 5, "Login Bonus");
+    PlayFab.Title.Catalog.Item.Grant(context.playerProfile.PlayerId, "Wood_Shield", 5, "Login Bonus");
 }
 
-handlers.FinishLevel = function ($args)
+handlers.FinishLevel = function (args: IFinishLevelArguments)
 {
-    var args = {
-        region: $args.region as string,
-        level: $args.level as number,
-    }
-
-    var world = API.World.Template.Retrieve();
-
-    var region = world.FindRegion(args.region);
-    if (region == null)
+    let world = API.World.World.Retrieve();
+    try
     {
-        log.error(args.region + " Region Doesn't Exist");
+        API.World.World.Validate(world, args.region, args.level);
+    }
+    catch (error)
+    {
+        log.error(error);
         return;
     }
 
-    var level = region.levels[args.level - 1];
-    if (level == null)
+    let data = API.World.Data.Retrieve(currentPlayerId);
+    try
     {
-        log.error("Level", "Level " + args.level + " Doesn't Exist");
+        API.World.Data.Validate(data, world, args.region, args.level);
+    }
+    catch (error)
+    {
+        log.error(error);
         return;
     }
 
-    var data = API.World.Data.Retrieve(currentPlayerId);
+    let progress = data.Find(args.region).progress;
 
-    if (!data.Contains(region.name))
-        data.Add(region.name);
+    log.info(progress.toString());
 
-    if (data.Find(region.name).progress > args.level) //Player Completed Level Before
+    if (args.level >= progress) //cheating
     {
-        return [];
+        log.error("trying to finish level " + args.level + " without finishing the previous level ");
+        return;
     }
-    else if (data.Find(region.name).progress < args.level) //Player Trying to Complete a level without completing the levels before
+
+    let IDs: string[] = [];
+
+    var level = world.Find(args.region).levels[args.level];
+
+    if (args.level == progress - 1) //Initial
     {
+        log.info("Initial Completion");
 
+        data.Find(args.region).progress++;
+        PlayFab.Player.Data.ReadOnly.Write(currentPlayerId, API.World.Name, JSON.stringify(data));
+
+        let items = API.Reward.Grant(currentPlayerId, level.reward.initial, "Level Completion Award");
+        IDs = IDs.concat(items);
     }
-    else //Firs time the player is completing this level
+
+    if (args.level < progress - 1) //Recurring
     {
-        data.Find(region.name).progress++;
+        log.info("Recurring Completion");
 
-        API.Player.ReadOnlyData.Write(currentPlayerId, API.World.Name, JSON.stringify(data));
-
-        var IDs = Reward.Grant(currentPlayerId, level.reward, "Level Award");
-
-        return IDs;
+        let items = API.Reward.Grant(currentPlayerId, level.reward.constant, "Level Completion Award");
+        IDs = IDs.concat(items);
     }
+
+    return IDs;
+}
+interface IFinishLevelArguments
+{
+    region: string;
+    level: number;
 }
 
-handlers.UpgradeItem = function ($args)
+handlers.UpgradeItem = function (args: IUpgradeItemArguments)
 {
-    var args = {
-        itemInstanceID: $args.itemInstanceId as string,
-        upgradeType: $args.upgradeType as string,
-    }
-
-    var inventory = API.Inventory.Retrieve(currentPlayerId);
-    var itemInstance = inventory.FindWithInstanceID(args.itemInstanceID);
+    let inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
+    let itemInstance = inventory.FindWithInstanceID(args.itemInstanceId);
 
     if (itemInstance == null)
     {
-        log.error(args.itemInstanceID + " is an Invalid Instance ID");
+        log.error(args.itemInstanceId + " is an Invalid Instance ID");
         return;
     }
 
-    var catalog = API.Catalog.Retrieve(itemInstance.CatalogVersion);
-    var catalogItem = catalog.FindWithID(itemInstance.ItemId);
+    let catalog = PlayFab.Title.Catalog.Retrieve(itemInstance.CatalogVersion);
+    let catalogItem = catalog.FindWithID(itemInstance.ItemId);
 
-    var arguments = API.Upgrades.Arguments.Load(catalogItem);
+    let arguments = API.Upgrades.Arguments.Load(catalogItem);
 
     if (arguments == null)
     {
@@ -84,9 +96,9 @@ handlers.UpgradeItem = function ($args)
         return;
     }
 
-    var titleData = API.Title.Data.Retrieve([API.Upgrades.Name]);
+    let titleData = PlayFab.Title.Data.Retrieve([API.Upgrades.Name]);
 
-    var template = API.Upgrades.Template.Find(titleData[API.Upgrades.Name], arguments.template);
+    let template = API.Upgrades.Template.Find(titleData[API.Upgrades.Name], arguments.template);
 
     if (template == null)
     {
@@ -100,7 +112,7 @@ handlers.UpgradeItem = function ($args)
         return;
     }
 
-    var data = API.Upgrades.Data.Load(itemInstance);
+    let data = API.Upgrades.Data.Load(itemInstance);
     if (data.Contains(args.upgradeType) == false) data.Add(args.upgradeType);
 
     if (data.Find(args.upgradeType).value >= template.Find(args.upgradeType).ranks.length)
@@ -109,7 +121,7 @@ handlers.UpgradeItem = function ($args)
         return;
     }
 
-    var rank = template.Match(args.upgradeType, data);
+    let rank = template.Match(args.upgradeType, data);
 
     if (rank.requirements != null)
     {
@@ -128,16 +140,21 @@ handlers.UpgradeItem = function ($args)
 
     //Validation Completed, Start Processing Request
     {
-        API.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
+        PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
 
-        ItemRequirement.ConsumeAll(inventory, rank.requirements);
+        API.ItemRequirement.ConsumeAll(inventory, rank.requirements);
 
         data.Find(args.upgradeType).value++;
 
-        API.Inventory.UpdateItemData(currentPlayerId, itemInstance.ItemInstanceId, API.Upgrades.Name, data.ToJson());
+        PlayFab.Player.Inventory.UpdateItemData(currentPlayerId, itemInstance.ItemInstanceId, API.Upgrades.Name, data.ToJson());
     }
 
     return "Success";
+}
+interface IUpgradeItemArguments
+{
+    itemInstanceId: string;
+    upgradeType: string;
 }
 
 namespace API
@@ -150,31 +167,70 @@ namespace API
         {
             export function Retrieve(playerID: string): Instance
             {
-                var playerData = Player.ReadOnlyData.Read(playerID, [Name]);
+                let playerData = PlayFab.Player.Data.ReadOnly.Read(playerID, [Name]);
 
                 if (playerData.Data[Name] == null)
                     return new Instance();
 
-                var json = playerData.Data[Name].Value;
+                let json = playerData.Data[Name].Value;
 
-                var object = JSON.parse(json);
+                let object = JSON.parse(json);
 
-                var instance = Object.assign(new Instance(), object);
+                let instance = Object.assign(new Instance(), object);
 
                 return instance;
+            }
+
+            export function Validate(data: Instance, world: World.Data, args: IFinishLevelArguments)
+            {
+                if (data.Contains(args.region))
+                {
+
+                }
+                else
+                {
+                    if (args.region == world.regions[0].name)
+                    {
+                        let instance = new Region(args.region, 1);
+
+                        data.Add(instance);
+                    }
+                    else
+                    {
+                        throw "Can't begin data indexing from " + args.region + " region";
+                    }
+                }
+            }
+
+            export function Completion(data: Instance, world: World.Data, args: IFinishLevelArguments)
+            {
+                let progress = data.Find(args.region).progress++;
+
+                let region = world.Find(args.region);
+                let level = region.levels[args.level];
+
+                if (progress == region.levels.length) //Completed All Levels
+                {
+                    let index = world.IndexOf(region.name);
+
+                    if (index >= world.regions.length - 1)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
             }
 
             export class Instance
             {
                 regions: Region[];
 
-                Add(name: string): Region
+                Add(region: Region)
                 {
-                    var instance = new Region(name);
-
-                    this.regions.push(instance);
-
-                    return instance;
+                    this.regions.push(region);
                 }
 
                 Contains(name: string): boolean
@@ -206,34 +262,53 @@ namespace API
                 name: string;
                 progress: number;
 
-                constructor(name: string)
+                constructor(name: string, progress: number)
                 {
                     this.name = name;
-                    this.progress = 0;
+                    this.progress = progress;
                 }
             }
         }
 
-        export namespace Template
+        export namespace World
         {
             export function Retrieve(): Data
             {
-                var titleData = API.Title.Data.Retrieve([Name]);
+                let titleData = PlayFab.Title.Data.Retrieve([Name]);
 
-                var json = titleData[Name];
+                let json = titleData[Name];
 
-                var object = JSON.parse(json);
+                let object = JSON.parse(json);
 
-                var data = Object.assign(new Data(), object);
+                let data = Object.assign(new Data(), object);
 
                 return data;
             }
 
+            export function Validate(data: Data, region: string, level: number)
+            {
+                if (data.Contains(region))
+                {
+                    if (level >= 0 && level < data.Find(region).levels.length)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        throw "Level " + level + " on " + region + " region doesn't exist";
+                    }
+                }
+                else
+                {
+                    throw region + " region doesn't exist";
+                }
+            }
+
             export class Data
             {
-                regions: Region.Data[];
+                regions: Region[];
 
-                public FindRegion(name: string)
+                public Find(name: string)
                 {
                     for (let i = 0; i < this.regions.length; i++)
                         if (this.regions[i].name == name)
@@ -241,23 +316,41 @@ namespace API
 
                     return null;
                 }
-            }
 
-            export namespace Region
-            {
-                export class Data
+                public Contains(name: string): boolean
                 {
-                    name: string;
-                    levels: Level.Data[];
+                    for (let i = 0; i < this.regions.length; i++)
+                        if (this.regions[i].name == name)
+                            return true;
+
+                    return false;
+                }
+
+                public IndexOf(name: string): number
+                {
+                    for (let i = 0; i < this.regions.length; i++)
+                        if (this.regions[i].name == name)
+                            return i;
+
+                    return null;
                 }
             }
 
-            export namespace Level
+            export class Region
             {
-                export class Data
-                {
-                    reward: Reward.Data;
-                }
+                name: string;
+                levels: Level[];
+            }
+
+            export class Level
+            {
+                reward: Rewards;
+            }
+
+            export class Rewards
+            {
+                initial: API.Reward.Data;
+                constant: API.Reward.Data;
             }
         }
     }
@@ -270,7 +363,7 @@ namespace API
         {
             export function Load(itemInstance: PlayFabServerModels.ItemInstance): Instance
             {
-                var instance = new Instance;
+                let instance = new Instance;
                 if (itemInstance.CustomData == null)
                 {
 
@@ -283,7 +376,7 @@ namespace API
                     }
                     else
                     {
-                        var object = JSON.parse(itemInstance.CustomData[Upgrades.Name]);
+                        let object = JSON.parse(itemInstance.CustomData[Upgrades.Name]);
 
                         instance.Load(object);
                     }
@@ -303,7 +396,7 @@ namespace API
 
                 public Contains(type: string): boolean
                 {
-                    for (var i = 0; i < this.list.length; i++)
+                    for (let i = 0; i < this.list.length; i++)
                         if (this.list[i].type == type)
                             return true;
 
@@ -312,7 +405,7 @@ namespace API
 
                 public Find(type: string): Element
                 {
-                    for (var i = 0; i < this.list.length; i++)
+                    for (let i = 0; i < this.list.length; i++)
                         if (this.list[i].type == type)
                             return this.list[i];
 
@@ -358,14 +451,14 @@ namespace API
 
                 if (catalogItem.CustomData == null) return null;
 
-                var object = JSON.parse(catalogItem.CustomData);
+                let object = JSON.parse(catalogItem.CustomData);
 
                 if (object[Name] == null)
                 {
 
                 }
 
-                var data = Object.assign(new Instance(), object[Name]) as Instance;
+                let data = Object.assign(new Instance(), object[Name]) as Instance;
 
                 if (data.template == null) data.template = Default;
 
@@ -387,19 +480,19 @@ namespace API
 
                 if (name == null) return null;
 
-                var object = JSON.parse(json);
+                let object = JSON.parse(json);
 
-                var target = object.find(x => x.name == name);
+                let target = object.find(x => x.name == name);
 
-                var template = Object.assign(new Instance(), target);
+                let template = Object.assign(new Instance(), target);
 
                 return template;
             }
             export function Parse(json: string): Instance
             {
-                var object = JSON.parse(json);
+                let object = JSON.parse(json);
 
-                var instance = Object.assign(new Instance(), object);
+                let instance = Object.assign(new Instance(), object);
 
                 return instance;
             }
@@ -411,7 +504,7 @@ namespace API
 
                 Find(name: string): Element
                 {
-                    for (var i = 0; i < this.elements.length; i++)
+                    for (let i = 0; i < this.elements.length; i++)
                         if (this.elements[i].type == name)
                             return this.elements[i];
 
@@ -432,164 +525,195 @@ namespace API
 
             export class Rank
             {
-                cost: Cost.Data;
+                cost: API.Cost.Data;
                 percentage: number;
-                requirements: ItemRequirement.Data[]
+                requirements: API.ItemRequirement.Data[]
             }
         }
     }
 
-    export namespace Inventory
+    export namespace Reward
     {
-        export function Retrieve(playerID: string): Data
+        export function Grant(playerID: string, data: Data, annotation: string): string[]
         {
-            var result = server.GetUserInventory(
-                {
-                    PlayFabId: playerID,
-                }
-            );
+            let IDs = Array<string>();
 
-            return new Data(result.Inventory, result.VirtualCurrency);
-        }
+            IDs = IDs.concat(data.items);
 
-        export function Consume(playerID: string, itemInstanceID, count: number)
-        {
-            var result = server.ConsumeItem({
-                PlayFabId: playerID,
-                ItemInstanceId: itemInstanceID,
-                ConsumeCount: count,
-            });
-        }
+            let result = PlayFab.Title.Catalog.Tables.Process(data.droptable);
+            if (result != null)
+                IDs = IDs.concat(result);
 
-        export function UpdateItemData(playerID, itemInstanceID, key, value)
-        {
-            var data = {};
+            PlayFab.Title.Catalog.Item.GrantAll(playerID, IDs, annotation);
 
-            data[key] = value;
-
-            var request = server.UpdateUserInventoryItemCustomData({
-                PlayFabId: playerID,
-                ItemInstanceId: itemInstanceID,
-                Data: data
-            });
+            return IDs;
         }
 
         export class Data
         {
-            items: PlayFabServerModels.ItemInstance[];
-            virtualCurrency: { [key: string]: number };
+            items: [string];
+            droptable: DropTable;
+        }
 
-            public FindWithID(itemID: string): PlayFabServerModels.ItemInstance
-            {
-                for (let i = 0; i < this.items.length; i++)
-                    if (this.items[i].ItemId == itemID)
-                        return this.items[i];
-
-                return null;
-            }
-            public FindWithInstanceID(itemInstanceID: string): PlayFabServerModels.ItemInstance
-            {
-                for (let i = 0; i < this.items.length; i++)
-                    if (this.items[i].ItemInstanceId == itemInstanceID)
-                        return this.items[i];
-
-                return null;
-            }
-
-            public CompliesWithRequirements(requirements: ItemRequirement.Data[]): boolean
-            {
-                for (let i = 0; i < requirements.length; i++)
-                {
-                    var instance = this.FindWithID(requirements[i].item);
-
-                    if (instance == null) return false;
-
-                    if (instance.RemainingUses < requirements[i].count) return false;
-                }
-
-                return true;
-            }
-
-            constructor(Items: PlayFabServerModels.ItemInstance[], VirtualCurrency: { [key: string]: number })
-            {
-                this.items = Items;
-                this.virtualCurrency = VirtualCurrency;
-            }
+        export class DropTable
+        {
+            ID: string;
+            iterations: number;
         }
     }
 
-    export namespace Catalog
+    export namespace Cost
     {
-        export const Default = "Default";
-
-        export function Retrieve(version: string): Data
+        export class Data
         {
-            var result = server.GetCatalogItems(
-                {
-                    CatalogVersion: version,
-                }
-            );
+            type: string;
+            value: number;
+        }
+    }
 
-            return new Data(result.Catalog);
+    export namespace ItemRequirement
+    {
+        export function ConsumeAll(inventory: PlayFab.Player.Inventory.Data, requirements: Data[])
+        {
+            if (requirements == null) return;
+
+            for (let i = 0; i < requirements.length; i++)
+            {
+                let itemInstance = inventory.FindWithID(requirements[i].item);
+
+                PlayFab.Player.Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, requirements[i].count);
+            }
         }
 
         export class Data
         {
-            items: PlayFabServerModels.CatalogItem[];
-
-            public FindWithID(itemID: string): PlayFabServerModels.CatalogItem
-            {
-                for (let i = 0; i < this.items.length; i++)
-                    if (this.items[i].ItemId == itemID)
-                        return this.items[i];
-
-                return null;
-            }
-
-            constructor(Items: PlayFabServerModels.CatalogItem[])
-            {
-                this.items = Items;
-            }
+            item: string;
+            count: number;
         }
     }
+}
 
+namespace PlayFab
+{
     export namespace Player
     {
-        export namespace ReadOnlyData
+        export namespace Inventory
         {
-            export function Read(playerID: string, keys: string[]): PlayFabServerModels.GetUserDataResult
+            export function Retrieve(playerID: string): Data
             {
-                var result = server.GetUserReadOnlyData({
-                    PlayFabId: playerID,
-                    Keys: keys
-                });
+                let result = server.GetUserInventory(
+                    {
+                        PlayFabId: playerID,
+                    }
+                );
 
-                return result;
+                return new Data(result.Inventory, result.VirtualCurrency);
             }
 
-            export function Write(playerID: string, key: string, value: string)
+            export function Consume(playerID: string, itemInstanceID, count: number)
             {
-                var data = {};
+                let result = server.ConsumeItem({
+                    PlayFabId: playerID,
+                    ItemInstanceId: itemInstanceID,
+                    ConsumeCount: count,
+                });
+            }
+
+            export function UpdateItemData(playerID, itemInstanceID, key, value)
+            {
+                let data = {};
 
                 data[key] = value;
 
-                server.UpdateUserReadOnlyData({
+                let request = server.UpdateUserInventoryItemCustomData({
                     PlayFabId: playerID,
-                    Data: data,
-                })
+                    ItemInstanceId: itemInstanceID,
+                    Data: data
+                });
+            }
+
+            export class Data
+            {
+                items: PlayFabServerModels.ItemInstance[];
+                virtualCurrency: { [key: string]: number };
+
+                public FindWithID(itemID: string): PlayFabServerModels.ItemInstance
+                {
+                    for (let i = 0; i < this.items.length; i++)
+                        if (this.items[i].ItemId == itemID)
+                            return this.items[i];
+
+                    return null;
+                }
+                public FindWithInstanceID(itemInstanceID: string): PlayFabServerModels.ItemInstance
+                {
+                    for (let i = 0; i < this.items.length; i++)
+                        if (this.items[i].ItemInstanceId == itemInstanceID)
+                            return this.items[i];
+
+                    return null;
+                }
+
+                public CompliesWithRequirements(requirements: API.ItemRequirement.Data[]): boolean
+                {
+                    for (let i = 0; i < requirements.length; i++)
+                    {
+                        let instance = this.FindWithID(requirements[i].item);
+
+                        if (instance == null) return false;
+
+                        if (instance.RemainingUses < requirements[i].count) return false;
+                    }
+
+                    return true;
+                }
+
+                constructor(Items: PlayFabServerModels.ItemInstance[], VirtualCurrency: { [key: string]: number })
+                {
+                    this.items = Items;
+                    this.virtualCurrency = VirtualCurrency;
+                }
             }
         }
-    }
 
-    export namespace Currency
-    {
-        export function Subtract(playerID, currency: string, ammout: number)
+        export namespace Currency
         {
-            var request = server.SubtractUserVirtualCurrency({
-                PlayFabId: playerID,
-                VirtualCurrency: currency,
-                Amount: ammout
-            });
+            export function Subtract(playerID, currency: string, ammout: number)
+            {
+                let request = server.SubtractUserVirtualCurrency({
+                    PlayFabId: playerID,
+                    VirtualCurrency: currency,
+                    Amount: ammout
+                });
+            }
+        }
+
+        export namespace Data
+        {
+            export namespace ReadOnly
+            {
+                export function Read(playerID: string, keys: string[]): PlayFabServerModels.GetUserDataResult
+                {
+                    let result = server.GetUserReadOnlyData({
+                        PlayFabId: playerID,
+                        Keys: keys
+                    });
+
+                    return result;
+                }
+
+                export function Write(playerID: string, key: string, value: string)
+                {
+                    let data = {};
+
+                    data[key] = value;
+
+                    server.UpdateUserReadOnlyData({
+                        PlayFabId: playerID,
+                        Data: data,
+                    })
+                }
+            }
         }
     }
 
@@ -599,154 +723,101 @@ namespace API
         {
             export function Retrieve(keys: string[])
             {
-                var result = server.GetTitleData({
+                let result = server.GetTitleData({
                     Keys: keys,
                 })
 
                 return result.Data;
             }
         }
-    }
 
-    export namespace Item
-    {
-        export function Grant(playerID: string, itemID, ammount: number, annotation: string, ): Array<PlayFabServerModels.ItemInstance>
+        export namespace Catalog
         {
-            var items = [];
+            export const Default = "Default";
 
-            for (let i = 0; i < ammount; i++)
-                items.push(itemID);
-
-            return GrantAll(playerID, items, annotation);
-        }
-
-        export function GrantAll(playerID: string, itemIDs: string[], annotation: string): Array<PlayFabServerModels.ItemInstance>
-        {
-            if (itemIDs == null || itemIDs.length == 0) return [];
-
-            var result = server.GrantItemsToUser({
-                PlayFabId: playerID,
-                Annotation: annotation,
-                CatalogVersion: Catalog.Default,
-                ItemIds: itemIDs
-            });
-
-            return result.ItemGrantResults;
-        }
-    }
-
-    export namespace Tables
-    {
-        export function Evaluate(tableID: string): string
-        {
-            var result = server.EvaluateRandomResultTable({
-                CatalogVersion: Catalog.Default,
-                TableId: tableID
-            });
-
-            return result.ResultItemId;
-        }
-
-        export function Process(table: Reward.DropTable): Array<string>
-        {
-            var items = Array<string>();
-
-            for (let i = 0; i < table.iterations; i++)
+            export function Retrieve(version: string): Data
             {
-                var item = Evaluate(table.ID);
+                let result = server.GetCatalogItems(
+                    {
+                        CatalogVersion: version,
+                    }
+                );
 
-                items.push(item);
+                return new Data(result.Catalog);
             }
 
-            return items;
-        }
-    }
-
-    export namespace CloudScript
-    {
-        export namespace Error
-        {
-            export class Type implements PlayFabServerModels.ScriptExecutionError
+            export class Data
             {
-                Error?: string;
-                /** Details about the error */
-                Message?: string;
-                /** Point during the execution of the script at which the error occurred, if any */
-                StackTrace?: string;
+                items: PlayFabServerModels.CatalogItem[];
 
-                constructor(code: string, message: string)
+                public FindWithID(itemID: string): PlayFabServerModels.CatalogItem
                 {
-                    this.Error = code;
-                    this.Message = message;
+                    for (let i = 0; i < this.items.length; i++)
+                        if (this.items[i].ItemId == itemID)
+                            return this.items[i];
+
+                    return null;
+                }
+
+                constructor(Items: PlayFabServerModels.CatalogItem[])
+                {
+                    this.items = Items;
                 }
             }
 
-            export function Fomat(code: string, message: string): PlayFabServerModels.ScriptExecutionError
+            export namespace Item
             {
-                return new Type(code, message);
+                export function Grant(playerID: string, itemID, ammount: number, annotation: string, ): Array<PlayFabServerModels.ItemInstance>
+                {
+                    let items = [];
+
+                    for (let i = 0; i < ammount; i++)
+                        items.push(itemID);
+
+                    return GrantAll(playerID, items, annotation);
+                }
+
+                export function GrantAll(playerID: string, itemIDs: string[], annotation: string): Array<PlayFabServerModels.ItemInstance>
+                {
+                    if (itemIDs == null || itemIDs.length == 0) return [];
+
+                    let result = server.GrantItemsToUser({
+                        PlayFabId: playerID,
+                        Annotation: annotation,
+                        CatalogVersion: Catalog.Default,
+                        ItemIds: itemIDs
+                    });
+
+                    return result.ItemGrantResults;
+                }
+            }
+
+            export namespace Tables
+            {
+                export function Evaluate(tableID: string): string
+                {
+                    let result = server.EvaluateRandomResultTable({
+                        CatalogVersion: Catalog.Default,
+                        TableId: tableID
+                    });
+
+                    return result.ResultItemId;
+                }
+
+                export function Process(table: API.Reward.DropTable): Array<string>
+                {
+                    let items = Array<string>();
+
+                    for (let i = 0; i < table.iterations; i++)
+                    {
+                        let item = Evaluate(table.ID);
+
+                        items.push(item);
+                    }
+
+                    return items;
+                }
             }
         }
     }
 }
-
-//#region Types
-namespace Reward
-{
-    export function Grant(playerID: string, data: Data, annotation: string): string[]
-    {
-        var IDs = Array<string>();
-
-        IDs = IDs.concat(data.items);
-
-        var result = API.Tables.Process(data.droptable);
-        if (result != null)
-            IDs = IDs.concat(result);
-
-        API.Item.GrantAll(playerID, IDs, annotation);
-
-        return IDs;
-    }
-
-    export class Data
-    {
-        items: [string];
-        droptable: DropTable;
-    }
-
-    export class DropTable
-    {
-        ID: string;
-        iterations: number;
-    }
-}
-
-namespace Cost
-{
-    export class Data
-    {
-        type: string;
-        value: number;
-    }
-}
-
-namespace ItemRequirement
-{
-    export function ConsumeAll(inventory: API.Inventory.Data, requirements: Data[])
-    {
-        if (requirements == null) return;
-
-        for (let i = 0; i < requirements.length; i++)
-        {
-            var itemInstance = inventory.FindWithID(requirements[i].item);
-
-            API.Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, requirements[i].count);
-        }
-    }
-
-    export class Data
-    {
-        item: string;
-        count: number;
-    }
-}
-//#endregion
