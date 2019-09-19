@@ -64,9 +64,17 @@ namespace Game
 
         public virtual void Set(ItemRequirementData data)
         {
-            label.text = data.Item.name;
+            label.text = data.Item.DisplayName;
 
-            ammount.text = "x" + data.Count.ToString();
+            if(data.Count == 1)
+            {
+                ammount.gameObject.SetActive(false);
+            }
+            else
+            {
+                ammount.gameObject.SetActive(true);
+                ammount.text = "x" + data.Count.ToString();
+            }
 
             icon.sprite = data.Item.Icon;
         }

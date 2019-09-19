@@ -35,17 +35,17 @@ MonoBehaviour:
       funds:
         elements:
         - type: 0
-          _value: 80300
+          _value: 86300
         - type: 1
           _value: 749900
     units:
       selection:
         max: 4
         list:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
+        - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+        - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
+        - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
+        - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
         Context: {fileID: 0}
   items:
     list:
@@ -55,6 +55,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
     - {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
     - {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
+    - {fileID: 11400000, guid: 10430b6767664a34682b0394b27bb7f5, type: 2}
+    - {fileID: 11400000, guid: cb4153b2c4d496442887b92cbf1ab01e, type: 2}
     upgrades:
       types:
         list:
@@ -64,4 +66,5 @@ MonoBehaviour:
       templates:
         _default: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
   playFab:
+    player: {}
     title: {}

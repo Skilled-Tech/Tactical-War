@@ -32,6 +32,8 @@ namespace Game
 
         public string ID { get { return base.name; } }
 
+        public string DisplayName { get { return CatalogItem.DisplayName; } }
+
         [SerializeField]
         protected Sprite icon;
         public Sprite Icon { get { return icon; } }

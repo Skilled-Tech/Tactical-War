@@ -37,7 +37,7 @@ namespace Game
         public event ProcessDelegate OnProcess;
         public virtual void Process(Proponent winner)
         {
-            Level.Speed.Value = 1f;
+            Level.Speed.Value = 0.2f;
 
             if(winner is PlayerProponent)
             {

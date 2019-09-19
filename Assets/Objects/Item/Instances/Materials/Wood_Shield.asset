@@ -15,8 +15,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: c0761c773390ac9478931decf88c0fb9, type: 3}
   description: A Sword Made out of Wood
   price:
-    gold: 0
-    jewels: 0
+    type: 0
+    value: 400
   upgrades:
     template: {fileID: 0}
     applicable: []

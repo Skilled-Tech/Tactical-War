@@ -7,15 +7,17 @@
           "reward": {
             "initial": {
               "items": [
-                "Wood_Sword"
+                "2K_Gold"
               ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
-                "iterations": 1
+                "iterations": 2
               }
             },
             "constant": {
-              "items": [],
+              "items": [
+                "1K_Gold"
+              ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
                 "iterations": 1
@@ -27,15 +29,17 @@
           "reward": {
             "initial": {
               "items": [
-                "Wood_Sword"
+                "2K_Gold"
               ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
-                "iterations": 1
+                "iterations": 2
               }
             },
             "constant": {
-              "items": [],
+              "items": [
+                "1K_Gold"
+              ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
                 "iterations": 1
@@ -47,15 +51,17 @@
           "reward": {
             "initial": {
               "items": [
-                "Wood_Sword"
+                "2K_Gold"
               ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
-                "iterations": 1
+                "iterations": 2
               }
             },
             "constant": {
-              "items": [],
+              "items": [
+                "1K_Gold"
+              ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
                 "iterations": 1
@@ -67,15 +73,17 @@
           "reward": {
             "initial": {
               "items": [
-                "Wood_Sword"
+                "2K_Gold"
               ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
-                "iterations": 1
+                "iterations": 2
               }
             },
             "constant": {
-              "items": [],
+              "items": [
+                "1K_Gold"
+              ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
                 "iterations": 1
@@ -87,15 +95,17 @@
           "reward": {
             "initial": {
               "items": [
-                "Wood_Sword"
+                "2K_Gold"
               ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
-                "iterations": 1
+                "iterations": 2
               }
             },
             "constant": {
-              "items": [],
+              "items": [
+                "1K_Gold"
+              ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
                 "iterations": 1
@@ -112,15 +122,17 @@
           "reward": {
             "initial": {
               "items": [
-                "Wood_Sword"
+                "2K_Gold"
               ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
-                "iterations": 1
+                "iterations": 2
               }
             },
             "constant": {
-              "items": [],
+              "items": [
+                "1K_Gold"
+              ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
                 "iterations": 1
@@ -132,15 +144,17 @@
           "reward": {
             "initial": {
               "items": [
-                "Wood_Sword"
+                "2K_Gold"
               ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
-                "iterations": 1
+                "iterations": 2
               }
             },
             "constant": {
-              "items": [],
+              "items": [
+                "1K_Gold"
+              ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
                 "iterations": 1
@@ -152,15 +166,17 @@
           "reward": {
             "initial": {
               "items": [
-                "Wood_Sword"
+                "2K_Gold"
               ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
-                "iterations": 1
+                "iterations": 2
               }
             },
             "constant": {
-              "items": [],
+              "items": [
+                "1K_Gold"
+              ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
                 "iterations": 1
@@ -172,15 +188,17 @@
           "reward": {
             "initial": {
               "items": [
-                "Wood_Sword"
+                "2K_Gold"
               ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
-                "iterations": 1
+                "iterations": 2
               }
             },
             "constant": {
-              "items": [],
+              "items": [
+                "1K_Gold"
+              ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
                 "iterations": 1
@@ -192,15 +210,17 @@
           "reward": {
             "initial": {
               "items": [
-                "Wood_Sword"
+                "2K_Gold"
               ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
-                "iterations": 1
+                "iterations": 2
               }
             },
             "constant": {
-              "items": [],
+              "items": [
+                "1K_Gold"
+              ],
               "droptable": {
                 "ID": "Level-Default-DropTable",
                 "iterations": 1
