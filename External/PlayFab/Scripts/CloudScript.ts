@@ -3,9 +3,9 @@
 
 handlers.ProcessDailyReward = function (args, context: IPlayFabContext)
 {
-    var templates = API.DailyRewards.Templates.Retrieve();
+    let templates = API.DailyRewards.Templates.Retrieve();
 
-    var data = API.DailyRewards.Data.Retrieve(currentPlayerId);
+    let data = API.DailyRewards.Data.Retrieve(currentPlayerId);
 
     if (data == null)
     {
@@ -13,33 +13,38 @@ handlers.ProcessDailyReward = function (args, context: IPlayFabContext)
     }
     else
     {
-        var daysFromLastReward = Utility.Dates.DaysFrom(Date.parse(data.lastLogin));
+        let daysFromLastReward = Utility.Dates.DaysFrom(Date.parse(data.lastLogin));
+
+        log.info(daysFromLastReward.toString());
 
         if (daysFromLastReward < 1)
         {
-            log.info("No Reward");
             return;
         }
         else
         {
             if (daysFromLastReward < 2)
             {
-                log.info("Reward");
+
             }
             else
             {
-                log.info("Missed Reward");
-                return;
+                data.progress = 0;
             }
         }
     }
 
     data.lastLogin = new Date().toJSON();
 
-    API.Reward.Grant(currentPlayerId, templates[data.progress], "Daily Reward");
+    let items = API.Reward.Grant(currentPlayerId, templates[data.progress], "Daily Reward");
 
-    if (data.progress++ >= templates.length)
+    data.progress++
+    if (data.progress >= templates.length)
         data.progress = 0;
+
+    API.DailyRewards.Data.Save(currentPlayerId, data);
+
+    return items;
 }
 
 handlers.FinishLevel = function (args: IFinishLevelArguments)
@@ -234,7 +239,7 @@ namespace API
 
                         let instance = Object.assign(new Instance(), object);
 
-                        return;
+                        return instance;
                     }
                 }
 

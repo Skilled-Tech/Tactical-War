@@ -142,7 +142,7 @@ namespace Game
             }
         }
 
-        IList<ItemRequirementData> GetRewards(JsonArray jArray)
+        public static IList<ItemRequirementData> GetRewards(JsonArray jArray)
         {
             List<string> IDs = null;
 

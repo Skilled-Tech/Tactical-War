@@ -39,6 +39,10 @@ namespace Game
         public bool startOffline = false;
 
         [SerializeField]
+        protected PlayFabDailyRewardCore dailyRewards;
+        public PlayFabDailyRewardCore DailyRewards { get { return dailyRewards; } }
+
+        [SerializeField]
         protected PlayFabPlayerCore player;
         public PlayFabPlayerCore Player { get { return player; } }
 
@@ -123,8 +127,9 @@ namespace Game
 
             Activated = false;
 
-            Register(player);
             Register(login);
+            Register(dailyRewards);
+            Register(player);
             Register(title);
             Register(catalog);
             Register(purchase);
@@ -141,6 +146,46 @@ namespace Game
             {
                 Core.Scenes.Load(Core.Scenes.Login.Name);
             }
+        }
+    }
+
+    [Serializable]
+    public class PlayFabDailyRewardCore : PlayFabCore.Module
+    {
+        public virtual void Perform()
+        {
+            var request = new ExecuteCloudScriptRequest()
+            {
+                FunctionName = "ProcessDailyReward",
+
+                FunctionParameter = null,
+
+                GeneratePlayStreamEvent = true,
+            };
+
+            PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
+        }
+
+        public event Delegates.ResultDelegate<ExecuteCloudScriptResult> OnResult;
+        void ResultCallback(ExecuteCloudScriptResult result)
+        {
+            if (OnResult != null) OnResult(result);
+
+            Respond(result, null);
+        }
+
+        public event Delegates.ErrorDelegate OnError;
+        void ErrorCallback(PlayFabError error)
+        {
+            if (OnError != null) OnError(error);
+
+            Respond(null, error);
+        }
+
+        public event Delegates.ResponseDelegate<ExecuteCloudScriptResult> OnResponse;
+        void Respond(ExecuteCloudScriptResult result, PlayFabError error)
+        {
+            if (OnResponse != null) OnResponse(result, error);
         }
     }
 }

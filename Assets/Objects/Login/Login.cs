@@ -18,6 +18,7 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 using PlayFab;
+using PlayFab.Json;
 using PlayFab.ClientModels;
 
 namespace Game
@@ -67,10 +68,38 @@ namespace Game
 
         void Progress()
         {
-            Popup.Text = "Retrieving Title Data";
+            PlayFab.DailyRewards.OnResponse += DailyRewardsResponseCallback;
+            PlayFab.DailyRewards.Perform();
+        }
 
-            PlayFab.Title.OnResponse += OnTitleResponse;
-            PlayFab.Title.Request();
+        void DailyRewardsResponseCallback(ExecuteCloudScriptResult result, PlayFabError error)
+        {
+            void Progress()
+            {
+                Popup.Text = "Retrieving Title Data";
+
+                PlayFab.Title.OnResponse += OnTitleResponse;
+                PlayFab.Title.Request();
+            }
+
+            if(error == null)
+            {
+                var rewards = LevelFinish.GetRewards(result.FunctionResult as JsonArray);
+
+                if(rewards.Count == 0)
+                {
+                    Progress();
+                }
+                else
+                {
+                    Core.UI.Rewards.OnFinish += Progress;
+                    Core.UI.Rewards.Show(rewards);
+                }
+            }
+            else
+            {
+
+            }
         }
 
         void OnTitleResponse(PlayFabTitleCore data, PlayFabError error)
