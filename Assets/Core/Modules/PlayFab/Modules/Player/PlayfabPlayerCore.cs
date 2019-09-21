@@ -19,6 +19,7 @@ using Random = UnityEngine.Random;
 
 using PlayFab;
 using PlayFab.ClientModels;
+using Newtonsoft.Json;
 
 namespace Game
 {
@@ -33,10 +34,19 @@ namespace Game
         protected PlayFabPlayerReadOnlyData readonlyData;
         public PlayFabPlayerReadOnlyData ReadonlyData { get { return readonlyData; } }
 
+        [SerializeField]
+        protected PlayFabPlayerInventoryCore inventory;
+        public PlayFabPlayerInventoryCore Inventory { get { return inventory; } }
+
         [Serializable]
 		public class Module : PlayFabCore.Module
         {
             public PlayFabPlayerCore Player { get { return PlayFab.Player; } }
+
+            protected override string FormatFilePath(string name)
+            {
+                return base.FormatFilePath("Player/" + name);
+            }
         }
 
         public virtual void Retrieve()
@@ -49,6 +59,21 @@ namespace Game
         void ReadOnlyDataResponseCallback(PlayFabPlayerReadOnlyData result, PlayFabError error)
         {
             readonlyData.OnResponse -= ReadOnlyDataResponseCallback;
+
+            if(error == null)
+            {
+                inventory.OnResponse += InventoryResponseCallback;
+                inventory.Request();
+            }
+            else
+            {
+                Respond(error);
+            }
+        }
+
+        void InventoryResponseCallback(PlayFabPlayerInventoryCore result, PlayFabError error)
+        {
+            inventory.OnResponse -= InventoryResponseCallback;
 
             Respond(error);
         }
@@ -124,14 +149,23 @@ namespace Game
         public Dictionary<string, UserDataRecord> Data { get; protected set; }
         public uint Version { get; protected set; }
 
+        public string FileName => "Readonly Data.json";
+
         public virtual void Retrieve()
         {
-            var request = new GetUserDataRequest
+            if(IsLoggedIn)
             {
-                
-            };
+                var request = new GetUserDataRequest
+                {
 
-            PlayFabClientAPI.GetUserReadOnlyData(request, RetrieveCallback, ErrorCallback);
+                };
+
+                PlayFabClientAPI.GetUserReadOnlyData(request, RetrieveCallback, ErrorCallback);
+            }
+            else
+            {
+                Load<GetUserDataResult>(FileName, RetrieveCallback, ErrorCallback);
+            }
         }
 
         public event Delegates.RetrievedDelegate<PlayFabPlayerReadOnlyData> OnRetrieved;
@@ -143,6 +177,9 @@ namespace Game
             if (OnRetrieved != null) OnRetrieved(this);
 
             Respond(result, null);
+
+            if (IsLoggedIn)
+                Save(result, FileName);
         }
 
         public event Delegates.ErrorDelegate OnError;

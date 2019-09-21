@@ -64,7 +64,7 @@ namespace Game
         {
             this.Template = template;
 
-            icon.sprite = template.Icon;
+            template.Icon.ApplyTo(icon);
 
             UpdateState();
         }

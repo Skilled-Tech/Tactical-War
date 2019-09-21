@@ -34,16 +34,15 @@ namespace Game
 
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
-        IEnumerator Start()
+        void Start()
         {
-            yield return new WaitForEndOfFrame();
-            yield return new WaitForEndOfFrame();
-
             Popup.Show("Logging In", null, null);
 
-            if (Input.GetKey(KeyCode.X) && Application.isEditor)
+            if (PlayFab.startOffline && Application.isEditor)
             {
-                OnLoginResponse(null, new PlayFabError());
+                OnLoginResponse(null, new PlayFabError() { ErrorMessage = "Let me in, let meee iinnnnnn" });
+
+                PlayFab.startOffline = false;
             }
             else
             {
@@ -80,23 +79,6 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Show("Retrieving Player Data");
-
-                PlayFab.Player.Retrieve();
-                PlayFab.Player.OnResponse += OnPlayerDataResponse;
-            }
-            else
-            {
-                RaiseError(error);
-            }
-        }
-
-        void OnPlayerDataResponse(PlayFabPlayerCore result, PlayFabError error)
-        {
-            PlayFab.Player.OnResponse -= OnPlayerDataResponse;
-
-            if (error == null)
-            {
                 Popup.Show("Retrieving Catalog");
 
                 PlayFab.Catalog.OnResponse += OnCatalogResponse;
@@ -114,10 +96,10 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Text = "Retrieving Inventory";
+                Popup.Show("Retrieving Player Data");
 
-                PlayFab.Inventory.OnResponse += OnInventoryResponse;
-                PlayFab.Inventory.Request();
+                PlayFab.Player.OnResponse += OnPlayerResponse;
+                PlayFab.Player.Retrieve();
             }
             else
             {
@@ -125,9 +107,9 @@ namespace Game
             }
         }
 
-        void OnInventoryResponse(PlayFabInventoryCore inventory, PlayFabError error)
+        void OnPlayerResponse(PlayFabPlayerCore result, PlayFabError error)
         {
-            PlayFab.Inventory.OnResponse -= OnInventoryResponse;
+            PlayFab.Player.OnResponse -= OnPlayerResponse;
 
             if (error == null)
             {

@@ -26,6 +26,14 @@ namespace Game
         protected Object asset;
 #if UNITY_EDITOR
         public Object Asset { get { return asset; } }
+
+        public string Path
+        {
+            get
+            {
+                return AssetDatabase.GetAssetPath(asset);
+            }
+        }
 #endif
 
         [SerializeField]

@@ -107,8 +107,8 @@ namespace Game
             {
                 Popup.Show("Retrieving Inventory");
 
-                PlayFab.Inventory.OnResponse += OnInventoryResponse;
-                PlayFab.Inventory.Request();
+                PlayFab.Player.Inventory.OnResponse += OnInventoryResponse;
+                PlayFab.Player.Inventory.Request();
             }
             else
             {
@@ -116,9 +116,9 @@ namespace Game
             }
         }
 
-        void OnInventoryResponse(PlayFabInventoryCore result, PlayFab.PlayFabError error)
+        void OnInventoryResponse(PlayFabPlayerInventoryCore result, PlayFab.PlayFabError error)
         {
-            PlayFab.Inventory.OnResponse -= OnInventoryResponse;
+            PlayFab.Player.Inventory.OnResponse -= OnInventoryResponse;
 
             if (error == null)
             {

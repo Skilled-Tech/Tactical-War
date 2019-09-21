@@ -61,7 +61,7 @@ namespace Game
             Funds.Configure();
             Items = new List<ItemData>();
 
-            PlayFab.Inventory.OnResponse += OnPlayFabInventoryRetrieved;
+            PlayFab.Player.Inventory.OnResponse += OnPlayFabInventoryRetrieved;
         }
 
         public virtual bool Contains(CatalogItem item)
@@ -124,7 +124,7 @@ namespace Game
             return true;
         }
 
-        void OnPlayFabInventoryRetrieved(PlayFabInventoryCore inventory, PlayFabError error)
+        void OnPlayFabInventoryRetrieved(PlayFabPlayerInventoryCore inventory, PlayFabError error)
         {
             if (error == null)
             {
@@ -136,7 +136,7 @@ namespace Game
             }
         }
 
-        void Load(PlayFabInventoryCore inventory)
+        void Load(PlayFabPlayerInventoryCore inventory)
         {
             funds.Load(inventory.VirtualCurrency);
 
@@ -152,7 +152,7 @@ namespace Game
                     continue;
                 }
 
-                var data=  new ItemData(template, inventory.Items[i]);
+                var data = new ItemData(template, inventory.Items[i]);
 
                 Items.Add(data);
             }

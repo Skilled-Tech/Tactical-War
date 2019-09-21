@@ -19,6 +19,8 @@ using Random = UnityEngine.Random;
 
 using PlayFab;
 using PlayFab.ClientModels;
+using Newtonsoft.Json;
+using PlayFab.SharedModels;
 
 namespace Game
 {
@@ -34,6 +36,9 @@ namespace Game
         public bool Activated { get; set; }
 
         [SerializeField]
+        public bool startOffline = false;
+
+        [SerializeField]
         protected PlayFabPlayerCore player;
         public PlayFabPlayerCore Player { get { return player; } }
 
@@ -44,10 +49,6 @@ namespace Game
         [SerializeField]
         protected PlayFabCatalogCore catalog;
         public PlayFabCatalogCore Catalog { get { return catalog; } }
-
-        [SerializeField]
-        protected PlayFabInventoryCore inventory;
-        public PlayFabInventoryCore Inventory { get { return inventory; } }
 
         [SerializeField]
         protected PlayFabPurchaseCore purchase;
@@ -64,9 +65,41 @@ namespace Game
 
             public bool IsLoggedIn { get { return PlayFab.IsLoggedIn; } }
 
-            public static string FormatFilePath(string name)
+            protected virtual string FormatFilePath(string name)
             {
                 return "PlayFab/" + name;
+            }
+            protected virtual void Load<TResult>(string path, Action<TResult> resultCallback, Action<PlayFabError> errorCallback)
+                where TResult : PlayFabResultCommon
+            {
+                path = FormatFilePath(path);
+
+                if (Core.Data.Exists(path))
+                {
+                    var json = Core.Data.LoadText(path);
+
+                    var result = JsonConvert.DeserializeObject<TResult>(json);
+
+                    resultCallback(result);
+                }
+                else
+                {
+                    var error = new PlayFabError()
+                    {
+                        ErrorMessage = "No Local Data Found"
+                    };
+
+                    errorCallback(error);
+                }
+            }
+            protected virtual void Save<TResult>(TResult request, string path)
+                where TResult : PlayFabResultCommon
+            {
+                path = FormatFilePath(path);
+
+                var json = JsonConvert.SerializeObject(request, Formatting.Indented);
+
+                Core.Data.Save(path, json);
             }
 
             public static class Delegates

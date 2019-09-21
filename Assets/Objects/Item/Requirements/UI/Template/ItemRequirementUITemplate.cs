@@ -42,7 +42,7 @@ namespace Game
 
         public virtual void Set(ItemTemplate template, uint count)
         {
-            icon.sprite = template.Icon;
+            template.Icon.ApplyTo(icon);
 
             uses.text = "x" + count.ToString();
         }

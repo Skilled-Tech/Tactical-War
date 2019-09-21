@@ -76,7 +76,7 @@ namespace Game
                 ammount.text = "x" + data.Count.ToString();
             }
 
-            icon.sprite = data.Item.Icon;
+            data.Item.Icon.ApplyTo(icon);
         }
 
         void ClickAction()

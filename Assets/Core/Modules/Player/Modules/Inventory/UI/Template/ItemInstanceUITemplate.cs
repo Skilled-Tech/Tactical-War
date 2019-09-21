@@ -40,7 +40,7 @@ namespace Game
 
         public virtual void Set(PlayerInventoryCore.ItemData itemData)
         {
-            icon.sprite = itemData.Template.Icon;
+            itemData.Template.Icon.ApplyTo(icon);
 
             if (itemData.Instance.RemainingUses.HasValue)
             {

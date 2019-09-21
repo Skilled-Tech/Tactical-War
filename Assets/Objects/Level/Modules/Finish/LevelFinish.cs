@@ -92,14 +92,14 @@ namespace Game
 
                 Popup.Show("Retrieving Inventory");
 
-                PlayFab.Inventory.OnResponse += InventoryResponseCallback;
-                PlayFab.Inventory.Request();
+                PlayFab.Player.Inventory.OnResponse += InventoryResponseCallback;
+                PlayFab.Player.Inventory.Request();
             }
         }
 
-        void InventoryResponseCallback(PlayFabInventoryCore inventory, PlayFabError error)
+        void InventoryResponseCallback(PlayFabPlayerInventoryCore inventory, PlayFabError error)
         {
-            PlayFab.Inventory.OnResponse -= InventoryResponseCallback;
+            PlayFab.Player.Inventory.OnResponse -= InventoryResponseCallback;
 
             if (error == null)
             {

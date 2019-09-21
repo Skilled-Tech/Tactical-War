@@ -12,14 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
   m_Name: Knight
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 786dc58700650f540a9ba9dcdddd64d3, type: 3}
+  icon:
+    sprite: {fileID: 21300000, guid: 786dc58700650f540a9ba9dcdddd64d3, type: 3}
+    tilt: 0
   description: Heavily armored warrior, low range, high attack & defense
   price:
-    type: 0
-    value: 400
+    type: 1
+    value: 6000
   upgrades:
-    template: {fileID: 0}
-    applicable: []
+    template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
+    applicable:
+    - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+    - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+  hideInInventory: 1
   type: {fileID: 11400000, guid: 24de53186882044498807e9ef2186c21, type: 2}
   prefab: {fileID: 8127696124609658847, guid: ffb63b5e209ba8e4592a2e03c6b2bed3, type: 3}
   health: 200

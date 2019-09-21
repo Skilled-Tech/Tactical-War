@@ -25,11 +25,13 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-    public class PlayFabInventoryCore : PlayFabCore.Module
+    public class PlayFabPlayerInventoryCore : PlayFabPlayerCore.Module
     {
         public List<ItemInstance> Items { get; protected set; }
 
         public Dictionary<string, int> VirtualCurrency { get; protected set; }
+
+        public virtual string FileName => "Inventory.json";
 
         #region Query
         public virtual bool Contains(CatalogItem item)
@@ -83,40 +85,10 @@ namespace Game
                 PlayFabClientAPI.GetUserInventory(request, RetrieveCallback, ErrorCallback);
             }
             else
-                LoadResult();
+                Load<GetUserInventoryResult>(FileName, RetrieveCallback, ErrorCallback);
         }
 
-        public const string FileName = "Inventory.json";
-        protected virtual void LoadResult()
-        {
-            var filePath = FormatFilePath(FileName);
-
-            if (Core.Data.Exists(filePath))
-            {
-                var json = Core.Data.LoadText(filePath);
-
-                var request = JsonConvert.DeserializeObject<GetUserInventoryResult>(json);
-
-                RetrieveCallback(request);
-            }
-            else
-            {
-                var error = new PlayFabError()
-                {
-                    ErrorMessage = "No Local Data Found"
-                };
-
-                ErrorCallback(error);
-            }
-        }
-        protected virtual void SaveResult(GetUserInventoryResult request)
-        {
-            var json = JsonConvert.SerializeObject(request, Formatting.Indented);
-
-            Core.Data.Save(FormatFilePath(FileName), json);
-        }
-
-        public event Delegates.RetrievedDelegate<PlayFabInventoryCore> OnRetrieved;
+        public event Delegates.RetrievedDelegate<PlayFabPlayerInventoryCore> OnRetrieved;
         void RetrieveCallback(GetUserInventoryResult result)
         {
             this.Items = result.Inventory;
@@ -127,7 +99,7 @@ namespace Game
             Respond(null);
 
             if (IsLoggedIn)
-                SaveResult(result);
+                Save(result, FileName);
         }
 
         public event Delegates.ErrorDelegate OnError;
@@ -138,7 +110,7 @@ namespace Game
             Respond(error);
         }
 
-        public event Delegates.ResponseDelegate<PlayFabInventoryCore> OnResponse;
+        public event Delegates.ResponseDelegate<PlayFabPlayerInventoryCore> OnResponse;
         void Respond(PlayFabError error)
         {
             if (OnResponse != null) OnResponse(this, error);

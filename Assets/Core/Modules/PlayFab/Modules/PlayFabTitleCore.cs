@@ -35,9 +35,9 @@ namespace Game
         {
             public PlayFabTitleCore Title { get { return PlayFab.Title; } }
 
-            new public static string FormatFilePath(string name)
+            protected override string FormatFilePath(string name)
             {
-                return PlayFabCore.Module.FormatFilePath("Data/" + name);
+                return base.FormatFilePath("Title/" + name);
             }
         }
 
@@ -95,6 +95,8 @@ namespace Game
     {
         public Dictionary<string, string> Value { get; protected set; }
 
+        public virtual string FileName => "Data.json";
+
         public virtual void Request()
         {
             if (IsLoggedIn)
@@ -104,46 +106,16 @@ namespace Game
 
                 };
 
-                PlayFabClientAPI.GetTitleData(request, RetrieveCallbac, ErrorCallback);
+                PlayFabClientAPI.GetTitleData(request, RetrieveCallback, ErrorCallback);
             }
             else
             {
-                LoadResult();
+                Load<GetTitleDataResult>(FileName, RetrieveCallback, ErrorCallback);
             }
-        }
-
-        public const string FileName = "Title Data.json";
-        protected virtual void LoadResult()
-        {
-            var filePath = FormatFilePath(FileName);
-
-            if (Core.Data.Exists(filePath))
-            {
-                var json = Core.Data.LoadText(filePath);
-
-                var request = JsonConvert.DeserializeObject<GetTitleDataResult>(json);
-
-                RetrieveCallbac(request);
-            }
-            else
-            {
-                var error = new PlayFabError()
-                {
-                    ErrorMessage = "No Local Data Found"
-                };
-
-                ErrorCallback(error);
-            }
-        }
-        protected virtual void SaveResult(GetTitleDataResult request)
-        {
-            var json = JsonConvert.SerializeObject(request, Formatting.Indented);
-
-            Core.Data.Save(FormatFilePath(FileName), json);
         }
 
         public event Delegates.ResultDelegate<PlayFabTitleDataCore> OnRetrieved;
-        void RetrieveCallbac(GetTitleDataResult result)
+        void RetrieveCallback(GetTitleDataResult result)
         {
             Value = result.Data;
 
@@ -152,7 +124,7 @@ namespace Game
             Respond(result, null);
 
             if (IsLoggedIn)
-                SaveResult(result);
+                Save(result, FileName);
         }
 
         public event Delegates.ErrorDelegate OnError;

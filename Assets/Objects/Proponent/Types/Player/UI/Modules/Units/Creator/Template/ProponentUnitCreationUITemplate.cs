@@ -79,12 +79,12 @@ namespace Game
             Background.color = button.interactable ? BackgroundOrigianlColor : Color.Lerp(Color.grey, Color.black, 0.6f);
         }
 
-        public virtual void Set(PlayerProponent player, UnitTemplate data)
+        public virtual void Set(PlayerProponent player, UnitTemplate template)
         {
             this.Player = player;
-            this.Data = data;
+            this.Data = template;
 
-            icon.sprite = data.Icon;
+            template.Icon.ApplyTo(icon);
 
             UpdateState();
         }

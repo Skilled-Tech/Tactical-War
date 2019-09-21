@@ -35,8 +35,27 @@ namespace Game
         public string DisplayName { get { return CatalogItem.DisplayName; } }
 
         [SerializeField]
-        protected Sprite icon;
-        public Sprite Icon { get { return icon; } }
+        protected IconData icon;
+        public IconData Icon { get { return icon; } }
+        [Serializable]
+        public class IconData
+        {
+            [SerializeField]
+            protected Sprite sprite;
+            public Sprite Sprite { get { return sprite; } }
+
+            [SerializeField]
+            [Range(0f, 360f)]
+            protected float tilt;
+            public float Tilt { get { return tilt; } }
+
+            public virtual void ApplyTo(Image image)
+            {
+                image.sprite = sprite;
+
+                image.rectTransform.localEulerAngles = Vector3.forward * tilt;
+            }
+        }
 
         [SerializeField]
         [TextArea]
@@ -126,6 +145,10 @@ namespace Game
                 }
             }
         }
+
+        [SerializeField]
+        protected bool hideInInventory;
+        public bool HideInInventory { get { return hideInInventory; } }
 
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }
