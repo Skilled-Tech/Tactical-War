@@ -58,7 +58,7 @@ namespace Game
 
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
-        public PopupUI Popup { get { return Core.UI.Popup.Instance; } }
+        public PopupUI Popup { get { return Core.UI.Popup; } }
 
         void OnEnable()
         {

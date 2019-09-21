@@ -20,7 +20,7 @@ using TMPro;
 
 namespace Game
 {
-	public class LevelRewardsUI : LevelMenu.Element
+	public class RewardsUI : UIElement
 	{
 		[SerializeField]
         protected TMP_Text label;
@@ -38,10 +38,8 @@ namespace Game
         protected Button button;
         public Button Button { get { return button; } }
 
-        public override void Configure(LevelMenu data)
+        public virtual void Init()
         {
-            base.Configure(data);
-
             button.onClick.AddListener(ClickAction);
         }
 

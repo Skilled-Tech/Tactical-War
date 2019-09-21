@@ -23,50 +23,40 @@ namespace Game
 	public class UICore : Core.Module
 	{
         [SerializeField]
-        protected PopupUICore popup;
-        public PopupUICore Popup { get { return popup; } }
+        protected GameObject prefab;
+        public GameObject Prefab { get { return prefab; } }
+
+        public UICoreMenu Menu { get; protected set; }
+
+        public PopupUI Popup { get { return Menu.Popup; } }
+        public RewardsUI Rewards { get { return Menu.Rewards; } }
 
         [Serializable]
         public class Module : Core.Module
         {
             public UICore UI { get { return Core.UI; } }
+
+            public UICoreMenu Menu { get; protected set; }
         }
 
         public override void Configure()
         {
             base.Configure();
 
-            Register(popup);
-        }
-    }
-
-    [Serializable]
-    public class PopupUICore : UICore.Module
-    {
-        [SerializeField]
-        protected GameObject prefab;
-        public GameObject Prefab { get { return prefab; } }
-
-        public PopupUI Instance { get; protected set; }
-
-        public override void Configure()
-        {
-            base.Configure();
-
-            Instance = Create();
+            Menu = Create();
         }
 
-        PopupUI Create()
+        UICoreMenu Create()
         {
             var instance = Object.Instantiate(prefab);
 
             Object.DontDestroyOnLoad(instance);
 
-            instance.name = "Popup";
+            instance.name = "UI Core Menu";
 
-            var script = Dependancy.Get<PopupUI>(instance);
+            var script = Dependancy.Get<UICoreMenu>(instance);
 
-            script.Hide();
+            script.Init();
 
             return script;
         }

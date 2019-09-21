@@ -24,7 +24,7 @@ namespace Game
 {
     public class Login : MonoBehaviour
     {
-        public PopupUI Popup { get { return Core.UI.Popup.Instance; } }
+        public PopupUI Popup { get { return Core.UI.Popup; } }
 
         public Core Core { get { return Core.Instance; } }
 

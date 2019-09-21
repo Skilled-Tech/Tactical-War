@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Core
   m_EditorClassIdentifier: 
   _UI:
-    popup:
-      prefab: {fileID: 8285693176523596214, guid: d1a3b746dc7c32c4d984fcff16903fbf,
-        type: 3}
+    prefab: {fileID: 2074320178486768908, guid: 2bb5a675f5222234b91d887e27295032,
+      type: 3}
   scenes:
     login:
       asset: {fileID: 102900000, guid: 4a3ed4e77f4122b4fa8b8f74b05d1a9f, type: 3}
@@ -66,5 +65,6 @@ MonoBehaviour:
       templates:
         _default: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
   playFab:
+    startOffline: 0
     player: {}
     title: {}
