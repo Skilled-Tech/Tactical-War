@@ -76,7 +76,8 @@ namespace Game
         {
             void Progress()
             {
-                Popup.Text = "Retrieving Title Data";
+                Core.UI.Rewards.Hide();
+                Popup.Show("Retrieving Title Data");
 
                 PlayFab.Title.OnResponse += OnTitleResponse;
                 PlayFab.Title.Request();
@@ -92,6 +93,8 @@ namespace Game
                 }
                 else
                 {
+                    Popup.Hide();
+
                     Core.UI.Rewards.OnFinish += Progress;
                     Core.UI.Rewards.Show(rewards);
                 }
