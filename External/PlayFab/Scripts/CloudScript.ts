@@ -1,12 +1,45 @@
 // (https://api.playfab.com/playstream/docs/PlayStreamEventModels)
 // (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
 
-handlers.OnLoggedIn = function (args, context: IPlayFabContext)
+handlers.ProcessDailyReward = function (args, context: IPlayFabContext)
 {
-    return;
+    var templates = API.DailyRewards.Templates.Retrieve();
 
-    PlayFab.Title.Catalog.Item.Grant(context.playerProfile.PlayerId, "Wood_Sword", 5, "Login Bonus");
-    PlayFab.Title.Catalog.Item.Grant(context.playerProfile.PlayerId, "Wood_Shield", 5, "Login Bonus");
+    var data = API.DailyRewards.Data.Retrieve(currentPlayerId);
+
+    if (data == null)
+    {
+        data = new API.DailyRewards.Data.Instance();
+    }
+    else
+    {
+        var daysFromLastReward = Utility.Dates.DaysFrom(Date.parse(data.lastLogin));
+
+        if (daysFromLastReward < 1)
+        {
+            log.info("No Reward");
+            return;
+        }
+        else
+        {
+            if (daysFromLastReward < 2)
+            {
+                log.info("Reward");
+            }
+            else
+            {
+                log.info("Missed Reward");
+                return;
+            }
+        }
+    }
+
+    data.lastLogin = new Date().toJSON();
+
+    API.Reward.Grant(currentPlayerId, templates[data.progress], "Daily Reward");
+
+    if (data.progress++ >= templates.length)
+        data.progress = 0;
 }
 
 handlers.FinishLevel = function (args: IFinishLevelArguments)
@@ -96,7 +129,7 @@ handlers.UpgradeItem = function (args: IUpgradeItemArguments)
         return;
     }
 
-    let titleData = PlayFab.Title.Data.Retrieve([API.Upgrades.Name]);
+    let titleData = PlayFab.Title.Data.RetrieveAll([API.Upgrades.Name]);
 
     let template = API.Upgrades.Template.Find(titleData[API.Upgrades.Name], arguments.template);
 
@@ -159,6 +192,75 @@ interface IUpgradeItemArguments
 
 namespace API
 {
+    export namespace DailyRewards
+    {
+        export const Name = "daily-rewards";
+
+        export namespace Templates
+        {
+            export function Retrieve(): API.Reward.Data[]
+            {
+                var json = PlayFab.Title.Data.Retrieve(DailyRewards.Name);
+
+                var object = JSON.parse(json);
+
+                var instance = Object.assign([], object);
+
+                return instance;
+            }
+        }
+
+        export namespace Data
+        {
+            export function Retrieve(playerID: string): Instance
+            {
+                let result = PlayFab.Player.Data.ReadOnly.Read(playerID, DailyRewards.Name);
+
+                if (result.Data == null)
+                {
+
+                }
+                else
+                {
+                    if (result.Data[DailyRewards.Name] == null)
+                    {
+
+                    }
+                    else
+                    {
+                        let json = result.Data[DailyRewards.Name].Value;
+
+                        let object = JSON.parse(json);
+
+                        let instance = Object.assign(new Instance(), object);
+
+                        return;
+                    }
+                }
+
+                return null;
+            }
+
+            export function Save(playerID: string, data: Instance)
+            {
+                PlayFab.Player.Data.ReadOnly.Write(playerID, DailyRewards.Name, JSON.stringify(data));
+            }
+
+            export class Instance
+            {
+                lastLogin: string;
+                progress: number;
+
+                constructor()
+                {
+                    this.lastLogin = new Date().toJSON();
+
+                    this.progress = 0;
+                }
+            }
+        }
+    }
+
     export namespace World
     {
         export const Name = "world";
@@ -167,7 +269,7 @@ namespace API
         {
             export function Retrieve(playerID: string): Instance
             {
-                let playerData = PlayFab.Player.Data.ReadOnly.Read(playerID, [Name]);
+                let playerData = PlayFab.Player.Data.ReadOnly.ReadAll(playerID, [Name]);
 
                 if (playerData.Data[Name] == null)
                     return new Instance();
@@ -277,7 +379,7 @@ namespace API
         {
             export function Retrieve(): Data
             {
-                let titleData = PlayFab.Title.Data.Retrieve([Name]);
+                let titleData = PlayFab.Title.Data.RetrieveAll([Name]);
 
                 let json = titleData[Name];
 
@@ -543,11 +645,25 @@ namespace API
         {
             let IDs = Array<string>();
 
-            IDs = IDs.concat(data.items);
+            if (data.items == null)
+            {
 
-            let result = PlayFab.Title.Catalog.Tables.Process(data.droptable);
-            if (result != null)
-                IDs = IDs.concat(result);
+            }
+            else
+            {
+                IDs = IDs.concat(data.items);
+            }
+
+            if (data.droptable == null)
+            {
+
+            }
+            else
+            {
+                let result = PlayFab.Title.Catalog.Tables.Process(data.droptable);
+                if (result != null)
+                    IDs = IDs.concat(result);
+            }
 
             PlayFab.Title.Catalog.Item.GrantAll(playerID, IDs, annotation);
 
@@ -594,6 +710,22 @@ namespace API
         {
             item: string;
             count: number;
+        }
+    }
+}
+
+namespace Utility
+{
+    export namespace Dates
+    {
+        export function DaysFrom(date: any): number
+        {
+            return DaysBetween(date, new Date());
+        }
+
+        export function DaysBetween(date1: Date, date2: Date): number
+        {
+            return Math.round((date2.valueOf() - date1.valueOf()) / (86400000));
         }
     }
 }
@@ -697,12 +829,19 @@ namespace PlayFab
         {
             export namespace ReadOnly
             {
-                export function Read(playerID: string, keys: string[]): PlayFabServerModels.GetUserDataResult
+                export function ReadAll(playerID: string, keys: string[]): PlayFabServerModels.GetUserDataResult
                 {
                     let result = server.GetUserReadOnlyData({
                         PlayFabId: playerID,
                         Keys: keys
                     });
+
+                    return result;
+                }
+
+                export function Read(playerID: string, key: string): PlayFabServerModels.GetUserDataResult
+                {
+                    var result = ReadAll(playerID, [key]);
 
                     return result;
                 }
@@ -726,13 +865,20 @@ namespace PlayFab
     {
         export namespace Data
         {
-            export function Retrieve(keys: string[])
+            export function RetrieveAll(keys: string[]): PlayFabServerModels.GetTitleDataResult
             {
                 let result = server.GetTitleData({
                     Keys: keys,
                 })
 
-                return result.Data;
+                return result;
+            }
+
+            export function Retrieve(key: string): string
+            {
+                var result = RetrieveAll([key]);
+
+                return result.Data[key];
             }
         }
 

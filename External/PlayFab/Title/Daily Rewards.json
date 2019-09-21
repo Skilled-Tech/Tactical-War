@@ -1,0 +1,64 @@
+[
+    {
+        "items": [
+            "Wood_Sword"
+        ]
+    },
+    {
+        "items": [
+            "Wood_Sword",
+            "Wood_Shield"
+        ]
+    },
+    {
+        "items": [
+            "Wood_Sword",
+            "Wood_Shield",
+            "1K_Gold"
+        ]
+    },
+    {
+        "items": [
+            "Wood_Sword",
+            "Wood_Shield",
+            "1K_Gold"
+        ],
+        "droptable": {
+            "ID": "Level-Default-DropTable",
+            "iterations": 1
+        }
+    },
+    {
+        "items": [
+            "Wood_Sword",
+            "Wood_Shield",
+            "2K_Gold"
+        ],
+        "droptable": {
+            "ID": "Level-Default-DropTable",
+            "iterations": 2
+        }
+    },
+    {
+        "items": [
+            "Wood_Sword",
+            "Wood_Shield",
+            "2K_Gold"
+        ],
+        "droptable": {
+            "ID": "Level-Default-DropTable",
+            "iterations": 2
+        }
+    },
+    {
+        "items": [
+            "Wood_Sword",
+            "Wood_Shield",
+            "2K_Gold"
+        ],
+        "droptable": {
+            "ID": "Level-Default-DropTable",
+            "iterations": 2
+        }
+    }
+]

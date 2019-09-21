@@ -26,7 +26,7 @@ namespace Game
     {
         void Start()
         {
-            
+            (new DateTime() - new DateTime);
         }
     }
 }
