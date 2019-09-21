@@ -95,7 +95,7 @@ namespace Game
     {
         public Dictionary<string, string> Value { get; protected set; }
 
-        public virtual string FileName => "Data.json";
+        public const string FileName = "Data";
 
         public virtual void Request()
         {

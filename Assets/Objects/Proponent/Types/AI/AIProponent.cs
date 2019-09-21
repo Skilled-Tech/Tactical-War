@@ -34,15 +34,18 @@ namespace Game
 
         void Update()
         {
-            if (Base.Units.Count < Enemey.Base.Units.Count + 4)
+            if(Base.IsAlive)
             {
-                if (Base.Units.Creator.CanDeploy(Units.Selection[0]))
+                if (Base.Units.Count < Enemey.Base.Units.Count + 4)
                 {
-                    if (deployment == null)
-                        deployment = Base.Units.Creator.Deploy(Units.Selection[Random.Range(0, Units.Selection.Count)]);
-                    else
+                    if (Base.Units.Creator.CanDeploy(Units.Selection[0]))
                     {
-                        if (deployment.isComplete) deployment = null;
+                        if (deployment == null)
+                            deployment = Base.Units.Creator.Deploy(Units.Selection[Random.Range(0, Units.Selection.Count)]);
+                        else
+                        {
+                            if (deployment.isComplete) deployment = null;
+                        }
                     }
                 }
             }

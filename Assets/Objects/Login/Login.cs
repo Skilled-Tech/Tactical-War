@@ -40,7 +40,7 @@ namespace Game
 
             if (PlayFab.startOffline && Application.isEditor)
             {
-                OnLoginResponse(null, new PlayFabError() { ErrorMessage = "Let me in, let meee iinnnnnn" });
+                Progress();
 
                 PlayFab.startOffline = false;
             }
@@ -55,14 +55,6 @@ namespace Game
         {
             PlayFab.Login.OnResponse -= OnLoginResponse;
 
-            void Progress()
-            {
-                Popup.Text = "Retrieving Title Data";
-
-                PlayFab.Title.OnResponse += OnTitleResponse;
-                PlayFab.Title.Request();
-            }
-
             if (error == null)
             {
                 Progress();
@@ -71,6 +63,14 @@ namespace Game
             {
                 Popup.Show("Failed To Connect, Play Offline ?", Progress, "Ok");
             }
+        }
+
+        void Progress()
+        {
+            Popup.Text = "Retrieving Title Data";
+
+            PlayFab.Title.OnResponse += OnTitleResponse;
+            PlayFab.Title.Request();
         }
 
         void OnTitleResponse(PlayFabTitleCore data, PlayFabError error)

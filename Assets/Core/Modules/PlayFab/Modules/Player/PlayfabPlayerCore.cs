@@ -149,7 +149,7 @@ namespace Game
         public Dictionary<string, UserDataRecord> Data { get; protected set; }
         public uint Version { get; protected set; }
 
-        public string FileName => "Readonly Data.json";
+        public const string FileName = "Readonly Data";
 
         public virtual void Retrieve()
         {

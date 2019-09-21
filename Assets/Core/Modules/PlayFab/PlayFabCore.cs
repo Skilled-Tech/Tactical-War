@@ -67,16 +67,16 @@ namespace Game
 
             protected virtual string FormatFilePath(string name)
             {
-                return "PlayFab/" + name;
+                return "PlayFab/" + name + ".json";
             }
-            protected virtual void Load<TResult>(string path, Action<TResult> resultCallback, Action<PlayFabError> errorCallback)
+            protected virtual void Load<TResult>(string fileName, Action<TResult> resultCallback, Action<PlayFabError> errorCallback)
                 where TResult : PlayFabResultCommon
             {
-                path = FormatFilePath(path);
+                fileName = FormatFilePath(fileName);
 
-                if (Core.Data.Exists(path))
+                if (Core.Data.Exists(fileName))
                 {
-                    var json = Core.Data.LoadText(path);
+                    var json = Core.Data.LoadText(fileName);
 
                     var result = JsonConvert.DeserializeObject<TResult>(json);
 
@@ -86,7 +86,7 @@ namespace Game
                 {
                     var error = new PlayFabError()
                     {
-                        ErrorMessage = "No Local Data Found"
+                        ErrorMessage = "No Local " + fileName + " Data Found"
                     };
 
                     errorCallback(error);

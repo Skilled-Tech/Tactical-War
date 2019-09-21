@@ -35,6 +35,8 @@ namespace Game
 
         public CatalogItem this[int index] { get { return Items[index]; } }
 
+        public const string FileName = "Catalog";
+
         public virtual CatalogItem Find(string itemID)
         {
             for (int i = 0; i < Items.Count; i++)
@@ -58,38 +60,8 @@ namespace Game
             }
             else
             {
-                LoadResult();
+                Load<GetCatalogItemsResult>(FileName, RetrieveCallback, ErrorCallback);
             }
-        }
-
-        public const string FileName = "Catalog.json";
-        protected virtual void LoadResult()
-        {
-            var filePath = FormatFilePath(FileName);
-
-            if (Core.Data.Exists(filePath))
-            {
-                var json = Core.Data.LoadText(filePath);
-
-                var request = JsonConvert.DeserializeObject<GetCatalogItemsResult>(json);
-
-                RetrieveCallback(request);
-            }
-            else
-            {
-                var error = new PlayFabError()
-                {
-                    ErrorMessage = "No Local Data Found"
-                };
-
-                ErrorCallback(error);
-            }
-        }
-        protected virtual void SaveResult(GetCatalogItemsResult request)
-        {
-            var json = JsonConvert.SerializeObject(request, Formatting.Indented);
-
-            Core.Data.Save(FormatFilePath(FileName), json);
         }
 
         public event Delegates.RetrievedDelegate<PlayFabCatalogCore> OnRetrieved;
@@ -102,7 +74,7 @@ namespace Game
             Respond(null);
 
             if (IsLoggedIn)
-                SaveResult(result);
+                Save(result, FileName);
         }
 
         public event Delegates.ErrorDelegate OnError;

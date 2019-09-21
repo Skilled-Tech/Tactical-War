@@ -31,7 +31,7 @@ namespace Game
 
         public Dictionary<string, int> VirtualCurrency { get; protected set; }
 
-        public virtual string FileName => "Inventory.json";
+        public const string FileName = "Inventory";
 
         #region Query
         public virtual bool Contains(CatalogItem item)
