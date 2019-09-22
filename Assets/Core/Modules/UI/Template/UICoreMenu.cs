@@ -31,6 +31,9 @@ namespace Game
 
         public virtual void Init()
         {
+            rewards.Hide();
+            popup.Hide();
+
             rewards.Init();
         }
     }

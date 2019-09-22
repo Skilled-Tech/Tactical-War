@@ -113,7 +113,7 @@ namespace Game
                 Menu.Popup.Hide();
 
                 Menu.Rewards.OnFinish += Progress;
-                Menu.Rewards.Show(rewards);
+                Menu.Rewards.Show("Level Reward", rewards);
             }
 
             Level.Speed.Value = 0f;

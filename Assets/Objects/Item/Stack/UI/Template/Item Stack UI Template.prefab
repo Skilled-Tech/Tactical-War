@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3447294086299319025}
   - component: {fileID: 7012833173667540365}
   m_Layer: 5
-  m_Name: Uses
+  m_Name: Ammount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 8947331723251936401}
   - component: {fileID: 6363915476323768557}
   m_Layer: 5
-  m_Name: Item Requirement UI Template
+  m_Name: Item Stack UI Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 660816382117231092}
-  uses: {fileID: 3447294086299319025}
+  ammount: {fileID: 3447294086299319025}
 --- !u!1 &6728665009499234888
 GameObject:
   m_ObjectHideFlags: 0

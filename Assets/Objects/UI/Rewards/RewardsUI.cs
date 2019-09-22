@@ -22,46 +22,42 @@ namespace Game
 {
 	public class RewardsUI : UIElement
 	{
-		[SerializeField]
+        [SerializeField]
+        protected TMP_Text title;
+        public TMP_Text Title { get { return title; } }
+
+        [SerializeField]
         protected TMP_Text label;
         public TMP_Text Label { get { return label; } }
 
         [SerializeField]
-        protected Image icon;
-        public Image Icon { get { return icon; } }
+        protected ItemStackUITemplate itemStack;
+        public ItemStackUITemplate ItemStack { get { return itemStack; } }
 
         [SerializeField]
-        protected TMP_Text ammount;
-        public TMP_Text Ammount { get { return ammount; } }
-
-        [SerializeField]
-        protected Button button;
-        public Button Button { get { return button; } }
+        protected Button next;
+        public Button Next { get { return next; } }
 
         public virtual void Init()
         {
-            button.onClick.AddListener(ClickAction);
+            next.onClick.AddListener(OnNextClick);
         }
 
         public List<ItemStack> List { get; protected set; }
 
-        public virtual void Show(IList<ItemTemplate> list)
+        public virtual void Show(string title, IList<ItemStack> stacks)
         {
-            var requirements = ItemStack.From(list);
+            this.title.text = title;
 
-            Show(requirements);
-        }
-        public virtual void Show(IList<ItemStack> list)
-        {
-            if(list == null || list.Count < 1)
+            if(stacks == null || stacks.Count < 1)
             {
                 Finish();
             }
             else
             {
-                this.List = list.ToList();
+                this.List = stacks.ToList();
 
-                Set(list[0]);
+                Set(stacks[0]);
 
                 Show();
             }
@@ -71,20 +67,10 @@ namespace Game
         {
             label.text = data.Item.DisplayName;
 
-            if(data.Count == 1)
-            {
-                ammount.gameObject.SetActive(false);
-            }
-            else
-            {
-                ammount.gameObject.SetActive(true);
-                ammount.text = "x" + data.Count.ToString();
-            }
-
-            data.Item.Icon.ApplyTo(icon);
+            itemStack.Set(data);
         }
 
-        protected virtual void Next()
+        protected virtual void Increment()
         {
             List.RemoveAt(0);
 
@@ -94,9 +80,9 @@ namespace Game
                 Finish();
         }
 
-        void ClickAction()
+        void OnNextClick()
         {
-            Next();
+            Increment();
         }
 
         public event Action OnFinish;

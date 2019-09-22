@@ -30,8 +30,8 @@ namespace Game
         public Image Icon { get { return icon; } }
 
         [SerializeField]
-        protected TMP_Text uses;
-        public TMP_Text Uses { get { return uses; } }
+        protected TMP_Text ammount;
+        public TMP_Text Ammount { get { return ammount; } }
 
         public UIGrayscaleController Grayscale { get; protected set; }
 
@@ -40,11 +40,20 @@ namespace Game
             Grayscale = new UIGrayscaleController(this);
         }
 
+        public virtual void Set(ItemStack data)
+        {
+            Set(data.Item, data.Count);
+        }
         public virtual void Set(ItemTemplate template, uint count)
         {
             template.Icon.ApplyTo(icon);
 
-            uses.text = "x" + count.ToString();
+            ammount.gameObject.SetActive(count > 1);
+
+            if(count > 1)
+            {
+                ammount.text = "x" + count.ToString();
+            }
         }
 	}
 }

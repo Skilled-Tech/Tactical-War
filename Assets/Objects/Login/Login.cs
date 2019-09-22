@@ -64,44 +64,14 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Show("Retrieving Daily Reward");
-
-                PlayFab.DailyReward.OnResponse += DailyRewardsResponseCallback;
-                PlayFab.DailyReward.Perform();
-            }
-            else
-            {
-                Popup.Show("Failed To Connect, Play Offline ?", PlayOffline, "Okay");
-            }
-        }
-
-        void DailyRewardsResponseCallback(PlayFabDailyRewardCore.ResultData result, PlayFabError error)
-        {
-            void Progress()
-            {
-                Core.UI.Rewards.OnFinish -= Progress;
-
                 Popup.Show("Retrieving Title Data");
 
                 PlayFab.Title.OnResponse += OnTitleResponse;
                 PlayFab.Title.Request();
             }
-
-            if(error == null)
-            {
-                if (result == null || result.Items.Length == 0)
-                    Progress();
-                else
-                {
-                    Popup.Hide();
-
-                    Core.UI.Rewards.OnFinish += Progress;
-                    Core.UI.Rewards.Show(result.Items);
-                }
-            }
             else
             {
-                RaiseError(error);
+                Popup.Show("Failed To Connect, Play Offline ?", PlayOffline, "Okay");
             }
         }
 
@@ -128,10 +98,42 @@ namespace Game
 
             if (error == null)
             {
+                Popup.Show("Retrieving Daily Reward");
+
+                PlayFab.DailyReward.OnResponse += DailyRewardsResponseCallback;
+                PlayFab.DailyReward.Perform();
+            }
+            else
+            {
+                RaiseError(error);
+            }
+        }
+
+        void DailyRewardsResponseCallback(PlayFabDailyRewardCore.ResultData result, PlayFabError error)
+        {
+            void Progress()
+            {
+                Core.UI.Rewards.OnFinish -= Progress;
+
                 Popup.Show("Retrieving Player Data");
 
                 PlayFab.Player.OnResponse += OnPlayerResponse;
                 PlayFab.Player.Retrieve();
+            }
+
+            if(error == null)
+            {
+                if (result == null || result.Items.Length == 0)
+                    Progress();
+                else
+                {
+                    Popup.Hide();
+
+                    var stacks = ItemStack.From(result.Items);
+
+                    Core.UI.Rewards.OnFinish += Progress;
+                    Core.UI.Rewards.Show("Daily Reward", stacks);
+                }
             }
             else
             {
