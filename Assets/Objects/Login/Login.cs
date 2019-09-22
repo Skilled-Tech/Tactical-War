@@ -72,7 +72,7 @@ namespace Game
             PlayFab.DailyRewards.Perform();
         }
 
-        void DailyRewardsResponseCallback(ExecuteCloudScriptResult result, PlayFabError error)
+        void DailyRewardsResponseCallback(PlayFabDailyRewardCore.ResultData result, PlayFabError error)
         {
             void Progress()
             {
@@ -85,9 +85,12 @@ namespace Game
 
             if(error == null)
             {
-                var rewards = LevelFinish.GetRewards(result.FunctionResult as JsonArray);
+                Debug.Log(result.Progress);
 
-                if(rewards.Count == 0)
+                foreach (var item in result.Items)
+                    Debug.Log(item.ID);
+
+                if (result.Items.Length == 0)
                 {
                     Progress();
                 }
@@ -96,7 +99,7 @@ namespace Game
                     Popup.Hide();
 
                     Core.UI.Rewards.OnFinish += Progress;
-                    Core.UI.Rewards.Show(rewards);
+                    Core.UI.Rewards.Show(result.Items);
                 }
             }
             else

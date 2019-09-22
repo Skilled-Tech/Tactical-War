@@ -18,9 +18,11 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 using PlayFab;
+using PlayFab.Json;
 using PlayFab.ClientModels;
-using Newtonsoft.Json;
 using PlayFab.SharedModels;
+
+using Newtonsoft.Json;
 
 namespace Game
 {
@@ -166,12 +168,14 @@ namespace Game
             PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
         }
 
-        public event Delegates.ResultDelegate<ExecuteCloudScriptResult> OnResult;
+        public event Delegates.ResultDelegate<ResultData> OnResult;
         void ResultCallback(ExecuteCloudScriptResult result)
         {
-            if (OnResult != null) OnResult(result);
+            var data = result == null ? null : new ResultData(result.FunctionResult as JsonObject);
+            
+            if (OnResult != null) OnResult(data);
 
-            Respond(result, null);
+            Respond(data, null);
         }
 
         public event Delegates.ErrorDelegate OnError;
@@ -182,10 +186,32 @@ namespace Game
             Respond(null, error);
         }
 
-        public event Delegates.ResponseDelegate<ExecuteCloudScriptResult> OnResponse;
-        void Respond(ExecuteCloudScriptResult result, PlayFabError error)
+        public event Delegates.ResponseDelegate<ResultData> OnResponse;
+        void Respond(ResultData result, PlayFabError error)
         {
             if (OnResponse != null) OnResponse(result, error);
+        }
+
+        [Newtonsoft.Json.JsonObject]
+        [Serializable]
+        public class ResultData
+        {
+            [Newtonsoft.Json.JsonProperty]
+            protected int progress;
+            public int Progress { get { return progress; } }
+
+            [Newtonsoft.Json.JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
+            protected ItemTemplate[] items;
+            public ItemTemplate[] Items { get { return items; } }
+
+            public ResultData(string json)
+            {
+                JsonConvert.PopulateObject(json, this);
+            }
+            public ResultData(JsonObject jObject) : this(jObject.ToString())
+            {
+                
+            }
         }
     }
 }

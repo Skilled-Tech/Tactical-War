@@ -15,22 +15,17 @@ handlers.ProcessDailyReward = function (args, context: IPlayFabContext)
     {
         let daysFromLastReward = Utility.Dates.DaysFrom(Date.parse(data.lastLogin));
 
-        log.info(daysFromLastReward.toString());
-
         if (daysFromLastReward < 1)
         {
             return;
         }
+        if (daysFromLastReward >= 2)
+        {
+            data.progress = 0;
+        }
         else
         {
-            if (daysFromLastReward < 2)
-            {
 
-            }
-            else
-            {
-                data.progress = 0;
-            }
         }
     }
 
@@ -38,13 +33,13 @@ handlers.ProcessDailyReward = function (args, context: IPlayFabContext)
 
     let items = API.Reward.Grant(currentPlayerId, templates[data.progress], "Daily Reward");
 
-    data.progress++
-    if (data.progress >= templates.length)
-        data.progress = 0;
+    var result = new API.DailyRewards.Result(data.progress, items);
+
+    API.DailyRewards.Data.Incremenet(data, templates);
 
     API.DailyRewards.Data.Save(currentPlayerId, data);
 
-    return items;
+    return result;
 }
 
 handlers.FinishLevel = function (args: IFinishLevelArguments)
@@ -246,6 +241,14 @@ namespace API
                 return null;
             }
 
+            export function Incremenet(data: Instance, templates: API.Reward.Data[])
+            {
+                data.progress++;
+
+                if (data.progress >= templates.length)
+                    data.progress = 0;
+            }
+
             export function Save(playerID: string, data: Instance)
             {
                 PlayFab.Player.Data.ReadOnly.Write(playerID, DailyRewards.Name, JSON.stringify(data));
@@ -262,6 +265,18 @@ namespace API
 
                     this.progress = 0;
                 }
+            }
+        }
+
+        export class Result
+        {
+            progress: number;
+            items: string[];
+
+            constructor(progress: number, items: string[])
+            {
+                this.progress = progress;
+                this.items = items;
             }
         }
     }

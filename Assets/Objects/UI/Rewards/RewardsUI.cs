@@ -45,6 +45,10 @@ namespace Game
 
         public List<ItemRequirementData> List { get; protected set; }
 
+        public virtual void Show(IList<ItemTemplate> list)
+        {
+            Debug.LogWarning("To be Implemented");
+        }
         public virtual void Show(IList<ItemRequirementData> list)
         {
             if(list == null || list.Count < 1)
