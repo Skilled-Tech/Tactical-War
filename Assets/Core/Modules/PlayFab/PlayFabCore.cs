@@ -42,10 +42,6 @@ namespace Game
         public bool Activated { get; set; }
 
         [SerializeField]
-        protected PlayFabDailyRewardCore dailyReward;
-        public PlayFabDailyRewardCore DailyReward { get { return dailyReward; } }
-
-        [SerializeField]
         protected PlayFabPlayerCore player;
         public PlayFabPlayerCore Player { get { return player; } }
 
@@ -66,8 +62,8 @@ namespace Game
         public PlayFabUpgradeCore Upgrade { get { return upgrade; } }
 
         [SerializeField]
-        protected PlayFabLevelReward levelReward;
-        public PlayFabLevelReward LevelReward { get { return levelReward; } }
+        protected PlayFabRewardCore reward;
+        public PlayFabRewardCore Reward { get { return reward; } }
 
         [Serializable]
         public class Module : Core.Module
@@ -135,13 +131,12 @@ namespace Game
             Activated = false;
 
             Register(login);
-            Register(dailyReward);
             Register(player);
             Register(title);
             Register(catalog);
             Register(purchase);
             Register(upgrade);
-            Register(levelReward);
+            Register(reward);
         }
 
         public virtual void EnsureActivation()
@@ -153,151 +148,6 @@ namespace Game
             else
             {
                 Core.Scenes.Load(Core.Scenes.Login.Name);
-            }
-        }
-    }
-
-    [Serializable]
-    public class PlayFabLevelReward : PlayFabCore.Module
-    {
-        public class ParametersData
-        {
-            public string region;
-            public int level;
-
-            public ParametersData(string region, int level)
-            {
-                this.region = region;
-                this.level = level;
-            }
-        }
-
-        public virtual void Retrieve(string region, int level)
-        {
-            var request = new ExecuteCloudScriptRequest
-            {
-                FunctionName = "FinishLevel",
-                FunctionParameter = new ParametersData(region, level),
-                GeneratePlayStreamEvent = true,
-            };
-
-            PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
-        }
-        public virtual void Retrieve(LevelCore level)
-        {
-            Retrieve(level.Region.name, level.Index);
-        }
-
-        public event Delegates.ResultDelegate<IList<ItemStack>> OnResult;
-        void ResultCallback(ExecuteCloudScriptResult result)
-        {
-            IList<ItemStack> data = null;
-
-            if(result.FunctionResult == null)
-            {
-                data = null;
-            }
-            else
-            {
-                var array = result.FunctionResult as JsonArray;
-
-                if (array.Count == 0)
-                {
-                    data = null;
-                }
-                else
-                {
-                    var IDs = array.ConvertAll(element => (string)element);
-
-                    data = ItemStack.From(IDs);
-                }
-            }
-
-            if (OnResult != null) OnResult(data);
-
-            Respond(data, null);
-        }
-
-        public event Delegates.ErrorDelegate OnError;
-        void ErrorCallback(PlayFabError error)
-        {
-            if (OnError != null) OnError(error);
-
-            Respond(null, error);
-        }
-
-        public event Delegates.ResponseDelegate<IList<ItemStack>> OnResponse;
-        void Respond(IList<ItemStack> result, PlayFabError error)
-        {
-            if (OnResponse != null) OnResponse(result, error);
-        }
-    }
-
-    [Serializable]
-    public class PlayFabDailyRewardCore : PlayFabCore.Module
-    {
-        public virtual void Perform()
-        {
-            var request = new ExecuteCloudScriptRequest()
-            {
-                FunctionName = "ProcessDailyReward",
-
-                FunctionParameter = null,
-
-                GeneratePlayStreamEvent = true,
-            };
-
-            PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
-        }
-
-        public event Delegates.ResultDelegate<ResultData> OnResult;
-        void ResultCallback(ExecuteCloudScriptResult result)
-        {
-            ResultData data = null;
-
-            if (result.FunctionResult == null)
-                data = null;
-            else
-                data = new ResultData(result.FunctionResult as JsonObject);
-            
-            if (OnResult != null) OnResult(data);
-
-            Respond(data, null);
-        }
-
-        public event Delegates.ErrorDelegate OnError;
-        void ErrorCallback(PlayFabError error)
-        {
-            if (OnError != null) OnError(error);
-
-            Respond(null, error);
-        }
-
-        public event Delegates.ResponseDelegate<ResultData> OnResponse;
-        void Respond(ResultData result, PlayFabError error)
-        {
-            if (OnResponse != null) OnResponse(result, error);
-        }
-
-        [Newtonsoft.Json.JsonObject]
-        [Serializable]
-        public class ResultData
-        {
-            [Newtonsoft.Json.JsonProperty]
-            protected int progress;
-            public int Progress { get { return progress; } }
-
-            [Newtonsoft.Json.JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
-            protected ItemTemplate[] items;
-            public ItemTemplate[] Items { get { return items; } }
-
-            public ResultData(string json)
-            {
-                JsonConvert.PopulateObject(json, this);
-            }
-            public ResultData(JsonObject jObject) : this(jObject.ToString())
-            {
-                
             }
         }
     }

@@ -43,8 +43,8 @@ namespace Game
                 {
                     Menu.Popup.Show("Retrieving End Results");
 
-                    PlayFab.LevelReward.OnResponse += RewardResponseCallback;
-                    PlayFab.LevelReward.Retrieve(Data.Level);
+                    PlayFab.Reward.Level.OnResponse += RewardResponseCallback;
+                    PlayFab.Reward.Level.Retrieve(Data.Level);
                 }
                 else
                 {
@@ -64,7 +64,7 @@ namespace Game
         IList<ItemStack> rewards;
         private void RewardResponseCallback(IList<ItemStack> result, PlayFabError error)
         {
-            PlayFab.LevelReward.OnResponse -= RewardResponseCallback;
+            PlayFab.Reward.Level.OnResponse -= RewardResponseCallback;
             if(error == null)
             {
                 rewards = result;

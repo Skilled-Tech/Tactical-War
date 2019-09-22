@@ -100,8 +100,8 @@ namespace Game
             {
                 Popup.Show("Retrieving Daily Reward");
 
-                PlayFab.DailyReward.OnResponse += DailyRewardsResponseCallback;
-                PlayFab.DailyReward.Perform();
+                PlayFab.Reward.Daily.OnResponse += DailyRewardsResponseCallback;
+                PlayFab.Reward.Daily.Perform();
             }
             else
             {
@@ -111,6 +111,8 @@ namespace Game
 
         void DailyRewardsResponseCallback(PlayFabDailyRewardCore.ResultData result, PlayFabError error)
         {
+            PlayFab.Reward.Daily.OnResponse -= DailyRewardsResponseCallback;
+
             void Progress()
             {
                 Core.UI.Rewards.OnFinish -= Progress;
@@ -131,8 +133,11 @@ namespace Game
 
                     var stacks = ItemStack.From(result.Items);
 
+                    var title = "Daily Reward" + Environment.NewLine;
+                    title += "Day " + (result.Progress + 1).ToString() + "/" + PlayFab.Reward.Daily.Max;
+
                     Core.UI.Rewards.OnFinish += Progress;
-                    Core.UI.Rewards.Show("Daily Reward", stacks);
+                    Core.UI.Rewards.Show(title, stacks);
                 }
             }
             else

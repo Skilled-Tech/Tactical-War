@@ -48,10 +48,10 @@ namespace Game
 
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
-        public event Action OnChange;
-        protected virtual void TriggerChange()
+        public event Action OnUpdate;
+        protected virtual void TriggerUpdate()
         {
-            if (OnChange != null) OnChange();
+            if (OnUpdate != null) OnUpdate();
         }
 
         public override void Configure()
@@ -64,6 +64,10 @@ namespace Game
             PlayFab.Player.Inventory.OnResponse += OnPlayFabInventoryRetrieved;
         }
 
+        public virtual bool Contains(ItemTemplate template)
+        {
+            return Contains(template.ID);
+        }
         public virtual bool Contains(CatalogItem item)
         {
             return Contains(item.ItemId);
@@ -157,7 +161,7 @@ namespace Game
                 Items.Add(data);
             }
 
-            TriggerChange();
+            TriggerUpdate();
         }
     }
 }

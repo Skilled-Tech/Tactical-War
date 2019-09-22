@@ -47,7 +47,7 @@ namespace Game
 
             Dictionary = new Dictionary<ItemTemplate, ItemUpgradeData>();
 
-            Player.Inventory.OnChange += OnInventoryChanged;
+            Player.Inventory.OnUpdate += OnInventoryChanged;
         }
 
         void OnInventoryChanged()

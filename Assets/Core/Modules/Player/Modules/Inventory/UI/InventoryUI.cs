@@ -43,7 +43,7 @@ namespace Game
 
             UpdateState();
 
-            Inventory.OnChange += UpdateState;
+            Inventory.OnUpdate += UpdateState;
         }
 
         void UpdateState()
@@ -84,7 +84,7 @@ namespace Game
 
         void OnDestroy()
         {
-            Player.Inventory.OnChange -= UpdateState;
+            Player.Inventory.OnUpdate -= UpdateState;
         }
     }
 }

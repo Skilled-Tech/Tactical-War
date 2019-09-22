@@ -139,8 +139,6 @@ namespace Game
 
             if (error == null)
             {
-                Debug.Log(result.FunctionResult);
-
                 Popup.Show("Retriving Inventory");
 
                 PlayFab.Player.Inventory.Request();

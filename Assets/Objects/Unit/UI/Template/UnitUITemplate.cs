@@ -50,7 +50,7 @@ namespace Game
 
             GrayscaleController = new UIGrayscaleController(this);
 
-            Player.Inventory.OnChange += UpdateState;
+            Player.Inventory.OnUpdate += UpdateState;
 
             CanvasGroup = GetComponent<CanvasGroup>();
 
@@ -112,7 +112,7 @@ namespace Game
 
         void OnDestroy()
         {
-            Player.Inventory.OnChange -= UpdateState;
+            Player.Inventory.OnUpdate -= UpdateState;
         }
     }
 }

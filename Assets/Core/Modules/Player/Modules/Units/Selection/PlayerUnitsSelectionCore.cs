@@ -55,7 +55,24 @@ namespace Game
 
             list = new UnitTemplate[max];
 
+            Player.Inventory.OnUpdate += OnInventoryUpdated;
+
             Load();
+        }
+
+        void OnInventoryUpdated()
+        {
+            for (int i = 0; i < list.Length; i++)
+            {
+                if (list[i] == null)
+                    continue;
+                else if (list[i].Unlocked)
+                    continue;
+                else
+                    list[i] = null;
+            }
+
+            Save();
         }
 
         public virtual void Save()
