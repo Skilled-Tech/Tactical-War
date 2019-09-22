@@ -17,11 +17,10 @@ handlers.ProcessDailyReward = function (args, context) {
         else {
         }
     }
-    data.lastLogin = new Date().toJSON();
     let items = API.Reward.Grant(currentPlayerId, templates[data.progress], "Daily Reward");
     var result = new API.DailyRewards.Result(data.progress, items);
     API.DailyRewards.Data.Incremenet(data, templates);
-    API.DailyRewards.Data.Save(currentPlayerId, data);
+    API.DailyRewards.Data.Update(currentPlayerId, data);
     return result;
 };
 handlers.FinishLevel = function (args) {
@@ -161,6 +160,11 @@ var API;
                 PlayFab.Player.Data.ReadOnly.Write(playerID, DailyRewards.Name, JSON.stringify(data));
             }
             Data.Save = Save;
+            function Update(playerID, data) {
+                data.lastLogin = new Date().toJSON();
+                Save(playerID, data);
+            }
+            Data.Update = Update;
             class Instance {
                 constructor() {
                     this.lastLogin = new Date().toJSON();
@@ -217,8 +221,13 @@ var API;
                     }
                     else {
                         let next = world.regions[index + 1];
-                        let instance = new Region(next.name, 1);
-                        data.Add(instance);
+                        if (data.Contains(next.name)) //Region Already Unlocked
+                         {
+                        }
+                        else {
+                            let instance = new Region(next.name, 1);
+                            data.Add(instance);
+                        }
                     }
                 }
             }

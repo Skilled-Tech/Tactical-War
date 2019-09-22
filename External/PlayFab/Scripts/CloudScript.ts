@@ -347,9 +347,16 @@ namespace API
                     {
                         let next = world.regions[index + 1];
 
-                        let instance = new Region(next.name, 1);
+                        if (data.Contains(next.name)) //Region Already Unlocked
+                        {
 
-                        data.Add(instance);
+                        }
+                        else
+                        {
+                            let instance = new Region(next.name, 1);
+
+                            data.Add(instance);
+                        }
                     }
                 }
             }
