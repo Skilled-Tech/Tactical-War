@@ -160,16 +160,32 @@ namespace Game
     [Serializable]
     public class PlayFabLevelReward : PlayFabCore.Module
     {
-        public virtual void Retrieve()
+        public class ParametersData
+        {
+            public string region;
+            public int level;
+
+            public ParametersData(string region, int level)
+            {
+                this.region = region;
+                this.level = level;
+            }
+        }
+
+        public virtual void Retrieve(string region, int level)
         {
             var request = new ExecuteCloudScriptRequest
             {
                 FunctionName = "FinishLevel",
-                FunctionParameter = null,
+                FunctionParameter = new ParametersData(region, level),
                 GeneratePlayStreamEvent = true,
             };
 
             PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
+        }
+        public virtual void Retrieve(LevelCore level)
+        {
+            Retrieve(level.Region.name, level.Index);
         }
 
         public event Delegates.ResultDelegate<IList<ItemRequirementData>> OnResult;
@@ -185,7 +201,7 @@ namespace Game
             {
                 var array = result.FunctionResult as JsonArray;
 
-                if (array == null || array.Count == 0)
+                if (array.Count == 0)
                 {
                     data = null;
                 }
@@ -195,11 +211,11 @@ namespace Game
 
                     data = ItemRequirementData.From(IDs);
                 }
-
-                if (OnResult != null) OnResult(data);
-
-                Respond(data, null);
             }
+
+            if (OnResult != null) OnResult(data);
+
+            Respond(data, null);
         }
 
         public event Delegates.ErrorDelegate OnError;

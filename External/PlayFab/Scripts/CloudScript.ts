@@ -131,7 +131,7 @@ handlers.UpgradeItem = function (args: IUpgradeItemArguments)
 
     let titleData = PlayFab.Title.Data.RetrieveAll([API.Upgrades.Name]);
 
-    let template = API.Upgrades.Template.Find(titleData[API.Upgrades.Name], arguments.template);
+    let template = API.Upgrades.Template.Find(titleData.Data[API.Upgrades.Name], arguments.template);
 
     if (template == null)
     {
@@ -401,7 +401,7 @@ namespace API
             {
                 let titleData = PlayFab.Title.Data.RetrieveAll([Name]);
 
-                let json = titleData[Name];
+                let json = titleData.Data[Name];
 
                 let object = JSON.parse(json);
 

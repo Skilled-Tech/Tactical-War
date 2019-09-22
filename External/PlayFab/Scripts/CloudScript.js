@@ -81,7 +81,7 @@ handlers.UpgradeItem = function (args) {
         return;
     }
     let titleData = PlayFab.Title.Data.RetrieveAll([API.Upgrades.Name]);
-    let template = API.Upgrades.Template.Find(titleData[API.Upgrades.Name], arguments.template);
+    let template = API.Upgrades.Template.Find(titleData.Data[API.Upgrades.Name], arguments.template);
     if (template == null) {
         log.error(arguments.template + " Upgrades Template Not Defined");
         return;
@@ -256,7 +256,7 @@ var API;
         (function (Template) {
             function Retrieve() {
                 let titleData = PlayFab.Title.Data.RetrieveAll([World.Name]);
-                let json = titleData[World.Name];
+                let json = titleData.Data[World.Name];
                 let object = JSON.parse(json);
                 let data = Object.assign(new Data(), object);
                 return data;

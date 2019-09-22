@@ -41,7 +41,7 @@ namespace Game
 
             if (PlayFab.startOffline && Application.isEditor)
             {
-                Progress();
+                PlayOffline();
 
                 PlayFab.startOffline = false;
             }
@@ -52,31 +52,35 @@ namespace Game
             }
         }
 
+        void PlayOffline()
+        {
+            PlayFab.Title.OnResponse += OnTitleResponse;
+            PlayFab.Title.Request();
+        }
+
         void OnLoginResponse(LoginResult result, PlayFabError error)
         {
             PlayFab.Login.OnResponse -= OnLoginResponse;
 
             if (error == null)
             {
-                Progress();
+                Popup.Show("Retrieving Daily Reward");
+
+                PlayFab.DailyReward.OnResponse += DailyRewardsResponseCallback;
+                PlayFab.DailyReward.Perform();
             }
             else
             {
-                Popup.Show("Failed To Connect, Play Offline ?", Progress, "Ok");
+                Popup.Show("Failed To Connect, Play Offline ?", PlayOffline, "Okay");
             }
-        }
-
-        void Progress()
-        {
-            PlayFab.DailyReward.OnResponse += DailyRewardsResponseCallback;
-            PlayFab.DailyReward.Perform();
         }
 
         void DailyRewardsResponseCallback(PlayFabDailyRewardCore.ResultData result, PlayFabError error)
         {
             void Progress()
             {
-                Core.UI.Rewards.Hide();
+                Core.UI.Rewards.OnFinish -= Progress;
+
                 Popup.Show("Retrieving Title Data");
 
                 PlayFab.Title.OnResponse += OnTitleResponse;
@@ -85,15 +89,8 @@ namespace Game
 
             if(error == null)
             {
-                Debug.Log(result.Progress);
-
-                foreach (var item in result.Items)
-                    Debug.Log(item.ID);
-
-                if (result.Items.Length == 0)
-                {
+                if (result == null || result.Items.Length == 0)
                     Progress();
-                }
                 else
                 {
                     Popup.Hide();
@@ -104,7 +101,7 @@ namespace Game
             }
             else
             {
-
+                RaiseError(error);
             }
         }
 

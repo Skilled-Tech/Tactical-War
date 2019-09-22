@@ -43,8 +43,8 @@ namespace Game
                 {
                     Menu.Popup.Show("Retrieving End Results");
 
-                    PlayFab.LevelReward.OnResponse += LevelRewardsResponseCallback;
-                    PlayFab.LevelReward.Retrieve();
+                    PlayFab.LevelReward.OnResponse += RewardResponseCallback;
+                    PlayFab.LevelReward.Retrieve(Data.Level);
                 }
                 else
                 {
@@ -61,39 +61,15 @@ namespace Game
             if (OnProcess != null) OnProcess(winner);
         }
 
-        private void LevelRewardsResponseCallback(IList<ItemRequirementData> result, PlayFabError error)
+        IList<ItemRequirementData> rewards;
+        private void RewardResponseCallback(IList<ItemRequirementData> result, PlayFabError error)
         {
-            void Progress()
-            {
-                Menu.Rewards.OnFinish -= Progress;
-
-                PlayFab.Player.Inventory.OnResponse += InventoryResponseCallback;
-                PlayFab.Player.Inventory.Request();
-            }
-
+            PlayFab.LevelReward.OnResponse -= RewardResponseCallback;
             if(error == null)
             {
-                if (result == null || result.Count == 0)
-                    Progress();
-                else
-                {
-                    Menu.Rewards.OnFinish += Progress;
-                    Menu.Rewards.Show(result);
-                }
-            }
-            else
-            {
-                RaiseError(error);
-            }
-        }
+                rewards = result;
 
-        void InventoryResponseCallback(PlayFabPlayerInventoryCore inventory, PlayFabError error)
-        {
-            PlayFab.Player.Inventory.OnResponse -= InventoryResponseCallback;
-
-            if (error == null)
-            {
-                Menu.Popup.Show("Retrieving Player Profile");
+                Menu.Popup.Show("Retrieving Player Data");
 
                 PlayFab.Player.OnResponse += OnPlayFabPlayerResponse;
                 PlayFab.Player.Retrieve();
@@ -120,12 +96,27 @@ namespace Game
 
         void End()
         {
+            void Progress()
+            {
+                Menu.Rewards.OnFinish -= Progress;
+
+                Menu.Rewards.Hide();
+                Menu.Popup.Hide();
+
+                Menu.End.Show(Proponents.Player);
+            }
+
+            if (rewards == null || rewards.Count == 0)
+                Progress();
+            else
+            {
+                Menu.Popup.Hide();
+
+                Menu.Rewards.OnFinish += Progress;
+                Menu.Rewards.Show(rewards);
+            }
+
             Level.Speed.Value = 0f;
-
-            Menu.Rewards.Hide();
-            Menu.Popup.Hide();
-
-            Menu.End.Show(Proponents.Player);
         }
 
         protected virtual void RaiseError(PlayFabError error)
