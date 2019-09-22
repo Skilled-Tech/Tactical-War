@@ -1,19 +1,25 @@
 // (https://api.playfab.com/playstream/docs/PlayStreamEventModels)
 // (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
 
-handlers.ProcessDailyReward = function (args, context: IPlayFabContext)
+handlers.LoginReward = function (args, context: IPlayFabContext)
 {
-    let templates = API.DailyRewards.Templates.Retrieve();
+    let templates = API.Rewards.Template.Retrieve();
 
-    let data = API.DailyRewards.Data.Retrieve(currentPlayerId);
+    let data = API.Rewards.Data.Retrieve(currentPlayerId);
+
+    let items = new Array<string>();
 
     if (data == null)
     {
-        data = new API.DailyRewards.Data.Instance();
+        data = new API.Rewards.Data.Instance();
+
+        var signupReward = API.Rewards.Grant(currentPlayerId, templates.signup, "Signup Reward");
+
+        items = items.concat(signupReward);
     }
     else
     {
-        let daysFromLastReward = Utility.Dates.DaysFrom(Date.parse(data.lastLogin));
+        let daysFromLastReward = Utility.Dates.DaysFrom(Date.parse(data.daily.timestamp));
 
         if (daysFromLastReward < 1)
         {
@@ -21,7 +27,7 @@ handlers.ProcessDailyReward = function (args, context: IPlayFabContext)
         }
         if (daysFromLastReward >= 2)
         {
-            data.progress = 0;
+            data.daily.progress = 0;
         }
         else
         {
@@ -29,13 +35,15 @@ handlers.ProcessDailyReward = function (args, context: IPlayFabContext)
         }
     }
 
-    let items = API.Reward.Grant(currentPlayerId, templates[data.progress], "Daily Reward");
+    let dailyItems = API.Rewards.Data.Daily.Grant(currentPlayerId, data, templates);
 
-    var result = new API.DailyRewards.Result(data.progress, items);
+    items = items.concat(this);
 
-    API.DailyRewards.Data.Incremenet(data, templates);
+    var result = new API.Rewards.Result(data.daily.progress, items);
 
-    API.DailyRewards.Data.Update(currentPlayerId, data);
+    API.Rewards.Data.Daily.Incremenet(data, templates);
+
+    API.Rewards.Data.Update(currentPlayerId, data);
 
     return result;
 }
@@ -85,7 +93,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
         API.World.Data.Incremenet(data, world, args);
         PlayFab.Player.Data.ReadOnly.Write(currentPlayerId, API.World.Name, JSON.stringify(data));
 
-        let items = API.Reward.Grant(currentPlayerId, level.reward.initial, "Level Completion Award");
+        let items = API.Rewards.Grant(currentPlayerId, level.reward.initial, "Level Completion Award");
         IDs = IDs.concat(items);
     }
 
@@ -93,7 +101,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
     {
         log.info("Recurring Completion");
 
-        let items = API.Reward.Grant(currentPlayerId, level.reward.constant, "Level Completion Award");
+        let items = API.Rewards.Grant(currentPlayerId, level.reward.constant, "Level Completion Award");
         IDs = IDs.concat(items);
     }
 
@@ -173,7 +181,7 @@ handlers.UpgradeItem = function (args: IUpgradeItemArguments)
     {
         PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
 
-        API.ItemStack.ConsumeAll(inventory, rank.requirements);
+        PlayFab.Player.Inventory.ConsumeAll(inventory, rank.requirements);
 
         data.Find(args.upgradeType).value++;
 
@@ -190,29 +198,70 @@ interface IUpgradeItemArguments
 
 namespace API
 {
-    export namespace DailyRewards
+    export namespace Rewards
     {
-        export const Name = "daily-rewards";
+        export const Name = "rewards";
 
-        export namespace Templates
+        export function Grant(playerID: string, data: Type, annotation: string): string[]
         {
-            export function Retrieve(): API.Reward.Data[]
+            let IDs = Array<string>();
+
+            if (data.items == null)
             {
-                var json = PlayFab.Title.Data.Retrieve(DailyRewards.Name);
+
+            }
+            else
+            {
+                IDs = IDs.concat(data.items);
+            }
+
+            if (data.droptable == null)
+            {
+
+            }
+            else
+            {
+                let result = PlayFab.Title.Catalog.Tables.Process(data.droptable);
+                if (result != null)
+                    IDs = IDs.concat(result);
+            }
+
+            PlayFab.Title.Catalog.Item.GrantAll(playerID, IDs, annotation);
+
+            return IDs;
+        }
+
+        export namespace Template
+        {
+            export function Retrieve(): Data
+            {
+                var json = PlayFab.Title.Data.Retrieve(Rewards.Name);
 
                 var object = JSON.parse(json);
 
-                var instance = Object.assign([], object);
+                var instance = <Data>Object.assign(new Data(), object);
 
                 return instance;
             }
+
+            export class Data
+            {
+                signup: API.Rewards.Type;
+                daily: API.Rewards.Type[];
+            }
+        }
+
+        export class Type
+        {
+            items: [string];
+            droptable: DropTable;
         }
 
         export namespace Data
         {
             export function Retrieve(playerID: string): Instance
             {
-                let result = PlayFab.Player.Data.ReadOnly.Read(playerID, DailyRewards.Name);
+                let result = PlayFab.Player.Data.ReadOnly.Read(playerID, Rewards.Name);
 
                 if (result.Data == null)
                 {
@@ -220,13 +269,13 @@ namespace API
                 }
                 else
                 {
-                    if (result.Data[DailyRewards.Name] == null)
+                    if (result.Data[Rewards.Name] == null)
                     {
 
                     }
                     else
                     {
-                        let json = result.Data[DailyRewards.Name].Value;
+                        let json = result.Data[Rewards.Name].Value;
 
                         let object = JSON.parse(json);
 
@@ -239,36 +288,53 @@ namespace API
                 return null;
             }
 
-            export function Incremenet(data: Instance, templates: API.Reward.Data[])
-            {
-                data.progress++;
-
-                if (data.progress >= templates.length)
-                    data.progress = 0;
-            }
-
             export function Save(playerID: string, data: Instance)
             {
-                PlayFab.Player.Data.ReadOnly.Write(playerID, DailyRewards.Name, JSON.stringify(data));
+                PlayFab.Player.Data.ReadOnly.Write(playerID, Rewards.Name, JSON.stringify(data));
             }
 
             export function Update(playerID: string, data: Instance)
             {
-                data.lastLogin = new Date().toJSON();
+                data.daily.timestamp = new Date().toJSON();
 
                 Save(playerID, data);
             }
 
             export class Instance
             {
-                lastLogin: string;
-                progress: number;
+                daily: Daily.Data;
 
                 constructor()
                 {
-                    this.lastLogin = new Date().toJSON();
+                    this.daily = new Daily.Data();
+                }
+            }
 
-                    this.progress = 0;
+            export namespace Daily
+            {
+                export function Grant(playerID: string, data: Instance, template: API.Rewards.Template.Data)
+                {
+                    return API.Rewards.Grant(currentPlayerId, template[data.daily.progress], "Daily Reward")
+                }
+
+                export function Incremenet(data: Instance, templates: API.Rewards.Template.Data)
+                {
+                    data.daily.progress++;
+
+                    if (data.daily.progress >= templates.daily.length)
+                        data.daily.progress = 0;
+                }
+
+                export class Data
+                {
+                    timestamp: string;
+                    progress: number;
+
+                    constructor()
+                    {
+                        this.timestamp = new Date().toJSON();
+                        this.progress = 0;
+                    }
                 }
             }
         }
@@ -488,8 +554,8 @@ namespace API
 
             export class Rewards
             {
-                initial: API.Reward.Data;
-                constant: API.Reward.Data;
+                initial: API.Rewards.Type;
+                constant: API.Rewards.Type;
             }
         }
     }
@@ -664,85 +730,29 @@ namespace API
 
             export class Rank
             {
-                cost: API.Cost.Data;
+                cost: API.Cost;
                 percentage: number;
-                requirements: API.ItemStack.Data[]
+                requirements: API.ItemStack[]
             }
         }
     }
 
-    export namespace Reward
+    export class DropTable
     {
-        export function Grant(playerID: string, data: Data, annotation: string): string[]
-        {
-            let IDs = Array<string>();
-
-            if (data.items == null)
-            {
-
-            }
-            else
-            {
-                IDs = IDs.concat(data.items);
-            }
-
-            if (data.droptable == null)
-            {
-
-            }
-            else
-            {
-                let result = PlayFab.Title.Catalog.Tables.Process(data.droptable);
-                if (result != null)
-                    IDs = IDs.concat(result);
-            }
-
-            PlayFab.Title.Catalog.Item.GrantAll(playerID, IDs, annotation);
-
-            return IDs;
-        }
-
-        export class Data
-        {
-            items: [string];
-            droptable: DropTable;
-        }
-
-        export class DropTable
-        {
-            ID: string;
-            iterations: number;
-        }
+        ID: string;
+        iterations: number;
     }
 
-    export namespace Cost
+    export class Cost
     {
-        export class Data
-        {
-            type: string;
-            value: number;
-        }
+        type: string;
+        value: number;
     }
 
-    export namespace ItemStack
+    export class ItemStack
     {
-        export function ConsumeAll(inventory: PlayFab.Player.Inventory.Data, requirements: Data[])
-        {
-            if (requirements == null) return;
-
-            for (let i = 0; i < requirements.length; i++)
-            {
-                let itemInstance = inventory.FindWithID(requirements[i].item);
-
-                PlayFab.Player.Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, requirements[i].count);
-            }
-        }
-
-        export class Data
-        {
-            item: string;
-            count: number;
-        }
+        item: string;
+        count: number;
     }
 }
 
@@ -788,6 +798,18 @@ namespace PlayFab
                 });
             }
 
+            export function ConsumeAll(inventory: PlayFab.Player.Inventory.Data, stacks: API.ItemStack[])
+            {
+                if (stacks == null) return;
+
+                for (let i = 0; i < stacks.length; i++)
+                {
+                    let itemInstance = inventory.FindWithID(stacks[i].item);
+
+                    PlayFab.Player.Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, stacks[i].count);
+                }
+            }
+
             export function UpdateItemData(playerID, itemInstanceID, key, value)
             {
                 let data = {};
@@ -823,7 +845,7 @@ namespace PlayFab
                     return null;
                 }
 
-                public CompliesWithRequirements(requirements: API.ItemStack.Data[]): boolean
+                public CompliesWithRequirements(requirements: API.ItemStack[]): boolean
                 {
                     for (let i = 0; i < requirements.length; i++)
                     {
@@ -987,7 +1009,7 @@ namespace PlayFab
                     return result.ResultItemId;
                 }
 
-                export function Process(table: API.Reward.DropTable): Array<string>
+                export function Process(table: API.DropTable): Array<string>
                 {
                     let items = Array<string>();
 

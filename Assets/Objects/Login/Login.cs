@@ -109,36 +109,19 @@ namespace Game
             }
         }
 
+        PlayFabDailyRewardCore.ResultData dailyReward;
         void DailyRewardsResponseCallback(PlayFabDailyRewardCore.ResultData result, PlayFabError error)
         {
             PlayFab.Reward.Daily.OnResponse -= DailyRewardsResponseCallback;
 
-            void Progress()
+            if(error == null)
             {
-                Core.UI.Rewards.OnFinish -= Progress;
+                dailyReward = result;
 
                 Popup.Show("Retrieving Player Data");
 
                 PlayFab.Player.OnResponse += OnPlayerResponse;
                 PlayFab.Player.Retrieve();
-            }
-
-            if(error == null)
-            {
-                if (result == null || result.Items.Length == 0)
-                    Progress();
-                else
-                {
-                    Popup.Hide();
-
-                    var stacks = ItemStack.From(result.Items);
-
-                    var title = "Daily Reward" + Environment.NewLine;
-                    title += "Day " + (result.Progress + 1).ToString() + "/" + PlayFab.Reward.Daily.Max;
-
-                    Core.UI.Rewards.OnFinish += Progress;
-                    Core.UI.Rewards.Show(title, stacks);
-                }
             }
             else
             {
@@ -162,11 +145,33 @@ namespace Game
 
         void Finish()
         {
+            void Progress()
+            {
+                Core.UI.Rewards.OnFinish -= Progress;
+
+                Popup.Hide();
+
+                PlayFab.Activated = true;
+
+                Scenes.Load(Scenes.MainMenu);
+            }
+
             Popup.Hide();
 
-            PlayFab.Activated = true;
+            if(dailyReward == null || dailyReward.Items.Length == 0)
+            {
+                Progress();
+            }
+            else
+            {
+                var stacks = ItemStack.From(dailyReward.Items);
 
-            Scenes.Load(Scenes.MainMenu);
+                var title = "Daily Reward" + Environment.NewLine;
+                title += "Day " + (dailyReward.Progress + 1).ToString() + "/" + PlayFab.Reward.Daily.Max;
+
+                Core.UI.Rewards.OnFinish += Progress;
+                Core.UI.Rewards.Show(title, stacks);
+            }
         }
 
         void RaiseError(PlayFabError error)
