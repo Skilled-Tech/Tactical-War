@@ -29,15 +29,13 @@ handlers.ProcessDailyReward = function (args, context: IPlayFabContext)
         }
     }
 
-    data.lastLogin = new Date().toJSON();
-
     let items = API.Reward.Grant(currentPlayerId, templates[data.progress], "Daily Reward");
 
     var result = new API.DailyRewards.Result(data.progress, items);
 
     API.DailyRewards.Data.Incremenet(data, templates);
 
-    API.DailyRewards.Data.Save(currentPlayerId, data);
+    API.DailyRewards.Data.Update(currentPlayerId, data);
 
     return result;
 }
@@ -252,6 +250,13 @@ namespace API
             export function Save(playerID: string, data: Instance)
             {
                 PlayFab.Player.Data.ReadOnly.Write(playerID, DailyRewards.Name, JSON.stringify(data));
+            }
+
+            export function Update(playerID: string, data: Instance)
+            {
+                data.lastLogin = new Date().toJSON();
+
+                Save(playerID, data);
             }
 
             export class Instance
