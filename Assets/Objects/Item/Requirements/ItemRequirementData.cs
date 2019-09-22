@@ -70,26 +70,39 @@ namespace Game
         }
 
         //Static Utility
-        public static List<ItemRequirementData> FromIDs(IList<string> IDs)
+        public static List<ItemRequirementData> From(IList<string> IDs)
         {
-            var list = new List<ItemRequirementData>();
+            string AquireID(string ID) => ID;
+
+            return From(IDs, AquireID);
+        }
+        public static List<ItemRequirementData> From(IList<ItemTemplate> templates)
+        {
+            string AquireID(ItemTemplate template) => template.ID;
+
+            return From(templates, AquireID);
+        }
+        public static List<ItemRequirementData> From<T>(IList<T> list, Func<T, string> aquireID)
+        {
+            var result = new List<ItemRequirementData>();
 
             ItemRequirementData Find(string ID)
             {
-                for (int i = 0; i < list.Count; i++)
-                    if (list[i].Item.ID == ID)
-                        return list[i];
+                for (int i = 0; i < result.Count; i++)
+                    if (result[i].Item.ID == ID)
+                        return result[i];
 
                 return null;
             }
 
-            for (int i = 0; i < IDs.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
-                var existing = Find(IDs[i]);
+                var ID = aquireID(list[i]);
+                var existing = Find(ID);
 
                 if (existing == null)
                 {
-                    var template = Items.Find(IDs[i]);
+                    var template = Items.Find(ID);
 
                     if (template == null)
                     {
@@ -97,7 +110,7 @@ namespace Game
                     }
                     else
                     {
-                        list.Add(new ItemRequirementData(template));
+                        result.Add(new ItemRequirementData(template));
                     }
                 }
                 else
@@ -106,7 +119,7 @@ namespace Game
                 }
             }
 
-            return list;
+            return result;
         }
     }
 }

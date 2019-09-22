@@ -31,8 +31,6 @@ namespace Game
 
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
-        public PopupUI Popup { get { return Core.UI.Popup; } }
-
         public delegate void ProcessDelegate(Proponent winner);
         public event ProcessDelegate OnProcess;
         public virtual void Process(Proponent winner)
@@ -43,15 +41,14 @@ namespace Game
             {
                 if (PlayFab.IsLoggedIn)
                 {
-                    Popup.Show("Retrieving End Results");
+                    Menu.Popup.Show("Retrieving End Results");
 
-                    Request(Data.Level);
+                    PlayFab.LevelReward.OnResponse += LevelRewardsResponseCallback;
+                    PlayFab.LevelReward.Retrieve();
                 }
                 else
                 {
-                    Level.Speed.Value = 0f;
-
-                    Menu.End.Show(winner);
+                    End();
                 }
             }
             else
@@ -64,36 +61,29 @@ namespace Game
             if (OnProcess != null) OnProcess(winner);
         }
 
-        protected virtual void Request(LevelCore level)
+        private void LevelRewardsResponseCallback(IList<ItemRequirementData> result, PlayFabError error)
         {
-            var request = new ExecuteCloudScriptRequest
+            void Progress()
             {
-                FunctionName = "FinishLevel",
-                FunctionParameter = new ParametersData(level.Region.name, level.Index),
-                GeneratePlayStreamEvent = true,
-            };
-
-            PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
-        }
-
-        ExecuteCloudScriptResult cloudscriptResult;
-        protected virtual void ResultCallback(ExecuteCloudScriptResult result)
-        {
-            if(result.FunctionResult == null)
-            {
-                Debug.Log(result.FunctionResult);
-
-                for (int i = 0; i < result.Logs.Count; i++)
-                    Debug.LogError(result.Logs[i].Data);
-            }
-            else
-            {
-                cloudscriptResult = result;
-
-                Popup.Show("Retrieving Inventory");
+                Menu.Rewards.OnFinish -= Progress;
 
                 PlayFab.Player.Inventory.OnResponse += InventoryResponseCallback;
                 PlayFab.Player.Inventory.Request();
+            }
+
+            if(error == null)
+            {
+                if (result == null || result.Count == 0)
+                    Progress();
+                else
+                {
+                    Menu.Rewards.OnFinish += Progress;
+                    Menu.Rewards.Show(result);
+                }
+            }
+            else
+            {
+                RaiseError(error);
             }
         }
 
@@ -103,14 +93,14 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Show("Retrieving Player Profile");
+                Menu.Popup.Show("Retrieving Player Profile");
 
                 PlayFab.Player.OnResponse += OnPlayFabPlayerResponse;
                 PlayFab.Player.Retrieve();
             }
             else
             {
-                ErrorCallback(error);
+                RaiseError(error);
             }
         }
 
@@ -120,21 +110,7 @@ namespace Game
 
             if (error == null)
             {
-                var array = cloudscriptResult.FunctionResult as JsonArray;
-
-                var rewards = GetRewards(array);
-
-                if (rewards.Count == 0)
-                {
-                    ShowDialog();
-                }
-                else
-                {
-                    Popup.Hide();
-
-                    Menu.Rewards.OnFinish += OnRewardsProcessed;
-                    Menu.Rewards.Show(rewards);
-                }
+                End();
             }
             else
             {
@@ -142,56 +118,26 @@ namespace Game
             }
         }
 
-        public static IList<ItemRequirementData> GetRewards(JsonArray jArray)
+        void End()
         {
-            List<string> IDs = null;
+            Level.Speed.Value = 0f;
 
-            if (jArray == null || jArray.Count == 0)
-                IDs = new List<string>();
-            else
-                IDs = jArray.ConvertAll(x => x.ToString());
-
-            var items = ItemRequirementData.FromIDs(IDs);
-
-            return items;
-        }
-
-        void OnRewardsProcessed()
-        {
             Menu.Rewards.Hide();
-
-            ShowDialog();
-        }
-        
-        void ShowDialog()
-        {
-            Popup.Hide();
+            Menu.Popup.Hide();
 
             Menu.End.Show(Proponents.Player);
         }
 
-        protected virtual void ErrorCallback(PlayFabError error)
+        protected virtual void RaiseError(PlayFabError error)
         {
             void Continue()
             {
-                Popup.Hide();
+                Menu.Popup.Hide();
 
-                Menu.End.Show(Proponents.Player);
+                End();
             }
 
-            Popup.Show(error.ErrorMessage, Continue, "Continue");
-        }
-        
-        struct ParametersData
-        {
-            public string region;
-            public int level;
-
-            public ParametersData(string region, int level)
-            {
-                this.region = region;
-                this.level = level;
-            }
+            Menu.Popup.Show(error.ErrorMessage, Continue, "Continue");
         }
     }
 }

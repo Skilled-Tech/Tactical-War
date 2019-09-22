@@ -19,9 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class LevelMenu : Level.Module
-	{
+    public class LevelMenu : Level.Module
+    {
         public RewardsUI Rewards { get { return Core.UI.Rewards; } }
+
+        public PopupUI Popup { get { return Core.UI.Popup; } }
 
         [SerializeField]
         protected LevelEndUI end;

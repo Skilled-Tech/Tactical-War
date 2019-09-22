@@ -47,21 +47,24 @@ namespace Game
 
         public virtual void Show(IList<ItemTemplate> list)
         {
-            Debug.LogWarning("To be Implemented");
+            var requirements = ItemRequirementData.From(list);
+
+            Show(requirements);
         }
         public virtual void Show(IList<ItemRequirementData> list)
         {
             if(list == null || list.Count < 1)
             {
-                Debug.LogWarning("Can't Display Rewards, Invalid Arguments");
-                return;
+                Finish();
             }
+            else
+            {
+                this.List = list.ToList();
 
-            this.List = list.ToList();
+                Set(list[0]);
 
-            Set(list[0]);
-
-            Show();
+                Show();
+            }
         }
 
         public virtual void Set(ItemRequirementData data)
@@ -81,23 +84,26 @@ namespace Game
             data.Item.Icon.ApplyTo(icon);
         }
 
-        void ClickAction()
+        protected virtual void Next()
         {
             List.RemoveAt(0);
 
-            if(List.Count > 0)
-            {
+            if (List.Count > 0)
                 Set(List[0]);
-            }
             else
-            {
                 Finish();
-            }
+        }
+
+        void ClickAction()
+        {
+            Next();
         }
 
         public event Action OnFinish;
         void Finish()
         {
+            Hide();
+
             if (OnFinish != null) OnFinish();
         }
     }

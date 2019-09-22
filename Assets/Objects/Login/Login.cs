@@ -68,8 +68,8 @@ namespace Game
 
         void Progress()
         {
-            PlayFab.DailyRewards.OnResponse += DailyRewardsResponseCallback;
-            PlayFab.DailyRewards.Perform();
+            PlayFab.DailyReward.OnResponse += DailyRewardsResponseCallback;
+            PlayFab.DailyReward.Perform();
         }
 
         void DailyRewardsResponseCallback(PlayFabDailyRewardCore.ResultData result, PlayFabError error)
