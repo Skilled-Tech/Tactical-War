@@ -173,7 +173,7 @@ handlers.UpgradeItem = function (args: IUpgradeItemArguments)
     {
         PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
 
-        API.ItemRequirement.ConsumeAll(inventory, rank.requirements);
+        API.ItemStack.ConsumeAll(inventory, rank.requirements);
 
         data.Find(args.upgradeType).value++;
 
@@ -666,7 +666,7 @@ namespace API
             {
                 cost: API.Cost.Data;
                 percentage: number;
-                requirements: API.ItemRequirement.Data[]
+                requirements: API.ItemStack.Data[]
             }
         }
     }
@@ -724,7 +724,7 @@ namespace API
         }
     }
 
-    export namespace ItemRequirement
+    export namespace ItemStack
     {
         export function ConsumeAll(inventory: PlayFab.Player.Inventory.Data, requirements: Data[])
         {
@@ -823,7 +823,7 @@ namespace PlayFab
                     return null;
                 }
 
-                public CompliesWithRequirements(requirements: API.ItemRequirement.Data[]): boolean
+                public CompliesWithRequirements(requirements: API.ItemStack.Data[]): boolean
                 {
                     for (let i = 0; i < requirements.length; i++)
                     {

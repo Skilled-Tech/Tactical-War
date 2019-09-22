@@ -110,7 +110,7 @@ handlers.UpgradeItem = function (args) {
     //Validation Completed, Start Processing Request
     {
         PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
-        API.ItemRequirement.ConsumeAll(inventory, rank.requirements);
+        API.ItemStack.ConsumeAll(inventory, rank.requirements);
         data.Find(args.upgradeType).value++;
         PlayFab.Player.Inventory.UpdateItemData(currentPlayerId, itemInstance.ItemInstanceId, API.Upgrades.Name, data.ToJson());
     }
@@ -465,8 +465,8 @@ var API;
         }
         Cost.Data = Data;
     })(Cost = API.Cost || (API.Cost = {}));
-    let ItemRequirement;
-    (function (ItemRequirement) {
+    let ItemStack;
+    (function (ItemStack) {
         function ConsumeAll(inventory, requirements) {
             if (requirements == null)
                 return;
@@ -475,11 +475,11 @@ var API;
                 PlayFab.Player.Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, requirements[i].count);
             }
         }
-        ItemRequirement.ConsumeAll = ConsumeAll;
+        ItemStack.ConsumeAll = ConsumeAll;
         class Data {
         }
-        ItemRequirement.Data = Data;
-    })(ItemRequirement = API.ItemRequirement || (API.ItemRequirement = {}));
+        ItemStack.Data = Data;
+    })(ItemStack = API.ItemStack || (API.ItemStack = {}));
 })(API || (API = {}));
 var Utility;
 (function (Utility) {

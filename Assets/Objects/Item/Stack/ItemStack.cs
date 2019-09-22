@@ -23,7 +23,7 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-    public class ItemRequirementData
+    public class ItemStack
     {
         [JsonProperty]
         [JsonConverter(typeof(ItemTemplate.Converter))]
@@ -54,39 +54,39 @@ namespace Game
             return "x" + count + " " + item.name;
         }
 
-        public ItemRequirementData()
+        public ItemStack()
         {
 
         }
 
-        public ItemRequirementData(ItemTemplate item, uint count)
+        public ItemStack(ItemTemplate item, uint count)
         {
             this.item = item;
             this.count = count;
         }
-        public ItemRequirementData(ItemTemplate template) : this(template, 1)
+        public ItemStack(ItemTemplate template) : this(template, 1)
         {
 
         }
 
         //Static Utility
-        public static List<ItemRequirementData> From(IList<string> IDs)
+        public static List<ItemStack> From(IList<string> IDs)
         {
             string AquireID(string ID) => ID;
 
             return From(IDs, AquireID);
         }
-        public static List<ItemRequirementData> From(IList<ItemTemplate> templates)
+        public static List<ItemStack> From(IList<ItemTemplate> templates)
         {
             string AquireID(ItemTemplate template) => template.ID;
 
             return From(templates, AquireID);
         }
-        public static List<ItemRequirementData> From<T>(IList<T> list, Func<T, string> aquireID)
+        public static List<ItemStack> From<T>(IList<T> list, Func<T, string> aquireID)
         {
-            var result = new List<ItemRequirementData>();
+            var result = new List<ItemStack>();
 
-            ItemRequirementData Find(string ID)
+            ItemStack Find(string ID)
             {
                 for (int i = 0; i < result.Count; i++)
                     if (result[i].Item.ID == ID)
@@ -110,7 +110,7 @@ namespace Game
                     }
                     else
                     {
-                        result.Add(new ItemRequirementData(template));
+                        result.Add(new ItemStack(template));
                     }
                 }
                 else

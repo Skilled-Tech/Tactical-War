@@ -21,7 +21,7 @@ using TMPro;
 
 namespace Game
 {
-	public class ItemRequirementsUI : UIElement
+	public class ItemStacksUI : UIElement
 	{
         [SerializeField]
         protected GameObject template;
@@ -31,14 +31,14 @@ namespace Game
         protected TMP_Text label;
         public TMP_Text Label { get { return label; } }
 
-        public List<ItemRequirementUITemplate> Elements { get; protected set; }
+        public List<ItemStackUITemplate> Elements { get; protected set; }
 
         public virtual void Init()
         {
-            Elements = new List<ItemRequirementUITemplate>();
+            Elements = new List<ItemStackUITemplate>();
         }
 
-        public virtual void Set(ItemRequirementData[] requirements)
+        public virtual void Set(ItemStack[] requirements)
         {
             Clear();
 
@@ -70,11 +70,11 @@ namespace Game
             label.transform.SetAsLastSibling();
         }
 
-        protected virtual ItemRequirementUITemplate Create(ItemRequirementData requirement)
+        protected virtual ItemStackUITemplate Create(ItemStack requirement)
         {
             var instance = Instantiate(template, transform);
 
-            var script = instance.GetComponent<ItemRequirementUITemplate>();
+            var script = instance.GetComponent<ItemStackUITemplate>();
 
             script.Init();
             script.Set(requirement.Item, requirement.Count);

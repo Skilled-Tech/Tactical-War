@@ -61,8 +61,8 @@ namespace Game
             if (OnProcess != null) OnProcess(winner);
         }
 
-        IList<ItemRequirementData> rewards;
-        private void RewardResponseCallback(IList<ItemRequirementData> result, PlayFabError error)
+        IList<ItemStack> rewards;
+        private void RewardResponseCallback(IList<ItemStack> result, PlayFabError error)
         {
             PlayFab.LevelReward.OnResponse -= RewardResponseCallback;
             if(error == null)

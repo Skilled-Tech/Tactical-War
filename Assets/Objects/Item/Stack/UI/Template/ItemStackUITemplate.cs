@@ -23,7 +23,7 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-	public class ItemRequirementUITemplate : MonoBehaviour
+	public class ItemStackUITemplate : MonoBehaviour
 	{
         [SerializeField]
         protected Image icon;

@@ -67,8 +67,8 @@ namespace Game
 
                 [JsonProperty]
                 [SerializeField]
-                protected ItemRequirementData[] requirements;
-                public ItemRequirementData[] Requirements { get { return requirements; } }
+                protected ItemStack[] requirements;
+                public ItemStack[] Requirements { get { return requirements; } }
 
                 public RankData()
                 {

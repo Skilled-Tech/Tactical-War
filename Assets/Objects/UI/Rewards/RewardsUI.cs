@@ -43,15 +43,15 @@ namespace Game
             button.onClick.AddListener(ClickAction);
         }
 
-        public List<ItemRequirementData> List { get; protected set; }
+        public List<ItemStack> List { get; protected set; }
 
         public virtual void Show(IList<ItemTemplate> list)
         {
-            var requirements = ItemRequirementData.From(list);
+            var requirements = ItemStack.From(list);
 
             Show(requirements);
         }
-        public virtual void Show(IList<ItemRequirementData> list)
+        public virtual void Show(IList<ItemStack> list)
         {
             if(list == null || list.Count < 1)
             {
@@ -67,7 +67,7 @@ namespace Game
             }
         }
 
-        public virtual void Set(ItemRequirementData data)
+        public virtual void Set(ItemStack data)
         {
             label.text = data.Item.DisplayName;
 

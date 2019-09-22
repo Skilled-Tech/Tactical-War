@@ -37,8 +37,8 @@ namespace Game
         public SlotsIndicator Progression { get { return progression; } }
 
         [SerializeField]
-        protected ItemRequirementsUI requiremnets;
-        public ItemRequirementsUI Requirements { get { return requiremnets; } }
+        protected ItemStacksUI requiremnets;
+        public ItemStacksUI Requirements { get { return requiremnets; } }
 
         [SerializeField]
         protected Button button;

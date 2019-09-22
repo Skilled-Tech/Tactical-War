@@ -103,13 +103,13 @@ namespace Game
             throw new ArgumentException();
         }
 
-        public virtual bool CompliesWith(ItemRequirementData requirement)
+        public virtual bool CompliesWith(ItemStack requirement)
         {
             if (requirement == null) return true;
 
             return Contains(requirement.Item.ID, requirement.Count);
         }
-        public virtual bool CompliesWith(ItemRequirementData[] requirements)
+        public virtual bool CompliesWith(ItemStack[] requirements)
         {
             if (requirements == null) return true;
 

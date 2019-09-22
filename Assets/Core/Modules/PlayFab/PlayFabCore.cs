@@ -188,10 +188,10 @@ namespace Game
             Retrieve(level.Region.name, level.Index);
         }
 
-        public event Delegates.ResultDelegate<IList<ItemRequirementData>> OnResult;
+        public event Delegates.ResultDelegate<IList<ItemStack>> OnResult;
         void ResultCallback(ExecuteCloudScriptResult result)
         {
-            IList<ItemRequirementData> data = null;
+            IList<ItemStack> data = null;
 
             if(result.FunctionResult == null)
             {
@@ -209,7 +209,7 @@ namespace Game
                 {
                     var IDs = array.ConvertAll(element => (string)element);
 
-                    data = ItemRequirementData.From(IDs);
+                    data = ItemStack.From(IDs);
                 }
             }
 
@@ -226,8 +226,8 @@ namespace Game
             Respond(null, error);
         }
 
-        public event Delegates.ResponseDelegate<IList<ItemRequirementData>> OnResponse;
-        void Respond(IList<ItemRequirementData> result, PlayFabError error)
+        public event Delegates.ResponseDelegate<IList<ItemStack>> OnResponse;
+        void Respond(IList<ItemStack> result, PlayFabError error)
         {
             if (OnResponse != null) OnResponse(result, error);
         }
