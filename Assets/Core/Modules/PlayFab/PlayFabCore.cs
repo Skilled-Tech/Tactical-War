@@ -237,7 +237,12 @@ namespace Game
         public event Delegates.ResultDelegate<ResultData> OnResult;
         void ResultCallback(ExecuteCloudScriptResult result)
         {
-            var data = result == null ? null : new ResultData(result.FunctionResult as JsonObject);
+            ResultData data = null;
+
+            if (result.FunctionResult == null)
+                data = null;
+            else
+                data = new ResultData(result.FunctionResult as JsonObject);
             
             if (OnResult != null) OnResult(data);
 
