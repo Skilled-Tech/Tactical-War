@@ -3,21 +3,21 @@
 
 handlers.LoginReward = function (args, context: IPlayFabContext)
 {
-    let templates = API.Rewards.Template.Retrieve();
+    let template = API.Rewards.Template.Retrieve();
 
     let data = API.Rewards.Data.Retrieve(currentPlayerId);
 
     let items = new Array<string>();
 
-    if (data == null)
+    if (data == null) //Signup
     {
         data = new API.Rewards.Data.Instance();
 
-        var signupReward = API.Rewards.Grant(currentPlayerId, templates.signup, "Signup Reward");
+        var signupReward = API.Rewards.Grant(currentPlayerId, template.signup, "Signup Reward");
 
         items = items.concat(signupReward);
     }
-    else
+    else //Recurring
     {
         let daysFromLastReward = Utility.Dates.DaysFrom(Date.parse(data.daily.timestamp));
 
@@ -35,14 +35,13 @@ handlers.LoginReward = function (args, context: IPlayFabContext)
         }
     }
 
-    let dailyItems = API.Rewards.Data.Daily.Grant(currentPlayerId, data, templates);
+    let dailyItems = API.Rewards.Grant(currentPlayerId, template.daily[data.daily.progress], "Daily Reward");
 
-    items = items.concat(this);
+    items = items.concat(dailyItems);
 
     var result = new API.Rewards.Result(data.daily.progress, items);
 
-    API.Rewards.Data.Daily.Incremenet(data, templates);
-
+    API.Rewards.Data.Daily.Incremenet(data, template);
     API.Rewards.Data.Update(currentPlayerId, data);
 
     return result;
@@ -312,11 +311,6 @@ namespace API
 
             export namespace Daily
             {
-                export function Grant(playerID: string, data: Instance, template: API.Rewards.Template.Data)
-                {
-                    return API.Rewards.Grant(currentPlayerId, template[data.daily.progress], "Daily Reward")
-                }
-
                 export function Incremenet(data: Instance, templates: API.Rewards.Template.Data)
                 {
                     data.daily.progress++;

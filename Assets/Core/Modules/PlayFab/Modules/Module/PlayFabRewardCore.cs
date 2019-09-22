@@ -30,8 +30,8 @@ namespace Game
 	public class PlayFabRewardCore : PlayFabCore.Module
 	{
         [SerializeField]
-        protected PlayFabDailyRewardCore daily;
-        public PlayFabDailyRewardCore Daily { get { return daily; } }
+        protected PlayFabLoginReward daily;
+        public PlayFabLoginReward Daily { get { return daily; } }
 
         [SerializeField]
         protected PlayFabLevelRewardCore level;

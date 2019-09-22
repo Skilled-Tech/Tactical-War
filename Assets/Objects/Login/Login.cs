@@ -109,8 +109,8 @@ namespace Game
             }
         }
 
-        PlayFabDailyRewardCore.ResultData dailyReward;
-        void DailyRewardsResponseCallback(PlayFabDailyRewardCore.ResultData result, PlayFabError error)
+        PlayFabLoginReward.ResultData dailyReward;
+        void DailyRewardsResponseCallback(PlayFabLoginReward.ResultData result, PlayFabError error)
         {
             PlayFab.Reward.Daily.OnResponse -= DailyRewardsResponseCallback;
 

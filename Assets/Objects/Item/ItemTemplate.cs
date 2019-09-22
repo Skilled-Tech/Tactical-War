@@ -63,7 +63,7 @@ namespace Game
         public string Description { get { return description; } }
 
         [SerializeField]
-        protected Currency price = new Currency(CurrencyType.Gold, 400);
+        protected Currency price = new Currency(CurrencyType.Gold, 0);
         public Currency Price
         {
             get

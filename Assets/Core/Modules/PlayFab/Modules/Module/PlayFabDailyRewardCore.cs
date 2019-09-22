@@ -28,10 +28,8 @@ using Newtonsoft.Json.Linq;
 namespace Game
 {
     [Serializable]
-    public class PlayFabDailyRewardCore : PlayFabRewardCore.Module
+    public class PlayFabLoginReward : PlayFabRewardCore.Module
     {
-        public const string key = "daily-rewards";
-
         protected int max;
         public int Max { get { return max; } }
 
@@ -44,7 +42,9 @@ namespace Game
 
         void TitleDataRetrieveCallback(PlayFabTitleDataCore result)
         {
-            var jArray = JArray.Parse(result.Value[key]);
+            var jObject = JObject.Parse(result.Value["rewards"]);
+
+            var jArray = jObject["daily"] as JArray;
 
             max = jArray.Count;
         }
@@ -54,7 +54,7 @@ namespace Game
         {
             var request = new ExecuteCloudScriptRequest()
             {
-                FunctionName = "ProcessDailyReward",
+                FunctionName = "LoginReward",
 
                 FunctionParameter = null,
 

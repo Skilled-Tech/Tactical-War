@@ -34,9 +34,9 @@ MonoBehaviour:
       funds:
         elements:
         - type: 0
-          _value: 86300
+          _value: 171500
         - type: 1
-          _value: 749900
+          _value: 743100
     units:
       selection:
         max: 4
@@ -56,6 +56,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
     - {fileID: 11400000, guid: 10430b6767664a34682b0394b27bb7f5, type: 2}
     - {fileID: 11400000, guid: cb4153b2c4d496442887b92cbf1ab01e, type: 2}
+    - {fileID: 11400000, guid: c92df741545ed7a48840f87a30cb8098, type: 2}
     upgrades:
       types:
         list:
@@ -68,3 +69,4 @@ MonoBehaviour:
     startOffline: 0
     player: {}
     title: {}
+    reward: {}
