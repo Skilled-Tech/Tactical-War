@@ -27,6 +27,8 @@ namespace Game
 
         public EntityDefense Defense { get; protected set; }
 
+        public EntityStatusEffects StatusEffects { get; protected set; }
+
         public abstract class Module : Module<Entity>
         {
             public Entity Entity { get { return Reference; } }
@@ -48,6 +50,8 @@ namespace Game
 
             Defense = Dependancy.Get<EntityDefense>(gameObject);
 
+            StatusEffects = Dependancy.Get<EntityStatusEffects>(gameObject);
+
             Bounds = Tools.CalculateColliders2DBounds(gameObject);
 
             Modules.Configure(this);
@@ -58,14 +62,18 @@ namespace Game
             Modules.Init(this);
         }
 
+        public delegate void DoDamageDelegate(Entity target, float damage);
+        public event DoDamageDelegate OnDoDamage;
         public virtual void DoDamage(Entity target, float damage)
         {
             target.TakeDamage(this, damage);
+
+            if (OnDoDamage != null) OnDoDamage(target, damage);
         }
 
         public delegate void TakeDamageDelegate(Entity damager, float value);
         public event TakeDamageDelegate OnTookDamage;
-        public virtual void TakeDamage(Entity damager, float value)
+        protected virtual void TakeDamage(Entity damager, float value)
         {
             if (Health.Value == 0) return;
 
@@ -81,7 +89,7 @@ namespace Game
 
         public virtual void Suicide()
         {
-            TakeDamage(this, Health.Value);
+            DoDamage(this, Health.Value);
         }
 
         public delegate void DeathDelegate(Entity damager);

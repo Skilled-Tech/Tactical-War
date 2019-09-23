@@ -109,7 +109,7 @@ namespace Game
             Modules.Init(this);
         }
 
-        public override void TakeDamage(Entity damager, float value)
+        protected override void TakeDamage(Entity damager, float value)
         {
             value = Mathf.Lerp(value, 0f, Upgrades.Defense / 100f);
 
