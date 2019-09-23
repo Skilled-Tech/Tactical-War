@@ -165,7 +165,7 @@ namespace Game
 
         public virtual void Process()
         {
-            if(IsDepleted)
+            if (IsDepleted)
             {
 
             }
@@ -178,7 +178,7 @@ namespace Game
                     interval = data.Interval;
                     Apply();
                 }
-
+                
                 data.Duration = Mathf.MoveTowards(data.Duration, 0f, Time.deltaTime);
             }
         }
@@ -190,6 +190,8 @@ namespace Game
 
         public void Stack(StatusEffectData effect, Entity affector)
         {
+            Debug.Log("stack");
+
             this.Affector = affector;
 
             data += effect;

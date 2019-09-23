@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 521996579605874216}
   - component: {fileID: 8712437483786886554}
   - component: {fileID: 2575242742404887133}
+  - component: {fileID: 874983649438875611}
   m_Layer: 0
   m_Name: Ice Spell
   m_TagString: Untagged
@@ -125,6 +126,23 @@ SortingGroup:
   m_SortingLayerID: -1470433523
   m_SortingLayer: 1
   m_SortingOrder: 0
+--- !u!114 &874983649438875611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58614852322497312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ca1927cdccff0449330d9355b0c65c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    type: {fileID: 11400000, guid: 2b68af491ee9b9a40806aad134f092cf, type: 2}
+    potency: 50
+    interval: 6
+    duration: 6
 --- !u!1 &6052723584433559516
 GameObject:
   m_ObjectHideFlags: 0

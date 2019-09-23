@@ -54,11 +54,6 @@ namespace Game
             Entity.StatusEffects.OnRemove += RemoveCallback;
         }
 
-        void Start()
-        {
-            Stop();
-        }
-
         void AddCallback(StatusEffectInstance effect)
         {
             if (effect.Type == type)

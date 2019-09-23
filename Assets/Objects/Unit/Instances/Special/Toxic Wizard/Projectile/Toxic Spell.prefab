@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 521996579605874216}
   - component: {fileID: 8712437483786886554}
   - component: {fileID: 3490901279470049237}
+  - component: {fileID: 7657920612887179740}
   m_Layer: 0
   m_Name: Toxic Spell
   m_TagString: Untagged
@@ -75,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d259a73c11347147a062374fd4b708d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6846914995694807306, guid: 6f7bf66529afa204cb2b03245d4f773f, type: 3}
+  prefab: {fileID: 6846914995694807296, guid: 6f7bf66529afa204cb2b03245d4f773f, type: 3}
   radius: 0
 --- !u!50 &521996579605874216
 Rigidbody2D:
@@ -125,6 +126,23 @@ SortingGroup:
   m_SortingLayerID: -1470433523
   m_SortingLayer: 1
   m_SortingOrder: 0
+--- !u!114 &7657920612887179740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58614852322497312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ca1927cdccff0449330d9355b0c65c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
+    potency: 10
+    interval: 2
+    duration: 10
 --- !u!210 &3500859126990875789
 SortingGroup:
   m_ObjectHideFlags: 0
