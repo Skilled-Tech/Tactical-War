@@ -23,6 +23,16 @@ namespace Game
 	{
         public const string MenuPath = StatusEffect.MenuPath + "Type/";
 
+        public virtual void OnAdd(StatusEffectInstance effect)
+        {
+
+        }
+
         public abstract void Apply(StatusEffectInstance effect);
+
+        public virtual void OnRemove(StatusEffectInstance effect)
+        {
+
+        }
 	}
 }

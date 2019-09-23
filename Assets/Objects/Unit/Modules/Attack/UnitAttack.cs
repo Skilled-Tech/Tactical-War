@@ -21,9 +21,7 @@ namespace Game
 {
 	public abstract class UnitAttack : Unit.Module
 	{
-        [SerializeField]
-        protected Damage.Method method = Game.Damage.Method.Contact;
-        public Damage.Method Method { get { return method; } }
+        public Damage.Method Method { get { return Template.Attack.Method; } }
 
         #region Damage
         public float BaseDamage { get { return Unit.Template.Attack.Damage; } }
@@ -67,9 +65,7 @@ namespace Game
         public float Distance { get { return BaseDistance * DistanceMultiplier; } }
         #endregion
 
-        [SerializeField]
-        protected float duration = 1f;
-        public float Duration { get { return duration; } }
+        public float Duration { get { return Template.Attack.Duration; } }
 
         public override void Init()
         {
@@ -93,7 +89,7 @@ namespace Game
 
         public virtual void DoDamage(Entity target)
         {
-            Unit.DoDamage(Damage, method, target);
+            Unit.DoDamage(Damage, Method, target);
         }
 
         public Entity Target { get; protected set; }
@@ -117,7 +113,7 @@ namespace Game
 
             Body.CharacterAnimation.Attack();
 
-            yield return new WaitForSeconds(duration);
+            yield return new WaitForSeconds(Duration);
 
             Target = null;
 

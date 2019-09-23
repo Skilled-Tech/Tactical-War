@@ -21,9 +21,15 @@ namespace Game
 {
 	public class UnitNavigator : Unit.Module
 	{
-		[SerializeField]
-        protected float speed = 2f;
-        public float Speed { get { return speed; } }
+        public float BaseSpeed => Template.Speed;
+
+        public float Speed
+        {
+            get
+            {
+                return Mathf.Lerp(BaseSpeed, 0, Unit.StatusEffects.Defaults.Chill.Potency / 100);
+            }
+        }
 
         public float XPosition
         {
@@ -59,7 +65,7 @@ namespace Game
 
             if (DistanceLeft > stoppingDistance)
             {
-                XPosition = Mathf.MoveTowards(XPosition, destination, speed * Time.deltaTime);
+                XPosition = Mathf.MoveTowards(XPosition, destination, Speed * Time.deltaTime);
 
                 Body.CharacterAnimation.SetState(Assets.HeroEditor4D.Common.CharacterScripts.CharacterState.Walk);
 

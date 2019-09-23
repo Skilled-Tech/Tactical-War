@@ -21,6 +21,94 @@ namespace Game
 {
 	public class EntityStatusEffects : Entity.Module
 	{
+        [SerializeField]
+        protected DefaultsData defaults;
+        public DefaultsData Defaults { get { return defaults; } }
+        [Serializable]
+        public class DefaultsData
+        {
+            [SerializeField]
+            protected InstanceData poison;
+            public InstanceData Poison { get { return poison; } }
+
+            [SerializeField]
+            protected InstanceData fire;
+            public InstanceData Fire { get { return poison; } }
+
+            [SerializeField]
+            protected InstanceData chill;
+            public InstanceData Chill { get { return poison; } }
+
+            [Serializable]
+            public class InstanceData
+            {
+                [SerializeField]
+                protected StatusEffectType type;
+                public StatusEffectType Type { get { return type; } }
+
+                public StatusEffectInstance Instance { get; protected set; }
+
+                public float Potency
+                {
+                    get
+                    {
+                        if (Instance == null)
+                            return 0f;
+
+                        return Instance.Data.Potency;
+                    }
+                }
+
+                public virtual void Update(StatusEffectInstance instance)
+                {
+                    this.Instance = instance;
+                }
+            }
+
+            public virtual InstanceData Find(StatusEffectType type)
+            {
+                if (type == poison.Type) return poison;
+                if (type == fire.Type) return fire;
+                if (type == chill.Type) return chill;
+
+                return null;
+            }
+
+            public virtual void Init(EntityStatusEffects statusEffects)
+            {
+                statusEffects.OnAdd += OnAdd;
+                statusEffects.OnRemove += OnRemove;
+            }
+
+            void OnAdd(StatusEffectInstance effect)
+            {
+                var instance = Find(effect.Type);
+
+                if (instance == null)
+                {
+                    instance.Update(effect);
+                }
+                else
+                {
+
+                }
+            }
+
+            void OnRemove(StatusEffectType type)
+            {
+                var instance = Find(type);
+
+                if(instance == null)
+                {
+                    instance.Update(null);
+                }
+                else
+                {
+
+                }
+            }
+        }
+
         public List<StatusEffectInstance> List { get; protected set; }
 
         public override void Configure(Entity data)

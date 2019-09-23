@@ -34,17 +34,17 @@ MonoBehaviour:
       funds:
         elements:
         - type: 0
-          _value: 171500
+          _value: 175100
         - type: 1
-          _value: 743100
+          _value: 729700
     units:
       selection:
         max: 4
         list:
-        - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
-        - {fileID: 11400000, guid: bae25f7b8fa689040921776c7dbee1c7, type: 2}
-        - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
-        - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 8b5bdedbe1f838f4286a37624b062ff2, type: 2}
+        - {fileID: 11400000, guid: 8b5bdedbe1f838f4286a37624b062ff2, type: 2}
         Context: {fileID: 0}
   items:
     list:
@@ -53,6 +53,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
     - {fileID: 11400000, guid: 21f2841f15d2b2344ab16c11523950c7, type: 2}
     - {fileID: 11400000, guid: 8b5bdedbe1f838f4286a37624b062ff2, type: 2}
+    - {fileID: 11400000, guid: 6a36fb4327677d5479e0bbe0ed809fc8, type: 2}
     - {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
     - {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
     - {fileID: 11400000, guid: 10430b6767664a34682b0394b27bb7f5, type: 2}

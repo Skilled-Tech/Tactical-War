@@ -50,32 +50,6 @@ namespace Game
         public float Health { get { return health; } }
 
         [SerializeField]
-        protected AttackData attack = new AttackData(20, 1, 1);
-        public AttackData Attack { get { return attack; } }
-        [Serializable]
-        public class AttackData
-        {
-            [SerializeField]
-            protected float damage;
-            public float Damage { get { return damage; } }
-
-            [SerializeField]
-            protected uint range;
-            public uint Range { get { return range; } }
-
-            [SerializeField]
-            protected float distance;
-            public float Distance { get { return distance; } }
-
-            public AttackData(float damage, uint range, float distance)
-            {
-                this.damage = damage;
-                this.range = range;
-                this.distance = distance;
-            }
-        }
-
-        [SerializeField]
         protected DeploymentData deployment = new DeploymentData(200, 2f);
         public DeploymentData Deployment { get { return deployment; } }
         [Serializable]
@@ -105,5 +79,45 @@ namespace Game
                 this.time = time;
             }
         }
+
+        [SerializeField]
+        protected AttackData attack = new AttackData(20, 1, 1, 1, Damage.Method.Contact);
+        public AttackData Attack { get { return attack; } }
+        [Serializable]
+        public class AttackData
+        {
+            [SerializeField]
+            protected float damage;
+            public float Damage { get { return damage; } }
+
+            [SerializeField]
+            protected uint range;
+            public uint Range { get { return range; } }
+
+            [SerializeField]
+            protected float distance;
+            public float Distance { get { return distance; } }
+
+            [SerializeField]
+            protected float duration = 1f;
+            public float Duration { get { return duration; } }
+
+            [SerializeField]
+            protected Damage.Method method;
+            public Damage.Method Method { get { return method; } }
+
+            public AttackData(float damage, uint range, float distance, float duration, Damage.Method method)
+            {
+                this.damage = damage;
+                this.range = range;
+                this.distance = distance;
+                this.duration = duration;
+                this.method = method;
+            }
+        }
+
+        [SerializeField]
+        protected float speed;
+        public float Speed { get { return speed; } }
     }
 }

@@ -19,8 +19,12 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class RangedUnitController : UnitController
+    [CreateAssetMenu(menuName = MenuPath + "Chill")]
+	public class ChillStatusEffect : StatusEffectType
 	{
-        
+        public override void Apply(StatusEffectInstance effect)
+        {
+
+        }
     }
 }

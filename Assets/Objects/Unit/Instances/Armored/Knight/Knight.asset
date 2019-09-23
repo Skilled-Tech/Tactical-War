@@ -28,10 +28,13 @@ MonoBehaviour:
   type: {fileID: 11400000, guid: 24de53186882044498807e9ef2186c21, type: 2}
   prefab: {fileID: 8127696124609658847, guid: ffb63b5e209ba8e4592a2e03c6b2bed3, type: 3}
   health: 200
+  deployment:
+    cost: 300
+    time: 4
   attack:
     damage: 50
     range: 1
     distance: 0
-  deployment:
-    cost: 300
-    time: 4
+    duration: 1
+    method: 0
+  speed: 3

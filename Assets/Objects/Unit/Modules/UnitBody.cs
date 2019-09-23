@@ -52,5 +52,10 @@ namespace Game
 
             Animator.SetFloat("Cycle Offset", Random.Range(0f, 1f));
         }
+
+        protected virtual void Update()
+        {
+            Animator.speed = Mathf.Lerp(1f, 0f, Unit.StatusEffects.Defaults.Chill.Potency);
+        }
     }
 }

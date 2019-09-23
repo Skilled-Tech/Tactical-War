@@ -39,7 +39,7 @@ namespace Game
 
         public virtual void Set(UnitTemplate data)
         {
-            label.text = data.name;
+            label.text = data.DisplayName;
 
             type.text = data.Type.name;
 

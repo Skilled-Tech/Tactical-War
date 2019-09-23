@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
-  m_Name: Fire_Wizard
+  m_Name: Ice_Wizard
   m_EditorClassIdentifier: 
   icon:
-    sprite: {fileID: 21300000, guid: 64159d4ffad034c448d18c9e683c88d6, type: 3}
+    sprite: {fileID: 21300000, guid: 70a436a99ab754f4d9c8a9406e8d0389, type: 3}
     tilt: 0
   description: Magic user, low defense, high range & attack
   price:
@@ -26,7 +26,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
   hideInInventory: 1
   type: {fileID: 11400000, guid: d46edbafedd3e1044a159863c637a9e1, type: 2}
-  prefab: {fileID: 5569182392643639925, guid: 142e3e5759c792b439fbe1e7b7e9d533, type: 3}
+  prefab: {fileID: 5569182392643639925, guid: 203d073f7968e894b989448833cd37c7, type: 3}
   health: 80
   deployment:
     cost: 400
