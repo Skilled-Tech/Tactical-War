@@ -2617,10 +2617,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ad7a11bf3432145a10f550fe3d10dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: {fileID: 0}
   label: {fileID: 1882121463}
-  icon: {fileID: 1566758167}
-  ammount: {fileID: 1973629377}
-  button: {fileID: 1798161540}
+  itemStack: {fileID: 0}
+  next: {fileID: 0}
 --- !u!114 &366744537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5570,7 +5570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8830afb9240a5e84fb2d15662ed103a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewards: {fileID: 366744536}
   end: {fileID: 832470619}
 --- !u!114 &831913758
 MonoBehaviour:
