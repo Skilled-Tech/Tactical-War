@@ -22,6 +22,19 @@ namespace Game
     public static class StatusEffect
     {
         public const string MenuPath = "Status Effect/";
+
+        public static bool Afflect(StatusEffectData data, Entity target, Entity affector)
+        {
+            if (target == null) //Target Died ?
+                return false;
+
+            if (target.StatusEffects == null)
+                return false;
+
+            target.StatusEffects.Add(data, affector);
+
+            return true;
+        }
     }
     
     [Serializable]
@@ -116,6 +129,8 @@ namespace Game
     {
         public StatusEffectType Type { get { return data.Type; } }
 
+        public bool IsDepleted { get { return data.Duration == 0f; } }
+
         protected StatusEffectData data;
         public StatusEffectData Data { get { return data; } }
 
@@ -149,15 +164,22 @@ namespace Game
 
         public virtual void Process()
         {
-            interval = Mathf.MoveTowards(interval, 0f, Time.deltaTime);
-
-            if(interval == 0f)
+            if(IsDepleted)
             {
-                interval = data.Interval;
-                Apply();
-            }
 
-            data.Duration = Mathf.MoveTowards(data.Duration, 0f, Time.deltaTime);
+            }
+            else
+            {
+                interval = Mathf.MoveTowards(interval, 0f, Time.deltaTime);
+
+                if (interval == 0f)
+                {
+                    interval = data.Interval;
+                    Apply();
+                }
+
+                data.Duration = Mathf.MoveTowards(data.Duration, 0f, Time.deltaTime);
+            }
         }
 
         public void Apply()

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class EntityDamageStatusEffect : Entity.Module
+	public class EntityAttackStatusEffect : Entity.Module
 	{
         [SerializeField]
         protected StatusEffectData data;
@@ -29,12 +29,12 @@ namespace Game
         {
             base.Init();
 
-            Entity.OnTookDamage += OnTookDamage; ;
+            Entity.OnDoDamage += OnDoDamage;
         }
 
-        void OnTookDamage(Entity damager, float value)
+        void OnDoDamage(Entity target, float damage)
         {
-            if(StatusEffect.Afflect(data, damager, this.Entity)) //Status Effect Applied
+            if (StatusEffect.Afflect(data, target, this.Entity)) //Status Effect Applied
             {
 
             }
