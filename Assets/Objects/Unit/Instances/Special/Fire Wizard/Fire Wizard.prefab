@@ -14009,7 +14009,7 @@ PrefabInstance:
     - target: {fileID: 1794603684964641981, guid: eece88ec563127647ab92aff59fa687c,
         type: 3}
       propertyPath: m_Name
-      value: Wizard
+      value: Fire Wizard
       objectReference: {fileID: 0}
     - target: {fileID: 1794603684964641978, guid: eece88ec563127647ab92aff59fa687c,
         type: 3}

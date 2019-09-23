@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class BanditController : UnitController
+	public class Ranged : UnitController
 	{
         
     }

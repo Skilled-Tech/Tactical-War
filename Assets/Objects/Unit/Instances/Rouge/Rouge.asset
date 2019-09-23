@@ -10,8 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6776d9091b072e418f2eca829ad49f3, type: 3}
-  m_Name: Infantry
+  m_Name: Rouge
   m_EditorClassIdentifier: 
-  properties:
-  - {fileID: 11400000, guid: df6758305d8ddd94b9227e6b21e8719c, type: 2}
-  - {fileID: 11400000, guid: 61f485a3be37a6d44b1976a9622b35b9, type: 2}

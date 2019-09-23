@@ -29,9 +29,10 @@ namespace Game
         {
             set
             {
-                var module = system.emission;
-
-                module.enabled = value;
+                if (value)
+                    system.Play(true);
+                else
+                    system.Stop(true);
             }
         }
 
