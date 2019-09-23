@@ -30,13 +30,6 @@ namespace Game
             List = new List<StatusEffectInstance>();
         }
 
-        public override void Init()
-        {
-            base.Init();
-
-
-        }
-
         public virtual StatusEffectInstance Find(StatusEffectType type)
         {
             for (int i = 0; i < List.Count; i++)
@@ -57,19 +50,19 @@ namespace Game
 
         public delegate void AddDelegate(StatusEffectInstance effect);
         public event AddDelegate OnAdd;
-        public virtual void Add(StatusEffectData effect, Entity affector)
+        public virtual void Add(StatusEffectData data, Entity affector)
         {
-            var target = Find(effect.Type);
+            var target = Find(data.Type);
 
             if(target == null)
             {
-                target = new StatusEffectInstance(effect, this.Entity, affector);
+                target = new StatusEffectInstance(data, this.Entity, affector);
 
                 List.Add(target);
             }
             else
             {
-                target.Stack(effect, affector);
+                target.Stack(data, affector);
             }
 
             if (OnAdd != null) OnAdd(target);

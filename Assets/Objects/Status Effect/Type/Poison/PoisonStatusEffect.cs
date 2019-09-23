@@ -19,6 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+    [CreateAssetMenu(menuName = MenuPath + "Poison")]
 	public class PoisonStatusEffect : StatusEffectType
 	{
         public override void Apply(StatusEffectInstance effect)

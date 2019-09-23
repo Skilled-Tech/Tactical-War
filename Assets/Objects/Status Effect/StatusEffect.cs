@@ -23,7 +23,8 @@ namespace Game
     {
         public const string MenuPath = "Status Effect/";
     }
-
+    
+    [Serializable]
     public struct StatusEffectData
     {
         [SerializeField]
@@ -90,6 +91,7 @@ namespace Game
             {
                 type = two.type,
                 potency = Max(one.potency, two.potency),
+                interval = Min(one.interval, two.interval),
                 duration = Max(one.duration, two.duration),
             };
         }
@@ -97,6 +99,13 @@ namespace Game
         public static float Max(float one, float two)
         {
             if (one > two)
+                return one;
+
+            return two;
+        }
+        public static float Min(float one, float two)
+        {
+            if (one < two)
                 return one;
 
             return two;
