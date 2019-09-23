@@ -51,10 +51,10 @@ namespace Game
                     var entity = colliders[i].GetComponent<Entity>();
 
                     if (entity == null) continue;
-                    if (Owner is Base && entity is Base) continue; //Same Crudeness
+                    if (Owner is Base && entity is Base) continue; //Same Crudeness as Before
                     if (entity.gameObject.layer == gameObject.layer) continue;
 
-                    Owner.DoDamage(entity, damage.Value);
+                    Owner.DoDamage(damage.Value, Damage.Method.Effect, entity);
                 }
             }
         }

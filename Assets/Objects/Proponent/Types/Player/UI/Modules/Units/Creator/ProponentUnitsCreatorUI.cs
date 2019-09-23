@@ -43,7 +43,7 @@ namespace Game
             Player.Funds.OnValueChanged += OnFundsChanged;
         }
 
-        void OnUnitDeath(Unit unit, Entity damager)
+        void OnUnitDeath(Unit unit, Damage.Result damage)
         {
             UpdateState();
         }

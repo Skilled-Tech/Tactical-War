@@ -29,12 +29,12 @@ namespace Game
         {
             base.Init();
 
-            Entity.OnDoDamage += OnDoDamage;
+            Entity.OnDoDamage += DoDamageCallback; ;
         }
 
-        void OnDoDamage(Entity target, float damage)
+        void DoDamageCallback(Damage.Result result)
         {
-            if (StatusEffect.Afflect(data, target, this.Entity)) //Status Effect Applied
+            if (StatusEffect.Afflect(data, result.Target, this.Entity)) //Status Effect Applied
             {
 
             }

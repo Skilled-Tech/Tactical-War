@@ -58,7 +58,7 @@ namespace Game
             }
             else
             {
-                Owner.DoDamage(entity, Value);
+                Owner.DoDamage(Value, Damage.Method.Ranged, entity);
             }
         }
     }

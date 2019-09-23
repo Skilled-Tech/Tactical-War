@@ -21,6 +21,10 @@ namespace Game
 {
 	public abstract class UnitAttack : Unit.Module
 	{
+        [SerializeField]
+        protected Damage.Method method = Game.Damage.Method.Contact;
+        public Damage.Method Method { get { return method; } }
+
         #region Damage
         public float BaseDamage { get { return Unit.Template.Attack.Damage; } }
 
@@ -89,7 +93,7 @@ namespace Game
 
         public virtual void DoDamage(Entity target)
         {
-            Unit.DoDamage(target, Damage);
+            Unit.DoDamage(Damage, method, target);
         }
 
         public Entity Target { get; protected set; }

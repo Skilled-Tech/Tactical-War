@@ -73,26 +73,14 @@ namespace Game
 
             List.Add(unit);
 
-            unit.OnDeath += (Entity damager)=>UnitDeath(unit, damager);
+            unit.OnDeath += (Damage.Result result)=> UnitDealthCallback(unit, result);
 
             if (OnCountChanged != null) OnCountChanged(Count);
         }
 
-        private void Update()
-        {
-            if(Proponent.name.ToLower().Contains("player") && Input.GetKeyDown(KeyCode.S))
-            {
-                var unit = List.First();
-
-                unit.Suicide();
-
-                Destroy(unit.gameObject);
-            }
-        }
-
-        public delegate void UnitDeathDelegate(Unit unit, Entity damager);
+        public delegate void UnitDeathDelegate(Unit unit, Damage.Result damage);
         public event UnitDeathDelegate OnUnitDeath;
-        void UnitDeath(Unit unit, Entity damager)
+        void UnitDealthCallback(Unit unit, Damage.Result result)
         {
             List.Remove(unit);
 
@@ -100,7 +88,7 @@ namespace Game
 
             if (OnCountChanged != null) OnCountChanged(Count);
 
-            if (OnUnitDeath != null) OnUnitDeath(unit, damager);
+            if (OnUnitDeath != null) OnUnitDeath(unit, result);
         }
 
         void UpdateIndexes()

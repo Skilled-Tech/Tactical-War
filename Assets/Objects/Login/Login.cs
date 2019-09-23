@@ -98,10 +98,20 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Show("Retrieving Daily Reward");
+                if(PlayFab.IsLoggedIn)
+                {
+                    Popup.Show("Retrieving Daily Reward");
 
-                PlayFab.Reward.Daily.OnResponse += DailyRewardsResponseCallback;
-                PlayFab.Reward.Daily.Perform();
+                    PlayFab.Reward.Daily.OnResponse += DailyRewardsResponseCallback;
+                    PlayFab.Reward.Daily.Perform();
+                }
+                else
+                {
+                    Popup.Show("Retrieving Player Data");
+
+                    PlayFab.Player.OnResponse += OnPlayerResponse;
+                    PlayFab.Player.Retrieve();
+                }
             }
             else
             {

@@ -32,13 +32,13 @@ namespace Game
             Entity.OnTookDamage += OnTookDamage;
         }
 
-        void OnTookDamage(Entity damager, float value)
+        void OnTookDamage(Damage.Result result)
         {
             var label = Spawn();
 
             label.Configure();
 
-            label.Text = value.ToString();
+            label.Text = result.Value.ToString();
         }
 
         PopupLabel Spawn()

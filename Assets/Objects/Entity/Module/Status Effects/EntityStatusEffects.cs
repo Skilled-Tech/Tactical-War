@@ -87,7 +87,7 @@ namespace Game
 
         protected virtual void Update()
         {
-            for (int i = List.Count - 1; i >= 0; i++)
+            for (int i = List.Count - 1; i >= 0; i--)
             {
                 List[i].Process();
 

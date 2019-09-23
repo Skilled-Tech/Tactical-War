@@ -64,7 +64,7 @@ namespace Game
             Modules.Init(this);
         }
 
-        protected virtual void OnBaseDestroyed(Entity damager)
+        void OnBaseDestroyed(Damage.Result result)
         {
             DeclareDefeat();
         }

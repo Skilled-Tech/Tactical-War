@@ -29,18 +29,21 @@ namespace Game
         {
             base.Init();
 
-            Entity.OnTookDamage += OnTookDamage; ;
+            Entity.OnTookDamage += TookDamageCallback;
         }
 
-        void OnTookDamage(Entity damager, float value)
+        void TookDamageCallback(Damage.Result result)
         {
-            if(StatusEffect.Afflect(data, damager, this.Entity)) //Status Effect Applied
+            if(result.Method == Damage.Method.Contact)
             {
+                if (StatusEffect.Afflect(data, result.Source, this.Entity)) //Status Effect Applied
+                {
 
-            }
-            else
-            {
+                }
+                else
+                {
 
+                }
             }
         }
     }

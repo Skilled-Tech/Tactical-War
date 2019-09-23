@@ -62,41 +62,52 @@ namespace Game
             Modules.Init(this);
         }
 
-        public delegate void DoDamageDelegate(Entity target, float damage);
+        public delegate void DoDamageDelegate(Damage.Result result);
         public event DoDamageDelegate OnDoDamage;
-        public virtual void DoDamage(Entity target, float damage)
+        public virtual void DoDamage(float value, Damage.Method method, Entity target)
         {
-            target.TakeDamage(this, damage);
+            var result = target.TakeDamage(value, method, this);
 
-            if (OnDoDamage != null) OnDoDamage(target, damage);
+            if (OnDoDamage != null) OnDoDamage(result);
         }
 
-        public delegate void TakeDamageDelegate(Entity damager, float value);
+        public delegate void TakeDamageDelegate(Damage.Result result);
         public event TakeDamageDelegate OnTookDamage;
-        protected virtual void TakeDamage(Entity damager, float value)
+        protected virtual Damage.Result TakeDamage(float value, Damage.Method method, Entity cause)
         {
-            if (Health.Value == 0) return;
+            if(Health.Value > 0f)
+            {
+                Health.Value -= value;
+            }
+            else
+            {
 
-            value = Defense.Sample(value);
+            }
 
-            Health.Value -= value;
+            var result = new Damage.Result(value, this, method, cause);
 
-            if (OnTookDamage != null) OnTookDamage(damager, value);
+            if (OnTookDamage != null) OnTookDamage(result);
 
             if(Health.Value == 0)
-                Death(damager);
+                Death(result);
+
+            return result;
         }
 
         public virtual void Suicide()
         {
-            DoDamage(this, Health.Value);
+            DoDamage(Health.Value, Damage.Method.Contact, this);
+        }
+        public virtual void Sudoku()
+        {
+            Suicide();
         }
 
-        public delegate void DeathDelegate(Entity damager);
+        public delegate void DeathDelegate(Damage.Result result);
         public event DeathDelegate OnDeath;
-        protected virtual void Death(Entity damager)
+        protected virtual void Death(Damage.Result result)
         {
-            if (OnDeath != null) OnDeath(damager);
+            if (OnDeath != null) OnDeath(result);
         }
 
         void OnDrawGizmosSelected()
@@ -106,6 +117,63 @@ namespace Game
             Gizmos.matrix = transform.localToWorldMatrix;
 
             Gizmos.DrawWireCube(Bounds.center, Bounds.size);
+        }
+    }
+
+    public class Damage
+    {
+        public struct Request
+        {
+            public float Value { get; private set; }
+
+            public Method Method { get; private set; }
+
+            public Entity Source { get; private set; }
+            public Entity Target { get; private set; }
+
+            public Request(float value, Entity target, Method method, Entity source)
+            {
+                this.Value = value;
+
+                this.Target = target;
+
+                this.Method = method;
+
+                this.Source = source;
+            }
+        }
+
+        public struct Result
+        {
+            public float Value { get; private set; }
+
+            public Method Method { get; private set; }
+
+            public Entity Source { get; private set; }
+            public Entity Target { get; private set; }
+
+            public Result(float value, Entity target, Method method, Entity source)
+            {
+                this.Value = value;
+
+                this.Target = target;
+
+                this.Method = method;
+
+                this.Source = source;
+            }
+
+            public Result(Request request) : this(request.Value, request.Target, request.Method, request.Source)
+            {
+
+            }
+        }
+
+        public enum Method
+        {
+            Contact,
+            Effect,
+            Ranged
         }
     }
 }

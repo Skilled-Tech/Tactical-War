@@ -109,18 +109,18 @@ namespace Game
             Modules.Init(this);
         }
 
-        protected override void TakeDamage(Entity damager, float value)
+        protected override Damage.Result TakeDamage(float value, Damage.Method method, Entity cause)
         {
             value = Mathf.Lerp(value, 0f, Upgrades.Defense / 100f);
 
-            base.TakeDamage(damager, value);
+            return base.TakeDamage(value, method, cause);
         }
 
-        protected override void Death(Entity damager)
+        protected override void Death(Damage.Result result)
         {
-            base.Death(damager);
-
             Leader.Enemey.Energy.Value += Template.Deployment.Cost;
+
+            base.Death(result);
 
             Destroy(gameObject);
         }

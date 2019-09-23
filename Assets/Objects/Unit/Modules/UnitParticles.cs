@@ -55,12 +55,12 @@ namespace Game
 
         public override void Init()
         {
-            Unit.OnTookDamage += OnDamage;
+            Unit.OnTookDamage += OnTookDamage;
 
             Unit.OnDeath += OnDeath;
         }
 
-        void OnDamage(Entity damager, float value)
+        void OnTookDamage(Damage.Result result)
         {
             var effect = Spawn(hit);
 
@@ -68,7 +68,7 @@ namespace Game
                 effect.transform.SetParent(null);
         }
 
-        void OnDeath(Entity killer)
+        void OnDeath(Damage.Result result)
         {
             Spawn(death);
         }
