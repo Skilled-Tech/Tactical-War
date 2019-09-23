@@ -124,7 +124,8 @@ namespace Game
             return two;
         }
     }
-
+    
+    [Serializable]
     public class StatusEffectInstance
     {
         public StatusEffectType Type { get { return data.Type; } }

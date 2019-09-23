@@ -18,7 +18,7 @@ MonoBehaviour:
   description: Magic user, low defense, high range & attack
   price:
     type: 1
-    value: 12000
+    value: 16000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
@@ -37,4 +37,4 @@ MonoBehaviour:
     distance: 4
     duration: 1
     method: 2
-  speed: 3
+  speed: 2

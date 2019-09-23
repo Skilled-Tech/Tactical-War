@@ -33,11 +33,11 @@ namespace Game
 
             [SerializeField]
             protected InstanceData fire;
-            public InstanceData Fire { get { return poison; } }
+            public InstanceData Fire { get { return fire; } }
 
             [SerializeField]
             protected InstanceData chill;
-            public InstanceData Chill { get { return poison; } }
+            public InstanceData Chill { get { return chill; } }
 
             [Serializable]
             public class InstanceData
@@ -86,11 +86,11 @@ namespace Game
 
                 if (instance == null)
                 {
-                    instance.Update(effect);
+                    
                 }
                 else
                 {
-
+                    instance.Update(effect);
                 }
             }
 
@@ -100,11 +100,11 @@ namespace Game
 
                 if(instance == null)
                 {
-                    instance.Update(null);
+                    
                 }
                 else
                 {
-
+                    instance.Update(null);
                 }
             }
         }
@@ -116,6 +116,13 @@ namespace Game
             base.Configure(data);
 
             List = new List<StatusEffectInstance>();
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            defaults.Init(this);
         }
 
         public virtual StatusEffectInstance Find(StatusEffectType type)
