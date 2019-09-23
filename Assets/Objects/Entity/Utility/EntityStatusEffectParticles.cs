@@ -27,12 +27,12 @@ namespace Game
 
         public virtual void Stop()
         {
-
+            system.Stop(true);
         }
 
         public virtual void Play()
         {
-
+            system.Play(true);
         }
 
         [SerializeField]

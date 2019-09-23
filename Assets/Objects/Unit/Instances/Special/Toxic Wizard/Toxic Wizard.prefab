@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202589e99892a8249b464d69587ee3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 58614852322497312, guid: 0085d5d623ef5d64bb9648389f1e6f6a, type: 3}
+  prefab: {fileID: 58614852322497312, guid: e3734e35c429e4c4e9c55f54c47db2b9, type: 3}
   spawn: {fileID: 3163203657581505342}
   velocity: 12
 --- !u!1 &3545179429615172918
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    type: {fileID: 11400000, guid: c5a18eadade6dca43a0c75b66ff9c056, type: 2}
+    type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
     potency: 5
     interval: 1
     duration: 6
@@ -14056,7 +14056,7 @@ PrefabInstance:
     - target: {fileID: 1794603684964641981, guid: eece88ec563127647ab92aff59fa687c,
         type: 3}
       propertyPath: m_Name
-      value: Fire Wizard
+      value: Toxic Wizard
       objectReference: {fileID: 0}
     - target: {fileID: 1794603684964641978, guid: eece88ec563127647ab92aff59fa687c,
         type: 3}
