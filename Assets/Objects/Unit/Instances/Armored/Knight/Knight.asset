@@ -37,4 +37,4 @@ MonoBehaviour:
     distance: 0
     duration: 1
     method: 0
-  speed: 2
+  speed: 1.8

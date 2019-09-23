@@ -25,15 +25,14 @@ namespace Game
         protected ParticleSystem system;
         public ParticleSystem System { get { return system; } }
 
-        public bool Emission
+        public virtual void Stop()
         {
-            set
-            {
-                if (value)
-                    system.Play(true);
-                else
-                    system.Stop(true);
-            }
+
+        }
+
+        public virtual void Play()
+        {
+
         }
 
         [SerializeField]
@@ -49,25 +48,27 @@ namespace Game
         {
             base.Init();
 
-            UpdateState();
+            Stop();
 
             Entity.StatusEffects.OnAdd += AddCallback;
             Entity.StatusEffects.OnRemove += RemoveCallback;
         }
 
-        void UpdateState()
+        void Start()
         {
-            Emission = Entity.StatusEffects.Contains(type);
+            Stop();
         }
 
         void AddCallback(StatusEffectInstance effect)
         {
-            UpdateState();
+            if (effect.Type == type)
+                Play();
         }
 
-        void RemoveCallback(StatusEffectType type)
+        void RemoveCallback(StatusEffectInstance effect)
         {
-            UpdateState();
+            if (effect.Type == type)
+                Stop();
         }
     }
 }

@@ -94,9 +94,9 @@ namespace Game
                 }
             }
 
-            void OnRemove(StatusEffectType type)
+            void OnRemove(StatusEffectInstance effect)
             {
-                var instance = Find(type);
+                var instance = Find(effect.Type);
 
                 if(instance == null)
                 {
@@ -163,15 +163,15 @@ namespace Game
             if (OnAdd != null) OnAdd(target);
         }
 
-        public delegate void RemoveDelegate(StatusEffectType type);
+        public delegate void RemoveDelegate(StatusEffectInstance type);
         public event RemoveDelegate OnRemove;
         public virtual void Remove(int index)
         {
-            var type = List[index].Type;
+            var instance = List[index];
 
             List.RemoveAt(index);
 
-            if (OnRemove != null) OnRemove(type);
+            if (OnRemove != null) OnRemove(instance);
         }
         public virtual void Remove(StatusEffectType type)
         {

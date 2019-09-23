@@ -27,7 +27,6 @@ namespace Game
         {
             get
             {
-                Debug.Log(Unit.StatusEffects.Defaults.Chill.Potency);
                 return Mathf.Lerp(BaseSpeed, 0, Unit.StatusEffects.Defaults.Chill.Potency / 100);
             }
         }

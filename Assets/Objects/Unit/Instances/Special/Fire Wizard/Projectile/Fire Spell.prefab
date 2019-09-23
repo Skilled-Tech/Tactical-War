@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 1688058473717999115}
   - component: {fileID: 521996579605874216}
   - component: {fileID: 8712437483786886554}
+  - component: {fileID: 3490901279470049237}
   m_Layer: 0
-  m_Name: Magical Spell
+  m_Name: Fire Spell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +75,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d259a73c11347147a062374fd4b708d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6846914995694807306, guid: 009d36cd9010be74584b812065074720, type: 3}
+  prefab: {fileID: 6846914995694807306, guid: dec8fa89611213f49bf431f6eae4d342, type: 3}
+  radius: 0
 --- !u!50 &521996579605874216
 Rigidbody2D:
   serializedVersion: 4
@@ -112,6 +114,17 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0005616099, y: 6.694911e-11}
   m_Size: {x: 0.40424016, y: 0.4042402}
   m_Direction: 1
+--- !u!210 &3490901279470049237
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58614852322497312}
+  m_Enabled: 1
+  m_SortingLayerID: -1470433523
+  m_SortingLayer: 1
+  m_SortingOrder: 0
 --- !u!1 &6052723584433559516
 GameObject:
   m_ObjectHideFlags: 0
