@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   condition: 1
-  prefab: {fileID: 0}
+  prefab: {fileID: 6846914995694807296, guid: 6f7bf66529afa204cb2b03245d4f773f, type: 3}
 --- !u!114 &7657920612887179740
 MonoBehaviour:
   m_ObjectHideFlags: 0
