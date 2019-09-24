@@ -127,8 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     type: {fileID: 11400000, guid: c5a18eadade6dca43a0c75b66ff9c056, type: 2}
-    potency: 10
-    interval: 2
+    potency: 5
+    interval: 1
     duration: 6
 --- !u!114 &-7534484470287739909
 MonoBehaviour:

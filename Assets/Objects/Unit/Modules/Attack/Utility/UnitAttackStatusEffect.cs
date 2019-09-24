@@ -19,35 +19,28 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class EntityAttackStatusEffect : Entity.Module
+	public class UnitAttackStatusEffect : UnitAttack.Module
 	{
         [SerializeField]
         protected StatusEffectData data;
         public StatusEffectData Data { get { return data; } }
 
-        [SerializeField]
-        protected Damage.Method condition = Damage.Method.Contact;
-        public Damage.Method Condition { get { return condition; } }
-
         public override void Init()
         {
             base.Init();
 
-            Entity.OnDoDamage += DoDamageCallback; ;
+            Attack.OnDoDamage += DoDamageCallback;
         }
 
         void DoDamageCallback(Damage.Result result)
         {
-            if(result.Method == condition)
+            if(StatusEffect.Afflect(data, result.Target, result.Source))
             {
-                if (StatusEffect.Afflect(data, result.Target, this.Entity)) //Status Effect Applied
-                {
+                
+            }
+            else
+            {
 
-                }
-                else
-                {
-
-                }
             }
         }
     }
