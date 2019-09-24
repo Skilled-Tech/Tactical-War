@@ -38,7 +38,7 @@ namespace Game
 
         public Base Base { get; protected set; }
 
-        public Proponent Enemey { get; protected set; }
+        public Proponent Enemy { get; protected set; }
 
         public Level Level { get { return Level.Instance; } }
 
@@ -54,7 +54,7 @@ namespace Game
 
             Base = Dependancy.Get<Base>(gameObject);
 
-            Enemey = Level.Proponents.GetOther(this);
+            Enemy = Level.Proponents.GetOther(this);
         }
 
         protected virtual void Start()

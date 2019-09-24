@@ -36,7 +36,7 @@ namespace Game
         {
             if(Base.IsAlive)
             {
-                if (Base.Units.Count < Enemey.Base.Units.Count + 4)
+                if (Base.Units.Count < Enemy.Base.Units.Count + 4)
                 {
                     if (Base.Units.Creator.CanDeploy(Units.Selection[0]))
                     {

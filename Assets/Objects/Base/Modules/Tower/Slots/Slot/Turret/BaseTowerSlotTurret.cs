@@ -71,7 +71,7 @@ namespace Game
             this.Slot = slot;
         }
 
-        public Proponent Enemy { get { return Proponent.Enemey; } }
+        public Proponent Enemy { get { return Proponent.Enemy; } }
 
         public override void Configure(Base data)
         {

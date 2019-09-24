@@ -21,7 +21,7 @@ namespace Game
 {
     public abstract class UnitController : Unit.Module
     {
-        public Proponent Enemy { get { return Leader.Enemey; } }
+        public Proponent Enemy { get { return Leader.Enemy; } }
 
         public bool IsAlive { get { return Unit.IsAlive; } }
 

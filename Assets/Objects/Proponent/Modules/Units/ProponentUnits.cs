@@ -21,7 +21,33 @@ namespace Game
 {
 	public abstract class ProponentUnits : Proponent.Module
 	{
-		public abstract IList<UnitTemplate> Selection { get; }
+        #region List
+        public IList<Unit> List { get { return Base.Units.List; } }
+
+        public Unit this[int index]
+        {
+            get
+            {
+                return List[index];
+            }
+        }
+
+        public Unit First
+        {
+            get
+            {
+                if (List.Count == 0) return null;
+
+                return List.First();
+            }
+        }
+
+        public int Count { get { return List.Count; } }
+        #endregion
+
+        public abstract IList<UnitTemplate> Selection { get; }
+
+        public Base Base { get { return Proponent.Base; } }
 
         public abstract ItemUpgradeData GetUpgrade(UnitTemplate unit);
 	}

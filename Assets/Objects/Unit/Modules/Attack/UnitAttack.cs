@@ -75,6 +75,8 @@ namespace Game
 
             public Proponent Leader { get { return Unit.Leader; } }
 
+            public Proponent Enemy { get { return Leader.Enemy; } }
+
             public override void Init()
             {
                 base.Init();
