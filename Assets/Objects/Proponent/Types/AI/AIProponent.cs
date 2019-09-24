@@ -34,7 +34,6 @@ namespace Game
 
         void Update()
         {
-            return;
             if(Base.IsAlive)
             {
                 if (Base.Units.Count < Enemey.Base.Units.Count + 4)
