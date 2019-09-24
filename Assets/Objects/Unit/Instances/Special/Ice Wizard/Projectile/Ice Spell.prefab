@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 58614852322497342}
   - component: {fileID: 1688058473717999115}
   - component: {fileID: 874983649438875611}
+  - component: {fileID: 1094810774370232189}
   m_Layer: 0
   m_Name: Ice Spell
   m_TagString: Untagged
@@ -69,7 +70,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0005616099, y: 6.694911e-11}
@@ -129,6 +130,19 @@ MonoBehaviour:
     potency: 50
     interval: 6
     duration: 6
+--- !u!114 &1094810774370232189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58614852322497312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b36177b4650d8e7459fa393ef259267f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 2
 --- !u!1 &6052723584433559516
 GameObject:
   m_ObjectHideFlags: 0

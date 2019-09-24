@@ -190,8 +190,6 @@ namespace Game
 
         public void Stack(StatusEffectData effect, Entity affector)
         {
-            Debug.Log("stack");
-
             this.Affector = affector;
 
             data += effect;

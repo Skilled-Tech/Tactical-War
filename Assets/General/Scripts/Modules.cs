@@ -41,21 +41,21 @@ namespace Game
 
     public static class Modules
     {
-        public static List<IModule<TData>> Configure<TData>(TData data)
-            where TData : Component
+        public static List<IModule<TReference>> Configure<TReference>(TReference reference)
+            where TReference : Component
         {
-            var targets = Dependancy.GetAll<IModule<TData>>(data.gameObject);
+            var targets = Dependancy.GetAll<IModule<TReference>>(reference.gameObject);
 
             for (int i = 0; i < targets.Count; i++)
-                targets[i].Configure(data);
+                targets[i].Configure(reference);
 
             return targets;
         }
 
-        public static List<IModule<TData>> Init<TData>(TData data)
-            where TData : Component
+        public static List<IModule<TReference>> Init<TReference>(TReference reference)
+            where TReference : Component
         {
-            var targets = Dependancy.GetAll<IModule<TData>>(data.gameObject);
+            var targets = Dependancy.GetAll<IModule<TReference>>(reference.gameObject);
 
             for (int i = 0; i < targets.Count; i++)
                 targets[i].Init();

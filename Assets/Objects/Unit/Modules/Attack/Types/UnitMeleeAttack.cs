@@ -26,9 +26,9 @@ namespace Game
             get
             {
                 if (Leader.Enemey.Base.Units.Count == 0)
-                    return Leader.Enemey.Base.Units.First;
+                    return Leader.Enemey.Base;
 
-                return Leader.Enemey.Base;
+                return Leader.Enemey.Base.Units.First;
             }
         }
 

@@ -105,6 +105,8 @@ namespace Game
             base.Init();
 
             Body.AnimationEvents.OnCustomEvent += OnAnimationTrigger;
+
+            Modules.Init(this);
         }
 
         void OnAnimationTrigger(string ID)
