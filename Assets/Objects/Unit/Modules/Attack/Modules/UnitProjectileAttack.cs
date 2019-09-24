@@ -58,7 +58,7 @@ namespace Game
 
         void OnProjectileHit(Collider2D collider)
         {
-            var entity = collider.gameObject.GetComponent<Entity>();
+            var entity = Projectile.GetTarget(collider).GetComponent<Entity>();
 
             if (entity == null)
             {

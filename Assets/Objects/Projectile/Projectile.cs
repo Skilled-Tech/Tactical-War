@@ -136,5 +136,11 @@ namespace Game
 
             Destroy(gameObject);
         }
+
+        //Utility
+        public static GameObject GetTarget(Collider2D collider)
+        {
+            return collider.attachedRigidbody == null ? collider.gameObject : collider.attachedRigidbody.gameObject;
+        }
     }
 }
