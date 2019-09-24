@@ -13901,6 +13901,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteName: BackFingersL
+--- !u!114 &3831891900993755223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170552234823762149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627621a2b132b44982ffa588d895fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!70 &307
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -13927,18 +13939,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd2f530f355cd9940b95244f8c7310ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3831891900993755223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6170552234823762149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4627621a2b132b44982ffa588d895fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7506610090628207458

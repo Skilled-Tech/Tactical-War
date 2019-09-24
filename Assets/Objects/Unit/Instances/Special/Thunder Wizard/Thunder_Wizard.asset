@@ -17,8 +17,8 @@ MonoBehaviour:
     tilt: 0
   description: Magic user, low defense, high range & attack
   price:
-    type: 1
-    value: 8000
+    type: 0
+    value: 20000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
@@ -32,9 +32,9 @@ MonoBehaviour:
     cost: 400
     time: 4
   attack:
-    damage: 50
+    damage: 40
     range: 3
     distance: 4
-    duration: 1
+    duration: 1.2
     method: 2
   speed: 1.8

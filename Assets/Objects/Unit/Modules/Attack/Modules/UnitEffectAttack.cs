@@ -70,7 +70,6 @@ namespace Game
                 }
             }
         }
-
         protected virtual float DistanceBetween(Entity one, Entity two)
         {
             return Vector3.Distance(one.Center, two.Center);

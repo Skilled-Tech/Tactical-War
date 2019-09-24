@@ -70,11 +70,8 @@ namespace Game
             set
             {
                 _index = value;
-
-                label.text = Index.ToString();
             }
         }
-        public Text label;
 
         public Proponent Leader { get; protected set; }
         public virtual void Configure(Proponent leader, UnitTemplate template, ItemUpgradeData upgreades)
