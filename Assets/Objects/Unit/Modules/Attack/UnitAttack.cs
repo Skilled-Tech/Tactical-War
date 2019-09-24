@@ -71,9 +71,9 @@ namespace Game
         {
             public UnitAttack Attack { get { return Reference; } }
 
-            public Entity Target { get { return Attack.Target; } }
-
             public Unit Unit { get { return Attack.Unit; } }
+
+            public Proponent Leader { get { return Unit.Leader; } }
 
             public override void Init()
             {
@@ -130,11 +130,8 @@ namespace Game
             return result;
         }
 
-        public Entity Target { get; protected set; }
-        public virtual Coroutine Do(Entity target)
+        public virtual Coroutine Initiate()
         {
-            this.Target = target;
-
             if (coroutine != null)
                 StopCoroutine(coroutine);
 
@@ -152,8 +149,6 @@ namespace Game
             Body.CharacterAnimation.Attack();
 
             yield return new WaitForSeconds(Duration);
-
-            Target = null;
 
             coroutine = null;
         }

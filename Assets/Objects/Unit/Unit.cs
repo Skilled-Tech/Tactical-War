@@ -74,7 +74,6 @@ namespace Game
         }
 
         public Proponent Leader { get; protected set; }
-
         public virtual void Configure(Proponent leader, UnitTemplate template, ItemUpgradeData upgreades)
         {
             this.Leader = leader;

@@ -59,7 +59,7 @@ namespace Game
                     isMoving = !MoveTo(Base.Units.List[Index - 1], 1f);
 
                 if (Target != null && !isMoving && !isAttacking && (Index == 0 || !Base.Units.List[Index - 1].Controller.isMoving))
-                    Attack.Do(Target);
+                    Attack.Initiate();
             }
         }
 

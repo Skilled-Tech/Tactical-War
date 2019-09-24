@@ -21,6 +21,17 @@ namespace Game
 {
 	public class UnitMeleeAttack : UnitAttack.Module
 	{
+        public virtual Entity Target
+        {
+            get
+            {
+                if (Leader.Enemey.Base.Units.Count == 0)
+                    return Leader.Enemey.Base.Units.First;
+
+                return Leader.Enemey.Base;
+            }
+        }
+
         protected override void AttackConnected()
         {
             base.AttackConnected();
