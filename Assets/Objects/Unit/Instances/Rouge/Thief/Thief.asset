@@ -35,6 +35,6 @@ MonoBehaviour:
     damage: 20
     range: 1
     distance: 0
-    duration: 1
+    duration: 0.5
     method: 0
-  speed: 1.8
+  speed: 3

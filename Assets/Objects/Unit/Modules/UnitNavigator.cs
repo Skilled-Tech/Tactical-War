@@ -17,12 +17,17 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using Assets.HeroEditor4D.Common.CharacterScripts;
+
 namespace Game
 {
 	public class UnitNavigator : Unit.Module
 	{
-        public float BaseSpeed => Template.Speed;
+        [SerializeField]
+        protected bool sprint;
+        public bool Sprint { get { return sprint; } }
 
+        public float BaseSpeed => Template.Speed;
         public float Speed
         {
             get
@@ -67,13 +72,13 @@ namespace Game
             {
                 XPosition = Mathf.MoveTowards(XPosition, destination, Speed * Time.deltaTime);
 
-                Body.CharacterAnimation.SetState(Assets.HeroEditor4D.Common.CharacterScripts.CharacterState.Walk);
+                Body.CharacterAnimation.SetState(sprint ? CharacterState.Run : CharacterState.Walk);
 
                 return false;
             }
             else
             {
-                Body.CharacterAnimation.SetState(Assets.HeroEditor4D.Common.CharacterScripts.CharacterState.Idle);
+                Body.CharacterAnimation.SetState(CharacterState.Idle);
 
                 return true;
             }

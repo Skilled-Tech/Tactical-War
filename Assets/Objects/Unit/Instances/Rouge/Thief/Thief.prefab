@@ -45,9 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
-    potency: 20
+    potency: 10
     interval: 2
-    duration: 4
+    duration: 8
 --- !u!1 &1630308112731985878
 GameObject:
   m_ObjectHideFlags: 0
@@ -13901,18 +13901,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteName: BackFingersL
---- !u!114 &3831891900993755223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6170552234823762149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4627621a2b132b44982ffa588d895fad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &307
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -13939,6 +13927,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd2f530f355cd9940b95244f8c7310ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3831891900993755223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170552234823762149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627621a2b132b44982ffa588d895fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7506610090628207458
@@ -14061,6 +14061,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7332649916666137675, guid: eece88ec563127647ab92aff59fa687c,
+        type: 3}
+      propertyPath: sprint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2132243744, guid: eece88ec563127647ab92aff59fa687c, type: 3}
       propertyPath: target

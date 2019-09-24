@@ -5,19 +5,7 @@ using System.IO;
 using UnityEngine;
 using System;
 
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
-
-/*
-Usage:
-1. Attach this script to your chosen camera's game object.
-2. Set that camera's Clear Flags field to Solid Color.
-3. Use the inspector to set frameRate and framesToCapture
-4. Choose your desired resolution in Unity's Game window (must be less than or equal to your screen resolution)
-5. Turn on "Maximise on Play"
-6. Play your scene. Screenshots will be saved to YourUnityProject/Screenshots by default.
-*/
 
 [RequireComponent(typeof(Camera))]
 public class ScreenshotCapture : MonoBehaviour
@@ -27,8 +15,8 @@ public class ScreenshotCapture : MonoBehaviour
 
     public GameObject[] subjects;
 
-    public static int Width { get { return Screen.width; } }
-    public static int Height { get { return Screen.height; } }
+    public int width = 256;
+    public int height = 256;
 
     Texture2D Texture;
 
@@ -40,6 +28,8 @@ public class ScreenshotCapture : MonoBehaviour
     IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
+
+        Screen.SetResolution(width, height, false);
 
         foreach (var subject in subjects)
             subject.SetActive(false);
@@ -56,7 +46,7 @@ public class ScreenshotCapture : MonoBehaviour
 
     void Capture()
     {
-        Texture = new Texture2D(Width, Height, TextureFormat.ARGB32, false);
+        Texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
 
         camera.Render();
 
@@ -69,9 +59,9 @@ public class ScreenshotCapture : MonoBehaviour
 
     void WriteScreenToTexture(Texture2D texture)
     {
-        Debug.Log(Width + " : " + Height);
+        Debug.Log(width + " : " + height);
 
-        texture.ReadPixels(new Rect(0, 0, Width, Height), 0, 0);
+        texture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
 
         texture.Apply();
     }
@@ -88,7 +78,6 @@ public class ScreenshotCapture : MonoBehaviour
         File.WriteAllBytes(directory + "Shot " + DateTime.Now.ToString("HH-mm-ss-fff") + ".png", png);
     }
 
-#if UNITY_EDITOR
     [CustomEditor(typeof(ScreenshotCapture))]
     public class Inspector : Editor
     {
@@ -107,6 +96,5 @@ public class ScreenshotCapture : MonoBehaviour
                 target.Capture();
         }
     }
-#endif
 }
 #endif
