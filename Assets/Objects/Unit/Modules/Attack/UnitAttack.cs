@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public abstract class UnitAttack : Unit.Module
+	public class UnitAttack : Unit.Module
 	{
         public Damage.Method Method { get { return Template.Attack.Method; } }
 
@@ -67,6 +67,39 @@ namespace Game
 
         public float Duration { get { return Template.Attack.Duration; } }
 
+        public class Module : Module<UnitAttack>
+        {
+            public UnitAttack Attack { get { return Reference; } }
+
+            public Entity Target { get { return Attack.Target; } }
+
+            public Unit Unit { get { return Attack.Unit; } }
+
+            public override void Init()
+            {
+                base.Init();
+
+                Attack.OnAttackConnected += AttackConnected;
+            }
+
+            protected virtual void DoDamage(Entity entity)
+            {
+                Attack.DoDamage(entity);
+            }
+
+            protected virtual void AttackConnected()
+            {
+                
+            }
+        }
+
+        public override void Configure(Unit data)
+        {
+            base.Configure(data);
+
+            Modules.Configure(this);
+        }
+
         public override void Init()
         {
             base.Init();
@@ -87,9 +120,14 @@ namespace Game
             }
         }
 
-        public virtual void DoDamage(Entity target)
+        public event Entity.DoDamageDelegate OnDoDamage;
+        public virtual Damage.Result DoDamage(Entity target)
         {
-            Unit.DoDamage(Damage, Method, target);
+            var result = Unit.DoDamage(Damage, Method, target);
+
+            if (OnDoDamage != null) OnDoDamage(result);
+
+            return result;
         }
 
         public Entity Target { get; protected set; }
@@ -120,9 +158,10 @@ namespace Game
             coroutine = null;
         }
 
+        public event Action OnAttackConnected;
         public virtual void AttackConnected()
         {
-            
+            if (OnAttackConnected != null) OnAttackConnected();
         }
     }
 }

@@ -22,14 +22,6 @@ namespace Game
     [RequireComponent(typeof(Rigidbody2D))]
 	public class Projectile : MonoBehaviour
 	{
-        public static int Layer
-        {
-            get
-            {
-                return LayerMask.NameToLayer(nameof(Projectile));
-            }
-        }
-
         new public Rigidbody2D rigidbody { get; protected set; }
         public void SetVelocity(float velocity)
         {
@@ -41,6 +33,46 @@ namespace Game
             public Projectile Projectile { get { return Reference; } }
 
             public Entity Owner { get { return Projectile.Owner; } }
+        }
+        public abstract class ActivationModule : Module
+        {
+            [SerializeField]
+            protected ActivationCondition condition = ActivationCondition.OnHit;
+            public ActivationCondition Condition { get { return condition; } }
+
+            public override void Init()
+            {
+                base.Init();
+
+                Projectile.OnCollision += CollisionCallback;
+                Projectile.OnHit += HitCallback;
+                Projectile.DestroyEvent += DestroyCallback;
+            }
+
+            protected virtual void HitCallback(Collider2D collider)
+            {
+                if (condition == Projectile.ActivationCondition.OnHit)
+                    Process();
+            }
+
+            protected virtual void CollisionCallback(Collision2D collision)
+            {
+                if (condition == Projectile.ActivationCondition.OnCollision)
+                    Process();
+            }
+
+            protected virtual void DestroyCallback()
+            {
+                if (condition == Projectile.ActivationCondition.OnDestroy)
+                    Process();
+            }
+
+            protected abstract void Process();
+        }
+
+        public enum ActivationCondition
+        {
+            OnCollision, OnHit, OnDestroy
         }
 
         public Entity Owner { get; protected set; }
@@ -68,15 +100,39 @@ namespace Game
             SetLayer(LayerMask.LayerToName(layer) + " " + nameof(Projectile));
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             Modules.Init(this);
         }
 
-        public event Action<Collision2D> OnCollision;
-        void OnCollisionEnter2D(Collision2D collision)
+        public delegate void CollisionDelegate(Collision2D collision);
+        public event CollisionDelegate OnCollision;
+        protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
             if (OnCollision != null) OnCollision(collision);
+
+            HitCallback(collision.collider);
+        }
+
+        public delegate void ColliderDelegate(Collider2D collider);
+        public event ColliderDelegate OnTrigger;
+        protected virtual void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (OnTrigger != null) OnTrigger(collider);
+
+            HitCallback(collider);
+        }
+
+        public event ColliderDelegate OnHit;
+        protected virtual void HitCallback(Collider2D collider)
+        {
+            if (OnHit != null) OnHit(collider);
+        }
+
+        public event Action DestroyEvent;
+        public virtual void Destroy()
+        {
+            if (DestroyEvent != null) DestroyEvent();
 
             Destroy(gameObject);
         }

@@ -29,19 +29,18 @@ namespace Game
         {
             base.Init();
 
-            Projectile.OnCollision += OnCollision;
+            Projectile.OnHit += HitCallback;
         }
 
-        void OnCollision(Collision2D obj)
+        void HitCallback(Collider2D collider)
         {
-            var entity = obj.gameObject.GetComponent<Entity>();
-            Debug.Log(entity);
+            var entity = collider.gameObject.GetComponent<Entity>();
 
             if (entity == null)
             {
 
             }
-            else if(Owner is Base && entity is Base) //Very Crude, Don't judge me
+            else if (Owner is Base && entity is Base) //Very Crude, Don't judge me
             {
 
             }

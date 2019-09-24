@@ -147,6 +147,12 @@ namespace Game
         public event AddDelegate OnAdd;
         public virtual void Add(StatusEffectData data, Entity affector)
         {
+            if(data.Type == null)
+            {
+                Debug.LogWarning("No Status Effect Type was assigned to the argument data, can't add status effect to " + name);
+                return;
+            }
+
             var target = Find(data.Type);
 
             if(target == null)
@@ -159,6 +165,8 @@ namespace Game
             {
                 target.Stack(data, affector);
             }
+
+            RemoveConflicts(data.Type);
 
             if (OnAdd != null) OnAdd(target);
         }
@@ -175,8 +183,14 @@ namespace Game
         }
         public virtual void Remove(StatusEffectType type)
         {
-            for (int i = List.Count - 1; i >= 0; i++)
+            for (int i = List.Count - 1; i >= 0; i--)
                 if (List[i].Type == type)
+                    Remove(i);
+        }
+        protected virtual void RemoveConflicts(StatusEffectType type)
+        {
+            for (int i = List.Count - 1; i >= 0; i--)
+                if (type.ConflictsWith(List[i].Type))
                     Remove(i);
         }
 

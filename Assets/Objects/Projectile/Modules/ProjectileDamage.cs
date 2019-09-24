@@ -22,18 +22,18 @@ namespace Game
 	public class ProjectileDamage : Projectile.Module
 	{
 		[SerializeField]
-        protected float _value;
+        protected float value;
         public float Value
         {
             get
             {
-                return _value;
+                return value;
             }
             set
             {
                 if (value < 0f) value = 0f;
 
-                _value = value;
+                this.value = value;
             }
         }
 
@@ -41,18 +41,18 @@ namespace Game
         {
             base.Init();
 
-            Projectile.OnCollision += OnCollision;
+            Projectile.OnHit += OnHit;
         }
 
-        void OnCollision(Collision2D obj)
+        void OnHit(Collider2D collider)
         {
-            var entity = obj.gameObject.GetComponent<Entity>();
+            var entity = collider.gameObject.GetComponent<Entity>();
 
-            if(entity == null)
+            if (entity == null)
             {
 
             }
-            else if(Owner is Base && entity is Base) //Very Crude, Don't judge me
+            else if (Owner is Base && entity is Base) //Very Crude, Don't judge me
             {
 
             }

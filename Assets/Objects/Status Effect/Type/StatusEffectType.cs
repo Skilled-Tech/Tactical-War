@@ -23,6 +23,14 @@ namespace Game
 	{
         public const string MenuPath = StatusEffect.MenuPath + "Type/";
 
+        [SerializeField]
+        protected StatusEffectType[] conflicts;
+        public StatusEffectType[] Conflicts { get { return conflicts; } }
+        public virtual bool ConflictsWith(StatusEffectType type)
+        {
+            return conflicts.Contains(type);
+        }
+
         public virtual void OnAdd(StatusEffectInstance effect)
         {
 

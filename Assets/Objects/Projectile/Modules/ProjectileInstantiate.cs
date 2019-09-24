@@ -19,13 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class UnitMeleeAttack : UnitAttack.Module
+	public class ProjectileInstantiate : Projectile.ActivationModule
 	{
-        protected override void AttackConnected()
-        {
-            base.AttackConnected();
+        [SerializeField]
+        protected GameObject prefab;
+        public GameObject Prefab { get { return prefab; } }
 
-            if (Target != null) DoDamage(Target);
+        protected override void Process()
+        {
+            Instantiate(prefab, transform.position, transform.rotation);
         }
     }
 }

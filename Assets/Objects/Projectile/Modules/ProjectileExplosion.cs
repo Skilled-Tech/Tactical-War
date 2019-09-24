@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ProjectileExplosion : Projectile.Module
+    public class ProjectileExplosion : Projectile.ActivationModule
     {
         [SerializeField]
         protected GameObject prefab;
@@ -29,20 +29,13 @@ namespace Game
         protected float radius;
         public float Radius { get { return radius; } }
 
-        public override void Init()
-        {
-            base.Init();
-
-            Projectile.OnCollision += OnCollision;
-        }
-
-        void OnCollision(Collision2D obj)
+        protected override void Process()
         {
             Instantiate(prefab, transform.position, transform.rotation);
 
             var damage = Dependancy.Get<ProjectileDamage>(Projectile.gameObject);
 
-            if(damage != null)
+            if (damage != null)
             {
                 var colliders = Physics2D.OverlapCircleAll(transform.position, radius);
 

@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93329ca09985fe48b5f09160f752e8e, type: 3}
   m_Name: Chill
   m_EditorClassIdentifier: 
+  conflicts:
+  - {fileID: 11400000, guid: c5a18eadade6dca43a0c75b66ff9c056, type: 2}

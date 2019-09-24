@@ -64,11 +64,13 @@ namespace Game
 
         public delegate void DoDamageDelegate(Damage.Result result);
         public event DoDamageDelegate OnDoDamage;
-        public virtual void DoDamage(float value, Damage.Method method, Entity target)
+        public virtual Damage.Result DoDamage(float value, Damage.Method method, Entity target)
         {
             var result = target.TakeDamage(value, method, this);
 
             if (OnDoDamage != null) OnDoDamage(result);
+
+            return result;
         }
 
         public delegate void TakeDamageDelegate(Damage.Result result);

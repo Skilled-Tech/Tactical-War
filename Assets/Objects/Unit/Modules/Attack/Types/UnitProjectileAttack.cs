@@ -19,11 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class UnitProjectileAttack : UnitAttack
+	public class UnitProjectileAttack : UnitAttack.Module
 	{
         [SerializeField]
         protected GameObject prefab;
-        public GameObject Prefab { get { return prefab; } } 
+        public GameObject Prefab { get { return prefab; } }
 
         [SerializeField]
         protected Transform spawn;
@@ -31,9 +31,9 @@ namespace Game
 
         [SerializeField]
         protected float velocity = 20;
-        public float Velocity { get { return velocity; } } 
+        public float Velocity { get { return velocity; } }
 
-        public override void AttackConnected()
+        protected override void AttackConnected()
         {
             base.AttackConnected();
 
@@ -51,9 +51,23 @@ namespace Game
             projectile.AmmendLayer(Unit.Leader.Layer);
             projectile.SetVelocity(velocity);
 
-            projectile.GetComponent<ProjectileDamage>().Value = Damage;
+            projectile.OnHit += OnProjectileHit;
 
             return projectile;
+        }
+
+        void OnProjectileHit(Collider2D collider)
+        {
+            var entity = collider.gameObject.GetComponent<Entity>();
+
+            if (entity == null)
+            {
+
+            }
+            else
+            {
+                DoDamage(entity);
+            }
         }
     }
 }

@@ -9,11 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 58614852322497343}
-  - component: {fileID: 58614852322497342}
-  - component: {fileID: 2827635869835872834}
-  - component: {fileID: 1688058473717999115}
   - component: {fileID: 521996579605874216}
   - component: {fileID: 8712437483786886554}
+  - component: {fileID: 58614852322497342}
+  - component: {fileID: 828077256374907739}
   m_Layer: 0
   m_Name: Magical Spell
   m_TagString: Untagged
@@ -37,44 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &58614852322497342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58614852322497312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3cd1e7c7bfc9334db89b994f9aa417b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2827635869835872834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58614852322497312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d0536be3220be41a82a2a142480d7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _value: 20
---- !u!114 &1688058473717999115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58614852322497312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d259a73c11347147a062374fd4b708d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 6846914995694807306, guid: 009d36cd9010be74584b812065074720, type: 3}
 --- !u!50 &521996579605874216
 Rigidbody2D:
   serializedVersion: 4
@@ -112,6 +73,32 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0005616099, y: 6.694911e-11}
   m_Size: {x: 0.40424016, y: 0.4042402}
   m_Direction: 1
+--- !u!114 &58614852322497342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58614852322497312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cd1e7c7bfc9334db89b994f9aa417b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &828077256374907739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58614852322497312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d46d3964e3e6b48a799f68cdf413d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  condition: 1
+  prefab: {fileID: 6846914995694807306, guid: 009d36cd9010be74584b812065074720, type: 3}
 --- !u!1 &6052723584433559516
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +169,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 16f08755c42b4b309bd6d9707aa2bde0, type: 3}
-  m_Color: {r: 1, g: 1, b: 0.4627451, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
