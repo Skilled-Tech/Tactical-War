@@ -171,17 +171,18 @@ namespace Game
         Coroutine coroutine;
         IEnumerator Procedure()
         {
+            Iterations = 0;
+
             Apply(); //Always apply first
 
             yield return new WaitForSeconds(data.Interval);
 
-            do
+            while (IsDepleted == false)
             {
                 Apply();
 
                 yield return new WaitForSeconds(data.Interval);
             }
-            while (IsDepleted == false);
 
             coroutine = null;
 
@@ -204,8 +205,6 @@ namespace Game
             this.Affector = affector;
 
             data += effect;
-
-            Iterations = 0;
         }
 
         public StatusEffectInstance(Entity target)

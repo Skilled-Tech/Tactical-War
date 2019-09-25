@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Paralysis
   m_EditorClassIdentifier: 
   conflicts: []
+  delay: 0.75

@@ -110,15 +110,6 @@ namespace Game
                     Remove(i);
         }
 
-        protected virtual void Update()
-        {
-            for (int i = List.Count - 1; i >= 0; i--)
-            {
-                if (List[i].IsDepleted)
-                    Remove(i);
-            }
-        }
-
         public event StatusEffectInstance.ApplyDelegate OnApply;
         protected virtual void ApplyCallback(StatusEffectInstance effect)
         {

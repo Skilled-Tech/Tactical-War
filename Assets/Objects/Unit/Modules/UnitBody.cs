@@ -55,7 +55,10 @@ namespace Game
 
         protected virtual void Update()
         {
-            Animator.speed = Unit.TimeScale.Rate;
+            if(Unit.enabled)
+            {
+                Animator.speed = Unit.TimeScale.Rate;
+            }
         }
     }
 }
