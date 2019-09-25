@@ -130,7 +130,7 @@ MonoBehaviour:
     type: {fileID: 11400000, guid: c5a18eadade6dca43a0c75b66ff9c056, type: 2}
     potency: 5
     iterations: 10
-    duration: 10
+    interval: 1
 --- !u!114 &-7534484470287739909
 MonoBehaviour:
   m_ObjectHideFlags: 0

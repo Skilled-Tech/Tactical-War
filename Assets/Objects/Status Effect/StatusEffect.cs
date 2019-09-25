@@ -53,12 +53,12 @@ namespace Game
         public int Iterations { get { return iterations; } }
 
         [SerializeField]
-        float duration;
-        public float Duration
+        float interval;
+        public float Interval
         {
             get
             {
-                return duration;
+                return interval;
             }
         }
 
@@ -70,7 +70,7 @@ namespace Game
 
                 if (status.type != this.type) return false;
                 if (status.iterations != this.iterations) return false;
-                if (status.duration != this.duration) return false;
+                if (status.interval != this.interval) return false;
                 if (status.potency != this.potency) return false;
 
                 return true;
@@ -81,7 +81,7 @@ namespace Game
 
         public override int GetHashCode()
         {
-            return type.GetHashCode() ^ potency.GetHashCode() ^ iterations.GetHashCode() ^ duration.GetHashCode();
+            return type.GetHashCode() ^ potency.GetHashCode() ^ iterations.GetHashCode() ^ interval.GetHashCode();
         }
 
         public static bool operator ==(StatusEffectData one, StatusEffectData two)
@@ -100,7 +100,7 @@ namespace Game
                 type = two.type,
                 potency = Max(one.potency, two.potency),
                 iterations = Max(one.iterations, two.iterations),
-                duration = Max(one.duration, two.duration),
+                interval = Max(one.interval, two.interval),
             };
         }
 
@@ -125,7 +125,7 @@ namespace Game
     {
         public StatusEffectType Type { get { return data.Type; } }
 
-        public bool IsDepleted { get { return Iterations < data.Iterations; } }
+        public bool IsDepleted { get { return Iterations >= data.Iterations; } }
 
         protected StatusEffectData data;
         public StatusEffectData Data { get { return data; } }
@@ -156,7 +156,7 @@ namespace Game
         public delegate void AffectorChangeDelegate(Entity affector);
         public event AffectorChangeDelegate OnAffectorChange;
 
-        public int Iterations { get; protected set; }
+        public float Iterations { get; protected set; }
 
         public virtual void Run()
         {
@@ -173,16 +173,15 @@ namespace Game
         {
             Apply(); //Always apply first
 
-            var delay = data.Duration / (data.Iterations - Iterations);
+            yield return new WaitForSeconds(data.Interval);
 
-            while(true)
+            do
             {
-                yield return new WaitForSeconds(delay);
-
                 Apply();
 
-                if (IsDepleted) break;
+                yield return new WaitForSeconds(data.Interval);
             }
+            while (IsDepleted == false);
 
             coroutine = null;
 

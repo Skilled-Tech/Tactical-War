@@ -75,7 +75,6 @@ namespace Game
             }
 
             target.Stack(data, affector);
-
             RemoveConflicts(data.Type);
 
             if (OnAdd != null) OnAdd(target);

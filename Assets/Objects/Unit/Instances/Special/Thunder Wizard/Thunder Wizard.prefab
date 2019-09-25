@@ -13946,8 +13946,8 @@ MonoBehaviour:
   data:
     type: {fileID: 11400000, guid: 4e7e8b1da08d1ed449a0fd122928484f, type: 2}
     potency: 100
-    iterations: 2
-    duration: 5
+    iterations: 3
+    interval: 2
 --- !u!114 &2576528964194639132
 MonoBehaviour:
   m_ObjectHideFlags: 0
