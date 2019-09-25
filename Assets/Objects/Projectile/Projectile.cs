@@ -37,8 +37,8 @@ namespace Game
         public abstract class ActivationModule : Module
         {
             [SerializeField]
-            protected ActivationCondition condition = ActivationCondition.OnHit;
-            public ActivationCondition Condition { get { return condition; } }
+            protected ActivationCondition[] conditions = new ActivationCondition[] { ActivationCondition.OnHit };
+            public ActivationCondition[] Conditions { get { return conditions; } }
 
             public override void Init()
             {
@@ -51,19 +51,19 @@ namespace Game
 
             protected virtual void HitCallback(Collider2D collider)
             {
-                if (condition == Projectile.ActivationCondition.OnHit)
+                if (conditions.Contains(Projectile.ActivationCondition.OnHit))
                     Process();
             }
 
             protected virtual void CollisionCallback(Collision2D collision)
             {
-                if (condition == Projectile.ActivationCondition.OnCollision)
+                if (conditions.Contains(Projectile.ActivationCondition.OnCollision))
                     Process();
             }
 
             protected virtual void DestroyCallback()
             {
-                if (condition == Projectile.ActivationCondition.OnDestroy)
+                if (conditions.Contains(Projectile.ActivationCondition.OnDestroy))
                     Process();
             }
 
