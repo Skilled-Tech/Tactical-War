@@ -45,9 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
-    potency: 10
-    interval: 2
-    duration: 8
+    potency: 5
+    interval: 1
+    duration: 10
 --- !u!1 &1630308112731985878
 GameObject:
   m_ObjectHideFlags: 0

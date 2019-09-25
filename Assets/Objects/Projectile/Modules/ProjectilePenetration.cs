@@ -25,13 +25,13 @@ namespace Game
         protected uint value = 1;
         public uint Value { get { return value; } }
 
-        uint counter;
+        uint count;
 
         public override void Configure(Projectile data)
         {
             base.Configure(data);
 
-            counter = 0;
+            count = 0;
         }
 
         public override void Init()
@@ -43,9 +43,9 @@ namespace Game
 
         void HitCallback(Collider2D collider)
         {
-            counter++;
+            count++;
 
-            if (counter >= value)
+            if (count >= value)
                 Projectile.Destroy();
         }
     }

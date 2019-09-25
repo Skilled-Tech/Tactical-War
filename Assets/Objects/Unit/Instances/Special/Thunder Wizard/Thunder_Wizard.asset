@@ -32,7 +32,7 @@ MonoBehaviour:
     cost: 400
     time: 4
   attack:
-    damage: 40
+    damage: 30
     range: 3
     distance: 4
     duration: 1.2

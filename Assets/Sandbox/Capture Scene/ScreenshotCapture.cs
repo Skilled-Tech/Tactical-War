@@ -15,8 +15,8 @@ public class ScreenshotCapture : MonoBehaviour
 
     public GameObject[] subjects;
 
-    public int width = 256;
-    public int height = 256;
+    public int Width { get { return Screen.width; } }
+    public int Height { get { return Screen.height; } }
 
     Texture2D Texture;
 
@@ -27,16 +27,6 @@ public class ScreenshotCapture : MonoBehaviour
 
     IEnumerator Start()
     {
-        yield return new WaitForEndOfFrame();
-
-        Screen.SetResolution(width, height, false);
-
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
 
         foreach (var subject in subjects)
@@ -54,7 +44,7 @@ public class ScreenshotCapture : MonoBehaviour
 
     void Capture()
     {
-        Texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
+        Texture = new Texture2D(Width, Height, TextureFormat.ARGB32, false);
 
         camera.Render();
 
@@ -67,9 +57,9 @@ public class ScreenshotCapture : MonoBehaviour
 
     void WriteScreenToTexture(Texture2D texture)
     {
-        Debug.Log(width + " : " + height);
+        Debug.Log(Width + " : " + Height);
 
-        texture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        texture.ReadPixels(new Rect(0, 0, Width, Height), 0, 0);
 
         texture.Apply();
     }
