@@ -19,25 +19,16 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class EntityTimeScaleStatusEffect : Entity.Module, EntityTimeScale.IModifer
-	{
+    public abstract class EntityStatusEffectImplementation<TType> : Entity.Module
+        where TType : StatusEffectType
+    {
         [SerializeField]
-        protected StatusEffectType type;
-        public StatusEffectType Type { get { return type; } }
+        protected TType type;
+        public TType Type { get { return type; } }
 
         public StatusEffectInstance Effect { get; protected set; }
 
         public EntityStatusEffects StatusEffects => Entity.StatusEffects;
-
-        float EntityTimeScale.IModifer.Value
-        {
-            get
-            {
-                if (StatusEffects == null) return 0f;
-
-                return Effect.Data.Potency;
-            }
-        }
 
         public override void Init()
         {
@@ -47,14 +38,16 @@ namespace Game
             StatusEffects.OnRemove += OnRemove;
         }
 
-        void OnAdd(StatusEffectInstance effect)
+        protected virtual void OnAdd(StatusEffectInstance effect)
         {
-            
+            if (effect.Type == this.type)
+                this.Effect = effect;
         }
 
-        void OnRemove(StatusEffectInstance type)
+        protected virtual void OnRemove(StatusEffectInstance effect)
         {
-            
+            if (effect.Type == this.type)
+                this.Effect = null;
         }
     }
 }

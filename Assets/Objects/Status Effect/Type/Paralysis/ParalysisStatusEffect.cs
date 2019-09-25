@@ -22,6 +22,11 @@ namespace Game
     [CreateAssetMenu(menuName = MenuPath + "Paralysis")]
 	public class ParalysisStatusEffect : StatusEffectType
 	{
+        [SerializeField]
+        [Tooltip("Delay that the entity experiences when having this effect applied to them untill they can function again")]
+        protected float delay = 0.75f;
+        public float Delay { get { return delay; } }
+
         public override void Apply(StatusEffectInstance effect)
         {
 

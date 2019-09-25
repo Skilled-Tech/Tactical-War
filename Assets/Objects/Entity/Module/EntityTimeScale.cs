@@ -22,43 +22,39 @@ namespace Game
 	public class EntityTimeScale : Entity.Module
 	{
         //0% to 100%
-		public virtual float Value
+		public virtual float Rate
         {
             get
             {
-                var result = 0f;
+                var modifier = 0f;
 
-                for (int i = 0; i < List.Count; i++)
-                    result += List[i].Value;
+                for (int i = 0; i < Modifiers.Count; i++)
+                    Debug.Log(Modifiers[i].Slowdown);
 
-                return result;
+                for (int i = 0; i < Modifiers.Count; i++)
+                        modifier += Modifiers[i].Slowdown;
+
+                return Mathf.Lerp(1f, 0f, modifier / 100f);
             }
         }
 
-        //0 to 1
-        public virtual float Rate
-        {
-            get
-            {
-                return Value / 100f;
-            }
-        }
-
-        public List<IModifer> List { get; protected set; }
+        public List<IModifer> Modifiers { get; protected set; }
 
         public interface IModifer
         {
             /// <summary>
             /// To be implemeted as a value from 0% to 100% or beyond if you're into things not working :)
             /// </summary>
-            float Value { get; }
+            float Slowdown { get; }
         }
 
         public override void Init()
         {
             base.Init();
 
-            List = Dependancy.GetAll<IModifer>(gameObject);
+            Modifiers = Dependancy.GetAll<IModifer>(Entity.gameObject);
+
+            Debug.Log(Modifiers.Count);
         }
     }
 }
