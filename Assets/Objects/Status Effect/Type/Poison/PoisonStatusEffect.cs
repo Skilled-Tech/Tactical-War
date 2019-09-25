@@ -24,7 +24,7 @@ namespace Game
 	{
         public override void Apply(StatusEffectInstance effect)
         {
-            effect.Affector.DoDamage(effect.Data.Potency, Damage.Method.Ranged, effect.Target);
+            effect.Affector.DoDamage(effect.Data.Potency, Damage.Method.Effect, effect.Target);
         }
     }
 }

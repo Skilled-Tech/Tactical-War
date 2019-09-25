@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = MenuPath + "Fire")]
-	public class FireStatusEffect : StatusEffectType
+    [CreateAssetMenu(menuName = MenuPath + "Bleeding")]
+	public class BleedingStatusEffect : StatusEffectType
 	{
         public override void Apply(StatusEffectInstance effect)
         {

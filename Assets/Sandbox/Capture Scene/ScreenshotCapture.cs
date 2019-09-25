@@ -31,6 +31,14 @@ public class ScreenshotCapture : MonoBehaviour
 
         Screen.SetResolution(width, height, false);
 
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
         foreach (var subject in subjects)
             subject.SetActive(false);
 

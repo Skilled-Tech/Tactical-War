@@ -120,12 +120,81 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &950236586 stripped
+--- !u!1 &783147975 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8127696124609658847, guid: 81ad3891a37a3c94e8a764a28e74f038,
+  m_CorrespondingSourceObject: {fileID: 8127696124609658847, guid: edcd5eb74a5148746af0327e582493fd,
     type: 3}
-  m_PrefabInstance: {fileID: 1158090709}
+  m_PrefabInstance: {fileID: 877792181}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &877792181
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8127696124609658847, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_Name
+      value: Hack Knight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658840, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658840, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658840, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658840, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658840, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658840, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658840, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658840, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658840, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658840, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658840, guid: edcd5eb74a5148746af0327e582493fd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: edcd5eb74a5148746af0327e582493fd, type: 3}
 --- !u!1 &976384303
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +272,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thief
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127696124609658847, guid: 81ad3891a37a3c94e8a764a28e74f038,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8127696124609658840, guid: 81ad3891a37a3c94e8a764a28e74f038,
         type: 3}
@@ -684,7 +758,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 1799161911}
   subjects:
-  - {fileID: 950236586}
+  - {fileID: 783147975}
+  width: 256
+  height: 256
 --- !u!1001 &1874605540
 PrefabInstance:
   m_ObjectHideFlags: 0
