@@ -49,8 +49,8 @@ namespace Game
         public float Potency { get { return potency; } }
 
         [SerializeField]
-        float interval;
-        public float Interval { get { return interval; } }
+        int iterations;
+        public int Iterations { get { return iterations; } }
 
         [SerializeField]
         float duration;
@@ -75,6 +75,7 @@ namespace Game
                 var status = (StatusEffectData)obj;
 
                 if (status.type != this.type) return false;
+                if (status.iterations != this.iterations) return false;
                 if (status.duration != this.duration) return false;
                 if (status.potency != this.potency) return false;
 
@@ -86,7 +87,7 @@ namespace Game
 
         public override int GetHashCode()
         {
-            return type.GetHashCode() ^ potency.GetHashCode() ^ duration.GetHashCode();
+            return type.GetHashCode() ^ potency.GetHashCode() ^ iterations.GetHashCode() ^ duration.GetHashCode();
         }
 
         public static bool operator ==(StatusEffectData one, StatusEffectData two)
@@ -104,7 +105,7 @@ namespace Game
             {
                 type = two.type,
                 potency = Max(one.potency, two.potency),
-                interval = Min(one.interval, two.interval),
+                iterations = Max(one.iterations, two.iterations),
                 duration = Max(one.duration, two.duration),
             };
         }
@@ -116,9 +117,9 @@ namespace Game
 
             return two;
         }
-        public static float Min(float one, float two)
+        public static int Max(int one, int two)
         {
-            if (one < two)
+            if (one > two)
                 return one;
 
             return two;
@@ -161,7 +162,7 @@ namespace Game
         public delegate void AffectorChangeDelegate(Entity affector);
         public event AffectorChangeDelegate OnAffectorChange;
 
-        protected float interval;
+        protected int interval;
 
         public virtual void Process()
         {
@@ -171,15 +172,13 @@ namespace Game
             }
             else
             {
-                interval = Mathf.MoveTowards(interval, 0f, Time.deltaTime);
+                data.Duration = Mathf.MoveTowards(data.Duration, 0f, Time.deltaTime);
 
                 if (interval == 0f)
                 {
                     interval = data.Interval;
                     Apply();
                 }
-                
-                data.Duration = Mathf.MoveTowards(data.Duration, 0f, Time.deltaTime);
             }
         }
 
@@ -196,15 +195,14 @@ namespace Game
         {
             this.Affector = affector;
 
+            Apply();
+
             data += effect;
         }
 
-        public StatusEffectInstance(StatusEffectData data, Entity target, Entity affector)
+        public StatusEffectInstance()
         {
-            this.data = data;
-            this.affector = affector;
-            this.Target = target;
-            this.interval = 0f;
+            
         }
     }
 }

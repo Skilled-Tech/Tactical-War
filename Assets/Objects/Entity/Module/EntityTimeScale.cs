@@ -29,9 +29,6 @@ namespace Game
                 var modifier = 0f;
 
                 for (int i = 0; i < Modifiers.Count; i++)
-                    Debug.Log(Modifiers[i].Slowdown);
-
-                for (int i = 0; i < Modifiers.Count; i++)
                         modifier += Modifiers[i].Slowdown;
 
                 return Mathf.Lerp(1f, 0f, modifier / 100f);
@@ -53,8 +50,6 @@ namespace Game
             base.Init();
 
             Modifiers = Dependancy.GetAll<IModifer>(Entity.gameObject);
-
-            Debug.Log(Modifiers.Count);
         }
     }
 }

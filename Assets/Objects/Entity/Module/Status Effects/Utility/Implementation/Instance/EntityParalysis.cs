@@ -44,16 +44,18 @@ namespace Game
                 if (coroutine != null)
                     StopCoroutine(coroutine);
 
-                StartCoroutine(Procedure());
+                coroutine = StartCoroutine(Procedure());
             }
         }
 
         Coroutine coroutine;
         IEnumerator Procedure()
         {
-
+            Slowdown = Effect.Data.Potency;
 
             yield return new WaitForSeconds(type.Delay);
+
+            Slowdown = 0f;
 
             coroutine = null;
         }
