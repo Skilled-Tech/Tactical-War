@@ -55,7 +55,7 @@ namespace Game
 
         protected virtual void Update()
         {
-            Animator.speed = Mathf.Lerp(1f, 0f, Unit.StatusEffects.Defaults.Chill.Potency / 100f);
+            Animator.speed = Unit.TimeScale.Rate;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Game
         {
             get
             {
-                return Mathf.Lerp(BaseSpeed, 0, Unit.StatusEffects.Defaults.Chill.Potency / 100);
+                return BaseSpeed * Unit.TimeScale.Rate;
             }
         }
 

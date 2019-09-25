@@ -29,6 +29,8 @@ namespace Game
 
         public EntityStatusEffects StatusEffects { get; protected set; }
 
+        public EntityTimeScale TimeScale { get; protected set; }
+
         public abstract class Module : Module<Entity>
         {
             public Entity Entity { get { return Reference; } }
@@ -43,7 +45,7 @@ namespace Game
                 return transform.TransformPoint(Bounds.center);
             }
         }
-
+        
         protected virtual void Awake()
         {
             Health = Dependancy.Get<Health>(gameObject);
@@ -51,6 +53,8 @@ namespace Game
             Defense = Dependancy.Get<EntityDefense>(gameObject);
 
             StatusEffects = Dependancy.Get<EntityStatusEffects>(gameObject);
+
+            TimeScale = Dependancy.Get<EntityTimeScale>(gameObject);
 
             Bounds = Tools.CalculateColliders2DBounds(gameObject);
 

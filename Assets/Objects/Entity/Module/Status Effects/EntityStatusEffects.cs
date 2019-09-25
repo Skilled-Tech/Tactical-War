@@ -39,6 +39,10 @@ namespace Game
             protected InstanceData chill;
             public InstanceData Chill { get { return chill; } }
 
+            [SerializeField]
+            protected InstanceData paralysis;
+            public InstanceData Paralysis { get { return paralysis; } }
+
             [Serializable]
             public class InstanceData
             {
@@ -47,6 +51,8 @@ namespace Game
                 public StatusEffectType Type { get { return type; } }
 
                 public StatusEffectInstance Instance { get; protected set; }
+
+                public virtual bool Active { get { return Instance != null; } }
 
                 public float Potency
                 {
@@ -59,19 +65,41 @@ namespace Game
                     }
                 }
 
+                public float Rate
+                {
+                    get
+                    {
+                        return Potency / 100f;
+                    }
+                }
+
                 public virtual void Update(StatusEffectInstance instance)
                 {
                     this.Instance = instance;
                 }
             }
 
+            public virtual void ForAll(Action<InstanceData> action)
+            {
+                action(poison);
+                action(fire);
+                action(chill);
+                action(paralysis);
+            }
+
             public virtual InstanceData Find(StatusEffectType type)
             {
-                if (type == poison.Type) return poison;
-                if (type == fire.Type) return fire;
-                if (type == chill.Type) return chill;
+                InstanceData target = null;
 
-                return null;
+                void Find(InstanceData instance)
+                {
+                    if (instance.Type == type)
+                        target = instance;
+                }
+
+                ForAll(Find);
+
+                return target;
             }
 
             public virtual void Init(EntityStatusEffects statusEffects)
@@ -159,6 +187,8 @@ namespace Game
             {
                 target = new StatusEffectInstance(data, this.Entity, affector);
 
+                target.OnApply += ApplyCallback;
+
                 List.Add(target);
             }
             else
@@ -203,6 +233,12 @@ namespace Game
                 if (List[i].IsDepleted)
                     Remove(i);
             }
+        }
+
+        public event StatusEffectInstance.ApplyDelegate OnApply;
+        protected virtual void ApplyCallback(StatusEffectInstance effect)
+        {
+            if (OnApply != null) OnApply(effect);
         }
     }
 }

@@ -161,7 +161,7 @@ namespace Game
         public delegate void AffectorChangeDelegate(Entity affector);
         public event AffectorChangeDelegate OnAffectorChange;
 
-        float interval;
+        protected float interval;
 
         public virtual void Process()
         {
@@ -183,12 +183,16 @@ namespace Game
             }
         }
 
-        public void Apply()
+        public delegate void ApplyDelegate(StatusEffectInstance instance);
+        public event ApplyDelegate OnApply;
+        protected virtual void Apply()
         {
             Type.Apply(this);
+
+            if (OnApply != null) OnApply(this);
         }
 
-        public void Stack(StatusEffectData effect, Entity affector)
+        public virtual void Stack(StatusEffectData effect, Entity affector)
         {
             this.Affector = affector;
 

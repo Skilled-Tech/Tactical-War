@@ -10138,6 +10138,8 @@ MonoBehaviour:
       type: {fileID: 11400000, guid: c5a18eadade6dca43a0c75b66ff9c056, type: 2}
     chill:
       type: {fileID: 11400000, guid: 2b68af491ee9b9a40806aad134f092cf, type: 2}
+    paralysis:
+      type: {fileID: 11400000, guid: 4e7e8b1da08d1ed449a0fd122928484f, type: 2}
 --- !u!1 &8772175890272014231
 GameObject:
   m_ObjectHideFlags: 0
