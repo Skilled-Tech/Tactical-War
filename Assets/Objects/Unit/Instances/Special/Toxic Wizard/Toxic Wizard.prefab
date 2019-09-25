@@ -43,7 +43,7 @@ MonoBehaviour:
   data:
     type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
     potency: 10
-    interval: 2
+    iterations: 0
     duration: 10
 --- !u!1818360608 &1144957492496736721
 PositionConstraint:

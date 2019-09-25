@@ -15,7 +15,7 @@ MonoBehaviour:
   data:
     type: {fileID: 11400000, guid: c5a18eadade6dca43a0c75b66ff9c056, type: 2}
     potency: 5
-    interval: 1
+    iterations: 10
     duration: 10
 --- !u!1001 &2952103523550289587
 PrefabInstance:

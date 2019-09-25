@@ -60,12 +60,6 @@ namespace Game
             {
                 return duration;
             }
-            set
-            {
-                if (value < 0f) value = 0f;
-
-                this.duration = value;
-            }
         }
 
         public override bool Equals(object obj)
@@ -131,7 +125,7 @@ namespace Game
     {
         public StatusEffectType Type { get { return data.Type; } }
 
-        public bool IsDepleted { get { return data.Duration == 0f; } }
+        public bool IsDepleted { get { return Iterations < data.Iterations; } }
 
         protected StatusEffectData data;
         public StatusEffectData Data { get { return data; } }
@@ -162,30 +156,45 @@ namespace Game
         public delegate void AffectorChangeDelegate(Entity affector);
         public event AffectorChangeDelegate OnAffectorChange;
 
-        protected int interval;
+        public int Iterations { get; protected set; }
 
-        public virtual void Process()
+        public virtual void Run()
         {
-            if (IsDepleted)
-            {
+            if (coroutine != null)
+                Target.StopCoroutine(coroutine);
 
-            }
-            else
-            {
-                data.Duration = Mathf.MoveTowards(data.Duration, 0f, Time.deltaTime);
+            coroutine = Target.StartCoroutine(Procedure());
+        }
 
-                if (interval == 0f)
-                {
-                    interval = data.Interval;
-                    Apply();
-                }
+        public delegate void FinishDelegate(StatusEffectInstance instance);
+        public event FinishDelegate OnFinish;
+        Coroutine coroutine;
+        IEnumerator Procedure()
+        {
+            Apply(); //Always apply first
+
+            var delay = data.Duration / (data.Iterations - Iterations);
+
+            while(true)
+            {
+                yield return new WaitForSeconds(delay);
+
+                Apply();
+
+                if (IsDepleted) break;
             }
+
+            coroutine = null;
+
+            if (OnFinish != null) OnFinish(this);
         }
 
         public delegate void ApplyDelegate(StatusEffectInstance instance);
         public event ApplyDelegate OnApply;
         protected virtual void Apply()
         {
+            Iterations++;
+
             Type.Apply(this);
 
             if (OnApply != null) OnApply(this);
@@ -195,14 +204,14 @@ namespace Game
         {
             this.Affector = affector;
 
-            Apply();
-
             data += effect;
+
+            Iterations = 0;
         }
 
-        public StatusEffectInstance()
+        public StatusEffectInstance(Entity target)
         {
-            
+            this.Target = target;
         }
     }
 }

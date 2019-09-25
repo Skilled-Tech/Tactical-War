@@ -129,7 +129,7 @@ MonoBehaviour:
   data:
     type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
     potency: 5
-    interval: 1
+    iterations: 10
     duration: 10
 --- !u!114 &-4235169843648311114
 MonoBehaviour:

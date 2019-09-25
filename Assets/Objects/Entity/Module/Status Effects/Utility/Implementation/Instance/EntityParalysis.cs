@@ -39,12 +39,15 @@ namespace Game
 
         void OnApply(StatusEffectInstance instance)
         {
-            if(instance.Type == type)
+            if (instance.Type == type)
             {
-                if (coroutine != null)
-                    StopCoroutine(coroutine);
+                if(Entity.IsAlive)
+                {
+                    if (coroutine != null)
+                        StopCoroutine(coroutine);
 
-                coroutine = StartCoroutine(Procedure());
+                    coroutine = StartCoroutine(Procedure());
+                }
             }
         }
 

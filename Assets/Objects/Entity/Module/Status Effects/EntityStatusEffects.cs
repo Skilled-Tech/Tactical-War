@@ -62,20 +62,30 @@ namespace Game
 
             if(target == null)
             {
-                target = new StatusEffectInstance(data, this.Entity, affector);
+                target = new StatusEffectInstance(this.Entity);
 
                 target.OnApply += ApplyCallback;
+                target.OnFinish += InstanceFinishedDelegate;
 
                 List.Add(target);
             }
             else
             {
-                target.Stack(data, affector);
+                
             }
+
+            target.Stack(data, affector);
 
             RemoveConflicts(data.Type);
 
             if (OnAdd != null) OnAdd(target);
+
+            target.Run();
+        }
+
+        void InstanceFinishedDelegate(StatusEffectInstance instance)
+        {
+            Remove(instance.Type);
         }
 
         public delegate void RemoveDelegate(StatusEffectInstance type);
@@ -105,8 +115,6 @@ namespace Game
         {
             for (int i = List.Count - 1; i >= 0; i--)
             {
-                List[i].Process();
-
                 if (List[i].IsDepleted)
                     Remove(i);
             }
