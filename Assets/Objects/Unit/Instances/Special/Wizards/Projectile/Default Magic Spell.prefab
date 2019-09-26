@@ -11,14 +11,13 @@ GameObject:
   - component: {fileID: 58614852322497343}
   - component: {fileID: 521996579605874216}
   - component: {fileID: 8712437483786886554}
-  - component: {fileID: 2575242742404887133}
+  - component: {fileID: 1128720880730546564}
   - component: {fileID: 58614852322497342}
-  - component: {fileID: 1688058473717999115}
-  - component: {fileID: 874983649438875611}
-  - component: {fileID: 1094810774370232189}
-  - component: {fileID: -8259068501619056280}
+  - component: {fileID: 828077256374907739}
+  - component: {fileID: -6138497737473171188}
+  - component: {fileID: 44482487202941396}
   m_Layer: 0
-  m_Name: Ice Spell
+  m_Name: Default Magic Spell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +35,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1060543806074223406}
-  - {fileID: 3837272331536514099}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,7 +75,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0005616099, y: 6.694911e-11}
   m_Size: {x: 0.40424016, y: 0.4042402}
   m_Direction: 1
---- !u!210 &2575242742404887133
+--- !u!210 &1128720880730546564
 SortingGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3cd1e7c7bfc9334db89b994f9aa417b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1688058473717999115
+--- !u!114 &828077256374907739
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,25 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditions: 0100000002000000
-  prefab: {fileID: 3249346588389377275, guid: 80aa508bc71877940a9d061dde8a6798, type: 3}
---- !u!114 &874983649438875611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58614852322497312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75ca1927cdccff0449330d9355b0c65c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data:
-    type: {fileID: 11400000, guid: 2b68af491ee9b9a40806aad134f092cf, type: 2}
-    potency: 50
-    iterations: 1
-    interval: 10
---- !u!114 &1094810774370232189
+  prefab: {fileID: 0}
+--- !u!114 &-6138497737473171188
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 2
---- !u!114 &-8259068501619056280
+--- !u!114 &44482487202941396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faec9f63846ff814abb73e69b977c0b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: 8
+  range: 8
   resetOnHit: 1
 --- !u!1 &6052723584433559516
 GameObject:
@@ -228,7 +209,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 16f08755c42b4b309bd6d9707aa2bde0, type: 3}
-  m_Color: {r: 1, g: 1, b: 0.4627451, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -238,78 +219,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &3837272331536639669
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 58614852322497343}
-    m_Modifications:
-    - target: {fileID: 100006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_Name
-      value: CFXM3_IceBall_A
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 241c314d096d7a64aa5c3b20c021dd1b, type: 3}
---- !u!4 &3837272331536514099 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400006, guid: 241c314d096d7a64aa5c3b20c021dd1b,
-    type: 3}
-  m_PrefabInstance: {fileID: 3837272331536639669}
-  m_PrefabAsset: {fileID: 0}
