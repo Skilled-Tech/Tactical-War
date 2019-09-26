@@ -40,7 +40,7 @@ namespace Game
         {
             if(result.Method == condition)
             {
-                if (StatusEffect.Afflect(data, result.Target, this.Entity)) //Status Effect Applied
+                if (StatusEffect.Afflict(data, result.Target, this.Entity)) //Status Effect Applied
                 {
 
                 }

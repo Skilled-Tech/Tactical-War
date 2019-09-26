@@ -36,7 +36,7 @@ namespace Game
         {
             if(result.Method == Damage.Method.Contact)
             {
-                if (StatusEffect.Afflect(data, result.Source, this.Entity)) //Status Effect Applied
+                if (StatusEffect.Afflict(data, result.Source, this.Entity)) //Status Effect Applied
                 {
 
                 }

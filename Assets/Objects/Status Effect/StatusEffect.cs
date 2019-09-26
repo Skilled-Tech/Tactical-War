@@ -23,7 +23,7 @@ namespace Game
     {
         public const string MenuPath = "Status Effect/";
 
-        public static bool Afflect(StatusEffectData data, Entity target, Entity affector)
+        public static bool Afflict(StatusEffectData data, Entity target, Entity affector)
         {
             if (target == null) //Target Died ?
                 return false;
@@ -31,7 +31,7 @@ namespace Game
             if (target.StatusEffects == null)
                 return false;
 
-            target.StatusEffects.Add(data, affector);
+            target.StatusEffects.Afflict(data, affector);
 
             return true;
         }

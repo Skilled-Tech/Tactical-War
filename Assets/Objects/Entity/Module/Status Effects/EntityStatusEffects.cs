@@ -51,7 +51,7 @@ namespace Game
         }
 
         public event OperationDelegate OnAfflect;
-        public virtual void Afflect(StatusEffectData data, Entity affector)
+        public virtual void Afflict(StatusEffectData data, Entity affector)
         {
             if (data.Type == null)
             {
@@ -73,17 +73,19 @@ namespace Game
             }
 
             target.Run();
+
+            if (OnAfflect != null) OnAfflect(target);
         }
 
         public event OperationDelegate OnAdd;
         protected virtual StatusEffectInstance Add(StatusEffectData data, Entity affector)
         {
-            var target = new StatusEffectInstance(this.Entity);
+            var target = new StatusEffectInstance(this.Entity, data, affector);
+
+            RemoveConflicts(data.Type);
 
             target.OnApply += ApplyCallback;
             target.OnFinish += InstanceFinishedDelegate;
-
-            RemoveConflicts(data.Type);
 
             if (OnAdd != null) OnAdd(target);
 

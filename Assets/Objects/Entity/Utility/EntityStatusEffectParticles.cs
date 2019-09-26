@@ -50,7 +50,7 @@ namespace Game
 
             Stop();
 
-            Entity.StatusEffects.OnAdd += AddCallback;
+            Entity.StatusEffects.OnAfflect += AddCallback;
             Entity.StatusEffects.OnRemove += RemoveCallback;
         }
 

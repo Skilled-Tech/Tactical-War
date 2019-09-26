@@ -46,7 +46,7 @@ namespace Game
             }
             else
             {
-                StatusEffect.Afflect(data, entity, Owner);
+                StatusEffect.Afflict(data, entity, Owner);
             }
         }
     }

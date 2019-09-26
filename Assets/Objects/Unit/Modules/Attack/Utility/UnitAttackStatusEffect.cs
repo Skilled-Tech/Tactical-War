@@ -34,7 +34,7 @@ namespace Game
 
         void DoDamageCallback(Damage.Result result)
         {
-            if(StatusEffect.Afflect(data, result.Target, result.Source))
+            if(StatusEffect.Afflict(data, result.Target, result.Source))
             {
                 
             }
