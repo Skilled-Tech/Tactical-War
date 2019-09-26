@@ -24,6 +24,14 @@ namespace Game
         public const string MenuPath = StatusEffect.MenuPath + "Type/";
 
         [SerializeField]
+        protected Color color = Color.white;
+        public Color Color { get { return color; } }
+
+        [SerializeField]
+        protected Sprite icon;
+        public Sprite Icon { get { return icon; } }
+
+        [SerializeField]
         protected StatusEffectType[] conflicts;
         public StatusEffectType[] Conflicts { get { return conflicts; } }
         public virtual bool ConflictsWith(StatusEffectType type)

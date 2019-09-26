@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca2dd18b11c61c4aa50a79af8fd4e98, type: 3}
   m_Name: Paralysis
   m_EditorClassIdentifier: 
+  color: {r: 0.745283, g: 0.6730627, b: 0.27069238, a: 1}
+  icon: {fileID: 21300000, guid: e720bd0ff0c860e499287f74a00bbab4, type: 3}
   conflicts: []
   delay: 0.75

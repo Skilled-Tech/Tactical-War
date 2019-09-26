@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0577724f4d1c10740ab7871b5b1465a7, type: 3}
   m_Name: Poison
   m_EditorClassIdentifier: 
+  color: {r: 0.111819126, g: 0.5754717, b: 0, a: 1}
+  icon: {fileID: 21300000, guid: e720bd0ff0c860e499287f74a00bbab4, type: 3}
+  conflicts: []

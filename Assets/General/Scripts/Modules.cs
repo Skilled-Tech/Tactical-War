@@ -21,16 +21,16 @@ namespace Game
 {
     public interface IModule<T>
     {
-        void Configure(T data);
+        void Configure(T reference);
         void Init();
     }
 
-    public abstract class Module<TData> : MonoBehaviour, IModule<TData>
+    public abstract class Module<TReference> : MonoBehaviour, IModule<TReference>
     {
-        protected TData Reference { get; set; }
-        public virtual void Configure(TData data)
+        protected TReference Reference { get; set; }
+        public virtual void Configure(TReference reference)
         {
-            this.Reference = data;
+            this.Reference = reference;
         }
 
         public virtual void Init()

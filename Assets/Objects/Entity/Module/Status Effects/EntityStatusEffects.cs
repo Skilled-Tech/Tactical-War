@@ -23,6 +23,8 @@ namespace Game
 	{
         public List<StatusEffectInstance> List { get; protected set; }
 
+        public delegate void OperationDelegate(StatusEffectInstance effect);
+
         public override void Configure(Entity data)
         {
             base.Configure(data);
@@ -48,11 +50,10 @@ namespace Game
             return false;
         }
 
-        public delegate void AddDelegate(StatusEffectInstance effect);
-        public event AddDelegate OnAdd;
-        public virtual void Add(StatusEffectData data, Entity affector)
+        public event OperationDelegate OnAfflect;
+        public virtual void Afflect(StatusEffectData data, Entity affector)
         {
-            if(data.Type == null)
+            if (data.Type == null)
             {
                 Debug.LogWarning("No Status Effect Type was assigned to the argument data, can't add status effect to " + name);
                 return;
@@ -60,26 +61,41 @@ namespace Game
 
             var target = Find(data.Type);
 
-            if(target == null)
+            if (target == null)
             {
-                target = new StatusEffectInstance(this.Entity);
-
-                target.OnApply += ApplyCallback;
-                target.OnFinish += InstanceFinishedDelegate;
+                target = Add(data, affector);
 
                 List.Add(target);
             }
             else
             {
-                
+                Modify(ref target, data, affector);
             }
 
-            target.Stack(data, affector);
+            target.Run();
+        }
+
+        public event OperationDelegate OnAdd;
+        protected virtual StatusEffectInstance Add(StatusEffectData data, Entity affector)
+        {
+            var target = new StatusEffectInstance(this.Entity);
+
+            target.OnApply += ApplyCallback;
+            target.OnFinish += InstanceFinishedDelegate;
+
             RemoveConflicts(data.Type);
 
             if (OnAdd != null) OnAdd(target);
 
-            target.Run();
+            return target;
+        }
+
+        public event OperationDelegate OnModify;
+        protected virtual void Modify(ref StatusEffectInstance instance, StatusEffectData data, Entity affector)
+        {
+            instance.Stack(data, affector);
+
+            if (OnModify != null) OnModify(instance);
         }
 
         void InstanceFinishedDelegate(StatusEffectInstance instance)
@@ -88,7 +104,7 @@ namespace Game
         }
 
         public delegate void RemoveDelegate(StatusEffectInstance type);
-        public event RemoveDelegate OnRemove;
+        public event OperationDelegate OnRemove;
         public virtual void Remove(int index)
         {
             var instance = List[index];

@@ -54,4 +54,17 @@ namespace Game
             if (OnHide != null) OnHide();
         }
     }
+
+    public class UIElementModule<T> : UIElement, IModule<T>
+    {
+        public void Configure(T reference)
+        {
+            
+        }
+
+        public void Init()
+        {
+            
+        }
+    }
 }

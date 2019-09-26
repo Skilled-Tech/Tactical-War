@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 247c53050ad9f134fb35c17cbbd9a836, type: 3}
   m_Name: Bleeding
   m_EditorClassIdentifier: 
+  color: {r: 1, g: 0.24056602, b: 0.24056602, a: 1}
+  icon: {fileID: 21300000, guid: e720bd0ff0c860e499287f74a00bbab4, type: 3}
   conflicts: []

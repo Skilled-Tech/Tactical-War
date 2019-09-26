@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93329ca09985fe48b5f09160f752e8e, type: 3}
   m_Name: Chill
   m_EditorClassIdentifier: 
+  color: {r: 0.35230508, g: 0.71278757, b: 0.8207547, a: 1}
+  icon: {fileID: 21300000, guid: e720bd0ff0c860e499287f74a00bbab4, type: 3}
   conflicts:
   - {fileID: 11400000, guid: c5a18eadade6dca43a0c75b66ff9c056, type: 2}

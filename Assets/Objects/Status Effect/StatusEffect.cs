@@ -207,9 +207,13 @@ namespace Game
             data += effect;
         }
 
-        public StatusEffectInstance(Entity target)
+        public StatusEffectInstance(Entity target, StatusEffectData data, Entity affector)
         {
             this.Target = target;
+
+            this.data = data;
+
+            this.affector = affector;
         }
     }
 }
