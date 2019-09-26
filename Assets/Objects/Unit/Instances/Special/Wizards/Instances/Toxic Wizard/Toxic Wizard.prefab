@@ -40,12 +40,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ca1927cdccff0449330d9355b0c65c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  probabilty: 50
   data:
     type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
     potency: 10
     iterations: 0
     interval: 0
+  probabilty: 50
 --- !u!1818360608 &1144957492496736721
 PositionConstraint:
   m_ObjectHideFlags: 0

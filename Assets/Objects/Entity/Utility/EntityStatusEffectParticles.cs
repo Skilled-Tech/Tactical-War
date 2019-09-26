@@ -98,15 +98,20 @@ namespace Game
             Stop();
         }
 
-        protected override void Process(EntityStatusEffects.ActivationCondition condition)
+        protected override void Process(StatusEffectInstance effect, EntityStatusEffects.ActivationCondition condition)
         {
-            if (conditions.IsPlayCondition(condition))
-                Play();
+            if(effect.Type == type)
+            {
+                if (conditions.IsPlayCondition(condition))
+                    Play();
 
-            if (conditions.IsStopCondition(condition))
-                Stop();
+                if (conditions.IsStopCondition(condition))
+                    Stop();
+            }
+            else
+            {
 
-            Debug.Log(condition);
+            }
         }
     }
 }

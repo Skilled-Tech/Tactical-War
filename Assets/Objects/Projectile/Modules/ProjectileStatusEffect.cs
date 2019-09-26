@@ -22,6 +22,10 @@ namespace Game
 	public class ProjectileStatusEffect : Projectile.Module
 	{
         [SerializeField]
+        protected StatusEffectData data;
+        public StatusEffectData Data { get { return data; } }
+
+        [SerializeField]
         [Range(0f, 100f)]
         protected float probabilty = 50f;
         public float Probabilty { get { return probabilty; } }
@@ -39,10 +43,6 @@ namespace Game
 
             public float Value { get { return Base + Increase; } }
         }
-
-        [SerializeField]
-        protected StatusEffectData data;
-        public StatusEffectData Data { get { return data; } }
 
         public override void Init()
         {

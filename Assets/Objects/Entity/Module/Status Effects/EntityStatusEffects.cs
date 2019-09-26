@@ -48,34 +48,34 @@ namespace Game
             protected virtual void AfflectCallback(StatusEffectInstance effect)
             {
                 if (IsValidCondition(ActivationCondition.OnAfflect))
-                    Process(ActivationCondition.OnAfflect);
+                    Process(effect, ActivationCondition.OnAfflect);
             }
 
             protected virtual void AddCallback(StatusEffectInstance effect)
             {
                 if (IsValidCondition(ActivationCondition.OnAdd))
-                    Process(ActivationCondition.OnAdd);
+                    Process(effect, ActivationCondition.OnAdd);
             }
 
             protected virtual void ModifyCallback(StatusEffectInstance effect)
             {
                 if (IsValidCondition(ActivationCondition.OnModify))
-                    Process(ActivationCondition.OnModify);
+                    Process(effect, ActivationCondition.OnModify);
             }
 
-            protected virtual void ApplyCallback(StatusEffectInstance instance)
+            protected virtual void ApplyCallback(StatusEffectInstance effect)
             {
                 if (IsValidCondition(ActivationCondition.OnApply))
-                    Process(ActivationCondition.OnApply);
+                    Process(effect, ActivationCondition.OnApply);
             }
 
             protected virtual void RemoveCallback(StatusEffectInstance effect)
             {
                 if (IsValidCondition(ActivationCondition.OnRemove))
-                    Process(ActivationCondition.OnRemove);
+                    Process(effect, ActivationCondition.OnRemove);
             }
 
-            protected abstract void Process(ActivationCondition condition);
+            protected abstract void Process(StatusEffectInstance effect, ActivationCondition condition);
         }
 
         public enum ActivationCondition

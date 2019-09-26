@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ca1927cdccff0449330d9355b0c65c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  probabilty: 50
   data:
     type: {fileID: 11400000, guid: 2b68af491ee9b9a40806aad134f092cf, type: 2}
-    potency: 10
-    iterations: 5
-    interval: 1
+    potency: 50
+    iterations: 1
+    interval: 10
 --- !u!1001 &3837272331536639669
 PrefabInstance:
   m_ObjectHideFlags: 0
