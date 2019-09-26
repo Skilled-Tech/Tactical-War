@@ -19,28 +19,22 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class EntityDefense : Entity.Module
-	{
-		[SerializeField]
-        [Range(0f, 100f)]
-        protected float _value = 0f;
+    public class UnitDefenseUpgrade : Unit.Module, EntityDefense.IModifier
+    {
+        [SerializeField]
+        protected ItemUpgradeType type;
+        public ItemUpgradeType Type { get { return type; } }
+
         public float Value
         {
             get
             {
-                return _value;
-            }
-            set
-            {
-                value = Mathf.Clamp(value, 0f, 100f);
+                var rank = Unit.Upgrades.FindCurrentRank(type);
 
-                _value = value;
-            }
-        }
+                if (rank == null) return 0f;
 
-        public virtual float Sample(float damage)
-        {
-            return Mathf.Lerp(damage, 0f, Value / 100f);
+                return rank.Percentage;
+            }
         }
     }
 }

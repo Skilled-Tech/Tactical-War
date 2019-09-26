@@ -35,6 +35,11 @@ namespace Game
 
             return true;
         }
+
+        public static bool CheckProbability(float percentage)
+        {
+            return percentage <= Random.Range(0f, 100f); //TODO : Implement better solution ?
+        }
     }
     
     [Serializable]

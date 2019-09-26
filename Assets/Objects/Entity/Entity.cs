@@ -81,6 +81,9 @@ namespace Game
         public event TakeDamageDelegate OnTookDamage;
         protected virtual Damage.Result TakeDamage(float value, Damage.Method method, Entity cause)
         {
+            if (Defense != null)
+                value = Defense.Sample(value);
+
             if(Health.Value > 0f)
             {
                 Health.Value -= value;

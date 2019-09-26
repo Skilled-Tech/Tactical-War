@@ -23,47 +23,83 @@ namespace Game
 	{
         public Damage.Method Method { get { return Template.Attack.Method; } }
 
-        #region Damage
-        public float BaseDamage { get { return Unit.Template.Attack.Damage; } }
-
-        public float DamageMultiplier
+        #region Properties
+        [SerializeField]
+        protected DamageProperty damage;
+        public DamageProperty Damage { get { return damage; } }
+        [Serializable]
+        public class DamageProperty : Property<float>
         {
-            get
-            {
-                return 1f + Upgrades.Damage / 100f;
-            }
+            public override float Base => Template.Attack.Damage;
+
+            public override float Value => Base * Multiplier;
         }
 
-        public float Damage { get { return BaseDamage * DamageMultiplier; } }
-        #endregion
+        [SerializeField]
+        protected RangeProperty range;
+        public RangeProperty Range { get { return range; } }
+        [Serializable]
+        public class RangeProperty : Property<int>
+        {
+            public override float Base => Template.Attack.Range;
 
-        #region Range
+            public override int Value => Mathf.RoundToInt(Base * Multiplier);
+        }
         public int BaseRange { get { return Unit.Template.Attack.Range; } }
 
-        public int RangeIncrease
+        public float Distance
         {
             get
             {
-                return (int)(Upgrades.Range / 50f);
+                return Template.Attack.Distance * range.Multiplier;
             }
         }
 
-        public int Range { get { return BaseRange + RangeIncrease; } }
-        #endregion
-
-        #region Distance
-        public float BaseDistance { get { return Unit.Template.Attack.Distance; } }
-
-        public float DistanceMultiplier
+        [Serializable]
+        public abstract class Property<TValue>
         {
-            get
+            [SerializeField]
+            protected ItemUpgradeType upgrade;
+            public ItemUpgradeType Upgrade { get { return upgrade; } }
+
+            public ItemUpgradesTemplate.ElementData.RankData GetCurrentRank()
             {
-                return 1f + Upgrades.Range / 100f;
+                return Upgrades.FindCurrentRank(upgrade);
+            }
+
+            public abstract float Base { get; }
+
+            public virtual float Percentage
+            {
+                get
+                {
+                    var rank = GetCurrentRank();
+
+                    if (rank == null)
+                        return 0f;
+
+                    return rank.Percentage;
+                }
+            }
+
+            public virtual float Multiplier => 1f + (Percentage / 100f); 
+
+            public abstract TValue Value { get; }
+
+            protected UnitAttack attack;
+
+            public Unit Unit { get { return attack.Unit; } }
+            public Proponent Leader { get { return Leader; } }
+            public UnitUpgrades Upgrades { get { return Unit.Upgrades; } }
+
+            public UnitTemplate Template { get { return Unit.Template; } }
+
+            public virtual void Init(UnitAttack attack)
+            {
+                this.attack = attack;
             }
         }
-
-        public float Distance { get { return BaseDistance * DistanceMultiplier; } }
-        #endregion
+#endregion
 
         public float Duration { get { return Template.Attack.Duration; } }
 
@@ -106,6 +142,9 @@ namespace Game
         {
             base.Init();
 
+            damage.Init(this);
+            range.Init(this);
+
             Body.AnimationEvents.OnCustomEvent += OnAnimationTrigger;
 
             Modules.Init(this);
@@ -127,7 +166,7 @@ namespace Game
         public event Entity.DoDamageDelegate OnDoDamage;
         public virtual Damage.Result DoDamage(Entity target)
         {
-            var result = Unit.DoDamage(Damage, Method, target);
+            var result = Unit.DoDamage(Damage.Value, Method, target);
 
             if (OnDoDamage != null) OnDoDamage(result);
 

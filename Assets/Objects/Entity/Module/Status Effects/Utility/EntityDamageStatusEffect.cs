@@ -25,6 +25,11 @@ namespace Game
         protected StatusEffectData data;
         public StatusEffectData Data { get { return data; } }
 
+        [SerializeField]
+        [Range(0f, 100f)]
+        protected float probabilty = 50f;
+        public float Probabilty { get { return probabilty; } }
+
         public override void Init()
         {
             base.Init();
@@ -36,13 +41,9 @@ namespace Game
         {
             if(result.Method == Damage.Method.Contact)
             {
-                if (StatusEffect.Afflict(data, result.Source, this.Entity)) //Status Effect Applied
+                if (StatusEffect.CheckProbability(probabilty))
                 {
-
-                }
-                else
-                {
-
+                    StatusEffect.Afflict(data, result.Source, this.Entity);
                 }
             }
         }

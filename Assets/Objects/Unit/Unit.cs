@@ -25,7 +25,7 @@ namespace Game
 
         public UnitTemplate Template { get; protected set; }
 
-        public UnitType Type { get { return Template.Type; } }
+        public UnitClass Class { get { return Template.Type; } }
 
         public UnitController Controller { get; protected set; }
         public UnitBody Body { get; protected set; }
@@ -39,7 +39,7 @@ namespace Game
 
             public UnitTemplate Template { get { return Unit.Template; } }
 
-            public UnitType Type { get { return Unit.Type; } }
+            public UnitClass Class { get { return Unit.Class; } }
 
             public UnitController Controller { get { return Unit.Controller; } }
 
@@ -106,13 +106,6 @@ namespace Game
             Health.Value = Health.Max = Template.Health;
 
             Modules.Init(this);
-        }
-
-        protected override Damage.Result TakeDamage(float value, Damage.Method method, Entity cause)
-        {
-            value = Mathf.Lerp(value, 0f, Upgrades.Defense / 100f);
-
-            return base.TakeDamage(value, method, cause);
         }
 
         protected override void Death(Damage.Result result)

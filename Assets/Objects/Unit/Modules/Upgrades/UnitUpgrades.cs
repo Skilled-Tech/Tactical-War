@@ -25,32 +25,9 @@ namespace Game
 
         public ItemUpgradeData Data { get; protected set; }
 
-        public float Damage
-        {
-            get
-            {
-                return GetCurrentPercentage(Core.Items.Upgrades.Types.Find(nameof(Damage)));
-            }
-        }
-        public float Defense
-        {
-            get
-            {
-                return GetCurrentPercentage(Core.Items.Upgrades.Types.Find(nameof(Defense)));
-            }
-        }
-        public float Range
-        {
-            get
-            {
-                return GetCurrentPercentage(Core.Items.Upgrades.Types.Find(nameof(Range)));
-            }
-        }
-
         public virtual ItemUpgradesTemplate.ElementData.RankData FindCurrentRank(ItemUpgradeType type)
         {
             if (Data == null) return null;
-
 
             var template = Template.Upgrades.Template.Find(type);
 
@@ -65,14 +42,6 @@ namespace Game
 
 
             return template.Ranks[data.Value - 1];
-        }
-        public virtual float GetCurrentPercentage(ItemUpgradeType type)
-        {
-            var rank = FindCurrentRank(type);
-
-            if (rank == null) return 0f;
-
-            return rank.Percentage;
         }
 
         public virtual void Set(ItemUpgradeData data)

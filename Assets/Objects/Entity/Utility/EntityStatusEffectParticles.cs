@@ -105,6 +105,8 @@ namespace Game
 
             if (conditions.IsStopCondition(condition))
                 Stop();
+
+            Debug.Log(condition);
         }
     }
 }

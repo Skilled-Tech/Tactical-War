@@ -39,8 +39,9 @@ namespace Game
                 base.Init();
 
                 StatusEffects.OnAfflect += AfflectCallback;
-                StatusEffects.OnApply += ApplyCallback;
+                StatusEffects.OnAdd += AddCallback;
                 StatusEffects.OnModify += ModifyCallback;
+                StatusEffects.OnApply += ApplyCallback;
                 StatusEffects.OnRemove += RemoveCallback;
             }
 
@@ -48,6 +49,12 @@ namespace Game
             {
                 if (IsValidCondition(ActivationCondition.OnAfflect))
                     Process(ActivationCondition.OnAfflect);
+            }
+
+            protected virtual void AddCallback(StatusEffectInstance effect)
+            {
+                if (IsValidCondition(ActivationCondition.OnAdd))
+                    Process(ActivationCondition.OnAdd);
             }
 
             protected virtual void ModifyCallback(StatusEffectInstance effect)

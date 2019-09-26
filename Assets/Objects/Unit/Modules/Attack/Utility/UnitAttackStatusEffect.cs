@@ -25,6 +25,11 @@ namespace Game
         protected StatusEffectData data;
         public StatusEffectData Data { get { return data; } }
 
+        [SerializeField]
+        [Range(0f, 100f)]
+        protected float probabilty = 50f;
+        public float Probabilty { get { return probabilty; } }
+
         public override void Init()
         {
             base.Init();
@@ -34,13 +39,9 @@ namespace Game
 
         void DoDamageCallback(Damage.Result result)
         {
-            if(StatusEffect.Afflict(data, result.Target, result.Source))
+            if(StatusEffect.CheckProbability(probabilty + Attack.Damage.Percentage))
             {
-                
-            }
-            else
-            {
-
+                StatusEffect.Afflict(data, result.Target, result.Source);
             }
         }
     }

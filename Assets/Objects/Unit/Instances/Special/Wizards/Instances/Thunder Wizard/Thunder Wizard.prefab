@@ -13948,6 +13948,7 @@ MonoBehaviour:
     potency: 100
     iterations: 3
     interval: 2
+  probabilty: 50
 --- !u!114 &2576528964194639132
 MonoBehaviour:
   m_ObjectHideFlags: 0

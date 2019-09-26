@@ -21,7 +21,26 @@ namespace Game
 {
 	public class ProjectileStatusEffect : Projectile.Module
 	{
-		[SerializeField]
+        [SerializeField]
+        [Range(0f, 100f)]
+        protected float probabilty = 50f;
+        public float Probabilty { get { return probabilty; } }
+
+        public class ProbabiltyData
+        {
+            [SerializeField]
+            [Range(0f, 100f)]
+            protected float _base = 50f;
+            public float Base { get { return _base; } }
+
+            [SerializeField]
+            protected float increase;
+            public float Increase { get { return increase; } }
+
+            public float Value { get { return Base + Increase; } }
+        }
+
+        [SerializeField]
         protected StatusEffectData data;
         public StatusEffectData Data { get { return data; } }
 
@@ -46,7 +65,10 @@ namespace Game
             }
             else
             {
-                StatusEffect.Afflict(data, entity, Owner);
+                if(StatusEffect.CheckProbability(probabilty))
+                {
+                    StatusEffect.Afflict(data, entity, Owner);
+                }
             }
         }
     }

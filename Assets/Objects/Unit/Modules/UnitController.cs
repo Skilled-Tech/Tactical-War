@@ -41,7 +41,7 @@ namespace Game
             }
             else
             {
-                if (Index < Attack.Range)
+                if (Index < Attack.Range.Value)
                 {
                     if (Enemy.Base.Units.Count == 0)
                         Target = Enemy.Base;

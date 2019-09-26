@@ -38,8 +38,8 @@ namespace Game
 
         [Space]
         [SerializeField]
-        protected UnitType type;
-        public UnitType Type { get { return type; } }
+        protected UnitClass type;
+        public UnitClass Type { get { return type; } }
 
         [SerializeField]
         protected GameObject prefab;

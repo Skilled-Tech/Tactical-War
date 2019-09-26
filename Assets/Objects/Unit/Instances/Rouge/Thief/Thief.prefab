@@ -45,9 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
-    potency: 5
-    iterations: 10
+    potency: 10
+    iterations: 5
     interval: 1
+  probabilty: 50
 --- !u!1 &1630308112731985878
 GameObject:
   m_ObjectHideFlags: 0
@@ -14080,6 +14081,11 @@ PrefabInstance:
       propertyPath: rect
       value: 
       objectReference: {fileID: 7506610091073764634}
+    - target: {fileID: 1214205262402420888, guid: eece88ec563127647ab92aff59fa687c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5899779556855402982, guid: eece88ec563127647ab92aff59fa687c,
         type: 3}
       propertyPath: speed
