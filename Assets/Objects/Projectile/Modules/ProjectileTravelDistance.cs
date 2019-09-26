@@ -22,16 +22,16 @@ namespace Game
 	public class ProjectileTravelDistance : Projectile.Module
 	{
         [SerializeField]
-        protected float target;
-        public float Target
+        protected float range;
+        public float Range
         {
             get
             {
-                return target;
+                return range;
             }
             set
             {
-                this.target = value;
+                this.range = value;
             }
         }
 
@@ -59,7 +59,7 @@ namespace Game
         {
             Value += Projectile.rigidbody.velocity.magnitude * Time.deltaTime;
 
-            if (Value >= target)
+            if (Value >= range)
                 Projectile.Destroy();
         }
 

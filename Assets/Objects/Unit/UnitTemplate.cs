@@ -91,8 +91,8 @@ namespace Game
             public float Damage { get { return damage; } }
 
             [SerializeField]
-            protected uint range;
-            public uint Range { get { return range; } }
+            protected int range;
+            public int Range { get { return range; } }
 
             [SerializeField]
             protected float distance;
@@ -106,7 +106,7 @@ namespace Game
             protected Damage.Method method;
             public Damage.Method Method { get { return method; } }
 
-            public AttackData(float damage, uint range, float distance, float duration, Damage.Method method)
+            public AttackData(float damage, int range, float distance, float duration, Damage.Method method)
             {
                 this.damage = damage;
                 this.range = range;

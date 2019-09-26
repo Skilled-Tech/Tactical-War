@@ -22,10 +22,20 @@ namespace Game
 	public class ProjectilePenetration : Projectile.Module
 	{
         [SerializeField]
-        protected uint value = 1;
-        public uint Value { get { return value; } }
+        protected int value = 1;
+        public int Value
+        {
+            get
+            {
+                return value;
+            }
+            set
+            {
+                this.value = value;
+            }
+        }
 
-        uint count;
+        int count;
 
         public override void Configure(Projectile data)
         {

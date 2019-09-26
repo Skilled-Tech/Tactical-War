@@ -53,6 +53,18 @@ namespace Game
 
             projectile.OnHit += OnProjectileHit;
 
+            var travelDistance = Dependancy.Get<ProjectileTravelDistance>(projectile.gameObject);
+            if(travelDistance != null)
+            {
+                travelDistance.Range = Attack.Distance * 2f;
+            }
+
+            var penetration = Dependancy.Get<ProjectilePenetration>(projectile.gameObject);
+            if(penetration != null)
+            {
+                penetration.Value = Attack.Range - Unit.Index;
+            }
+
             return projectile;
         }
 

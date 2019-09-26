@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faec9f63846ff814abb73e69b977c0b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: 8
+  range: 8
   resetOnHit: 1
 --- !u!1 &6052723584433559516
 GameObject:

@@ -55,7 +55,7 @@ namespace Game
             {
                 var count = Attack.Range;
 
-                if (Unit.Index > 1) count -= (uint)Unit.Index;
+                if (Unit.Index > 1) count -= Unit.Index;
 
                 for (int i = 0; i < count; i++)
                 {

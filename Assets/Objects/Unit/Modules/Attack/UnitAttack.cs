@@ -38,17 +38,17 @@ namespace Game
         #endregion
 
         #region Range
-        public uint BaseRange { get { return Unit.Template.Attack.Range; } }
+        public int BaseRange { get { return Unit.Template.Attack.Range; } }
 
-        public uint RangeIncrease
+        public int RangeIncrease
         {
             get
             {
-                return (uint)(Upgrades.Range / 50f);
+                return (int)(Upgrades.Range / 50f);
             }
         }
 
-        public uint Range { get { return BaseRange + RangeIncrease; } }
+        public int Range { get { return BaseRange + RangeIncrease; } }
         #endregion
 
         #region Distance
