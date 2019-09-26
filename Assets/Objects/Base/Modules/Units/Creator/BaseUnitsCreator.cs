@@ -111,7 +111,7 @@ namespace Game
         {
             var instance = Instantiate(data.Prefab, transform.position, transform.rotation);
 
-            instance.name = Proponent.name + " " + data.name;
+            instance.name = data.name + "(" + Proponent.name + ")";
 
             instance.transform.localScale = transform.lossyScale;
 

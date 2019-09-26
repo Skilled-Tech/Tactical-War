@@ -19,29 +19,76 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class EntityStatusEffectParticles : Entity.Module
+	public class EntityStatusEffectParticles : EntityStatusEffects.ActivationModule
 	{
-		[SerializeField]
+        [SerializeField]
+        protected StatusEffectType type;
+        public StatusEffectType Type { get { return type; } }
+
+        [SerializeField]
         protected ParticleSystem system;
         public ParticleSystem System { get { return system; } }
+
+        [SerializeField]
+        protected ConditionsData conditions = ConditionsData.Defaults;
+        public ConditionsData Conditions { get { return conditions; } }
+        [Serializable]
+        public struct ConditionsData
+        {
+            [SerializeField]
+            EntityStatusEffects.ActivationCondition[] play;
+            public EntityStatusEffects.ActivationCondition[] Play { get { return play; } }
+            public bool IsPlayCondition(EntityStatusEffects.ActivationCondition condition)
+            {
+                return play.Contains(condition);
+            }
+
+            [SerializeField]
+            EntityStatusEffects.ActivationCondition[] stop;
+            public EntityStatusEffects.ActivationCondition[] Stop { get { return stop; } }
+            public bool IsStopCondition(EntityStatusEffects.ActivationCondition condition)
+            {
+                return stop.Contains(condition);
+            }
+
+            public bool Contains(EntityStatusEffects.ActivationCondition condition)
+            {
+                if (play.Contains(condition)) return true;
+
+                if (stop.Contains(condition)) return true;
+
+                return false;
+            }
+
+            public static ConditionsData Defaults
+            {
+                get
+                {
+                    return new ConditionsData
+                    {
+                        play = new EntityStatusEffects.ActivationCondition[] { EntityStatusEffects.ActivationCondition.OnAdd },
+                        stop = new EntityStatusEffects.ActivationCondition[] { EntityStatusEffects.ActivationCondition.OnRemove }
+                    };
+                }
+            }
+        }
+        public override bool IsValidCondition(EntityStatusEffects.ActivationCondition condition)
+        {
+            return conditions.Contains(condition);
+        }
+
+        protected virtual void Reset()
+        {
+            system = Dependancy.Get<ParticleSystem>(gameObject);
+        }
 
         public virtual void Stop()
         {
             system.Stop(true);
         }
-
         public virtual void Play()
         {
             system.Play(true);
-        }
-
-        [SerializeField]
-        protected StatusEffectType type;
-        public StatusEffectType Type { get { return type; } }
-
-        protected virtual void Reset()
-        {
-            system = Dependancy.Get<ParticleSystem>(gameObject);
         }
 
         public override void Init()
@@ -49,20 +96,14 @@ namespace Game
             base.Init();
 
             Stop();
-
-            Entity.StatusEffects.OnAfflect += AddCallback;
-            Entity.StatusEffects.OnRemove += RemoveCallback;
         }
 
-        void AddCallback(StatusEffectInstance effect)
+        protected override void Process(EntityStatusEffects.ActivationCondition condition)
         {
-            if (effect.Type == type)
+            if (conditions.IsPlayCondition(condition))
                 Play();
-        }
 
-        void RemoveCallback(StatusEffectInstance effect)
-        {
-            if (effect.Type == type)
+            if (conditions.IsStopCondition(condition))
                 Stop();
         }
     }

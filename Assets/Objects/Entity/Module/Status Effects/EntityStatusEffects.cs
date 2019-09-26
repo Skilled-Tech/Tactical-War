@@ -25,6 +25,57 @@ namespace Game
 
         public delegate void OperationDelegate(StatusEffectInstance effect);
 
+        public class Module : Entity.Module
+        {
+            public EntityStatusEffects StatusEffects => Entity.StatusEffects;
+        }
+
+        public abstract class ActivationModule : Module
+        {
+            public abstract bool IsValidCondition(ActivationCondition condition);
+
+            public override void Init()
+            {
+                base.Init();
+
+                StatusEffects.OnAfflect += AfflectCallback;
+                StatusEffects.OnApply += ApplyCallback;
+                StatusEffects.OnModify += ModifyCallback;
+                StatusEffects.OnRemove += RemoveCallback;
+            }
+
+            protected virtual void AfflectCallback(StatusEffectInstance effect)
+            {
+                if (IsValidCondition(ActivationCondition.OnAfflect))
+                    Process(ActivationCondition.OnAfflect);
+            }
+
+            protected virtual void ModifyCallback(StatusEffectInstance effect)
+            {
+                if (IsValidCondition(ActivationCondition.OnModify))
+                    Process(ActivationCondition.OnModify);
+            }
+
+            protected virtual void ApplyCallback(StatusEffectInstance instance)
+            {
+                if (IsValidCondition(ActivationCondition.OnApply))
+                    Process(ActivationCondition.OnApply);
+            }
+
+            protected virtual void RemoveCallback(StatusEffectInstance effect)
+            {
+                if (IsValidCondition(ActivationCondition.OnRemove))
+                    Process(ActivationCondition.OnRemove);
+            }
+
+            protected abstract void Process(ActivationCondition condition);
+        }
+
+        public enum ActivationCondition
+        {
+            OnAfflect, OnAdd, OnModify, OnApply, OnRemove
+        }
+
         public override void Configure(Entity data)
         {
             base.Configure(data);

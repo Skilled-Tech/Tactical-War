@@ -65,7 +65,7 @@ namespace Game
 
         void RemoveCallback(StatusEffectInstance effect)
         {
-            for (int i = Templates.Count - 1; i < 0; i--)
+            for (int i = Templates.Count - 1; i >= 0; i--)
             {
                 if (Templates[i].Effect.Type == effect.Type)
                 {
