@@ -62,7 +62,7 @@ namespace Game
             var penetration = Dependancy.Get<ProjectilePenetration>(projectile.gameObject);
             if(penetration != null)
             {
-                penetration.Value = Attack.Range - Unit.Index;
+                penetration.Value = Attack.Range - Unit.Index - 1;
             }
 
             return projectile;
