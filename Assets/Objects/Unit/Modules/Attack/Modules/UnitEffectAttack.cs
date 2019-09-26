@@ -62,10 +62,13 @@ namespace Game
                     if (i >= Enemy.Units.Count)
                         break;
 
-                    if(i > 0)
+                    if (i == 0)
                     {
-                        if (DistanceBetween(Enemy.Units[i], Enemy.Units[i - 1]) > Attack.Distance * 1.5f)
-                            break;
+                        if (DistanceBetween(Enemy.Units[i], Unit) > Attack.Distance * 3f) break;
+                    }
+                    else
+                    {
+                        if (DistanceBetween(Enemy.Units[i], Enemy.Units[i - 1]) > Attack.Distance * 1.5f) break;
                     }
 
                     targets.Add(Enemy.Units[i]);
