@@ -54,7 +54,7 @@ namespace Game
         Coroutine coroutine;
         IEnumerator Procedure()
         {
-            Slowdown = Effect.Data.Potency;
+            Slowdown = 100f;
 
             yield return new WaitForSeconds(type.Delay);
 
