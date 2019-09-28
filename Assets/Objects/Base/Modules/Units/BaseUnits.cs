@@ -37,6 +37,22 @@ namespace Game
             {
                 if (List.Count == 0) return null;
 
+                var biggestDistance = 0f;
+                var biggestDistanceIndex = 0;
+                
+                for (int i = 0; i < Count; i++)
+                {
+                    var distance = Mathf.Abs(Base.transform.position.x - List[i].transform.position.x);
+
+                    if(distance > biggestDistance)
+                    {
+                        biggestDistance = distance;
+                        biggestDistanceIndex = i;
+                    }
+                }
+
+                return List[biggestDistanceIndex];
+
                 return List.First();
             }
         }

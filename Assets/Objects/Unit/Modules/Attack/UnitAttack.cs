@@ -163,17 +163,7 @@ namespace Game
             }
         }
 
-        public event Entity.DoDamageDelegate OnDoDamage;
-        public virtual Damage.Result DoDamage(Entity target)
-        {
-            var result = Unit.DoDamage(Damage.Value, Method, target);
-
-            if (OnDoDamage != null) OnDoDamage(result);
-
-            return result;
-        }
-
-        public virtual Coroutine Initiate()
+        public virtual Coroutine Perform()
         {
             if (coroutine != null)
                 StopCoroutine(coroutine);
@@ -200,6 +190,33 @@ namespace Game
         public virtual void AttackConnected()
         {
             if (OnAttackConnected != null) OnAttackConnected();
+        }
+
+        public event Entity.DoDamageDelegate OnDoDamage;
+        public virtual Damage.Result DoDamage(Entity target)
+        {
+            var result = Unit.DoDamage(Damage.Value, Method, target);
+
+            ApplyStatusEffects(Template.Attack.StatusEffects, target);
+
+            if (OnDoDamage != null) OnDoDamage(result);
+
+            return result;
+        }
+
+        protected virtual void ApplyStatusEffects(IList<ProbabilityStatusEffect> list, Entity target)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if(StatusEffect.CheckProbability(list[i].Probability))
+                {
+                    StatusEffect.Afflict(list[i].Effect, target, this.Unit);
+                }
+                else
+                {
+
+                }
+            }
         }
     }
 }

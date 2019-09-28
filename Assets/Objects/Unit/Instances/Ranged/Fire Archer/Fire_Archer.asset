@@ -18,7 +18,7 @@ MonoBehaviour:
   description: Shoots arrows from a far, low defense, medium range & attack
   price:
     type: 0
-    value: 4000
+    value: 8000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
@@ -37,4 +37,11 @@ MonoBehaviour:
     distance: 3
     duration: 1
     method: 2
+    statusEffects:
+    - probabilty: 50
+      effect:
+        type: {fileID: 11400000, guid: c5a18eadade6dca43a0c75b66ff9c056, type: 2}
+        potency: 10
+        iterations: 5
+        interval: 1
   speed: 1.8

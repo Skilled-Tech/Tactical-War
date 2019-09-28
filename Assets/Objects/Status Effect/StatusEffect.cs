@@ -221,4 +221,16 @@ namespace Game
             this.affector = affector;
         }
     }
+
+    [Serializable]
+    public class ProbabilityStatusEffect
+    {
+        [SerializeField]
+        protected float probabilty;
+        public float Probability { get { return probabilty; } }
+
+        [SerializeField]
+        protected StatusEffectData effect;
+        public StatusEffectData Effect { get { return effect; } }
+    }
 }

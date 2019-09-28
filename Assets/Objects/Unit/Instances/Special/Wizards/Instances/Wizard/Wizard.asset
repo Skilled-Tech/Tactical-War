@@ -37,4 +37,5 @@ MonoBehaviour:
     distance: 4
     duration: 1.2
     method: 2
+    statusEffects: []
   speed: 1.8

@@ -17,8 +17,8 @@ MonoBehaviour:
     tilt: 0
   description: Heavily armored warrior, low range, high attack & defense
   price:
-    type: 1
-    value: 6000
+    type: 0
+    value: 10000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
@@ -37,4 +37,11 @@ MonoBehaviour:
     distance: 0
     duration: 1
     method: 0
+    statusEffects:
+    - probabilty: 50
+      effect:
+        type: {fileID: 11400000, guid: a9e39ea5730d32546b3af538ae222c2e, type: 2}
+        potency: 10
+        iterations: 5
+        interval: 1
   speed: 1.8

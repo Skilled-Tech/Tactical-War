@@ -37,4 +37,11 @@ MonoBehaviour:
     distance: 4
     duration: 1.2
     method: 2
+    statusEffects:
+    - probabilty: 50
+      effect:
+        type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
+        potency: 10
+        iterations: 5
+        interval: 1
   speed: 1.8

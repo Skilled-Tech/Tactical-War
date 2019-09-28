@@ -106,6 +106,10 @@ namespace Game
             protected Damage.Method method;
             public Damage.Method Method { get { return method; } }
 
+            [SerializeField]
+            protected ProbabilityStatusEffect[] statusEffects;
+            public ProbabilityStatusEffect[] StatusEffects { get { return statusEffects; } }
+
             public AttackData(float damage, int range, float distance, float duration, Damage.Method method)
             {
                 this.damage = damage;

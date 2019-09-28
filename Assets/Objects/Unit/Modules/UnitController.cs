@@ -41,7 +41,7 @@ namespace Game
             }
             else
             {
-                if (Index < Attack.Range.Value)
+                if (Index < Attack.Range.Value || true)
                 {
                     if (Enemy.Base.Units.Count == 0)
                         Target = Enemy.Base;
@@ -53,13 +53,13 @@ namespace Game
                     Target = null;
                 }
 
-                if (Index == 0)
+                if (Index == 0 || true)
                     isMoving = !MoveTo(Target, Attack.Distance + 0.5f);
                 else
                     isMoving = !MoveTo(Base.Units.List[Index - 1], 1f);
 
                 if (Target != null && !isMoving && !isAttacking && (Index == 0 || !Base.Units.List[Index - 1].Controller.isMoving))
-                    Attack.Initiate();
+                    Attack.Perform();
             }
         }
 
