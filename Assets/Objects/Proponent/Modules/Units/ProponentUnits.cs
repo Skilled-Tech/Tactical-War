@@ -49,6 +49,6 @@ namespace Game
 
         public Base Base { get { return Proponent.Base; } }
 
-        public abstract ItemUpgradeData GetUpgrade(UnitTemplate unit);
+        public abstract ItemUpgradesData GetUpgrade(UnitTemplate unit);
 	}
 }

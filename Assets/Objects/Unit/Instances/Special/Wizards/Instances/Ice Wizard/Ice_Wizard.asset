@@ -38,8 +38,11 @@ MonoBehaviour:
     duration: 1.2
     method: 2
     statusEffects:
-    - probabilty: 50
-      effect:
+    - upgrade: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+      probability:
+        min: 10
+        max: 80
+      data:
         type: {fileID: 11400000, guid: 2b68af491ee9b9a40806aad134f092cf, type: 2}
         potency: 10
         iterations: 5

@@ -25,7 +25,7 @@ namespace Game
         protected List<UnitTemplate> selection;
         public override IList<UnitTemplate> Selection { get { return selection; } }
 
-        public override ItemUpgradeData GetUpgrade(UnitTemplate unit)
+        public override ItemUpgradesData GetUpgrade(UnitTemplate unit)
         {
             return null;
         }

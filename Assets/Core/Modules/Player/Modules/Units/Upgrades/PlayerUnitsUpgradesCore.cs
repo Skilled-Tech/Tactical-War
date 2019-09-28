@@ -28,11 +28,11 @@ namespace Game
     [Serializable]
     public class PlayerUnitsUpgradesCore : PlayerUnitsCore.Module
     {
-        public Dictionary<ItemTemplate, ItemUpgradeData> Dictionary { get; protected set; }
+        public Dictionary<ItemTemplate, ItemUpgradesData> Dictionary { get; protected set; }
 
         public ItemsCore Items { get { return Core.Items; } }
 
-        public ItemUpgradeData Find(ItemTemplate template)
+        public ItemUpgradesData Find(ItemTemplate template)
         {
             if (Dictionary.ContainsKey(template) == false) return null;
 
@@ -45,7 +45,7 @@ namespace Game
         {
             base.Configure();
 
-            Dictionary = new Dictionary<ItemTemplate, ItemUpgradeData>();
+            Dictionary = new Dictionary<ItemTemplate, ItemUpgradesData>();
 
             Player.Inventory.OnUpdate += OnInventoryChanged;
         }
@@ -58,7 +58,7 @@ namespace Game
             {
                 if (Items.Upgrades.IsUpgradable(Inventory.Items[i].Template.CatalogItem))
                 {
-                    var data = new ItemUpgradeData(Inventory.Items[i]);
+                    var data = new ItemUpgradesData(Inventory.Items[i]);
 
                     Dictionary.Add(Inventory.Items[i].Template, data);
                 }
@@ -67,7 +67,7 @@ namespace Game
     }
 
     [Serializable]
-    public class ItemUpgradeData
+    public class ItemUpgradesData
     {
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }
@@ -146,7 +146,7 @@ namespace Game
             }
         }
 
-        public ItemUpgradeData(PlayerInventoryCore.ItemData item)
+        public ItemUpgradesData(PlayerInventoryCore.ItemData item)
         {
             list = new List<ElementData>();
 

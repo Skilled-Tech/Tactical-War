@@ -23,28 +23,45 @@ namespace Game
     {
         public const string MenuPath = Unit.MenuPath + "Upgrades/";
 
-        public ItemUpgradeData Data { get; protected set; }
+        public ItemUpgradesData Data { get; protected set; }
+
+        public virtual ItemUpgradesTemplate.ElementData GetTemplateElement(ItemUpgradeType target)
+        {
+            var element = Template.Upgrades.Template.Find(target);
+
+            return element;
+        }
+        public virtual ItemUpgradesData.ElementData GetDataElement(ItemUpgradeType target)
+        {
+            var element = Data.Find(target);
+
+            return element;
+        }
+
+        public virtual void GetElements(ItemUpgradeType target, out ItemUpgradesTemplate.ElementData template, out ItemUpgradesData.ElementData data)
+        {
+            template = GetTemplateElement(target);
+
+            data = GetDataElement(target);
+        }
 
         public virtual ItemUpgradesTemplate.ElementData.RankData FindCurrentRank(ItemUpgradeType type)
         {
             if (Data == null) return null;
 
-            var template = Template.Upgrades.Template.Find(type);
-
+            var template = GetTemplateElement(type);
             if (template == null) return null;
 
-
-            var data = Data.Find(type);
-
+            var data = GetDataElement(type);
             if (data == null) return null;
 
-            if (data.Value == 0 || data.Value > template.Ranks.Length) return null;
-
+            if (data.Value == 0) return null;
+            if (data.Value > template.Ranks.Length) return template.Ranks.Last();
 
             return template.Ranks[data.Value - 1];
         }
 
-        public virtual void Set(ItemUpgradeData data)
+        public virtual void Set(ItemUpgradesData data)
         {
             this.Data = data;
         }

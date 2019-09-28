@@ -107,9 +107,9 @@ namespace Game
             public Damage.Method Method { get { return method; } }
 
             [SerializeField]
-            protected ProbabilityStatusEffect[] statusEffects;
-            public ProbabilityStatusEffect[] StatusEffects { get { return statusEffects; } }
-
+            protected StatusEffectProperty[] statusEffects;
+            public StatusEffectProperty[] StatusEffects { get { return statusEffects; } }
+            
             public AttackData(float damage, int range, float distance, float duration, Damage.Method method)
             {
                 this.damage = damage;
@@ -118,6 +118,40 @@ namespace Game
                 this.duration = duration;
                 this.method = method;
             }
+        }
+
+        [Serializable]
+        public class StatusEffectProperty
+        {
+            [SerializeField]
+            protected ItemUpgradeType upgrade;
+            public ItemUpgradeType Upgrade { get { return upgrade; } }
+
+            [SerializeField]
+            protected ProbabilityData probability;
+            public ProbabilityData Probability { get { return probability; } }
+            [Serializable]
+            public class ProbabilityData
+            {
+                [SerializeField]
+                [Range(0f, 100f)]
+                protected float min;
+                public float Min { get { return min; } }
+
+                [SerializeField]
+                [Range(0f, 100f)]
+                protected float max;
+                public float Max { get { return max; } }
+
+                public float Sample(float rate)
+                {
+                    return Mathf.Lerp(min, max, rate);
+                }
+            }
+
+            [SerializeField]
+            protected StatusEffectData data;
+            public StatusEffectData Data { get { return data; } }
         }
 
         [SerializeField]

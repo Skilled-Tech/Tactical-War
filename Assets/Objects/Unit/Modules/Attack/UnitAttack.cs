@@ -204,13 +204,20 @@ namespace Game
             return result;
         }
 
-        protected virtual void ApplyStatusEffects(IList<ProbabilityStatusEffect> list, Entity target)
+        protected virtual void ApplyStatusEffects(IList<UnitTemplate.StatusEffectProperty> list, Entity target)
         {
             for (int i = 0; i < list.Count; i++)
             {
-                if(StatusEffect.CheckProbability(list[i].Probability))
+                ItemUpgradesTemplate.ElementData template;
+                ItemUpgradesData.ElementData data;
+
+                Unit.Upgrades.GetElements(list[i].Upgrade, out template, out data);
+
+                var probability = list[i].Probability.Sample(data.Value / 1f / template.Ranks.Length);
+
+                if (StatusEffect.CheckProbability(probability))
                 {
-                    StatusEffect.Afflict(list[i].Effect, target, this.Unit);
+                    StatusEffect.Afflict(list[i].Data, target, this.Unit);
                 }
                 else
                 {
