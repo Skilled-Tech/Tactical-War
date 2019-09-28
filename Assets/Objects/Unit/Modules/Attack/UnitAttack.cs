@@ -208,10 +208,7 @@ namespace Game
         {
             for (int i = 0; i < list.Count; i++)
             {
-                ItemUpgradesTemplate.ElementData template;
-                ItemUpgradesData.ElementData data;
-
-                Unit.Upgrades.GetElements(list[i].Upgrade, out template, out data);
+                Unit.Upgrades.GetElements(list[i].Upgrade, out var template, out var data);
 
                 var probability = list[i].Probability.Sample(data.Value / 1f / template.Ranks.Length);
 

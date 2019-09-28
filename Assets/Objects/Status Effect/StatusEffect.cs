@@ -38,11 +38,7 @@ namespace Game
 
         public static bool CheckProbability(float percentage)
         {
-            var random = Random.Range(0f, 100f);
-            Debug.Log(percentage + " < " + random + " = " + (percentage < random));
-            Debug.Log(percentage + " > " + random + " = " + (percentage > random));
-
-            return random <= percentage; //TODO : Implement better solution ?
+            return Random.Range(0f, 100f) <= percentage; //TODO : Implement better solution ?
         }
     }
     
