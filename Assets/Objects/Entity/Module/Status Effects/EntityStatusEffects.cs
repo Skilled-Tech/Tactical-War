@@ -111,6 +111,8 @@ namespace Game
         public event OperationDelegate OnAfflect;
         public virtual void Afflict(StatusEffectData data, Entity affector)
         {
+            Debug.Log("Afflict");
+
             if (data.Type == null)
             {
                 Debug.LogWarning("No Status Effect Type was assigned to the argument data, can't add status effect to " + name);

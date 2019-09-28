@@ -40,7 +40,7 @@ MonoBehaviour:
     statusEffects:
     - upgrade: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
       probability:
-        min: 10
+        min: 40
         max: 80
       data:
         type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
