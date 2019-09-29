@@ -43,7 +43,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 503ca1f622f03e24bb6c1f475ba319c8, type: 3}
-    totalSpriteSurfaceArea: 42067456
+    totalSpriteSurfaceArea: 43065856
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -691,6 +691,36 @@ SpriteAtlas:
   - {fileID: -5695258936679597694, guid: b95ecec97ac64fa459b425b3ef8cee68, type: 3}
   - {fileID: 21300002, guid: 8af072d9e54ae824dbcd4c67c7eac50d, type: 3}
   - {fileID: 21300000, guid: 8af072d9e54ae824dbcd4c67c7eac50d, type: 3}
+  - {fileID: -2943790780882752751, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -5152756642455364435, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -183435877276265766, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: 3047455321101114946, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -1945169046676146081, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: 2507969334714882286, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -9167102825391177319, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -5784983588030798544, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -8172007207735305712, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: 2217629463824207347, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -2528335033144150265, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: 3216355870755822545, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: 5726069373643841881, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -310546898229598327, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -5717726902827565152, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -6216391122727152184, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -2528827736032361103, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: 3725875460971525372, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -8937861414695881560, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -4701482602590166121, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -2413191608457996529, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -6533180246881692265, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: 5015901851811286428, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -4861832780613120591, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: 3594360427449157571, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -8424245249586160499, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -1285391435739725725, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -1767139198770402998, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -2575444795325250252, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
+  - {fileID: -5695258936679597694, guid: 665288d9fa197ed4c98532114d4c3370, type: 3}
   - {fileID: 21300000, guid: 74c1e0e96bf63bc4c88b8eb728477ef9, type: 3}
   - {fileID: 21300000, guid: 057e91f9379997d40b259470f8d9d8a8, type: 3}
   - {fileID: 21300000, guid: 1c7c7b1a0db7caa4b961a72112a61e14, type: 3}
@@ -1612,6 +1642,36 @@ SpriteAtlas:
   - SideLegR
   - Side
   - Front
+  - BackFingersR
+  - SideFingersR
+  - BackFingersL
+  - BackHead
+  - FrontArmR
+  - SideBody
+  - FrontArmL
+  - FrontHandL
+  - FrontHandR
+  - FrontLegR
+  - FrontHead
+  - FrontLegL
+  - SideArmL
+  - SideArmR
+  - BackArmR
+  - SideHead
+  - BackArmL
+  - FrontBody
+  - BackHandL
+  - BackHandR
+  - SideHandL
+  - SideHandR
+  - SideSleeveL
+  - BackBody
+  - BackLegL
+  - FrontSleeveL
+  - SideLegL
+  - BackLegR
+  - FrontSleeveR
+  - SideLegR
   - ShortSword
   - ShortDagger
   - HollowAxe
