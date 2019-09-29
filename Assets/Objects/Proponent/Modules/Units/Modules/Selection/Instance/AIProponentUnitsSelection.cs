@@ -35,10 +35,23 @@ namespace Game
             [SerializeField]
             protected ItemUpgradesData upgrade;
             public ItemUpgradesData Upgrade { get { return upgrade; } }
+
+            public virtual void Configure()
+            {
+                upgrade.CheckDefaults(template);
+            }
         }
 
         public override IUnitSelectionData this[int index] => list[index];
 
         public override int Count => list.Length;
+
+        public override void Configure(Proponent reference)
+        {
+            base.Configure(reference);
+
+            for (int i = 0; i < list.Length; i++)
+                list[i].Configure();
+        }
     }
 }

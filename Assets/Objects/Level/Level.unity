@@ -504,7 +504,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   list:
-  - template: {fileID: 11400000, guid: 8b5bdedbe1f838f4286a37624b062ff2, type: 2}
+  - template: {fileID: 11400000, guid: a8bd3686eabbb124fbdadcc1c186b7f0, type: 2}
+    upgrade:
+      list:
+      - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+        value: 5
+      - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+        value: 5
+  - template: {fileID: 11400000, guid: 5817a7f1105a13447bdd801198d49109, type: 2}
+    upgrade:
+      list:
+      - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+        value: 5
+      - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+        value: 5
+  - template: {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
+    upgrade:
+      list:
+      - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+        value: 5
+      - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+        value: 5
+  - template: {fileID: 11400000, guid: 6a36fb4327677d5479e0bbe0ed809fc8, type: 2}
     upgrade:
       list:
       - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}

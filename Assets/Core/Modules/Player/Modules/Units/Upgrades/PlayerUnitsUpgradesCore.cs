@@ -136,7 +136,11 @@ namespace Game
             }
         }
 
-        void CheckDefaults(ItemUpgradeType[] types)
+        public virtual void CheckDefaults(ItemTemplate template)
+        {
+            CheckDefaults(template.Upgrades.Applicable);
+        }
+        public virtual void CheckDefaults(ItemUpgradeType[] types)
         {
             for (int i = 0; i < types.Length; i++)
             {
@@ -157,11 +161,13 @@ namespace Game
 
             Load(item.Instance);
 
-            CheckDefaults(item.Template.Upgrades.Applicable);
+            CheckDefaults(item.Template);
         }
-        public ItemUpgradesData(List<ElementData> list)
+        public ItemUpgradesData(UnitTemplate template, List<ElementData> list)
         {
             this.list = list;
+
+            CheckDefaults(template);
         }
     }
 }
