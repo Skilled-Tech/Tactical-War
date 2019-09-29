@@ -42,6 +42,10 @@ namespace Game
         public int Count { get { return List.Count; } }
 
         public event Action<int> OnCountChanged;
+        protected virtual void TriggerCountChanged()
+        {
+            if (OnCountChanged != null) OnCountChanged(Count);
+        }
 
         [SerializeField]
         protected int max = 10;
@@ -62,29 +66,29 @@ namespace Game
         {
             base.Init();
 
-            Creator.OnSpawn += OnUnitSpawn;
+            Creator.OnSpawn += SpawnCallback;
         }
 
-        void OnUnitSpawn(Unit unit)
+        void SpawnCallback(Unit unit)
         {
             unit.Index = Count;
 
             List.Add(unit);
 
-            unit.OnDeath += (Damage.Result result)=> UnitDealthCallback(unit, result);
+            unit.OnDeath += (Damage.Result result)=> DealthCallback(unit, result);
 
-            if (OnCountChanged != null) OnCountChanged(Count);
+            TriggerCountChanged();
         }
-
+        
         public delegate void UnitDeathDelegate(Unit unit, Damage.Result damage);
         public event UnitDeathDelegate OnUnitDeath;
-        void UnitDealthCallback(Unit unit, Damage.Result result)
+        void DealthCallback(Unit unit, Damage.Result result)
         {
             List.Remove(unit);
 
             UpdateIndexes();
 
-            if (OnCountChanged != null) OnCountChanged(Count);
+            TriggerCountChanged();
 
             if (OnUnitDeath != null) OnUnitDeath(unit, result);
         }

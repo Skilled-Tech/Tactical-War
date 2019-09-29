@@ -34,21 +34,23 @@ namespace Game
             Elements = new List<ProponentUnitCreationUITemplate>();
         }
 
+        public override void Init()
+        {
+            base.Init();
+
+            Set(Proponent.Units.Selection);
+        }
+
         void OnEnable()
         {
-            Proponent.Base.Units.Creator.OnDeployment += OnUnitDeployment;
+            Proponent.Base.Units.Creator.OnDeployment += UnitDeploymentCallback;
 
-            Proponent.Base.Units.OnUnitDeath += OnUnitDeath;
+            Proponent.Base.Units.OnUnitDeath += UnitDeathCallback;
 
-            Player.Funds.OnValueChanged += OnFundsChanged;
+            Player.Funds.OnValueChanged += FundsChangedCallback;
         }
 
-        void OnUnitDeath(Unit unit, Damage.Result damage)
-        {
-            UpdateState();
-        }
-
-        public virtual void SetSelection(IList<UnitTemplate> list)
+        protected virtual void Set(IList<UnitTemplate> list)
         {
             Clear();
 
@@ -59,33 +61,8 @@ namespace Game
 
                 var instance = Create(list[i]);
 
-                instance.Set(Proponent, list[i]);
-
                 Elements.Add(instance);
             }
-        }
-
-        void OnFundsChanged()
-        {
-            UpdateState();
-        }
-        void OnUnitDeployment(BaseUnitsCreator.Deployment deployment)
-        {
-            UpdateState();
-        }
-        void UpdateState()
-        {
-            for (int i = 0; i < Elements.Count; i++)
-                Elements[i].UpdateState();
-        }
-
-        public virtual ProponentUnitCreationUITemplate Create(UnitTemplate data)
-        {
-            var instance = Instantiate(template, transform);
-
-            var script = instance.GetComponent<ProponentUnitCreationUITemplate>();
-
-            return script;
         }
 
         public virtual void Clear()
@@ -98,13 +75,43 @@ namespace Game
             Elements.Clear();
         }
 
+        public virtual ProponentUnitCreationUITemplate Create(UnitTemplate template)
+        {
+            var instance = Instantiate(this.template, transform);
+
+            var script = instance.GetComponent<ProponentUnitCreationUITemplate>();
+
+            script.Set(Proponent, template);
+
+            return script;
+        }
+
+        void UnitDeathCallback(Unit unit, Damage.Result damage)
+        {
+            UpdateState();
+        }
+        void FundsChangedCallback()
+        {
+            UpdateState();
+        }
+        void UnitDeploymentCallback(BaseUnitsCreator.Deployment deployment)
+        {
+            UpdateState();
+        }
+
+        void UpdateState()
+        {
+            for (int i = 0; i < Elements.Count; i++)
+                Elements[i].UpdateState();
+        }
+
         void OnDisable()
         {
-            Proponent.Base.Units.Creator.OnDeployment -= OnUnitDeployment;
+            Proponent.Base.Units.Creator.OnDeployment -= UnitDeploymentCallback;
 
-            Proponent.Base.Units.OnUnitDeath -= OnUnitDeath;
+            Proponent.Base.Units.OnUnitDeath -= UnitDeathCallback;
 
-            Player.Funds.OnValueChanged -= OnFundsChanged;
+            Player.Funds.OnValueChanged -= FundsChangedCallback;
         }
     }
 }

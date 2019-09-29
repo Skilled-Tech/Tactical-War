@@ -25,6 +25,10 @@ namespace Game
         protected GameObject prefab;
         public GameObject Prefab { get { return prefab; } }
 
+        [SerializeField]
+        protected float intervals = 0.25f;
+        public float Intervals { get { return intervals; } }
+
         List<Entity> targets;
 
         public override void Configure(UnitAttack data)
@@ -80,8 +84,17 @@ namespace Game
 
         protected virtual void Process()
         {
+            StartCoroutine(Procedure());
+        }
+
+        IEnumerator Procedure()
+        {
             for (int i = 0; i < targets.Count; i++)
+            {
                 Perform(targets[i]);
+
+                yield return new WaitForSeconds(intervals);
+            }
         }
 
         protected virtual void Perform(Entity target)

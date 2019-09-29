@@ -74,7 +74,7 @@ namespace Game
 
         public virtual bool CanDeploy(UnitTemplate unit)
         {
-            return Units.Count + Deployments.Count < Units.Max && Proponent.Energy.Value >= unit.Deployment.Cost;
+            return Units.Count < Units.Max && Proponent.Energy.Value >= unit.Deployment.Cost;
         }
 
         public event Action<Deployment> OnDeployment;
@@ -111,7 +111,7 @@ namespace Game
         {
             var instance = Instantiate(data.Prefab, transform.position, transform.rotation);
 
-            instance.name = data.name + "(" + Proponent.name + ")";
+            instance.name = data.name + " (" + Proponent.name + ")";
 
             instance.transform.localScale = transform.lossyScale;
 

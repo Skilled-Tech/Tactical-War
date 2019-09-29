@@ -29,10 +29,5 @@ namespace Game
 
             Creator = Dependancy.Get<ProponentUnitsCreatorUI>(gameObject);
         }
-
-        public virtual void Set(BaseUnits units)
-        {
-            Creator.SetSelection(units.Proponent.Units.Selection);
-        }
     }
 }

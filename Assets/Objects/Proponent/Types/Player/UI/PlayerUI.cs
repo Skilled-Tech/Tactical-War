@@ -31,6 +31,8 @@ namespace Game
 
             public PlayerProponent Proponent { get { return HUD.Player; } }
 
+            public Base Base { get { return Proponent.Base; } }
+
             public Core Core { get { return Core.Instance; } }
             public PlayerCore Player { get { return Core.Player; } }
 
@@ -61,8 +63,6 @@ namespace Game
         public override void Init()
         {
             base.Init();
-
-            Units.Set(Player.Base.Units);
 
             Modules.Init(this);
         }

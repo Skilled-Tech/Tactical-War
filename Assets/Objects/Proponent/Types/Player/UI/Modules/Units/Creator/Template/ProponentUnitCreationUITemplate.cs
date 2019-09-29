@@ -43,7 +43,7 @@ namespace Game
         public ProgressBar Progress { get { return progress; } }
 
         public Proponent Player { get; protected set; }
-        public UnitTemplate Data { get; protected set; }
+        public UnitTemplate Template { get; protected set; }
 
         public Level Level { get { return Level.Instance; } }
 
@@ -63,7 +63,7 @@ namespace Game
         {
             if (Deployment == null)
             {
-                button.interactable = Player.Base.Units.Creator.CanDeploy(Data);
+                button.interactable = Player.Base.Units.Creator.CanDeploy(Template);
 
                 GrayscaleController.Off = button.interactable;
 
@@ -82,7 +82,7 @@ namespace Game
         public virtual void Set(PlayerProponent player, UnitTemplate template)
         {
             this.Player = player;
-            this.Data = template;
+            this.Template = template;
 
             template.Icon.ApplyTo(icon);
 
@@ -97,7 +97,7 @@ namespace Game
         public BaseUnitsCreator.Deployment Deployment { get; protected set; }
         IEnumerator ClickProcedure()
         {
-            Deployment = Player.Base.Units.Creator.Deploy(Data);
+            Deployment = Player.Base.Units.Creator.Deploy(Template);
 
             button.interactable = false;
 
