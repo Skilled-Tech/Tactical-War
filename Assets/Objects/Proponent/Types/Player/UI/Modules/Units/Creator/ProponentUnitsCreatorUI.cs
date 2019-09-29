@@ -50,16 +50,16 @@ namespace Game
             Player.Funds.OnValueChanged += FundsChangedCallback;
         }
 
-        protected virtual void Set(IList<UnitTemplate> list)
+        protected virtual void Set(ProponentUnitsSelection selection)
         {
             Clear();
 
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < selection.Count; i++)
             {
-                if (list[i] == null)
+                if (selection[i] == null)
                     continue;
 
-                var instance = Create(list[i]);
+                var instance = Create(selection[i]);
 
                 Elements.Add(instance);
             }
@@ -75,13 +75,13 @@ namespace Game
             Elements.Clear();
         }
 
-        public virtual ProponentUnitCreationUITemplate Create(UnitTemplate template)
+        public virtual ProponentUnitCreationUITemplate Create(IUnitSelectionData data)
         {
             var instance = Instantiate(this.template, transform);
 
             var script = instance.GetComponent<ProponentUnitCreationUITemplate>();
 
-            script.Set(Proponent, template);
+            script.Set(Proponent, data.Template);
 
             return script;
         }

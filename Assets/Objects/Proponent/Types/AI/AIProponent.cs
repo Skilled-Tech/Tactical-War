@@ -21,6 +21,8 @@ namespace Game
 {
     public class AIProponent : Proponent
     {
+        public ProponentUnitsSelection Selection { get { return Units.Selection; } }
+
         protected override void Start()
         {
             base.Start();
@@ -38,10 +40,12 @@ namespace Game
             {
                 if (Base.Units.Count < Enemy.Base.Units.Count + 4)
                 {
-                    if (Base.Units.Creator.CanDeploy(Units.Selection[0]))
+                    var random = Selection.Random;
+
+                    if (Base.Units.Creator.CanDeploy(random.Template))
                     {
                         if (deployment == null)
-                            deployment = Base.Units.Creator.Deploy(Units.Selection[Random.Range(0, Units.Selection.Count)]);
+                            deployment = Base.Units.Creator.Deploy(random.Template);
                         else
                         {
                             if (deployment.isComplete) deployment = null;

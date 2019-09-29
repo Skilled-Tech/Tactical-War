@@ -107,19 +107,21 @@ namespace Game
         }
 
         public event Action<Unit> OnSpawn;
-        protected virtual Unit Spawn(UnitTemplate data)
+        protected virtual Unit Spawn(UnitTemplate template)
         {
-            var instance = Instantiate(data.Prefab, transform.position, transform.rotation);
+            var instance = Instantiate(template.Prefab, transform.position, transform.rotation);
 
-            instance.name = data.name + " (" + Proponent.name + ")";
+            instance.name = template.name + " (" + Proponent.name + ")";
 
             instance.transform.localScale = transform.lossyScale;
 
             Tools.SetLayer(instance, Proponent.Layer);
 
             var unit = instance.GetComponent<Unit>();
+            
+            var data = Proponent.Units.Selection.Find(template);
 
-            unit.Configure(Proponent, data, Proponent.Units.GetUpgrade(data));
+            unit.Configure(Proponent, data);
 
             if (OnSpawn != null) OnSpawn(unit);
 

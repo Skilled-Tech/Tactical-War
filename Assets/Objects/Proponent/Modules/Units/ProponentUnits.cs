@@ -19,8 +19,10 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public abstract class ProponentUnits : Proponent.Module
+	public class ProponentUnits : Proponent.Module
 	{
+        public ProponentUnitsSelection Selection { get; protected set; }
+
         #region List
         public IList<Unit> List { get { return Base.Units.List; } }
 
@@ -45,10 +47,13 @@ namespace Game
         public int Count { get { return List.Count; } }
         #endregion
 
-        public abstract IList<UnitTemplate> Selection { get; }
-
         public Base Base { get { return Proponent.Base; } }
 
-        public abstract ItemUpgradesData GetUpgrade(UnitTemplate unit);
-	}
+        public override void Configure(Proponent reference)
+        {
+            base.Configure(reference);
+
+            Selection = Dependancy.Get<ProponentUnitsSelection>(gameObject);
+        }
+    }
 }

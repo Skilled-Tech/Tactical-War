@@ -95,11 +95,16 @@ namespace Game
 
             }
 
-            public ElementData(ItemUpgradeType type)
+            public ElementData(ItemUpgradeType type, int value)
             {
                 this.type = type;
 
-                this.value = 0;
+                this.value = value;
+            }
+
+            public ElementData(ItemUpgradeType type) : this(type, 0)
+            {
+                
             }
         }
 
@@ -153,6 +158,10 @@ namespace Game
             Load(item.Instance);
 
             CheckDefaults(item.Template.Upgrades.Applicable);
+        }
+        public ItemUpgradesData(List<ElementData> list)
+        {
+            this.list = list;
         }
     }
 }

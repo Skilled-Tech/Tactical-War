@@ -74,14 +74,14 @@ namespace Game
         }
 
         public Proponent Leader { get; protected set; }
-        public virtual void Configure(Proponent leader, UnitTemplate template, ItemUpgradesData upgreades)
+        public virtual void Configure(Proponent leader, IUnitSelectionData data)
         {
             this.Leader = leader;
 
-            this.Template = template;
+            this.Template = data.Template;
 
             Upgrades = Dependancy.Get<UnitUpgrades>(gameObject);
-            Upgrades.Set(upgreades);
+            Upgrades.Set(data.Upgrade);
         }
 
         protected override void Awake()
