@@ -13913,7 +13913,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1681906009137392258, guid: 10ac9a44221f1034db3c7bb4c7e8ca77, type: 3}
-  intervals: 0.05
+  intervals: 0.075
 --- !u!1001 &6173875893108143816
 PrefabInstance:
   m_ObjectHideFlags: 0
