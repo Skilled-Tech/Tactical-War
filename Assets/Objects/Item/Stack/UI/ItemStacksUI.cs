@@ -44,7 +44,7 @@ namespace Game
 
             if(requirements == null || requirements.Length == 0)
             {
-                label.text = "No Materials Required";
+                label.text = "No Requirements";
             }
             else
             {
