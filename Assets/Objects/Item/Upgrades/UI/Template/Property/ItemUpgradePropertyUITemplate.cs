@@ -25,10 +25,6 @@ namespace Game
     public class ItemUpgradePropertyUITemplate : MonoBehaviour
     {
         [SerializeField]
-        protected Image icon;
-        public Image Icon { get { return icon; } }
-
-        [SerializeField]
         protected TMP_Text label;
         public TMP_Text Label { get { return label; } }
 
@@ -41,9 +37,9 @@ namespace Game
         public ItemStacksUI Requirements { get { return requiremnets; } }
 
         [SerializeField]
-        protected Button button;
-        public Button Button { get { return button; } }
-        public TMP_Text ButtonLabel { get; protected set; }
+        protected Button buy;
+        public Button Buy { get { return buy; } }
+        public TMP_Text BuyLabel { get; protected set; }
 
         [SerializeField]
         protected TMP_Text price;
@@ -71,7 +67,9 @@ namespace Game
 
             requiremnets.Init();
 
-            ButtonLabel = button.GetComponentInChildren<TMP_Text>();
+            buy.onClick.AddListener(OnButon);
+
+            BuyLabel = buy.GetComponentInChildren<TMP_Text>();
         }
 
         public UnitTemplate Template { get; protected set; }
@@ -81,10 +79,7 @@ namespace Game
             this.Template = template;
             this.Type = type;
 
-            type.Icon.ApplyTo(icon);
             label.text = type.name + " Upgrade";
-
-            button.onClick.AddListener(OnButon);
 
             UpdateState();
         }
@@ -96,7 +91,7 @@ namespace Game
 
             if (data.Value >= template.Ranks.Length)
             {
-                button.interactable = false;
+                buy.interactable = false;
 
                 price.gameObject.SetActive(false);
 
@@ -109,16 +104,16 @@ namespace Game
                 price.gameObject.SetActive(true);
                 price.text = "Cost: " + rank.Cost.ToString();
 
-                button.interactable = Funds.CanAfford(rank.Cost) && Player.Inventory.CompliesWith(rank.Requirements);
+                buy.interactable = Funds.CanAfford(rank.Cost) && Player.Inventory.CompliesWith(rank.Requirements);
 
                 requiremnets.Set(rank.Requirements);
             }
 
             progression.Value = data.Value;
 
-            GrayscaleController.On = !button.interactable;
+            GrayscaleController.On = !buy.interactable;
 
-            ButtonLabel.color = button.interactable ? Color.white : Color.Lerp(Color.white, Color.black, 0.75f);
+            BuyLabel.color = buy.interactable ? Color.white : Color.Lerp(Color.white, Color.black, 0.75f);
         }
 
         void OnButon()
