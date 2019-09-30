@@ -31,38 +31,58 @@ namespace Game
         {
             [SerializeField]
             protected RectTransform panel;
-            public RectTransform Panel { get { return panel; } }
 
             [SerializeField]
             protected GameObject template;
-            public GameObject Template { get { return template; } }
 
             [SerializeField]
             protected ToggleGroup toggleGroup;
-            public ToggleGroup ToggleGroup { get { return toggleGroup; } }
+
+            [SerializeField]
+            protected float spacing = -10f;
+
+            [SerializeField]
+            protected bool autoSelectFirst = true;
 
             public List<ItemUpgradeTypeUITemplate> Instances { get; protected set; }
 
-            public virtual void Init()
+            public void Init()
             {
                 Instances = new List<ItemUpgradeTypeUITemplate>();
             }
-
-            public virtual void Set(IList<ItemUpgradeType> list)
+            
+            public void Set(IList<ItemUpgradeType> list)
             {
                 Clear();
+
+                toggleGroup.allowSwitchOff = true;
+
+                var templateWidth = template.GetComponent<RectTransform>().sizeDelta.x;
+
+                var templateSpace = templateWidth + spacing;
+
+                var totalWidth = templateSpace * (list.Count - 1);
 
                 for (int i = 0; i < list.Count; i++)
                 {
                     var instance = CreateTemplate(list[i]);
 
+                    var rate = i / (list.Count - 1f);
+
+                    var position = instance.RectTransform.anchoredPosition;
+                    {
+                        position.x = Mathf.Lerp(-totalWidth / 2f, totalWidth / 2f, rate);
+                    }
+                    instance.RectTransform.anchoredPosition = position;
+
                     Instances.Add(instance);
                 }
 
-                Instances[0].Toggle.isOn = true;
+                if (autoSelectFirst)
+                    Instances[0].Toggle.isOn = true;
             }
 
-            protected virtual ItemUpgradeTypeUITemplate CreateTemplate(ItemUpgradeType type)
+            private ItemUpgradeTypeUITemplate CreateTemplate(ItemUpgradeType type)
             {
                 var instance = Instantiate(this.template, panel);
 
@@ -79,10 +99,12 @@ namespace Game
             public event ItemUpgradeTypeUITemplate.SelectDelegate OnSelect;
             void SelectCallback(ItemUpgradeType type)
             {
+                toggleGroup.allowSwitchOff = false;
+
                 if (OnSelect != null) OnSelect(type);
             }
 
-            protected virtual void Clear()
+            private void Clear()
             {
                 for (int i = 0; i < Instances.Count; i++)
                     Destroy(Instances[i].gameObject);
@@ -113,16 +135,20 @@ namespace Game
             property.Init();
         }
 
-        void TypeSelectCallback(ItemUpgradeType type)
-        {
-            property.Set(Template, type);
-        }
-
         public override void Show()
         {
             base.Show();
 
+            property.Hide();
+
             type.Set(Template.Upgrades.Applicable);
+        }
+
+        void TypeSelectCallback(ItemUpgradeType selection)
+        {
+            property.Show();
+
+            property.Set(Template, selection);
         }
     }
 }

@@ -20,7 +20,8 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(Toggle))]
-	public class ItemUpgradeTypeUITemplate : UIElement
+    [RequireComponent(typeof(CanvasGroup))]
+    public class ItemUpgradeTypeUITemplate : UIElement
 	{
         [SerializeField]
         protected Image icon;
@@ -28,13 +29,37 @@ namespace Game
 
         public Toggle Toggle { get; protected set; }
 
+        public RectTransform RectTransform { get; protected set; }
+
+        public Vector2 Size { get { return RectTransform.sizeDelta; } }
+
+        public CanvasGroup CanvasGroup { get; protected set; }
+
+        public RateTransition RateTransition { get; protected set; }
+
         public virtual void Init(ToggleGroup togglegroup)
         {
             Toggle = GetComponent<Toggle>();
-
             Toggle.group = togglegroup;
-
             Toggle.onValueChanged.AddListener(ValueChangedCallback);
+
+            RectTransform = GetComponent<RectTransform>();
+
+            CanvasGroup = GetComponent<CanvasGroup>();
+
+            RateTransition = new RateTransition(this, 0.5f);
+            RateTransition.OnValueChanged += RateTransitionValueCallback;
+            RateTransition.Speed = 15f;
+            RateTransition.To(0f);
+        }
+
+        void RateTransitionValueCallback(float rate)
+        {
+            CanvasGroup.alpha = Mathf.Lerp(0.65f, 1f, rate);
+
+            var yPosition = Mathf.Lerp(Size.y * -0.15f, Size.y * 0.15f, rate);
+
+            RectTransform.anchoredPosition = new Vector2(RectTransform.anchoredPosition.x, yPosition);
         }
 
         public ItemUpgradeType Context { get; protected set; }
@@ -53,10 +78,12 @@ namespace Game
             if(isOn)
             {
                 if (OnSelect != null) OnSelect(Context);
+
+                RateTransition.To(1f);
             }
             else
             {
-
+                RateTransition.To(0f);
             }
         }
 	}

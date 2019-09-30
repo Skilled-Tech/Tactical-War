@@ -51,8 +51,6 @@ namespace Game
         {
             Level = data;
 
-            icon.sprite = Level.Icon;
-
             label.text = (index + 1).ToString();
 
             UpdateState();

@@ -22,7 +22,7 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-    public class ItemUpgradePropertyUITemplate : MonoBehaviour
+    public class ItemUpgradePropertyUITemplate : UIElement
     {
         [SerializeField]
         protected TMP_Text label;

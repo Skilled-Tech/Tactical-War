@@ -83,5 +83,9 @@ namespace Game
 
             this.Value = value;
         }
+        public RateTransition(MonoBehaviour behaviour) : this(behaviour, 0f)
+        {
+
+        }
 	}
 }
