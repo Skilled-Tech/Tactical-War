@@ -42,32 +42,25 @@ namespace Game
         {
             Clear();
 
-            if(requirements == null)
+            if(requirements == null || requirements.Length == 0)
             {
-                gameObject.SetActive(false);
+                label.text = "No Materials Required";
             }
             else
             {
-                gameObject.SetActive(true);
+                label.text = "Required";
 
-                if (requirements.Length == 0)
+                for (int i = 0; i < requirements.Length; i++)
                 {
-                    label.text = "No Materials Required";
-                }
-                else
-                {
-                    label.text = "Required";
+                    var instance = Create(requirements[i]);
 
-                    for (int i = 0; i < requirements.Length; i++)
-                    {
-                        var instance = Create(requirements[i]);
-
-                        Elements.Add(instance);
-                    }
+                    Elements.Add(instance);
                 }
             }
 
             label.transform.SetAsLastSibling();
+
+            Show();
         }
 
         protected virtual ItemStackUITemplate Create(ItemStack requirement)

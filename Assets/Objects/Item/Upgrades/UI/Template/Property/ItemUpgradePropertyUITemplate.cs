@@ -29,6 +29,10 @@ namespace Game
         public TMP_Text Label { get { return label; } }
 
         [SerializeField]
+        protected TMP_Text instruction;
+        public TMP_Text Instruction { get { return instruction; } }
+
+        [SerializeField]
         protected SlotsIndicator progression;
         public SlotsIndicator Progression { get { return progression; } }
 
@@ -39,7 +43,6 @@ namespace Game
         [SerializeField]
         protected Button buy;
         public Button Buy { get { return buy; } }
-        public TMP_Text BuyLabel { get; protected set; }
 
         [SerializeField]
         protected TMP_Text price;
@@ -68,8 +71,6 @@ namespace Game
             requiremnets.Init();
 
             buy.onClick.AddListener(OnButon);
-
-            BuyLabel = buy.GetComponentInChildren<TMP_Text>();
         }
 
         public UnitTemplate Template { get; protected set; }
@@ -89,20 +90,24 @@ namespace Game
             var data = Player.Units.Upgrades.Find(Template).Find(Type);
             var template = Template.Upgrades.Template.Find(Type);
 
-            if (data.Value >= template.Ranks.Length)
+            var isFull = data.Value >= template.Ranks.Length;
+
+            instruction.gameObject.SetActive(isFull);
+            buy.gameObject.SetActive(!isFull);
+
+            if (isFull)
             {
                 buy.interactable = false;
 
-                price.gameObject.SetActive(false);
+                requiremnets.Hide();
 
-                requiremnets.Set(null);
+                instruction.text = data.Value + "/" + template.Ranks.Length + " Full";
             }
             else
             {
                 var rank = template.Ranks[data.Value];
 
-                price.gameObject.SetActive(true);
-                price.text = "Cost: " + rank.Cost.ToString();
+                price.text = rank.Cost.ToString();
 
                 buy.interactable = Funds.CanAfford(rank.Cost) && Player.Inventory.CompliesWith(rank.Requirements);
 
@@ -111,9 +116,9 @@ namespace Game
 
             progression.Value = data.Value;
 
-            GrayscaleController.On = !buy.interactable;
+            GrayscaleController.Off = buy.interactable;
 
-            BuyLabel.color = buy.interactable ? Color.white : Color.Lerp(Color.white, Color.black, 0.75f);
+            price.color = buy.interactable ? Color.white : Color.Lerp(Color.white, Color.black, 0.6f);
         }
 
         void OnButon()
