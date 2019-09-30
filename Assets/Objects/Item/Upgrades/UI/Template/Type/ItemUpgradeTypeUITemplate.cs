@@ -57,7 +57,7 @@ namespace Game
         {
             CanvasGroup.alpha = Mathf.Lerp(0.65f, 1f, rate);
 
-            var yPosition = Mathf.Lerp(Size.y * -0.15f, Size.y * 0.15f, rate);
+            var yPosition = Mathf.Lerp(0f, Size.y * -0.15f, rate);
 
             RectTransform.anchoredPosition = new Vector2(RectTransform.anchoredPosition.x, yPosition);
         }

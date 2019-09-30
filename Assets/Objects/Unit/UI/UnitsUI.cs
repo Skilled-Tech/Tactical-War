@@ -74,7 +74,7 @@ namespace Game
 
         void OnListUnitClicked(UnitUITemplate template, UnitTemplate data)
         {
-            Context.Set(data);
+            Context.Show(data);
         }
     }
 }

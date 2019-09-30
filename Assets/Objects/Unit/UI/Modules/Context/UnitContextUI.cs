@@ -25,6 +25,8 @@ namespace Game
 	{
         public UnitCharacterUI Character { get; protected set; }
 
+        public UnitContextIteratorUI Iterator { get; protected set; }
+
         public UnitContextInitialUI Initial { get; protected set; }
 
         public UnitContextUpgradeUI Upgrade { get; protected set; }
@@ -38,13 +40,6 @@ namespace Game
             public override void Show()
             {
                 base.Show();
-
-                
-            }
-
-            protected override void OnEnable()
-            {
-                base.OnEnable();
 
                 UpdateState();
             }
@@ -61,6 +56,8 @@ namespace Game
 
             Character = Dependancy.Get<UnitCharacterUI>(gameObject);
 
+            Iterator = Dependancy.Get<UnitContextIteratorUI>(gameObject);
+
             Initial = Dependancy.Get<UnitContextInitialUI>(gameObject);
 
             Upgrade = Dependancy.Get<UnitContextUpgradeUI>(gameObject);
@@ -68,7 +65,7 @@ namespace Game
 
         public UnitTemplate Template { get; protected set; }
 
-        public virtual void Set(UnitTemplate template)
+        public virtual void Show(UnitTemplate template)
         {
             Template = template;
 

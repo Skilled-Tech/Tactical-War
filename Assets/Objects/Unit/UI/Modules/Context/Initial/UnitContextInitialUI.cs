@@ -57,16 +57,11 @@ namespace Game
             Player.Funds.OnValueChanged += UpdateState;
         }
 
-        public override void Show()
-        {
-            base.Show();
-
-            description.text = Template.Description;
-        }
-
         public override void UpdateState()
         {
             base.UpdateState();
+
+            description.text = Template.Description;
 
             var unlocked = Player.Inventory.Contains(Template.CatalogItem);
 
