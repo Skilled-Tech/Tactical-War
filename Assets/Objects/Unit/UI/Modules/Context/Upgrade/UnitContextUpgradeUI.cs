@@ -37,7 +37,16 @@ namespace Game
             protected GameObject template;
             public GameObject Template { get { return template; } }
 
+            [SerializeField]
+            protected ToggleGroup toggleGroup;
+            public ToggleGroup ToggleGroup { get { return toggleGroup; } }
+
             public List<ItemUpgradeTypeUITemplate> Instances { get; protected set; }
+
+            public virtual void Init()
+            {
+                Instances = new List<ItemUpgradeTypeUITemplate>();
+            }
 
             public virtual void Set(IList<ItemUpgradeType> list)
             {
@@ -45,22 +54,32 @@ namespace Game
 
                 for (int i = 0; i < list.Count; i++)
                 {
-                    var instance = CreateProperty(list[i]);
+                    var instance = CreateTemplate(list[i]);
 
                     Instances.Add(instance);
                 }
+
+                Instances[0].Toggle.isOn = true;
             }
 
-            protected virtual ItemUpgradeTypeUITemplate CreateProperty(ItemUpgradeType type)
+            protected virtual ItemUpgradeTypeUITemplate CreateTemplate(ItemUpgradeType type)
             {
                 var instance = Instantiate(this.template, panel);
 
                 var script = instance.GetComponent<ItemUpgradeTypeUITemplate>();
 
-                script.Init();
+                script.Init(toggleGroup);
                 script.Set(type);
 
+                script.OnSelect += SelectCallback;
+
                 return script;
+            }
+
+            public event ItemUpgradeTypeUITemplate.SelectDelegate OnSelect;
+            void SelectCallback(ItemUpgradeType type)
+            {
+                if (OnSelect != null) OnSelect(type);
             }
 
             protected virtual void Clear()
@@ -83,11 +102,27 @@ namespace Game
             
         }
 
+        public override void Init()
+        {
+            base.Init();
+
+            type.Init();
+
+            type.OnSelect += TypeSelectCallback;
+
+            property.Init();
+        }
+
+        void TypeSelectCallback(ItemUpgradeType type)
+        {
+            property.Set(Template, type);
+        }
+
         public override void Show()
         {
             base.Show();
 
-            
+            type.Set(Template.Upgrades.Applicable);
         }
     }
 }

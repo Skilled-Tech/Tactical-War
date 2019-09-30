@@ -19,20 +19,22 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(Button))]
+    [RequireComponent(typeof(Toggle))]
 	public class ItemUpgradeTypeUITemplate : UIElement
 	{
         [SerializeField]
         protected Image icon;
         public Image Icon { get { return icon; } }
 
-        public Button Button { get; protected set; }
+        public Toggle Toggle { get; protected set; }
 
-        public virtual void Init()
+        public virtual void Init(ToggleGroup togglegroup)
         {
-            Button = GetComponent<Button>();
+            Toggle = GetComponent<Toggle>();
 
-            Button.onClick.AddListener(ClickAction);
+            Toggle.group = togglegroup;
+
+            Toggle.onValueChanged.AddListener(ValueChangedCallback);
         }
 
         public ItemUpgradeType Context { get; protected set; }
@@ -44,11 +46,18 @@ namespace Game
             context.Icon.ApplyTo(icon);
         }
 
-        public delegate void ClickDelegate(ItemUpgradeType context);
-        public event ClickDelegate OnClick;
-        protected virtual void ClickAction()
+        public delegate void SelectDelegate(ItemUpgradeType type);
+        public event SelectDelegate OnSelect;
+        protected virtual void ValueChangedCallback(bool isOn)
         {
-            if (OnClick != null) OnClick(Context);
+            if(isOn)
+            {
+                if (OnSelect != null) OnSelect(Context);
+            }
+            else
+            {
+
+            }
         }
 	}
 }
