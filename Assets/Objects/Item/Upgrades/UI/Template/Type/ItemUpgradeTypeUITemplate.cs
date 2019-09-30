@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(Button))]
-	public class ItemUpgradeContextUITemplate : UIElement
+	public class ItemUpgradeTypeUITemplate : UIElement
 	{
         [SerializeField]
         protected Image icon;

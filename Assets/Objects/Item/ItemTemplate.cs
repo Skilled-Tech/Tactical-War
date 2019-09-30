@@ -204,7 +204,7 @@ namespace Game
         public Sprite Sprite { get { return sprite; } }
 
         [SerializeField]
-        [Range(0f, 360f)]
+        [Range(-360f, 360f)]
         protected float tilt;
         public float Tilt { get { return tilt; } }
 

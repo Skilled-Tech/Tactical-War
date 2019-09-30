@@ -24,53 +24,70 @@ namespace Game
     public class UnitContextUpgradeUI : UnitContextUI.Module
     {
         [SerializeField]
-        protected RectTransform panel;
-        public RectTransform Panel { get { return panel; } }
+        protected TypeData type;
+        public TypeData Type { get { return type; } }
+        [Serializable]
+        public class TypeData
+        {
+            [SerializeField]
+            protected RectTransform panel;
+            public RectTransform Panel { get { return panel; } }
+
+            [SerializeField]
+            protected GameObject template;
+            public GameObject Template { get { return template; } }
+
+            public List<ItemUpgradeTypeUITemplate> Instances { get; protected set; }
+
+            public virtual void Set(IList<ItemUpgradeType> list)
+            {
+                Clear();
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var instance = CreateProperty(list[i]);
+
+                    Instances.Add(instance);
+                }
+            }
+
+            protected virtual ItemUpgradeTypeUITemplate CreateProperty(ItemUpgradeType type)
+            {
+                var instance = Instantiate(this.template, panel);
+
+                var script = instance.GetComponent<ItemUpgradeTypeUITemplate>();
+
+                script.Init();
+                script.Set(type);
+
+                return script;
+            }
+
+            protected virtual void Clear()
+            {
+                for (int i = 0; i < Instances.Count; i++)
+                    Destroy(Instances[i].gameObject);
+
+                Instances.Clear();
+            }
+        }
 
         [SerializeField]
-        protected GameObject template;
-
-        public List<ItemUpgradeTypeUITemplate> Templates { get; protected set; }
+        protected ItemUpgradePropertyUITemplate property;
+        public ItemUpgradePropertyUITemplate Property { get { return property; } }
 
         public override void Configure(UnitsUI data)
         {
             base.Configure(data);
 
-            Templates = new List<ItemUpgradeTypeUITemplate>();
+            
         }
 
         public override void Show()
         {
             base.Show();
 
-            Clear();
-
-            for (int i = 0; i < Template.Upgrades.Applicable.Length; i++)
-            {
-                var instance = CreateProperty(Template, Template.Upgrades.Applicable[i]);
-
-                Templates.Add(instance);
-            }
-        }
-
-        protected virtual ItemUpgradeTypeUITemplate CreateProperty(UnitTemplate template, ItemUpgradeType type)
-        {
-            var instance = Instantiate(this.template, panel);
-
-            var script = instance.GetComponent<ItemUpgradeTypeUITemplate>();
-
-            script.Init();
-            script.Set(template, type);
-
-            return script;
-        }
-
-        protected virtual void Clear()
-        {
-            for (int i = 0; i < Templates.Count; i++)
-                Destroy(Templates[i].gameObject);
-
-            Templates.Clear();
+            
         }
     }
 }

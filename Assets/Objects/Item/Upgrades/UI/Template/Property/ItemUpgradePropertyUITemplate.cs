@@ -22,7 +22,7 @@ using PlayFab.ClientModels;
 
 namespace Game
 {
-    public class ItemUpgradeTypeUITemplate : MonoBehaviour
+    public class ItemUpgradePropertyUITemplate : MonoBehaviour
     {
         [SerializeField]
         protected Image icon;
@@ -81,7 +81,7 @@ namespace Game
             this.Template = template;
             this.Type = type;
 
-            icon.sprite = type.Icon;
+            type.Icon.ApplyTo(icon);
             label.text = type.name + " Upgrade";
 
             button.onClick.AddListener(OnButon);
