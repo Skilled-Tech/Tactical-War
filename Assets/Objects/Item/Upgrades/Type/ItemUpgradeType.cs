@@ -27,8 +27,8 @@ namespace Game
         public string ID { get { return name; } }
 
         [SerializeField]
-        protected Sprite icon;
-        public Sprite Icon { get { return icon; } }
+        protected IconProperty icon;
+        public IconProperty Icon { get { return icon; } }
 
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }

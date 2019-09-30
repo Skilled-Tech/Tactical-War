@@ -35,27 +35,8 @@ namespace Game
         public string DisplayName { get { return CatalogItem.DisplayName; } }
 
         [SerializeField]
-        protected IconData icon;
-        public IconData Icon { get { return icon; } }
-        [Serializable]
-        public class IconData
-        {
-            [SerializeField]
-            protected Sprite sprite;
-            public Sprite Sprite { get { return sprite; } }
-
-            [SerializeField]
-            [Range(0f, 360f)]
-            protected float tilt;
-            public float Tilt { get { return tilt; } }
-
-            public virtual void ApplyTo(Image image)
-            {
-                image.sprite = sprite;
-
-                image.rectTransform.localEulerAngles = Vector3.forward * tilt;
-            }
-        }
+        protected IconProperty icon;
+        public IconProperty Icon { get { return icon; } }
 
         [SerializeField]
         [TextArea]
@@ -212,6 +193,26 @@ namespace Game
             {
 
             }
+        }
+    }
+
+    [Serializable]
+    public class IconProperty
+    {
+        [SerializeField]
+        protected Sprite sprite;
+        public Sprite Sprite { get { return sprite; } }
+
+        [SerializeField]
+        [Range(0f, 360f)]
+        protected float tilt;
+        public float Tilt { get { return tilt; } }
+
+        public virtual void ApplyTo(Image image)
+        {
+            image.sprite = sprite;
+
+            image.rectTransform.localEulerAngles = Vector3.forward * tilt;
         }
     }
 }
