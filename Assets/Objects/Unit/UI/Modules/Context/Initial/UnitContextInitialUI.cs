@@ -91,8 +91,6 @@ namespace Game
         #region Unlock
         void UnlockClick()
         {
-            Context.Character.Slot.gameObject.SetActive(false);
-
             Popup.Show("Processing Purchase");
 
             Core.PlayFab.Purchase.OnResponse += PurchaseResponse;
@@ -125,8 +123,6 @@ namespace Game
                 Popup.Hide();
 
                 UpdateState();
-
-                Context.Character.Slot.gameObject.SetActive(true);
             }
             else
             {

@@ -30,14 +30,6 @@ namespace Game
 
             public static Core Core { get { return EditorTools.Core; } }
 
-            [MenuItem(MenuPath + "Play Offline")]
-            public static void PlayOffline()
-            {
-                Core.PlayFab.startOffline = true;
-
-                EditorApplication.EnterPlaymode();
-            }
-
             public static class Scenes
             {
                 public const string MenuPath = Tools.MenuPath + "Scenes/";
@@ -50,7 +42,7 @@ namespace Game
                     Load(Core.Login);
                 }
 
-                [MenuItem(MenuPath + "MainMenu")]
+                [MenuItem(MenuPath + "Main Menu")]
                 public static void MainMenu()
                 {
                     Load(Core.MainMenu);
@@ -66,6 +58,14 @@ namespace Game
                 {
                     EditorSceneManager.OpenScene(scene.Path);
                 }
+            }
+
+            [MenuItem(MenuPath + "Play Offline", priority = -200)]
+            public static void PlayOffline()
+            {
+                Core.PlayFab.startOffline = true;
+
+                EditorApplication.EnterPlaymode();
             }
         }
 	}

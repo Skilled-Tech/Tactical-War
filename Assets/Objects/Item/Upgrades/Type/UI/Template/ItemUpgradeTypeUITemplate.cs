@@ -129,8 +129,6 @@ namespace Game
 
             PlayFab.Upgrade.OnResponse += OnResponse;
             PlayFab.Upgrade.Perform(data, Type);
-
-            FindObjectOfType<UnitContextUI>().Character.Slot.gameObject.SetActive(false);
         }
 
         void OnResponse(ExecuteCloudScriptResult result, PlayFab.PlayFabError error)
@@ -159,8 +157,6 @@ namespace Game
                 Popup.Hide();
 
                 UpdateState();
-
-                FindObjectOfType<UnitContextUI>().Character.Slot.gameObject.SetActive(true);
             }
             else
             {

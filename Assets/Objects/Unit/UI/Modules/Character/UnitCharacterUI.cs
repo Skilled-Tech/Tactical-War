@@ -32,8 +32,8 @@ namespace Game
         public TMP_Text Type { get { return type; } }
 
         [SerializeField]
-        protected RectTransform slot;
-        public RectTransform Slot { get { return slot; } }
+        protected Transform slot;
+        public Transform Slot { get { return slot; } }
 
         public UnitTemplate Data { get; protected set; }
 
