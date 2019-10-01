@@ -33,29 +33,52 @@ namespace API
             return IDs;
         }
 
+        export class Template
+        {
+            signup: API.Rewards.Type;
+            daily: API.Rewards.Type[];
+
+            constructor(object: ITemplate)
+            {
+                this.signup = object.signup;
+                this.daily = object.daily;
+            }
+        }
+        interface ITemplate
+        {
+            signup: API.Rewards.Type;
+            daily: API.Rewards.Type[]
+        }
         export namespace Template
         {
-            export function Retrieve(): Data
+            export function Retrieve(): Template
             {
                 var json = PlayFab.Title.Data.Retrieve(Rewards.ID);
 
-                var object = JSON.parse(json);
+                var object = <Template>JSON.parse(json);
 
-                var instance = <Data>Object.assign(new Data(), object);
+                var instance = new Template(object);
 
                 return instance;
             }
-
-            export class Data
-            {
-                signup: API.Rewards.Type;
-                daily: API.Rewards.Type[];
-            }
         }
 
+        export class PlayerData
+        {
+            daily: PlayerData.Daily;
+
+            constructor(object: IPlayerData)
+            {
+                this.daily = object.daily;
+            }
+        }
+        interface IPlayerData
+        {
+            daily: PlayerData.Daily;
+        }
         export namespace PlayerData
         {
-            export function Retrieve(playerID: string): Instance
+            export function Retrieve(playerID: string): PlayerData | null
             {
                 let result = PlayFab.Player.Data.ReadOnly.Read(playerID, Rewards.ID);
 
@@ -73,59 +96,55 @@ namespace API
                     {
                         let json = result.Data[Rewards.ID].Value;
 
-                        let object = JSON.parse(json);
+                        if (json == null)
+                        {
 
-                        let instance = Object.assign(new Instance(), object);
+                        }
+                        else
+                        {
+                            let object = JSON.parse(json);
 
-                        return instance;
+                            let instance = new PlayerData(object);
+
+                            return instance;
+                        }
                     }
                 }
 
                 return null;
             }
 
-            export function Save(playerID: string, data: Instance)
+            export function Save(playerID: string, data: PlayerData)
             {
                 PlayFab.Player.Data.ReadOnly.Write(playerID, Rewards.ID, JSON.stringify(data));
             }
 
-            export function Update(playerID: string, data: Instance)
+            export function Update(playerID: string, data: PlayerData)
             {
                 data.daily.timestamp = new Date().toJSON();
 
                 Save(playerID, data);
             }
 
-            export class Instance
+            export class Daily
             {
-                daily: Daily.Data;
+                timestamp: string;
+                progress: number;
 
                 constructor()
                 {
-                    this.daily = new Daily.Data();
+                    this.timestamp = new Date().toJSON();
+                    this.progress = 0;
                 }
             }
-
             export namespace Daily
             {
-                export function Incremenet(data: Instance, templates: API.Rewards.Template.Data)
+                export function Incremenet(data: PlayerData, templates: API.Rewards.Template)
                 {
                     data.daily.progress++;
 
                     if (data.daily.progress >= templates.daily.length)
                         data.daily.progress = 0;
-                }
-
-                export class Data
-                {
-                    timestamp: string;
-                    progress: number;
-
-                    constructor()
-                    {
-                        this.timestamp = new Date().toJSON();
-                        this.progress = 0;
-                    }
                 }
             }
         }
@@ -146,6 +165,12 @@ namespace API
         {
             items: [string];
             droptable: DropTable;
+
+            constructor(items: [string], droptable: DropTable)
+            {
+                this.items = items;
+                this.droptable = droptable;
+            }
         }
     }
 }

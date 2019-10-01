@@ -12,4 +12,17 @@ namespace Utility
             return Math.round((date2.valueOf() - date1.valueOf()) / (86400000));
         }
     }
+
+    export namespace Class
+    {
+        export function Assign<T>(ctor: new () => T, props: Partial<T>): T
+        {
+            return Object.assign(new ctor(), props);
+        }
+
+        export function WriteProperty(target: any, name: string, value: any)
+        {
+            Object.defineProperty(target, name, { value: value });
+        }
+    }
 }

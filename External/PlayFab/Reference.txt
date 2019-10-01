@@ -1,0 +1,14 @@
+// (https://api.playfab.com/playstream/docs/PlayStreamEventModels)
+// (https://api.playfab.com/playstream/docs/PlayStreamProfileModels)
+
+Finish Level Arguments
+{
+  "region":"Grassland",
+  "level":0
+}
+
+Upgrade Item Arguments
+{
+  "itemInstanceId": "E52ED52BF6F7B1A6",
+  "upgradeType": "Damage"
+}

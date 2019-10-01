@@ -1,3 +1,4 @@
+"use strict";
 handlers.LoginReward = function (args, context) {
     let template = API.Rewards.Template.Retrieve();
     let playerData = API.Rewards.PlayerData.Retrieve(currentPlayerId);
@@ -134,12 +135,24 @@ var Utility;
 var API;
 (function (API) {
     class DropTable {
+        constructor(ID, iterations) {
+            this.ID = ID;
+            this.iterations = iterations;
+        }
     }
     API.DropTable = DropTable;
     class Cost {
+        constructor(type, value) {
+            this.type = type;
+            this.value = value;
+        }
     }
     API.Cost = Cost;
     class ItemStack {
+        constructor(item, count) {
+            this.item = item;
+            this.count = count;
+        }
     }
     API.ItemStack = ItemStack;
 })(API || (API = {}));

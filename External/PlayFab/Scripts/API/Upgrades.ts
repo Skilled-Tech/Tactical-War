@@ -4,89 +4,95 @@ namespace API
     {
         export const ID = "upgrades";
 
+        export class InstanceData
+        {
+            list: Array<InstanceData.Element>;
+
+            public Add(type: string): InstanceData.Element
+            {
+                var element = new InstanceData.Element(type, 0);
+
+                this.list.push(element);
+
+                return element;
+            }
+
+            public Contains(type: string): boolean
+            {
+                for (let i = 0; i < this.list.length; i++)
+                    if (this.list[i].type == type)
+                        return true;
+
+                return false;
+            }
+
+            public Find(type: string): InstanceData.Element | null
+            {
+                for (let i = 0; i < this.list.length; i++)
+                    if (this.list[i].type == type)
+                        return this.list[i];
+
+                return null;
+            }
+
+            public Increment(type: string): InstanceData.Element | null
+            {
+                let element = this.Find(type);
+
+                if (element == null)
+                    return null;
+                else
+                {
+                    element.value++;
+                    return element;
+                }
+            }
+
+            public ToJson(): string
+            {
+                return JSON.stringify(this.list);
+            }
+
+            constructor(list: Array<InstanceData.Element>)
+            {
+                this.list = list;
+            }
+        }
         export namespace InstanceData
         {
-            export function Load(itemInstance: PlayFabServerModels.ItemInstance): Instance
+            export function Load(itemInstance: PlayFabServerModels.ItemInstance): InstanceData | null
             {
-                let instance = new Instance;
                 if (itemInstance.CustomData == null)
                 {
 
                 }
                 else
                 {
-                    if (itemInstance.CustomData[Upgrades.ID] == null)
+                    var json = itemInstance.CustomData[Upgrades.ID];
+
+                    if (json == null)
                     {
 
                     }
                     else
                     {
-                        instance.FromJSON(itemInstance.CustomData[Upgrades.ID]);
+                        var object = JSON.parse(json);
+
+                        return new InstanceData(object);
                     }
                 }
 
-                return instance;
+                return null;
             }
 
-            export function Save(playerID: string, itemInstance: PlayFabServerModels.ItemInstance, instance: Instance)
+            export function Save(playerID: string, itemInstance: PlayFabServerModels.ItemInstance, data: InstanceData)
             {
-                let json = instance.ToJson();
+                let json = data.ToJson();
 
                 PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstance.ItemInstanceId, API.Upgrades.ID, json);
             }
 
-            export class Instance
-            {
-                list: Element[];
-
-                public Add(type: string)
-                {
-                    this.list.push(new Element(type, 0));
-                }
-
-                public Contains(type: string): boolean
-                {
-                    for (let i = 0; i < this.list.length; i++)
-                        if (this.list[i].type == type)
-                            return true;
-
-                    return false;
-                }
-
-                public Find(type: string): Element
-                {
-                    for (let i = 0; i < this.list.length; i++)
-                        if (this.list[i].type == type)
-                            return this.list[i];
-
-                    return null;
-                }
-
-                public Increment(type: string)
-                {
-                    let element = this.Find(type);
-
-                    element.value++;
-                }
-
-                public FromJSON(text: string)
-                {
-                    var object = JSON.parse(text);
-
-                    this.list = Object.assign([], object);
-                }
-                public ToJson(): string
-                {
-                    return JSON.stringify(this.list);
-                }
-
-                constructor()
-                {
-                    this.list = [];
-                }
-            }
-
-            class Element
+            export class Element
             {
                 type: string;
                 value: number;
@@ -99,11 +105,27 @@ namespace API
             }
         }
 
+        export class ItemData
+        {
+            template: string;
+            applicable: string[];
+
+            constructor(object: IItemData)
+            {
+                this.template = object.template;
+                this.applicable = object.applicable;
+            }
+        }
+        interface IItemData
+        {
+            template: string;
+            applicable: string[];
+        }
         export namespace ItemData
         {
             export const Default = "Default";
 
-            export function Load(catalogItem: PlayFabServerModels.CatalogItem): Instance
+            export function Load(catalogItem: PlayFabServerModels.CatalogItem): ItemData | null
             {
                 if (catalogItem == null) return null;
 
@@ -111,28 +133,55 @@ namespace API
 
                 let object = JSON.parse(catalogItem.CustomData);
 
-                if (object[ID] == null)
-                {
+                var element = object[ID];
 
-                }
+                if (element == null) return null;
 
-                let data = Object.assign(new Instance(), object[ID]) as Instance;
-
-                if (data.template == null) data.template = Default;
+                let data = new ItemData(element);
 
                 return data;
             }
-
-            export class Instance
-            {
-                template: string;
-                applicable: string[];
-            }
         }
 
+        export class Template
+        {
+            name: string;
+            elements: Template.Element[];
+
+            Find(name: string): Template.Element | null
+            {
+                for (let i = 0; i < this.elements.length; i++)
+                    if (this.elements[i].type == name)
+                        return this.elements[i];
+
+                return null;
+            }
+
+            Match(name: string, data: InstanceData): Template.Rank | null
+            {
+                let element = this.Find(name);
+                if (element == null) return null;
+
+                let dataElement = data.Find(name);
+                if (dataElement == null) return null;
+
+                return element.ranks[dataElement.value];
+            }
+
+            constructor(object: ITemplate)
+            {
+                this.name = object.name;
+                this.elements = object.elements;
+            }
+        }
+        interface ITemplate
+        {
+            name: string;
+            elements: Template.Element[];
+        }
         export namespace Template
         {
-            export function Find(json: string, name: string): Instance
+            export function Find(json: string, name: string): ItemData | null
             {
                 if (json == null) return null;
 
@@ -154,31 +203,23 @@ namespace API
 
                 return instance;
             }
-
-            export class Instance
+            function ParseAll(json: string)
             {
-                name: string;
-                elements: Element[];
+                var titleData = PlayFab.Title.Data.RetrieveAll([API.Upgrades.ID]);
 
-                Find(name: string): Element
-                {
-                    for (let i = 0; i < this.elements.length; i++)
-                        if (this.elements[i].type == name)
-                            return this.elements[i];
-
-                    return null;
-                }
-
-                Match(name: string, data: Upgrades.InstanceData.Instance): Rank
-                {
-                    return this.Find(name).ranks[data.Find(name).value];
-                }
+                if (titleData.Data[API.Upgrades.ID])
             }
 
             export class Element
             {
                 type: string;
                 ranks: Rank[];
+
+                constructor(type: string, ranks: Rank[])
+                {
+                    this.type = type;
+                    this.ranks = ranks;
+                }
             }
 
             export class Rank
@@ -186,6 +227,13 @@ namespace API
                 cost: API.Cost;
                 percentage: number;
                 requirements: API.ItemStack[]
+
+                constructor(cost: API.Cost, percentage: number, requirements: API.ItemStack[])
+                {
+                    this.cost = cost;
+                    this.percentage = percentage;
+                    this.requirements = requirements;
+                }
             }
         }
     }
