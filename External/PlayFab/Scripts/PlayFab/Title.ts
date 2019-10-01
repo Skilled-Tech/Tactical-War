@@ -25,11 +25,32 @@ namespace PlayFab
             }
         }
 
+        export class Catalog
+        {
+            items: PlayFabServerModels.CatalogItem[];
+
+            public FindWithID(itemID: string): PlayFabServerModels.CatalogItem | null
+            {
+                for (let i = 0; i < this.items.length; i++)
+                    if (this.items[i].ItemId == itemID)
+                        return this.items[i];
+
+                return null;
+            }
+
+            constructor(items?: PlayFabServerModels.CatalogItem[])
+            {
+                if (items == null)
+                    this.items = [];
+                else
+                    this.items = items;
+            }
+        }
         export namespace Catalog
         {
             export const Default = "Default";
 
-            export function Retrieve(version: string): Data
+            export function Retrieve(version: string): Catalog
             {
                 let result = server.GetCatalogItems(
                     {
@@ -37,26 +58,7 @@ namespace PlayFab
                     }
                 );
 
-                return new Data(result.Catalog);
-            }
-
-            export class Data
-            {
-                items: PlayFabServerModels.CatalogItem[];
-
-                public FindWithID(itemID: string): PlayFabServerModels.CatalogItem
-                {
-                    for (let i = 0; i < this.items.length; i++)
-                        if (this.items[i].ItemId == itemID)
-                            return this.items[i];
-
-                    return null;
-                }
-
-                constructor(Items: PlayFabServerModels.CatalogItem[])
-                {
-                    this.items = Items;
-                }
+                return new Catalog(result.Catalog);
             }
 
             export namespace Item
@@ -82,18 +84,22 @@ namespace PlayFab
                         ItemIds: itemIDs
                     });
 
+                    if (result.ItemGrantResults == null) return [];
+
                     return result.ItemGrantResults;
                 }
             }
 
             export namespace Tables
             {
-                export function Evaluate(tableID: string): string
+                export function Evaluate(tableID: string): string | null
                 {
                     let result = server.EvaluateRandomResultTable({
                         CatalogVersion: Catalog.Default,
                         TableId: tableID
                     });
+
+                    if (result.ResultItemId == null) return null;
 
                     return result.ResultItemId;
                 }
@@ -105,6 +111,8 @@ namespace PlayFab
                     for (let i = 0; i < table.iterations; i++)
                     {
                         let item = Evaluate(table.ID);
+
+                        if (item == null) continue;
 
                         items.push(item);
                     }

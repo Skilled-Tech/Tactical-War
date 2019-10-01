@@ -51,9 +51,11 @@ namespace API
         }
         export namespace Template
         {
-            export function Retrieve(): Template
+            export function Retrieve(): Template | null
             {
                 var json = PlayFab.Title.Data.Retrieve(Rewards.ID);
+
+                if (json == null) return null;
 
                 var object = <Template>JSON.parse(json);
 

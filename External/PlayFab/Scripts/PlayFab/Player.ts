@@ -152,11 +152,18 @@ namespace PlayFab
                     return result;
                 }
 
-                export function Read(playerID: string, key: string): PlayFabServerModels.GetUserDataResult
+                export function Read(playerID: string, key: string): string | null
                 {
-                    var result = ReadAll(playerID, [key]);
+                    let result = ReadAll(playerID, [key]);
 
-                    return result;
+                    if (result.Data == null) return null;
+
+                    if (result.Data[key] == null) return null;
+
+                    let value = result.Data[key].Value;
+                    if (value == null) return null;
+
+                    return value;
                 }
 
                 export function Write(playerID: string, key: string, value: string): PlayFabServerModels.UpdateUserDataResult

@@ -87,9 +87,15 @@ namespace API
 
             export function Save(playerID: string, itemInstance: PlayFabServerModels.ItemInstance, data: InstanceData)
             {
-                let json = data.ToJson();
+                var itemInstanceID = itemInstance.ItemInstanceId;
 
-                PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstance.ItemInstanceId, API.Upgrades.ID, json);
+                if (itemInstanceID == null)
+                {
+                    log.debug("No Instance ID defined for item instance");
+                    return;
+                }
+
+                PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstanceID, API.Upgrades.ID, data.ToJson());
             }
 
             export class Element
@@ -181,33 +187,27 @@ namespace API
         }
         export namespace Template
         {
-            export function Find(json: string, name: string): ItemData | null
+            export function Find(name: string): Template | null
             {
+                let list = GetAll();
+
+                if (list == null) return null;
+
+                for (let i = 0; i < list.length; i++)
+                    if (list[i].name == name)
+                        return new Template(list[i]);
+
+                return null;
+            }
+            export function GetAll(): ITemplate[] | null
+            {
+                let json = PlayFab.Title.Data.Retrieve(API.Upgrades.ID);
+
                 if (json == null) return null;
 
-                if (name == null) return null;
+                var object = <ITemplate[]>JSON.parse(json);
 
-                let object = JSON.parse(json);
-
-                let target = object.find(x => x.name == name);
-
-                let template = Object.assign(new Instance(), target);
-
-                return template;
-            }
-            export function Parse(json: string): Instance
-            {
-                let object = JSON.parse(json);
-
-                let instance = Object.assign(new Instance(), object);
-
-                return instance;
-            }
-            function ParseAll(json: string)
-            {
-                var titleData = PlayFab.Title.Data.RetrieveAll([API.Upgrades.ID]);
-
-                if (titleData.Data[API.Upgrades.ID])
+                return object;
             }
 
             export class Element
