@@ -108,6 +108,17 @@ namespace Game
             Modules.Init(this);
         }
 
+        protected virtual void Update()
+        {
+            Process();
+        }
+
+        public event Action OnProcess;
+        protected virtual void Process()
+        {
+            if (OnProcess != null) OnProcess();
+        }
+
         protected override void Death(Damage.Result result)
         {
             Leader.Enemy.Energy.Value += Template.Deployment.Cost;

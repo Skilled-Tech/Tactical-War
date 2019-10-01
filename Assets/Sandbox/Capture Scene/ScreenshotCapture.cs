@@ -1,5 +1,7 @@
 ﻿#if UNITY_EDITOR
+using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 using System.IO;
 
 using UnityEngine;
@@ -10,70 +12,78 @@ using UnityEditor;
 [RequireComponent(typeof(Camera))]
 public class ScreenshotCapture : MonoBehaviour
 {
-    [SerializeField]
-    new Camera camera;
+    Camera _camera;
+    public new Camera camera
+    {
+        get
+        {
+            if(_camera == null)
+                _camera = GetComponent<Camera>();
 
-    public GameObject[] subjects;
+            return _camera;
+        }
+    }
+
+    public List<GameObject> subjects;
+
+    [SerializeField]
+    protected string outPutFolder = "External/Screenshots/";
+    public string OutPutFolder { get { return outPutFolder; } }
 
     public int Width { get { return Screen.width; } }
     public int Height { get { return Screen.height; } }
 
-    Texture2D Texture;
-
-    void Reset()
+    IEnumerator Start()
     {
-        camera = GetComponent<Camera>();
+        yield return Procedure();
     }
 
-    IEnumerator Start()
+    IEnumerator Procedure()
     {
         yield return new WaitForEndOfFrame();
 
-        foreach (var subject in subjects)
-            subject.SetActive(false);
+        subjects.ForEach(x => x.SetActive(false));
 
         foreach (var subject in subjects)
         {
-            subject.SetActive(true);
-
-            Capture();
-
-            subject.SetActive(false);
+            yield return Capture(subject);
         }
-    }
-
-    void Capture()
-    {
-        Texture = new Texture2D(Width, Height, TextureFormat.ARGB32, false);
-
-        camera.Render();
-
-        WriteScreenToTexture(Texture);
-
-        SaveTexture(Texture);
 
         EditorApplication.isPlaying = false;
     }
 
+    IEnumerator Capture(GameObject subject)
+    {
+        subject.SetActive(true);
+
+        var texture = new Texture2D(Width, Height, TextureFormat.ARGB32, false);
+
+        camera.Render();
+
+        WriteScreenToTexture(texture);
+
+        SaveTexture(subject.name, texture);
+
+        subject.SetActive(false);
+
+        yield break;
+    }
+
     void WriteScreenToTexture(Texture2D texture)
     {
-        Debug.Log(Width + " : " + Height);
-
         texture.ReadPixels(new Rect(0, 0, Width, Height), 0, 0);
 
         texture.Apply();
     }
 
-    void SaveTexture(Texture2D texture)
+    void SaveTexture(string name, Texture2D texture)
     {
         var png = texture.EncodeToPNG();
 
-        var directory = "Screenshots/";
+        if (Directory.Exists(outPutFolder) == false)
+            Directory.CreateDirectory(outPutFolder);
 
-        if (Directory.Exists(directory) == false)
-            Directory.CreateDirectory(directory);
-
-        File.WriteAllBytes(directory + "Shot " + DateTime.Now.ToString("HH-mm-ss-fff") + ".png", png);
+        File.WriteAllBytes(outPutFolder + name + ".png", png);
     }
 
     [CustomEditor(typeof(ScreenshotCapture))]
@@ -89,9 +99,6 @@ public class ScreenshotCapture : MonoBehaviour
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-
-            if (GUILayout.Button("Capture"))
-                target.Capture();
         }
     }
 }

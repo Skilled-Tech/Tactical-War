@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public abstract class UnitController : Unit.Module
+    public class UnitController : Unit.Module
     {
         public Proponent Enemy { get { return Leader.Enemy; } }
 
@@ -35,31 +35,38 @@ namespace Game
 
         void Update()
         {
-            if(isAttacking)
+            if(Unit.isActiveAndEnabled)
             {
+                if (isAttacking)
+                {
 
+                }
+                else
+                {
+                    if (Index < Attack.Range.Value)
+                    {
+                        if (Enemy.Base.Units.Count == 0)
+                            Target = Enemy.Base;
+                        else
+                            Target = Enemy.Base.Units.First;
+                    }
+                    else
+                    {
+                        Target = null;
+                    }
+
+                    if (Index == 0)
+                        isMoving = !MoveTo(Target, Attack.Distance + 0.5f);
+                    else
+                        isMoving = !MoveTo(Base.Units.List[Index - 1], 1f);
+
+                    if (Target != null && !isMoving && !isAttacking && (Index == 0 || !Base.Units.List[Index - 1].Controller.isMoving))
+                        Attack.Perform();
+                }
             }
             else
             {
-                if (Index < Attack.Range.Value)
-                {
-                    if (Enemy.Base.Units.Count == 0)
-                        Target = Enemy.Base;
-                    else
-                        Target = Enemy.Base.Units.First;
-                }
-                else
-                {
-                    Target = null;
-                }
 
-                if (Index == 0)
-                    isMoving = !MoveTo(Target, Attack.Distance + 0.5f);
-                else
-                    isMoving = !MoveTo(Base.Units.List[Index - 1], 1f);
-
-                if (Target != null && !isMoving && !isAttacking && (Index == 0 || !Base.Units.List[Index - 1].Controller.isMoving))
-                    Attack.Perform();
             }
         }
 
