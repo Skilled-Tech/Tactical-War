@@ -22,7 +22,13 @@ namespace Utility
 
         export function WriteProperty(target: any, name: string, value: any)
         {
-            Object.defineProperty(target, name, { value: value });
+            let descriptor: PropertyDescriptor = {
+                value: value,
+                enumerable: true,
+                writable: false,
+            }
+
+            Object.defineProperty(target, name, descriptor);
         }
     }
 }

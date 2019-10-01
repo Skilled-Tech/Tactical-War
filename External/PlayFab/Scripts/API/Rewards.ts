@@ -51,13 +51,13 @@ namespace API
         }
         export namespace Template
         {
-            export function Retrieve(): Template | null
+            export function Retrieve(): Template
             {
                 var json = PlayFab.Title.Data.Retrieve(Rewards.ID);
 
-                if (json == null) return null;
+                if (json == null) throw "no rewards template defined";
 
-                var object = <Template>JSON.parse(json);
+                var object = <ITemplate>JSON.parse(json);
 
                 var instance = new Template(object);
 
@@ -84,36 +84,20 @@ namespace API
             {
                 let result = PlayFab.Player.Data.ReadOnly.Read(playerID, Rewards.ID);
 
-                if (result.Data == null)
-                {
+                if (result == null) return null;
 
-                }
-                else
-                {
-                    if (result.Data[Rewards.ID] == null)
-                    {
+                let object = JSON.parse(result);
 
-                    }
-                    else
-                    {
-                        let json = result.Data[Rewards.ID].Value;
+                let instance = new PlayerData(object);
 
-                        if (json == null)
-                        {
+                return instance;
+            }
 
-                        }
-                        else
-                        {
-                            let object = JSON.parse(json);
+            export function Create(): PlayerData
+            {
+                var data = new PlayerData({ daily: Daily.Create() });
 
-                            let instance = new PlayerData(object);
-
-                            return instance;
-                        }
-                    }
-                }
-
-                return null;
+                return data;
             }
 
             export function Save(playerID: string, data: PlayerData)
@@ -133,10 +117,10 @@ namespace API
                 timestamp: string;
                 progress: number;
 
-                constructor()
+                constructor(timestamp: string, progress: number)
                 {
-                    this.timestamp = new Date().toJSON();
-                    this.progress = 0;
+                    this.timestamp = timestamp;
+                    this.progress = progress;
                 }
             }
             export namespace Daily
@@ -147,6 +131,13 @@ namespace API
 
                     if (data.daily.progress >= templates.daily.length)
                         data.daily.progress = 0;
+                }
+
+                export function Create(): Daily
+                {
+                    var instance = new Daily(new Date().toJSON(), 0);
+
+                    return instance;
                 }
             }
         }

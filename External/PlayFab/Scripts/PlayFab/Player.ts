@@ -172,6 +172,8 @@ namespace PlayFab
 
                     Utility.Class.WriteProperty(data, key, value);
 
+                    log.info(JSON.stringify(data));
+
                     var result = server.UpdateUserReadOnlyData({
                         PlayFabId: playerID,
                         Data: data,

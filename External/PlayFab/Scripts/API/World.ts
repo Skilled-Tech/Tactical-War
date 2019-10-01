@@ -42,7 +42,7 @@ namespace API
         }
         export namespace PlayerData
         {
-            export function Retrieve(playerID: string): PlayerData | null
+            export function Retrieve(playerID: string): PlayerData
             {
                 let json = PlayFab.Player.Data.ReadOnly.Read(playerID, Name);
 
@@ -58,77 +58,79 @@ namespace API
                 return instance;
             }
 
-            export function Validate(data: PlayerData, world: Template, args: IFinishLevelArguments)
-            {
-                if (data.Contains(args.region))
-                {
-
-                }
-                else
-                {
-                    if (args.region == world.regions[0].name)
-                    {
-                        let instance = new Region(args.region, 1);
-
-                        data.Add(instance);
-                    }
-                    else
-                    {
-                        throw "Can't begin data indexing from " + args.region + " region";
-                    }
-                }
-            }
-
-            export function Incremenet(data: PlayerData, world: Template, args: IFinishLevelArguments)
-            {
-                let region = data.Find(args.region);
-
-                if (region == null) return;
-
-                region.progress += 1;
-
-                Progress(data, world, region.progress, args);
-            }
-
-            export function Progress(data: PlayerData, world: Template, progress: number, args: IFinishLevelArguments)
-            {
-                let region = world.Find(args.region);
-
-                if (region == null) return;
-
-                if (progress == region.levels.length) //Completed All Levels
-                {
-                    let index = world.IndexOf(region.name);
-
-                    if (index == null) return;
-
-                    if (index >= world.regions.length - 1) //Completed All Regions
-                    {
-
-                    }
-                    else
-                    {
-                        let next = world.regions[index + 1];
-
-                        if (data.Contains(next.name)) //Region Already Unlocked
-                        {
-
-                        }
-                        else
-                        {
-                            let instance = new Region(next.name, 1);
-
-                            data.Add(instance);
-                        }
-                    }
-                }
-            }
-
             export function Save(playerID: string, data: PlayerData)
             {
                 let json = JSON.stringify(data);
 
                 PlayFab.Player.Data.ReadOnly.Write(playerID, Name, json);
+            }
+
+            export class Instance
+            {
+                data: PlayerData;
+
+                region: Region;
+                GetRegion(world: Template.Instance, name: string): Region
+                {
+                    if (this.data.Contains(name))
+                    {
+
+                    }
+                    else
+                    {
+                        if (this.HasAccessToRegion(world, name))
+                        {
+                            let instance = new Region(name, 1);
+
+                            this.data.Add(instance);
+                        }
+                        else
+                        {
+                            throw "Trying to index " + name + " region without having access to that region";
+                        }
+                    }
+
+                    var result = this.data.Find(name);
+
+                    if (result == null)
+                        throw "No " + name + " region found in player data";
+
+                    return result;
+                }
+
+                HasAccessToRegion(world: Template.Instance, currentRegion: string): boolean
+                {
+                    var index = world.template.IndexOf(currentRegion);
+
+                    if (index == null)
+                        throw "No region index for " + name + " was found in world template";
+
+                    if (index == 0)
+                        return true;
+
+                    var previousRegion = world.template.regions[index - 1];
+
+                    var previousRegionData = this.data.Find(previousRegion.name);
+
+                    if (previousRegionData == null) return false;
+
+                    return previousRegionData.progress > previousRegion.levels.length;
+                }
+
+                get progress(): number { return this.region.progress; }
+                set progress(value: number) { this.region.progress = value; }
+
+                Increment()
+                {
+                    this.progress += 1;
+                }
+
+                constructor(playerID: string, instance: Template.Instance, region: string)
+                {
+                    this.data = Retrieve(playerID);
+
+                    this.region = this.GetRegion(instance, region);
+                }
             }
 
             export class Region
@@ -147,6 +149,13 @@ namespace API
         export class Template
         {
             regions: Template.Region[];
+
+
+            public get Last(): Template.Region
+            {
+                return this.regions[this.regions.length - 1];
+            }
+
 
             public Find(name: string): Template.Region | null
             {
@@ -218,6 +227,42 @@ namespace API
                     {
                         throw "Level " + args.level + " on " + args.region + " region doesn't exist";
                     }
+                }
+            }
+
+            export class Instance
+            {
+                template: Template;
+
+                region: Region;
+                GetRegion(name: string): Region
+                {
+                    let result = this.template.Find(name);
+
+                    if (result == null)
+                        throw "No region named " + name + " found in world template";
+
+                    return result;
+                }
+
+                level: Level;
+                GetLevel(index: number): Level
+                {
+                    let result = this.region.levels[index];
+
+                    if (result == null)
+                        throw "No level indexed " + index + " found in " + this.region.name + " world region template";
+
+                    return result;
+                }
+
+                constructor(region: string, level: number)
+                {
+                    this.template = API.World.Template.Retrieve();
+
+                    this.region = this.GetRegion(region);
+
+                    this.level = this.GetLevel(level);
                 }
             }
 

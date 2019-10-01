@@ -5,7 +5,7 @@ handlers.LoginReward = function (args, context) {
     let itemIDs = new Array();
     if (playerData == null) //Signup
      {
-        playerData = new API.Rewards.PlayerData.Instance();
+        playerData = API.Rewards.PlayerData.Create();
         var signupItems = API.Rewards.Grant(currentPlayerId, template.signup, "Signup Reward");
         itemIDs = itemIDs.concat(signupItems);
     }
@@ -29,42 +29,38 @@ handlers.LoginReward = function (args, context) {
     return result;
 };
 handlers.FinishLevel = function (args) {
-    let world = API.World.Template.Retrieve();
     try {
-        API.World.Template.Validate(world, args);
+        var world = new API.World.Template.Instance(args.region, args.level);
     }
     catch (error) {
         log.error(error);
         return;
     }
-    let playerData = API.World.PlayerData.Retrieve(currentPlayerId);
     try {
-        API.World.PlayerData.Validate(playerData, world, args);
+        var playerData = new API.World.PlayerData.Instance(currentPlayerId, world, args.region);
     }
     catch (error) {
         log.error(error);
         return;
     }
-    let progress = playerData.Find(args.region).progress;
-    if (args.level >= progress) //cheating... probably
+    if (args.level >= playerData.progress) //cheating... probably
      {
         log.error("trying to finish level " + args.level + " without finishing the previous level ");
         return;
     }
     let itemIDs = new Array();
-    var level = world.Find(args.region).levels[args.level];
-    if (args.level == progress - 1) //Initial
+    if (args.level == playerData.progress - 1) //Initial
      {
         log.info("Initial Completion");
-        API.World.PlayerData.Incremenet(playerData, world, args);
-        API.World.PlayerData.Save(currentPlayerId, playerData);
-        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, level.reward.initial, "Level Completion Award");
+        playerData.Increment();
+        API.World.PlayerData.Save(currentPlayerId, playerData.data);
+        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, world.level.reward.initial, "Level Completion Award");
         itemIDs = itemIDs.concat(rewardItemIDs);
     }
-    if (args.level < progress - 1) //Recurring
+    else //Recurring
      {
         log.info("Recurring Completion");
-        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, level.reward.constant, "Level Completion Award");
+        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, world.level.reward.constant, "Level Completion Award");
         itemIDs = itemIDs.concat(rewardItemIDs);
     }
     return itemIDs;
@@ -76,47 +72,20 @@ handlers.UpgradeItem = function (args) {
         log.error(args.itemInstanceId + " is an Invalid Instance ID");
         return;
     }
+    if (itemInstance.CatalogVersion == null) {
+        log.error("itemInstance has no catalog version defined");
+        return;
+    }
+    if (itemInstance.ItemId == null) {
+        log.error("itemInstance has no itemID value defined");
+        return;
+    }
     let catalog = PlayFab.Title.Catalog.Retrieve(itemInstance.CatalogVersion);
     let catalogItem = catalog.FindWithID(itemInstance.ItemId);
-    let itemData = API.Upgrades.ItemData.Load(catalogItem);
-    if (itemData == null) {
-        log.error("Current Item Can't Be Upgraded");
+    if (catalogItem == null) {
+        log.error("no catalog item relating to " + itemInstance.ItemId + " was found in catalog version " + itemInstance.CatalogVersion);
         return;
     }
-    let titleData = PlayFab.Title.Data.RetrieveAll([API.Upgrades.ID]);
-    let template = API.Upgrades.Template.Find(titleData.Data[API.Upgrades.ID], itemData.template);
-    if (template == null) {
-        log.error(itemData.template + " Upgrades Template Not Defined");
-        return;
-    }
-    if (template.Find(args.upgradeType) == null) {
-        log.error(args.upgradeType + " Upgrade Type Not Defined");
-        return;
-    }
-    let instanceData = API.Upgrades.InstanceData.Load(itemInstance);
-    if (instanceData.Contains(args.upgradeType) == false)
-        instanceData.Add(args.upgradeType);
-    if (instanceData.Find(args.upgradeType).value >= template.Find(args.upgradeType).ranks.length) {
-        log.error("Maximum Upgrade Level Achieved");
-        return;
-    }
-    let rank = template.Match(args.upgradeType, instanceData);
-    if (rank.requirements != null) {
-        if (inventory.CompliesWithRequirements(rank.requirements) == false) {
-            log.error("Player Doesn't Have The Required Items For the Upgrade");
-            return;
-        }
-    }
-    if (inventory.virtualCurrency[rank.cost.type] < rank.cost.value) {
-        log.error("Insufficient Funds");
-        return;
-    }
-    //Validation Completed, Start Processing Request
-    PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
-    PlayFab.Player.Inventory.ConsumeAll(inventory, rank.requirements);
-    instanceData.Increment(args.upgradeType);
-    API.Upgrades.InstanceData.Save(currentPlayerId, itemInstance, instanceData);
-    return "Success";
 };
 var Utility;
 (function (Utility) {
@@ -131,6 +100,22 @@ var Utility;
         }
         Dates.DaysBetween = DaysBetween;
     })(Dates = Utility.Dates || (Utility.Dates = {}));
+    let Class;
+    (function (Class) {
+        function Assign(ctor, props) {
+            return Object.assign(new ctor(), props);
+        }
+        Class.Assign = Assign;
+        function WriteProperty(target, name, value) {
+            let descriptor = {
+                value: value,
+                enumerable: true,
+                writable: false,
+            };
+            Object.defineProperty(target, name, descriptor);
+        }
+        Class.WriteProperty = WriteProperty;
+    })(Class = Utility.Class || (Utility.Class = {}));
 })(Utility || (Utility = {}));
 var API;
 (function (API) {
@@ -179,38 +164,45 @@ var API;
             return IDs;
         }
         Rewards.Grant = Grant;
-        let Template;
+        class Template {
+            constructor(object) {
+                this.signup = object.signup;
+                this.daily = object.daily;
+            }
+        }
+        Rewards.Template = Template;
         (function (Template) {
             function Retrieve() {
                 var json = PlayFab.Title.Data.Retrieve(Rewards.ID);
+                if (json == null)
+                    throw "no rewards template defined";
                 var object = JSON.parse(json);
-                var instance = Object.assign(new Data(), object);
+                var instance = new Template(object);
                 return instance;
             }
             Template.Retrieve = Retrieve;
-            class Data {
-            }
-            Template.Data = Data;
         })(Template = Rewards.Template || (Rewards.Template = {}));
-        let PlayerData;
+        class PlayerData {
+            constructor(object) {
+                this.daily = object.daily;
+            }
+        }
+        Rewards.PlayerData = PlayerData;
         (function (PlayerData) {
             function Retrieve(playerID) {
                 let result = PlayFab.Player.Data.ReadOnly.Read(playerID, Rewards.ID);
-                if (result.Data == null) {
-                }
-                else {
-                    if (result.Data[Rewards.ID] == null) {
-                    }
-                    else {
-                        let json = result.Data[Rewards.ID].Value;
-                        let object = JSON.parse(json);
-                        let instance = Object.assign(new Instance(), object);
-                        return instance;
-                    }
-                }
-                return null;
+                if (result == null)
+                    return null;
+                let object = JSON.parse(result);
+                let instance = new PlayerData(object);
+                return instance;
             }
             PlayerData.Retrieve = Retrieve;
+            function Create() {
+                var data = new PlayerData({ daily: Daily.Create() });
+                return data;
+            }
+            PlayerData.Create = Create;
             function Save(playerID, data) {
                 PlayFab.Player.Data.ReadOnly.Write(playerID, Rewards.ID, JSON.stringify(data));
             }
@@ -220,13 +212,13 @@ var API;
                 Save(playerID, data);
             }
             PlayerData.Update = Update;
-            class Instance {
-                constructor() {
-                    this.daily = new Daily.Data();
+            class Daily {
+                constructor(timestamp, progress) {
+                    this.timestamp = timestamp;
+                    this.progress = progress;
                 }
             }
-            PlayerData.Instance = Instance;
-            let Daily;
+            PlayerData.Daily = Daily;
             (function (Daily) {
                 function Incremenet(data, templates) {
                     data.daily.progress++;
@@ -234,13 +226,11 @@ var API;
                         data.daily.progress = 0;
                 }
                 Daily.Incremenet = Incremenet;
-                class Data {
-                    constructor() {
-                        this.timestamp = new Date().toJSON();
-                        this.progress = 0;
-                    }
+                function Create() {
+                    var instance = new Daily(new Date().toJSON(), 0);
+                    return instance;
                 }
-                Daily.Data = Data;
+                Daily.Create = Create;
             })(Daily = PlayerData.Daily || (PlayerData.Daily = {}));
         })(PlayerData = Rewards.PlayerData || (Rewards.PlayerData = {}));
         class Result {
@@ -251,6 +241,10 @@ var API;
         }
         Rewards.Result = Result;
         class Type {
+            constructor(items, droptable) {
+                this.items = items;
+                this.droptable = droptable;
+            }
         }
         Rewards.Type = Type;
     })(Rewards = API.Rewards || (API.Rewards = {}));
@@ -260,67 +254,86 @@ var API;
     let Upgrades;
     (function (Upgrades) {
         Upgrades.ID = "upgrades";
-        let InstanceData;
+        class InstanceData {
+            constructor(list) {
+                this.list = list;
+            }
+            Add(type) {
+                var element = new InstanceData.Element(type, 0);
+                this.list.push(element);
+                return element;
+            }
+            Contains(type) {
+                for (let i = 0; i < this.list.length; i++)
+                    if (this.list[i].type == type)
+                        return true;
+                return false;
+            }
+            Find(type) {
+                for (let i = 0; i < this.list.length; i++)
+                    if (this.list[i].type == type)
+                        return this.list[i];
+                return null;
+            }
+            Increment(type) {
+                let element = this.Find(type);
+                if (element == null)
+                    return null;
+                else {
+                    element.value++;
+                    return element;
+                }
+            }
+            ToJson() {
+                return JSON.stringify(this.list);
+            }
+        }
+        Upgrades.InstanceData = InstanceData;
         (function (InstanceData) {
-            function Load(itemInstance) {
-                let instance = new Instance;
+            function Load(itemInstance, args) {
+                let data = null;
                 if (itemInstance.CustomData == null) {
                 }
                 else {
-                    if (itemInstance.CustomData[Upgrades.ID] == null) {
+                    var json = itemInstance.CustomData[Upgrades.ID];
+                    if (json == null) {
                     }
                     else {
-                        instance.FromJSON(itemInstance.CustomData[Upgrades.ID]);
+                        var object = JSON.parse(json);
+                        data = new InstanceData(object);
                     }
                 }
-                return instance;
+                if (data == null)
+                    data = new InstanceData([]);
+                if (data.Contains(args.upgradeType) == false)
+                    data.Add(args.upgradeType);
+                return data;
             }
             InstanceData.Load = Load;
-            function Save(playerID, itemInstance, instance) {
-                let json = instance.ToJson();
-                PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstance.ItemInstanceId, API.Upgrades.ID, json);
+            function Save(playerID, itemInstance, data) {
+                var itemInstanceID = itemInstance.ItemInstanceId;
+                if (itemInstanceID == null) {
+                    log.debug("No Instance ID defined for item instance");
+                    return;
+                }
+                PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstanceID, API.Upgrades.ID, data.ToJson());
             }
             InstanceData.Save = Save;
-            class Instance {
-                constructor() {
-                    this.list = [];
-                }
-                Add(type) {
-                    this.list.push(new Element(type, 0));
-                }
-                Contains(type) {
-                    for (let i = 0; i < this.list.length; i++)
-                        if (this.list[i].type == type)
-                            return true;
-                    return false;
-                }
-                Find(type) {
-                    for (let i = 0; i < this.list.length; i++)
-                        if (this.list[i].type == type)
-                            return this.list[i];
-                    return null;
-                }
-                Increment(type) {
-                    let element = this.Find(type);
-                    element.value++;
-                }
-                FromJSON(text) {
-                    var object = JSON.parse(text);
-                    this.list = Object.assign([], object);
-                }
-                ToJson() {
-                    return JSON.stringify(this.list);
-                }
-            }
-            InstanceData.Instance = Instance;
             class Element {
                 constructor(name, value) {
                     this.type = name;
                     this.value = value;
                 }
             }
+            InstanceData.Element = Element;
         })(InstanceData = Upgrades.InstanceData || (Upgrades.InstanceData = {}));
-        let ItemData;
+        class ItemData {
+            constructor(object) {
+                this.template = object.template;
+                this.applicable = object.applicable;
+            }
+        }
+        Upgrades.ItemData = ItemData;
         (function (ItemData) {
             ItemData.Default = "Default";
             function Load(catalogItem) {
@@ -329,53 +342,68 @@ var API;
                 if (catalogItem.CustomData == null)
                     return null;
                 let object = JSON.parse(catalogItem.CustomData);
-                if (object[Upgrades.ID] == null) {
-                }
-                let data = Object.assign(new Instance(), object[Upgrades.ID]);
-                if (data.template == null)
-                    data.template = ItemData.Default;
+                var element = object[Upgrades.ID];
+                if (element == null)
+                    return null;
+                let data = new ItemData(element);
                 return data;
             }
             ItemData.Load = Load;
-            class Instance {
-            }
-            ItemData.Instance = Instance;
         })(ItemData = Upgrades.ItemData || (Upgrades.ItemData = {}));
-        let Template;
+        class Template {
+            constructor(object) {
+                this.name = object.name;
+                this.elements = object.elements;
+            }
+            Find(name) {
+                for (let i = 0; i < this.elements.length; i++)
+                    if (this.elements[i].type == name)
+                        return this.elements[i];
+                return null;
+            }
+            Match(name, data) {
+                let element = this.Find(name);
+                if (element == null)
+                    return null;
+                let dataElement = data.Find(name);
+                if (dataElement == null)
+                    return null;
+                return element.ranks[dataElement.value];
+            }
+        }
+        Upgrades.Template = Template;
         (function (Template) {
-            function Find(json, name) {
-                if (json == null)
+            function Find(name) {
+                let list = GetAll();
+                if (list == null)
                     return null;
-                if (name == null)
-                    return null;
-                let object = JSON.parse(json);
-                let target = object.find(x => x.name == name);
-                let template = Object.assign(new Instance(), target);
-                return template;
+                for (let i = 0; i < list.length; i++)
+                    if (list[i].name == name)
+                        return new Template(list[i]);
+                return null;
             }
             Template.Find = Find;
-            function Parse(json) {
-                let object = JSON.parse(json);
-                let instance = Object.assign(new Instance(), object);
-                return instance;
-            }
-            Template.Parse = Parse;
-            class Instance {
-                Find(name) {
-                    for (let i = 0; i < this.elements.length; i++)
-                        if (this.elements[i].type == name)
-                            return this.elements[i];
+            function GetAll() {
+                let json = PlayFab.Title.Data.Retrieve(API.Upgrades.ID);
+                if (json == null)
                     return null;
-                }
-                Match(name, data) {
-                    return this.Find(name).ranks[data.Find(name).value];
-                }
+                var object = JSON.parse(json);
+                return object;
             }
-            Template.Instance = Instance;
+            Template.GetAll = GetAll;
             class Element {
+                constructor(type, ranks) {
+                    this.type = type;
+                    this.ranks = ranks;
+                }
             }
             Template.Element = Element;
             class Rank {
+                constructor(cost, percentage, requirements) {
+                    this.cost = cost;
+                    this.percentage = percentage;
+                    this.requirements = requirements;
+                }
             }
             Template.Rank = Rank;
         })(Template = Upgrades.Template || (Upgrades.Template = {}));
@@ -386,77 +414,82 @@ var API;
     let World;
     (function (World) {
         World.Name = "world";
-        let PlayerData;
+        class PlayerData {
+            constructor(object) {
+                this.regions = object.regions;
+            }
+            Add(region) {
+                this.regions.push(region);
+            }
+            Contains(name) {
+                for (let i = 0; i < this.regions.length; i++)
+                    if (this.regions[i].name == name)
+                        return true;
+                return false;
+            }
+            Find(name) {
+                for (let i = 0; i < this.regions.length; i++)
+                    if (this.regions[i].name == name)
+                        return this.regions[i];
+                return null;
+            }
+        }
+        World.PlayerData = PlayerData;
         (function (PlayerData) {
             function Retrieve(playerID) {
-                let playerData = PlayFab.Player.Data.ReadOnly.ReadAll(playerID, [World.Name]);
-                if (playerData.Data[World.Name] == null)
-                    return new Instance();
-                let json = playerData.Data[World.Name].Value;
-                let object = JSON.parse(json);
-                let instance = Object.assign(new Instance(), object);
+                let json = PlayFab.Player.Data.ReadOnly.Read(playerID, World.Name);
+                let object;
+                if (json == null)
+                    object = { regions: [] };
+                else
+                    object = JSON.parse(json);
+                let instance = new PlayerData(object);
                 return instance;
             }
             PlayerData.Retrieve = Retrieve;
-            function Validate(data, world, args) {
-                if (data.Contains(args.region)) {
-                }
-                else {
-                    if (args.region == world.regions[0].name) {
-                        let instance = new Region(args.region, 1);
-                        data.Add(instance);
-                    }
-                    else {
-                        throw "Can't begin data indexing from " + args.region + " region";
-                    }
-                }
-            }
-            PlayerData.Validate = Validate;
-            function Incremenet(data, world, args) {
-                let progress = data.Find(args.region).progress++;
-                let region = world.Find(args.region);
-                if (progress == region.levels.length) //Completed All Levels
-                 {
-                    let index = world.IndexOf(region.name);
-                    if (index >= world.regions.length - 1) //Completed All Regions
-                     {
-                    }
-                    else {
-                        let next = world.regions[index + 1];
-                        if (data.Contains(next.name)) //Region Already Unlocked
-                         {
-                        }
-                        else {
-                            let instance = new Region(next.name, 1);
-                            data.Add(instance);
-                        }
-                    }
-                }
-            }
-            PlayerData.Incremenet = Incremenet;
             function Save(playerID, data) {
                 let json = JSON.stringify(data);
                 PlayFab.Player.Data.ReadOnly.Write(playerID, World.Name, json);
             }
             PlayerData.Save = Save;
             class Instance {
-                constructor() {
-                    this.regions = [];
+                constructor(playerID, instance, region) {
+                    this.data = Retrieve(playerID);
+                    this.region = this.GetRegion(instance, region);
                 }
-                Add(region) {
-                    this.regions.push(region);
+                GetRegion(world, name) {
+                    if (this.data.Contains(name)) {
+                    }
+                    else {
+                        if (this.HasAccessToRegion(world, name)) {
+                            let instance = new Region(name, 1);
+                            this.data.Add(instance);
+                        }
+                        else {
+                            throw "Trying to index " + name + " region without having access to that region";
+                        }
+                    }
+                    var result = this.data.Find(name);
+                    if (result == null)
+                        throw "No " + name + " region found in player data";
+                    return result;
                 }
-                Contains(name) {
-                    for (let i = 0; i < this.regions.length; i++)
-                        if (this.regions[i].name == name)
-                            return true;
-                    return false;
+                HasAccessToRegion(world, currentRegion) {
+                    var index = world.template.IndexOf(currentRegion);
+                    if (index == null)
+                        throw "No region index for " + name + " was found in world template";
+                    if (index == 0)
+                        return true;
+                    var previousRegion = world.template.regions[index - 1];
+                    var previousRegionData = this.data.Find(previousRegion.name);
+                    if (previousRegionData == null)
+                        return false;
+                    return previousRegionData.progress > previousRegion.levels.length;
                 }
-                Find(name) {
-                    for (let i = 0; i < this.regions.length; i++)
-                        if (this.regions[i].name == name)
-                            return this.regions[i];
-                    return null;
+                get progress() { return this.region.progress; }
+                set progress(value) { this.region.progress = value; }
+                Increment() {
+                    this.progress += 1;
                 }
             }
             PlayerData.Instance = Instance;
@@ -468,13 +501,40 @@ var API;
             }
             PlayerData.Region = Region;
         })(PlayerData = World.PlayerData || (World.PlayerData = {}));
-        let Template;
+        class Template {
+            constructor(object) {
+                this.regions = object.regions;
+            }
+            get Last() {
+                return this.regions[this.regions.length - 1];
+            }
+            Find(name) {
+                for (let i = 0; i < this.regions.length; i++)
+                    if (this.regions[i].name == name)
+                        return this.regions[i];
+                return null;
+            }
+            Contains(name) {
+                for (let i = 0; i < this.regions.length; i++)
+                    if (this.regions[i].name == name)
+                        return true;
+                return false;
+            }
+            IndexOf(name) {
+                for (let i = 0; i < this.regions.length; i++)
+                    if (this.regions[i].name == name)
+                        return i;
+                return null;
+            }
+        }
+        World.Template = Template;
         (function (Template) {
             function Retrieve() {
-                let titleData = PlayFab.Title.Data.RetrieveAll([World.Name]);
-                let json = titleData.Data[World.Name];
+                let json = PlayFab.Title.Data.Retrieve(World.Name);
+                if (json == null)
+                    throw "No world template defined";
                 let object = JSON.parse(json);
-                let data = Object.assign(new Data(), object);
+                var data = new Template(object);
                 return data;
             }
             Template.Retrieve = Retrieve;
@@ -493,34 +553,44 @@ var API;
                 }
             }
             Template.Validate = Validate;
-            class Data {
-                Find(name) {
-                    for (let i = 0; i < this.regions.length; i++)
-                        if (this.regions[i].name == name)
-                            return this.regions[i];
-                    return null;
+            class Instance {
+                constructor(region, level) {
+                    this.template = API.World.Template.Retrieve();
+                    this.region = this.GetRegion(region);
+                    this.level = this.GetLevel(level);
                 }
-                Contains(name) {
-                    for (let i = 0; i < this.regions.length; i++)
-                        if (this.regions[i].name == name)
-                            return true;
-                    return false;
+                GetRegion(name) {
+                    let result = this.template.Find(name);
+                    if (result == null)
+                        throw "No region named " + name + " found in world template";
+                    return result;
                 }
-                IndexOf(name) {
-                    for (let i = 0; i < this.regions.length; i++)
-                        if (this.regions[i].name == name)
-                            return i;
-                    return null;
+                GetLevel(index) {
+                    let result = this.region.levels[index];
+                    if (result == null)
+                        throw "No level indexed " + index + " found in " + this.region.name + " world region template";
+                    return result;
                 }
             }
-            Template.Data = Data;
+            Template.Instance = Instance;
             class Region {
+                constructor(name, levels) {
+                    this.name = name;
+                    this.levels = levels;
+                }
             }
             Template.Region = Region;
             class Level {
+                constructor(reward) {
+                    this.reward = reward;
+                }
             }
             Template.Level = Level;
             class Rewards {
+                constructor(initial, constant) {
+                    this.initial = initial;
+                    this.constant = constant;
+                }
             }
             Template.Rewards = Rewards;
         })(Template = World.Template || (World.Template = {}));
@@ -530,13 +600,50 @@ var PlayFab;
 (function (PlayFab) {
     let Player;
     (function (Player) {
-        let Inventory;
+        class Inventory {
+            constructor(items, virtualCurrency) {
+                if (items == null)
+                    this.items = [];
+                else
+                    this.items = items;
+                this.virtualCurrency = virtualCurrency;
+            }
+            FindWithID(itemID) {
+                for (let i = 0; i < this.items.length; i++)
+                    if (this.items[i].ItemId == itemID)
+                        return this.items[i];
+                return null;
+            }
+            FindWithInstanceID(itemInstanceID) {
+                for (let i = 0; i < this.items.length; i++)
+                    if (this.items[i].ItemInstanceId == itemInstanceID)
+                        return this.items[i];
+                return null;
+            }
+            CompliesWith(requirements) {
+                for (let i = 0; i < requirements.length; i++) {
+                    let instance = this.FindWithID(requirements[i].item);
+                    if (instance == null)
+                        return false;
+                    if (instance.RemainingUses == null) {
+                        if (requirements[i].count > 1)
+                            return false;
+                        else
+                            continue;
+                    }
+                    if (instance.RemainingUses < requirements[i].count)
+                        return false;
+                }
+                return true;
+            }
+        }
+        Player.Inventory = Inventory;
         (function (Inventory) {
             function Retrieve(playerID) {
                 let result = server.GetUserInventory({
                     PlayFabId: playerID,
                 });
-                return new Data(result.Inventory, result.VirtualCurrency);
+                return new Inventory(result.Inventory, result.VirtualCurrency);
             }
             Inventory.Retrieve = Retrieve;
             function Consume(playerID, itemInstanceID, count) {
@@ -545,56 +652,40 @@ var PlayFab;
                     ItemInstanceId: itemInstanceID,
                     ConsumeCount: count,
                 });
+                return result;
             }
             Inventory.Consume = Consume;
             function ConsumeAll(inventory, stacks) {
+                let results = Array();
                 if (stacks == null)
-                    return;
+                    return results;
                 for (let i = 0; i < stacks.length; i++) {
                     let itemInstance = inventory.FindWithID(stacks[i].item);
-                    PlayFab.Player.Inventory.Consume(currentPlayerId, itemInstance.ItemInstanceId, stacks[i].count);
+                    if (itemInstance == null) {
+                        log.info("item with ID " + stacks[i].item + " not found in inventory");
+                        continue;
+                    }
+                    var itemInstanceID = itemInstance.ItemInstanceId;
+                    if (itemInstanceID == null) {
+                        log.info("itemInstance doesn't have an itemInstanceID, what the heck ?");
+                        continue;
+                    }
+                    let result = PlayFab.Player.Inventory.Consume(currentPlayerId, itemInstanceID, stacks[i].count);
+                    results.push(result);
                 }
+                return results;
             }
             Inventory.ConsumeAll = ConsumeAll;
             function UpdateItemData(playerID, itemInstanceID, key, value) {
                 let data = {};
-                data[key] = value;
-                let request = server.UpdateUserInventoryItemCustomData({
+                Utility.Class.WriteProperty(data, key, value);
+                let response = server.UpdateUserInventoryItemCustomData({
                     PlayFabId: playerID,
                     ItemInstanceId: itemInstanceID,
                     Data: data
                 });
             }
             Inventory.UpdateItemData = UpdateItemData;
-            class Data {
-                constructor(Items, VirtualCurrency) {
-                    this.items = Items;
-                    this.virtualCurrency = VirtualCurrency;
-                }
-                FindWithID(itemID) {
-                    for (let i = 0; i < this.items.length; i++)
-                        if (this.items[i].ItemId == itemID)
-                            return this.items[i];
-                    return null;
-                }
-                FindWithInstanceID(itemInstanceID) {
-                    for (let i = 0; i < this.items.length; i++)
-                        if (this.items[i].ItemInstanceId == itemInstanceID)
-                            return this.items[i];
-                    return null;
-                }
-                CompliesWithRequirements(requirements) {
-                    for (let i = 0; i < requirements.length; i++) {
-                        let instance = this.FindWithID(requirements[i].item);
-                        if (instance == null)
-                            return false;
-                        if (instance.RemainingUses < requirements[i].count)
-                            return false;
-                    }
-                    return true;
-                }
-            }
-            Inventory.Data = Data;
         })(Inventory = Player.Inventory || (Player.Inventory = {}));
         let Currency;
         (function (Currency) {
@@ -620,17 +711,26 @@ var PlayFab;
                 }
                 ReadOnly.ReadAll = ReadAll;
                 function Read(playerID, key) {
-                    var result = ReadAll(playerID, [key]);
-                    return result;
+                    let result = ReadAll(playerID, [key]);
+                    if (result.Data == null)
+                        return null;
+                    if (result.Data[key] == null)
+                        return null;
+                    let value = result.Data[key].Value;
+                    if (value == null)
+                        return null;
+                    return value;
                 }
                 ReadOnly.Read = Read;
                 function Write(playerID, key, value) {
                     let data = {};
-                    data[key] = value;
-                    server.UpdateUserReadOnlyData({
+                    Utility.Class.WriteProperty(data, key, value);
+                    log.info(JSON.stringify(data));
+                    var result = server.UpdateUserReadOnlyData({
                         PlayFabId: playerID,
                         Data: data,
                     });
+                    return result;
                 }
                 ReadOnly.Write = Write;
             })(ReadOnly = Data.ReadOnly || (Data.ReadOnly = {}));
@@ -652,32 +752,38 @@ var PlayFab;
             Data.RetrieveAll = RetrieveAll;
             function Retrieve(key) {
                 var result = RetrieveAll([key]);
+                if (result.Data == null)
+                    return null;
+                if (result.Data[key] == null)
+                    return null;
                 return result.Data[key];
             }
             Data.Retrieve = Retrieve;
         })(Data = Title.Data || (Title.Data = {}));
-        let Catalog;
+        class Catalog {
+            constructor(items) {
+                if (items == null)
+                    this.items = [];
+                else
+                    this.items = items;
+            }
+            FindWithID(itemID) {
+                for (let i = 0; i < this.items.length; i++)
+                    if (this.items[i].ItemId == itemID)
+                        return this.items[i];
+                return null;
+            }
+        }
+        Title.Catalog = Catalog;
         (function (Catalog) {
             Catalog.Default = "Default";
             function Retrieve(version) {
                 let result = server.GetCatalogItems({
                     CatalogVersion: version,
                 });
-                return new Data(result.Catalog);
+                return new Catalog(result.Catalog);
             }
             Catalog.Retrieve = Retrieve;
-            class Data {
-                constructor(Items) {
-                    this.items = Items;
-                }
-                FindWithID(itemID) {
-                    for (let i = 0; i < this.items.length; i++)
-                        if (this.items[i].ItemId == itemID)
-                            return this.items[i];
-                    return null;
-                }
-            }
-            Catalog.Data = Data;
             let Item;
             (function (Item) {
                 function Grant(playerID, itemID, ammount, annotation) {
@@ -696,6 +802,8 @@ var PlayFab;
                         CatalogVersion: Catalog.Default,
                         ItemIds: itemIDs
                     });
+                    if (result.ItemGrantResults == null)
+                        return [];
                     return result.ItemGrantResults;
                 }
                 Item.GrantAll = GrantAll;
@@ -707,6 +815,8 @@ var PlayFab;
                         CatalogVersion: Catalog.Default,
                         TableId: tableID
                     });
+                    if (result.ResultItemId == null)
+                        return null;
                     return result.ResultItemId;
                 }
                 Tables.Evaluate = Evaluate;
@@ -714,6 +824,8 @@ var PlayFab;
                     let items = Array();
                     for (let i = 0; i < table.iterations; i++) {
                         let item = Evaluate(table.ID);
+                        if (item == null)
+                            continue;
                         items.push(item);
                     }
                     return items;

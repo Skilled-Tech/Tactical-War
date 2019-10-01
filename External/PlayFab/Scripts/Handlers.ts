@@ -1,4 +1,4 @@
-handlers.LoginReward = function (args, context: IPlayFabContext)
+handlers.LoginReward = function (args?: any, context?: IPlayFabContext | undefined)
 {
     let template = API.Rewards.Template.Retrieve();
 
@@ -8,7 +8,7 @@ handlers.LoginReward = function (args, context: IPlayFabContext)
 
     if (playerData == null) //Signup
     {
-        playerData = new API.Rewards.PlayerData.Instance();
+        playerData = API.Rewards.PlayerData.Create();
 
         var signupItems = API.Rewards.Grant(currentPlayerId, template.signup, "Signup Reward");
 
@@ -47,10 +47,9 @@ handlers.LoginReward = function (args, context: IPlayFabContext)
 
 handlers.FinishLevel = function (args: IFinishLevelArguments)
 {
-    let world = API.World.Template.Retrieve();
     try
     {
-        API.World.Template.Validate(world, args);
+        var world = new API.World.Template.Instance(args.region, args.level);
     }
     catch (error)
     {
@@ -58,10 +57,9 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
         return;
     }
 
-    let playerData = API.World.PlayerData.Retrieve(currentPlayerId);
     try
     {
-        API.World.PlayerData.Validate(playerData, world, args);
+        var playerData = new API.World.PlayerData.Instance(currentPlayerId, world, args.region);
     }
     catch (error)
     {
@@ -69,9 +67,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
         return;
     }
 
-    let progress = playerData.Find(args.region).progress;
-
-    if (args.level >= progress) //cheating... probably
+    if (args.level >= playerData.progress) //cheating... probably
     {
         log.error("trying to finish level " + args.level + " without finishing the previous level ");
         return;
@@ -79,24 +75,21 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
 
     let itemIDs = new Array<string>();
 
-    var level = world.Find(args.region).levels[args.level];
-
-    if (args.level == progress - 1) //Initial
+    if (args.level == playerData.progress - 1) //Initial
     {
         log.info("Initial Completion");
 
-        API.World.PlayerData.Incremenet(playerData, world, args);
-        API.World.PlayerData.Save(currentPlayerId, playerData);
+        playerData.Increment();
+        API.World.PlayerData.Save(currentPlayerId, playerData.data);
 
-        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, level.reward.initial, "Level Completion Award");
+        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, world.level.reward.initial, "Level Completion Award");
         itemIDs = itemIDs.concat(rewardItemIDs);
     }
-
-    if (args.level < progress - 1) //Recurring
+    else //Recurring
     {
         log.info("Recurring Completion");
 
-        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, level.reward.constant, "Level Completion Award");
+        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, world.level.reward.constant, "Level Completion Award");
         itemIDs = itemIDs.concat(rewardItemIDs);
     }
 
@@ -119,69 +112,53 @@ handlers.UpgradeItem = function (args: IUpgradeItemArguments)
         return;
     }
 
+    if (itemInstance.CatalogVersion == null)
+    {
+        log.error("itemInstance has no catalog version defined");
+        return;
+    }
+
+    if (itemInstance.ItemId == null)
+    {
+        log.error("itemInstance has no itemID value defined");
+        return;
+    }
+
     let catalog = PlayFab.Title.Catalog.Retrieve(itemInstance.CatalogVersion);
     let catalogItem = catalog.FindWithID(itemInstance.ItemId);
 
-    let itemData = API.Upgrades.ItemData.Load(catalogItem);
+    if (catalogItem == null)
+    {
+        log.error("no catalog item relating to " + itemInstance.ItemId + " was found in catalog version " + itemInstance.CatalogVersion);
+        return;
+    }
+
+    var itemData = API.Upgrades.ItemData.Load(catalogItem);
 
     if (itemData == null)
     {
-        log.error("Current Item Can't Be Upgraded");
+        log.error(catalogItem.ItemId + " catalog item has no upgrade data");
         return;
     }
 
-    let titleData = PlayFab.Title.Data.RetrieveAll([API.Upgrades.ID]);
-
-    let template = API.Upgrades.Template.Find(titleData.Data[API.Upgrades.ID], itemData.template);
-
-    if (template == null)
+    try
     {
-        log.error(itemData.template + " Upgrades Template Not Defined");
+        var template = new API.Upgrades.Template.Instance(itemData, args.upgradeType);
+    }
+    catch (error)
+    {
+
+    }
+
+    try
+    {
+        var instanceData = new API.Upgrades.InstanceData.Instance(itemInstance, args);
+    }
+    catch (error)
+    {
+        log.error(error);
         return;
     }
-
-    if (template.Find(args.upgradeType) == null)
-    {
-        log.error(args.upgradeType + " Upgrade Type Not Defined");
-        return;
-    }
-
-    let instanceData = API.Upgrades.InstanceData.Load(itemInstance);
-    if (instanceData.Contains(args.upgradeType) == false) instanceData.Add(args.upgradeType);
-
-    if (instanceData.Find(args.upgradeType).value >= template.Find(args.upgradeType).ranks.length)
-    {
-        log.error("Maximum Upgrade Level Achieved");
-        return;
-    }
-
-    let rank = template.Match(args.upgradeType, instanceData);
-
-    if (rank.requirements != null)
-    {
-        if (inventory.CompliesWithRequirements(rank.requirements) == false)
-        {
-            log.error("Player Doesn't Have The Required Items For the Upgrade");
-            return;
-        }
-    }
-
-    if (inventory.virtualCurrency[rank.cost.type] < rank.cost.value)
-    {
-        log.error("Insufficient Funds");
-        return;
-    }
-
-    //Validation Completed, Start Processing Request
-    PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
-
-    PlayFab.Player.Inventory.ConsumeAll(inventory, rank.requirements);
-
-    instanceData.Increment(args.upgradeType);
-
-    API.Upgrades.InstanceData.Save(currentPlayerId, itemInstance, instanceData);
-
-    return "Success";
 }
 interface IUpgradeItemArguments
 {

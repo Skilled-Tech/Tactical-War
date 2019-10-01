@@ -4,6 +4,44 @@ namespace API
     {
         export const ID = "upgrades";
 
+        export class ItemData
+        {
+            template: string;
+            applicable: string[];
+
+            constructor(object: IItemData)
+            {
+                this.template = object.template;
+                this.applicable = object.applicable;
+            }
+        }
+        interface IItemData
+        {
+            template: string;
+            applicable: string[];
+        }
+        export namespace ItemData
+        {
+            export const Default = "Default";
+
+            export function Load(catalogItem: PlayFabServerModels.CatalogItem): ItemData | null
+            {
+                if (catalogItem == null) return null;
+
+                if (catalogItem.CustomData == null) return null;
+
+                let object = JSON.parse(catalogItem.CustomData);
+
+                var element = object[ID];
+
+                if (element == null) return null;
+
+                let data = new ItemData(element);
+
+                return data;
+            }
+        }
+
         export class InstanceData
         {
             list: Array<InstanceData.Element>;
@@ -60,8 +98,10 @@ namespace API
         }
         export namespace InstanceData
         {
-            export function Load(itemInstance: PlayFabServerModels.ItemInstance): InstanceData | null
+            export function Load(itemInstance: PlayFabServerModels.ItemInstance, upgradeType: string): InstanceData
             {
+                let data: InstanceData | null = null;
+
                 if (itemInstance.CustomData == null)
                 {
 
@@ -78,11 +118,14 @@ namespace API
                     {
                         var object = JSON.parse(json);
 
-                        return new InstanceData(object);
+                        data = new InstanceData(object);
                     }
                 }
 
-                return null;
+                if (data == null)
+                    data = new InstanceData([]);
+
+                return data;
             }
 
             export function Save(playerID: string, itemInstance: PlayFabServerModels.ItemInstance, data: InstanceData)
@@ -98,6 +141,41 @@ namespace API
                 PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstanceID, API.Upgrades.ID, data.ToJson());
             }
 
+            export class Instance
+            {
+                data: InstanceData;
+
+                element: Element;
+                GetElement(upgradeType: string): Element
+                {
+                    if (this.data.Contains(upgradeType))
+                    {
+
+                    }
+                    else
+                    {
+                        this.data.Add(upgradeType);
+                    }
+
+                    let result = this.data.Find(upgradeType);
+
+                    if (result == null)
+                        throw "Upgrade type " + upgradeType + " not defined in itemInstanceData";
+
+                    return result;
+                }
+
+                public get rank(): number { return this.element.value; }
+                public set rank(value: number) { this.element.value = value; }
+
+                constructor(itemInstance: PlayFabServerModels.ItemInstance, args: IUpgradeItemArguments)
+                {
+                    this.data = Load(itemInstance, args.upgradeType);
+
+                    this.element = this.GetElement(args.upgradeType);
+                }
+            }
+
             export class Element
             {
                 type: string;
@@ -108,44 +186,6 @@ namespace API
                     this.type = name;
                     this.value = value;
                 }
-            }
-        }
-
-        export class ItemData
-        {
-            template: string;
-            applicable: string[];
-
-            constructor(object: IItemData)
-            {
-                this.template = object.template;
-                this.applicable = object.applicable;
-            }
-        }
-        interface IItemData
-        {
-            template: string;
-            applicable: string[];
-        }
-        export namespace ItemData
-        {
-            export const Default = "Default";
-
-            export function Load(catalogItem: PlayFabServerModels.CatalogItem): ItemData | null
-            {
-                if (catalogItem == null) return null;
-
-                if (catalogItem.CustomData == null) return null;
-
-                let object = JSON.parse(catalogItem.CustomData);
-
-                var element = object[ID];
-
-                if (element == null) return null;
-
-                let data = new ItemData(element);
-
-                return data;
             }
         }
 
@@ -208,6 +248,38 @@ namespace API
                 var object = <ITemplate[]>JSON.parse(json);
 
                 return object;
+            }
+
+            export class Instance
+            {
+                data: Template;
+                GetTemplate(name: string): Template
+                {
+                    let result = Template.Find(name);
+
+                    if (result == null)
+                        throw "no " + name + " upgrade template found";
+
+                    return result;
+                }
+
+                element: Element;
+                GetElement(upgradeType: string): Element
+                {
+                    let result = this.data.Find(upgradeType);
+
+                    if (result == null)
+                        throw "no " + upgradeType + " upgrade type found in " + this.data.name + " upgrade template";
+
+                    return result;
+                }
+
+                constructor(itemData: ItemData, upgradeType: string)
+                {
+                    this.data = this.GetTemplate(itemData.template);
+
+                    this.element = this.GetElement(upgradeType);
+                }
             }
 
             export class Element
