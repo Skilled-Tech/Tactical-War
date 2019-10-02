@@ -44,6 +44,9 @@ namespace Game
             Character = Dependancy.Get<Character4D>(gameObject);
 
             CharacterAnimation = Dependancy.Get<CharacterAnimation>(gameObject);
+
+            var controls = Dependancy.Get<CharacterControls>(gameObject);
+            if (controls != null) Destroy(controls);
         }
 
         public override void Init()
