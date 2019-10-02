@@ -26,12 +26,14 @@ namespace Game
 	{
         #region List
         [SerializeField]
-        protected ItemTemplate[] list;
-        public ItemTemplate[] List { get { return list; } }
+        protected ItemsRoster roster;
+        public ItemsRoster Roster { get { return roster; } }
 
-        public int Count { get { return list.Length; } }
+        public IList<ItemTemplate> List { get { return roster.List; } }
 
-        public ItemTemplate this[int index] { get { return list[index]; } }
+        public int Count { get { return List.Count; } }
+
+        public ItemTemplate this[int index] { get { return List[index]; } }
         #endregion
 
         [SerializeField]
@@ -64,26 +66,26 @@ namespace Game
         }
         public virtual ItemTemplate Find(string itemID)
         {
-            for (int i = 0; i < list.Length; i++)
-                if (list[i].ID == itemID)
-                    return list[i];
+            for (int i = 0; i < List.Count; i++)
+                if (List[i].ID == itemID)
+                    return List[i];
 
             return null;
         }
 
         void OnCatalogRetrieved(PlayFabCatalogCore catalog)
         {
-            for (int i = 0; i < list.Length; i++)
+            for (int i = 0; i < List.Count; i++)
             {
-                var catalogItem = catalog.Find(list[i].ID);
+                var catalogItem = catalog.Find(List[i].ID);
 
                 if (catalogItem == null)
                 {
-                    Debug.LogWarning(list[i].name + " Has no item matching it's ID in the catalog recieved, ignoring");
+                    Debug.LogWarning(List[i].name + " Has no item matching it's ID in the catalog recieved, ignoring");
                     continue;
                 }
 
-                list[i].Load(catalogItem);
+                List[i].Load(catalogItem);
             }
         }
     }

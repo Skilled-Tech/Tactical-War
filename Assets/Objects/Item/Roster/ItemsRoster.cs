@@ -20,26 +20,49 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [CreateAssetMenu]
-	public class ItemsRoster : ScriptableObjectWrapper<List<ItemTemplate>>
+	public class ItemsRoster : ScriptableObject
 	{
+        [SerializeField]
+        protected List<ItemTemplate> list;
+        public List<ItemTemplate> List { get { return list; } }
 
-#if UNITY_EDITOR || true
-        [CustomEditor(typeof(ItemsRoster))]
-        new public class Inspector : ScriptableObjectWrapper.Inspector
+#if UNITY_EDITOR
+        protected virtual void Refresh()
         {
+            list.Clear();
+
+            var GUIDs = AssetDatabase.FindAssets("t:" + typeof(ItemTemplate));
+
+            for (int i = 0; i < GUIDs.Length; i++)
+            {
+                var path = AssetDatabase.GUIDToAssetPath(GUIDs[i]);
+
+                var instance = AssetDatabase.LoadAssetAtPath<ItemTemplate>(path);
+
+                list.Add(instance);
+            }
+        }
+#endif
+
+#if UNITY_EDITOR
+        [CustomEditor(typeof(ItemsRoster))]
+        public class Inspector : Editor
+        {
+            new ItemsRoster target;
+
+            private void OnEnable()
+            {
+                target = base.target as ItemsRoster;
+            }
+
             public override void OnInspectorGUI()
             {
                 base.OnInspectorGUI();
 
-                if(GUILayout.Button("Refresh"))
+                if (GUILayout.Button("Refresh"))
                 {
-
+                    target.Refresh();
                 }
-            }
-
-            protected virtual void Refresh()
-            {
-
             }
         }
 #endif

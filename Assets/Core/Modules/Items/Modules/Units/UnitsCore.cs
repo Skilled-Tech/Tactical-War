@@ -39,7 +39,7 @@ namespace Game
 
             List = new List<UnitTemplate>();
 
-            for (int i = 0; i < Items.List.Length; i++)
+            for (int i = 0; i < Items.List.Count; i++)
             {
                 if (Items[i] is UnitTemplate)
                     List.Add(Items[i] as UnitTemplate);
