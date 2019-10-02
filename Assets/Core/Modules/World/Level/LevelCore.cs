@@ -26,9 +26,11 @@ namespace Game
         {
             get
             {
-                return Region.Progress > Index;
+                return Region.Progress >= Index;
             }
         }
+
+        public bool Finished { get { return Region.Progress > Index; } }
 
         public virtual void Unlock()
         {
@@ -81,16 +83,11 @@ namespace Game
             }
         }
 
+        public delegate void CompleteDelegate(LevelCore level);
+        public event CompleteDelegate OnComplete;
         public virtual void Complete()
         {
-            if (IsLast)
-            {
-                Region.Complete();
-            }
-            else
-            {
-                Next.Unlock();
-            }
+            if (OnComplete != null) OnComplete(this);
         }
 
         public virtual void Load()

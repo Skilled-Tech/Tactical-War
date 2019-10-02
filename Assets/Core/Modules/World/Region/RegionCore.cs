@@ -22,38 +22,33 @@ using Newtonsoft.Json.Linq;
 
 namespace Game
 {
-    //Indexes for levels start from 1, because screw you
     [CreateAssetMenu(menuName = MenuPath + "Element")]
     public class RegionCore : WorldCore.Element
     {
         public const string MenuPath = Core.MenuPath + "Regions/";
 
-        public bool Unlocked
-        {
-            get
-            {
-                for (int i = 0; i < levels.Length; i++)
-                    if (levels[i].Unlocked)
-                        return true;
-
-                return false;
-            }
-        }
-        public virtual void Unlock()
-        {
-            Unlock(levels[0]);
-        }
+        public bool Unlocked { get; protected set; }
 
         [SerializeField]
         protected int progress = 0;
         public int Progress { get { return progress; } }
 
+        public bool Finished { get { return progress == levels.Length; } }
+
+        public virtual void Unlock()
+        {
+            Unlock(levels[0]);
+        }
         public virtual void Unlock(LevelCore level)
         {
-            progress = level.Index + 1;
+            Unlocked = true;
+
+            progress = level.Index;
         }
+
         public virtual void Lock()
         {
+            Unlocked = false;
             progress = 0;
         }
 
@@ -105,9 +100,11 @@ namespace Game
                 Register(levels[i]);
 
                 levels[i].Set(this);
+
+                levels[i].OnComplete += LevelCompleteCallback;
             }
         }
-
+        
         #region Query
         public int Index { get; protected set; }
 
@@ -136,6 +133,8 @@ namespace Game
 
         public virtual void Load(JToken jToken)
         {
+            Unlocked = true;
+
             progress = jToken[nameof(progress)].ToObject<int>();
         }
 
@@ -147,16 +146,17 @@ namespace Game
             World.Load(this, level);
         }
 
-        public virtual void Complete()
+        void LevelCompleteCallback(LevelCore level)
         {
-            if(IsLast)
-            {
+            if (level.IsLast)
+                Complete();
+        }
 
-            }
-            else
-            {
-                Next.Unlock();
-            }
+        public delegate void CompleteDelegate(RegionCore region);
+        public event CompleteDelegate OnComplete;
+        protected virtual void Complete()
+        {
+            if (OnComplete != null) OnComplete(this);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Game
     [Serializable]
     public class WorldCore : Core.Module
 	{
-        public const string Name = "world";
+        public const string ID = "world";
 
         #region Regions
         [SerializeField]
@@ -111,23 +111,13 @@ namespace Game
             }
             else
             {
-                if(module.Data.ContainsKey(Name))
+                if(module.Data.ContainsKey(ID))
                 {
-                    var json = module.Data[Name].Value;
+                    var json = module.Data[ID].Value;
 
                     var jObject = JObject.Parse(json);
 
                     Load(jObject);
-                }
-                else
-                {
-                    for (int i = 0; i < regions.Length; i++)
-                    {
-                        if (i == 0)
-                            regions[i].Unlock();
-                        else
-                            regions[i].Lock();
-                    }
                 }
             }
         }
@@ -136,19 +126,20 @@ namespace Game
         {
             var jArray = jObject[nameof(regions)] as JArray;
 
-            var dictionary = new Dictionary<string, JToken>();
-            for (int i = 0; i < jArray.Count; i++)
-                dictionary.Add(jArray[i]["name"].ToObject<string>(), jArray[i]);
+            var dictionary = jArray.ToDictionary(x => x["name"].ToObject<string>());
 
             for (int i = 0; i < regions.Length; i++)
             {
-                if(dictionary.ContainsKey(regions[i].name))
+                if (dictionary.ContainsKey(regions[i].name))
                 {
                     regions[i].Load(dictionary[regions[i].name]);
                 }
                 else
                 {
-                    regions[i].Lock();
+                    if(i == 0 || regions[i].Previous.Finished)
+                        regions[i].Unlock();
+                    else
+                        regions[i].Lock();
                 }
             }
         }

@@ -91,7 +91,7 @@ namespace Game
                 {
                     ItemUpgradesTemplate template = null;
 
-                    if (jArray[i][ItemUpgradesTemplate.Name].ToObject<string>() == nameof(Default))
+                    if (jArray[i][ItemUpgradesTemplate.ID].ToObject<string>() == nameof(Default))
                         template = Default;
                     else
                         template = ScriptableObject.CreateInstance<ItemUpgradesTemplate>();

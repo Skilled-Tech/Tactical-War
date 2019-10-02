@@ -28,7 +28,7 @@ namespace Game
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }
 
-        public const string Name = "name";
+        public const string ID = "name";
 
         [JsonProperty]
         [SerializeField]

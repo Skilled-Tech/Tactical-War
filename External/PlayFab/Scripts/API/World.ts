@@ -80,7 +80,7 @@ namespace API
                     {
                         if (this.HasAccessToRegion(world, name))
                         {
-                            let instance = new Region(name, 1);
+                            let instance = new Region(name, 0);
 
                             this.data.Add(instance);
                         }

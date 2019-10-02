@@ -84,6 +84,8 @@ namespace Game
             if (Defense != null)
                 value = Defense.Sample(value);
 
+            var initialHealth = Health.Value;
+
             if(Health.Value > 0f)
             {
                 Health.Value -= value;
@@ -97,8 +99,11 @@ namespace Game
 
             if (OnTookDamage != null) OnTookDamage(result);
 
-            if(Health.Value == 0)
-                Death(result);
+            if(initialHealth > 0)
+            {
+                if(IsDead)
+                    Death(result);
+            }
 
             return result;
         }

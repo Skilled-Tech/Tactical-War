@@ -26,10 +26,6 @@ public class ScreenshotCapture : MonoBehaviour
 
     public List<GameObject> subjects;
 
-    [SerializeField]
-    protected string outPutFolder = "External/Screenshots/";
-    public string OutPutFolder { get { return outPutFolder; } }
-
     public int Width { get { return Screen.width; } }
     public int Height { get { return Screen.height; } }
 
@@ -42,21 +38,17 @@ public class ScreenshotCapture : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        subjects.ForEach(x => x.SetActive(false));
-
         foreach (var subject in subjects)
         {
             yield return Capture(subject);
         }
 
-        EditorUtility.RevealInFinder(outPutFolder);
-
         EditorApplication.isPlaying = false;
     }
 
-    IEnumerator Capture(GameObject subject)
+    IEnumerator Capture(GameObject prefab)
     {
-        subject.SetActive(true);
+        var instance = Instantiate(prefab);
 
         var texture = new Texture2D(Width, Height, TextureFormat.ARGB32, false);
 
@@ -64,11 +56,22 @@ public class ScreenshotCapture : MonoBehaviour
 
         WriteScreenToTexture(texture);
 
-        SaveTexture(subject.name, texture);
+        var path = GetFilePath(prefab);
 
-        subject.SetActive(false);
+        SaveTexture(path, texture);
+
+        Destroy(instance);
 
         yield break;
+    }
+
+    string GetFilePath(GameObject prefab)
+    {
+        var result = AssetDatabase.GetAssetPath(prefab);
+
+        result = Path.ChangeExtension(result, "png");
+
+        return result;
     }
 
     void WriteScreenToTexture(Texture2D texture)
@@ -78,14 +81,17 @@ public class ScreenshotCapture : MonoBehaviour
         texture.Apply();
     }
 
-    void SaveTexture(string name, Texture2D texture)
+    void SaveTexture(string path, Texture2D texture)
     {
-        var png = texture.EncodeToPNG();
+        var bytes = texture.EncodeToPNG();
 
-        if (Directory.Exists(outPutFolder) == false)
-            Directory.CreateDirectory(outPutFolder);
+        var file = new FileInfo(path);
+        var directory = file.Directory;
 
-        File.WriteAllBytes(outPutFolder + name + ".png", png);
+        if (directory.Exists == false)
+            directory.Create();
+
+        File.WriteAllBytes(file.FullName, bytes);
     }
 
     [CustomEditor(typeof(ScreenshotCapture))]

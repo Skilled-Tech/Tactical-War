@@ -71,7 +71,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
         return;
     }
 
-    if (args.level >= playerData.progress) //cheating... probably
+    if (args.level > playerData.progress) //cheating... probably
     {
         log.error("trying to finish level " + args.level + " without finishing the previous level ");
         return;
@@ -79,7 +79,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
 
     let itemIDs = new Array<string>();
 
-    if (args.level == playerData.progress - 1) //Initial
+    if (args.level == playerData.progress) //Initial
     {
         log.info("Initial Completion");
 

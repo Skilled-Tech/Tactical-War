@@ -94,7 +94,7 @@ namespace PlayFab
 
                     if (itemInstance == null)
                     {
-                        log.info("item with ID " + stacks[i].item + " not found in inventory");
+                        log.info("item with ID " + stacks[i].item + " not found in inventory, cannot consume, skipping");
                         continue;
                     }
 
@@ -173,8 +173,6 @@ namespace PlayFab
                     let data = {};
 
                     Utility.Class.WriteProperty(data, key, value);
-
-                    log.info(JSON.stringify(data));
 
                     var result = server.UpdateUserReadOnlyData({
                         PlayFabId: playerID,

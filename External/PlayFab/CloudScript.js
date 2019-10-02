@@ -46,13 +46,13 @@ handlers.FinishLevel = function (args) {
         log.error(error);
         return;
     }
-    if (args.level >= playerData.progress) //cheating... probably
+    if (args.level > playerData.progress) //cheating... probably
      {
         log.error("trying to finish level " + args.level + " without finishing the previous level ");
         return;
     }
     let itemIDs = new Array();
-    if (args.level == playerData.progress - 1) //Initial
+    if (args.level == playerData.progress) //Initial
      {
         log.info("Initial Completion");
         playerData.Increment();
@@ -549,7 +549,7 @@ var API;
                     }
                     else {
                         if (this.HasAccessToRegion(world, name)) {
-                            let instance = new Region(name, 1);
+                            let instance = new Region(name, 0);
                             this.data.Add(instance);
                         }
                         else {
@@ -751,7 +751,7 @@ var PlayFab;
                 for (let i = 0; i < stacks.length; i++) {
                     let itemInstance = inventory.FindWithID(stacks[i].item);
                     if (itemInstance == null) {
-                        log.info("item with ID " + stacks[i].item + " not found in inventory");
+                        log.info("item with ID " + stacks[i].item + " not found in inventory, cannot consume, skipping");
                         continue;
                     }
                     var itemInstanceID = itemInstance.ItemInstanceId;
@@ -814,7 +814,6 @@ var PlayFab;
                 function Write(playerID, key, value) {
                     let data = {};
                     Utility.Class.WriteProperty(data, key, value);
-                    log.info(JSON.stringify(data));
                     var result = server.UpdateUserReadOnlyData({
                         PlayFabId: playerID,
                         Data: data,
