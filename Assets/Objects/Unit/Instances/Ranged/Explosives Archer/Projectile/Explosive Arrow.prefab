@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &8863852003383088618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2893500527823965587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d46d3964e3e6b48a799f68cdf413d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions: 01000000
+  prefab: {fileID: 7698181951877785711, guid: e5e5879fbc9916c4086eacef1fc14178, type: 3}
+--- !u!114 &9031665118637942538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2893500527823965587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b36177b4650d8e7459fa393ef259267f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 1
 --- !u!1001 &2952103523550289587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10,7 +37,7 @@ PrefabInstance:
     - target: {fileID: 58614852322497312, guid: f20863690eb9a3d42873ad30dab99044,
         type: 3}
       propertyPath: m_Name
-      value: Fire Arrow
+      value: Explosive Arrow
       objectReference: {fileID: 0}
     - target: {fileID: 58614852322497343, guid: f20863690eb9a3d42873ad30dab99044,
         type: 3}
@@ -72,8 +99,15 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 0.1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5355315641401288576, guid: f20863690eb9a3d42873ad30dab99044, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f20863690eb9a3d42873ad30dab99044, type: 3}
+--- !u!1 &2893500527823965587 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 58614852322497312, guid: f20863690eb9a3d42873ad30dab99044,
+    type: 3}
+  m_PrefabInstance: {fileID: 2952103523550289587}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2893500527823965580 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 58614852322497343, guid: f20863690eb9a3d42873ad30dab99044,

@@ -41,6 +41,8 @@ namespace Game
 
                 list.Add(instance);
             }
+
+            EditorUtility.SetDirty(this);
         }
 #endif
 
