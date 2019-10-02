@@ -1,5 +1,6 @@
 "use strict";
 handlers.LoginReward = function (args, context) {
+    AwardIfAdmin();
     let template = API.Rewards.Template.Retrieve();
     let playerData = API.Rewards.PlayerData.Retrieve(currentPlayerId);
     let itemIDs = new Array();
@@ -29,15 +30,17 @@ handlers.LoginReward = function (args, context) {
     return result;
 };
 handlers.FinishLevel = function (args) {
+    let world;
     try {
-        var world = new API.World.Template.Instance(args.region, args.level);
+        world = new API.World.Template.SnapShot(args.region, args.level);
     }
     catch (error) {
         log.error(error);
         return;
     }
+    let playerData;
     try {
-        var playerData = new API.World.PlayerData.Instance(currentPlayerId, world, args.region);
+        playerData = new API.World.PlayerData.SnapShot(currentPlayerId, world, args.region);
     }
     catch (error) {
         log.error(error);
@@ -86,7 +89,51 @@ handlers.UpgradeItem = function (args) {
         log.error("no catalog item relating to " + itemInstance.ItemId + " was found in catalog version " + itemInstance.CatalogVersion);
         return;
     }
+    var itemData = API.Upgrades.ItemData.Load(catalogItem);
+    if (itemData == null) {
+        log.error(catalogItem.ItemId + " catalog item has no upgrade data");
+        return;
+    }
+    let template;
+    try {
+        template = new API.Upgrades.Template.SnapShot(itemData, args.upgradeType);
+    }
+    catch (error) {
+        log.error(error);
+        return;
+    }
+    let instanceData;
+    try {
+        instanceData = new API.Upgrades.InstanceData.SnapShot(itemInstance, itemData, args);
+    }
+    catch (error) {
+        log.error(error);
+        return;
+    }
+    if (instanceData.rank >= template.element.ranks.length) {
+        log.error("cannot upgrade " + catalogItem.ItemId + "'s " + args.upgradeType + " any more");
+        return;
+    }
+    let rank = template.element.ranks[instanceData.rank];
+    if (rank == null) {
+        log.error("no rank data found");
+        return;
+    }
+    if (inventory.CompliesWith(rank.requirements) == false) {
+        log.error("upgrade requirements not met");
+        return;
+    }
+    PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
+    PlayFab.Player.Inventory.ConsumeAll(inventory, rank.requirements);
+    instanceData.Increment(args.upgradeType);
+    API.Upgrades.InstanceData.Save(currentPlayerId, itemInstance, instanceData.data);
 };
+function AwardIfAdmin() {
+    if (currentPlayerId == "56F63F9E4A7E88D") {
+        PlayFab.Title.Catalog.Item.Grant(currentPlayerId, "Wood_Sword", 5, "Admin Bonus");
+        PlayFab.Title.Catalog.Item.Grant(currentPlayerId, "Wood_Shield", 5, "Admin Bonus");
+    }
+}
 var Utility;
 (function (Utility) {
     let Dates;
@@ -254,79 +301,6 @@ var API;
     let Upgrades;
     (function (Upgrades) {
         Upgrades.ID = "upgrades";
-        class InstanceData {
-            constructor(list) {
-                this.list = list;
-            }
-            Add(type) {
-                var element = new InstanceData.Element(type, 0);
-                this.list.push(element);
-                return element;
-            }
-            Contains(type) {
-                for (let i = 0; i < this.list.length; i++)
-                    if (this.list[i].type == type)
-                        return true;
-                return false;
-            }
-            Find(type) {
-                for (let i = 0; i < this.list.length; i++)
-                    if (this.list[i].type == type)
-                        return this.list[i];
-                return null;
-            }
-            Increment(type) {
-                let element = this.Find(type);
-                if (element == null)
-                    return null;
-                else {
-                    element.value++;
-                    return element;
-                }
-            }
-            ToJson() {
-                return JSON.stringify(this.list);
-            }
-        }
-        Upgrades.InstanceData = InstanceData;
-        (function (InstanceData) {
-            function Load(itemInstance, args) {
-                let data = null;
-                if (itemInstance.CustomData == null) {
-                }
-                else {
-                    var json = itemInstance.CustomData[Upgrades.ID];
-                    if (json == null) {
-                    }
-                    else {
-                        var object = JSON.parse(json);
-                        data = new InstanceData(object);
-                    }
-                }
-                if (data == null)
-                    data = new InstanceData([]);
-                if (data.Contains(args.upgradeType) == false)
-                    data.Add(args.upgradeType);
-                return data;
-            }
-            InstanceData.Load = Load;
-            function Save(playerID, itemInstance, data) {
-                var itemInstanceID = itemInstance.ItemInstanceId;
-                if (itemInstanceID == null) {
-                    log.debug("No Instance ID defined for item instance");
-                    return;
-                }
-                PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstanceID, API.Upgrades.ID, data.ToJson());
-            }
-            InstanceData.Save = Save;
-            class Element {
-                constructor(name, value) {
-                    this.type = name;
-                    this.value = value;
-                }
-            }
-            InstanceData.Element = Element;
-        })(InstanceData = Upgrades.InstanceData || (Upgrades.InstanceData = {}));
         class ItemData {
             constructor(object) {
                 this.template = object.template;
@@ -350,6 +324,100 @@ var API;
             }
             ItemData.Load = Load;
         })(ItemData = Upgrades.ItemData || (Upgrades.ItemData = {}));
+        class InstanceData {
+            constructor(list) {
+                this.list = list;
+            }
+            Add(type) {
+                var element = new InstanceData.Element(type, 0);
+                this.list.push(element);
+                return element;
+            }
+            Contains(type) {
+                for (let i = 0; i < this.list.length; i++)
+                    if (this.list[i].type == type)
+                        return true;
+                return false;
+            }
+            Find(type) {
+                for (let i = 0; i < this.list.length; i++)
+                    if (this.list[i].type == type)
+                        return this.list[i];
+                return null;
+            }
+            ToJson() {
+                return JSON.stringify(this.list);
+            }
+        }
+        Upgrades.InstanceData = InstanceData;
+        (function (InstanceData) {
+            function Load(itemInstance, upgradeType) {
+                let data = null;
+                if (itemInstance.CustomData == null) {
+                }
+                else {
+                    var json = itemInstance.CustomData[Upgrades.ID];
+                    if (json == null) {
+                    }
+                    else {
+                        var object = JSON.parse(json);
+                        data = new InstanceData(object);
+                    }
+                }
+                if (data == null)
+                    data = new InstanceData([]);
+                return data;
+            }
+            InstanceData.Load = Load;
+            function Save(playerID, itemInstance, data) {
+                var itemInstanceID = itemInstance.ItemInstanceId;
+                if (itemInstanceID == null) {
+                    log.debug("No Instance ID defined for item instance");
+                    return;
+                }
+                PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstanceID, API.Upgrades.ID, data.ToJson());
+            }
+            InstanceData.Save = Save;
+            class SnapShot {
+                constructor(itemInstance, itemData, args) {
+                    this.data = Load(itemInstance, args.upgradeType);
+                    this.element = this.GetElement(args.upgradeType, itemData);
+                }
+                GetElement(upgradeType, itemData) {
+                    if (this.data.Contains(upgradeType)) {
+                    }
+                    else {
+                        function isApplicable() {
+                            for (let i = 0; i < itemData.applicable.length; i++)
+                                if (upgradeType == itemData.applicable[i])
+                                    return true;
+                            return false;
+                        }
+                        if (isApplicable())
+                            this.data.Add(upgradeType);
+                        else
+                            throw "upgrade type " + upgradeType + " not applicable";
+                    }
+                    let result = this.data.Find(upgradeType);
+                    if (result == null)
+                        throw "Upgrade type " + upgradeType + " not defined in itemInstanceData";
+                    return result;
+                }
+                get rank() { return this.element.value; }
+                set rank(value) { this.element.value = value; }
+                Increment(upgradeType) {
+                    this.rank += 1;
+                }
+            }
+            InstanceData.SnapShot = SnapShot;
+            class Element {
+                constructor(name, value) {
+                    this.type = name;
+                    this.value = value;
+                }
+            }
+            InstanceData.Element = Element;
+        })(InstanceData = Upgrades.InstanceData || (Upgrades.InstanceData = {}));
         class Template {
             constructor(object) {
                 this.name = object.name;
@@ -391,6 +459,25 @@ var API;
                 return object;
             }
             Template.GetAll = GetAll;
+            class SnapShot {
+                constructor(itemData, upgradeType) {
+                    this.data = this.GetTemplate(itemData.template);
+                    this.element = this.GetElement(upgradeType);
+                }
+                GetTemplate(name) {
+                    let result = Template.Find(name);
+                    if (result == null)
+                        throw "no " + name + " upgrade template found";
+                    return result;
+                }
+                GetElement(upgradeType) {
+                    let result = this.data.Find(upgradeType);
+                    if (result == null)
+                        throw "no " + upgradeType + " upgrade type found in " + this.data.name + " upgrade template";
+                    return result;
+                }
+            }
+            Template.SnapShot = SnapShot;
             class Element {
                 constructor(type, ranks) {
                     this.type = type;
@@ -452,7 +539,7 @@ var API;
                 PlayFab.Player.Data.ReadOnly.Write(playerID, World.Name, json);
             }
             PlayerData.Save = Save;
-            class Instance {
+            class SnapShot {
                 constructor(playerID, instance, region) {
                     this.data = Retrieve(playerID);
                     this.region = this.GetRegion(instance, region);
@@ -492,7 +579,7 @@ var API;
                     this.progress += 1;
                 }
             }
-            PlayerData.Instance = Instance;
+            PlayerData.SnapShot = SnapShot;
             class Region {
                 constructor(name, progress) {
                     this.name = name;
@@ -553,7 +640,7 @@ var API;
                 }
             }
             Template.Validate = Validate;
-            class Instance {
+            class SnapShot {
                 constructor(region, level) {
                     this.template = API.World.Template.Retrieve();
                     this.region = this.GetRegion(region);
@@ -572,7 +659,7 @@ var API;
                     return result;
                 }
             }
-            Template.Instance = Instance;
+            Template.SnapShot = SnapShot;
             class Region {
                 constructor(name, levels) {
                     this.name = name;
@@ -621,6 +708,8 @@ var PlayFab;
                 return null;
             }
             CompliesWith(requirements) {
+                if (requirements == null || requirements.length == 0)
+                    return true;
                 for (let i = 0; i < requirements.length; i++) {
                     let instance = this.FindWithID(requirements[i].item);
                     if (instance == null)

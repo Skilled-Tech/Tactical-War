@@ -56,7 +56,7 @@ namespace Game
 
             for (int i = 0; i < selection.Count; i++)
             {
-                if (selection[i] == null)
+                if (selection[i].Template == null)
                     continue;
 
                 var instance = Create(selection[i]);

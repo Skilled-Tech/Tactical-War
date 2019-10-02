@@ -73,19 +73,6 @@ namespace API
                 return null;
             }
 
-            public Increment(type: string): InstanceData.Element | null
-            {
-                let element = this.Find(type);
-
-                if (element == null)
-                    return null;
-                else
-                {
-                    element.value++;
-                    return element;
-                }
-            }
-
             public ToJson(): string
             {
                 return JSON.stringify(this.list);
@@ -141,12 +128,12 @@ namespace API
                 PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstanceID, API.Upgrades.ID, data.ToJson());
             }
 
-            export class Instance
+            export class SnapShot
             {
                 data: InstanceData;
 
                 element: Element;
-                GetElement(upgradeType: string): Element
+                GetElement(upgradeType: string, itemData: ItemData): Element
                 {
                     if (this.data.Contains(upgradeType))
                     {
@@ -154,7 +141,19 @@ namespace API
                     }
                     else
                     {
-                        this.data.Add(upgradeType);
+                        function isApplicable(): boolean
+                        {
+                            for (let i = 0; i < itemData.applicable.length; i++)
+                                if (upgradeType == itemData.applicable[i])
+                                    return true;
+
+                            return false;
+                        }
+
+                        if (isApplicable())
+                            this.data.Add(upgradeType);
+                        else
+                            throw "upgrade type " + upgradeType + " not applicable";
                     }
 
                     let result = this.data.Find(upgradeType);
@@ -168,11 +167,16 @@ namespace API
                 public get rank(): number { return this.element.value; }
                 public set rank(value: number) { this.element.value = value; }
 
-                constructor(itemInstance: PlayFabServerModels.ItemInstance, args: IUpgradeItemArguments)
+                Increment(upgradeType: string)
+                {
+                    this.rank += 1;
+                }
+
+                constructor(itemInstance: PlayFabServerModels.ItemInstance, itemData: ItemData, args: IUpgradeItemArguments)
                 {
                     this.data = Load(itemInstance, args.upgradeType);
 
-                    this.element = this.GetElement(args.upgradeType);
+                    this.element = this.GetElement(args.upgradeType, itemData);
                 }
             }
 
@@ -250,7 +254,7 @@ namespace API
                 return object;
             }
 
-            export class Instance
+            export class SnapShot
             {
                 data: Template;
                 GetTemplate(name: string): Template

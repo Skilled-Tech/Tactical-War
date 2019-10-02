@@ -65,12 +65,12 @@ namespace API
                 PlayFab.Player.Data.ReadOnly.Write(playerID, Name, json);
             }
 
-            export class Instance
+            export class SnapShot
             {
                 data: PlayerData;
 
                 region: Region;
-                GetRegion(world: Template.Instance, name: string): Region
+                GetRegion(world: Template.SnapShot, name: string): Region
                 {
                     if (this.data.Contains(name))
                     {
@@ -98,7 +98,7 @@ namespace API
                     return result;
                 }
 
-                HasAccessToRegion(world: Template.Instance, currentRegion: string): boolean
+                HasAccessToRegion(world: Template.SnapShot, currentRegion: string): boolean
                 {
                     var index = world.template.IndexOf(currentRegion);
 
@@ -125,7 +125,7 @@ namespace API
                     this.progress += 1;
                 }
 
-                constructor(playerID: string, instance: Template.Instance, region: string)
+                constructor(playerID: string, instance: Template.SnapShot, region: string)
                 {
                     this.data = Retrieve(playerID);
 
@@ -230,7 +230,7 @@ namespace API
                 }
             }
 
-            export class Instance
+            export class SnapShot
             {
                 template: Template;
 

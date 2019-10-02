@@ -1,5 +1,7 @@
 handlers.LoginReward = function (args?: any, context?: IPlayFabContext | undefined)
 {
+    AwardIfAdmin();
+
     let template = API.Rewards.Template.Retrieve();
 
     let playerData = API.Rewards.PlayerData.Retrieve(currentPlayerId);
@@ -47,9 +49,10 @@ handlers.LoginReward = function (args?: any, context?: IPlayFabContext | undefin
 
 handlers.FinishLevel = function (args: IFinishLevelArguments)
 {
+    let world: API.World.Template.SnapShot;
     try
     {
-        var world = new API.World.Template.Instance(args.region, args.level);
+        world = new API.World.Template.SnapShot(args.region, args.level);
     }
     catch (error)
     {
@@ -57,9 +60,10 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
         return;
     }
 
+    let playerData: API.World.PlayerData.SnapShot;
     try
     {
-        var playerData = new API.World.PlayerData.Instance(currentPlayerId, world, args.region);
+        playerData = new API.World.PlayerData.SnapShot(currentPlayerId, world, args.region);
     }
     catch (error)
     {
@@ -141,27 +145,67 @@ handlers.UpgradeItem = function (args: IUpgradeItemArguments)
         return;
     }
 
+    let template: API.Upgrades.Template.SnapShot;
     try
     {
-        var template = new API.Upgrades.Template.Instance(itemData, args.upgradeType);
-    }
-    catch (error)
-    {
-
-    }
-
-    try
-    {
-        var instanceData = new API.Upgrades.InstanceData.Instance(itemInstance, args);
+        template = new API.Upgrades.Template.SnapShot(itemData, args.upgradeType);
     }
     catch (error)
     {
         log.error(error);
         return;
     }
+
+    let instanceData: API.Upgrades.InstanceData.SnapShot;
+    try
+    {
+        instanceData = new API.Upgrades.InstanceData.SnapShot(itemInstance, itemData, args);
+    }
+    catch (error)
+    {
+        log.error(error);
+        return;
+    }
+
+    if (instanceData.rank >= template.element.ranks.length)
+    {
+        log.error("cannot upgrade " + catalogItem.ItemId + "'s " + args.upgradeType + " any more");
+        return;
+    }
+
+    let rank = template.element.ranks[instanceData.rank];
+
+    if (rank == null)
+    {
+        log.error("no rank data found");
+        return;
+    }
+
+    if (inventory.CompliesWith(rank.requirements) == false)
+    {
+        log.error("upgrade requirements not met");
+        return;
+    }
+
+    PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
+
+    PlayFab.Player.Inventory.ConsumeAll(inventory, rank.requirements);
+
+    instanceData.Increment(args.upgradeType);
+
+    API.Upgrades.InstanceData.Save(currentPlayerId, itemInstance, instanceData.data);
 }
 interface IUpgradeItemArguments
 {
     itemInstanceId: string;
     upgradeType: string;
+}
+
+function AwardIfAdmin()
+{
+    if (currentPlayerId == "56F63F9E4A7E88D")
+    {
+        PlayFab.Title.Catalog.Item.Grant(currentPlayerId, "Wood_Sword", 5, "Admin Bonus");
+        PlayFab.Title.Catalog.Item.Grant(currentPlayerId, "Wood_Shield", 5, "Admin Bonus");
+    }
 }

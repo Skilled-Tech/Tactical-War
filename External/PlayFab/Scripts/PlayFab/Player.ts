@@ -26,6 +26,8 @@ namespace PlayFab
 
             public CompliesWith(requirements: API.ItemStack[]): boolean
             {
+                if (requirements == null || requirements.length == 0) return true;
+
                 for (let i = 0; i < requirements.length; i++)
                 {
                     let instance = this.FindWithID(requirements[i].item);
