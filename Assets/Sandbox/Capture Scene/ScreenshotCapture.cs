@@ -49,6 +49,8 @@ public class ScreenshotCapture : MonoBehaviour
             yield return Capture(subject);
         }
 
+        EditorUtility.RevealInFinder(outPutFolder);
+
         EditorApplication.isPlaying = false;
     }
 

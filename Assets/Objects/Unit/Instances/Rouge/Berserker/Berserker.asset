@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
-  m_Name: Knight
+  m_Name: Berserker
   m_EditorClassIdentifier: 
   icon:
-    sprite: {fileID: 21300000, guid: 786dc58700650f540a9ba9dcdddd64d3, type: 3}
+    sprite: {fileID: 21300000, guid: 8e696b1a1f483984f97b80fea82c3726, type: 3}
     tilt: 0
   description: Heavily armored warrior, low range, high attack & defense
   price:
@@ -25,8 +25,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
     - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
   hideInInventory: 1
-  type: {fileID: 11400000, guid: 24de53186882044498807e9ef2186c21, type: 2}
-  prefab: {fileID: 8127696124609658847, guid: ffb63b5e209ba8e4592a2e03c6b2bed3, type: 3}
+  type: {fileID: 11400000, guid: c31c9a7f1ebcfb24aa457da8aceba346, type: 2}
+  prefab: {fileID: 8127696124609658847, guid: c879f097a5ec3a2459eb83832a94d22d, type: 3}
   health: 200
   deployment:
     cost: 300
@@ -37,4 +37,5 @@ MonoBehaviour:
     distance: 0
     duration: 1
     method: 0
+    statusEffects: []
   speed: 1.8

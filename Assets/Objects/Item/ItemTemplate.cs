@@ -30,7 +30,13 @@ namespace Game
     {
         public const string MenuPath = "Item/";
 
-        public string ID { get { return base.name; } }
+        public string ID
+        {
+            get
+            {
+                return base.name.Replace(' ', '_');
+            }
+        }
 
         public string DisplayName { get { return CatalogItem.DisplayName; } }
 
