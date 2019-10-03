@@ -49,55 +49,27 @@ handlers.LoginReward = function (args?: any, context?: IPlayFabContext | undefin
 
 handlers.FinishLevel = function (args: IFinishLevelArguments)
 {
-    let world: API.World.Template.SnapShot;
-    try
-    {
-        world = new API.World.Template.SnapShot(args.region, args.level);
-    }
-    catch (error)
-    {
-        log.error(error);
-        return;
-    }
+    var template = API.World.Template.Retrieve();
 
-    let playerData: API.World.PlayerData.SnapShot;
-    try
+    var playerData = API.World.PlayerData.Retrieve(currentPlayerId);
+
+    if (playerData == null) //first time for the player finishing any level
     {
-        playerData = new API.World.PlayerData.SnapShot(currentPlayerId, world, args.region);
+        playerData = API.World.PlayerData.Create();
     }
-    catch (error)
+    else
     {
-        log.error(error);
-        return;
+
     }
 
-    if (args.level > playerData.progress) //cheating... probably
+    if (playerData.Contains(args.region)) //first time for the player requesting to finish a level in this region
     {
-        log.error("trying to finish level " + args.level + " without finishing the previous level");
-        return;
+
     }
-
-    let itemIDs = new Array<string>();
-
-    if (args.level == playerData.progress) //Initial
+    else
     {
-        log.info("Initial Completion");
 
-        playerData.Increment();
-        API.World.PlayerData.Save(currentPlayerId, playerData.data);
-
-        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, world.level.reward.initial, "Level Completion Award");
-        itemIDs = itemIDs.concat(rewardItemIDs);
     }
-    else //Recurring
-    {
-        log.info("Recurring Completion");
-
-        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, world.level.reward.constant, "Level Completion Award");
-        itemIDs = itemIDs.concat(rewardItemIDs);
-    }
-
-    return itemIDs;
 }
 interface IFinishLevelArguments
 {

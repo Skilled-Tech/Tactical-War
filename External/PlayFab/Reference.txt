@@ -12,3 +12,56 @@ Upgrade Item Arguments
   "itemInstanceId": "E52ED52BF6F7B1A6",
   "upgradeType": "Damage"
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+Finish Level
+let world: API.World.Template.SnapShot;
+    try
+    {
+        world = new API.World.Template.SnapShot(args.region, args.level);
+    }
+    catch (error)
+    {
+        log.error(error);
+        return;
+    }
+
+    let playerData: API.World.PlayerData.SnapShot;
+    try
+    {
+        playerData = new API.World.PlayerData.SnapShot(currentPlayerId, world, args.region);
+    }
+    catch (error)
+    {
+        log.error(error);
+        return;
+    }
+
+    if (args.level > playerData.progress) //cheating... probably
+    {
+        log.error("trying to finish level " + args.level + " without finishing the previous level");
+        return;
+    }
+
+    let itemIDs = new Array<string>();
+
+    if (args.level == playerData.progress) //Initial
+    {
+        log.info("Initial Completion");
+
+        playerData.Increment();
+        API.World.PlayerData.Save(currentPlayerId, playerData.data);
+
+        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, world.level.reward.initial, "Level Completion Award");
+        itemIDs = itemIDs.concat(rewardItemIDs);
+    }
+    else //Recurring
+    {
+        log.info("Recurring Completion");
+
+        let rewardItemIDs = API.Rewards.Grant(currentPlayerId, world.level.reward.constant, "Level Completion Award");
+        itemIDs = itemIDs.concat(rewardItemIDs);
+    }
+
+    return itemIDs;
