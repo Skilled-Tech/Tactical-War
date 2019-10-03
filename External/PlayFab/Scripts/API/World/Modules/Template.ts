@@ -74,6 +74,7 @@ namespace API
                     return this.template.regions[this.index + 1];
                 }
 
+                public get isFirst(): boolean { return this.index == 0; }
                 public get isLast(): boolean { return this.index + 1 >= this.template.size; }
 
                 constructor(private $template: Template, private $index: number, instance: Region)
@@ -112,6 +113,7 @@ namespace API
                         return this.region.levels[this.index + 1];
                     }
 
+                    public get isFirst(): boolean { return this.index == 0; }
                     public get isLast(): boolean { return this.index + 1 >= this.region.size; }
 
                     constructor(private $region: Region, private $index: number, instance: Level)

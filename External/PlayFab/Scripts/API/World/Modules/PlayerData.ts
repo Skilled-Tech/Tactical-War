@@ -26,9 +26,13 @@ namespace API
                 return null;
             }
 
-            public Add(name: string)
+            public Add(name: string): PlayerData.Region
             {
                 var region = PlayerData.Region.Create(this, this.size, name, 0);
+
+                this.regions.push(region);
+
+                return region;
             }
 
             constructor(source: IPlayerData)

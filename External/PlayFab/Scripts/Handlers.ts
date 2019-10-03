@@ -49,27 +49,101 @@ handlers.LoginReward = function (args?: any, context?: IPlayFabContext | undefin
 
 handlers.FinishLevel = function (args: IFinishLevelArguments)
 {
-    var template = API.World.Template.Retrieve();
-
-    var playerData = API.World.PlayerData.Retrieve(currentPlayerId);
-
-    if (playerData == null) //first time for the player finishing any level
+    function FormatTemplate(): ITemplateSnapshot
     {
-        playerData = API.World.PlayerData.Create();
+        let data = API.World.Template.Retrieve();
+
+        let region = data.Find(args.region);
+
+        if (region == null)
+            throw args.region + " region doesn't exist";
+
+        let level = region.Find(args.level);
+
+        if (level == null)
+            throw "no level with index " + args.level + " defined in " + args.region + " region";
+
+        return {
+            data: data,
+            region: region,
+            level: level,
+        };
     }
-    else
+    interface ITemplateSnapshot
     {
-
+        data: API.World.Template,
+        region: API.World.Template.Region,
+        level: API.World.Template.Region.Level,
     }
 
-    if (playerData.Contains(args.region)) //first time for the player requesting to finish a level in this region
+    try
     {
-
+        var template = FormatTemplate();
     }
-    else
+    catch (error)
     {
-
+        log.error(error);
+        return;
     }
+
+    function FormatPlayerData(template: ITemplateSnapshot): IPlayerDataSnapshot
+    {
+        let data = API.World.PlayerData.Retrieve(currentPlayerId);
+        let firstTime = false;
+        if (data == null) //first time for the player finishing any level
+        {
+            data = API.World.PlayerData.Create();
+
+            firstTime = true;
+        }
+
+        let region = data.Find(args.region);
+        if (region == null)
+        {
+            if (template.region.previous == null) //this is the first level
+            {
+
+            }
+            else
+            {
+                var previous = data.Find(template.region.previous.name);
+
+                if (previous == null)
+                    throw "trying to index region " + args.region + " without unlocking the previous region of : " + template.region.previous.name;
+
+                if (previous.progress < template.region.previous.size)
+                    throw "trying to index region " + args.region + " without finishing the previous region of : " + template.region.previous.name;
+            }
+
+            region = data.Add(args.region);
+        }
+
+        if (args.level > region.progress)
+            throw "trying to complete level of index " + args.level + " without completing the previous levels";
+
+        return {
+            data: data,
+            region: region
+        };
+    }
+    interface IPlayerDataSnapshot
+    {
+        data: API.World.PlayerData;
+        region: API.World.PlayerData.Region;
+    }
+
+    try
+    {
+        var playerData = FormatPlayerData(template);
+    }
+    catch (error)
+    {
+        log.error(error);
+        return;
+    }
+
+    log.info(MyJSON.Write(template));
+    log.info(MyJSON.Write(playerData));
 }
 interface IFinishLevelArguments
 {
