@@ -103,7 +103,7 @@ namespace Game
                     Popup.Show("Retrieving Daily Reward");
 
                     PlayFab.Reward.Daily.OnResponse += DailyRewardsResponseCallback;
-                    PlayFab.Reward.Daily.Perform();
+                    PlayFab.Reward.Daily.Claim();
                 }
                 else
                 {

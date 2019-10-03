@@ -1,33 +1,33 @@
 "use strict";
-handlers.LoginReward = function (args, context) {
-    AwardIfAdmin();
-    let template = API.Reward.Template.Retrieve();
-    let playerData = API.Reward.PlayerData.Retrieve(currentPlayerId);
-    let itemIDs = new Array();
-    if (playerData == null) //Signup
+handlers.ClaimDailyReward = function (args, context) {
+    let template = API.DailyReward.Template.Retrieve();
+    let playerData = API.DailyReward.PlayerData.Retrieve(currentPlayerId);
+    let reward = null;
+    if (playerData == null) //First time claiming daily reward
      {
-        playerData = API.Reward.PlayerData.Create();
-        var signupItems = API.Reward.Grant(currentPlayerId, template.signup, "Signup Reward");
-        itemIDs = itemIDs.concat(signupItems);
+        playerData = API.DailyReward.PlayerData.Create();
+        reward = template.Get(0);
     }
-    else //Recurring
-     {
-        let daysFromLastReward = Utility.Dates.DaysFrom(Date.parse(playerData.daily.timestamp));
-        if (daysFromLastReward < 1) {
-            return;
-        }
-        if (daysFromLastReward >= 2) {
-            playerData.daily.progress = 0;
-        }
-        else {
+    else {
+        var daysFromLastReward = Utility.Dates.DaysFrom(playerData.datestamp);
+        if (daysFromLastReward >= 1) {
+            if (daysFromLastReward >= 2)
+                playerData.progress = 0;
+            reward = template.Get(playerData.progress);
         }
     }
-    let dailyItems = API.Reward.Grant(currentPlayerId, template.daily[playerData.daily.progress], "Daily Reward");
-    itemIDs = itemIDs.concat(dailyItems);
-    var result = new API.Reward.Result(playerData.daily.progress, itemIDs);
-    API.Reward.PlayerData.Daily.Incremenet(playerData, template);
-    API.Reward.PlayerData.Update(currentPlayerId, playerData);
-    return result;
+    let itemIDs = Array();
+    if (reward == null) {
+        return new API.DailyReward.Result(playerData.progress, []);
+    }
+    else {
+        let progress = playerData.progress;
+        playerData.Progress(template);
+        API.DailyReward.PlayerData.Update(currentPlayerId, playerData);
+        let itemIDs = API.Reward.Grant(currentPlayerId, reward, "Daily Login Reward");
+        let result = new API.DailyReward.Result(progress, itemIDs);
+        return result;
+    }
 };
 handlers.FinishLevel = function (args) {
     function FormatTemplate() {
@@ -244,6 +244,90 @@ var API;
 })(API || (API = {}));
 var API;
 (function (API) {
+    let DailyReward;
+    (function (DailyReward) {
+        DailyReward.ID = "daily-rewards";
+        class Result {
+            constructor(progress, items) {
+                this.progress = progress;
+                this.items = items;
+            }
+        }
+        DailyReward.Result = Result;
+    })(DailyReward = API.DailyReward || (API.DailyReward = {}));
+})(API || (API = {}));
+var API;
+(function (API) {
+    let DailyReward;
+    (function (DailyReward) {
+        class PlayerData {
+            constructor(source) {
+                this.timestamp = source.timestamp;
+                this.progress = source.progress;
+            }
+            get datestamp() { return Date.parse(this.timestamp); }
+            Progress(template) {
+                this.timestamp = new Date().toJSON();
+                this.progress += 1;
+                if (this.progress >= template.max)
+                    this.progress = 0;
+            }
+            //Static
+            static Retrieve(playerID) {
+                let json = PlayFab.Player.Data.ReadOnly.Read(playerID, API.DailyReward.ID);
+                if (json == null)
+                    return null;
+                let instance = MyJSON.Read(PlayerData, json);
+                return instance;
+            }
+            static Create() {
+                let source = {
+                    progress: 0,
+                    timestamp: new Date().toJSON()
+                };
+                let instance = new PlayerData(source);
+                return instance;
+            }
+            static Save(playerID, data) {
+                PlayFab.Player.Data.ReadOnly.Write(playerID, API.DailyReward.ID, JSON.stringify(data));
+            }
+            static Update(playerID, data) {
+                data.timestamp = new Date().toJSON();
+                PlayerData.Save(playerID, data);
+            }
+        }
+        DailyReward.PlayerData = PlayerData;
+    })(DailyReward = API.DailyReward || (API.DailyReward = {}));
+})(API || (API = {}));
+var API;
+(function (API) {
+    let DailyReward;
+    (function (DailyReward) {
+        class Template {
+            constructor(list) {
+                this.list = list;
+            }
+            get max() { return this.list.length; }
+            Get(index) {
+                if (index < 0 || index + 1 > this.max)
+                    throw "no rewars defined for index: " + index;
+                return this.list[index];
+            }
+            //Static
+            static Retrieve() {
+                var json = PlayFab.Title.Data.Retrieve(API.DailyReward.ID);
+                if (json == null)
+                    throw "no rewards template defined";
+                var list = JSON.parse(json);
+                var instance = new Template(list);
+                return instance;
+            }
+        }
+        DailyReward.Template = Template;
+    })(DailyReward = API.DailyReward || (API.DailyReward = {}));
+})(API || (API = {}));
+var API;
+(function (API) {
     class Reward {
         constructor(items, droptable) {
             this.items = items;
@@ -269,114 +353,18 @@ var API;
         }
     }
     API.Reward = Reward;
-    (function (Reward) {
-        Reward.ID = "rewards";
-        class Template {
-            constructor(object) {
-                this.signup = object.signup;
-                this.daily = object.daily;
-            }
-        }
-        Reward.Template = Template;
-        (function (Template) {
-            function Retrieve() {
-                var json = PlayFab.Title.Data.Retrieve(Reward.ID);
-                if (json == null)
-                    throw "no rewards template defined";
-                var object = JSON.parse(json);
-                var instance = new Template(object);
-                return instance;
-            }
-            Template.Retrieve = Retrieve;
-        })(Template = Reward.Template || (Reward.Template = {}));
-        class PlayerData {
-            constructor(object) {
-                this.daily = object.daily;
-            }
-        }
-        Reward.PlayerData = PlayerData;
-        (function (PlayerData) {
-            function Retrieve(playerID) {
-                let result = PlayFab.Player.Data.ReadOnly.Read(playerID, Reward.ID);
-                if (result == null)
-                    return null;
-                let object = JSON.parse(result);
-                let instance = new PlayerData(object);
-                return instance;
-            }
-            PlayerData.Retrieve = Retrieve;
-            function Create() {
-                var data = new PlayerData({ daily: Daily.Create() });
-                return data;
-            }
-            PlayerData.Create = Create;
-            function Save(playerID, data) {
-                PlayFab.Player.Data.ReadOnly.Write(playerID, Reward.ID, JSON.stringify(data));
-            }
-            PlayerData.Save = Save;
-            function Update(playerID, data) {
-                data.daily.timestamp = new Date().toJSON();
-                Save(playerID, data);
-            }
-            PlayerData.Update = Update;
-            class Daily {
-                constructor(timestamp, progress) {
-                    this.timestamp = timestamp;
-                    this.progress = progress;
-                }
-            }
-            PlayerData.Daily = Daily;
-            (function (Daily) {
-                function Incremenet(data, templates) {
-                    data.daily.progress++;
-                    if (data.daily.progress >= templates.daily.length)
-                        data.daily.progress = 0;
-                }
-                Daily.Incremenet = Incremenet;
-                function Create() {
-                    var instance = new Daily(new Date().toJSON(), 0);
-                    return instance;
-                }
-                Daily.Create = Create;
-            })(Daily = PlayerData.Daily || (PlayerData.Daily = {}));
-        })(PlayerData = Reward.PlayerData || (Reward.PlayerData = {}));
-        class Result {
-            constructor(progress, items) {
-                this.progress = progress;
-                this.items = items;
-            }
-        }
-        Reward.Result = Result;
-    })(Reward = API.Reward || (API.Reward = {}));
 })(API || (API = {}));
 var API;
 (function (API) {
     let Upgrades;
     (function (Upgrades) {
         Upgrades.ID = "upgrades";
-        class ItemData {
-            constructor(object) {
-                this.template = object.template;
-                this.applicable = object.applicable;
-            }
-        }
-        Upgrades.ItemData = ItemData;
-        (function (ItemData) {
-            ItemData.Default = "Default";
-            function Load(catalogItem) {
-                if (catalogItem == null)
-                    return null;
-                if (catalogItem.CustomData == null)
-                    return null;
-                let object = JSON.parse(catalogItem.CustomData);
-                var element = object[Upgrades.ID];
-                if (element == null)
-                    return null;
-                let data = new ItemData(element);
-                return data;
-            }
-            ItemData.Load = Load;
-        })(ItemData = Upgrades.ItemData || (Upgrades.ItemData = {}));
+    })(Upgrades = API.Upgrades || (API.Upgrades = {}));
+})(API || (API = {}));
+var API;
+(function (API) {
+    let Upgrades;
+    (function (Upgrades) {
         class InstanceData {
             constructor(list) {
                 this.list = list;
@@ -471,10 +459,45 @@ var API;
             }
             InstanceData.Element = Element;
         })(InstanceData = Upgrades.InstanceData || (Upgrades.InstanceData = {}));
+    })(Upgrades = API.Upgrades || (API.Upgrades = {}));
+})(API || (API = {}));
+var API;
+(function (API) {
+    let Upgrades;
+    (function (Upgrades) {
+        class ItemData {
+            constructor(source) {
+                this.template = source.template;
+                this.applicable = source.applicable;
+            }
+            static Load(catalogItem) {
+                if (catalogItem == null)
+                    return null;
+                if (catalogItem.CustomData == null)
+                    return null;
+                let object = JSON.parse(catalogItem.CustomData);
+                var element = object[Upgrades.ID];
+                if (element == null)
+                    return null;
+                let data = new ItemData(element);
+                return data;
+            }
+        }
+        Upgrades.ItemData = ItemData;
+    })(Upgrades = API.Upgrades || (API.Upgrades = {}));
+})(API || (API = {}));
+var API;
+(function (API) {
+    let Upgrades;
+    (function (Upgrades) {
         class Template {
             constructor(object) {
                 this.name = object.name;
-                this.elements = object.elements;
+                this.elements = [];
+                for (let i = 0; i < object.elements.length; i++) {
+                    let instance = new Template.Element(this, i, object.elements[i]);
+                    this.elements.push(instance);
+                }
             }
             Find(name) {
                 for (let i = 0; i < this.elements.length; i++)
@@ -482,22 +505,11 @@ var API;
                         return this.elements[i];
                 return null;
             }
-            Match(name, data) {
-                let element = this.Find(name);
-                if (element == null)
-                    return null;
-                let dataElement = data.Find(name);
-                if (dataElement == null)
-                    return null;
-                return element.ranks[dataElement.value];
-            }
         }
         Upgrades.Template = Template;
         (function (Template) {
             function Find(name) {
                 let list = GetAll();
-                if (list == null)
-                    return null;
                 for (let i = 0; i < list.length; i++)
                     if (list[i].name == name)
                         return new Template(list[i]);
@@ -507,45 +519,52 @@ var API;
             function GetAll() {
                 let json = PlayFab.Title.Data.Retrieve(API.Upgrades.ID);
                 if (json == null)
-                    return null;
+                    throw "no upgrades templates defined";
                 var object = JSON.parse(json);
                 return object;
             }
             Template.GetAll = GetAll;
-            class SnapShot {
-                constructor(itemData, upgradeType) {
-                    this.data = this.GetTemplate(itemData.template);
-                    this.element = this.GetElement(upgradeType);
-                }
-                GetTemplate(name) {
-                    let result = Template.Find(name);
-                    if (result == null)
-                        throw "no " + name + " upgrade template found";
-                    return result;
-                }
-                GetElement(upgradeType) {
-                    let result = this.data.Find(upgradeType);
-                    if (result == null)
-                        throw "no " + upgradeType + " upgrade type found in " + this.data.name + " upgrade template";
-                    return result;
-                }
-            }
-            Template.SnapShot = SnapShot;
             class Element {
-                constructor(type, ranks) {
-                    this.type = type;
-                    this.ranks = ranks;
+                constructor($template, $index, source) {
+                    this.$template = $template;
+                    this.$index = $index;
+                    this.type = source.type;
+                    this.ranks = [];
+                    for (let i = 0; i < source.ranks.length; i++) {
+                        let instance = new Element.Rank(this, i, source.ranks[i]);
+                        this.ranks.push(instance);
+                    }
                 }
+                get template() { return this.$template; }
+                get index() { return this.$index; }
             }
             Template.Element = Element;
-            class Rank {
-                constructor(cost, percentage, requirements) {
-                    this.cost = cost;
-                    this.percentage = percentage;
-                    this.requirements = requirements;
+            (function (Element) {
+                class Rank {
+                    constructor($element, $index, source) {
+                        this.$element = $element;
+                        this.$index = $index;
+                        this.cost = source.cost;
+                        this.percentage = source.percentage;
+                        this.requirements = source.requirements;
+                    }
+                    get element() { return this.$element; }
+                    get index() { return this.$index; }
+                    get previous() {
+                        if (this.index == 0)
+                            return null;
+                        return this.$element.ranks[this.index - 1];
+                    }
+                    get next() {
+                        if (this.index + 1 == this.element.ranks.length)
+                            return null;
+                        return this.element.ranks[this.index + 1];
+                    }
+                    get isFirst() { return this.index == 0; }
+                    get isLast() { return this.index + 1 >= this.element.ranks.length; }
                 }
-            }
-            Template.Rank = Rank;
+                Element.Rank = Rank;
+            })(Element = Template.Element || (Template.Element = {}));
         })(Template = Upgrades.Template || (Upgrades.Template = {}));
     })(Upgrades = API.Upgrades || (API.Upgrades = {}));
 })(API || (API = {}));

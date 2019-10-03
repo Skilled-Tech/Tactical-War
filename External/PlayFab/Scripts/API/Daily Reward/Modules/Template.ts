@@ -24,7 +24,7 @@ namespace API
             //Static
             static Retrieve(): Template
             {
-                var json = PlayFab.Title.Data.Retrieve(Reward.ID);
+                var json = PlayFab.Title.Data.Retrieve(API.DailyReward.ID);
 
                 if (json == null) throw "no rewards template defined";
 

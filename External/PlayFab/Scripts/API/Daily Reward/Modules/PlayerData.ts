@@ -6,6 +6,8 @@ namespace API
         {
             timestamp: string;
 
+            public get datestamp(): number { return Date.parse(this.timestamp); }
+
             progress: number;
             public Progress(template: Template)
             {
@@ -50,7 +52,7 @@ namespace API
 
             static Save(playerID: string, data: PlayerData)
             {
-                PlayFab.Player.Data.ReadOnly.Write(playerID, Reward.ID, JSON.stringify(data));
+                PlayFab.Player.Data.ReadOnly.Write(playerID, API.DailyReward.ID, JSON.stringify(data));
             }
 
             static Update(playerID: string, data: PlayerData)

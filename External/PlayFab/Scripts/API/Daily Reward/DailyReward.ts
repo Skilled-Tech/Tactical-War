@@ -2,7 +2,7 @@ namespace API
 {
     export namespace DailyReward
     {
-        export const ID = "daily reward";
+        export const ID = "daily-rewards";
 
         export class Result
         {

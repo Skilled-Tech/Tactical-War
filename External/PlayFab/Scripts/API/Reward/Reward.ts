@@ -41,8 +41,4 @@ namespace API
             return IDs;
         }
     }
-    export namespace Reward
-    {
-        export const ID = "rewards";
-    }
 }

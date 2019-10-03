@@ -30,6 +30,8 @@ namespace Game
     [Serializable]
     public class PlayFabLoginReward : PlayFabRewardCore.Module
     {
+        public const string ID = "daily-rewards";
+
         protected int max;
         public int Max { get { return max; } }
 
@@ -42,19 +44,17 @@ namespace Game
 
         void TitleDataRetrieveCallback(PlayFabTitleDataCore result)
         {
-            var jObject = JObject.Parse(result.Value["rewards"]);
-
-            var jArray = jObject["daily"] as JArray;
+            var jArray = JArray.Parse(result.Value[ID]);
 
             max = jArray.Count;
         }
 
         #region Request
-        public virtual void Perform()
+        public virtual void Claim()
         {
             var request = new ExecuteCloudScriptRequest()
             {
-                FunctionName = "LoginReward",
+                FunctionName = "ClaimDailyReward",
 
                 FunctionParameter = null,
 
