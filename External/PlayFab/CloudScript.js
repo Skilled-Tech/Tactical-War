@@ -1,13 +1,13 @@
 "use strict";
 handlers.LoginReward = function (args, context) {
     AwardIfAdmin();
-    let template = API.Rewards.Template.Retrieve();
-    let playerData = API.Rewards.PlayerData.Retrieve(currentPlayerId);
+    let template = API.Reward.Template.Retrieve();
+    let playerData = API.Reward.PlayerData.Retrieve(currentPlayerId);
     let itemIDs = new Array();
     if (playerData == null) //Signup
      {
-        playerData = API.Rewards.PlayerData.Create();
-        var signupItems = API.Rewards.Grant(currentPlayerId, template.signup, "Signup Reward");
+        playerData = API.Reward.PlayerData.Create();
+        var signupItems = API.Reward.Grant(currentPlayerId, template.signup, "Signup Reward");
         itemIDs = itemIDs.concat(signupItems);
     }
     else //Recurring
@@ -22,21 +22,85 @@ handlers.LoginReward = function (args, context) {
         else {
         }
     }
-    let dailyItems = API.Rewards.Grant(currentPlayerId, template.daily[playerData.daily.progress], "Daily Reward");
+    let dailyItems = API.Reward.Grant(currentPlayerId, template.daily[playerData.daily.progress], "Daily Reward");
     itemIDs = itemIDs.concat(dailyItems);
-    var result = new API.Rewards.Result(playerData.daily.progress, itemIDs);
-    API.Rewards.PlayerData.Daily.Incremenet(playerData, template);
-    API.Rewards.PlayerData.Update(currentPlayerId, playerData);
+    var result = new API.Reward.Result(playerData.daily.progress, itemIDs);
+    API.Reward.PlayerData.Daily.Incremenet(playerData, template);
+    API.Reward.PlayerData.Update(currentPlayerId, playerData);
     return result;
 };
 handlers.FinishLevel = function (args) {
-    var template = API_NEW.World.Template.Retrieve();
-    log.info(MyJSON.Write(template));
-    var playerData = API_NEW.World.PlayerData.Retrieve(currentPlayerId);
-    if (playerData == null) {
+    function FormatTemplate() {
+        let data = API.World.Template.Retrieve();
+        let region = data.Find(args.region);
+        if (region == null)
+            throw args.region + " region doesn't exist";
+        let level = region.Find(args.level);
+        if (level == null)
+            throw "no level with index " + args.level + " defined in " + args.region + " region";
+        return {
+            data: data,
+            region: region,
+            level: level,
+        };
     }
-    else {
+    try {
+        var template = FormatTemplate();
     }
+    catch (error) {
+        log.error(error);
+        return;
+    }
+    function FormatPlayerData(template) {
+        let data = API.World.PlayerData.Retrieve(currentPlayerId);
+        let firstTime = false;
+        if (data == null) //first time for the player finishing any level
+         {
+            data = API.World.PlayerData.Create();
+            firstTime = true;
+        }
+        let region = data.Find(args.region);
+        if (region == null) {
+            if (template.region.previous == null) //this is the first level
+             {
+            }
+            else {
+                var previous = data.Find(template.region.previous.name);
+                if (previous == null)
+                    throw "trying to index region " + args.region + " without unlocking the previous region: " + template.region.previous.name;
+                if (previous.progress < template.region.previous.size)
+                    throw "trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name;
+            }
+            region = data.Add(args.region);
+        }
+        if (args.level > region.progress)
+            throw "trying to complete level of index " + args.level + " without completing the previous levels";
+        return {
+            data: data,
+            region: region
+        };
+    }
+    try {
+        var playerData = FormatPlayerData(template);
+    }
+    catch (error) {
+        log.error(error);
+        return;
+    }
+    let rewardItemIDs = [];
+    if (playerData.region.progress == args.level) //Initial Completion
+     {
+        playerData.region.progress += 1;
+        API.World.PlayerData.Save(currentPlayerId, playerData.data);
+        let IDs = API.Reward.Grant(currentPlayerId, template.level.reward.initial, "Level Completion Reward");
+        rewardItemIDs = rewardItemIDs.concat(IDs);
+    }
+    else //Recurring Completion
+     {
+        let IDs = API.Reward.Grant(currentPlayerId, template.level.reward.recurring, "Level Completion Reward");
+        rewardItemIDs = rewardItemIDs.concat(IDs);
+    }
+    return rewardItemIDs;
 };
 handlers.UpgradeItem = function (args) {
     let inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
@@ -180,10 +244,13 @@ var API;
 })(API || (API = {}));
 var API;
 (function (API) {
-    let Rewards;
-    (function (Rewards) {
-        Rewards.ID = "rewards";
-        function Grant(playerID, data, annotation) {
+    class Reward {
+        constructor(items, droptable) {
+            this.items = items;
+            this.droptable = droptable;
+        }
+        //Static
+        static Grant(playerID, data, annotation) {
             let IDs = Array();
             if (data.items == null) {
             }
@@ -200,17 +267,20 @@ var API;
             PlayFab.Title.Catalog.Item.GrantAll(playerID, IDs, annotation);
             return IDs;
         }
-        Rewards.Grant = Grant;
+    }
+    API.Reward = Reward;
+    (function (Reward) {
+        Reward.ID = "rewards";
         class Template {
             constructor(object) {
                 this.signup = object.signup;
                 this.daily = object.daily;
             }
         }
-        Rewards.Template = Template;
+        Reward.Template = Template;
         (function (Template) {
             function Retrieve() {
-                var json = PlayFab.Title.Data.Retrieve(Rewards.ID);
+                var json = PlayFab.Title.Data.Retrieve(Reward.ID);
                 if (json == null)
                     throw "no rewards template defined";
                 var object = JSON.parse(json);
@@ -218,16 +288,16 @@ var API;
                 return instance;
             }
             Template.Retrieve = Retrieve;
-        })(Template = Rewards.Template || (Rewards.Template = {}));
+        })(Template = Reward.Template || (Reward.Template = {}));
         class PlayerData {
             constructor(object) {
                 this.daily = object.daily;
             }
         }
-        Rewards.PlayerData = PlayerData;
+        Reward.PlayerData = PlayerData;
         (function (PlayerData) {
             function Retrieve(playerID) {
-                let result = PlayFab.Player.Data.ReadOnly.Read(playerID, Rewards.ID);
+                let result = PlayFab.Player.Data.ReadOnly.Read(playerID, Reward.ID);
                 if (result == null)
                     return null;
                 let object = JSON.parse(result);
@@ -241,7 +311,7 @@ var API;
             }
             PlayerData.Create = Create;
             function Save(playerID, data) {
-                PlayFab.Player.Data.ReadOnly.Write(playerID, Rewards.ID, JSON.stringify(data));
+                PlayFab.Player.Data.ReadOnly.Write(playerID, Reward.ID, JSON.stringify(data));
             }
             PlayerData.Save = Save;
             function Update(playerID, data) {
@@ -269,22 +339,15 @@ var API;
                 }
                 Daily.Create = Create;
             })(Daily = PlayerData.Daily || (PlayerData.Daily = {}));
-        })(PlayerData = Rewards.PlayerData || (Rewards.PlayerData = {}));
+        })(PlayerData = Reward.PlayerData || (Reward.PlayerData = {}));
         class Result {
             constructor(progress, items) {
                 this.progress = progress;
                 this.items = items;
             }
         }
-        Rewards.Result = Result;
-        class Type {
-            constructor(items, droptable) {
-                this.items = items;
-                this.droptable = droptable;
-            }
-        }
-        Rewards.Type = Type;
-    })(Rewards = API.Rewards || (API.Rewards = {}));
+        Reward.Result = Result;
+    })(Reward = API.Reward || (API.Reward = {}));
 })(API || (API = {}));
 var API;
 (function (API) {
@@ -490,240 +553,87 @@ var API;
 (function (API) {
     let World;
     (function (World) {
-        World.Name = "world";
-        class PlayerData {
-            constructor(object) {
-                this.regions = object.regions;
-            }
-            Add(region) {
-                this.regions.push(region);
-            }
-            Contains(name) {
-                for (let i = 0; i < this.regions.length; i++)
-                    if (this.regions[i].name == name)
-                        return true;
-                return false;
-            }
-            Find(name) {
-                for (let i = 0; i < this.regions.length; i++)
-                    if (this.regions[i].name == name)
-                        return this.regions[i];
-                return null;
-            }
-        }
-        World.PlayerData = PlayerData;
-        (function (PlayerData) {
-            function Retrieve(playerID) {
-                let json = PlayFab.Player.Data.ReadOnly.Read(playerID, World.Name);
-                let object;
-                if (json == null)
-                    object = { regions: [] };
-                else
-                    object = JSON.parse(json);
-                let instance = new PlayerData(object);
-                return instance;
-            }
-            PlayerData.Retrieve = Retrieve;
-            function Save(playerID, data) {
-                let json = JSON.stringify(data);
-                PlayFab.Player.Data.ReadOnly.Write(playerID, World.Name, json);
-            }
-            PlayerData.Save = Save;
-            class SnapShot {
-                constructor(playerID, instance, region) {
-                    this.data = Retrieve(playerID);
-                    this.region = this.GetRegion(instance, region);
-                }
-                GetRegion(world, name) {
-                    if (this.data.Contains(name)) {
-                    }
-                    else {
-                        if (this.HasAccessToRegion(world, name)) {
-                            let instance = new Region(name, 0);
-                            this.data.Add(instance);
-                        }
-                        else {
-                            throw "Trying to index " + name + " region without having access to that region";
-                        }
-                    }
-                    var result = this.data.Find(name);
-                    if (result == null)
-                        throw "No " + name + " region found in player data";
-                    return result;
-                }
-                HasAccessToRegion(world, currentRegion) {
-                    var index = world.template.IndexOf(currentRegion);
-                    if (index == null)
-                        throw "No region index for " + name + " was found in world template";
-                    if (index == 0)
-                        return true;
-                    var previousRegion = world.template.regions[index - 1];
-                    var previousRegionData = this.data.Find(previousRegion.name);
-                    if (previousRegionData == null)
-                        return false;
-                    return previousRegionData.progress >= previousRegion.levels.length;
-                }
-                get progress() { return this.region.progress; }
-                set progress(value) { this.region.progress = value; }
-                Increment() {
-                    this.progress += 1;
-                }
-            }
-            PlayerData.SnapShot = SnapShot;
-            class Region {
-                constructor(name, progress) {
-                    this.name = name;
-                    this.progress = progress;
-                }
-            }
-            PlayerData.Region = Region;
-        })(PlayerData = World.PlayerData || (World.PlayerData = {}));
-        class Template {
-            constructor(object) {
-                this.regions = object.regions;
-            }
-            get Last() {
-                return this.regions[this.regions.length - 1];
-            }
-            Find(name) {
-                for (let i = 0; i < this.regions.length; i++)
-                    if (this.regions[i].name == name)
-                        return this.regions[i];
-                return null;
-            }
-            Contains(name) {
-                for (let i = 0; i < this.regions.length; i++)
-                    if (this.regions[i].name == name)
-                        return true;
-                return false;
-            }
-            IndexOf(name) {
-                for (let i = 0; i < this.regions.length; i++)
-                    if (this.regions[i].name == name)
-                        return i;
-                return null;
-            }
-        }
-        World.Template = Template;
-        (function (Template) {
-            function Retrieve() {
-                let json = PlayFab.Title.Data.Retrieve(World.Name);
-                if (json == null)
-                    throw "No world template defined";
-                let object = JSON.parse(json);
-                var data = new Template(object);
-                return data;
-            }
-            Template.Retrieve = Retrieve;
-            function Validate(data, args) {
-                let region = data.Find(args.region);
-                if (region == null) {
-                    throw args.region + " region doesn't exist";
-                }
-                else {
-                    if (args.level >= 0 && args.level < region.levels.length) {
-                        return;
-                    }
-                    else {
-                        throw "Level " + args.level + " on " + args.region + " region doesn't exist";
-                    }
-                }
-            }
-            Template.Validate = Validate;
-            class SnapShot {
-                constructor(region, level) {
-                    this.template = API.World.Template.Retrieve();
-                    this.region = this.GetRegion(region);
-                    this.level = this.GetLevel(level);
-                }
-                GetRegion(name) {
-                    let result = this.template.Find(name);
-                    if (result == null)
-                        throw "No region named " + name + " found in world template";
-                    return result;
-                }
-                GetLevel(index) {
-                    let result = this.region.levels[index];
-                    if (result == null)
-                        throw "No level indexed " + index + " found in " + this.region.name + " world region template";
-                    return result;
-                }
-            }
-            Template.SnapShot = SnapShot;
-            class Region {
-                constructor(name, levels) {
-                    this.name = name;
-                    this.levels = levels;
-                }
-            }
-            Template.Region = Region;
-            class Level {
-                constructor(reward) {
-                    this.reward = reward;
-                }
-            }
-            Template.Level = Level;
-            class Rewards {
-                constructor(initial, constant) {
-                    this.initial = initial;
-                    this.constant = constant;
-                }
-            }
-            Template.Rewards = Rewards;
-        })(Template = World.Template || (World.Template = {}));
+        World.ID = "world";
     })(World = API.World || (API.World = {}));
 })(API || (API = {}));
-var API_NEW;
-(function (API_NEW) {
+var API;
+(function (API) {
     let World;
     (function (World) {
-        World.ID = "world";
         class PlayerData {
-            constructor(instance) {
+            constructor(source) {
                 this.regions = [];
-                for (let i = 0; i < instance.regions.length; i++) {
-                    let copy = new PlayerData.Region(this, i, instance.regions[i]);
+                for (let i = 0; i < source.regions.length; i++) {
+                    let copy = new PlayerData.Region(this, i, source.regions[i]);
                     this.regions.push(copy);
                 }
             }
+            get size() { return this.regions.length; }
+            Contains(name) {
+                for (let i = 0; i < this.regions.length; i++)
+                    if (this.regions[i].name == name)
+                        return true;
+                return false;
+            }
             Find(name) {
                 for (let i = 0; i < this.regions.length; i++)
                     if (this.regions[i].name == name)
                         return this.regions[i];
                 return null;
             }
-        }
-        World.PlayerData = PlayerData;
-        (function (PlayerData) {
-            function Retrieve(playerID) {
-                var json = PlayFab.Player.Data.ReadOnly.Read(playerID, API_NEW.World.ID);
+            Add(name) {
+                var region = PlayerData.Region.Create(this, this.size, name, 0);
+                this.regions.push(region);
+                return region;
+            }
+            //Static
+            static Retrieve(playerID) {
+                var json = PlayFab.Player.Data.ReadOnly.Read(playerID, API.World.ID);
                 if (json == null)
                     return null;
                 var instance = MyJSON.Read(PlayerData, json);
                 return instance;
             }
-            PlayerData.Retrieve = Retrieve;
-            function Create(template) {
-                throw "//TODO";
+            static Create() {
+                let source = {
+                    regions: []
+                };
+                var instance = new PlayerData(source);
+                return instance;
             }
-            PlayerData.Create = Create;
-            function Save(playerID, data) {
+            static Save(playerID, data) {
                 let json = MyJSON.Write(data);
-                PlayFab.Player.Data.ReadOnly.Write(playerID, API_NEW.World.ID, json);
+                PlayFab.Player.Data.ReadOnly.Write(playerID, API.World.ID, json);
             }
-            PlayerData.Save = Save;
+        }
+        World.PlayerData = PlayerData;
+        (function (PlayerData) {
             class Region {
-                constructor($world, $index, instance) {
-                    this.$world = $world;
+                constructor($playerData, $index, source) {
+                    this.$playerData = $playerData;
                     this.$index = $index;
-                    this.name = instance.name;
-                    this.progress = instance.progress;
+                    this.name = source.name;
+                    this.progress = source.progress;
                 }
-                get playerData() { return this.$world; }
+                get playerData() { return this.$playerData; }
                 get index() { return this.$index; }
+                static Create(playerData, index, name, progress) {
+                    let source = {
+                        name: name,
+                        progress: progress,
+                    };
+                    var instance = new Region(playerData, index, source);
+                    return instance;
+                }
             }
             PlayerData.Region = Region;
         })(PlayerData = World.PlayerData || (World.PlayerData = {}));
+    })(World = API.World || (API.World = {}));
+})(API || (API = {}));
+var API;
+(function (API) {
+    let World;
+    (function (World) {
         class Template {
             constructor(instance) {
                 this.regions = [];
@@ -743,7 +653,7 @@ var API_NEW;
         World.Template = Template;
         (function (Template) {
             function Retrieve() {
-                var json = PlayFab.Title.Data.Retrieve(API_NEW.World.ID);
+                var json = PlayFab.Title.Data.Retrieve(API.World.ID);
                 if (json == null)
                     throw "no World Template data defined within PlayFab Title Data";
                 var instance = MyJSON.Read(Template, json);
@@ -781,6 +691,7 @@ var API_NEW;
                         return null;
                     return this.template.regions[this.index + 1];
                 }
+                get isFirst() { return this.index == 0; }
                 get isLast() { return this.index + 1 >= this.template.size; }
             }
             Template.Region = Region;
@@ -803,6 +714,7 @@ var API_NEW;
                             return null;
                         return this.region.levels[this.index + 1];
                     }
+                    get isFirst() { return this.index == 0; }
                     get isLast() { return this.index + 1 >= this.region.size; }
                 }
                 Region.Level = Level;
@@ -817,8 +729,8 @@ var API_NEW;
                 })(Level = Region.Level || (Region.Level = {}));
             })(Region = Template.Region || (Template.Region = {}));
         })(Template = World.Template || (World.Template = {}));
-    })(World = API_NEW.World || (API_NEW.World = {}));
-})(API_NEW || (API_NEW = {}));
+    })(World = API.World || (API.World = {}));
+})(API || (API = {}));
 var PlayFab;
 (function (PlayFab) {
     let Player;

@@ -1,10 +1,18 @@
 namespace API
 {
-    export namespace Rewards
+    export class Reward
     {
-        export const ID = "rewards";
+        items: [string];
+        droptable: DropTable;
 
-        export function Grant(playerID: string, data: Type, annotation: string): string[]
+        constructor(items: [string], droptable: DropTable)
+        {
+            this.items = items;
+            this.droptable = droptable;
+        }
+
+        //Static
+        static Grant(playerID: string, data: Reward, annotation: string): string[]
         {
             let IDs = Array<string>();
 
@@ -32,11 +40,15 @@ namespace API
 
             return IDs;
         }
+    }
+    export namespace Reward
+    {
+        export const ID = "rewards";
 
         export class Template
         {
-            signup: API.Rewards.Type;
-            daily: API.Rewards.Type[];
+            signup: API.Reward;
+            daily: API.Reward[];
 
             constructor(object: ITemplate)
             {
@@ -46,14 +58,14 @@ namespace API
         }
         interface ITemplate
         {
-            signup: API.Rewards.Type;
-            daily: API.Rewards.Type[]
+            signup: API.Reward;
+            daily: API.Reward[]
         }
         export namespace Template
         {
             export function Retrieve(): Template
             {
-                var json = PlayFab.Title.Data.Retrieve(Rewards.ID);
+                var json = PlayFab.Title.Data.Retrieve(Reward.ID);
 
                 if (json == null) throw "no rewards template defined";
 
@@ -82,7 +94,7 @@ namespace API
         {
             export function Retrieve(playerID: string): PlayerData | null
             {
-                let result = PlayFab.Player.Data.ReadOnly.Read(playerID, Rewards.ID);
+                let result = PlayFab.Player.Data.ReadOnly.Read(playerID, Reward.ID);
 
                 if (result == null) return null;
 
@@ -102,7 +114,7 @@ namespace API
 
             export function Save(playerID: string, data: PlayerData)
             {
-                PlayFab.Player.Data.ReadOnly.Write(playerID, Rewards.ID, JSON.stringify(data));
+                PlayFab.Player.Data.ReadOnly.Write(playerID, Reward.ID, JSON.stringify(data));
             }
 
             export function Update(playerID: string, data: PlayerData)
@@ -125,7 +137,7 @@ namespace API
             }
             export namespace Daily
             {
-                export function Incremenet(data: PlayerData, templates: API.Rewards.Template)
+                export function Incremenet(data: PlayerData, templates: API.Reward.Template)
                 {
                     data.daily.progress++;
 
@@ -151,18 +163,6 @@ namespace API
             {
                 this.progress = progress;
                 this.items = items;
-            }
-        }
-
-        export class Type
-        {
-            items: [string];
-            droptable: DropTable;
-
-            constructor(items: [string], droptable: DropTable)
-            {
-                this.items = items;
-                this.droptable = droptable;
             }
         }
     }

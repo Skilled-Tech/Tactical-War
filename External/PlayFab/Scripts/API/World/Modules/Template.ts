@@ -125,10 +125,10 @@ namespace API
                 {
                     export class Rewards
                     {
-                        initial: API.Rewards.Type;
-                        recurring: API.Rewards.Type;
+                        initial: API.Reward;
+                        recurring: API.Reward;
 
-                        constructor(initial: API.Rewards.Type, constant: API.Rewards.Type)
+                        constructor(initial: API.Reward, constant: API.Reward)
                         {
                             this.initial = initial;
                             this.recurring = constant;

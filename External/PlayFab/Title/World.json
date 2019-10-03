@@ -14,7 +14,7 @@
                 "iterations": 2
               }
             },
-            "constant": {
+            "recurring": {
               "items": [
                 "1K_Gold"
               ],
@@ -36,7 +36,7 @@
                 "iterations": 2
               }
             },
-            "constant": {
+            "recurring": {
               "items": [
                 "1K_Gold"
               ],
@@ -58,7 +58,7 @@
                 "iterations": 2
               }
             },
-            "constant": {
+            "recurring": {
               "items": [
                 "1K_Gold"
               ],
@@ -80,7 +80,7 @@
                 "iterations": 2
               }
             },
-            "constant": {
+            "recurring": {
               "items": [
                 "1K_Gold"
               ],
@@ -102,7 +102,7 @@
                 "iterations": 2
               }
             },
-            "constant": {
+            "recurring": {
               "items": [
                 "1K_Gold"
               ],
@@ -129,7 +129,7 @@
                 "iterations": 2
               }
             },
-            "constant": {
+            "recurring": {
               "items": [
                 "1K_Gold"
               ],
@@ -151,7 +151,7 @@
                 "iterations": 2
               }
             },
-            "constant": {
+            "recurring": {
               "items": [
                 "1K_Gold"
               ],
@@ -173,7 +173,7 @@
                 "iterations": 2
               }
             },
-            "constant": {
+            "recurring": {
               "items": [
                 "1K_Gold"
               ],
@@ -195,7 +195,7 @@
                 "iterations": 2
               }
             },
-            "constant": {
+            "recurring": {
               "items": [
                 "1K_Gold"
               ],
@@ -217,7 +217,7 @@
                 "iterations": 2
               }
             },
-            "constant": {
+            "recurring": {
               "items": [
                 "1K_Gold"
               ],

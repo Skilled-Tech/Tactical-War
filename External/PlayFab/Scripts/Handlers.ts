@@ -2,17 +2,17 @@ handlers.LoginReward = function (args?: any, context?: IPlayFabContext | undefin
 {
     AwardIfAdmin();
 
-    let template = API.Rewards.Template.Retrieve();
+    let template = API.Reward.Template.Retrieve();
 
-    let playerData = API.Rewards.PlayerData.Retrieve(currentPlayerId);
+    let playerData = API.Reward.PlayerData.Retrieve(currentPlayerId);
 
     let itemIDs = new Array<string>();
 
     if (playerData == null) //Signup
     {
-        playerData = API.Rewards.PlayerData.Create();
+        playerData = API.Reward.PlayerData.Create();
 
-        var signupItems = API.Rewards.Grant(currentPlayerId, template.signup, "Signup Reward");
+        var signupItems = API.Reward.Grant(currentPlayerId, template.signup, "Signup Reward");
 
         itemIDs = itemIDs.concat(signupItems);
     }
@@ -34,15 +34,15 @@ handlers.LoginReward = function (args?: any, context?: IPlayFabContext | undefin
         }
     }
 
-    let dailyItems = API.Rewards.Grant(currentPlayerId, template.daily[playerData.daily.progress], "Daily Reward");
+    let dailyItems = API.Reward.Grant(currentPlayerId, template.daily[playerData.daily.progress], "Daily Reward");
 
     itemIDs = itemIDs.concat(dailyItems);
 
-    var result = new API.Rewards.Result(playerData.daily.progress, itemIDs);
+    var result = new API.Reward.Result(playerData.daily.progress, itemIDs);
 
-    API.Rewards.PlayerData.Daily.Incremenet(playerData, template);
+    API.Reward.PlayerData.Daily.Incremenet(playerData, template);
 
-    API.Rewards.PlayerData.Update(currentPlayerId, playerData);
+    API.Reward.PlayerData.Update(currentPlayerId, playerData);
 
     return result;
 }
@@ -109,10 +109,10 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
                 var previous = data.Find(template.region.previous.name);
 
                 if (previous == null)
-                    throw "trying to index region " + args.region + " without unlocking the previous region of : " + template.region.previous.name;
+                    throw "trying to index region " + args.region + " without unlocking the previous region: " + template.region.previous.name;
 
                 if (previous.progress < template.region.previous.size)
-                    throw "trying to index region " + args.region + " without finishing the previous region of : " + template.region.previous.name;
+                    throw "trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name;
             }
 
             region = data.Add(args.region);
@@ -142,8 +142,25 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
         return;
     }
 
-    log.info(MyJSON.Write(template));
-    log.info(MyJSON.Write(playerData));
+    let rewardItemIDs: Array<string> = [];
+
+    if (playerData.region.progress == args.level) //Initial Completion
+    {
+        playerData.region.progress += 1;
+        API.World.PlayerData.Save(currentPlayerId, playerData.data);
+
+        let IDs = API.Reward.Grant(currentPlayerId, template.level.reward.initial, "Level Completion Reward");
+
+        rewardItemIDs = rewardItemIDs.concat(IDs);
+    }
+    else //Recurring Completion
+    {
+        let IDs = API.Reward.Grant(currentPlayerId, template.level.reward.recurring, "Level Completion Reward");
+
+        rewardItemIDs = rewardItemIDs.concat(IDs);
+    }
+
+    return rewardItemIDs;
 }
 interface IFinishLevelArguments
 {
