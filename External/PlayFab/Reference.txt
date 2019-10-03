@@ -9,7 +9,7 @@ Finish Level Arguments
 
 Upgrade Item Arguments
 {
-  "itemInstanceId": "E52ED52BF6F7B1A6",
+  "itemInstanceId": "9207BD2C2267391D",
   "upgradeType": "Damage"
 }
 

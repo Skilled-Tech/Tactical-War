@@ -7,6 +7,15 @@ namespace API
             template?: string;
             applicable: string[];
 
+            public IsApplicable(type: string): boolean
+            {
+                for (let i = 0; i < this.applicable.length; i++)
+                    if (this.applicable[i] == type)
+                        return true;
+
+                return false;
+            }
+
             constructor(source: ItemData)
             {
                 this.template = source.template;

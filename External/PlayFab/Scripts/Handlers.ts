@@ -46,9 +46,18 @@ handlers.ClaimDailyReward = function (args?: any, context?: IPlayFabContext | un
     }
 }
 
-handlers.FinishLevel = function (args: IFinishLevelArguments)
+handlers.FinishLevel = function (args?: IFinishLevelArguments)
 {
-    function FormatTemplate(): ITemplateSnapshot
+    if (args == null)
+        throw "no arguments specified";
+
+    if (args.region == null)
+        throw "no level argument specified";
+
+    if (args.level == null)
+        throw "no level argument specified";
+
+    function FormatTemplate(args: IFinishLevelArguments): ITemplateSnapshot
     {
         let data = API.World.Template.Retrieve();
 
@@ -77,7 +86,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
 
     try
     {
-        var template = FormatTemplate();
+        var template = FormatTemplate(args);
     }
     catch (error)
     {
@@ -85,7 +94,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
         return;
     }
 
-    function FormatPlayerData(template: ITemplateSnapshot): IPlayerDataSnapshot
+    function FormatPlayerData(args: IFinishLevelArguments, template: ITemplateSnapshot): IPlayerDataSnapshot
     {
         let data = API.World.PlayerData.Retrieve(currentPlayerId);
         let firstTime = false;
@@ -133,7 +142,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
 
     try
     {
-        var playerData = FormatPlayerData(template);
+        var playerData = FormatPlayerData(args, template);
     }
     catch (error)
     {
@@ -167,14 +176,23 @@ interface IFinishLevelArguments
     level: number;
 }
 
-handlers.UpgradeItem = function (args: IUpgradeItemArguments)
+handlers.UpgradeItem = function (args?: IUpgradeItemArguments)
 {
+    if (args == null)
+        throw "no arguments specified";
+
+    if (args.upgradeType == null)
+        throw "no upgrade type argument specified";
+
+    if (args.itemInstanceId == null)
+        throw "no itemInstanceID argument specified"
+
     let inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
     let itemInstance = inventory.FindWithInstanceID(args.itemInstanceId);
 
     if (itemInstance == null)
     {
-        log.error(args.itemInstanceId + " is an Invalid Instance ID");
+        log.error("no inventory item found with instanceID: " + args.itemInstanceId);
         return;
     }
 
@@ -199,9 +217,18 @@ handlers.UpgradeItem = function (args: IUpgradeItemArguments)
         return;
     }
 
-    function FormatTemplate(itemData: API.Upgrades.ItemData): ITemplateSnapshot
+    let itemData = API.Upgrades.ItemData.Load(catalogItem);
+
+    if (itemData == null)
     {
-        let data: API.Upgrades.Template;
+        log.error("item: " + catalogItem.ItemId + " Cannot be upgraded");
+        return;
+    }
+
+    //Template
+    function FormatTemplate(args: IUpgradeItemArguments, itemData: API.Upgrades.ItemData): ITemplateSnapshot
+    {
+        let data: API.Upgrades.Template | null;
 
         if (itemData.template == null)
         {
@@ -209,27 +236,31 @@ handlers.UpgradeItem = function (args: IUpgradeItemArguments)
         }
         else
         {
-            let result = API.Upgrades.Template.Find(itemData.template);
+            data = API.Upgrades.Template.Find(itemData.template);
 
-            if (result == null)
+            if (data == null)
                 throw "no " + itemData.template + " upgrade template defined";
-
-            data = result;
         }
 
+        let element = data.Find(args.upgradeType);
+
+        if (element == null)
+            throw "upgrade type " + args.upgradeType + " not defined within " + data.name + " upgrade template";
 
         return {
-            data: data
+            data: data,
+            element: element,
         };
     }
     interface ITemplateSnapshot
     {
         data: API.Upgrades.Template,
+        element: API.Upgrades.Template.Element;
     }
 
     try
     {
-        var template = FormatTemplate();
+        var template = FormatTemplate(args, itemData);
     }
     catch (error)
     {
@@ -237,55 +268,44 @@ handlers.UpgradeItem = function (args: IUpgradeItemArguments)
         return;
     }
 
-    function FormatPlayerData(template: ITemplateSnapshot): IPlayerDataSnapshot
+
+    //Instance Data
+    function FormatInstanceData(args: IUpgradeItemArguments, itemData: API.Upgrades.ItemData, itemInstance: PlayFabServerModels.ItemInstance, template: ITemplateSnapshot): IInstanceDataSnapshot
     {
-        let data = API.World.PlayerData.Retrieve(currentPlayerId);
-        let firstTime = false;
-        if (data == null) //first time for the player finishing any level
-        {
-            data = API.World.PlayerData.Create();
+        let data = API.Upgrades.InstanceData.Load(itemInstance);
 
-            firstTime = true;
+        if (data == null) //First time the player is upgrading this item
+        {
+            data = API.Upgrades.InstanceData.Create();
         }
 
-        let region = data.Find(args.region);
-        if (region == null)
+        if (itemData.IsApplicable(args.upgradeType) == false)
+            throw args.upgradeType + " upgrade is not applicable to " + itemInstance.ItemId;
+
+        let element = data.Find(args.upgradeType);
+
+        if (element == null) //First time the player is upgrading this property
         {
-            if (template.region.previous == null) //this is the first level
-            {
-
-            }
-            else
-            {
-                var previous = data.Find(template.region.previous.name);
-
-                if (previous == null)
-                    throw "trying to index region " + args.region + " without unlocking the previous region: " + template.region.previous.name;
-
-                if (previous.progress < template.region.previous.size)
-                    throw "trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name;
-            }
-
-            region = data.Add(args.region);
+            element = data.Add(args.upgradeType);
         }
 
-        if (args.level > region.progress)
-            throw "trying to complete level of index " + args.level + " without completing the previous levels";
+        if (element.value >= template.element.ranks.length)
+            throw "can't upgrade " + itemInstance.ItemId + " any further";
 
         return {
             data: data,
-            region: region
+            element: element
         };
     }
-    interface IPlayerDataSnapshot
+    interface IInstanceDataSnapshot
     {
-        data: API.World.PlayerData;
-        region: API.World.PlayerData.Region;
+        data: API.Upgrades.InstanceData;
+        element: API.Upgrades.InstanceData.Element;
     }
 
     try
     {
-        var playerData = FormatPlayerData(template);
+        var instanceData = FormatInstanceData(args, itemData, itemInstance, template);
     }
     catch (error)
     {
@@ -293,6 +313,27 @@ handlers.UpgradeItem = function (args: IUpgradeItemArguments)
         return;
     }
 
+    let rank = template.element.ranks[instanceData.element.value];
+
+    if (rank == null)
+    {
+        log.error("rank of index " + instanceData.element.value + " can't be null");
+        return;
+    }
+
+    if (inventory.CompliesWith(rank.requirements) == false)
+    {
+        log.error("inventory doesn't comply with upgrade requirements");
+        return;
+    }
+
+    PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
+
+    PlayFab.Player.Inventory.ConsumeAll(inventory, rank.requirements);
+
+    instanceData.element.Increment();
+
+    API.Upgrades.InstanceData.Save(currentPlayerId, itemInstance, instanceData.data);
 }
 interface IUpgradeItemArguments
 {

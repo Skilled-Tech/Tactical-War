@@ -6,76 +6,68 @@ namespace API
         {
             list: Array<InstanceData.Element>;
 
-            public Add(type: string): InstanceData.Element
-            {
-                var element = new InstanceData.Element(type, 0);
-
-                this.list.push(element);
-
-                return element;
-            }
-
-            public Contains(type: string): boolean
+            public Find(name: string): InstanceData.Element | null
             {
                 for (let i = 0; i < this.list.length; i++)
-                    if (this.list[i].type == type)
-                        return true;
-
-                return false;
-            }
-
-            public Find(type: string): InstanceData.Element | null
-            {
-                for (let i = 0; i < this.list.length; i++)
-                    if (this.list[i].type == type)
+                    if (this.list[i].type == name)
                         return this.list[i];
 
                 return null;
             }
 
-            public ToJson(): string
+            public Add(name: string): InstanceData.Element
             {
-                return JSON.stringify(this.list);
+                let source: InstanceData.IElement =
+                {
+                    type: name,
+                    value: 0,
+                };
+
+                let instance = new InstanceData.Element(source);
+
+                return instance;
+            }
+
+            public toJSON(): string
+            {
+                return MyJSON.Write(this.list);
             }
 
             constructor(list: Array<InstanceData.Element>)
             {
                 this.list = list;
             }
-        }
-        export namespace InstanceData
-        {
-            export function Load(itemInstance: PlayFabServerModels.ItemInstance, upgradeType: string): InstanceData
+
+            static Load(itemInstance: PlayFabServerModels.ItemInstance): InstanceData | null
             {
                 let data: InstanceData | null = null;
 
-                if (itemInstance.CustomData == null)
-                {
+                if (itemInstance == null)
+                    throw "itemInstance is null, can't load upgrade instance data";
 
-                }
-                else
-                {
-                    var json = itemInstance.CustomData[Upgrades.ID];
+                if (itemInstance.CustomData == null) return null;
 
-                    if (json == null)
-                    {
+                let json = itemInstance.CustomData[API.Upgrades.ID];
 
-                    }
-                    else
-                    {
-                        var object = JSON.parse(json);
+                if (json == null) return null;
 
-                        data = new InstanceData(object);
-                    }
-                }
+                var list = JSON.parse(json) as Array<InstanceData.Element>;
 
-                if (data == null)
-                    data = new InstanceData([]);
+                var instance = new InstanceData(list);
 
-                return data;
+                return instance;
             }
 
-            export function Save(playerID: string, itemInstance: PlayFabServerModels.ItemInstance, data: InstanceData)
+            static Create(): InstanceData
+            {
+                let source: Array<InstanceData.IElement> = [];
+
+                let instance = new InstanceData(source);
+
+                return instance;
+            }
+
+            static Save(playerID: string, itemInstance: PlayFabServerModels.ItemInstance, data: InstanceData)
             {
                 var itemInstanceID = itemInstance.ItemInstanceId;
 
@@ -85,71 +77,31 @@ namespace API
                     return;
                 }
 
-                PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstanceID, API.Upgrades.ID, data.ToJson());
+                PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstanceID, API.Upgrades.ID, data.toJSON());
             }
-
-            export class SnapShot
-            {
-                data: InstanceData;
-
-                element: Element;
-                GetElement(upgradeType: string, itemData: ItemData): Element
-                {
-                    if (this.data.Contains(upgradeType))
-                    {
-
-                    }
-                    else
-                    {
-                        function isApplicable(): boolean
-                        {
-                            for (let i = 0; i < itemData.applicable.length; i++)
-                                if (upgradeType == itemData.applicable[i])
-                                    return true;
-
-                            return false;
-                        }
-
-                        if (isApplicable())
-                            this.data.Add(upgradeType);
-                        else
-                            throw "upgrade type " + upgradeType + " not applicable";
-                    }
-
-                    let result = this.data.Find(upgradeType);
-
-                    if (result == null)
-                        throw "Upgrade type " + upgradeType + " not defined in itemInstanceData";
-
-                    return result;
-                }
-
-                public get rank(): number { return this.element.value; }
-                public set rank(value: number) { this.element.value = value; }
-
-                Increment(upgradeType: string)
-                {
-                    this.rank += 1;
-                }
-
-                constructor(itemInstance: PlayFabServerModels.ItemInstance, itemData: ItemData, args: IUpgradeItemArguments)
-                {
-                    this.data = Load(itemInstance, args.upgradeType);
-
-                    this.element = this.GetElement(args.upgradeType, itemData);
-                }
-            }
-
-            export class Element
+        }
+        export namespace InstanceData
+        {
+            export class Element implements IElement
             {
                 type: string;
                 value: number;
 
-                constructor(name: string, value: number)
+                public Increment()
                 {
-                    this.type = name;
-                    this.value = value;
+                    this.value += 1;
                 }
+
+                constructor(source: IElement)
+                {
+                    this.type = source.type;
+                    this.value = source.value;
+                }
+            }
+            export interface IElement
+            {
+                type: string;
+                value: number;
             }
         }
     }

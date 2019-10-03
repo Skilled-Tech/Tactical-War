@@ -30,6 +30,12 @@ handlers.ClaimDailyReward = function (args, context) {
     }
 };
 handlers.FinishLevel = function (args) {
+    if (args == null)
+        throw "no arguments specified";
+    if (args.region == null)
+        throw "no level argument specified";
+    if (args.level == null)
+        throw "no level argument specified";
     function FormatTemplate() {
         let data = API.World.Template.Retrieve();
         let region = data.Find(args.region);
@@ -103,10 +109,16 @@ handlers.FinishLevel = function (args) {
     return rewardItemIDs;
 };
 handlers.UpgradeItem = function (args) {
+    if (args == null)
+        throw "no arguments specified";
+    if (args.upgradeType == null)
+        throw "no upgrade type argument specified";
+    if (args.itemInstanceId == null)
+        throw "no itemInstanceID argument specified";
     let inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
     let itemInstance = inventory.FindWithInstanceID(args.itemInstanceId);
     if (itemInstance == null) {
-        log.error(args.itemInstanceId + " is an Invalid Instance ID");
+        log.error("no inventory item found with instanceID: " + args.itemInstanceId);
         return;
     }
     if (itemInstance.CatalogVersion == null) {
@@ -120,47 +132,67 @@ handlers.UpgradeItem = function (args) {
     let catalog = PlayFab.Title.Catalog.Retrieve(itemInstance.CatalogVersion);
     let catalogItem = catalog.FindWithID(itemInstance.ItemId);
     if (catalogItem == null) {
-        log.error("no catalog item relating to " + itemInstance.ItemId + " was found in catalog version " + itemInstance.CatalogVersion);
+        log.error("no catalog item relating to itemID " + itemInstance.ItemId + " was found in catalog version " + itemInstance.CatalogVersion);
         return;
     }
-    var itemData = API.Upgrades.ItemData.Load(catalogItem);
+    let itemData = API.Upgrades.ItemData.Load(catalogItem);
     if (itemData == null) {
-        log.error(catalogItem.ItemId + " catalog item has no upgrade data");
+        log.error("item: " + catalogItem.ItemId + " Cannot be upgraded");
         return;
     }
-    let template;
+    //Template
+    function FormatTemplate(itemData) {
+        let data;
+        if (itemData.template == null) {
+            data = API.Upgrades.Template.GetDefault();
+        }
+        else {
+            data = API.Upgrades.Template.Find(itemData.template);
+            if (data == null)
+                throw "no " + itemData.template + " upgrade template defined";
+        }
+        let element = data.Find(args.upgradeType);
+        if (element == null)
+            throw "upgrade type " + args.upgradeType + " not defined within " + data.name + " upgrade template";
+        return {
+            data: data,
+            element: element,
+        };
+    }
     try {
-        template = new API.Upgrades.Template.SnapShot(itemData, args.upgradeType);
+        var template = FormatTemplate(itemData);
     }
     catch (error) {
         log.error(error);
         return;
     }
-    let instanceData;
+    //Instance Data
+    function FormatInstanceData(itemInstance, template) {
+        let data = API.Upgrades.InstanceData.Load(itemInstance);
+        if (data == null) //First time the player is upgrading this item
+         {
+            data = API.Upgrades.InstanceData.Create();
+        }
+        let element = data.Find(args.upgradeType);
+        if (element == null) //First time the player is upgrading this property
+         {
+            element = data.Add(args.upgradeType);
+        }
+        return {
+            data: data,
+            element: element
+        };
+    }
     try {
-        instanceData = new API.Upgrades.InstanceData.SnapShot(itemInstance, itemData, args);
+        var instanceData = FormatInstanceData(itemInstance, template);
     }
     catch (error) {
         log.error(error);
         return;
     }
-    if (instanceData.rank >= template.element.ranks.length) {
-        log.error("cannot upgrade " + catalogItem.ItemId + "'s " + args.upgradeType + " any more");
-        return;
-    }
-    let rank = template.element.ranks[instanceData.rank];
-    if (rank == null) {
-        log.error("no rank data found");
-        return;
-    }
-    if (inventory.CompliesWith(rank.requirements) == false) {
-        log.error("upgrade requirements not met");
-        return;
-    }
-    PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
-    PlayFab.Player.Inventory.ConsumeAll(inventory, rank.requirements);
-    instanceData.Increment(args.upgradeType);
-    API.Upgrades.InstanceData.Save(currentPlayerId, itemInstance, instanceData.data);
+    log.info(MyJSON.Write(itemData));
+    log.info(MyJSON.Write(template));
+    log.info(MyJSON.Write(instanceData));
 };
 function AwardIfAdmin() {
     if (currentPlayerId == "56F63F9E4A7E88D") {
@@ -369,92 +401,56 @@ var API;
             constructor(list) {
                 this.list = list;
             }
-            Add(type) {
-                var element = new InstanceData.Element(type, 0);
-                this.list.push(element);
-                return element;
-            }
-            Contains(type) {
+            Find(name) {
                 for (let i = 0; i < this.list.length; i++)
-                    if (this.list[i].type == type)
-                        return true;
-                return false;
-            }
-            Find(type) {
-                for (let i = 0; i < this.list.length; i++)
-                    if (this.list[i].type == type)
+                    if (this.list[i].type == name)
                         return this.list[i];
                 return null;
             }
-            ToJson() {
-                return JSON.stringify(this.list);
+            Add(name) {
+                let source = {
+                    type: name,
+                    value: 0,
+                };
+                let instance = new InstanceData.Element(source);
+                return instance;
             }
-        }
-        Upgrades.InstanceData = InstanceData;
-        (function (InstanceData) {
-            function Load(itemInstance, upgradeType) {
+            toJSON() {
+                return MyJSON.Write(this.list);
+            }
+            static Load(itemInstance) {
                 let data = null;
-                if (itemInstance.CustomData == null) {
-                }
-                else {
-                    var json = itemInstance.CustomData[Upgrades.ID];
-                    if (json == null) {
-                    }
-                    else {
-                        var object = JSON.parse(json);
-                        data = new InstanceData(object);
-                    }
-                }
-                if (data == null)
-                    data = new InstanceData([]);
-                return data;
+                if (itemInstance == null)
+                    throw "itemInstance is null, can't load upgrade instance data";
+                if (itemInstance.CustomData == null)
+                    return null;
+                let json = itemInstance.CustomData[API.Upgrades.ID];
+                if (json == null)
+                    return null;
+                var list = JSON.parse(json);
+                var instance = new InstanceData(list);
+                return instance;
             }
-            InstanceData.Load = Load;
-            function Save(playerID, itemInstance, data) {
+            static Create() {
+                let source = [];
+                let instance = new InstanceData(source);
+                return instance;
+            }
+            static Save(playerID, itemInstance, data) {
                 var itemInstanceID = itemInstance.ItemInstanceId;
                 if (itemInstanceID == null) {
                     log.debug("No Instance ID defined for item instance");
                     return;
                 }
-                PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstanceID, API.Upgrades.ID, data.ToJson());
+                PlayFab.Player.Inventory.UpdateItemData(playerID, itemInstanceID, API.Upgrades.ID, data.toJSON());
             }
-            InstanceData.Save = Save;
-            class SnapShot {
-                constructor(itemInstance, itemData, args) {
-                    this.data = Load(itemInstance, args.upgradeType);
-                    this.element = this.GetElement(args.upgradeType, itemData);
-                }
-                GetElement(upgradeType, itemData) {
-                    if (this.data.Contains(upgradeType)) {
-                    }
-                    else {
-                        function isApplicable() {
-                            for (let i = 0; i < itemData.applicable.length; i++)
-                                if (upgradeType == itemData.applicable[i])
-                                    return true;
-                            return false;
-                        }
-                        if (isApplicable())
-                            this.data.Add(upgradeType);
-                        else
-                            throw "upgrade type " + upgradeType + " not applicable";
-                    }
-                    let result = this.data.Find(upgradeType);
-                    if (result == null)
-                        throw "Upgrade type " + upgradeType + " not defined in itemInstanceData";
-                    return result;
-                }
-                get rank() { return this.element.value; }
-                set rank(value) { this.element.value = value; }
-                Increment(upgradeType) {
-                    this.rank += 1;
-                }
-            }
-            InstanceData.SnapShot = SnapShot;
+        }
+        Upgrades.InstanceData = InstanceData;
+        (function (InstanceData) {
             class Element {
-                constructor(name, value) {
-                    this.type = name;
-                    this.value = value;
+                constructor(source) {
+                    this.type = source.type;
+                    this.value = source.value;
                 }
             }
             InstanceData.Element = Element;
@@ -508,6 +504,14 @@ var API;
         }
         Upgrades.Template = Template;
         (function (Template) {
+            Template.Default = "Default";
+            function GetDefault() {
+                var result = Find(Template.Default);
+                if (result == null)
+                    throw "no " + Template.Default + " upgrade template defined";
+                return result;
+            }
+            Template.GetDefault = GetDefault;
             function Find(name) {
                 let list = GetAll();
                 for (let i = 0; i < list.length; i++)
