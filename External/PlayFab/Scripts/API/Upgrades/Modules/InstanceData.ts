@@ -33,9 +33,15 @@ namespace API
                 return MyJSON.Write(this.list);
             }
 
-            constructor(list: Array<InstanceData.Element>)
+            constructor(source: Array<InstanceData.IElement>)
             {
-                this.list = list;
+                this.list = [];
+                for (let i = 0; i < source.length; i++)
+                {
+                    let instance = new InstanceData.Element(source[i]);
+
+                    this.list.push(instance);
+                }
             }
 
             static Load(itemInstance: PlayFabServerModels.ItemInstance): InstanceData | null

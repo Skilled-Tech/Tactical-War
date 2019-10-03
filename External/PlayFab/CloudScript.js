@@ -36,7 +36,7 @@ handlers.FinishLevel = function (args) {
         throw "no level argument specified";
     if (args.level == null)
         throw "no level argument specified";
-    function FormatTemplate() {
+    function FormatTemplate(args) {
         let data = API.World.Template.Retrieve();
         let region = data.Find(args.region);
         if (region == null)
@@ -51,13 +51,13 @@ handlers.FinishLevel = function (args) {
         };
     }
     try {
-        var template = FormatTemplate();
+        var template = FormatTemplate(args);
     }
     catch (error) {
         log.error(error);
         return;
     }
-    function FormatPlayerData(template) {
+    function FormatPlayerData(args, template) {
         let data = API.World.PlayerData.Retrieve(currentPlayerId);
         let firstTime = false;
         if (data == null) //first time for the player finishing any level
@@ -87,7 +87,7 @@ handlers.FinishLevel = function (args) {
         };
     }
     try {
-        var playerData = FormatPlayerData(template);
+        var playerData = FormatPlayerData(args, template);
     }
     catch (error) {
         log.error(error);
@@ -141,7 +141,7 @@ handlers.UpgradeItem = function (args) {
         return;
     }
     //Template
-    function FormatTemplate(itemData) {
+    function FormatTemplate(args, itemData) {
         let data;
         if (itemData.template == null) {
             data = API.Upgrades.Template.GetDefault();
@@ -160,39 +160,53 @@ handlers.UpgradeItem = function (args) {
         };
     }
     try {
-        var template = FormatTemplate(itemData);
+        var template = FormatTemplate(args, itemData);
     }
     catch (error) {
         log.error(error);
         return;
     }
     //Instance Data
-    function FormatInstanceData(itemInstance, template) {
+    function FormatInstanceData(args, itemData, itemInstance, template) {
         let data = API.Upgrades.InstanceData.Load(itemInstance);
         if (data == null) //First time the player is upgrading this item
          {
             data = API.Upgrades.InstanceData.Create();
         }
+        if (itemData.IsApplicable(args.upgradeType) == false)
+            throw args.upgradeType + " upgrade is not applicable to " + itemInstance.ItemId;
         let element = data.Find(args.upgradeType);
         if (element == null) //First time the player is upgrading this property
          {
             element = data.Add(args.upgradeType);
         }
+        if (element.value >= template.element.ranks.length)
+            throw "can't upgrade " + itemInstance.ItemId + " any further";
         return {
             data: data,
             element: element
         };
     }
     try {
-        var instanceData = FormatInstanceData(itemInstance, template);
+        var instanceData = FormatInstanceData(args, itemData, itemInstance, template);
     }
     catch (error) {
         log.error(error);
         return;
     }
-    log.info(MyJSON.Write(itemData));
-    log.info(MyJSON.Write(template));
-    log.info(MyJSON.Write(instanceData));
+    let rank = template.element.ranks[instanceData.element.value];
+    if (rank == null) {
+        log.error("rank of index " + instanceData.element.value + " can't be null");
+        return;
+    }
+    if (inventory.CompliesWith(rank.requirements) == false) {
+        log.error("inventory doesn't comply with upgrade requirements");
+        return;
+    }
+    PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
+    PlayFab.Player.Inventory.ConsumeAll(inventory, rank.requirements);
+    instanceData.element.Increment();
+    API.Upgrades.InstanceData.Save(currentPlayerId, itemInstance, instanceData.data);
 };
 function AwardIfAdmin() {
     if (currentPlayerId == "56F63F9E4A7E88D") {
@@ -398,8 +412,12 @@ var API;
     let Upgrades;
     (function (Upgrades) {
         class InstanceData {
-            constructor(list) {
-                this.list = list;
+            constructor(source) {
+                this.list = [];
+                for (let i = 0; i < source.length; i++) {
+                    let instance = new InstanceData.Element(source[i]);
+                    this.list.push(instance);
+                }
             }
             Find(name) {
                 for (let i = 0; i < this.list.length; i++)
@@ -452,6 +470,9 @@ var API;
                     this.type = source.type;
                     this.value = source.value;
                 }
+                Increment() {
+                    this.value += 1;
+                }
             }
             InstanceData.Element = Element;
         })(InstanceData = Upgrades.InstanceData || (Upgrades.InstanceData = {}));
@@ -465,6 +486,12 @@ var API;
             constructor(source) {
                 this.template = source.template;
                 this.applicable = source.applicable;
+            }
+            IsApplicable(type) {
+                for (let i = 0; i < this.applicable.length; i++)
+                    if (this.applicable[i] == type)
+                        return true;
+                return false;
             }
             static Load(catalogItem) {
                 if (catalogItem == null)
