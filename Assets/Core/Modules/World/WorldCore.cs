@@ -119,6 +119,10 @@ namespace Game
 
                     Load(jObject);
                 }
+                else
+                {
+                    LoadDefault();
+                }
             }
         }
 
@@ -136,11 +140,21 @@ namespace Game
                 }
                 else
                 {
-                    if(i == 0 || regions[i].Previous.Finished)
+                    if (i == 0 || regions[i].Previous.Finished)
                         regions[i].Unlock();
                     else
                         regions[i].Lock();
                 }
+            }
+        }
+        void LoadDefault()
+        {
+            for (int i = 0; i < regions.Length; i++)
+            {
+                if (i == 0)
+                    regions[i].Unlock();
+                else
+                    regions[i].Lock();
             }
         }
 

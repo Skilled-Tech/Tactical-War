@@ -1,3 +1,31 @@
+namespace MyJSON
+{
+    export const IgnoreCharacter = '$';
+
+    export function Write(object: any): string
+    {
+        function Replacer(key: string, value: any)
+        {
+            if (key[0] == IgnoreCharacter) return undefined;
+
+            return value;
+        }
+
+        var json = JSON.stringify(object, Replacer);
+
+        return json;
+    }
+
+    export function Read<TObject>(constructor: new (instance: TObject) => TObject, json: string): TObject
+    {
+        var object = <TObject>JSON.parse(json);
+
+        var instance = new constructor(object);
+
+        return instance;
+    }
+}
+
 namespace Utility
 {
     export namespace Dates

@@ -73,7 +73,7 @@ handlers.FinishLevel = function (args: IFinishLevelArguments)
 
     if (args.level > playerData.progress) //cheating... probably
     {
-        log.error("trying to finish level " + args.level + " without finishing the previous level ");
+        log.error("trying to finish level " + args.level + " without finishing the previous level");
         return;
     }
 
