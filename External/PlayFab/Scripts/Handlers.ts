@@ -1,4 +1,4 @@
-handlers.LoginReward = function (args?: any, context?: IPlayFabContext | undefined)
+handlers.ClaimDailyReward = function (args?: any, context?: IPlayFabContext | undefined)
 {
     AwardIfAdmin();
 

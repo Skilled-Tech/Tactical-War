@@ -44,13 +44,5 @@ namespace API
     export namespace Reward
     {
         export const ID = "rewards";
-
-        export namespace Daily
-        {
-            export class Template
-            {
-
-            }
-        }
     }
 }
