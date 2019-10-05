@@ -10,41 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
-  m_Name: Hack_Knight
+  m_Name: Ice Wizard
   m_EditorClassIdentifier: 
   icon:
-    sprite: {fileID: 21300000, guid: ec7161595551cfa4f99358f478420770, type: 3}
+    sprite: {fileID: 21300000, guid: 70a436a99ab754f4d9c8a9406e8d0389, type: 3}
     tilt: 0
-  description: Heavily armored warrior, low range, high attack & defense
+  description: Magic user, low defense, high range & attack
   price:
-    type: 0
-    value: 10000
+    type: 1
+    value: 16000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
     - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-    - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+    - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
   hideInInventory: 1
-  type: {fileID: 11400000, guid: 24de53186882044498807e9ef2186c21, type: 2}
-  prefab: {fileID: 8127696124609658847, guid: edcd5eb74a5148746af0327e582493fd, type: 3}
-  health: 200
+  type: {fileID: 11400000, guid: d46edbafedd3e1044a159863c637a9e1, type: 2}
+  prefab: {fileID: 5569182392643639925, guid: 203d073f7968e894b989448833cd37c7, type: 3}
+  health: 80
   deployment:
-    cost: 300
+    cost: 400
     time: 4
   attack:
-    damage: 50
-    range: 1
-    distance: 0
-    duration: 1
-    method: 0
+    damage: 30
+    range: 2
+    distance: 4
+    duration: 1.2
+    method: 2
     statusEffects:
     - upgrade: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
       probability:
         min: 40
         max: 80
       data:
-        type: {fileID: 11400000, guid: a9e39ea5730d32546b3af538ae222c2e, type: 2}
-        potency: 10
-        iterations: 5
-        interval: 1
+        type: {fileID: 11400000, guid: 2b68af491ee9b9a40806aad134f092cf, type: 2}
+        potency: 50
+        iterations: 1
+        interval: 10
   speed: 1.8

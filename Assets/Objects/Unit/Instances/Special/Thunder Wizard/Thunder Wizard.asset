@@ -10,33 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
-  m_Name: Fire_Archer
+  m_Name: Thunder Wizard
   m_EditorClassIdentifier: 
   icon:
-    sprite: {fileID: 21300000, guid: 1a2a1760f83edfc48850ab273469899e, type: 3}
+    sprite: {fileID: 21300000, guid: 1debbb518249b344f975810ee65fe3c6, type: 3}
     tilt: 0
-  description: Shoots arrows from a far, low defense, medium range & attack
+  description: Magic user, low defense, high range & attack
   price:
     type: 0
-    value: 8000
+    value: 20000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
     - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-    - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
     - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
   hideInInventory: 1
-  type: {fileID: 11400000, guid: daeb04fe296184c4fa34a9cc436fa263, type: 2}
-  prefab: {fileID: 5569182392643639925, guid: 3efb31688e1f6d24c8aa93b5c4cee77f, type: 3}
+  type: {fileID: 11400000, guid: d46edbafedd3e1044a159863c637a9e1, type: 2}
+  prefab: {fileID: 5569182392643639925, guid: 7faff3c4e03f8524892602ee143fd4bf, type: 3}
   health: 80
   deployment:
-    cost: 200
-    time: 2
+    cost: 400
+    time: 4
   attack:
-    damage: 20
+    damage: 30
     range: 2
-    distance: 3
-    duration: 1
+    distance: 4
+    duration: 1.2
     method: 2
     statusEffects:
     - upgrade: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
@@ -44,7 +43,7 @@ MonoBehaviour:
         min: 40
         max: 80
       data:
-        type: {fileID: 11400000, guid: c5a18eadade6dca43a0c75b66ff9c056, type: 2}
+        type: {fileID: 11400000, guid: 4e7e8b1da08d1ed449a0fd122928484f, type: 2}
         potency: 10
         iterations: 5
         interval: 1

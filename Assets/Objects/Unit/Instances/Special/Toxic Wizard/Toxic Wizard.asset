@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
-  m_Name: Thunder_Wizard
+  m_Name: Toxic Wizard
   m_EditorClassIdentifier: 
   icon:
-    sprite: {fileID: 21300000, guid: 1debbb518249b344f975810ee65fe3c6, type: 3}
+    sprite: {fileID: 21300000, guid: d71d2a5845b7ebd429178f040ea81d89, type: 3}
     tilt: 0
   description: Magic user, low defense, high range & attack
   price:
-    type: 0
-    value: 20000
+    type: 1
+    value: 16000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
@@ -26,7 +26,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
   hideInInventory: 1
   type: {fileID: 11400000, guid: d46edbafedd3e1044a159863c637a9e1, type: 2}
-  prefab: {fileID: 5569182392643639925, guid: 7faff3c4e03f8524892602ee143fd4bf, type: 3}
+  prefab: {fileID: 5569182392643639925, guid: 978bffea1ac2cf643885cd468b299013, type: 3}
   health: 80
   deployment:
     cost: 400
@@ -43,7 +43,7 @@ MonoBehaviour:
         min: 40
         max: 80
       data:
-        type: {fileID: 11400000, guid: 4e7e8b1da08d1ed449a0fd122928484f, type: 2}
+        type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
         potency: 10
         iterations: 5
         interval: 1

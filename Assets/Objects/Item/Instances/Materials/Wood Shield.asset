@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcbfd21639d26a94cbaece25d7b01445, type: 3}
-  m_Name: 1K_Gold
+  m_Name: Wood Shield
   m_EditorClassIdentifier: 
   icon:
-    sprite: {fileID: 21300000, guid: daeb9cab5e03b54419e1b9b324c92323, type: 3}
-    tilt: 0
-  description: 
+    sprite: {fileID: 21300000, guid: c0761c773390ac9478931decf88c0fb9, type: 3}
+    tilt: 15
+  description: A Sword Made out of Wood
   price:
     type: 0
     value: 400
   upgrades:
     template: {fileID: 0}
     applicable: []
-  hideInInventory: 1
+  hideInInventory: 0
