@@ -138,6 +138,46 @@ namespace API
                     requirements: API.ItemStack[]
                 }
             }
+
+            export class Snapshot
+            {
+                data: API.Upgrades.Template;
+                element: API.Upgrades.Template.Element;
+
+                constructor(data: API.Upgrades.Template,
+                    element: API.Upgrades.Template.Element)
+                {
+                    this.data = data;
+                    this.element = element;
+                }
+
+                static Retrieve(args: IUpgradeItemArguments, itemData: API.Upgrades.ItemData): Snapshot
+                {
+                    let data: API.Upgrades.Template | null;
+
+                    if (itemData.template == null)
+                    {
+                        data = API.Upgrades.Template.GetDefault();
+                    }
+                    else
+                    {
+                        data = API.Upgrades.Template.Find(itemData.template);
+
+                        if (data == null)
+                            throw "no " + itemData.template + " upgrade template defined";
+                    }
+
+                    let element = data.Find(args.upgradeType);
+
+                    if (element == null)
+                        throw "upgrade type " + args.upgradeType + " not defined within " + data.name + " upgrade template";
+
+                    return {
+                        data: data,
+                        element: element,
+                    };
+                }
+            }
         }
     }
 }

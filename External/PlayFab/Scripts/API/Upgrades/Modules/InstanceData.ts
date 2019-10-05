@@ -25,6 +25,8 @@ namespace API
 
                 let instance = new InstanceData.Element(source);
 
+                this.list.push(instance);
+
                 return instance;
             }
 
@@ -108,6 +110,47 @@ namespace API
             {
                 type: string;
                 value: number;
+            }
+
+            export class Snapshot
+            {
+                data: API.Upgrades.InstanceData;
+                element: API.Upgrades.InstanceData.Element;
+
+                constructor(data: API.Upgrades.InstanceData,
+                    element: API.Upgrades.InstanceData.Element)
+                {
+                    this.data = data;
+                    this.element = element;
+                }
+
+                static Retrieve(args: IUpgradeItemArguments, itemData: API.Upgrades.ItemData, itemInstance: PlayFabServerModels.ItemInstance, template: Template.Snapshot): Snapshot
+                {
+                    let data = API.Upgrades.InstanceData.Load(itemInstance);
+
+                    if (data == null) //First time the player is upgrading this item
+                    {
+                        data = API.Upgrades.InstanceData.Create();
+                    }
+
+                    if (itemData.IsApplicable(args.upgradeType) == false)
+                        throw args.upgradeType + " upgrade is not applicable to " + itemInstance.ItemId;
+
+                    let element = data.Find(args.upgradeType);
+
+                    if (element == null) //First time the player is upgrading this property
+                    {
+                        element = data.Add(args.upgradeType);
+                    }
+
+                    if (element.value >= template.element.ranks.length)
+                        throw "can't upgrade " + itemInstance.ItemId + " any further";
+
+                    return {
+                        data: data,
+                        element: element
+                    };
+                }
             }
         }
     }

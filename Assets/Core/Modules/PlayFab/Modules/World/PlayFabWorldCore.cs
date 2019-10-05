@@ -18,7 +18,6 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 using PlayFab;
-using PlayFab.Json;
 using PlayFab.ClientModels;
 using PlayFab.SharedModels;
 
@@ -27,28 +26,16 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-	public class PlayFabRewardCore : PlayFabCore.Module
-	{
+    public class PlayFabWorldCore : PlayFabCore.Module
+    {
         [SerializeField]
-        protected PlayFabLoginReward daily;
-        public PlayFabLoginReward Daily { get { return daily; } }
-
-        [SerializeField]
-        protected PlayFabLevelRewardCore level;
-        public PlayFabLevelRewardCore Level { get { return level; } }
-
-        public override void Configure()
-        {
-            base.Configure();
-
-            Register(daily);
-            Register(level);
-        }
+        protected PlayFabWorldFinishLevelCore finishLevel;
+        public PlayFabWorldFinishLevelCore FinishLevel { get { return finishLevel; } }
 
         [Serializable]
         public class Module : PlayFabCore.Module
         {
-            public PlayFabRewardCore Reward { get { return PlayFab.Reward;} }
+            public PlayFabWorldCore World { get { return PlayFab.World; } }
         }
-	}
+    }
 }

@@ -19,7 +19,6 @@ using Random = UnityEngine.Random;
 
 using PlayFab;
 using PlayFab.ClientModels;
-using PlayFab.Json;
 
 namespace Game
 {
@@ -43,8 +42,8 @@ namespace Game
                 {
                     Menu.Popup.Show("Retrieving End Results");
 
-                    PlayFab.Reward.Level.OnResponse += RewardResponseCallback;
-                    PlayFab.Reward.Level.Retrieve(Data.Level);
+                    PlayFab.World.FinishLevel.OnResponse += RewardResponseCallback;
+                    PlayFab.World.FinishLevel.Request(Data.Level);
                 }
                 else
                 {
@@ -61,13 +60,14 @@ namespace Game
             if (OnProcess != null) OnProcess(winner);
         }
 
-        IList<ItemStack> rewards;
-        private void RewardResponseCallback(IList<ItemStack> result, PlayFabError error)
+        PlayFabWorldFinishLevelCore.ResultData result;
+        private void RewardResponseCallback(PlayFabWorldFinishLevelCore.ResultData result, PlayFabError error)
         {
-            PlayFab.Reward.Level.OnResponse -= RewardResponseCallback;
+            PlayFab.World.FinishLevel.OnResponse -= RewardResponseCallback;
+
             if(error == null)
             {
-                rewards = result;
+                this.result = result;
 
                 Menu.Popup.Show("Retrieving Player Data");
 
@@ -106,14 +106,14 @@ namespace Game
                 Menu.End.Show(Proponents.Player);
             }
 
-            if (rewards == null || rewards.Count == 0)
+            if (result.Rewards == null || result.Rewards.Length == 0)
                 Progress();
             else
             {
                 Menu.Popup.Hide();
 
                 Menu.Rewards.OnFinish += Progress;
-                Menu.Rewards.Show("Level Reward", rewards);
+                Menu.Rewards.Show("Level Reward", result.Rewards);
             }
 
             Level.Speed.Value = 0f;

@@ -17,8 +17,9 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using PlayFabSDK = PlayFab;
+
 using PlayFab;
-using PlayFab.Json;
 using PlayFab.ClientModels;
 using PlayFab.SharedModels;
 
@@ -27,7 +28,7 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-    public class PlayFabLevelRewardCore : PlayFabRewardCore.Module
+	public class PlayFabWorldFinishLevelCore : PlayFabWorldCore.Module
     {
         public class ParametersData
         {
@@ -41,7 +42,16 @@ namespace Game
             }
         }
 
-        public virtual void Retrieve(string region, int level)
+        public class ResultData
+        {
+            [JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
+#pragma warning disable CS0649 
+            ItemTemplate[] rewards;
+#pragma warning restore CS0649
+            public ItemTemplate[] Rewards => rewards;
+        }
+
+        public virtual void Request(string region, int level)
         {
             var request = new ExecuteCloudScriptRequest
             {
@@ -52,39 +62,21 @@ namespace Game
 
             PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
         }
-        public virtual void Retrieve(LevelCore level)
+        public virtual void Request(LevelCore level)
         {
-            Retrieve(level.Region.name, level.Index);
+            Request(level.Region.name, level.Index);
         }
 
-        public event Delegates.ResultDelegate<IList<ItemStack>> OnResult;
+        public event Delegates.ResultDelegate<ResultData> OnResult;
         void ResultCallback(ExecuteCloudScriptResult result)
         {
-            IList<ItemStack> data = null;
+            var json = result.FunctionResult.ToString();
 
-            if (result.FunctionResult == null)
-            {
-                data = null;
-            }
-            else
-            {
-                var array = result.FunctionResult as JsonArray;
+            var instacne = JsonConvert.DeserializeObject<ResultData>(json);
 
-                if (array.Count == 0)
-                {
-                    data = null;
-                }
-                else
-                {
-                    var IDs = array.ConvertAll(element => (string)element);
+            if (OnResult != null) OnResult(instacne);
 
-                    data = ItemStack.From(IDs);
-                }
-            }
-
-            if (OnResult != null) OnResult(data);
-
-            Respond(data, null);
+            Respond(instacne, null);
         }
 
         public event Delegates.ErrorDelegate OnError;
@@ -95,8 +87,8 @@ namespace Game
             Respond(null, error);
         }
 
-        public event Delegates.ResponseDelegate<IList<ItemStack>> OnResponse;
-        void Respond(IList<ItemStack> result, PlayFabError error)
+        public event Delegates.ResponseDelegate<ResultData> OnResponse;
+        void Respond(ResultData result, PlayFabError error)
         {
             if (OnResponse != null) OnResponse(result, error);
         }

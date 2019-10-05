@@ -45,16 +45,22 @@ namespace Game
 
         public List<ItemStack> List { get; protected set; }
 
+        public virtual void Show(string title, IList<ItemTemplate> items)
+        {
+            var stacks = Game.ItemStack.From(items);
+
+            Show(title, stacks);
+        }
         public virtual void Show(string title, IList<ItemStack> stacks)
         {
-            this.title.text = title;
-
             if(stacks == null || stacks.Count < 1)
             {
                 Finish();
             }
             else
             {
+                this.title.text = title;
+
                 this.List = stacks.ToList();
 
                 Set(stacks[0]);

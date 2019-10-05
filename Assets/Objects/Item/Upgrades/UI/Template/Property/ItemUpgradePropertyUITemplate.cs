@@ -131,7 +131,7 @@ namespace Game
             PlayFab.Upgrade.Perform(data, Type);
         }
 
-        void OnResponse(ExecuteCloudScriptResult result, PlayFab.PlayFabError error)
+        void OnResponse(PlayFabUpgradeCore.ResultData result, PlayFab.PlayFabError error)
         {
             PlayFab.Upgrade.OnResponse -= OnResponse;
 

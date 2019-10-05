@@ -136,6 +136,43 @@ namespace API
                     }
                 }
             }
+
+            export class Snapshot
+            {
+                data: API.World.Template;
+                region: API.World.Template.Region;
+                level: API.World.Template.Region.Level;
+
+                constructor(data: API.World.Template,
+                    region: API.World.Template.Region,
+                    level: API.World.Template.Region.Level)
+                {
+                    this.data = data;
+                    this.region = region;
+                    this.level = level;
+                }
+
+                static Retrieve(args: IFinishLevelArguments): Snapshot
+                {
+                    let data = API.World.Template.Retrieve();
+
+                    let region = data.Find(args.region);
+
+                    if (region == null)
+                        throw args.region + " region doesn't exist";
+
+                    let level = region.Find(args.level);
+
+                    if (level == null)
+                        throw "no level with index " + args.level + " defined in " + args.region + " region";
+
+                    return {
+                        data: data,
+                        region: region,
+                        level: level,
+                    };
+                }
+            }
         }
     }
 }

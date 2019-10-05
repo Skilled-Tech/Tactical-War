@@ -16,105 +16,77 @@ handlers.ClaimDailyReward = function (args, context) {
             reward = template.Get(playerData.progress);
         }
     }
-    let itemIDs = Array();
+    let progress = playerData.progress;
+    let itemIDs;
     if (reward == null) {
-        return new API.DailyReward.Result(playerData.progress, []);
+        itemIDs = [];
     }
     else {
-        let progress = playerData.progress;
         playerData.Progress(template);
-        API.DailyReward.PlayerData.Update(currentPlayerId, playerData);
-        let itemIDs = API.Reward.Grant(currentPlayerId, reward, "Daily Login Reward");
+        API.DailyReward.PlayerData.Save(currentPlayerId, playerData);
+        itemIDs = API.Reward.Grant(currentPlayerId, reward, "Daily Login Reward");
         let result = new API.DailyReward.Result(progress, itemIDs);
         return result;
     }
+    let result = new API.DailyReward.Result(progress, itemIDs);
+    return result;
 };
 handlers.FinishLevel = function (args) {
-    if (args == null)
-        throw "no arguments specified";
-    if (args.region == null)
-        throw "no level argument specified";
-    if (args.level == null)
-        throw "no level argument specified";
-    function FormatTemplate(args) {
-        let data = API.World.Template.Retrieve();
-        let region = data.Find(args.region);
-        if (region == null)
-            throw args.region + " region doesn't exist";
-        let level = region.Find(args.level);
-        if (level == null)
-            throw "no level with index " + args.level + " defined in " + args.region + " region";
-        return {
-            data: data,
-            region: region,
-            level: level,
-        };
+    if (args == null) {
+        log.error("no arguments specified");
+        return;
     }
+    if (args.region == null) {
+        log.error("no region argument specified");
+        return;
+    }
+    if (args.level == null) {
+        log.error("no level argument specified");
+        return;
+    }
+    let template;
     try {
-        var template = FormatTemplate(args);
+        template = API.World.Template.Snapshot.Retrieve(args);
     }
     catch (error) {
         log.error(error);
         return;
     }
-    function FormatPlayerData(args, template) {
-        let data = API.World.PlayerData.Retrieve(currentPlayerId);
-        let firstTime = false;
-        if (data == null) //first time for the player finishing any level
-         {
-            data = API.World.PlayerData.Create();
-            firstTime = true;
-        }
-        let region = data.Find(args.region);
-        if (region == null) {
-            if (template.region.previous == null) //this is the first level
-             {
-            }
-            else {
-                var previous = data.Find(template.region.previous.name);
-                if (previous == null)
-                    throw "trying to index region " + args.region + " without unlocking the previous region: " + template.region.previous.name;
-                if (previous.progress < template.region.previous.size)
-                    throw "trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name;
-            }
-            region = data.Add(args.region);
-        }
-        if (args.level > region.progress)
-            throw "trying to complete level of index " + args.level + " without completing the previous levels";
-        return {
-            data: data,
-            region: region
-        };
-    }
+    let playerData;
     try {
-        var playerData = FormatPlayerData(args, template);
+        playerData = API.World.PlayerData.Snapshot.Retrieve(args, template);
     }
     catch (error) {
         log.error(error);
         return;
     }
-    let rewardItemIDs = [];
+    let reward;
     if (playerData.region.progress == args.level) //Initial Completion
      {
-        playerData.region.progress += 1;
+        playerData.region.Increment();
         API.World.PlayerData.Save(currentPlayerId, playerData.data);
-        let IDs = API.Reward.Grant(currentPlayerId, template.level.reward.initial, "Level Completion Reward");
-        rewardItemIDs = rewardItemIDs.concat(IDs);
+        reward = API.Reward.Grant(currentPlayerId, template.level.reward.initial, "Initial Level Completion Reward");
     }
     else //Recurring Completion
      {
-        let IDs = API.Reward.Grant(currentPlayerId, template.level.reward.recurring, "Level Completion Reward");
-        rewardItemIDs = rewardItemIDs.concat(IDs);
+        reward = API.Reward.Grant(currentPlayerId, template.level.reward.recurring, "Recurring Level Completion Reward");
     }
-    return rewardItemIDs;
+    let result = new API.World.FinishLevelResult(reward);
+    return result;
 };
 handlers.UpgradeItem = function (args) {
-    if (args == null)
-        throw "no arguments specified";
-    if (args.upgradeType == null)
-        throw "no upgrade type argument specified";
-    if (args.itemInstanceId == null)
-        throw "no itemInstanceID argument specified";
+    if (args == null) {
+        log.error("no arguments specified");
+        return;
+    }
+    if (args.upgradeType == null) {
+        log.error("no upgrade type argument specified");
+        return;
+    }
+    if (args.itemInstanceId == null) {
+        log.error("no itemInstanceID argument specified");
+        return;
+    }
     let inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
     let itemInstance = inventory.FindWithInstanceID(args.itemInstanceId);
     if (itemInstance == null) {
@@ -140,55 +112,17 @@ handlers.UpgradeItem = function (args) {
         log.error("item: " + catalogItem.ItemId + " Cannot be upgraded");
         return;
     }
-    //Template
-    function FormatTemplate(args, itemData) {
-        let data;
-        if (itemData.template == null) {
-            data = API.Upgrades.Template.GetDefault();
-        }
-        else {
-            data = API.Upgrades.Template.Find(itemData.template);
-            if (data == null)
-                throw "no " + itemData.template + " upgrade template defined";
-        }
-        let element = data.Find(args.upgradeType);
-        if (element == null)
-            throw "upgrade type " + args.upgradeType + " not defined within " + data.name + " upgrade template";
-        return {
-            data: data,
-            element: element,
-        };
-    }
+    let template;
     try {
-        var template = FormatTemplate(args, itemData);
+        template = API.Upgrades.Template.Snapshot.Retrieve(args, itemData);
     }
     catch (error) {
         log.error(error);
         return;
     }
-    //Instance Data
-    function FormatInstanceData(args, itemData, itemInstance, template) {
-        let data = API.Upgrades.InstanceData.Load(itemInstance);
-        if (data == null) //First time the player is upgrading this item
-         {
-            data = API.Upgrades.InstanceData.Create();
-        }
-        if (itemData.IsApplicable(args.upgradeType) == false)
-            throw args.upgradeType + " upgrade is not applicable to " + itemInstance.ItemId;
-        let element = data.Find(args.upgradeType);
-        if (element == null) //First time the player is upgrading this property
-         {
-            element = data.Add(args.upgradeType);
-        }
-        if (element.value >= template.element.ranks.length)
-            throw "can't upgrade " + itemInstance.ItemId + " any further";
-        return {
-            data: data,
-            element: element
-        };
-    }
+    let instanceData;
     try {
-        var instanceData = FormatInstanceData(args, itemData, itemInstance, template);
+        instanceData = API.Upgrades.InstanceData.Snapshot.Retrieve(args, itemData, itemInstance, template);
     }
     catch (error) {
         log.error(error);
@@ -207,6 +141,8 @@ handlers.UpgradeItem = function (args) {
     PlayFab.Player.Inventory.ConsumeAll(inventory, rank.requirements);
     instanceData.element.Increment();
     API.Upgrades.InstanceData.Save(currentPlayerId, itemInstance, instanceData.data);
+    let result = new API.Upgrades.Result(true);
+    return result;
 };
 function AwardIfAdmin() {
     if (currentPlayerId == "56F63F9E4A7E88D") {
@@ -405,6 +341,12 @@ var API;
     let Upgrades;
     (function (Upgrades) {
         Upgrades.ID = "upgrades";
+        class Result {
+            constructor(success) {
+                this.success = success;
+            }
+        }
+        Upgrades.Result = Result;
     })(Upgrades = API.Upgrades || (API.Upgrades = {}));
 })(API || (API = {}));
 var API;
@@ -431,6 +373,7 @@ var API;
                     value: 0,
                 };
                 let instance = new InstanceData.Element(source);
+                this.list.push(instance);
                 return instance;
             }
             toJSON() {
@@ -475,6 +418,33 @@ var API;
                 }
             }
             InstanceData.Element = Element;
+            class Snapshot {
+                constructor(data, element) {
+                    this.data = data;
+                    this.element = element;
+                }
+                static Retrieve(args, itemData, itemInstance, template) {
+                    let data = API.Upgrades.InstanceData.Load(itemInstance);
+                    if (data == null) //First time the player is upgrading this item
+                     {
+                        data = API.Upgrades.InstanceData.Create();
+                    }
+                    if (itemData.IsApplicable(args.upgradeType) == false)
+                        throw args.upgradeType + " upgrade is not applicable to " + itemInstance.ItemId;
+                    let element = data.Find(args.upgradeType);
+                    if (element == null) //First time the player is upgrading this property
+                     {
+                        element = data.Add(args.upgradeType);
+                    }
+                    if (element.value >= template.element.ranks.length)
+                        throw "can't upgrade " + itemInstance.ItemId + " any further";
+                    return {
+                        data: data,
+                        element: element
+                    };
+                }
+            }
+            InstanceData.Snapshot = Snapshot;
         })(InstanceData = Upgrades.InstanceData || (Upgrades.InstanceData = {}));
     })(Upgrades = API.Upgrades || (API.Upgrades = {}));
 })(API || (API = {}));
@@ -596,8 +566,45 @@ var API;
                 }
                 Element.Rank = Rank;
             })(Element = Template.Element || (Template.Element = {}));
+            class Snapshot {
+                constructor(data, element) {
+                    this.data = data;
+                    this.element = element;
+                }
+                static Retrieve(args, itemData) {
+                    let data;
+                    if (itemData.template == null) {
+                        data = API.Upgrades.Template.GetDefault();
+                    }
+                    else {
+                        data = API.Upgrades.Template.Find(itemData.template);
+                        if (data == null)
+                            throw "no " + itemData.template + " upgrade template defined";
+                    }
+                    let element = data.Find(args.upgradeType);
+                    if (element == null)
+                        throw "upgrade type " + args.upgradeType + " not defined within " + data.name + " upgrade template";
+                    return {
+                        data: data,
+                        element: element,
+                    };
+                }
+            }
+            Template.Snapshot = Snapshot;
         })(Template = Upgrades.Template || (Upgrades.Template = {}));
     })(Upgrades = API.Upgrades || (API.Upgrades = {}));
+})(API || (API = {}));
+var API;
+(function (API) {
+    let World;
+    (function (World) {
+        class FinishLevelResult {
+            constructor(reward) {
+                this.rewards = reward;
+            }
+        }
+        World.FinishLevelResult = FinishLevelResult;
+    })(World = API.World || (API.World = {}));
 })(API || (API = {}));
 var API;
 (function (API) {
@@ -665,6 +672,9 @@ var API;
                     this.name = source.name;
                     this.progress = source.progress;
                 }
+                Increment() {
+                    this.progress += 1;
+                }
                 get playerData() { return this.$playerData; }
                 get index() { return this.$index; }
                 static Create(playerData, index, name, progress) {
@@ -677,6 +687,42 @@ var API;
                 }
             }
             PlayerData.Region = Region;
+            class Snapshot {
+                constructor(data, region) {
+                    this.data = data;
+                    this.region = region;
+                }
+                static Retrieve(args, template) {
+                    let data = API.World.PlayerData.Retrieve(currentPlayerId);
+                    let firstTime = false;
+                    if (data == null) //first time for the player finishing any level
+                     {
+                        data = API.World.PlayerData.Create();
+                        firstTime = true;
+                    }
+                    let region = data.Find(args.region);
+                    if (region == null) {
+                        if (template.region.previous == null) //this is the first level
+                         {
+                        }
+                        else {
+                            var previous = data.Find(template.region.previous.name);
+                            if (previous == null)
+                                throw "trying to index region " + args.region + " without unlocking the previous region: " + template.region.previous.name;
+                            if (previous.progress < template.region.previous.size)
+                                throw "trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name;
+                        }
+                        region = data.Add(args.region);
+                    }
+                    if (args.level > region.progress)
+                        throw "trying to complete level of index " + args.level + " without completing the previous levels";
+                    return {
+                        data: data,
+                        region: region
+                    };
+                }
+            }
+            PlayerData.Snapshot = Snapshot;
         })(PlayerData = World.PlayerData || (World.PlayerData = {}));
     })(World = API.World || (API.World = {}));
 })(API || (API = {}));
@@ -778,6 +824,28 @@ var API;
                     Level.Rewards = Rewards;
                 })(Level = Region.Level || (Region.Level = {}));
             })(Region = Template.Region || (Template.Region = {}));
+            class Snapshot {
+                constructor(data, region, level) {
+                    this.data = data;
+                    this.region = region;
+                    this.level = level;
+                }
+                static Retrieve(args) {
+                    let data = API.World.Template.Retrieve();
+                    let region = data.Find(args.region);
+                    if (region == null)
+                        throw args.region + " region doesn't exist";
+                    let level = region.Find(args.level);
+                    if (level == null)
+                        throw "no level with index " + args.level + " defined in " + args.region + " region";
+                    return {
+                        data: data,
+                        region: region,
+                        level: level,
+                    };
+                }
+            }
+            Template.Snapshot = Snapshot;
         })(Template = World.Template || (World.Template = {}));
     })(World = API.World || (API.World = {}));
 })(API || (API = {}));

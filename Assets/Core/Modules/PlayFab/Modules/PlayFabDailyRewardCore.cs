@@ -18,7 +18,6 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 using PlayFab;
-using PlayFab.Json;
 using PlayFab.ClientModels;
 using PlayFab.SharedModels;
 
@@ -28,7 +27,7 @@ using Newtonsoft.Json.Linq;
 namespace Game
 {
     [Serializable]
-    public class PlayFabLoginReward : PlayFabRewardCore.Module
+    public class PlayFabDailyRewardCore : PlayFabCore.Module
     {
         public const string ID = "daily-rewards";
 
@@ -72,7 +71,7 @@ namespace Game
             if (result.FunctionResult == null)
                 data = null;
             else
-                data = new ResultData(result.FunctionResult as JsonObject);
+                data = new ResultData(result.FunctionResult as PlayFab.Json.JsonObject);
 
             if (OnResult != null) OnResult(data);
 
@@ -93,15 +92,15 @@ namespace Game
             if (OnResponse != null) OnResponse(result, error);
         }
 
-        [Newtonsoft.Json.JsonObject]
+        [JsonObject]
         [Serializable]
         public class ResultData
         {
-            [Newtonsoft.Json.JsonProperty]
+            [JsonProperty]
             protected int progress;
             public int Progress { get { return progress; } }
 
-            [Newtonsoft.Json.JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
+            [JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
             protected ItemTemplate[] items;
             public ItemTemplate[] Items { get { return items; } }
 
@@ -109,7 +108,7 @@ namespace Game
             {
                 JsonConvert.PopulateObject(json, this);
             }
-            public ResultData(JsonObject jObject) : this(jObject.ToString())
+            public ResultData(PlayFab.Json.JsonObject jObject) : this(jObject.ToString())
             {
 
             }

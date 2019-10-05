@@ -18,7 +18,6 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 using PlayFab;
-using PlayFab.Json;
 using PlayFab.ClientModels;
 using PlayFab.SharedModels;
 
@@ -62,8 +61,12 @@ namespace Game
         public PlayFabUpgradeCore Upgrade { get { return upgrade; } }
 
         [SerializeField]
-        protected PlayFabRewardCore reward;
-        public PlayFabRewardCore Reward { get { return reward; } }
+        protected PlayFabDailyRewardCore dailyReward;
+        public PlayFabDailyRewardCore DailyReward { get { return dailyReward; } }
+
+        [SerializeField]
+        protected PlayFabWorldCore world;
+        public PlayFabWorldCore World { get { return world; } }
 
         [Serializable]
         public class Module : Core.Module
@@ -136,7 +139,8 @@ namespace Game
             Register(catalog);
             Register(purchase);
             Register(upgrade);
-            Register(reward);
+            Register(dailyReward);
+            Register(world);
         }
 
         public virtual void EnsureActivation()

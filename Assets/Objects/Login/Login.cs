@@ -18,7 +18,6 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 using PlayFab;
-using PlayFab.Json;
 using PlayFab.ClientModels;
 
 namespace Game
@@ -102,8 +101,8 @@ namespace Game
                 {
                     Popup.Show("Retrieving Daily Reward");
 
-                    PlayFab.Reward.Daily.OnResponse += DailyRewardsResponseCallback;
-                    PlayFab.Reward.Daily.Claim();
+                    PlayFab.DailyReward.OnResponse += DailyRewardsResponseCallback;
+                    PlayFab.DailyReward.Claim();
                 }
                 else
                 {
@@ -119,10 +118,10 @@ namespace Game
             }
         }
 
-        PlayFabLoginReward.ResultData dailyReward;
-        void DailyRewardsResponseCallback(PlayFabLoginReward.ResultData result, PlayFabError error)
+        PlayFabDailyRewardCore.ResultData dailyReward;
+        void DailyRewardsResponseCallback(PlayFabDailyRewardCore.ResultData result, PlayFabError error)
         {
-            PlayFab.Reward.Daily.OnResponse -= DailyRewardsResponseCallback;
+            PlayFab.DailyReward.OnResponse -= DailyRewardsResponseCallback;
 
             if(error == null)
             {
@@ -177,7 +176,7 @@ namespace Game
                 var stacks = ItemStack.From(dailyReward.Items);
 
                 var title = "Daily Reward" + Environment.NewLine;
-                title += "Day " + (dailyReward.Progress + 1).ToString() + "/" + PlayFab.Reward.Daily.Max;
+                title += "Day " + (dailyReward.Progress + 1).ToString() + "/" + PlayFab.DailyReward.Max;
 
                 Core.UI.Rewards.OnFinish += Progress;
                 Core.UI.Rewards.Show(title, stacks);

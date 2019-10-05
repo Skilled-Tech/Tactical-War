@@ -20,12 +20,14 @@ using Random = UnityEngine.Random;
 using PlayFab;
 using PlayFab.ClientModels;
 
+using Newtonsoft.Json;
+
 namespace Game
 {
     [Serializable]
     public class PlayFabUpgradeCore : PlayFabCore.Module
     {
-        struct ParametersData
+        class ParametersData
         {
             public string itemInstanceId;
             public string upgradeType;
@@ -63,12 +65,18 @@ namespace Game
             Perform(item.Instance, type.ID);
         }
 
-        public event Delegates.ResultDelegate<ExecuteCloudScriptResult> OnResult;
+        public event Delegates.ResultDelegate<ResultData> OnResult;
         void ResultCallback(ExecuteCloudScriptResult result)
         {
-            if (OnResult != null) OnResult(result);
+            var json = result.FunctionResult.ToString();
 
-            Respond(result, null);
+            var instance = JsonConvert.DeserializeObject<ResultData>(json);
+
+            Debug.Log(instance.Success);
+
+            if (OnResult != null) OnResult(instance);
+
+            Respond(instance, null);
         }
 
         public event Delegates.ErrorDelegate OnError;
@@ -79,10 +87,22 @@ namespace Game
             Respond(null, error);
         }
 
-        public event Delegates.ResponseDelegate<ExecuteCloudScriptResult> OnResponse;
-        void Respond(ExecuteCloudScriptResult result, PlayFabError error)
+        public event Delegates.ResponseDelegate<ResultData> OnResponse;
+        void Respond(ResultData result, PlayFabError error)
         {
             if (OnResponse != null) OnResponse(result, error);
+        }
+
+        public class ResultData
+        {
+            [JsonProperty]
+            bool success;
+            public bool Success => success;
+
+            public ResultData()
+            {
+
+            }
         }
     }
 }

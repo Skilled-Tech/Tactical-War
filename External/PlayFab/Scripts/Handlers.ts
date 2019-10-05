@@ -25,68 +25,54 @@ handlers.ClaimDailyReward = function (args?: any, context?: IPlayFabContext | un
         }
     }
 
-    let itemIDs = Array<string>()
+    let progress = playerData.progress;
+    let itemIDs: Array<string>;
 
     if (reward == null)
     {
-        return new API.DailyReward.Result(playerData.progress, []);
+        itemIDs = [];
     }
     else
     {
-        let progress = playerData.progress;
-
         playerData.Progress(template);
-        API.DailyReward.PlayerData.Update(currentPlayerId, playerData);
+        API.DailyReward.PlayerData.Save(currentPlayerId, playerData);
 
-        let itemIDs = API.Reward.Grant(currentPlayerId, reward, "Daily Login Reward");
+        itemIDs = API.Reward.Grant(currentPlayerId, reward, "Daily Login Reward");
 
         let result = new API.DailyReward.Result(progress, itemIDs);
 
         return result;
     }
+
+    let result = new API.DailyReward.Result(progress, itemIDs);
+
+    return result;
 }
 
 handlers.FinishLevel = function (args?: IFinishLevelArguments)
 {
     if (args == null)
-        throw "no arguments specified";
+    {
+        log.error("no arguments specified");
+        return;
+    }
 
     if (args.region == null)
-        throw "no level argument specified";
+    {
+        log.error("no region argument specified");
+        return;
+    }
 
     if (args.level == null)
-        throw "no level argument specified";
-
-    function FormatTemplate(args: IFinishLevelArguments): ITemplateSnapshot
     {
-        let data = API.World.Template.Retrieve();
-
-        let region = data.Find(args.region);
-
-        if (region == null)
-            throw args.region + " region doesn't exist";
-
-        let level = region.Find(args.level);
-
-        if (level == null)
-            throw "no level with index " + args.level + " defined in " + args.region + " region";
-
-        return {
-            data: data,
-            region: region,
-            level: level,
-        };
-    }
-    interface ITemplateSnapshot
-    {
-        data: API.World.Template,
-        region: API.World.Template.Region,
-        level: API.World.Template.Region.Level,
+        log.error("no level argument specified");
+        return;
     }
 
+    let template: API.World.Template.Snapshot;
     try
     {
-        var template = FormatTemplate(args);
+        template = API.World.Template.Snapshot.Retrieve(args);
     }
     catch (error)
     {
@@ -94,55 +80,10 @@ handlers.FinishLevel = function (args?: IFinishLevelArguments)
         return;
     }
 
-    function FormatPlayerData(args: IFinishLevelArguments, template: ITemplateSnapshot): IPlayerDataSnapshot
-    {
-        let data = API.World.PlayerData.Retrieve(currentPlayerId);
-        let firstTime = false;
-        if (data == null) //first time for the player finishing any level
-        {
-            data = API.World.PlayerData.Create();
-
-            firstTime = true;
-        }
-
-        let region = data.Find(args.region);
-        if (region == null)
-        {
-            if (template.region.previous == null) //this is the first level
-            {
-
-            }
-            else
-            {
-                var previous = data.Find(template.region.previous.name);
-
-                if (previous == null)
-                    throw "trying to index region " + args.region + " without unlocking the previous region: " + template.region.previous.name;
-
-                if (previous.progress < template.region.previous.size)
-                    throw "trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name;
-            }
-
-            region = data.Add(args.region);
-        }
-
-        if (args.level > region.progress)
-            throw "trying to complete level of index " + args.level + " without completing the previous levels";
-
-        return {
-            data: data,
-            region: region
-        };
-    }
-    interface IPlayerDataSnapshot
-    {
-        data: API.World.PlayerData;
-        region: API.World.PlayerData.Region;
-    }
-
+    let playerData: API.World.PlayerData.Snapshot;
     try
     {
-        var playerData = FormatPlayerData(args, template);
+        playerData = API.World.PlayerData.Snapshot.Retrieve(args, template);
     }
     catch (error)
     {
@@ -150,25 +91,23 @@ handlers.FinishLevel = function (args?: IFinishLevelArguments)
         return;
     }
 
-    let rewardItemIDs: Array<string> = [];
+    let reward: Array<string>;
 
     if (playerData.region.progress == args.level) //Initial Completion
     {
-        playerData.region.progress += 1;
+        playerData.region.Increment();
         API.World.PlayerData.Save(currentPlayerId, playerData.data);
 
-        let IDs = API.Reward.Grant(currentPlayerId, template.level.reward.initial, "Level Completion Reward");
-
-        rewardItemIDs = rewardItemIDs.concat(IDs);
+        reward = API.Reward.Grant(currentPlayerId, template.level.reward.initial, "Initial Level Completion Reward");
     }
     else //Recurring Completion
     {
-        let IDs = API.Reward.Grant(currentPlayerId, template.level.reward.recurring, "Level Completion Reward");
-
-        rewardItemIDs = rewardItemIDs.concat(IDs);
+        reward = API.Reward.Grant(currentPlayerId, template.level.reward.recurring, "Recurring Level Completion Reward");
     }
 
-    return rewardItemIDs;
+    let result = new API.World.FinishLevelResult(reward);
+
+    return result;
 }
 interface IFinishLevelArguments
 {
@@ -179,29 +118,36 @@ interface IFinishLevelArguments
 handlers.UpgradeItem = function (args?: IUpgradeItemArguments)
 {
     if (args == null)
-        throw "no arguments specified";
+    {
+        log.error("no arguments specified");
+        return;
+    }
 
     if (args.upgradeType == null)
-        throw "no upgrade type argument specified";
+    {
+        log.error("no upgrade type argument specified");
+        return;
+    }
 
     if (args.itemInstanceId == null)
-        throw "no itemInstanceID argument specified"
+    {
+        log.error("no itemInstanceID argument specified");
+        return;
+    }
 
     let inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
-    let itemInstance = inventory.FindWithInstanceID(args.itemInstanceId);
 
+    let itemInstance = inventory.FindWithInstanceID(args.itemInstanceId);
     if (itemInstance == null)
     {
         log.error("no inventory item found with instanceID: " + args.itemInstanceId);
         return;
     }
-
     if (itemInstance.CatalogVersion == null)
     {
         log.error("itemInstance has no catalog version defined");
         return;
     }
-
     if (itemInstance.ItemId == null)
     {
         log.error("itemInstance has no itemID value defined");
@@ -209,8 +155,8 @@ handlers.UpgradeItem = function (args?: IUpgradeItemArguments)
     }
 
     let catalog = PlayFab.Title.Catalog.Retrieve(itemInstance.CatalogVersion);
-    let catalogItem = catalog.FindWithID(itemInstance.ItemId);
 
+    let catalogItem = catalog.FindWithID(itemInstance.ItemId);
     if (catalogItem == null)
     {
         log.error("no catalog item relating to itemID " + itemInstance.ItemId + " was found in catalog version " + itemInstance.CatalogVersion);
@@ -218,49 +164,16 @@ handlers.UpgradeItem = function (args?: IUpgradeItemArguments)
     }
 
     let itemData = API.Upgrades.ItemData.Load(catalogItem);
-
     if (itemData == null)
     {
         log.error("item: " + catalogItem.ItemId + " Cannot be upgraded");
         return;
     }
 
-    //Template
-    function FormatTemplate(args: IUpgradeItemArguments, itemData: API.Upgrades.ItemData): ITemplateSnapshot
-    {
-        let data: API.Upgrades.Template | null;
-
-        if (itemData.template == null)
-        {
-            data = API.Upgrades.Template.GetDefault();
-        }
-        else
-        {
-            data = API.Upgrades.Template.Find(itemData.template);
-
-            if (data == null)
-                throw "no " + itemData.template + " upgrade template defined";
-        }
-
-        let element = data.Find(args.upgradeType);
-
-        if (element == null)
-            throw "upgrade type " + args.upgradeType + " not defined within " + data.name + " upgrade template";
-
-        return {
-            data: data,
-            element: element,
-        };
-    }
-    interface ITemplateSnapshot
-    {
-        data: API.Upgrades.Template,
-        element: API.Upgrades.Template.Element;
-    }
-
+    let template: API.Upgrades.Template.Snapshot;
     try
     {
-        var template = FormatTemplate(args, itemData);
+        template = API.Upgrades.Template.Snapshot.Retrieve(args, itemData);
     }
     catch (error)
     {
@@ -268,44 +181,10 @@ handlers.UpgradeItem = function (args?: IUpgradeItemArguments)
         return;
     }
 
-
-    //Instance Data
-    function FormatInstanceData(args: IUpgradeItemArguments, itemData: API.Upgrades.ItemData, itemInstance: PlayFabServerModels.ItemInstance, template: ITemplateSnapshot): IInstanceDataSnapshot
-    {
-        let data = API.Upgrades.InstanceData.Load(itemInstance);
-
-        if (data == null) //First time the player is upgrading this item
-        {
-            data = API.Upgrades.InstanceData.Create();
-        }
-
-        if (itemData.IsApplicable(args.upgradeType) == false)
-            throw args.upgradeType + " upgrade is not applicable to " + itemInstance.ItemId;
-
-        let element = data.Find(args.upgradeType);
-
-        if (element == null) //First time the player is upgrading this property
-        {
-            element = data.Add(args.upgradeType);
-        }
-
-        if (element.value >= template.element.ranks.length)
-            throw "can't upgrade " + itemInstance.ItemId + " any further";
-
-        return {
-            data: data,
-            element: element
-        };
-    }
-    interface IInstanceDataSnapshot
-    {
-        data: API.Upgrades.InstanceData;
-        element: API.Upgrades.InstanceData.Element;
-    }
-
+    let instanceData: API.Upgrades.InstanceData.Snapshot;
     try
     {
-        var instanceData = FormatInstanceData(args, itemData, itemInstance, template);
+        instanceData = API.Upgrades.InstanceData.Snapshot.Retrieve(args, itemData, itemInstance, template);
     }
     catch (error)
     {
@@ -334,6 +213,10 @@ handlers.UpgradeItem = function (args?: IUpgradeItemArguments)
     instanceData.element.Increment();
 
     API.Upgrades.InstanceData.Save(currentPlayerId, itemInstance, instanceData.data);
+
+    let result = new API.Upgrades.Result(true);
+
+    return result;
 }
 interface IUpgradeItemArguments
 {
