@@ -72,8 +72,6 @@ namespace Game
 
             var instance = JsonConvert.DeserializeObject<ResultData>(json);
 
-            Debug.Log(instance.Success);
-
             if (OnResult != null) OnResult(instance);
 
             Respond(instance, null);
@@ -93,6 +91,9 @@ namespace Game
             if (OnResponse != null) OnResponse(result, error);
         }
 
+#pragma warning disable CS0649
+        [JsonObject]
+        [Serializable]
         public class ResultData
         {
             [JsonProperty]
@@ -104,5 +105,6 @@ namespace Game
 
             }
         }
+#pragma warning restore CS0649
     }
 }

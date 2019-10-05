@@ -41,16 +41,7 @@ namespace Game
                 this.level = level;
             }
         }
-
-        public class ResultData
-        {
-            [JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
-#pragma warning disable CS0649 
-            ItemTemplate[] rewards;
-#pragma warning restore CS0649
-            public ItemTemplate[] Rewards => rewards;
-        }
-
+        
         public virtual void Request(string region, int level)
         {
             var request = new ExecuteCloudScriptRequest
@@ -92,5 +83,16 @@ namespace Game
         {
             if (OnResponse != null) OnResponse(result, error);
         }
+
+#pragma warning disable CS0649
+        [JsonObject]
+        [Serializable]
+        public class ResultData
+        {
+            [JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
+            ItemTemplate[] rewards;
+            public ItemTemplate[] Rewards => rewards;
+        }
+#pragma warning restore CS0649
     }
 }

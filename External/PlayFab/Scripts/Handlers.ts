@@ -154,7 +154,7 @@ handlers.UpgradeItem = function (args?: IUpgradeItemArguments)
         return;
     }
 
-    let catalog = PlayFab.Title.Catalog.Retrieve(itemInstance.CatalogVersion);
+    let catalog = PlayFab.Catalog.Retrieve(itemInstance.CatalogVersion);
 
     let catalogItem = catalog.FindWithID(itemInstance.ItemId);
     if (catalogItem == null)
@@ -224,11 +224,13 @@ interface IUpgradeItemArguments
     upgradeType: string;
 }
 
-function AwardIfAdmin()
+handlers.Reward = function (args?: Array<string>)
 {
-    if (currentPlayerId == "56F63F9E4A7E88D")
+    if (args == null)
     {
-        PlayFab.Title.Catalog.Item.Grant(currentPlayerId, "Wood_Sword", 5, "Admin Bonus");
-        PlayFab.Title.Catalog.Item.Grant(currentPlayerId, "Wood_Shield", 5, "Admin Bonus");
+        log.error("no arguments specified");
+        return;
     }
+
+    PlayFab.Catalog.Item.GrantAll(currentPlayerId, args, "Reward");
 }

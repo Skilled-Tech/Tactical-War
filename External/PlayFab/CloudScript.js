@@ -101,7 +101,7 @@ handlers.UpgradeItem = function (args) {
         log.error("itemInstance has no itemID value defined");
         return;
     }
-    let catalog = PlayFab.Title.Catalog.Retrieve(itemInstance.CatalogVersion);
+    let catalog = PlayFab.Catalog.Retrieve(itemInstance.CatalogVersion);
     let catalogItem = catalog.FindWithID(itemInstance.ItemId);
     if (catalogItem == null) {
         log.error("no catalog item relating to itemID " + itemInstance.ItemId + " was found in catalog version " + itemInstance.CatalogVersion);
@@ -144,12 +144,18 @@ handlers.UpgradeItem = function (args) {
     let result = new API.Upgrades.Result(true);
     return result;
 };
-function AwardIfAdmin() {
-    if (currentPlayerId == "56F63F9E4A7E88D") {
-        PlayFab.Title.Catalog.Item.Grant(currentPlayerId, "Wood_Sword", 5, "Admin Bonus");
-        PlayFab.Title.Catalog.Item.Grant(currentPlayerId, "Wood_Shield", 5, "Admin Bonus");
+handlers.Reward = function (args) {
+    if (args == null) {
+        log.error("no arguments specified");
+        return;
     }
-}
+    PlayFab.Catalog.Item.GrantAll(currentPlayerId, args, "Reward");
+};
+var Sandbox;
+(function (Sandbox) {
+    function Call() {
+    }
+})(Sandbox || (Sandbox = {}));
 var MyJSON;
 (function (MyJSON) {
     MyJSON.IgnoreCharacter = '$';
@@ -220,6 +226,16 @@ var API;
         constructor(item, count) {
             this.item = item;
             this.count = count;
+        }
+        static Grant(playerID, stack, annotation) {
+            PlayFab.Catalog.Item.Grant(playerID, stack.item, stack.count, annotation);
+        }
+        static GrantAll(playerID, stacks, annotation) {
+            let IDs = [];
+            for (let x = 0; x < stacks.length; x++)
+                for (let y = 0; y < stacks[x].count; y++)
+                    IDs.push(stacks[x].item);
+            PlayFab.Catalog.Item.GrantAll(playerID, IDs, annotation);
         }
     }
     API.ItemStack = ItemStack;
@@ -326,11 +342,11 @@ var API;
             if (data.droptable == null) {
             }
             else {
-                let result = PlayFab.Title.Catalog.Tables.Process(data.droptable);
+                let result = PlayFab.Catalog.Tables.Process(data.droptable);
                 if (result != null)
                     IDs = IDs.concat(result);
             }
-            PlayFab.Title.Catalog.Item.GrantAll(playerID, IDs, annotation);
+            PlayFab.Catalog.Item.GrantAll(playerID, IDs, annotation);
             return IDs;
         }
     }
@@ -598,19 +614,13 @@ var API;
 (function (API) {
     let World;
     (function (World) {
+        World.ID = "world";
         class FinishLevelResult {
             constructor(reward) {
                 this.rewards = reward;
             }
         }
         World.FinishLevelResult = FinishLevelResult;
-    })(World = API.World || (API.World = {}));
-})(API || (API = {}));
-var API;
-(function (API) {
-    let World;
-    (function (World) {
-        World.ID = "world";
     })(World = API.World || (API.World = {}));
 })(API || (API = {}));
 var API;
@@ -851,6 +861,82 @@ var API;
 })(API || (API = {}));
 var PlayFab;
 (function (PlayFab) {
+    class Catalog {
+        constructor(items) {
+            if (items == null)
+                this.items = [];
+            else
+                this.items = items;
+        }
+        FindWithID(itemID) {
+            for (let i = 0; i < this.items.length; i++)
+                if (this.items[i].ItemId == itemID)
+                    return this.items[i];
+            return null;
+        }
+    }
+    PlayFab.Catalog = Catalog;
+    (function (Catalog) {
+        Catalog.Default = "Default";
+        function Retrieve(version) {
+            let result = server.GetCatalogItems({
+                CatalogVersion: version,
+            });
+            return new Catalog(result.Catalog);
+        }
+        Catalog.Retrieve = Retrieve;
+        let Item;
+        (function (Item) {
+            function Grant(playerID, itemID, ammount, annotation) {
+                let items = [];
+                for (let i = 0; i < ammount; i++)
+                    items.push(itemID);
+                return GrantAll(playerID, items, annotation);
+            }
+            Item.Grant = Grant;
+            function GrantAll(playerID, itemIDs, annotation) {
+                if (itemIDs == null || itemIDs.length == 0)
+                    return [];
+                let result = server.GrantItemsToUser({
+                    PlayFabId: playerID,
+                    Annotation: annotation,
+                    CatalogVersion: Catalog.Default,
+                    ItemIds: itemIDs
+                });
+                if (result.ItemGrantResults == null)
+                    return [];
+                return result.ItemGrantResults;
+            }
+            Item.GrantAll = GrantAll;
+        })(Item = Catalog.Item || (Catalog.Item = {}));
+        let Tables;
+        (function (Tables) {
+            function Evaluate(tableID) {
+                let result = server.EvaluateRandomResultTable({
+                    CatalogVersion: Catalog.Default,
+                    TableId: tableID
+                });
+                if (result.ResultItemId == null)
+                    return null;
+                return result.ResultItemId;
+            }
+            Tables.Evaluate = Evaluate;
+            function Process(table) {
+                let items = Array();
+                for (let i = 0; i < table.iterations; i++) {
+                    let item = Evaluate(table.ID);
+                    if (item == null)
+                        continue;
+                    items.push(item);
+                }
+                return items;
+            }
+            Tables.Process = Process;
+        })(Tables = Catalog.Tables || (Catalog.Tables = {}));
+    })(Catalog = PlayFab.Catalog || (PlayFab.Catalog = {}));
+})(PlayFab || (PlayFab = {}));
+var PlayFab;
+(function (PlayFab) {
     let Player;
     (function (Player) {
         class Inventory {
@@ -1014,78 +1100,5 @@ var PlayFab;
             }
             Data.Retrieve = Retrieve;
         })(Data = Title.Data || (Title.Data = {}));
-        class Catalog {
-            constructor(items) {
-                if (items == null)
-                    this.items = [];
-                else
-                    this.items = items;
-            }
-            FindWithID(itemID) {
-                for (let i = 0; i < this.items.length; i++)
-                    if (this.items[i].ItemId == itemID)
-                        return this.items[i];
-                return null;
-            }
-        }
-        Title.Catalog = Catalog;
-        (function (Catalog) {
-            Catalog.Default = "Default";
-            function Retrieve(version) {
-                let result = server.GetCatalogItems({
-                    CatalogVersion: version,
-                });
-                return new Catalog(result.Catalog);
-            }
-            Catalog.Retrieve = Retrieve;
-            let Item;
-            (function (Item) {
-                function Grant(playerID, itemID, ammount, annotation) {
-                    let items = [];
-                    for (let i = 0; i < ammount; i++)
-                        items.push(itemID);
-                    return GrantAll(playerID, items, annotation);
-                }
-                Item.Grant = Grant;
-                function GrantAll(playerID, itemIDs, annotation) {
-                    if (itemIDs == null || itemIDs.length == 0)
-                        return [];
-                    let result = server.GrantItemsToUser({
-                        PlayFabId: playerID,
-                        Annotation: annotation,
-                        CatalogVersion: Catalog.Default,
-                        ItemIds: itemIDs
-                    });
-                    if (result.ItemGrantResults == null)
-                        return [];
-                    return result.ItemGrantResults;
-                }
-                Item.GrantAll = GrantAll;
-            })(Item = Catalog.Item || (Catalog.Item = {}));
-            let Tables;
-            (function (Tables) {
-                function Evaluate(tableID) {
-                    let result = server.EvaluateRandomResultTable({
-                        CatalogVersion: Catalog.Default,
-                        TableId: tableID
-                    });
-                    if (result.ResultItemId == null)
-                        return null;
-                    return result.ResultItemId;
-                }
-                Tables.Evaluate = Evaluate;
-                function Process(table) {
-                    let items = Array();
-                    for (let i = 0; i < table.iterations; i++) {
-                        let item = Evaluate(table.ID);
-                        if (item == null)
-                            continue;
-                        items.push(item);
-                    }
-                    return items;
-                }
-                Tables.Process = Process;
-            })(Tables = Catalog.Tables || (Catalog.Tables = {}));
-        })(Catalog = Title.Catalog || (Title.Catalog = {}));
     })(Title = PlayFab.Title || (PlayFab.Title = {}));
 })(PlayFab || (PlayFab = {}));

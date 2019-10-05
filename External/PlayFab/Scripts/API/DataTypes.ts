@@ -34,5 +34,20 @@ namespace API
             this.item = item;
             this.count = count;
         }
+
+        static Grant(playerID: string, stack: ItemStack, annotation: string)
+        {
+            PlayFab.Catalog.Item.Grant(playerID, stack.item, stack.count, annotation);
+        }
+        static GrantAll(playerID: string, stacks: Array<ItemStack>, annotation: string)
+        {
+            let IDs = [];
+
+            for (let x = 0; x < stacks.length; x++)
+                for (let y = 0; y < stacks[x].count; y++)
+                    IDs.push(stacks[x].item);
+
+            PlayFab.Catalog.Item.GrantAll(playerID, IDs, annotation);
+        }
     }
 }

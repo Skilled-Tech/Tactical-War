@@ -31,12 +31,12 @@ namespace API
             }
             else
             {
-                let result = PlayFab.Title.Catalog.Tables.Process(data.droptable);
+                let result = PlayFab.Catalog.Tables.Process(data.droptable);
                 if (result != null)
                     IDs = IDs.concat(result);
             }
 
-            PlayFab.Title.Catalog.Item.GrantAll(playerID, IDs, annotation);
+            PlayFab.Catalog.Item.GrantAll(playerID, IDs, annotation);
 
             return IDs;
         }

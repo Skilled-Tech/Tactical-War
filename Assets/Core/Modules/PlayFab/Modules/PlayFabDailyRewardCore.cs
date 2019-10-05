@@ -92,6 +92,7 @@ namespace Game
             if (OnResponse != null) OnResponse(result, error);
         }
 
+#pragma warning disable CS0649
         [JsonObject]
         [Serializable]
         public class ResultData
@@ -113,6 +114,7 @@ namespace Game
 
             }
         }
+#pragma warning restore CS0649
         #endregion
     }
 }
