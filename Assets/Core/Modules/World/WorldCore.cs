@@ -141,56 +141,30 @@ namespace Game
 
         void OnPlayerReadOnlyDataRetrieved(PlayFabPlayerReadOnlyData module)
         {
-            if(module.Data == null)
-            {
-                ApplyDefaults();
-            }
-            else
-            {
-                if(module.Data.ContainsKey(ID))
-                {
-                    var json = module.Data[ID].Value;
+            var dictionary = new Dictionary<string, JToken>();
 
-                    var jObject = JObject.Parse(json);
+            if (module.Data != null && module.Data.ContainsKey(ID))
+            {
+                var json = module.Data[ID].Value;
 
-                    Parse(jObject);
-                }
-                else
+                var jObject = JObject.Parse(json);
+
+                var array = jObject[nameof(regions)] as JArray;
+
+                for (int i = 0; i < array.Count; i++)
                 {
-                    ApplyDefaults();
+                    var name = array[i]["name"].ToObject<string>();
+
+                    dictionary.Add(name, array[i]);
                 }
             }
-        }
-
-        void Parse(JObject jObject)
-        {
-            var jArray = jObject[nameof(regions)] as JArray;
-
-            var dictionary = jArray.ToDictionary(x => x["name"].ToObject<string>());
 
             for (int i = 0; i < regions.Length; i++)
             {
                 if (dictionary.ContainsKey(regions[i].name))
-                {
                     regions[i].Parse(dictionary[regions[i].name]);
-                }
                 else
-                {
-                    if (i == 0 || regions[i].Previous.Finished)
-                        regions[i].Unlock();
-                    else
-                        regions[i].Lock();
-                }
-            }
-        }
-        void ApplyDefaults()
-        {
-            for (int i = 0; i < regions.Length; i++)
-            {
-                if (i == 0)
-                    regions[i].Unlock();
-                else
-                    regions[i].Lock();
+                    regions[i].ApplyDefaults();
             }
         }
 

@@ -22,6 +22,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Game
 {
+    [JsonObject]
     [CreateAssetMenu(menuName = MenuPath + "Element")]
     public class RegionCore : WorldCore.Element
     {
@@ -95,7 +96,8 @@ namespace Game
         }
         #endregion
 
-        [JsonProperty(ItemConverterType = typeof(RegionDifficulty.Converter))]
+        [JsonProperty]
+        [JsonConverter(typeof(RegionDifficulty.Converter))]
         [SerializeField]
         protected RegionDifficulty difficulty;
         public RegionDifficulty Difficulty { get { return difficulty; } }
@@ -129,9 +131,18 @@ namespace Game
 
             JsonConvert.PopulateObject(json, this);
         }
+        public virtual void ApplyDefaults()
+        {
+            if (Index == 0 || Previous.Finished)
+                Unlock();
+            else
+                Lock();
+        }
 
         public virtual void Unlock()
         {
+            difficulty = World.Difficulty.List[0];
+
             Unlock(levels[0]);
         }
         public virtual void Unlock(LevelCore level)
@@ -145,6 +156,7 @@ namespace Game
         {
             Unlocked = false;
             progress = 0;
+            difficulty = null;
         }
 
         public virtual void Load(LevelCore level)

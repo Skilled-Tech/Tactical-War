@@ -173,20 +173,12 @@ namespace API
                         region = data.Add(args.region);
                     }
 
-                    if (args.level > region.progress)
-                    {
-                        if (args.difficulty >= region.difficulty)
-                        {
-                            throw ("trying to complete level of index " + args.level + " without completing the previous levels");
-                        }
-                    }
-
                     if (args.difficulty > region.difficulty) //player sending different difficulty than the one we have saved
                     {
                         if (region.difficulty + 1 == args.difficulty)
                         {
                             if (region.progress < template.region.size)
-                                throw ("can't progress difficulty, region not completed at " + region.difficulty + " yet");
+                                throw ("can't progress difficulty, region not completed at difficulty " + region.difficulty + " yet");
 
                             region.difficulty = args.difficulty;
                             region.progress = 0;
@@ -194,6 +186,14 @@ namespace API
                         else //player trying to jump difficulty
                         {
                             throw ("can't change difficulty from " + region.difficulty + " to " + args.difficulty);
+                        }
+                    }
+
+                    if (args.level > region.progress)
+                    {
+                        if (args.difficulty >= region.difficulty)
+                        {
+                            throw ("trying to complete level of index " + args.level + " without completing the previous levels");
                         }
                     }
 

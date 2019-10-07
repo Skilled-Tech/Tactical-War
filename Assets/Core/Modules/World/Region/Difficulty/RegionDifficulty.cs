@@ -39,6 +39,7 @@ namespace Game
         {
             public override bool CanConvert(Type objectType)
             {
+                Debug.Log(objectType.FullName);
                 return typeof(RegionDifficulty).IsAssignableFrom(objectType);
             }
 
@@ -46,9 +47,9 @@ namespace Game
             {
                 if (reader.Value == null) return null;
 
-                var index = (int)reader.Value;
+                var index = (int)(Int64)reader.Value;
 
-                var template = Difficulty.Get(index);
+                var template = Difficulty.Get(index - 1);
 
                 return template;
             }
@@ -57,7 +58,7 @@ namespace Game
             {
                 var template = value as RegionDifficulty;
 
-                serializer.Serialize(writer, template.Index);
+                serializer.Serialize(writer, template.Index + 1);
             }
 
             public Converter()

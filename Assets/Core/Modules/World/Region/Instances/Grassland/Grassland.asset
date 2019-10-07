@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Grassland
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  progress: 5
+  progress: 3
   levels:
   - {fileID: 11400000, guid: e66b8d2185713ec4eb5624afab79d085, type: 2}
   - {fileID: 11400000, guid: ce534a91810de0a4cabbe3acc483ab60, type: 2}
   - {fileID: 11400000, guid: 2ae91468f650acc49ab1db88c5e6bb09, type: 2}
   - {fileID: 11400000, guid: bbdc9a9c4a3e013469b93d17ee2bd7a8, type: 2}
   - {fileID: 11400000, guid: 5ba1937da82f1d54db52603e1d534fdd, type: 2}
-  difficulty: {fileID: 0}
+  difficulty: {fileID: 11400000, guid: c3f29393501112741b155f3c89e2bd05, type: 2}
