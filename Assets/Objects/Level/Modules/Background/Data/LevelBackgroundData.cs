@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(menuName = LevelBackground.MenuPath + "Data")]
 	public class LevelBackgroundData : ScriptableObject
 	{
         [SerializeField]

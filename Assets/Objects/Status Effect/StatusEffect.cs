@@ -21,7 +21,7 @@ namespace Game
 {
     public static class StatusEffect
     {
-        public const string MenuPath = "Status Effect/";
+        public const string MenuPath = Core.GameMenuPath + "Status Effect/";
 
         public static bool Afflict(StatusEffectData data, Entity target, Entity affector)
         {

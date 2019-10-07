@@ -21,6 +21,8 @@ namespace Game
 {
 	public class LevelBackground : Level.Module
 	{
+        public const string MenuPath = Level.MenuPath + "Background/";
+
         public List<LevelBackgroundTemplate> Templates { get; protected set; }
 
         public override void Init()

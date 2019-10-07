@@ -30,7 +30,7 @@ namespace UnityEngine.Tilemaps
 		}
 
 #if UNITY_EDITOR
-        [MenuItem("Assets/Create/Sequence Tile")]
+        [MenuItem("Assets/Create/Tile/Sequence Tile")]
 		public static void CreateSequenceTile()
 		{
 			string path = EditorUtility.SaveFilePanelInProject("Save Sequence Tile", "New Sequence Tile", "asset", "Save Sequence Tile", "Assets");

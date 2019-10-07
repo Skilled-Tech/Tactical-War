@@ -24,6 +24,8 @@ namespace Game
     {
         public const int ExecutionOrder = -200;
 
+        public const string MenuPath = Core.GameMenuPath + "Level/";
+
         public static Level Instance { get; protected set; }
 
         new public GameCamera camera { get; protected set; }

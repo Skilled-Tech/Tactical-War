@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    [CustomGridBrush(true, false, false, "Coordinate Brush")]
+    [CustomGridBrush(true, false, false, "HAL/Coordinate Brush")]
     public class CoordinateBrush : UnityEditor.Tilemaps.GridBrush {
         public int z = 0;
 
@@ -26,7 +26,7 @@ namespace UnityEditor
             base.FloodFill(grid, brushTarget, zPosition);
         }
 
-        [MenuItem("Assets/Create/Coordinate Brush")]
+        [MenuItem("Assets/Create/Brushes/Coordinate Brush")]
         public static void CreateBrush()
         {
             string path = EditorUtility.SaveFilePanelInProject("Save Coordinate Brush", "New Coordinate Brush", "asset", "Save Coordinate Brush", "Assets");

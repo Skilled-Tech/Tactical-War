@@ -21,7 +21,7 @@ namespace Game
 {
     public class Unit : Entity
     {
-        public const string MenuPath = "Unit/";
+        public const string MenuPath = Core.GameMenuPath + "Unit/";
 
         public UnitTemplate Template { get; protected set; }
 

@@ -28,7 +28,7 @@ namespace Game
     [CreateAssetMenu(menuName = MenuPath + "Template")]
     public class ItemTemplate : ScriptableObject
     {
-        public const string MenuPath = "Item/";
+        public const string MenuPath = Core.GameMenuPath + "Item/";
 
         public string ID
         {

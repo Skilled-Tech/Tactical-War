@@ -25,6 +25,8 @@ namespace Game
     {
         public const string MenuPath = "Core/";
 
+        public const string GameMenuPath = "Game/";
+
         static Core _instance;
         public static Core Instance
         {

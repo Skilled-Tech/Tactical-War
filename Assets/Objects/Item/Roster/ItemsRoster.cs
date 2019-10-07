@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = ItemTemplate.MenuPath + "Roster")]
 	public class ItemsRoster : ScriptableObject
 	{
         [SerializeField]
