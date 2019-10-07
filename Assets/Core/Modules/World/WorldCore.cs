@@ -60,14 +60,13 @@ namespace Game
         {
 
         }
-
         public class Element : ScriptableObject, Core.IModule
         {
-            public Core Core { get { return Core.Instance; } }
+            public static Core Core { get { return Core.Instance; } }
 
-            public WorldCore World { get { return Core.World; } }
+            public static WorldCore World { get { return Core.World; } }
 
-            public ScenesCore Scenes { get { return Core.Scenes; } }
+            public static ScenesCore Scenes { get { return Core.Scenes; } }
 
             public virtual void Configure()
             {
@@ -88,12 +87,49 @@ namespace Game
             }
         }
 
+        [SerializeField]
+        protected DifficulyCore difficulty;
+        public DifficulyCore Difficulty { get { return difficulty; } }
+        [Serializable]
+        public class DifficulyCore : Module
+        {
+            [SerializeField]
+            protected RegionDifficulty[] list;
+            public RegionDifficulty[] List { get { return list; } }
+
+            public virtual RegionDifficulty Get(int index)
+            {
+                if (index < 0 || index + 1 > list.Length)
+                {
+                    Debug.LogWarning("no difficulty defined at index: " + index);
+                    return null;
+                }
+
+                return list[index];
+            }
+
+            public virtual int IndexOf(RegionDifficulty element)
+            {
+                return Array.IndexOf(list, element);
+            }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                for (int i = 0; i < list.Length; i++)
+                    Register(list[i]);
+            }
+        }
+
         public ScenesCore Scenes { get { return Core.Scenes; } }
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
         public override void Configure()
         {
             base.Configure();
+
+            Register(difficulty);
 
             for (int i = 0; i < regions.Length; i++)
             {

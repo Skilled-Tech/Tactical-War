@@ -53,6 +53,6 @@ namespace API
 
     export enum Difficulty
     {
-        Normal, Hard, Skilled
+        Normal = 1, Hard = 2, Skilled = 3
     }
 }

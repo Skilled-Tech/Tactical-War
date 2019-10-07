@@ -43,7 +43,7 @@ namespace API
                 var result = Find(Default);
 
                 if (result == null)
-                    throw "no " + Default + " upgrade template defined";
+                    throw ("no " + Default + " upgrade template defined");
 
                 return result;
             }
@@ -63,7 +63,7 @@ namespace API
                 let json = PlayFab.Title.Data.Retrieve(API.Upgrades.ID);
 
                 if (json == null)
-                    throw "no upgrades templates defined";
+                    throw ("no upgrades templates defined");
 
                 var object = <ITemplate[]>JSON.parse(json);
 
@@ -164,13 +164,13 @@ namespace API
                         data = API.Upgrades.Template.Find(itemData.template);
 
                         if (data == null)
-                            throw "no " + itemData.template + " upgrade template defined";
+                            throw ("no " + itemData.template + " upgrade template defined");
                     }
 
                     let element = data.Find(args.upgradeType);
 
                     if (element == null)
-                        throw "upgrade type " + args.upgradeType + " not defined within " + data.name + " upgrade template";
+                        throw ("upgrade type " + args.upgradeType + " not defined within " + data.name + " upgrade template");
 
                     return {
                         data: data,

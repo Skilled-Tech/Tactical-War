@@ -11,7 +11,7 @@ namespace API
             public Get(index: number): Reward
             {
                 if (index < 0 || index + 1 > this.max)
-                    throw "no rewars defined for index: " + index;
+                    throw ("no rewars defined for index: " + index);
 
                 return this.list[index];
             }
@@ -26,7 +26,8 @@ namespace API
             {
                 var json = PlayFab.Title.Data.Retrieve(API.DailyReward.ID);
 
-                if (json == null) throw "no rewards template defined";
+                if (json == null)
+                    throw ("no rewards template defined");
 
                 var list = JSON.parse(json) as Array<API.Reward>;
 

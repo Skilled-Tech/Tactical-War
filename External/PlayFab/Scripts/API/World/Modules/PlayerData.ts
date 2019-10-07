@@ -130,13 +130,15 @@ namespace API
             {
                 data: API.World.PlayerData
                 region: API.World.PlayerData.Region;
-                occurance: API.World.Level.Finish.Occurrence;
+                occurrence: API.World.Level.Finish.Occurrence;
 
                 constructor(data: API.World.PlayerData,
-                    region: API.World.PlayerData.Region)
+                    region: API.World.PlayerData.Region,
+                    occurrence: API.World.Level.Finish.Occurrence)
                 {
                     this.data = data;
                     this.region = region;
+                    this.occurrence = occurrence;
                 }
 
                 static Retrieve(args: IFinishLevelArguments, template: Template.Snapshot): Snapshot
@@ -162,30 +164,47 @@ namespace API
                             var previous = data.Find(template.region.previous.name);
 
                             if (previous == null)
-                                throw "trying to index region " + args.region + " without unlocking the previous region: " + template.region.previous.name;
+                                throw ("trying to index region " + args.region + " without unlocking the previous region: " + template.region.previous.name);
 
                             if (previous.progress < template.region.previous.size)
-                                throw "trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name;
+                                throw ("trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name);
                         }
 
                         region = data.Add(args.region);
                     }
 
                     if (args.level > region.progress)
-                        throw "trying to complete level of index " + args.level + " without completing the previous levels";
+                    {
+                        if (args.difficulty >= region.difficulty)
+                        {
+                            throw ("trying to complete level of index " + args.level + " without completing the previous levels");
+                        }
+                    }
+
+                    if (args.difficulty > region.difficulty) //player sending different difficulty than the one we have saved
+                    {
+                        if (region.difficulty + 1 == args.difficulty)
+                        {
+                            if (region.progress < template.region.size)
+                                throw ("can't progress difficulty, region not completed at " + region.difficulty + " yet");
+
+                            region.difficulty = args.difficulty;
+                            region.progress = 0;
+                        }
+                        else //player trying to jump difficulty
+                        {
+                            throw ("can't change difficulty from " + region.difficulty + " to " + args.difficulty);
+                        }
+                    }
 
                     let occurrence: API.World.Level.Finish.Occurrence;
 
-                    if (region.progress == args.level)
+                    if (region.progress == args.level && args.difficulty == region.difficulty)
                         occurrence = Level.Finish.Occurrence.Initial;
                     else
                         occurrence = Level.Finish.Occurrence.Recurring;
 
-                    return {
-                        data: data,
-                        region: region,
-                        occurance: occurrence
-                    };
+                    return new Snapshot(data, region, occurrence);
                 }
             }
         }

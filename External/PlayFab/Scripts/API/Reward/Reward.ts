@@ -2,10 +2,10 @@ namespace API
 {
     export class Reward
     {
-        items: [string];
-        droptable: DropTable;
+        items?: [string];
+        droptable?: DropTable;
 
-        constructor(items: [string], droptable: DropTable)
+        constructor(items?: [string], droptable?: DropTable)
         {
             this.items = items;
             this.droptable = droptable;
@@ -32,6 +32,7 @@ namespace API
             else
             {
                 let result = PlayFab.Catalog.Tables.Process(data.droptable);
+
                 if (result != null)
                     IDs = IDs.concat(result);
             }

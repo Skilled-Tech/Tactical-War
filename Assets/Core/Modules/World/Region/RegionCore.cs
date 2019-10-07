@@ -95,18 +95,10 @@ namespace Game
         }
         #endregion
 
-        #region Difficulty
+        [JsonProperty(ItemConverterType = typeof(RegionDifficulty.Converter))]
         [SerializeField]
-        protected DifficulyData difficulty;
-        public DifficulyData Difficulty { get { return difficulty; } }
-        [Serializable]
-        public class DifficulyData
-        {
-            [SerializeField]
-            protected RegionDifficulty[] list;
-            public RegionDifficulty[] List { get { return list; } }
-        }
-        #endregion
+        protected RegionDifficulty difficulty;
+        public RegionDifficulty Difficulty { get { return difficulty; } }
 
         public class Module : WorldCore.Element
         {
@@ -133,7 +125,9 @@ namespace Game
         {
             Unlocked = true;
 
-            progress = jToken[nameof(progress)].ToObject<int>();
+            var json = jToken.ToString();
+
+            JsonConvert.PopulateObject(json, this);
         }
 
         public virtual void Unlock()

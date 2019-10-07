@@ -35,7 +35,7 @@ namespace API
                 var json = PlayFab.Title.Data.Retrieve(API.World.ID);
 
                 if (json == null)
-                    throw "no World Template data defined within PlayFab Title Data";
+                    throw ("no World Template data defined within PlayFab Title Data");
 
                 var instance = MyJSON.Read(Template, json);
 
@@ -94,7 +94,20 @@ namespace API
             {
                 export class Level
                 {
-                    reward: Level.Rewards;
+                    rewards: Level.Reward[];
+
+                    GetApplicableRewards(args: IFinishLevelArguments, playerData: PlayerData.Snapshot): Array<Region.Level.Reward>
+                    {
+                        let result: Array<Region.Level.Reward> = [];
+
+                        for (let i = 0; i < this.rewards.length; i++)
+                        {
+                            if (this.rewards[i].IsApplicableTo(args, playerData))
+                                result.push(this.rewards[i]);
+                        }
+
+                        return result;
+                    }
 
                     public get region(): Region { return this.$region; }
                     public get index(): number { return this.$index; }
@@ -118,34 +131,73 @@ namespace API
 
                     constructor(private $region: Region, private $index: number, source: Level)
                     {
-                        this.reward = new Level.Rewards(source.reward);
+                        this.rewards = [];
+
+                        for (let i = 0; i < source.rewards.length; i++)
+                        {
+                            let instance = new Level.Reward(source.rewards[i]);
+
+                            this.rewards.push(instance);
+                        }
                     }
                 }
                 export namespace Level
                 {
-                    export class Rewards
+                    export class Reward
                     {
                         data: API.Reward;
-                        requirements: Rewards.Requirements;
+                        requirements?: Reward.Requirements;
 
-                        constructor(source: Rewards)
+                        IsApplicableTo(args: IFinishLevelArguments, playerData: PlayerData.Snapshot): boolean
+                        {
+                            if (this.requirements == null) return true;
+
+                            return this.requirements.CompliesWith(args, playerData);
+                        }
+
+                        constructor(source: Reward)
                         {
                             this.data = source.data;
 
-                            this.requirements = new Rewards.Requirements(source.requirements);
+                            if (source.requirements == null)
+                                this.requirements = undefined;
+                            else
+                                this.requirements = new Reward.Requirements(source.requirements);
                         }
                     }
-                    export namespace Rewards
+                    export namespace Reward
                     {
                         export class Requirements
                         {
-                            difficulty: Array<API.Difficulty>;
-                            occurance: Array<API.World.Level.Finish.Occurrence>
+                            occurrence?: Array<API.World.Level.Finish.Occurrence>
+                            IsValidOccurrence(object: API.World.Level.Finish.Occurrence)
+                            {
+                                if (this.occurrence == null) return true;
+
+                                return this.occurrence.indexOf(object) > 0;
+                            }
+
+                            difficulty?: Array<API.Difficulty>;
+                            IsValidDifficulty(object: API.Difficulty)
+                            {
+                                if (this.difficulty == null) return true;
+
+                                return this.difficulty.indexOf(object) > 0;
+                            }
+
+                            CompliesWith(args: IFinishLevelArguments, playerData: PlayerData.Snapshot)
+                            {
+                                if (this.occurrence != null && this.occurrence.indexOf(playerData.occurrence) < 0) return false;
+
+                                if (this.difficulty != null && this.difficulty.indexOf(args.difficulty) < 0) return false;
+
+                                return true;
+                            }
 
                             constructor(source: Requirements)
                             {
+                                this.occurrence = source.occurrence;
                                 this.difficulty = source.difficulty;
-                                this.occurance = source.occurance;
                             }
                         }
                     }
@@ -174,18 +226,14 @@ namespace API
                     let region = data.Find(args.region);
 
                     if (region == null)
-                        throw args.region + " region doesn't exist";
+                        throw (args.region + " region doesn't exist");
 
                     let level = region.Find(args.level);
 
                     if (level == null)
-                        throw "no level with index " + args.level + " defined in " + args.region + " region";
+                        throw ("no level with index " + args.level + " defined in " + args.region + " region");
 
-                    return {
-                        data: data,
-                        region: region,
-                        level: level,
-                    };
+                    return new Snapshot(data, region, level);
                 }
             }
         }

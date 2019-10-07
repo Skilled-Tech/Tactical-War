@@ -29,22 +29,27 @@ MonoBehaviour:
     regions:
     - {fileID: 11400000, guid: d12dbb645a133814faa51f25497e0283, type: 2}
     - {fileID: 11400000, guid: ab493a314bd3827428015f5116d77014, type: 2}
+    difficulty:
+      list:
+      - {fileID: 11400000, guid: b5da3c47ed0172d4abc1332a17aef7eb, type: 2}
+      - {fileID: 11400000, guid: c3f29393501112741b155f3c89e2bd05, type: 2}
+      - {fileID: 11400000, guid: 74bf909b5e8c6434080c4489c4cee8dc, type: 2}
   player:
     inventory:
       funds:
         elements:
         - type: 0
-          _value: 148100
+          _value: 281300
         - type: 1
-          _value: 697700
+          _value: 618100
     units:
       selection:
         max: 4
         list:
-        - {fileID: 11400000, guid: a8bd3686eabbb124fbdadcc1c186b7f0, type: 2}
-        - {fileID: 11400000, guid: 294f414a51ca529448bcc2ca2bcc05b8, type: 2}
-        - {fileID: 11400000, guid: 5817a7f1105a13447bdd801198d49109, type: 2}
+        - {fileID: 11400000, guid: a038f85ddbe926545835d92c69789024, type: 2}
         - {fileID: 11400000, guid: dc8bae592eff22d47894027b21de2791, type: 2}
+        - {fileID: 11400000, guid: 6a36fb4327677d5479e0bbe0ed809fc8, type: 2}
+        - {fileID: 11400000, guid: a038f85ddbe926545835d92c69789024, type: 2}
         Context: {fileID: 0}
   items:
     roster: {fileID: 11400000, guid: 39c86303927c97246b7e1d76cf1ea667, type: 2}
@@ -60,4 +65,4 @@ MonoBehaviour:
     startOffline: 0
     player: {}
     title: {}
-    reward: {}
+    world: {}

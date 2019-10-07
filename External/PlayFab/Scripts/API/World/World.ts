@@ -10,7 +10,7 @@ namespace API
             {
                 export enum Occurrence
                 {
-                    Initial, Recurring
+                    Initial = 1, Recurring = 2
                 }
 
                 export class Result

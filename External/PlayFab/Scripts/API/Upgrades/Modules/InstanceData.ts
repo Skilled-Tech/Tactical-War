@@ -51,7 +51,7 @@ namespace API
                 let data: InstanceData | null = null;
 
                 if (itemInstance == null)
-                    throw "itemInstance is null, can't load upgrade instance data";
+                    throw ("itemInstance is null, can't load upgrade instance data");
 
                 if (itemInstance.CustomData == null) return null;
 
@@ -134,7 +134,7 @@ namespace API
                     }
 
                     if (itemData.IsApplicable(args.upgradeType) == false)
-                        throw args.upgradeType + " upgrade is not applicable to " + itemInstance.ItemId;
+                        throw (args.upgradeType + " upgrade is not applicable to " + itemInstance.ItemId);
 
                     let element = data.Find(args.upgradeType);
 
@@ -144,7 +144,7 @@ namespace API
                     }
 
                     if (element.value >= template.element.ranks.length)
-                        throw "can't upgrade " + itemInstance.ItemId + " any further";
+                        throw ("can't upgrade " + itemInstance.ItemId + " any further");
 
                     return {
                         data: data,

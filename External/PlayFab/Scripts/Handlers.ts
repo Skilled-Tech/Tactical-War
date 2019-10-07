@@ -69,6 +69,18 @@ handlers.FinishLevel = function (args?: IFinishLevelArguments)
         return;
     }
 
+    if (args.difficulty == null)
+    {
+        log.error("no difficulty argument specified");
+        return;
+    }
+
+    if (args.difficulty in API.Difficulty == false)
+    {
+        log.error("no difficulty: " + args.difficulty + " defined");
+        return;
+    }
+
     let template: API.World.Template.Snapshot;
     try
     {
@@ -91,18 +103,23 @@ handlers.FinishLevel = function (args?: IFinishLevelArguments)
         return;
     }
 
-    let rewards: Array<string>;
-
-    if (playerData.occurance == API.World.Level.Finish.Occurrence.Initial) //First Time Completing Level
+    if (playerData.occurrence == API.World.Level.Finish.Occurrence.Initial) //First Time Completing Level
     {
         playerData.region.Increment();
         API.World.PlayerData.Save(currentPlayerId, playerData.data);
     }
 
-    rewards = API.Reward.Grant(currentPlayerId, template.level.reward.initial, "Initial Level Completion Reward");
+    let rewards = template.level.GetApplicableRewards(args, playerData);
+    let rewardsIDs = Array<string>();
+    for (let i = 0; i < rewards.length; i++)
+    {
+        let itemIDs = API.Reward.Grant(currentPlayerId, rewards[i].data, "Level Completion " + playerData.occurrence + " Reward");
+
+        rewardsIDs = rewardsIDs.concat(itemIDs);
+    }
 
     let result: API.World.Level.Finish.Result = {
-        rewards: rewards
+        rewards: rewardsIDs
     };
 
     return result;
@@ -111,6 +128,7 @@ interface IFinishLevelArguments
 {
     region: string;
     level: number;
+    difficulty: API.Difficulty;
 }
 
 handlers.UpgradeItem = function (args?: IUpgradeItemArguments)
