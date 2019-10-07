@@ -116,22 +116,37 @@ namespace API
                     public get isFirst(): boolean { return this.index == 0; }
                     public get isLast(): boolean { return this.index + 1 >= this.region.size; }
 
-                    constructor(private $region: Region, private $index: number, instance: Level)
+                    constructor(private $region: Region, private $index: number, source: Level)
                     {
-                        this.reward = instance.reward;
+                        this.reward = new Level.Rewards(source.reward);
                     }
                 }
                 export namespace Level
                 {
                     export class Rewards
                     {
-                        initial: API.Reward;
-                        recurring: API.Reward;
+                        data: API.Reward;
+                        requirements: Rewards.Requirements;
 
-                        constructor(initial: API.Reward, constant: API.Reward)
+                        constructor(source: Rewards)
                         {
-                            this.initial = initial;
-                            this.recurring = constant;
+                            this.data = source.data;
+
+                            this.requirements = new Rewards.Requirements(source.requirements);
+                        }
+                    }
+                    export namespace Rewards
+                    {
+                        export class Requirements
+                        {
+                            difficulty: Array<API.Difficulty>;
+                            occurance: Array<API.World.Level.Finish.Occurrence>
+
+                            constructor(source: Requirements)
+                            {
+                                this.difficulty = source.difficulty;
+                                this.occurance = source.occurance;
+                            }
                         }
                     }
                 }

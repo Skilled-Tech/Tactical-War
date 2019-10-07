@@ -107,7 +107,7 @@ namespace Game
         {
             if(module.Data == null)
             {
-
+                ApplyDefaults();
             }
             else
             {
@@ -117,16 +117,16 @@ namespace Game
 
                     var jObject = JObject.Parse(json);
 
-                    Load(jObject);
+                    Parse(jObject);
                 }
                 else
                 {
-                    LoadDefault();
+                    ApplyDefaults();
                 }
             }
         }
 
-        void Load(JObject jObject)
+        void Parse(JObject jObject)
         {
             var jArray = jObject[nameof(regions)] as JArray;
 
@@ -136,7 +136,7 @@ namespace Game
             {
                 if (dictionary.ContainsKey(regions[i].name))
                 {
-                    regions[i].Load(dictionary[regions[i].name]);
+                    regions[i].Parse(dictionary[regions[i].name]);
                 }
                 else
                 {
@@ -147,7 +147,7 @@ namespace Game
                 }
             }
         }
-        void LoadDefault()
+        void ApplyDefaults()
         {
             for (int i = 0; i < regions.Length; i++)
             {

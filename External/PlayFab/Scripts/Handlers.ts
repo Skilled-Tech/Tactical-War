@@ -91,21 +91,19 @@ handlers.FinishLevel = function (args?: IFinishLevelArguments)
         return;
     }
 
-    let reward: Array<string>;
+    let rewards: Array<string>;
 
-    if (playerData.region.progress == args.level) //Initial Completion
+    if (playerData.occurance == API.World.Level.Finish.Occurrence.Initial) //First Time Completing Level
     {
         playerData.region.Increment();
         API.World.PlayerData.Save(currentPlayerId, playerData.data);
-
-        reward = API.Reward.Grant(currentPlayerId, template.level.reward.initial, "Initial Level Completion Reward");
-    }
-    else //Recurring Completion
-    {
-        reward = API.Reward.Grant(currentPlayerId, template.level.reward.recurring, "Recurring Level Completion Reward");
     }
 
-    let result = new API.World.FinishLevelResult(reward);
+    rewards = API.Reward.Grant(currentPlayerId, template.level.reward.initial, "Initial Level Completion Reward");
+
+    let result: API.World.Level.Finish.Result = {
+        rewards: rewards
+    };
 
     return result;
 }

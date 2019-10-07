@@ -4,13 +4,24 @@ namespace API
     {
         export const ID = "world";
 
-        export class FinishLevelResult
+        export namespace Level
         {
-            rewards: Array<string>;
-
-            constructor(reward: Array<string>)
+            export namespace Finish
             {
-                this.rewards = reward;
+                export enum Occurrence
+                {
+                    Initial, Recurring
+                }
+
+                export class Result
+                {
+                    rewards: Array<string>;
+
+                    constructor(reward: Array<string>)
+                    {
+                        this.rewards = reward;
+                    }
+                }
             }
         }
     }

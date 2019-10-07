@@ -22,6 +22,6 @@ namespace Game
     [CreateAssetMenu(menuName = RegionCore.MenuPath + "Difficulty")]
 	public class RegionDifficulty : ScriptableObject
 	{
-		
+        
 	}
 }

@@ -88,6 +88,7 @@ namespace API
             {
                 name: string;
                 progress: number;
+                difficulty: API.Difficulty;
 
                 Increment()
                 {
@@ -101,6 +102,7 @@ namespace API
                 {
                     this.name = source.name;
                     this.progress = source.progress;
+                    this.difficulty = source.difficulty;
                 }
 
                 public static Create(playerData: PlayerData, index: number, name: string, progress: number): Region
@@ -109,6 +111,7 @@ namespace API
                     {
                         name: name,
                         progress: progress,
+                        difficulty: Difficulty.Normal
                     }
 
                     var instance = new Region(playerData, index, source);
@@ -120,12 +123,14 @@ namespace API
             {
                 name: string;
                 progress: number;
+                difficulty: API.Difficulty;
             }
 
             export class Snapshot
             {
                 data: API.World.PlayerData
                 region: API.World.PlayerData.Region;
+                occurance: API.World.Level.Finish.Occurrence;
 
                 constructor(data: API.World.PlayerData,
                     region: API.World.PlayerData.Region)
@@ -169,9 +174,17 @@ namespace API
                     if (args.level > region.progress)
                         throw "trying to complete level of index " + args.level + " without completing the previous levels";
 
+                    let occurrence: API.World.Level.Finish.Occurrence;
+
+                    if (region.progress == args.level)
+                        occurrence = Level.Finish.Occurrence.Initial;
+                    else
+                        occurrence = Level.Finish.Occurrence.Recurring;
+
                     return {
                         data: data,
-                        region: region
+                        region: region,
+                        occurance: occurrence
                     };
                 }
             }

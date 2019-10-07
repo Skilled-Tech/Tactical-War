@@ -4,26 +4,30 @@
       "name": "Grassland",
       "levels": [
         {
-          "reward": {
-            "initial": {
-              "items": [
-                "2K_Gold"
-              ],
-              "droptable": {
-                "ID": "Level-Default-DropTable",
-                "iterations": 2
-              }
-            },
-            "recurring": {
-              "items": [
-                "1K_Gold"
-              ],
-              "droptable": {
-                "ID": "Level-Default-DropTable",
-                "iterations": 1
+          "reward": [
+            {
+              "data": {
+                "items": [
+                  "2K_Gold"
+                ],
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 2
+                }
+              },
+              "requirements": {
+                "difficulty": [
+                  0,
+                  1,
+                  2
+                ],
+                "occurrence": [
+                  0,
+                  1
+                ]
               }
             }
-          }
+          ]
         },
         {
           "reward": {

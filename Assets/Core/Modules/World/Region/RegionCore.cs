@@ -27,6 +27,11 @@ namespace Game
     {
         public const string MenuPath = Core.MenuPath + "Regions/";
 
+        [SerializeField]
+        protected Sprite icon;
+        public Sprite Icon { get { return icon; } }
+
+        #region Progress
         public bool Unlocked { get; protected set; }
 
         [SerializeField]
@@ -34,27 +39,7 @@ namespace Game
         public int Progress { get { return progress; } }
 
         public bool Finished { get { return progress == levels.Length; } }
-
-        public virtual void Unlock()
-        {
-            Unlock(levels[0]);
-        }
-        public virtual void Unlock(LevelCore level)
-        {
-            Unlocked = true;
-
-            progress = level.Index;
-        }
-
-        public virtual void Lock()
-        {
-            Unlocked = false;
-            progress = 0;
-        }
-
-        [SerializeField]
-        protected Sprite icon;
-        public Sprite Icon { get { return icon; } }
+        #endregion
 
         #region Levels
         [SerializeField]
@@ -64,6 +49,15 @@ namespace Game
         public int Size { get { return levels.Length; } }
 
         public LevelCore this[int index] { get { return levels[index]; } }
+
+        public virtual bool Contains(LevelCore level)
+        {
+            for (int i = 0; i < levels.Length; i++)
+                if (levels[i] == level)
+                    return true;
+
+            return false;
+        }
 
         public int IndexOf(LevelCore level)
         {
@@ -75,36 +69,6 @@ namespace Game
         }
         #endregion
 
-        public virtual bool Contains(LevelCore level)
-        {
-            for (int i = 0; i < levels.Length; i++)
-                if (levels[i] == level)
-                    return true;
-
-            return false;
-        }
-
-        public class Module : WorldCore.Element
-        {
-            public const string MenuPath = RegionCore.MenuPath + "Modules/";
-        }
-
-        public override void Configure()
-        {
-            base.Configure();
-
-            Index = World.IndexOf(this);
-
-            for (int i = 0; i < levels.Length; i++)
-            {
-                Register(levels[i]);
-
-                levels[i].Set(this);
-
-                levels[i].OnComplete += LevelCompleteCallback;
-            }
-        }
-        
         #region Query
         public int Index { get; protected set; }
 
@@ -131,11 +95,62 @@ namespace Game
         }
         #endregion
 
-        public virtual void Load(JToken jToken)
+        #region Difficulty
+        [SerializeField]
+        protected DifficulyData difficulty;
+        public DifficulyData Difficulty { get { return difficulty; } }
+        [Serializable]
+        public class DifficulyData
+        {
+            [SerializeField]
+            protected RegionDifficulty[] list;
+            public RegionDifficulty[] List { get { return list; } }
+        }
+        #endregion
+
+        public class Module : WorldCore.Element
+        {
+            public const string MenuPath = RegionCore.MenuPath + "Modules/";
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Index = World.IndexOf(this);
+
+            for (int i = 0; i < levels.Length; i++)
+            {
+                Register(levels[i]);
+
+                levels[i].Set(this);
+
+                levels[i].OnComplete += LevelCompleteCallback;
+            }
+        }
+
+        public virtual void Parse(JToken jToken)
         {
             Unlocked = true;
 
             progress = jToken[nameof(progress)].ToObject<int>();
+        }
+
+        public virtual void Unlock()
+        {
+            Unlock(levels[0]);
+        }
+        public virtual void Unlock(LevelCore level)
+        {
+            Unlocked = true;
+
+            progress = level.Index;
+        }
+
+        public virtual void Lock()
+        {
+            Unlocked = false;
+            progress = 0;
         }
 
         public virtual void Load(LevelCore level)

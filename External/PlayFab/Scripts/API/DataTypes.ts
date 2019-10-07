@@ -50,4 +50,9 @@ namespace API
             PlayFab.Catalog.Item.GrantAll(playerID, IDs, annotation);
         }
     }
+
+    export enum Difficulty
+    {
+        Normal, Hard, Skilled
+    }
 }
