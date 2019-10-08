@@ -40,7 +40,7 @@ namespace Game
         protected int progress = 0;
         public int Progress { get { return progress; } }
 
-        public bool Finished { get { return progress == levels.Length; } }
+        public bool Finished { get { return progress == levels.Length || Difficulty > World.Difficulty.First; } }
         #endregion
 
         #region Levels
@@ -134,6 +134,9 @@ namespace Game
         }
         public virtual void ApplyDefaults()
         {
+            Debug.Log(Previous.Finished);
+            Debug.Log(Previous.name);
+
             if (Index == 0 || Previous.Finished)
                 Unlock();
             else
@@ -142,7 +145,7 @@ namespace Game
 
         public virtual void Unlock()
         {
-            difficulty = World.Difficulty.List[0];
+            difficulty = World.Difficulty.First;
 
             Unlock(levels[0]);
         }
@@ -169,7 +172,7 @@ namespace Game
             if (Contains(level) == false)
                 throw new ArgumentException("Trying to load " + level.name + " But it's not a part of the " + name + " Region");
 
-            World.Load(this, level);
+            World.Load(this, level, difficulty);
         }
 
         void LevelCompleteCallback(LevelCore level)

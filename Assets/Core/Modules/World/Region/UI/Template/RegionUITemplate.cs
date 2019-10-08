@@ -26,10 +26,6 @@ namespace Game
         protected Image icon;
         public Image Icon { get { return icon; } }
 
-        [SerializeField]
-        protected UIElement finished;
-        public UIElement Finished { get { return finished; } }
-
         public Button Button { get; protected set; }
 
         public UIGrayscaleController Grayscale { get; protected set; }
@@ -55,8 +51,6 @@ namespace Game
         protected virtual void UpdateState()
         {
             Button.interactable = Region.Unlocked;
-
-            finished.Visibile = Region.Finished;
 
             Grayscale.Off = Button.interactable;
         }

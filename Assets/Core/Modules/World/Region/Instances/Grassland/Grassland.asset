@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Grassland
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  progress: 3
+  progress: 5
   levels:
   - {fileID: 11400000, guid: e66b8d2185713ec4eb5624afab79d085, type: 2}
   - {fileID: 11400000, guid: ce534a91810de0a4cabbe3acc483ab60, type: 2}

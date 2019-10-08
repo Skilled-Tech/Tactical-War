@@ -32,12 +32,35 @@ namespace Game
 
         public bool IsUnlockedOn(RegionDifficulty difficulty)
         {
-            if (difficulty > Region.Difficulty)
+            Debug.Log(Region.Difficulty.name + " > " + difficulty.name + " = " + (Region.Difficulty > difficulty));
+            Debug.Log(Region.Progress);
+
+            if (difficulty < Region.Difficulty)
+                return true;
+            else if (difficulty > Region.Difficulty)
             {
-                return (Region.Finished && Region.Difficulty.Next == difficulty && Index == 0);
+                if (Region.Finished && Index == 0 && Region.Difficulty.Next == difficulty) return true;
+
+                return false;
             }
-            else if (difficulty < Region.Difficulty) return true;
+            else
+                return Region.Progress >= Index;
+
+
+            if (Region.Difficulty > difficulty) return true;
+
             else return Region.Progress >= Index;
+        }
+        public RegionDifficulty HighestDifficulty
+        {
+            get
+            {
+                if (Region.Difficulty == null) return null;
+
+                if (Region.Finished && Index == 0) return Region.Difficulty.Next;
+
+                return Region.Difficulty;
+            }
         }
 
         public virtual void Unlock()

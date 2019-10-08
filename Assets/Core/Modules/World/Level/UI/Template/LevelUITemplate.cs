@@ -32,10 +32,6 @@ namespace Game
         protected TMP_Text label;
         public TMP_Text Label { get { return label; } }
 
-        [SerializeField]
-        protected UIElement finished;
-        public UIElement Finished { get { return finished; } }
-
         public Button Button { get; protected set; }
 
         public UIGrayscaleController Grayscale { get; protected set; }

@@ -34,6 +34,13 @@ namespace Game
             set
             {
                 Button.interactable = value;
+
+                label.color = value ? Color.white : Color.Lerp(Color.white, Color.black, 0.75f);
+
+                if (value)
+                    label.fontStyle = label.fontStyle & ~FontStyles.Strikethrough;
+                else
+                    label.fontStyle = label.fontStyle | FontStyles.Strikethrough;
             }
         }
 

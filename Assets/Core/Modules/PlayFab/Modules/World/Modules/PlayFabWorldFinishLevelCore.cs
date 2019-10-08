@@ -41,6 +41,8 @@ namespace Game
                 this.region = region;
                 this.level = level;
                 this.difficulty = difficulty;
+
+                Debug.Log(region + " : " + level + " : " + difficulty);
             }
         }
         
@@ -57,7 +59,7 @@ namespace Game
         }
         public virtual void Request(LevelCore level, RegionDifficulty difficulty)
         {
-            Request(level.Region.name, level.Index, level.Region.Difficulty.ID);
+            Request(level.Region.name, level.Index, difficulty.ID);
         }
         public virtual void Request(LevelCore level)
         {

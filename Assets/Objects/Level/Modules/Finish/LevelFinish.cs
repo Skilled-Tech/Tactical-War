@@ -106,7 +106,7 @@ namespace Game
                 Menu.End.Show(Proponents.Player);
             }
 
-            if (result.Rewards == null || result.Rewards.Length == 0)
+            if (result == null || result.Rewards == null || result.Rewards.Length == 0)
                 Progress();
             else
             {

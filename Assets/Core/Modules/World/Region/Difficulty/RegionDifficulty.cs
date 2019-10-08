@@ -65,6 +65,14 @@ namespace Game
         {
             return one.ID < two.ID;
         }
+        public static bool operator >=(RegionDifficulty one, RegionDifficulty two)
+        {
+            return one.ID >= two.ID;
+        }
+        public static bool operator <=(RegionDifficulty one, RegionDifficulty two)
+        {
+            return one.ID <= two.ID;
+        }
 
         [Preserve]
         public class Converter : JsonConverter
