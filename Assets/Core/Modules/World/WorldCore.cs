@@ -97,10 +97,12 @@ namespace Game
             protected RegionDifficulty[] list;
             public RegionDifficulty[] List { get { return list; } }
 
+            public RegionDifficulty this[int index] { get { return list[index]; } }
+
+            public int Count { get { return list.Length; } }
+
             public RegionDifficulty First { get { return list[0]; } }
             public RegionDifficulty Last { get { return list.Last(); } }
-
-            public RegionDifficulty this[int index] { get { return list[index]; } }
 
             public virtual int IndexOf(RegionDifficulty element)
             {
@@ -168,21 +170,28 @@ namespace Game
         {
             public LevelCore Level { get; set; }
 
+            public RegionDifficulty Difficulty { get; protected set; }
+
             public RegionCore Region { get { return Level.Region; } }
 
             public virtual void Set(LevelCore level)
             {
-                this.Level = level;
+                
             }
 
-            public CurrentData(LevelCore level)
+            public CurrentData(LevelCore level, RegionDifficulty difficulty)
             {
-                Set(level);
+                this.Level = level;
+                this.Difficulty = difficulty;
             }
         }
         public virtual void Load(RegionCore region, LevelCore level)
         {
-            Current = new CurrentData(level);
+            Load(region, level, region.Difficulty);
+        }
+        public virtual void Load(RegionCore region, LevelCore level, RegionDifficulty difficulty)
+        {
+            Current = new CurrentData(level, difficulty);
 
             SceneManager.LoadScene(Scenes.Level, LoadSceneMode.Single);
 

@@ -25,13 +25,36 @@ namespace Game
 	{
         public static WorldCore.DifficulyCore Difficulty { get { return World.Difficulty; } }
 
-        public int ID { get; protected set; }
+        public int Index { get; protected set; }
+        public int ID { get { return Index + 1; } }
+
+        public virtual bool IsFirst { get { return Index == 0; } }
+        public virtual bool IsLast { get { return Index >= Difficulty.Count - 1; } }
+
+        public virtual RegionDifficulty Previous
+        {
+            get
+            {
+                if (IsFirst) return null;
+
+                return Difficulty[Index - 1];
+            }
+        }
+        public virtual RegionDifficulty Next
+        {
+            get
+            {
+                if (IsLast) return null;
+
+                return Difficulty[Index + 1];
+            }
+        }
 
         public override void Configure()
         {
             base.Configure();
 
-            ID = World.Difficulty.IndexOf(this) + 1;
+            Index = World.Difficulty.IndexOf(this);
         }
 
         public static bool operator > (RegionDifficulty one, RegionDifficulty two)

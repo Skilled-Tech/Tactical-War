@@ -19,11 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class RegionDifficultyContextUI : RegionUI.Element,
+	public class RegionDifficultyContextUI : RegionUI.Element
 	{
         [SerializeField]
         protected GameObject template;
         public GameObject Template { get { return template; } }
+
+        [SerializeField]
+        protected RectTransform panel;
+        public RectTransform Panel { get { return panel; } }
 
         public List<RegionDifficultyUITemplate> Elements { get; protected set; }
 
@@ -62,7 +66,7 @@ namespace Game
         }
         protected virtual RegionDifficultyUITemplate CreateTemplate(RegionDifficulty difficulty)
         {
-            var instance = Instantiate(template, transform);
+            var instance = Instantiate(template, panel);
 
             var script = instance.GetComponent<RegionDifficultyUITemplate>();
 

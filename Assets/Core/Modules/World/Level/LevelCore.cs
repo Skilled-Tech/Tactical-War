@@ -32,7 +32,10 @@ namespace Game
 
         public bool IsUnlockedOn(RegionDifficulty difficulty)
         {
-            if (difficulty > Region.Difficulty) return false;
+            if (difficulty > Region.Difficulty)
+            {
+                return (Region.Finished && Region.Difficulty.Next == difficulty && Index == 0);
+            }
             else if (difficulty < Region.Difficulty) return true;
             else return Region.Progress >= Index;
         }
@@ -95,13 +98,17 @@ namespace Game
             if (OnComplete != null) OnComplete(this);
         }
 
+        public virtual void Load(RegionDifficulty difficulty)
+        {
+            Region.Load(this, difficulty);
+        }
         public virtual void Load()
         {
-            Region.Load(this);
+            Load(Region.Difficulty);
         }
         public virtual void Reload()
         {
-            Load();
+            Load(World.Current.Difficulty);
         }
     }
 }

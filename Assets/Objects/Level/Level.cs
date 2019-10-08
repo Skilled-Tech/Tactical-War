@@ -109,9 +109,9 @@ namespace Game
             if (Data.Level.IsLast)
                 throw new InvalidOperationException(Data.Level.name + " is the last Level in the " + Data.Region.name + ", Can't Progress any further");
 
-            var target = Data.Region[Data.Level.Index + 1];
+            var target = Data.Level.Next;
 
-            target.Load();
+            target.Load(Data.Difficulty);
         }
     }
 }

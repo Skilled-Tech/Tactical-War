@@ -34,28 +34,34 @@ namespace Game
         {
             public string region;
             public int level;
+            public int difficulty;
 
-            public ParametersData(string region, int level)
+            public ParametersData(string region, int level, int difficulty)
             {
                 this.region = region;
                 this.level = level;
+                this.difficulty = difficulty;
             }
         }
         
-        public virtual void Request(string region, int level)
+        public virtual void Request(string region, int level, int difficulty)
         {
             var request = new ExecuteCloudScriptRequest
             {
                 FunctionName = "FinishLevel",
-                FunctionParameter = new ParametersData(region, level),
+                FunctionParameter = new ParametersData(region, level, difficulty),
                 GeneratePlayStreamEvent = true,
             };
 
             PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
         }
+        public virtual void Request(LevelCore level, RegionDifficulty difficulty)
+        {
+            Request(level.Region.name, level.Index, level.Region.Difficulty.ID);
+        }
         public virtual void Request(LevelCore level)
         {
-            Request(level.Region.name, level.Index);
+            Request(level, level.Region.Difficulty);
         }
 
         public event Delegates.ResultDelegate<ResultData> OnResult;

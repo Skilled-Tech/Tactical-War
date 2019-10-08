@@ -21,7 +21,7 @@ namespace Game
 {
 	public class NextLevelOperation : Operation
 	{
-        public static WorldCore Levels { get { return Core.Instance.World; } }
+        public static WorldCore World { get { return Core.Instance.World; } }
 
         public override void Execute()
         {

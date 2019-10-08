@@ -56,6 +56,8 @@ namespace Game
 
             Levels = Dependancy.Get<LevelsUIList>(gameObject);
 
+            Difficulty = Dependancy.Get<RegionDifficultyContextUI>(gameObject);
+
             Modules.Configure(this);
         }
 
@@ -87,18 +89,11 @@ namespace Game
             {
                 Difficulty.OnSelect -= Load;
 
-                Region.Load(level);
+                Region.Load(level, difficulty);
             }
 
-            if(level.Region.Difficulty == World.World.Difficulty.First)
-            {
-                Load(level.Region.Difficulty);
-            }
-            else
-            {
-                Difficulty.OnSelect += Load;
-                Difficulty.For(level);
-            }
+            Difficulty.OnSelect += Load;
+            Difficulty.For(level);
         }
     }
 }

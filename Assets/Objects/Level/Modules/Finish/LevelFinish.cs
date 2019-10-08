@@ -43,7 +43,7 @@ namespace Game
                     Menu.Popup.Show("Retrieving End Results");
 
                     PlayFab.World.FinishLevel.OnResponse += RewardResponseCallback;
-                    PlayFab.World.FinishLevel.Request(Data.Level);
+                    PlayFab.World.FinishLevel.Request(Data.Level, Data.Difficulty);
                 }
                 else
                 {

@@ -65,8 +65,6 @@ namespace Game
             {
                 Core.PlayFab.startOffline = true;
 
-                Scenes.Login();
-
                 EditorApplication.EnterPlaymode();
             }
         }

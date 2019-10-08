@@ -35,6 +35,7 @@ namespace Game
         #region Progress
         public bool Unlocked { get; protected set; }
 
+        [JsonProperty]
         [SerializeField]
         protected int progress = 0;
         public int Progress { get { return progress; } }
@@ -160,6 +161,10 @@ namespace Game
         }
 
         public virtual void Load(LevelCore level)
+        {
+            Load(level, difficulty);
+        }
+        public virtual void Load(LevelCore level, RegionDifficulty difficulty)
         {
             if (Contains(level) == false)
                 throw new ArgumentException("Trying to load " + level.name + " But it's not a part of the " + name + " Region");
