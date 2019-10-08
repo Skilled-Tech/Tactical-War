@@ -25,13 +25,22 @@ namespace Game
 	{
         public static WorldCore.DifficulyCore Difficulty { get { return World.Difficulty; } }
 
-        public int Index { get; protected set; }
+        public int ID { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Index = World.Difficulty.IndexOf(this);
+            ID = World.Difficulty.IndexOf(this) + 1;
+        }
+
+        public static bool operator > (RegionDifficulty one, RegionDifficulty two)
+        {
+            return one.ID > two.ID;
+        }
+        public static bool operator <(RegionDifficulty one, RegionDifficulty two)
+        {
+            return one.ID < two.ID;
         }
 
         [Preserve]
@@ -49,7 +58,7 @@ namespace Game
 
                 var index = (int)(Int64)reader.Value;
 
-                var template = Difficulty.Get(index - 1);
+                var template = Difficulty[index - 1];
 
                 return template;
             }
@@ -58,7 +67,7 @@ namespace Game
             {
                 var template = value as RegionDifficulty;
 
-                serializer.Serialize(writer, template.Index + 1);
+                serializer.Serialize(writer, template.ID);
             }
 
             public Converter()

@@ -63,10 +63,11 @@ namespace Game
             return script;
         }
 
-        public event Action<LevelUITemplate> OnSelect;
+        public delegate void SelectDelegate(LevelCore level);
+        public event SelectDelegate OnSelect;
         void TemplateClickedCallback(LevelUITemplate template)
         {
-            if (OnSelect != null) OnSelect(template);
+            if (OnSelect != null) OnSelect(template.Level);
         }
     }
 }

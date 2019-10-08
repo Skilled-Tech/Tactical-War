@@ -26,11 +26,16 @@ namespace Game
         {
             get
             {
-                return Region.Progress >= Index;
+                return Region.Progress >= Index || Region.Difficulty > World.Difficulty.First;
             }
         }
 
-        public bool Finished { get { return Region.Progress > Index; } }
+        public bool IsUnlockedOn(RegionDifficulty difficulty)
+        {
+            if (difficulty > Region.Difficulty) return false;
+            else if (difficulty < Region.Difficulty) return true;
+            else return Region.Progress >= Index;
+        }
 
         public virtual void Unlock()
         {

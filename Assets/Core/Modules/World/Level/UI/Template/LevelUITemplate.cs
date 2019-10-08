@@ -64,8 +64,6 @@ namespace Game
         {
             Button.interactable = Level.Unlocked;
 
-            finished.Visibile = Level.Finished;
-
             Grayscale.Off = Button.interactable;
         }
 

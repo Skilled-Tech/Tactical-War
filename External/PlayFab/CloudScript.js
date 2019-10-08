@@ -756,7 +756,6 @@ var API;
                     }
                     if (args.difficulty > region.difficulty) //player sending different difficulty than the one we have saved
                      {
-                        log.info("changing diff from " + (region.difficulty + 1) + " to " + args.difficulty);
                         if (region.difficulty + 1 == args.difficulty) {
                             if (region.progress < template.region.size)
                                 throw ("can't progress difficulty, region not completed at difficulty " + region.difficulty + " yet");

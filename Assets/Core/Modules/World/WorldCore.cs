@@ -97,16 +97,10 @@ namespace Game
             protected RegionDifficulty[] list;
             public RegionDifficulty[] List { get { return list; } }
 
-            public virtual RegionDifficulty Get(int index)
-            {
-                if (index < 0 || index + 1 > list.Length)
-                {
-                    Debug.LogWarning("no difficulty defined at index: " + index);
-                    return null;
-                }
+            public RegionDifficulty First { get { return list[0]; } }
+            public RegionDifficulty Last { get { return list.Last(); } }
 
-                return list[index];
-            }
+            public RegionDifficulty this[int index] { get { return list[index]; } }
 
             public virtual int IndexOf(RegionDifficulty element)
             {

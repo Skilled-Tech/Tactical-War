@@ -4,14 +4,39 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "TypeScript Build",
+                "Minify"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "clear": true
+            }
+        },
+        {
+            "label": "TypeScript Build",
             "type": "typescript",
             "tsconfig": "tsconfig.json",
             "problemMatcher": [
                 "$tsc"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
+            "presentation": {
+                "reveal": "silent",
+            }
+        },
+        {
+            "label": "Minify",
+            "type": "npm",
+            "script": "minify",
+            "presentation": {
+                "reveal": "silent",
             }
         }
     ]

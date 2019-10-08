@@ -29,11 +29,14 @@ namespace Game
 
         public LevelsUIList Levels { get; protected set; }
 
-        public class Element : UIElement, IModule<RegionUI>
+        public RegionDifficultyContextUI Difficulty { get; protected set; }
+
+        public class Element : UIElement , IModule<RegionUI>
         {
             public RegionUI Region { get; protected set; }
 
             public Core Core { get { return Core.Instance; } }
+            public WorldCore World { get { return Core.World; } }
             public ScenesCore Scenes { get { return Core.Scenes; } }
 
             public virtual void Configure(RegionUI data)
@@ -78,9 +81,24 @@ namespace Game
             Show();
         }
 
-        void OnLevelSelected(LevelUITemplate selection)
+        void OnLevelSelected(LevelCore level)
         {
-            Region.Load(selection.Level);
+            void Load(RegionDifficulty difficulty)
+            {
+                Difficulty.OnSelect -= Load;
+
+                Region.Load(level);
+            }
+
+            if(level.Region.Difficulty == World.World.Difficulty.First)
+            {
+                Load(level.Region.Difficulty);
+            }
+            else
+            {
+                Difficulty.OnSelect += Load;
+                Difficulty.For(level);
+            }
         }
     }
 }
