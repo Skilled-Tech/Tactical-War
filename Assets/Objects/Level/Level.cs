@@ -36,6 +36,7 @@ namespace Game
         public LevelMenu Menu { get; protected set; }
         public LevelBackground Background { get; protected set; }
         public LevelFinish Finish { get; protected set; }
+        public LevelTimer Timer { get; protected set; }
 
         public static Core Core { get { return Core.Instance; } }
         public static WorldCore World { get { return Core.World; } }
@@ -70,6 +71,8 @@ namespace Game
             Background = Dependancy.Get<LevelBackground>(gameObject);
 
             Finish = Dependancy.Get<LevelFinish>(gameObject);
+
+            Timer = Dependancy.Get<LevelTimer>(gameObject);
 
             camera = FindObjectOfType<GameCamera>();
         }

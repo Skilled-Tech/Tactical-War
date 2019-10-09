@@ -43,7 +43,12 @@ namespace Game
         {
             public override float Base => Template.Attack.Range;
 
-            public override int Value => Mathf.RoundToInt(Base * Multiplier);
+            public static int Formulate(float baseValue, float multiplier)
+            {
+                return Mathf.RoundToInt(baseValue * multiplier);
+            }
+
+            public override int Value => Formulate(Base, Multiplier);
         }
         public int BaseRange { get { return Unit.Template.Attack.Range; } }
 
