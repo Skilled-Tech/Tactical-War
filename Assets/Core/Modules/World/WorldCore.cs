@@ -109,6 +109,11 @@ namespace Game
                 return Array.IndexOf(list, element);
             }
 
+            public virtual bool Contains(RegionDifficulty element)
+            {
+                return list.Contains(element);
+            }
+
             public override void Configure()
             {
                 base.Configure();
@@ -187,7 +192,7 @@ namespace Game
         }
         public virtual void Load(RegionCore region, LevelCore level)
         {
-            Load(region, level, region.Difficulty);
+            Load(region, level, region.Progress.Difficulty);
         }
         public virtual void Load(RegionCore region, LevelCore level, RegionDifficulty difficulty)
         {

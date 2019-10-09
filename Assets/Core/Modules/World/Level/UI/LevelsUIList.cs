@@ -25,29 +25,33 @@ namespace Game
         protected GameObject template;
         public GameObject Template { get { return template; } }
 
-        public LevelUITemplate[] Templates { get; protected set; }
+        public List<LevelUITemplate> Templates { get; protected set; }
+
+        public override void Init()
+        {
+            base.Init();
+
+            Templates = new List<LevelUITemplate>();
+        }
 
         public virtual void Set(RegionCore region)
         {
             Clear();
 
-            Templates = new LevelUITemplate[region.Size];
-
             for (int i = 0; i < region.Size; i++)
             {
                 var instance = Create(region[i], i);
 
-                Templates[i] = instance;
+                Templates.Add(instance);
             }
         }
 
         protected virtual void Clear()
         {
-            if (Templates == null)
-                return;
-
-            for (int i = 0; i < Templates.Length; i++)
+            for (int i = 0; i < Templates.Count; i++)
                 Destroy(Templates[i].gameObject);
+
+            Templates.Clear();
         }
 
         protected virtual LevelUITemplate Create(LevelCore level, int index)
@@ -58,7 +62,7 @@ namespace Game
 
             script.Init();
             script.Set(level, index);
-            script.OnClick += ()=> TemplateClickedCallback(script);
+            script.OnClick += TemplateClickedCallback;
 
             return script;
         }

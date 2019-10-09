@@ -51,7 +51,9 @@ namespace Game
                 }
                 else
                 {
-                    next.gameObject.SetActive(Data.Level.Next.Unlocked);
+                    var canGoToNext = Data.Level.Next.UnlockedOn(Data.Difficulty);
+
+                    next.gameObject.SetActive(canGoToNext);
                     retry.gameObject.SetActive(false);
                 }
             }

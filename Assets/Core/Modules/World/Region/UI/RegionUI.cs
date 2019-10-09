@@ -74,7 +74,7 @@ namespace Game
 
         public virtual void Set(RegionCore data)
         {
-            Region = data;
+            this.Region = data;
 
             label.text = data.name;
 
@@ -85,14 +85,24 @@ namespace Game
 
         void OnLevelSelected(LevelCore level)
         {
-            void Load(RegionDifficulty difficulty)
+            void DifficultyHideCallback()
             {
-                Difficulty.OnSelect -= Load;
+                Difficulty.OnSelect -= DifficultySelectionCallback;
+            }
+            void DifficultySelectionCallback(RegionDifficulty difficulty)
+            {
+                Difficulty.OnSelect -= DifficultySelectionCallback;
 
-                Region.Load(level, difficulty);
+                Load(difficulty);
             }
 
-            Difficulty.OnSelect += Load;
+            void Load(RegionDifficulty difficulty)
+            {
+                level.Load(difficulty);
+            }
+
+            Difficulty.OnSelect += DifficultySelectionCallback;
+            Difficulty.OnHide += DifficultyHideCallback;
             Difficulty.For(level);
         }
     }

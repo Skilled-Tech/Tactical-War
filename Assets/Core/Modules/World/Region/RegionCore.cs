@@ -35,13 +35,98 @@ namespace Game
         #region Progress
         public bool Unlocked { get; protected set; }
 
-        [JsonProperty]
-        [SerializeField]
-        protected int progress = 0;
-        public int Progress { get { return progress; } }
-
-        public bool Finished { get { return progress == levels.Length || Difficulty > World.Difficulty.First; } }
+        public bool Finished { get { return Progress.Initial == levels.Length; } }
         #endregion
+
+        [SerializeField]
+        protected ProgressCore progress;
+        public ProgressCore Progress { get { return progress; } }
+        [JsonObject]
+        [Serializable]
+        public class ProgressCore : WorldCore.Module
+        {
+            [JsonProperty]
+            [SerializeField]
+            protected int count;
+            public int Count
+            {
+                get
+                {
+                    return count;
+                }
+                set
+                {
+                    if(value > Region.Size)
+                    {
+                        Debug.LogWarning(Region.name + " progress value cannot be set to " + value + ", clamping to " + Region.Size);
+                        value = Region.Size;
+                    }
+
+                    if(value <0)
+                    {
+                        Debug.LogWarning(Region.name + " progress value cannot be set to " + value + ", clamping to " + Region.Size);
+                        value = 0;
+                    }
+
+                    this.count = value;
+                }
+            }
+
+            public int Initial { get { return At(World.Difficulty.First); } }
+
+            [JsonProperty]
+            [JsonConverter(typeof(RegionDifficulty.Converter))]
+            [SerializeField]
+            protected RegionDifficulty difficulty;
+            public RegionDifficulty Difficulty
+            {
+                get
+                {
+                    return difficulty;
+                }
+                set
+                {
+                    if(value == null)
+                    {
+
+                    }
+                    else
+                    {
+                        if (World.Difficulty.Contains(value) == false)
+                        {
+                            Debug.LogError("difficulty " + value?.name + " not defined within the world core");
+                            return;
+                        }
+                    }
+
+                    this.difficulty = value;
+                }
+            }
+
+            public RegionCore Region { get; protected set; }
+            public virtual void Set(RegionCore region)
+            {
+                this.Region = region;
+            }
+
+            public virtual int At(RegionDifficulty target)
+            {
+                if (difficulty == null) return 0;
+
+                if (target > difficulty) //haven't reached this difficulty yet
+                    return 0;
+                else if (target < difficulty) //have surpassed this difficulty
+                    return Region.Size;
+                else //this is the current difficulty
+                    return count;
+            }
+
+            public virtual void Clear()
+            {
+                Count = 0;
+                Difficulty = null;
+            }
+        }
 
         #region Levels
         [SerializeField]
@@ -54,11 +139,7 @@ namespace Game
 
         public virtual bool Contains(LevelCore level)
         {
-            for (int i = 0; i < levels.Length; i++)
-                if (levels[i] == level)
-                    return true;
-
-            return false;
+            return levels.Contains(level);
         }
 
         public int IndexOf(LevelCore level)
@@ -97,13 +178,11 @@ namespace Game
         }
         #endregion
 
-        [JsonProperty]
-        [JsonConverter(typeof(RegionDifficulty.Converter))]
-        [SerializeField]
-        protected RegionDifficulty difficulty;
-        public RegionDifficulty Difficulty { get { return difficulty; } }
-
-        public class Module : WorldCore.Element
+        public class Module : Module<RegionCore>
+        {
+            public RegionCore Region { get { return Reference; } }
+        }
+        public class Element : WorldCore.Element
         {
             public const string MenuPath = RegionCore.MenuPath + "Modules/";
         }
@@ -113,6 +192,9 @@ namespace Game
             base.Configure();
 
             Index = World.IndexOf(this);
+
+            progress.Set(this);
+            Register(progress);
 
             for (int i = 0; i < levels.Length; i++)
             {
@@ -134,9 +216,6 @@ namespace Game
         }
         public virtual void ApplyDefaults()
         {
-            Debug.Log(Previous.Finished);
-            Debug.Log(Previous.name);
-
             if (Index == 0 || Previous.Finished)
                 Unlock();
             else
@@ -145,7 +224,7 @@ namespace Game
 
         public virtual void Unlock()
         {
-            difficulty = World.Difficulty.First;
+            progress.Difficulty = World.Difficulty.First;
 
             Unlock(levels[0]);
         }
@@ -153,19 +232,18 @@ namespace Game
         {
             Unlocked = true;
 
-            progress = level.Index;
+            progress.Count = level.Index;
         }
 
         public virtual void Lock()
         {
             Unlocked = false;
-            progress = 0;
-            difficulty = null;
+            progress.Clear();
         }
 
         public virtual void Load(LevelCore level)
         {
-            Load(level, difficulty);
+            Load(level, progress.Difficulty);
         }
         public virtual void Load(LevelCore level, RegionDifficulty difficulty)
         {

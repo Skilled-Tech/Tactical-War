@@ -87,12 +87,11 @@ namespace API
             export class Region implements IRegion
             {
                 name: string;
-                progress: number;
-                difficulty: API.Difficulty;
+                progress: Region.Progress;
 
                 Increment()
                 {
-                    this.progress += 1;
+                    this.progress.count += 1;
                 }
 
                 public get playerData(): PlayerData { return this.$playerData; }
@@ -101,8 +100,7 @@ namespace API
                 constructor(private $playerData: PlayerData, private $index: number, source: IRegion)
                 {
                     this.name = source.name;
-                    this.progress = source.progress;
-                    this.difficulty = source.difficulty;
+                    this.progress = new Region.Progress(source.progress);
                 }
 
                 public static Create(playerData: PlayerData, index: number, name: string, progress: number): Region
@@ -110,8 +108,10 @@ namespace API
                     let source: IRegion =
                     {
                         name: name,
-                        progress: progress,
-                        difficulty: Difficulty.Normal
+                        progress: {
+                            count: progress,
+                            difficulty: API.Difficulty.Normal,
+                        }
                     }
 
                     var instance = new Region(playerData, index, source);
@@ -122,8 +122,32 @@ namespace API
             export interface IRegion
             {
                 name: string;
-                progress: number;
-                difficulty: API.Difficulty;
+                progress: Region.IProgress;
+            }
+            export namespace Region
+            {
+                export class Progress implements IProgress
+                {
+                    count: number;
+                    difficulty: API.Difficulty;
+
+                    public To(difficulty: API.Difficulty)
+                    {
+                        this.count = 0;
+                        this.difficulty = difficulty;
+                    }
+
+                    constructor(source: IProgress)
+                    {
+                        this.count = source.count;
+                        this.difficulty = source.difficulty;
+                    }
+                }
+                export interface IProgress
+                {
+                    count: number;
+                    difficulty: API.Difficulty;
+                }
             }
 
             export class Snapshot
@@ -155,43 +179,47 @@ namespace API
                     let region = data.Find(args.region);
                     if (region == null)
                     {
-                        if (template.region.previous == null) //this is the first level
+                        if (template.region.previous != null)
                         {
-
-                        }
-                        else
-                        {
-                            var previous = data.Find(template.region.previous.name);
+                            let previous = data.Find(template.region.previous.name);
 
                             if (previous == null)
                                 throw ("trying to index region " + args.region + " without unlocking the previous region: " + template.region.previous.name);
+                            else
+                            {
+                                if (previous.progress.count < template.region.previous.size)
+                                {
+                                    if (previous.progress.difficulty > API.Difficulty.Normal)
+                                    {
 
-                            if (previous.progress < template.region.previous.size)
-                                throw ("trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name);
+                                    }
+                                    else
+                                        throw ("trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name);
+                                }
+                            }
                         }
 
                         region = data.Add(args.region);
                     }
 
-                    if (args.difficulty > region.difficulty) //player sending different difficulty than the one we have saved
+                    if (args.difficulty > region.progress.difficulty) //player sending different difficulty than the one we have saved
                     {
-                        if (region.difficulty + 1 == args.difficulty)
+                        if (region.progress.difficulty + 1 == args.difficulty) //this is directly the next difficulty
                         {
-                            if (region.progress < template.region.size)
-                                throw ("can't progress difficulty, region not completed at difficulty " + region.difficulty + " yet");
+                            if (region.progress.count < template.region.size)
+                                throw ("can't progress difficulty, region not completed at difficulty " + region.progress.difficulty + " yet");
 
-                            region.difficulty = args.difficulty;
-                            region.progress = 0;
+                            region.progress.To(args.difficulty);
                         }
                         else //player trying to jump difficulty
                         {
-                            throw ("can't change difficulty from " + region.difficulty + " to " + args.difficulty);
+                            throw ("can't change difficulty from " + region.progress.difficulty + " to " + args.difficulty);
                         }
                     }
 
-                    if (args.level > region.progress)
+                    if (args.level > region.progress.count)
                     {
-                        if (args.difficulty >= region.difficulty)
+                        if (args.difficulty >= region.progress.difficulty)
                         {
                             throw ("trying to complete level of index " + args.level + " without completing the previous levels");
                         }
@@ -199,7 +227,7 @@ namespace API
 
                     let occurrence: API.World.Level.Finish.Occurrence;
 
-                    if (region.progress == args.level && args.difficulty == region.difficulty)
+                    if (region.progress.count == args.level && args.difficulty == region.progress.difficulty)
                         occurrence = Level.Finish.Occurrence.Initial;
                     else
                         occurrence = Level.Finish.Occurrence.Recurring;

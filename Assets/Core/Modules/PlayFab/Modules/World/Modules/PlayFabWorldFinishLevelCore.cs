@@ -41,8 +41,6 @@ namespace Game
                 this.region = region;
                 this.level = level;
                 this.difficulty = difficulty;
-
-                Debug.Log(region + " : " + level + " : " + difficulty);
             }
         }
         
@@ -63,7 +61,7 @@ namespace Game
         }
         public virtual void Request(LevelCore level)
         {
-            Request(level, level.Region.Difficulty);
+            Request(level, level.Region.Progress.Difficulty);
         }
 
         public event Delegates.ResultDelegate<ResultData> OnResult;

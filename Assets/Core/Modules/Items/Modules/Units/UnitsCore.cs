@@ -46,10 +46,10 @@ namespace Game
             }
         }
 
-        public virtual UnitTemplate Find(string name)
+        public virtual UnitTemplate Find(string ID)
         {
             for (int i = 0; i < List.Count; i++)
-                if (List[i].name == name)
+                if (List[i].ID == ID)
                     return List[i];
 
             return null;

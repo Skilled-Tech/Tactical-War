@@ -707,25 +707,39 @@ var API;
                     this.$playerData = $playerData;
                     this.$index = $index;
                     this.name = source.name;
-                    this.progress = source.progress;
-                    this.difficulty = source.difficulty;
+                    this.progress = new Region.Progress(source.progress);
                 }
                 Increment() {
-                    this.progress += 1;
+                    this.progress.count += 1;
                 }
                 get playerData() { return this.$playerData; }
                 get index() { return this.$index; }
                 static Create(playerData, index, name, progress) {
                     let source = {
                         name: name,
-                        progress: progress,
-                        difficulty: API.Difficulty.Normal
+                        progress: {
+                            count: progress,
+                            difficulty: API.Difficulty.Normal,
+                        }
                     };
                     var instance = new Region(playerData, index, source);
                     return instance;
                 }
             }
             PlayerData.Region = Region;
+            (function (Region) {
+                class Progress {
+                    constructor(source) {
+                        this.count = source.count;
+                        this.difficulty = source.difficulty;
+                    }
+                    To(difficulty) {
+                        this.count = 0;
+                        this.difficulty = difficulty;
+                    }
+                }
+                Region.Progress = Progress;
+            })(Region = PlayerData.Region || (PlayerData.Region = {}));
             class Snapshot {
                 constructor(data, region, occurrence) {
                     this.data = data;
@@ -742,38 +756,41 @@ var API;
                     }
                     let region = data.Find(args.region);
                     if (region == null) {
-                        if (template.region.previous == null) //this is the first level
-                         {
-                        }
-                        else {
-                            var previous = data.Find(template.region.previous.name);
+                        if (template.region.previous != null) {
+                            let previous = data.Find(template.region.previous.name);
                             if (previous == null)
                                 throw ("trying to index region " + args.region + " without unlocking the previous region: " + template.region.previous.name);
-                            if (previous.progress < template.region.previous.size)
-                                throw ("trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name);
+                            else {
+                                if (previous.progress.count < template.region.previous.size) {
+                                    if (previous.progress.difficulty > API.Difficulty.Normal) {
+                                    }
+                                    else
+                                        throw ("trying to index region " + args.region + " without finishing the previous region: " + template.region.previous.name);
+                                }
+                            }
                         }
                         region = data.Add(args.region);
                     }
-                    if (args.difficulty > region.difficulty) //player sending different difficulty than the one we have saved
+                    if (args.difficulty > region.progress.difficulty) //player sending different difficulty than the one we have saved
                      {
-                        if (region.difficulty + 1 == args.difficulty) {
-                            if (region.progress < template.region.size)
-                                throw ("can't progress difficulty, region not completed at difficulty " + region.difficulty + " yet");
-                            region.difficulty = args.difficulty;
-                            region.progress = 0;
+                        if (region.progress.difficulty + 1 == args.difficulty) //this is directly the next difficulty
+                         {
+                            if (region.progress.count < template.region.size)
+                                throw ("can't progress difficulty, region not completed at difficulty " + region.progress.difficulty + " yet");
+                            region.progress.To(args.difficulty);
                         }
                         else //player trying to jump difficulty
                          {
-                            throw ("can't change difficulty from " + region.difficulty + " to " + args.difficulty);
+                            throw ("can't change difficulty from " + region.progress.difficulty + " to " + args.difficulty);
                         }
                     }
-                    if (args.level > region.progress) {
-                        if (args.difficulty >= region.difficulty) {
+                    if (args.level > region.progress.count) {
+                        if (args.difficulty >= region.progress.difficulty) {
                             throw ("trying to complete level of index " + args.level + " without completing the previous levels");
                         }
                     }
                     let occurrence;
-                    if (region.progress == args.level && args.difficulty == region.difficulty)
+                    if (region.progress.count == args.level && args.difficulty == region.progress.difficulty)
                         occurrence = World.Level.Finish.Occurrence.Initial;
                     else
                         occurrence = World.Level.Finish.Occurrence.Recurring;

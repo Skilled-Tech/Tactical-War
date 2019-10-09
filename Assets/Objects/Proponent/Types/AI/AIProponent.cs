@@ -36,9 +36,6 @@ namespace Game
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.S))
-                enabled = !enabled;
-
             if(Base.IsAlive)
             {
                 if (Base.Units.Count < Enemy.Base.Units.Count + 4)

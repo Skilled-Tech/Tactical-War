@@ -20,46 +20,27 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Level")]
-	public class LevelCore : RegionCore.Module
+	public class LevelCore : RegionCore.Element
 	{
         public bool Unlocked
         {
             get
             {
-                return Region.Progress >= Index || Region.Difficulty > World.Difficulty.First;
+                return Region.Progress.Initial >= Index;
             }
         }
 
-        public bool IsUnlockedOn(RegionDifficulty difficulty)
+        public bool UnlockedOn(RegionDifficulty difficulty)
         {
-            Debug.Log(Region.Difficulty.name + " > " + difficulty.name + " = " + (Region.Difficulty > difficulty));
-            Debug.Log(Region.Progress);
+            if (difficulty == null) return true;
 
-            if (difficulty < Region.Difficulty)
-                return true;
-            else if (difficulty > Region.Difficulty)
+            if(difficulty > Region.Progress.Difficulty)
             {
-                if (Region.Finished && Index == 0 && Region.Difficulty.Next == difficulty) return true;
-
-                return false;
+                return Region.Progress.At(difficulty.Previous) == Region.Size && Index == 0;
             }
             else
-                return Region.Progress >= Index;
-
-
-            if (Region.Difficulty > difficulty) return true;
-
-            else return Region.Progress >= Index;
-        }
-        public RegionDifficulty HighestDifficulty
-        {
-            get
             {
-                if (Region.Difficulty == null) return null;
-
-                if (Region.Finished && Index == 0) return Region.Difficulty.Next;
-
-                return Region.Difficulty;
+                return Region.Progress.At(difficulty) >= Index;
             }
         }
 
@@ -127,7 +108,7 @@ namespace Game
         }
         public virtual void Load()
         {
-            Load(Region.Difficulty);
+            Load(Region.Progress.Difficulty);
         }
         public virtual void Reload()
         {

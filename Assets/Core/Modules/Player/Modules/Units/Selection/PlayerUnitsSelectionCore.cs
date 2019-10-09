@@ -30,6 +30,7 @@ namespace Game
         public int Max { get { return max; } }
 
         [SerializeField]
+        [JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
         protected UnitTemplate[] list;
         public UnitTemplate[] List { get { return list; } }
 
@@ -77,35 +78,29 @@ namespace Game
 
         public virtual void Save()
         {
-            var array = new string[max];
+            var json = JsonConvert.SerializeObject(list, Formatting.Indented, new ItemTemplate.Converter());
 
-            for (int i = 0; i < max; i++)
-            {
-                if (list[i] == null)
-                {
-                    array[i] = "EMPTY";
-                }
-                else
-                {
-                    array[i] = list[i].name;
-                }
-            }
-
-            var json = JsonConvert.SerializeObject(array, Formatting.Indented);
+            Core.Data.Save(DataPath, json);
 
             Core.Data.Save(DataPath, json);
         }
 
-        public string DataPath { get { return "Player/Units/Selection.json"; } }
+        public string DataPath { get { return "Player/Units Selection.json"; } }
 
         public virtual void Load()
         {
             if (Core.Data.Exists(DataPath))
             {
-                var array = JArray.Parse(Core.Data.LoadText(DataPath));
+                var json = Core.Data.LoadText(DataPath);
+
+                var array = JArray.Parse(json);
 
                 for (int i = 0; i < max; i++)
+                {
+                    if (i >= array.Count) continue;
+
                     list[i] = Core.Items.Units.Find(array[i].ToString());
+                }
             }
             else
             {

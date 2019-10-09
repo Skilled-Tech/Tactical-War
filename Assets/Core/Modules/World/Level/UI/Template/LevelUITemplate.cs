@@ -63,10 +63,12 @@ namespace Game
             Grayscale.Off = Button.interactable;
         }
 
-        public event Action OnClick;
+        public delegate void ClickDelegate(LevelUITemplate template);
+
+        public event ClickDelegate OnClick;
         void ButtonClick()
         {
-            if (OnClick != null) OnClick();
+            if (OnClick != null) OnClick(this);
         }
 
         void OnDestroy()

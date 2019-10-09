@@ -39,17 +39,17 @@ MonoBehaviour:
       funds:
         elements:
         - type: 0
-          _value: 281300
+          _value: 1226300
         - type: 1
           _value: 618100
     units:
       selection:
-        max: 4
+        max: 10
         list:
-        - {fileID: 11400000, guid: a038f85ddbe926545835d92c69789024, type: 2}
+        - {fileID: 0}
         - {fileID: 11400000, guid: dc8bae592eff22d47894027b21de2791, type: 2}
         - {fileID: 11400000, guid: 6a36fb4327677d5479e0bbe0ed809fc8, type: 2}
-        - {fileID: 11400000, guid: a038f85ddbe926545835d92c69789024, type: 2}
+        - {fileID: 0}
         Context: {fileID: 0}
   items:
     roster: {fileID: 11400000, guid: 39c86303927c97246b7e1d76cf1ea667, type: 2}

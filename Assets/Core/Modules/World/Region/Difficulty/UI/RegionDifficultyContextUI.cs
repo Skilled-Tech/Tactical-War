@@ -47,12 +47,12 @@ namespace Game
 
         public virtual void For(LevelCore level)
         {
-            Show();
-
             for (int i = 0; i < Elements.Count; i++)
             {
-                Elements[i].Interactable = level.IsUnlockedOn(Elements[i].Difficulty);
+                Elements[i].Interactable = level.UnlockedOn(Elements[i].Difficulty);
             }
+
+            Show();
         }
 
         protected virtual void Create(IList<RegionDifficulty> list)
@@ -82,9 +82,9 @@ namespace Game
         public event SelectDelegate OnSelect;
         void OnElementClicked(RegionDifficultyUITemplate UITemplate)
         {
-            Hide();
-
             if (OnSelect != null) OnSelect(UITemplate.Difficulty);
+
+            Hide();
         }
     }
 }

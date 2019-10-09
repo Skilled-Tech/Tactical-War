@@ -47,5 +47,14 @@ namespace Game
             Modules.Init(this);
             HUD.Init();
         }
+
+        protected virtual void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+                Enemy.enabled = false;
+
+            if (Input.GetKeyDown(KeyCode.W))
+                Enemy.Base.Suicide();
+        }
     }
 }

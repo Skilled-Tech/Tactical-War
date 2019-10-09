@@ -190,9 +190,14 @@ namespace Game
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
-                var template = value as ItemTemplate;
+                if (value == null)
+                    serializer.Serialize(writer, null);
+                else
+                {
+                    var template = value as ItemTemplate;
 
-                serializer.Serialize(writer, template.ID);
+                    serializer.Serialize(writer, template.ID);
+                }
             }
 
             public Converter()
