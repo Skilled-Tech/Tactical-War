@@ -19,8 +19,32 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ShopUI : UIElement
-	{
-		
-	}
+    public class ShopUI : UIElement
+    {
+        [SerializeField]
+        protected ShopSectionSelectionUI selection;
+        public ShopSectionSelectionUI Selection { get { return selection; } }
+
+        [SerializeField]
+        protected ShopSectionUI section;
+        public ShopSectionUI Section { get { return section; } }
+
+        protected virtual void Awake()
+        {
+
+        }
+
+        protected virtual void Start()
+        {
+            selection.OnSelection += SelectionCallback;
+            selection.Init();
+
+            section.Init();
+        }
+
+        void SelectionCallback(ShopSectionCore value)
+        {
+            section.Set(value);
+        }
+    }
 }

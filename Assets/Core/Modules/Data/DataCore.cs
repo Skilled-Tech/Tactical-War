@@ -23,7 +23,7 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-    public class DataCore : Core.Module
+    public class DataCore : Core.Property
     {
         public string AbsolutePath { get { return Application.persistentDataPath + "/Data"; } }
 

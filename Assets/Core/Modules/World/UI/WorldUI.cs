@@ -24,22 +24,12 @@ namespace Game
         public WorldMapUI Map { get; protected set; }
         public RegionUI Region { get; protected set; }
 
-        public class Element : UIElement, IModule<WorldUI>
+        public class Element : UIElementModule<WorldUI>
         {
-            public WorldUI World { get; protected set; }
+            public WorldUI World { get { return Reference; } }
 
             public Core Core { get { return Core.Instance; } }
             public ScenesCore Scenes { get { return Core.Scenes; } }
-
-            public virtual void Configure(WorldUI data)
-            {
-                this.World = data;
-            }
-
-            public virtual void Init()
-            {
-
-            }
         }
 
         public Core Core { get { return Core.Instance; } }

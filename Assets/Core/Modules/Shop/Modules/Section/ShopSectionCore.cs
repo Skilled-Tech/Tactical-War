@@ -19,12 +19,12 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [Serializable]
+    [CreateAssetMenu(menuName = MenuPath + "Section")]
 	public class ShopSectionCore : ShopCore.Module
 	{
         [SerializeField]
-        protected string name;
-        public string Name { get { return name; } }
+        protected Sprite icon;
+        public Sprite Icon { get { return icon; } }
 
         [SerializeField]
         protected List<ItemTemplate> items;

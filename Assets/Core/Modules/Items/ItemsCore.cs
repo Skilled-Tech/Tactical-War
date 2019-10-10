@@ -22,7 +22,7 @@ using PlayFab.ClientModels;
 namespace Game
 {
     [Serializable]
-	public class ItemsCore : Core.Module
+	public class ItemsCore : Core.Property
 	{
         #region List
         [SerializeField]
@@ -45,7 +45,7 @@ namespace Game
         public ItemsUpgradesCore Upgrades { get { return upgrades; } }
 
         [Serializable]
-        public class Module : Core.Module
+        public class Module : Core.Property
         {
             public ItemsCore Items { get { return Core.Items; } }
         }

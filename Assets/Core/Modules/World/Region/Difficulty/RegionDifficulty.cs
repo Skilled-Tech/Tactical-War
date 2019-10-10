@@ -21,9 +21,9 @@ using Newtonsoft.Json;
 namespace Game
 {
     [CreateAssetMenu(menuName = RegionCore.MenuPath + "Difficulty")]
-	public class RegionDifficulty : WorldCore.Element
+	public class RegionDifficulty : WorldCore.Module
 	{
-        public static WorldCore.DifficulyCore Difficulty { get { return World.Difficulty; } }
+        public static WorldCore.DifficulyElement Difficulty { get { return World.Difficulty; } }
 
         public int Index { get; protected set; }
         public int ID { get { return Index + 1; } }

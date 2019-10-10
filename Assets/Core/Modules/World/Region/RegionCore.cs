@@ -24,9 +24,9 @@ namespace Game
 {
     [JsonObject]
     [CreateAssetMenu(menuName = MenuPath + "Element")]
-    public class RegionCore : WorldCore.Element
+    public class RegionCore : WorldCore.Module
     {
-        public const string MenuPath = Core.MenuPath + "Regions/";
+        new public const string MenuPath = WorldCore.MenuPath + "Regions/";
 
         [SerializeField]
         protected Sprite icon;
@@ -43,7 +43,7 @@ namespace Game
         public ProgressCore Progress { get { return progress; } }
         [JsonObject]
         [Serializable]
-        public class ProgressCore : WorldCore.Module
+        public class ProgressCore : WorldCore.Element
         {
             [JsonProperty]
             [SerializeField]
@@ -178,13 +178,9 @@ namespace Game
         }
         #endregion
 
-        public class Module : Module<RegionCore>
+        public class Module : WorldCore.Module
         {
-            public RegionCore Region { get { return Reference; } }
-        }
-        public class Element : WorldCore.Element
-        {
-            public const string MenuPath = RegionCore.MenuPath + "Modules/";
+            new public const string MenuPath = RegionCore.MenuPath + "Modules/";
         }
 
         public override void Configure()

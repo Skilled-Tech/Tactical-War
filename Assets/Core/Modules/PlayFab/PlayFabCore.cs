@@ -26,7 +26,7 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-    public class PlayFabCore : Core.Module
+    public class PlayFabCore : Core.Property
     {
         [SerializeField]
         public bool startOffline = false;
@@ -69,7 +69,7 @@ namespace Game
         public PlayFabWorldCore World { get { return world; } }
 
         [Serializable]
-        public class Module : Core.Module
+        public class Module : Core.Property
         {
             public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 

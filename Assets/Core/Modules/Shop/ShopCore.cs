@@ -20,15 +20,25 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [Serializable]
-    public class ShopCore : Core.Module
+    public class ShopCore : Core.Property
     {
+        public const string MenuPath = Core.Module.MenuPath + "Shop/";
+
         [SerializeField]
         protected ShopSectionCore[] sections;
         public ShopSectionCore[] Sections { get { return sections; } }
 
         [Serializable]
+        public class Element : Core.Property
+        {
+            public ShopCore Shop { get { return Core.Shop; } }
+
+            public PlayFabCore PlayFab { get { return Core.PlayFab; } }
+        }
         public class Module : Core.Module
         {
+            new public const string MenuPath = ShopCore.MenuPath + "Modules/";
+
             public ShopCore Shop { get { return Core.Shop; } }
 
             public PlayFabCore PlayFab { get { return Core.PlayFab; } }

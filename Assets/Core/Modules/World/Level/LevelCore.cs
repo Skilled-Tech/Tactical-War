@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Level")]
-	public class LevelCore : RegionCore.Element
+	public class LevelCore : RegionCore.Module
 	{
         public bool Unlocked
         {

@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [Serializable]
-	public class ScenesCore : Core.Module
+	public class ScenesCore : Core.Property
 	{
         [SerializeField]
         protected GameScene login;

@@ -77,7 +77,7 @@ namespace Game
         protected PlayFabCore playFab;
         public PlayFabCore PlayFab { get { return playFab; } }
 
-        public interface IModule
+        public interface IProperty
         {
             void Configure();
 
@@ -85,7 +85,7 @@ namespace Game
         }
 
         [Serializable]
-        public class Module : IModule
+        public class Property : IProperty
         {
             public Core Core { get { return Core.Instance; } }
 
@@ -100,7 +100,32 @@ namespace Game
                 if (OnInit != null) OnInit();
             }
 
-            public virtual void Register(IModule module)
+            public virtual void Register(IProperty module)
+            {
+                module.Configure();
+
+                OnInit += module.Init;
+            }
+        }
+
+        public class Module : ScriptableObject, IProperty
+        {
+            public const string MenuPath = Core.MenuPath + "Modules/";
+
+            public static Core Core { get { return Core.Instance; } }
+
+            public virtual void Configure()
+            {
+
+            }
+
+            public event Action OnInit;
+            public virtual void Init()
+            {
+                if (OnInit != null) OnInit();
+            }
+
+            public virtual void Register(IProperty module)
             {
                 module.Configure();
 
@@ -134,7 +159,7 @@ namespace Game
             Register(playFab);
         }
 
-        public virtual void Register(Module module)
+        public virtual void Register(Property module)
         {
             module.Configure();
 

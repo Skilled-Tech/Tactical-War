@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [Serializable]
-	public class UICore : Core.Module
+	public class UICore : Core.Property
 	{
         [SerializeField]
         protected GameObject prefab;
@@ -32,7 +32,7 @@ namespace Game
         public RewardsUI Rewards { get { return Menu.Rewards; } }
 
         [Serializable]
-        public class Module : Core.Module
+        public class Module : Core.Property
         {
             public UICore UI { get { return Core.UI; } }
 

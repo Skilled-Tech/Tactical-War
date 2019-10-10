@@ -57,12 +57,14 @@ namespace Game
 
     public class UIElementModule<T> : UIElement, IModule<T>
     {
-        public void Configure(T reference)
+        public T Reference { get; protected set; }
+
+        public virtual void Configure(T reference)
         {
-            
+            this.Reference = reference;
         }
 
-        public void Init()
+        public virtual void Init()
         {
             
         }

@@ -55,12 +55,9 @@ MonoBehaviour:
         Context: {fileID: 0}
   shop:
     sections:
-    - name: Jewels
-      items: []
-    - name: Gold
-      items: []
-    - name: Materials
-      items: []
+    - {fileID: 11400000, guid: 5cc6fd3eef9e88b438b6fc16cc21e17b, type: 2}
+    - {fileID: 11400000, guid: 97174b5679abb154ea0314eb2bff780c, type: 2}
+    - {fileID: 11400000, guid: fdd0862886f01324483bb81068283c96, type: 2}
   items:
     roster: {fileID: 11400000, guid: 39c86303927c97246b7e1d76cf1ea667, type: 2}
     upgrades:

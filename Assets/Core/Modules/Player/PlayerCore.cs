@@ -23,7 +23,7 @@ using PlayFab.ClientModels;
 namespace Game
 {
     [Serializable]
-    public class PlayerCore : Core.Module
+    public class PlayerCore : Core.Property
     {
         [SerializeField]
         protected PlayerInventoryCore inventory;
@@ -35,7 +35,7 @@ namespace Game
         protected PlayerUnitsCore units;
         public PlayerUnitsCore Units { get { return units; } }
 
-        public class Module : Core.Module
+        public class Module : Core.Property
         {
             public PlayerCore Player { get { return Core.Player; } }
         }

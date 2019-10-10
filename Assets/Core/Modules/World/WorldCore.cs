@@ -23,8 +23,10 @@ using Newtonsoft.Json.Linq;
 namespace Game
 {
     [Serializable]
-    public class WorldCore : Core.Module
+    public class WorldCore : Core.Property
 	{
+        public const string MenuPath = Core.Module.MenuPath + "World/";
+
         public const string ID = "world";
 
         #region Regions
@@ -56,42 +58,24 @@ namespace Game
         #endregion
 
         [Serializable]
-        public class Module : Core.Module
+        public class Element : Core.Property
         {
 
         }
-        public class Element : ScriptableObject, Core.IModule
+        public class Module : Core.Module
         {
-            public static Core Core { get { return Core.Instance; } }
+            new public const string MenuPath = WorldCore.MenuPath + "Modules/";
 
             public static WorldCore World { get { return Core.World; } }
 
             public static ScenesCore Scenes { get { return Core.Scenes; } }
-
-            public virtual void Configure()
-            {
-
-            }
-
-            public virtual void Register(Core.IModule module)
-            {
-                module.Configure();
-
-                OnInit += module.Init;
-            }
-
-            public event Action OnInit;
-            public virtual void Init()
-            {
-                if (OnInit != null) OnInit();
-            }
         }
 
         [SerializeField]
-        protected DifficulyCore difficulty;
-        public DifficulyCore Difficulty { get { return difficulty; } }
+        protected DifficulyElement difficulty;
+        public DifficulyElement Difficulty { get { return difficulty; } }
         [Serializable]
-        public class DifficulyCore : Module
+        public class DifficulyElement : Element
         {
             [SerializeField]
             protected RegionDifficulty[] list;
