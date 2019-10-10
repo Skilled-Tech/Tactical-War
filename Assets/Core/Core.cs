@@ -66,8 +66,8 @@ namespace Game
         public PlayerCore Player { get { return player; } }
 
         [SerializeField]
-        protected ShopCore shops;
-        public ShopCore Shops { get { return shops; } }
+        protected ShopCore shop;
+        public ShopCore Shop { get { return shop; } }
 
         [SerializeField]
         protected ItemsCore items;
@@ -128,7 +128,7 @@ namespace Game
             Register(UI);
             Register(scenes);
             Register(world);
-            Register(shops);
+            Register(shop);
             Register(items);
             Register(player);
             Register(playFab);

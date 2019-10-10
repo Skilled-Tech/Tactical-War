@@ -20,8 +20,30 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [Serializable]
-	public class ShopCore : Core.Module
-	{
+    public class ShopCore : Core.Module
+    {
+        [SerializeField]
+        protected ShopSectionCore[] sections;
+        public ShopSectionCore[] Sections { get { return sections; } }
+
+        [Serializable]
+        public class Module : Core.Module
+        {
+            public ShopCore Shop { get { return Core.Shop; } }
+
+            public PlayFabCore PlayFab { get { return Core.PlayFab; } }
+        }
+
         public PlayFabCore PlayFab { get { return Core.PlayFab; } }
-	}
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            for (int i = 0; i < Sections.Length; i++)
+            {
+                Register(sections[i]);
+            }
+        }
+    }
 }
