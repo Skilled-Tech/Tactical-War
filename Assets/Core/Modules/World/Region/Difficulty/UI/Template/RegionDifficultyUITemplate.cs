@@ -35,8 +35,6 @@ namespace Game
             {
                 Button.interactable = value;
 
-                label.color = value ? Color.white : Color.Lerp(Color.white, Color.black, 0.75f);
-
                 label.SetStrikeThrough(value);
             }
         }

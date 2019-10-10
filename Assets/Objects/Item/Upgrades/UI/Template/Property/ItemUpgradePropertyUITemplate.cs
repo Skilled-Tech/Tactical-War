@@ -117,8 +117,6 @@ namespace Game
             progression.Value = data.Value;
 
             GrayscaleController.Off = buy.interactable;
-
-            price.color = buy.interactable ? Color.white : Color.Lerp(Color.white, Color.black, 0.6f);
         }
 
         void OnButon()

@@ -41,6 +41,10 @@ namespace Game
         protected virtual void Reset()
         {
             source = Dependancy.Get<Selectable>(gameObject, Dependancy.Scope.RecursiveToParents);
+
+            Graphic = GetComponent<Graphic>();
+
+            on = off = (Graphic == null ? Color.white : Graphic.color);
         }
 
         protected virtual void Awake()

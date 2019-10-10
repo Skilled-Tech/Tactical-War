@@ -75,8 +75,6 @@ namespace Game
 
                 GrayscaleController.On = true;
             }
-
-            Background.color = button.interactable ? BackgroundOrigianlColor : Color.Lerp(Color.grey, Color.black, 0.6f);
         }
 
         public virtual void Set(PlayerProponent player, UnitTemplate template)

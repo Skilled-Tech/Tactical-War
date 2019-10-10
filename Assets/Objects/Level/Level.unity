@@ -4242,7 +4242,7 @@ MonoBehaviour:
     m_SelectedTrigger: Highlighted
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1394435790}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -8927,6 +8927,7 @@ GameObject:
   - component: {fileID: 1394435789}
   - component: {fileID: 1394435791}
   - component: {fileID: 1394435790}
+  - component: {fileID: 1394435792}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -8991,6 +8992,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394435788}
   m_CullTransparentMesh: 0
+--- !u!114 &1394435792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394435788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0ca56417f69164682e78dddaba4015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 527639809}
+  on: {r: 1, g: 0.8774303, b: 0.25, a: 1}
+  off: {r: 0.4245283, g: 0.37090135, b: 0.09411712, a: 1}
 --- !u!1 &1411380252
 GameObject:
   m_ObjectHideFlags: 0
@@ -10648,7 +10664,7 @@ MonoBehaviour:
     m_SelectedTrigger: Highlighted
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1724403413}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -10673,6 +10689,7 @@ GameObject:
   - component: {fileID: 1724403412}
   - component: {fileID: 1724403414}
   - component: {fileID: 1724403413}
+  - component: {fileID: 1724403415}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -10737,6 +10754,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1724403411}
   m_CullTransparentMesh: 0
+--- !u!114 &1724403415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724403411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0ca56417f69164682e78dddaba4015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 1719419959}
+  on: {r: 1, g: 0.8774303, b: 0.25, a: 1}
+  off: {r: 0.4245283, g: 0.37090135, b: 0.09411712, a: 1}
 --- !u!1 &1737831324
 GameObject:
   m_ObjectHideFlags: 0
