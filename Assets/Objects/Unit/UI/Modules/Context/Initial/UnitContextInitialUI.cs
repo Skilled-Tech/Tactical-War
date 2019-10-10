@@ -238,11 +238,11 @@ namespace Game
             }
             else
             {
-                unlock.interactable = Player.Funds.CanAfford(Template.Price);
+                unlock.interactable = Player.Funds.CanAfford(Template.Prices[0]);
 
                 price.color = unlock.interactable ? Color.white : Color.grey;
 
-                price.text = Template.Price.ToString();
+                price.text = Template.Prices[0].ToString();
             }
         }
 

@@ -50,16 +50,16 @@ namespace Game
         public string Description { get { return description; } }
 
         [SerializeField]
-        protected Currency price = new Currency(CurrencyType.Gold, 0);
-        public Currency Price
+        protected List<Currency> prices;
+        public List<Currency> Prices
         {
             get
             {
-                return price;
+                return prices;
             }
             set
             {
-                price = value;
+                prices = value;
             }
         }
 
@@ -180,13 +180,21 @@ namespace Game
         {
             CatalogItem = item;
 
+            prices.Clear();
+
             if (item.VirtualCurrencyPrices == null || item.VirtualCurrencyPrices.Count == 0)
             {
-                //price = new Currency(null, 0);
+                
             }
-
             else
-                price = new Currency(item.VirtualCurrencyPrices.First());
+            {
+                foreach (var pair in item.VirtualCurrencyPrices)
+                {
+                    var element = new Currency(pair);
+
+                    prices.Add(element);
+                }
+            }
 
             upgrades.Load(item);
         }

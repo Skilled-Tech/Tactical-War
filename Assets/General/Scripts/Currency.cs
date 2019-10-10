@@ -99,7 +99,7 @@ namespace Game
 
     public enum CurrencyType
     {
-        Gold, Jewels
+        Gold, Jewels, USD
     }
 
     [Preserve]
@@ -134,6 +134,7 @@ namespace Game
         {
             new ElementData(CurrencyType.Gold, "GD"),
             new ElementData(CurrencyType.Jewels, "JL"),
+            new ElementData(CurrencyType.USD, "RM"),
         };
         [Serializable]
         public struct ElementData
