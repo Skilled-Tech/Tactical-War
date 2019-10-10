@@ -81,7 +81,7 @@ namespace Game
 
             if (element.Parent) instance.transform.SetParent(transform, true);
 
-            Tools.SetSortingLayer(instance, sortingLayer);
+            Tools.SortingLayer.Set(instance, sortingLayer);
 
             return instance;
         }

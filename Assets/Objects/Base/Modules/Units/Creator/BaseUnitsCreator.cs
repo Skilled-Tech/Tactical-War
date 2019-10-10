@@ -115,7 +115,7 @@ namespace Game
 
             instance.transform.localScale = transform.lossyScale;
 
-            Tools.SetLayer(instance, Proponent.Layer);
+            Tools.Layer.Set(instance, Proponent.Layer);
 
             var unit = instance.GetComponent<Unit>();
             

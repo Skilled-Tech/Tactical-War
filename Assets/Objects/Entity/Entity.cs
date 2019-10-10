@@ -56,7 +56,7 @@ namespace Game
 
             TimeScale = Dependancy.Get<EntityTimeScale>(gameObject);
 
-            Bounds = Tools.CalculateColliders2DBounds(gameObject);
+            Bounds = Tools.Bounds.FromCollider2D(gameObject);
 
             Modules.Configure(this);
         }

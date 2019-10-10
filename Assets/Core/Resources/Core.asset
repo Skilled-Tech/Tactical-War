@@ -39,7 +39,7 @@ MonoBehaviour:
       funds:
         elements:
         - type: 0
-          _value: 1211300
+          _value: 1258300
         - type: 1
           _value: 612100
     units:
@@ -52,6 +52,10 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 9e5fbb925de1fbb48be24f19a5101b5e, type: 2}
         - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
         - {fileID: 11400000, guid: 503acb4ce6e589f4abe896fada3ef66e, type: 2}
+        - {fileID: 11400000, guid: 9e5fbb925de1fbb48be24f19a5101b5e, type: 2}
+        - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+        - {fileID: 11400000, guid: 503acb4ce6e589f4abe896fada3ef66e, type: 2}
+        - {fileID: 11400000, guid: 6a36fb4327677d5479e0bbe0ed809fc8, type: 2}
         Context: {fileID: 0}
   items:
     roster: {fileID: 11400000, guid: 39c86303927c97246b7e1d76cf1ea667, type: 2}

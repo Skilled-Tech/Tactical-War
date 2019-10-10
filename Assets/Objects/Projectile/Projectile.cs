@@ -92,7 +92,7 @@ namespace Game
         }
         public virtual void SetLayer(int layer)
         {
-            Tools.SetLayer(gameObject, layer);
+            Tools.Layer.Set(gameObject, layer);
         }
 
         public virtual void AmmendLayer(int layer)

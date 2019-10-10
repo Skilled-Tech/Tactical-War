@@ -64,7 +64,7 @@ namespace Game
 
             Parallax = data.Parallax;
 
-            Bounds = Tools.CalculateRenderersBounds(data.Prefab);
+            Bounds = Tools.Bounds.FromRenderer(data.Prefab);
             
             var totalWidth = Bounds.size.x * (PanelsCount - 1);
 
