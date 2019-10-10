@@ -16,8 +16,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 3098de3dc8914494ab66f4ff0c27f743, type: 3}
     tilt: 0
   description: Basic grunt, low range, medium defense & attack
-  price:
-    type: 0
+  prices:
+  - type: 0
     value: 8000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}

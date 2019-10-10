@@ -16,9 +16,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: da9c7144a72762449938275c1444a7b6, type: 3}
     tilt: 30
   description: A Sword Made out of Wood
-  price:
-    type: 0
-    value: 400
+  prices: []
   upgrades:
     template: {fileID: 0}
     applicable: []

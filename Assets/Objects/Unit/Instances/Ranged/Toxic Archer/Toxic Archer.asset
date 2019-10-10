@@ -16,8 +16,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: b1024a22b7484774f8fb902fa8b8bd8e, type: 3}
     tilt: 0
   description: Shoots arrows from a far, low defense, medium range & attack
-  price:
-    type: 0
+  prices:
+  - type: 0
     value: 8000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}

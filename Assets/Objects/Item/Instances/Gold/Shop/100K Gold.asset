@@ -16,9 +16,9 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: daeb9cab5e03b54419e1b9b324c92323, type: 3}
     tilt: 0
   description: 
-  price:
-    type: 0
-    value: 400
+  prices:
+  - type: 1
+    value: 1000
   upgrades:
     template: {fileID: 0}
     applicable: []
