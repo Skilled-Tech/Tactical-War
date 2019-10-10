@@ -52,7 +52,7 @@ namespace Game
 
             for (int i = 0; i < Inventory.Items.Count; i++)
             {
-                if (Inventory.Items[i].Template.HideInInventory) continue;
+                if (Inventory.Items[i].Template.Visiblity.Inventory == false) continue;
 
                 var instance = CreateInstance(Inventory.Items[i]);
 

@@ -157,5 +157,12 @@ namespace Game
         [SerializeField]
         protected float speed;
         public float Speed { get { return speed; } }
+
+        protected override void Reset()
+        {
+            base.Reset();
+
+            visibility = new VisibilityData(false, false);
+        }
     }
 }

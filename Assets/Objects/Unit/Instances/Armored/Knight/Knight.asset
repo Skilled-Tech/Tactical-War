@@ -24,7 +24,9 @@ MonoBehaviour:
     applicable:
     - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
     - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
-  hideInInventory: 1
+  visibility:
+    inventory: 0
+    shop: 0
   type: {fileID: 11400000, guid: 24de53186882044498807e9ef2186c21, type: 2}
   prefab: {fileID: 8127696124609658847, guid: ffb63b5e209ba8e4592a2e03c6b2bed3, type: 3}
   health: 200
@@ -37,4 +39,5 @@ MonoBehaviour:
     distance: 0
     duration: 1
     method: 0
+    statusEffects: []
   speed: 1.8

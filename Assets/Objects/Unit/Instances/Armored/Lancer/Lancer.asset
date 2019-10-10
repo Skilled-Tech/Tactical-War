@@ -17,14 +17,16 @@ MonoBehaviour:
     tilt: 0
   description: Heavily armored warrior, low range, high attack & defense
   price:
-    type: 1
-    value: 6000
+    type: 0
+    value: 1000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
     - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
     - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
-  hideInInventory: 1
+  visibility:
+    inventory: 0
+    shop: 0
   type: {fileID: 11400000, guid: 24de53186882044498807e9ef2186c21, type: 2}
   prefab: {fileID: 8127696124609658847, guid: 84c291b554bb77a489cb8c9db9805b34, type: 3}
   health: 200

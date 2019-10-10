@@ -35,8 +35,16 @@ namespace Game
         public UIElement Start { get { return start; } }
 
         [SerializeField]
-        protected UIElement world;
-        public UIElement World { get { return world; } }
+        protected WorldUI world;
+        public WorldUI World { get { return world; } }
+
+        [SerializeField]
+        protected InventoryUI inventory;
+        public InventoryUI Inventory { get { return inventory; } }
+
+        [SerializeField]
+        protected ShopUI shop;
+        public ShopUI Shop { get { return shop; } }
 
         [SerializeField]
         protected UnitsUI units;
@@ -45,6 +53,23 @@ namespace Game
         [SerializeField]
         protected UIElement credits;
         public UIElement Credits { get { return credits; } }
+
+        public virtual void ForAll(Action<UIElement> action)
+        {
+            action(title);
+
+            action(start);
+
+            action(world);
+
+            action(inventory);
+
+            action(shop);
+
+            action(units);
+
+            action(credits);
+        }
 
         public Core Core { get { return Core.Instance; } }
         public PopupUI Popup { get { return Core.UI.Popup; } }
@@ -55,12 +80,9 @@ namespace Game
 
             Instance = this;
 
-            title.Show();
+            void HideAllButTitle(UIElement element) => element.Visibile = element == title;
 
-            start.Hide();
-            world.Hide();
-            units.Hide();
-            credits.Hide();
+            ForAll(HideAllButTitle);
         }
     }
 }

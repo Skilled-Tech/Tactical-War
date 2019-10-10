@@ -24,7 +24,9 @@ MonoBehaviour:
     applicable:
     - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
     - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
-  hideInInventory: 1
+  visibility:
+    inventory: 0
+    shop: 0
   type: {fileID: 11400000, guid: daeb04fe296184c4fa34a9cc436fa263, type: 2}
   prefab: {fileID: 5569182392643639925, guid: 3efb31688e1f6d24c8aa93b5c4cee77f, type: 3}
   health: 80

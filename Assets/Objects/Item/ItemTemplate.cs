@@ -134,11 +134,33 @@ namespace Game
         }
 
         [SerializeField]
-        protected bool hideInInventory;
-        public bool HideInInventory { get { return hideInInventory; } }
+        protected VisibilityData visibility = new VisibilityData(true, true);
+        public VisibilityData Visiblity { get { return visibility; } }
+        [Serializable]
+        public class VisibilityData
+        {
+            [SerializeField]
+            protected bool inventory;
+            public bool Inventory { get { return inventory; } }
+
+            [SerializeField]
+            protected bool shop;
+            public bool Shop { get { return shop; } }
+
+            public VisibilityData(bool inventory, bool shop)
+            {
+                this.inventory = inventory;
+                this.shop = shop;
+            }
+        }
 
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }
+
+        protected virtual void Reset()
+        {
+
+        }
 
         public CatalogItem CatalogItem { get; protected set; }
         public virtual void LoadCatalog(PlayFabCatalogCore catalog)

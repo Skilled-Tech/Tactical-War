@@ -22,4 +22,6 @@ MonoBehaviour:
   upgrades:
     template: {fileID: 0}
     applicable: []
-  hideInInventory: 0
+  visibility:
+    inventory: 1
+    shop: 0
