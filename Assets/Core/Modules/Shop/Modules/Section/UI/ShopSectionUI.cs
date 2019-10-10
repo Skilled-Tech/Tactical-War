@@ -31,9 +31,15 @@ namespace Game
         protected Image icon;
         public Image Icon { get { return icon; } }
 
+        [SerializeField]
+        protected ItemsListUI items;
+        public ItemsListUI Items { get { return items; } }
+
         public virtual void Init()
         {
+            items.Init();
 
+            items.OnSelection += ItemSelectionCallback;
         }
 
         public ShopSectionCore Section { get; protected set; }
@@ -42,10 +48,19 @@ namespace Game
         {
             this.Section = section;
 
+            if(label != null)
             label.text = section.name;
 
             if(icon != null)
                 icon.sprite = section.Icon;
+
+            items.Set(section.Items);
+        }
+
+        public event ItemsListUI.SelectionDelegate OnSelection;
+        void ItemSelectionCallback(ItemTemplate template)
+        {
+            if (OnSelection != null) OnSelection(template);
         }
     }
 }

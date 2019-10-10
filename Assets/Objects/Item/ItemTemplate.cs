@@ -181,10 +181,9 @@ namespace Game
             CatalogItem = item;
 
             prices.Clear();
-
             if (item.VirtualCurrencyPrices == null || item.VirtualCurrencyPrices.Count == 0)
             {
-                
+
             }
             else
             {
@@ -195,6 +194,9 @@ namespace Game
                     prices.Add(element);
                 }
             }
+
+            if (string.IsNullOrEmpty(item.Description) == false)
+                description = item.Description;
 
             upgrades.Load(item);
         }
@@ -255,5 +257,10 @@ namespace Game
 
             image.rectTransform.localEulerAngles = Vector3.forward * tilt;
         }
+    }
+
+    public enum ItemPurchaseLimit
+    {
+        None, Once
     }
 }
