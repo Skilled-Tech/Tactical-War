@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84366bbb643fab54cbdea5f8f28a234d, type: 3}
   m_Name: Materials
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: daeb9cab5e03b54419e1b9b324c92323, type: 3}
+  icon: {fileID: 21300000, guid: 6f45f16b0ab5cab40b5eb1a41c1ed2f9, type: 3}
   items: []
