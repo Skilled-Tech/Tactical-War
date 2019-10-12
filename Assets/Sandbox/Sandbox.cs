@@ -1,4 +1,4 @@
-﻿/*
+﻿
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.Json;
@@ -226,4 +226,3 @@ public class GooglePurchase
         return purchase;
     }
 }
-*/

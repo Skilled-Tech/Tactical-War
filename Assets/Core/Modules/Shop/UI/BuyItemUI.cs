@@ -81,8 +81,15 @@ namespace Game
         {
             Popup.Show("Processing Purchase");
 
-            PlayFab.Purchase.OnResponse += PurchaseResponse;
-            PlayFab.Purchase.Perform(Template.CatalogItem);
+            if(Template.Price.Type == CurrencyType.Cents)
+            {
+                Core.IAP.Purchase(Template.ID);
+            }
+            else
+            {
+                PlayFab.Purchase.OnResponse += PurchaseResponse;
+                PlayFab.Purchase.Perform(Template.CatalogItem);
+            }
         }
 
         void PurchaseResponse(PurchaseItemResult result, PlayFabError error)
