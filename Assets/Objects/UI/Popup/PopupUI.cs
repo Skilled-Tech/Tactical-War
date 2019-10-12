@@ -37,6 +37,10 @@ namespace Game
         protected TMP_Text instructions;
         public TMP_Text Instructions { get { return instructions; } }
 
+        [SerializeField]
+        protected GameObject loading;
+        public GameObject Loading { get { return loading; } }
+
         protected virtual void Awake()
         {
             button.onClick.AddListener(OnButton);
@@ -51,6 +55,7 @@ namespace Game
             label.text = text;
 
             button.gameObject.SetActive(action != null);
+            loading.gameObject.SetActive(action == null);
             this.action = action;
 
             if (action == null)
