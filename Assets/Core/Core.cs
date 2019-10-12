@@ -77,6 +77,10 @@ namespace Game
         protected PlayFabCore playFab;
         public PlayFabCore PlayFab { get { return playFab; } }
 
+        [SerializeField]
+        protected IAPCore _IAP;
+        public IAPCore IAP { get { return _IAP; } }
+
         public interface IProperty
         {
             void Configure();
@@ -157,9 +161,10 @@ namespace Game
             Register(items);
             Register(player);
             Register(playFab);
+            Register(IAP);
         }
 
-        public virtual void Register(Property module)
+        public virtual void Register(IProperty module)
         {
             module.Configure();
 
