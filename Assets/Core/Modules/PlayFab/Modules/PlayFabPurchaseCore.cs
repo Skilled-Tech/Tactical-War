@@ -25,27 +25,45 @@ namespace Game
     [Serializable]
     public class PlayFabPurchaseCore : PlayFabCore.Module
     {
-        public virtual void Perform(string itemID, int price, string currency)
+        public virtual void Perform(string itemID, int price, string currencyCode)
         {
+            if(currencyCode == "RM")
+            {
+                Debug.LogError("Cannot buy Real Money item: " + itemID + " using the " + nameof(PlayFabPurchaseCore) + " Core, RM purchases must go through a different pipeline");
+                return;
+            }
+
             var request = new PurchaseItemRequest
             {
                 CatalogVersion = PlayFabCatalogCore.Version,
                 ItemId = itemID,
                 Price = price,
-                VirtualCurrency = currency,
+                VirtualCurrency = currencyCode,
             };
 
             PlayFabClientAPI.PurchaseItem(request, ResultCallback, ErrorCallback);
         }
-        public virtual void Perform(CatalogItem item, string currency)
-        {
-            Perform(item.ItemId, (int)item.VirtualCurrencyPrices[currency], currency);
-        }
-        public void Perform(CatalogItem item)
-        {
-            var currency = item.VirtualCurrencyPrices.First().Key;
 
-            Perform(item, currency);
+        public virtual void Perform(CatalogItem item, string currencyCode)
+        {
+            Perform(item.ItemId, (int)item.VirtualCurrencyPrices[currencyCode], currencyCode);
+        }
+        public virtual void Perform(CatalogItem item)
+        {
+            var currencyCode = item.VirtualCurrencyPrices.First().Key;
+
+            Perform(item, currencyCode);
+        }
+        
+        public virtual void Perform(ItemTemplate item, string currencyCode)
+        {
+            Perform(item.ID, item.Price.Value, currencyCode);
+        }
+        public virtual void Perform(ItemTemplate item)
+        {
+            var currencyCode = CurrencyCode.From(item.Price.Type);
+
+            Perform(item, currencyCode);
         }
 
         public event Delegates.ResultDelegate<PurchaseItemResult> OnResult;

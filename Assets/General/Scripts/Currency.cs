@@ -33,8 +33,8 @@ namespace Game
 
         [JsonProperty]
         [SerializeField]
-        private long value;
-        public long Value { get { return this.value; } }
+        private int value;
+        public int Value { get { return this.value; } }
 
         public override bool Equals(object obj)
         {
@@ -72,18 +72,18 @@ namespace Game
             return !one.Equals(two);
         }
 
-        public static Currency operator *(Currency target, long number)
+        public static Currency operator *(Currency target, int number)
         {
             return new Currency(target.type, target.Value * number);
         }
         #endregion
 
-        public Currency(CurrencyType type, long value)
+        public Currency(CurrencyType type, int value)
         {
             this.type = type;
             this.value = value;
         }
-        public Currency(string typeCode, long value) : this(CurrencyCode.To(typeCode), value)
+        public Currency(string typeCode, int value) : this(CurrencyCode.To(typeCode), value)
         {
 
         }

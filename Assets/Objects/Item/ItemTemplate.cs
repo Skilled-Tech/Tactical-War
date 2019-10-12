@@ -63,6 +63,8 @@ namespace Game
             }
         }
 
+        public Currency Price { get { return prices[0]; } }
+
         [SerializeField]
         protected UpgradesData upgrades;
         public UpgradesData Upgrades { get { return upgrades; } }

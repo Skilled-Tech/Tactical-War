@@ -72,7 +72,7 @@ namespace Game
 
             description.text = Template.Description;
 
-            price.text = Template.Prices[0].ToString();
+            price.text = Template.Price.ToString();
 
             Template.Icon.ApplyTo(icon);
         }
