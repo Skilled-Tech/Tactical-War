@@ -19,7 +19,6 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(SpriteRenderer))]
 	public class LevelBackgroundTemplate : MonoBehaviour
 	{
         [SerializeField]
@@ -39,7 +38,6 @@ namespace Game
         }
 
         public GameObject[] Panels { get; protected set; }
-        public const int PanelsCount = 3;
 
         public Bounds Bounds { get; protected set; }
 
@@ -52,8 +50,6 @@ namespace Game
 		public virtual void Init()
         {
             StartPosition = transform.position;
-
-            Panels = new GameObject[PanelsCount];
         }
 
         public LevelBackgroundData.ElementData Data { get; protected set; }
@@ -65,14 +61,18 @@ namespace Game
             Parallax = data.Parallax;
 
             Bounds = Tools.Bounds.FromRenderer(data.Prefab);
-            
-            var totalWidth = Bounds.size.x * (PanelsCount - 1);
 
-            for (int i = 0; i < PanelsCount; i++)
+            Panels = new GameObject[data.Copies];
+            
+            var totalWidth = Bounds.size.x * (Panels.Length - 1);
+
+            for (int i = 0; i < Panels.Length; i++)
             {
                 var panel = Instantiate(data.Prefab, transform);
 
-                var rate = i / (PanelsCount - 1f);
+                panel.name = data.Prefab.name + " " + (i + 1).ToString();
+
+                var rate = i / (Panels.Length - 1f);
 
                 panel.transform.localPosition = new Vector3(Mathf.Lerp(-totalWidth / 2f, totalWidth / 2f, rate), 0f, 0f);
             }

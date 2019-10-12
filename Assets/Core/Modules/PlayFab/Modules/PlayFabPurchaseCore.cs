@@ -88,4 +88,25 @@ namespace Game
             if (OnResponse != null) OnResponse(result, error);
         }
     }
+
+    class C
+    {
+        void S()
+        {
+            var a = new StartPurchaseRequest
+            {
+
+            };
+
+            var b = new PayForPurchaseRequest
+            {
+
+            };
+
+            var c = new ConfirmPurchaseRequest
+            {
+
+            };
+        }
+    }
 }

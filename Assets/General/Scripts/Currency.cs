@@ -59,7 +59,16 @@ namespace Game
 
         public override string ToString()
         {
-            return value.ToString("N0") + " " + type.ToString();
+            if(this.type == CurrencyType.Cents)
+            {
+                return ToString("USD", value / 100f, "");
+            }
+
+            return ToString(type.ToString(), value, "N0");
+        }
+        public static string ToString(string name, float value, string format)
+        {
+            return value.ToString(format) + " " + name;
         }
 
         #region Operators
@@ -99,7 +108,7 @@ namespace Game
 
     public enum CurrencyType
     {
-        Gold, Jewels, USD
+        Gold, Jewels, Cents
     }
 
     [Preserve]
@@ -134,7 +143,7 @@ namespace Game
         {
             new ElementData(CurrencyType.Gold, "GD"),
             new ElementData(CurrencyType.Jewels, "JL"),
-            new ElementData(CurrencyType.USD, "RM"),
+            new ElementData(CurrencyType.Cents, "RM"),
         };
         [Serializable]
         public struct ElementData

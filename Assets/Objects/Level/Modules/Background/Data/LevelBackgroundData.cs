@@ -33,6 +33,10 @@ namespace Game
             public GameObject Prefab { get { return prefab; } }
 
             [SerializeField]
+            protected int copies = 3;
+            public int Copies { get { return copies; } }
+
+            [SerializeField]
             protected float parallax;
             public float Parallax { get { return parallax; } }
         }
