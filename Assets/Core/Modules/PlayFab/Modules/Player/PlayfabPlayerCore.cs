@@ -24,7 +24,7 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-	public class PlayFabPlayerCore : PlayFabCore.Module
+	public class PlayFabPlayerCore : PlayFabCore.Property
 	{
         [SerializeField]
         protected PlayFabPlayerCombinedInfoCore combinedInfo;
@@ -39,7 +39,7 @@ namespace Game
         public PlayFabPlayerInventoryCore Inventory { get { return inventory; } }
 
         [Serializable]
-		public class Module : PlayFabCore.Module
+		public class Module : PlayFabCore.Property
         {
             public PlayFabPlayerCore Player { get { return PlayFab.Player; } }
 

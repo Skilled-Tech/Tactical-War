@@ -27,7 +27,7 @@ using Newtonsoft.Json.Linq;
 namespace Game
 {
     [Serializable]
-    public class PlayFabDailyRewardCore : PlayFabCore.Module
+    public class PlayFabDailyRewardCore : PlayFabCore.Property
     {
         public const string ID = "daily-rewards";
 

@@ -69,7 +69,7 @@ namespace Game
         public PlayFabWorldCore World { get { return world; } }
 
         [Serializable]
-        public class Module : Core.Property
+        public class Property : Core.Property
         {
             public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 

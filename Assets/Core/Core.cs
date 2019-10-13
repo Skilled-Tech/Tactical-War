@@ -91,7 +91,7 @@ namespace Game
         [Serializable]
         public class Property : IProperty
         {
-            public Core Core { get { return Core.Instance; } }
+            public static Core Core { get { return Core.Instance; } }
 
             public virtual void Configure()
             {

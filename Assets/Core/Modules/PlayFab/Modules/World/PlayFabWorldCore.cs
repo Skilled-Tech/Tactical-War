@@ -26,14 +26,14 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-    public class PlayFabWorldCore : PlayFabCore.Module
+    public class PlayFabWorldCore : PlayFabCore.Property
     {
         [SerializeField]
         protected PlayFabWorldFinishLevelCore finishLevel;
         public PlayFabWorldFinishLevelCore FinishLevel { get { return finishLevel; } }
 
         [Serializable]
-        public class Module : PlayFabCore.Module
+        public class Module : PlayFabCore.Property
         {
             public PlayFabWorldCore World { get { return PlayFab.World; } }
         }

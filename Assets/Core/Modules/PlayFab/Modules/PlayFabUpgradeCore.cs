@@ -25,7 +25,7 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-    public class PlayFabUpgradeCore : PlayFabCore.Module
+    public class PlayFabUpgradeCore : PlayFabCore.Property
     {
         class ParametersData
         {

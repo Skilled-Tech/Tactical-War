@@ -1,5 +1,4 @@
-﻿
-using PlayFab;
+﻿using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.Json;
 using System;

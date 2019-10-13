@@ -23,7 +23,7 @@ using PlayFab.ClientModels;
 namespace Game
 {
     [Serializable]
-    public class PlayFabLoginCore : PlayFabCore.Module
+    public class PlayFabLoginCore : PlayFabCore.Property
     {
         public virtual void Perform()
         {

@@ -25,13 +25,13 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-    public class PlayFabTitleCore : PlayFabCore.Module
+    public class PlayFabTitleCore : PlayFabCore.Property
     {
         [SerializeField]
         protected PlayFabTitleDataCore data;
         public PlayFabTitleDataCore Data { get { return data; } }
 
-        public class Module : PlayFabCore.Module
+        public class Module : PlayFabCore.Property
         {
             public PlayFabTitleCore Title { get { return PlayFab.Title; } }
 

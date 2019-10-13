@@ -25,9 +25,11 @@ using Newtonsoft.Json;
 namespace Game
 {
     [Serializable]
-    public class PlayFabCatalogCore : PlayFabCore.Module
+    public class PlayFabCatalogCore : PlayFabCore.Property
     {
-        public const string Version = "Default";
+        [SerializeField]
+        protected string version = "Default";
+        public string Version { get { return version; } }
 
         public List<CatalogItem> Items { get; protected set; }
 

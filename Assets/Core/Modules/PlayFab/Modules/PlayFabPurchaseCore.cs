@@ -23,7 +23,7 @@ using PlayFab.ClientModels;
 namespace Game
 {
     [Serializable]
-    public class PlayFabPurchaseCore : PlayFabCore.Module
+    public class PlayFabPurchaseCore : PlayFabCore.Property
     {
         public virtual void Perform(string itemID, int price, string currencyCode)
         {
@@ -35,7 +35,7 @@ namespace Game
 
             var request = new PurchaseItemRequest
             {
-                CatalogVersion = PlayFabCatalogCore.Version,
+                CatalogVersion = PlayFab.Catalog.Version,
                 ItemId = itemID,
                 Price = price,
                 VirtualCurrency = currencyCode,
