@@ -75,6 +75,11 @@ namespace Game
                 var rate = i / (Panels.Length - 1f);
 
                 panel.transform.localPosition = new Vector3(Mathf.Lerp(-totalWidth / 2f, totalWidth / 2f, rate), 0f, 0f);
+
+                if(i == 0 || i == 2)
+                {
+                    panel.transform.localScale = new Vector3(-panel.transform.localScale.x, panel.transform.localScale.y, panel.transform.localScale.z);
+                }
             }
         }
 

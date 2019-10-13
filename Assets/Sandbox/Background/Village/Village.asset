@@ -31,4 +31,4 @@ MonoBehaviour:
   - prefab: {fileID: 2830448564625002014, guid: 088ec562f6c8eb84cb63107b0b3ef7f8,
       type: 3}
     copies: 3
-    parallax: 0
+    parallax: 1
