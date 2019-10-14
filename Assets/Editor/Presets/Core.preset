@@ -1,0 +1,188 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Core
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 5f1f56ec8dfe54948bc5c79e2ade83dd,
+      type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _UI.prefab
+    value: 
+    objectReference: {fileID: 2074320178486768908, guid: 2bb5a675f5222234b91d887e27295032,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: scenes.login.asset
+    value: 
+    objectReference: {fileID: 102900000, guid: 4a3ed4e77f4122b4fa8b8f74b05d1a9f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: scenes.login.name
+    value: Login
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: scenes.mainMenu.asset
+    value: 
+    objectReference: {fileID: 102900000, guid: 679471899b386524f9ff02e4ea169768, type: 3}
+  - target: {fileID: 0}
+    propertyPath: scenes.mainMenu.name
+    value: Main Menu
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: scenes.level.asset
+    value: 
+    objectReference: {fileID: 102900000, guid: b4787435801bb7c40812a91cc8e84a8c, type: 3}
+  - target: {fileID: 0}
+    propertyPath: scenes.level.name
+    value: Level
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: world.regions.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: world.regions.Array.data[0]
+    value: 
+    objectReference: {fileID: 11400000, guid: d12dbb645a133814faa51f25497e0283, type: 2}
+  - target: {fileID: 0}
+    propertyPath: world.regions.Array.data[1]
+    value: 
+    objectReference: {fileID: 11400000, guid: ab493a314bd3827428015f5116d77014, type: 2}
+  - target: {fileID: 0}
+    propertyPath: world.difficulty.list.Array.size
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: world.difficulty.list.Array.data[0]
+    value: 
+    objectReference: {fileID: 11400000, guid: b5da3c47ed0172d4abc1332a17aef7eb, type: 2}
+  - target: {fileID: 0}
+    propertyPath: world.difficulty.list.Array.data[1]
+    value: 
+    objectReference: {fileID: 11400000, guid: c3f29393501112741b155f3c89e2bd05, type: 2}
+  - target: {fileID: 0}
+    propertyPath: world.difficulty.list.Array.data[2]
+    value: 
+    objectReference: {fileID: 11400000, guid: 74bf909b5e8c6434080c4489c4cee8dc, type: 2}
+  - target: {fileID: 0}
+    propertyPath: player.inventory.funds.elements.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: player.inventory.funds.elements.Array.data[0].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: player.inventory.funds.elements.Array.data[0]._value
+    value: 1258300
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: player.inventory.funds.elements.Array.data[1].type
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: player.inventory.funds.elements.Array.data[1]._value
+    value: 612100
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: player.units.selection.max
+    value: 6
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: player.units.selection.list.Array.size
+    value: 6
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: player.units.selection.list.Array.data[0]
+    value: 
+    objectReference: {fileID: 11400000, guid: a18b282b3af7c0c498515fe805b6faa0, type: 2}
+  - target: {fileID: 0}
+    propertyPath: player.units.selection.list.Array.data[1]
+    value: 
+    objectReference: {fileID: 11400000, guid: 06c15cd497f169740ae787e2b109cb06, type: 2}
+  - target: {fileID: 0}
+    propertyPath: player.units.selection.list.Array.data[2]
+    value: 
+    objectReference: {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
+  - target: {fileID: 0}
+    propertyPath: player.units.selection.list.Array.data[3]
+    value: 
+    objectReference: {fileID: 11400000, guid: 9e5fbb925de1fbb48be24f19a5101b5e, type: 2}
+  - target: {fileID: 0}
+    propertyPath: player.units.selection.list.Array.data[4]
+    value: 
+    objectReference: {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+  - target: {fileID: 0}
+    propertyPath: player.units.selection.list.Array.data[5]
+    value: 
+    objectReference: {fileID: 11400000, guid: 503acb4ce6e589f4abe896fada3ef66e, type: 2}
+  - target: {fileID: 0}
+    propertyPath: player.units.selection.Context
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: shop.sections.Array.size
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: shop.sections.Array.data[0]
+    value: 
+    objectReference: {fileID: 11400000, guid: 5cc6fd3eef9e88b438b6fc16cc21e17b, type: 2}
+  - target: {fileID: 0}
+    propertyPath: shop.sections.Array.data[1]
+    value: 
+    objectReference: {fileID: 11400000, guid: 97174b5679abb154ea0314eb2bff780c, type: 2}
+  - target: {fileID: 0}
+    propertyPath: shop.sections.Array.data[2]
+    value: 
+    objectReference: {fileID: 11400000, guid: fdd0862886f01324483bb81068283c96, type: 2}
+  - target: {fileID: 0}
+    propertyPath: items.roster
+    value: 
+    objectReference: {fileID: 11400000, guid: 39c86303927c97246b7e1d76cf1ea667, type: 2}
+  - target: {fileID: 0}
+    propertyPath: items.upgrades.types.list.Array.size
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: items.upgrades.types.list.Array.data[0]
+    value: 
+    objectReference: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+  - target: {fileID: 0}
+    propertyPath: items.upgrades.types.list.Array.data[1]
+    value: 
+    objectReference: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+  - target: {fileID: 0}
+    propertyPath: items.upgrades.types.list.Array.data[2]
+    value: 
+    objectReference: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+  - target: {fileID: 0}
+    propertyPath: items.upgrades.templates._default
+    value: 
+    objectReference: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
+  - target: {fileID: 0}
+    propertyPath: playFab.startOffline
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: playFab.catalog.version
+    value: Default
+    objectReference: {fileID: 0}

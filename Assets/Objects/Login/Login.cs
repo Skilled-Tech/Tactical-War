@@ -92,7 +92,7 @@ namespace Game
                         break;
 
                     default:
-                        Google.Execute();
+                        Email.Execute();
                         break;
                 }
             }

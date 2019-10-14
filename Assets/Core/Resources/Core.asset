@@ -70,6 +70,11 @@ MonoBehaviour:
         _default: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
   playFab:
     startOffline: 0
+    login: {}
     player: {}
     title: {}
+    catalog:
+      version: Default
     world: {}
+  _IAP:
+    google: {}
