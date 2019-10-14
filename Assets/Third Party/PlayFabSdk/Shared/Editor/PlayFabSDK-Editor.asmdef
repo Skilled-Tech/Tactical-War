@@ -1,0 +1,16 @@
+{
+    "name": "PlayFabSDK-Editor",
+    "references": [
+        "GUID:c8aab974629a1c6478a7c73f2c48268b"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

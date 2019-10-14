@@ -1,0 +1,16 @@
+{
+    "name": "2DGrassWorld-Editor",
+    "references": [
+        "GUID:8970ab8538af0a24db0927ce10b7e837"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

@@ -24,18 +24,55 @@ namespace Game
 {
     public class Login : MonoBehaviour
     {
-        public PopupUI Popup { get { return Core.UI.Popup; } }
+        public GoogleLogin Google { get; protected set; }
 
-        public Core Core { get { return Core.Instance; } }
+        public EmailLogin Email { get; protected set; }
 
-        public ScenesCore Scenes { get { return Core.Scenes; } }
+        #region Accessors
+        public static Core Core { get { return Core.Instance; } }
 
-        public PlayerCore Player { get { return Core.Player; } }
+        public static PopupUI Popup { get { return Core.UI.Popup; } }
 
-        public PlayFabCore PlayFab { get { return Core.PlayFab; } }
+        public static ScenesCore Scenes { get { return Core.Scenes; } }
 
-        void Start()
+        public static PlayerCore Player { get { return Core.Player; } }
+
+        public static PlayFabCore PlayFab { get { return Core.PlayFab; } }
+        #endregion
+
+        public class Module : Module<Login>
         {
+            public Login Login { get { return Reference; } }
+
+            #region Accessors
+            public static Core Core { get { return Core.Instance; } }
+
+            public static PopupUI Popup { get { return Core.UI.Popup; } }
+
+            public static ScenesCore Scenes { get { return Core.Scenes; } }
+
+            public static PlayerCore Player { get { return Core.Player; } }
+
+            public static PlayFabCore PlayFab { get { return Core.PlayFab; } }
+            #endregion
+
+            public virtual void Execute()
+            {
+
+            }
+        }
+
+        private void Awake()
+        {
+            Google = Dependancy.Get<GoogleLogin>(gameObject);
+            Email = Dependancy.Get<EmailLogin>(gameObject);
+
+            Modules.Configure(this);
+        }
+
+        private void Start()
+        {
+            Modules.Init(this);
             Popup.Show("Logging In", null, null);
 
             if (PlayFab.startOffline && Application.isEditor)
@@ -46,26 +83,36 @@ namespace Game
             }
             else
             {
-                PlayFab.Login.OnResponse += OnLoginResponse;
-                PlayFab.Login.Perform();
+                PlayFab.Login.OnResponse += LoginResponseCallback;
+
+                switch(Application.platform)
+                {
+                    case RuntimePlatform.Android:
+                        Google.Execute();
+                        break;
+
+                    default:
+                        Email.Execute();
+                        break;
+                }
             }
         }
 
         void PlayOffline()
         {
-            PlayFab.Title.OnResponse += OnTitleResponse;
+            PlayFab.Title.OnResponse += TitleResponseCallback;
             PlayFab.Title.Request();
         }
 
-        void OnLoginResponse(LoginResult result, PlayFabError error)
+        void LoginResponseCallback(LoginResult result, PlayFabError error)
         {
-            PlayFab.Login.OnResponse -= OnLoginResponse;
+            PlayFab.Login.OnResponse -= LoginResponseCallback;
 
             if (error == null)
             {
                 Popup.Show("Retrieving Title Data");
 
-                PlayFab.Title.OnResponse += OnTitleResponse;
+                PlayFab.Title.OnResponse += TitleResponseCallback;
                 PlayFab.Title.Request();
             }
             else
@@ -74,15 +121,15 @@ namespace Game
             }
         }
 
-        void OnTitleResponse(PlayFabTitleCore data, PlayFabError error)
+        void TitleResponseCallback(PlayFabTitleCore data, PlayFabError error)
         {
-            PlayFab.Title.OnResponse -= OnTitleResponse;
+            PlayFab.Title.OnResponse -= TitleResponseCallback;
 
             if (error == null)
             {
                 Popup.Show("Retrieving Catalog");
 
-                PlayFab.Catalog.OnResponse += OnCatalogResponse;
+                PlayFab.Catalog.OnResponse += CatalogResponseCallback;
                 PlayFab.Catalog.Request();
             }
             else
@@ -91,9 +138,9 @@ namespace Game
             }
         }
 
-        void OnCatalogResponse(PlayFabCatalogCore catalog, PlayFabError error)
+        void CatalogResponseCallback(PlayFabCatalogCore catalog, PlayFabError error)
         {
-            PlayFab.Catalog.OnResponse -= OnCatalogResponse;
+            PlayFab.Catalog.OnResponse -= CatalogResponseCallback;
 
             if (error == null)
             {
@@ -108,7 +155,7 @@ namespace Game
                 {
                     Popup.Show("Retrieving Player Data");
 
-                    PlayFab.Player.OnResponse += OnPlayerResponse;
+                    PlayFab.Player.OnResponse += PlayerResponseCallback;
                     PlayFab.Player.Retrieve();
                 }
             }
@@ -129,7 +176,7 @@ namespace Game
 
                 Popup.Show("Retrieving Player Data");
 
-                PlayFab.Player.OnResponse += OnPlayerResponse;
+                PlayFab.Player.OnResponse += PlayerResponseCallback;
                 PlayFab.Player.Retrieve();
             }
             else
@@ -138,9 +185,9 @@ namespace Game
             }
         }
 
-        void OnPlayerResponse(PlayFabPlayerCore result, PlayFabError error)
+        void PlayerResponseCallback(PlayFabPlayerCore result, PlayFabError error)
         {
-            PlayFab.Player.OnResponse -= OnPlayerResponse;
+            PlayFab.Player.OnResponse -= PlayerResponseCallback;
 
             if (error == null)
             {

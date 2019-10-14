@@ -1,0 +1,16 @@
+{
+    "name": "HeroEditor4D-Editor",
+    "references": [
+        "GUID:c569fe1a7f60dd74dad19cff4f3b85ac"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
