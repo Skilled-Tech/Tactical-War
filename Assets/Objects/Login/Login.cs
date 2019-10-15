@@ -28,6 +28,8 @@ namespace Game
 
         public EmailLogin Email { get; protected set; }
 
+        public GuestLogin AndroidDeviceID { get; protected set; }
+
         #region Accessors
         public static Core Core { get { return Core.Instance; } }
 
@@ -40,7 +42,7 @@ namespace Game
         public static PlayFabCore PlayFab { get { return Core.PlayFab; } }
         #endregion
 
-        public class Module : Module<Login>
+        public class Module : UIElementModule<Login>
         {
             public Login Login { get { return Reference; } }
 
@@ -55,51 +57,19 @@ namespace Game
 
             public static PlayFabCore PlayFab { get { return Core.PlayFab; } }
             #endregion
-
-            public virtual void Execute()
-            {
-
-            }
         }
 
         private void Awake()
         {
             Google = Dependancy.Get<GoogleLogin>(gameObject);
             Email = Dependancy.Get<EmailLogin>(gameObject);
+            AndroidDeviceID = Dependancy.Get<GuestLogin>(gameObject);
 
             Modules.Configure(this);
         }
 
         private void Start()
         {
-            Popup.Show("Logging In", null, null);
-
-            if (PlayFab.startOffline && Application.isEditor)
-            {
-                StartOffline();
-
-                PlayFab.startOffline = false;
-            }
-            else if(Google.Force && Application.isEditor)
-            {
-                Google.Execute();
-            }
-            else
-            {
-                PlayFab.Login.OnResponse += LoginResponseCallback;
-
-                switch(Application.platform)
-                {
-                    case RuntimePlatform.Android:
-                        Google.Execute();
-                        break;
-
-                    default:
-                        Email.Execute();
-                        break;
-                }
-            }
-
             Modules.Init(this);
         }
 

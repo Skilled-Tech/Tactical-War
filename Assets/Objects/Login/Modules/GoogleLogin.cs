@@ -25,13 +25,11 @@ namespace Game
 {
 	public class GoogleLogin : Login.Module
 	{
-        [SerializeField]
-        protected bool force;
-        public bool Force { get { return force; } }
-
-        public override void Execute()
+        public override void Show()
         {
-            base.Execute();
+            base.Show();
+
+            Popup.Show("Logging In");
 
             var builder = new PlayGamesClientConfiguration.Builder();
 

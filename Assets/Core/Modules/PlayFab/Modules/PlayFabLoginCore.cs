@@ -61,6 +61,30 @@ namespace Game
             }
         }
 
+        [SerializeField]
+        protected AndroidDeviceIDProperty androidDeviceID;
+        public AndroidDeviceIDProperty AndroidDeviceID { get { return androidDeviceID; } }
+        public class AndroidDeviceIDProperty : Property
+        {
+            public virtual void Perform(string model, string ID, string OS)
+            {
+                var request = new LoginWithAndroidDeviceIDRequest
+                {
+                    AndroidDevice = model,
+                    AndroidDeviceId = ID,
+                    OS = OS,
+                    CreateAccount = true,
+                };
+
+                PlayFabClientAPI.LoginWithAndroidDeviceID(request, ResultCallback, ErrorCallback);
+            }
+
+            public virtual void Perform()
+            {
+                Perform(SystemInfo.deviceModel, SystemInfo.deviceUniqueIdentifier, SystemInfo.operatingSystem);
+            }
+        }
+
         [Serializable]
         public class Property : PlayFabCore.Property
         {
@@ -93,6 +117,7 @@ namespace Game
 
             Register(google);
             Register(email);
+            Register(androidDeviceID);
         }
 
         public virtual void Register(Property property)

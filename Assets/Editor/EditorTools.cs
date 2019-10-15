@@ -59,14 +59,6 @@ namespace Game
                     EditorSceneManager.OpenScene(scene.Path);
                 }
             }
-
-            [MenuItem(MenuPath + "Play Offline", priority = -200)]
-            public static void PlayOffline()
-            {
-                Core.PlayFab.startOffline = true;
-
-                EditorApplication.EnterPlaymode();
-            }
         }
 	}
 }

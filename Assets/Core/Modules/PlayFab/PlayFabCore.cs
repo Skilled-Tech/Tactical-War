@@ -28,9 +28,6 @@ namespace Game
     [Serializable]
     public class PlayFabCore : Core.Property
     {
-        [SerializeField]
-        public bool startOffline = false;
-
         [Space]
         [SerializeField]
         protected PlayFabLoginCore login;
