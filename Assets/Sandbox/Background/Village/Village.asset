@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: Village
   m_EditorClassIdentifier: 
   elements:
-  - prefab: {fileID: 6034383480380216377, guid: 54c286936f1442b4a9264459fe486da9,
+  - prefab: {fileID: 3455420964079204469, guid: 088ec562f6c8eb84cb63107b0b3ef7f8,
       type: 3}
     copies: 3
     parallax: 1
-  - prefab: {fileID: 448178973052377329, guid: 7024536578ccf7948aa7eb60012d2d24, type: 3}
+  - prefab: {fileID: 144986330707761449, guid: 0174772c7c6a1ed4fb5e1a4ea36427c7, type: 3}
     copies: 3
     parallax: 0.75
-  - prefab: {fileID: 8881454181902579269, guid: f734411b1c7ac134a8ca1081b7231ece,
+  - prefab: {fileID: 2095430130192897675, guid: f734411b1c7ac134a8ca1081b7231ece,
       type: 3}
     copies: 3
     parallax: 0.5
-  - prefab: {fileID: 4868867402424132537, guid: 0174772c7c6a1ed4fb5e1a4ea36427c7,
+  - prefab: {fileID: 5273603950949656984, guid: 7024536578ccf7948aa7eb60012d2d24,
       type: 3}
     copies: 3
     parallax: 0.25
-  - prefab: {fileID: 2830448564625002014, guid: 088ec562f6c8eb84cb63107b0b3ef7f8,
+  - prefab: {fileID: 7263955030453593407, guid: ca6817fb550ee9e42bd2c38bf3ba07f8,
       type: 3}
     copies: 3
-    parallax: 1
+    parallax: 0

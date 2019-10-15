@@ -72,14 +72,17 @@ namespace Game
 
         private void Start()
         {
-            Modules.Init(this);
             Popup.Show("Logging In", null, null);
 
             if (PlayFab.startOffline && Application.isEditor)
             {
-                PlayOffline();
+                StartOffline();
 
                 PlayFab.startOffline = false;
+            }
+            else if(Google.Force && Application.isEditor)
+            {
+                Google.Execute();
             }
             else
             {
@@ -96,9 +99,16 @@ namespace Game
                         break;
                 }
             }
+
+            Modules.Init(this);
         }
 
-        void PlayOffline()
+        public virtual void Retry()
+        {
+            Scenes.Load(Scenes.Login);
+        }
+
+        public virtual void StartOffline()
         {
             PlayFab.Title.OnResponse += TitleResponseCallback;
             PlayFab.Title.Request();
@@ -117,7 +127,7 @@ namespace Game
             }
             else
             {
-                Popup.Show("Failed To Connect, Play Offline ?", PlayOffline, "Okay");
+                Popup.Show("Failed To Connect, Play Offline ?", StartOffline, "Okay");
             }
         }
 
@@ -234,7 +244,7 @@ namespace Game
         {
             Debug.LogError("Login Error: " + error.GenerateErrorReport());
 
-            Popup.Show(error.ErrorMessage);
+            Popup.Show(error.ErrorMessage, Retry, "Retry");
         }
     }
 }

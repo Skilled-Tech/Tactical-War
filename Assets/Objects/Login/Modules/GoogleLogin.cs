@@ -25,6 +25,10 @@ namespace Game
 {
 	public class GoogleLogin : Login.Module
 	{
+        [SerializeField]
+        protected bool force;
+        public bool Force { get { return force; } }
+
         public override void Execute()
         {
             base.Execute();
@@ -56,6 +60,8 @@ namespace Game
             else
             {
                 Debug.LogError("Google Login Error: " + error);
+
+                Popup.Show("<Google Error>\n" + error + "\nPlay Offline ?", Login.StartOffline, "Okay");
             }
         }
     }
