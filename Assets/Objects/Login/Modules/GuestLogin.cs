@@ -27,18 +27,21 @@ namespace Game
 
             Popup.Show("Logging In");
 
-            switch (Application.platform)
+            if (Application.isEditor)
             {
-                case RuntimePlatform.Android:
-                    PlayFab.Login.AndroidDeviceID.Perform();
-                    break;
-
-                case RuntimePlatform.IPhonePlayer:
-                    throw new NotImplementedException();
-
-                default:
-                    PlayFab.Login.Email.Perform("Moe4Baker@gmail.com", "Password");
-                    break;
+                PlayFab.Login.Email.Perform("Moe4Baker@gmail.com", "Password");
+            }
+            else if(Application.platform == RuntimePlatform.Android)
+            {
+                PlayFab.Login.AndroidDeviceID.Perform();
+            }
+            else if(Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                throw new NotImplementedException();
             }
         }
     }

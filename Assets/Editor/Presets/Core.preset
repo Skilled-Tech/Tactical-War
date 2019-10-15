@@ -179,10 +179,6 @@ Preset:
     value: 
     objectReference: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
   - target: {fileID: 0}
-    propertyPath: playFab.startOffline
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
     propertyPath: playFab.catalog.version
     value: Default
     objectReference: {fileID: 0}

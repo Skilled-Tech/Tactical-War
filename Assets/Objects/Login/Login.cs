@@ -28,7 +28,7 @@ namespace Game
 
         public EmailLogin Email { get; protected set; }
 
-        public GuestLogin AndroidDeviceID { get; protected set; }
+        public GuestLogin GuestLogin { get; protected set; }
 
         #region Accessors
         public static Core Core { get { return Core.Instance; } }
@@ -63,19 +63,23 @@ namespace Game
         {
             Google = Dependancy.Get<GoogleLogin>(gameObject);
             Email = Dependancy.Get<EmailLogin>(gameObject);
-            AndroidDeviceID = Dependancy.Get<GuestLogin>(gameObject);
+            GuestLogin = Dependancy.Get<GuestLogin>(gameObject);
 
             Modules.Configure(this);
         }
 
         private void Start()
         {
+            PlayFab.Login.OnResponse += LoginResponseCallback;
+
             Modules.Init(this);
         }
 
         public virtual void Retry()
         {
             Scenes.Load(Scenes.Login);
+
+            Popup.Hide();
         }
 
         public virtual void StartOffline()
@@ -97,7 +101,7 @@ namespace Game
             }
             else
             {
-                Popup.Show("Failed To Connect, Play Offline ?", StartOffline, "Okay");
+                RaiseError(error);
             }
         }
 

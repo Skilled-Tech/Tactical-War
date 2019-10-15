@@ -59,7 +59,7 @@ namespace Game
             {
                 Debug.LogError("Google Login Error: " + error);
 
-                Popup.Show("<Google Error>\n" + error + "\nPlay Offline ?", Login.StartOffline, "Okay");
+                Popup.Show("<Google Error>\n" + error, Login.Retry, "Retry");
             }
         }
     }

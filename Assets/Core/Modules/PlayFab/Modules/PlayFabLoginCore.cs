@@ -64,6 +64,7 @@ namespace Game
         [SerializeField]
         protected AndroidDeviceIDProperty androidDeviceID;
         public AndroidDeviceIDProperty AndroidDeviceID { get { return androidDeviceID; } }
+        [Serializable]
         public class AndroidDeviceIDProperty : Property
         {
             public virtual void Perform(string model, string ID, string OS)
