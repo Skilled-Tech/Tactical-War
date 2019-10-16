@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec87b41d67cb414d931b34b4e3192d2, type: 3}
+  m_Name: Village-1
+  m_EditorClassIdentifier: 
+  copies: 3
+  elements:
+  - prefab: {fileID: 3455420964079204469, guid: 088ec562f6c8eb84cb63107b0b3ef7f8,
+      type: 3}
+    anchor: 2
+    height: 0
+    parallax: 1
+  - prefab: {fileID: 144986330707761449, guid: 0174772c7c6a1ed4fb5e1a4ea36427c7, type: 3}
+    anchor: 1
+    height: -1.19
+    parallax: 0.75
+  - prefab: {fileID: 2095430130192897675, guid: f734411b1c7ac134a8ca1081b7231ece,
+      type: 3}
+    anchor: 1
+    height: -1.38
+    parallax: 0.5
+  - prefab: {fileID: 5273603950949656984, guid: 7024536578ccf7948aa7eb60012d2d24,
+      type: 3}
+    anchor: 1
+    height: -0.8
+    parallax: 0.25
+  - prefab: {fileID: 7263955030453593407, guid: ca6817fb550ee9e42bd2c38bf3ba07f8,
+      type: 3}
+    anchor: 1
+    height: -0.8
+    parallax: 0

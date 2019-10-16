@@ -12,22 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec87b41d67cb414d931b34b4e3192d2, type: 3}
   m_Name: Snow World
   m_EditorClassIdentifier: 
+  copies: 3
   elements:
-  - prefab: {fileID: 6034383480380216377, guid: d4f9e9bc9d08b444fb8639fab71d67cf,
+  - prefab: {fileID: 7592915532742514456, guid: d35a448aeacae484aa1b903753f9e204,
       type: 3}
+    anchor: 2
+    height: 0
     parallax: 1
-  - prefab: {fileID: 6760373309477454360, guid: 4ff4b8abbeb2eac429c41a10052dbba3,
+  - prefab: {fileID: 2738161502144456010, guid: 1c186894b7f0f1740b79ae4707b3c240,
       type: 3}
+    anchor: 2
+    height: -1.58
+    parallax: 0.9
+  - prefab: {fileID: 3497227776311897976, guid: eec1e3a6da8c1ac4f9171f1d086a86bb,
+      type: 3}
+    anchor: 1
+    height: 2.48
     parallax: 0.8
-  - prefab: {fileID: 4121587723551330645, guid: a2e060ea549d3424f80eb4e40919a0af,
+  - prefab: {fileID: 202822930100186865, guid: a3b6556c11ced1847b8a3b44530ce85b, type: 3}
+    anchor: 1
+    height: 4.07
+    parallax: 0.6
+  - prefab: {fileID: 139613731313519457, guid: c6f800ae7506ca142abd0b87e0ab54db, type: 3}
+    anchor: 1
+    height: 2.84
+    parallax: 0.4
+  - prefab: {fileID: 8173352120479127302, guid: 40c64f8e5431dda439d6db8fc9c7223d,
       type: 3}
-    parallax: 0.75
-  - prefab: {fileID: 8520206455326370716, guid: a17c414ba5e27f04e9d81309af7ca863,
-      type: 3}
-    parallax: 0.5
-  - prefab: {fileID: 3780997326273144110, guid: d7a8aed10583cc74ca6002c35a3146d1,
-      type: 3}
-    parallax: 0.3
-  - prefab: {fileID: 1810764315388061646, guid: 4e0bd0d556f808d488b2d91e5264e400,
-      type: 3}
-    parallax: 0.2
+    anchor: 1
+    height: 0.14
+    parallax: 0

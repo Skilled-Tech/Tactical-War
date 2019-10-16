@@ -25,7 +25,7 @@ namespace Game
     {
         public Transform target;
 
-        new public Camera camera { get; protected set; }
+        public Camera component { get; protected set; }
 
         public GameCameraPanZone PanZone { get; protected set; }
 
@@ -61,7 +61,7 @@ namespace Game
 
         protected virtual void Start()
         {
-            camera = GetComponent<Camera>();
+            component = GetComponent<Camera>();
 
             PanZone = FindObjectOfType<GameCameraPanZone>();
 
@@ -99,7 +99,7 @@ namespace Game
 
         protected virtual Vector3 ScreenToWorld(Vector3 coordinate)
         {
-            return camera.ScreenToWorldPoint(coordinate);
+            return component.ScreenToWorldPoint(coordinate);
         }
     }
 }

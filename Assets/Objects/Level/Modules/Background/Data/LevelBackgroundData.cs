@@ -23,6 +23,10 @@ namespace Game
 	public class LevelBackgroundData : ScriptableObject
 	{
         [SerializeField]
+        protected int copies = 3;
+        public int Copies { get { return copies; } }
+
+        [SerializeField]
         protected ElementData[] elements;
         public ElementData[] Elements { get { return elements; } }
         [Serializable]
@@ -33,12 +37,23 @@ namespace Game
             public GameObject Prefab { get { return prefab; } }
 
             [SerializeField]
-            protected int copies = 3;
-            public int Copies { get { return copies; } }
+            protected BackgroundAnchor anchor = BackgroundAnchor.Center;
+            public BackgroundAnchor Anchor { get { return anchor; } }
+
+            [SerializeField]
+            protected float height;
+            public float Height { get { return height; } }
 
             [SerializeField]
             protected float parallax;
             public float Parallax { get { return parallax; } }
         }
 	}
+
+    public enum BackgroundAnchor
+    {
+        Center,
+        Bottom,
+        Top,
+    }
 }

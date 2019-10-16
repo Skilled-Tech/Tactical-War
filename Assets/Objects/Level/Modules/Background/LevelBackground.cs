@@ -32,21 +32,21 @@ namespace Game
             Set(Data.Level.Background);
         }
 
-        public virtual void Set(LevelBackgroundData template)
+        public virtual void Set(LevelBackgroundData data)
         {
             Templates = new List<LevelBackgroundTemplate>();
 
-            for (int i = 0; i < template.Elements.Length; i++)
+            for (int i = 0; i < data.Elements.Length; i++)
             {
-                var instance = CreateTemplate(template.Elements[i], i);
+                var instance = CreateTemplate(data, data.Elements[i], i);
 
                 Templates.Add(instance);
             }
         }
 
-        public virtual LevelBackgroundTemplate CreateTemplate(LevelBackgroundData.ElementData data, int index)
+        public virtual LevelBackgroundTemplate CreateTemplate(LevelBackgroundData data, LevelBackgroundData.ElementData element, int index)
         {
-            var instance = new GameObject(data.Prefab.name);
+            var instance = new GameObject(element.Prefab.name);
 
             instance.transform.SetParent(transform);
 
@@ -57,7 +57,7 @@ namespace Game
             var script = instance.AddComponent<LevelBackgroundTemplate>();
 
             script.Init();
-            script.Set(data, index);
+            script.Set(data, element, index);
 
             return script;
         }

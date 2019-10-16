@@ -17,50 +17,44 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using UnityEngine.Rendering;
+
 namespace Game
 {
 	public class LevelBackgroundTemplate : MonoBehaviour
 	{
-        [SerializeField]
-        protected float _parallax;
-        public float Parallax
-        {
-            get
-            {
-                return _parallax;
-            }
-            set
-            {
-                value = Mathf.Clamp01(value);
-
-                _parallax = value;
-            }
-        }
-
         public GameObject[] Panels { get; protected set; }
 
         public Bounds Bounds { get; protected set; }
 
+        public Vector3 StartPosition { get; protected set; }
+
+        public SortingGroup SortingGroup { get; protected set; }
+
+        public LevelBackgroundData.ElementData Element { get; protected set; }
+
+
         public Level Level { get { return Level.Instance; } }
 
-        public Transform Anchor { get { return Level.camera.transform; } }
+        new public Camera camera { get { return Level.camera.component; } }
 
-        public Vector3 StartPosition { get; protected set; }
+        public Transform Anchor { get { return Level.camera.transform; } }
 
 		public virtual void Init()
         {
             StartPosition = transform.position;
+
+            SortingGroup = gameObject.AddComponent<SortingGroup>();
         }
 
-        public LevelBackgroundData.ElementData Data { get; protected set; }
-
-        public virtual void Set(LevelBackgroundData.ElementData data, int index)
+        public virtual void Set(LevelBackgroundData data, LevelBackgroundData.ElementData element, int index)
         {
-            this.Data = data;
+            this.Element = element;
 
-            Parallax = data.Parallax;
+            SortingGroup.sortingLayerName = "Background"; //TODO, don't hard code
+            SortingGroup.sortingOrder = index;
 
-            Bounds = Tools.Bounds.FromRenderer(data.Prefab);
+            Bounds = Tools.Bounds.FromRenderer(element.Prefab);
 
             Panels = new GameObject[data.Copies];
             
@@ -68,9 +62,9 @@ namespace Game
 
             for (int i = 0; i < Panels.Length; i++)
             {
-                var panel = Instantiate(data.Prefab, transform);
+                var panel = Instantiate(element.Prefab, transform);
 
-                panel.name = data.Prefab.name + " " + (i + 1).ToString();
+                panel.name = element.Prefab.name + " " + (i + 1).ToString();
 
                 var rate = i / (Panels.Length - 1f);
 
@@ -82,9 +76,9 @@ namespace Game
         {
             var position = transform.position;
             {
-                position.y = Anchor.position.y;
+                position.y = ProcessAnchorHeight() + Element.Height;
 
-                position.x = StartPosition.x + Anchor.position.x * Parallax;
+                position.x = StartPosition.x + Anchor.position.x * Element.Parallax;
 
                 var difference = Anchor.position.x - transform.position.x;
                 var distance = Mathf.Abs(difference);
@@ -98,6 +92,45 @@ namespace Game
                 }
             }
             transform.position = position;
+        }
+
+        float ProcessAnchorHeight()
+        {
+            switch (Element.Anchor)
+            {
+                case BackgroundAnchor.Bottom:
+                    {
+                        var screenPoint = new Vector3()
+                        {
+                            x = 0.5f * Screen.width,
+                            y = 0f,
+                            z = Mathf.Abs(transform.position.z - Anchor.position.z)
+                        };
+
+                        var worldPosition = camera.ScreenToWorldPoint(screenPoint);
+
+                        return worldPosition.y + Bounds.extents.y;
+                    }
+
+                case BackgroundAnchor.Center:
+                        return Anchor.position.y;
+
+                case BackgroundAnchor.Top:
+                    {
+                        var screenPoint = new Vector3()
+                        {
+                            x = 0.5f * Screen.width,
+                            y = Screen.height,
+                            z = Mathf.Abs(transform.position.z - Anchor.position.z)
+                        };
+
+                        var worldPosition = camera.ScreenToWorldPoint(screenPoint);
+
+                        return worldPosition.y - Bounds.extents.y;
+                    }
+            }
+
+            throw new NotImplementedException();
         }
     }
 }
