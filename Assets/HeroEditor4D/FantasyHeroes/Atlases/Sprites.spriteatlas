@@ -44,7 +44,7 @@ SpriteAtlas:
     packables:
     - {fileID: 102900000, guid: 503ca1f622f03e24bb6c1f475ba319c8, type: 3}
     - {fileID: 102900000, guid: c0f79b50a6113944d8381906203a36e6, type: 3}
-    totalSpriteSurfaceArea: 65030656
+    totalSpriteSurfaceArea: 66472448
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -109,6 +109,8 @@ SpriteAtlas:
   - {fileID: -1767139198770402998, guid: b0c72e604aedf42488246a7117d8fe2a, type: 3}
   - {fileID: -2575444795325250252, guid: b0c72e604aedf42488246a7117d8fe2a, type: 3}
   - {fileID: -5695258936679597694, guid: b0c72e604aedf42488246a7117d8fe2a, type: 3}
+  - {fileID: 21300000, guid: 58ac1c708e8c3004da8544338be613d5, type: 3}
+  - {fileID: 21300000, guid: c2f0e690c34fec842bfd9f430e69a60a, type: 3}
   - {fileID: 21300002, guid: fc3420a0e48d52d4fb6df0048ad88b3f, type: 3}
   - {fileID: 21300000, guid: fc3420a0e48d52d4fb6df0048ad88b3f, type: 3}
   - {fileID: 21300000, guid: a5232bc0bc196964db9de1f41149c403, type: 3}
@@ -221,6 +223,8 @@ SpriteAtlas:
   - {fileID: 21300054, guid: ffe5c05219cb1374e8b8ec4c8c2e2b70, type: 3}
   - {fileID: 21300002, guid: 8b4dc262c02140d42855e75c9c8e6333, type: 3}
   - {fileID: 21300000, guid: 8b4dc262c02140d42855e75c9c8e6333, type: 3}
+  - {fileID: 21300000, guid: 5231fb8234c623b488948263459b2c4e, type: 3}
+  - {fileID: 21300000, guid: 12262892866228a448acb4450c866950, type: 3}
   - {fileID: 21300000, guid: 051203a2b4b3f89418cd8282a450b1a2, type: 3}
   - {fileID: 21300002, guid: 437aabd250fe0fe4b96cf47ff7c7afb1, type: 3}
   - {fileID: 21300006, guid: 437aabd250fe0fe4b96cf47ff7c7afb1, type: 3}
@@ -291,6 +295,8 @@ SpriteAtlas:
   - {fileID: 21300004, guid: a320b2236d8da3f49b305ffaab7b3637, type: 3}
   - {fileID: 21300002, guid: a320b2236d8da3f49b305ffaab7b3637, type: 3}
   - {fileID: 21300000, guid: a320b2236d8da3f49b305ffaab7b3637, type: 3}
+  - {fileID: -8137581963233685907, guid: 1bbced23fe78fcd40af4106874442679, type: 3}
+  - {fileID: 6591478365344907407, guid: 1bbced23fe78fcd40af4106874442679, type: 3}
   - {fileID: 21300000, guid: 2e3ee2331c54c8d4abad886a27555d74, type: 3}
   - {fileID: 21300000, guid: 1995bb333c7b6df48b5227381f3d76f3, type: 3}
   - {fileID: -2943790780882752751, guid: d366319354caad64b971151470b0601a, type: 3}
@@ -753,10 +759,12 @@ SpriteAtlas:
   - {fileID: -2575444795325250252, guid: 3e849e164a2c2f847934e8bfe5be5491, type: 3}
   - {fileID: -5695258936679597694, guid: 3e849e164a2c2f847934e8bfe5be5491, type: 3}
   - {fileID: 21300000, guid: 3267185699640164297a3ef9dd691a09, type: 3}
+  - {fileID: 21300000, guid: fc095b569962a8f439ecf330988792d6, type: 3}
   - {fileID: 21300000, guid: e38c1966959327646b6772c1d4ce2d78, type: 3}
   - {fileID: 21300000, guid: 98f733767f5bff5488383801dbe428bd, type: 3}
   - {fileID: 21300002, guid: 98f733767f5bff5488383801dbe428bd, type: 3}
   - {fileID: 21300000, guid: c4ae6376782e9c146b8f2aaf2ea0e846, type: 3}
+  - {fileID: 21300000, guid: b4e2c086b2938a347a740a78c3b6e363, type: 3}
   - {fileID: 21300004, guid: 17d8c1b68153975408b54cbd158b6ce3, type: 3}
   - {fileID: 21300002, guid: 17d8c1b68153975408b54cbd158b6ce3, type: 3}
   - {fileID: 21300000, guid: 17d8c1b68153975408b54cbd158b6ce3, type: 3}
@@ -883,6 +891,7 @@ SpriteAtlas:
   - {fileID: 21300002, guid: 5bfc6e175255e2c48b850861f9e084b4, type: 3}
   - {fileID: 21300000, guid: 5bfc6e175255e2c48b850861f9e084b4, type: 3}
   - {fileID: 21300000, guid: e5ac81275bf6ea24faec9ac18f7881de, type: 3}
+  - {fileID: 21300000, guid: b7aa5a37412533649ade26f1ac3a07b1, type: 3}
   - {fileID: 21300000, guid: 29cf9677ea77bb04ca058e5a8907eb3d, type: 3}
   - {fileID: 21300020, guid: 894462b772e1ba744babc1c9595077d2, type: 3}
   - {fileID: 21300080, guid: 894462b772e1ba744babc1c9595077d2, type: 3}
@@ -1284,6 +1293,7 @@ SpriteAtlas:
   - {fileID: 21300006, guid: 1ecd525b1a617094f9310913e8f1e13a, type: 3}
   - {fileID: 21300004, guid: 1ecd525b1a617094f9310913e8f1e13a, type: 3}
   - {fileID: 21300000, guid: 1ecd525b1a617094f9310913e8f1e13a, type: 3}
+  - {fileID: 21300000, guid: 5113ee6b13858734d8479b43cc3bddd0, type: 3}
   - {fileID: 21300020, guid: 46cf517bec1925e488ef8ce342febe2a, type: 3}
   - {fileID: 21300080, guid: 46cf517bec1925e488ef8ce342febe2a, type: 3}
   - {fileID: 21300074, guid: 46cf517bec1925e488ef8ce342febe2a, type: 3}
@@ -1378,6 +1388,7 @@ SpriteAtlas:
   - {fileID: 21300070, guid: 7423358cada33404d834e22446d0a533, type: 3}
   - {fileID: 21300054, guid: 7423358cada33404d834e22446d0a533, type: 3}
   - {fileID: 21300000, guid: 4e9910bc774fa844f8c3940495b97c1c, type: 3}
+  - {fileID: 21300000, guid: f13f72dc8333a524cb6751075b7c97d7, type: 3}
   - {fileID: 21300000, guid: fce393dcdbf3f8c40aed7c264a110318, type: 3}
   - {fileID: 21300020, guid: 7442cadca65ff9144a159d14fda75c4e, type: 3}
   - {fileID: 21300080, guid: 7442cadca65ff9144a159d14fda75c4e, type: 3}
@@ -1612,6 +1623,7 @@ SpriteAtlas:
   - {fileID: 21300002, guid: f84730ae7e828554f9c6989c429198df, type: 3}
   - {fileID: 21300000, guid: f84730ae7e828554f9c6989c429198df, type: 3}
   - {fileID: 21300000, guid: 52d2bfee6e0c3794ba13aae4ed14cea7, type: 3}
+  - {fileID: 21300000, guid: 27e15ffe9e4688a43b9afabef7358b54, type: 3}
   - {fileID: 21300004, guid: eabe813fd110a464f982498af7c042fe, type: 3}
   - {fileID: 21300002, guid: eabe813fd110a464f982498af7c042fe, type: 3}
   - {fileID: 21300000, guid: eabe813fd110a464f982498af7c042fe, type: 3}
@@ -1720,6 +1732,8 @@ SpriteAtlas:
   - BackLegR
   - FrontSleeveR
   - SideLegR
+  - Berserker Axe
+  - Lighning Wand
   - Side
   - Front
   - SmallAxe
@@ -1832,6 +1846,8 @@ SpriteAtlas:
   - SideLegR
   - Side
   - Front
+  - Knight Sword
+  - Knight Axe
   - ClericWand
   - Limb
   - Quiver
@@ -1900,6 +1916,8 @@ SpriteAtlas:
   - FrontSleeveR
   - SideLegR
   - Side
+  - Back
+  - Front
   - Back
   - Front
   - RedOakClub
@@ -2364,10 +2382,12 @@ SpriteAtlas:
   - FrontSleeveR
   - SideLegR
   - IronMallet
+  - Hammer
   - WoodcutterAxe
   - Back
   - Front
   - WoodenHammer
+  - Fire Wand
   - Side
   - Back
   - Front
@@ -2494,6 +2514,7 @@ SpriteAtlas:
   - Side
   - Front
   - SiegeSpear
+  - Assassin Dagger
   - ButcherKnife
   - BackFingersR
   - SideFingersR
@@ -2895,6 +2916,7 @@ SpriteAtlas:
   - Quiver
   - Arrow
   - Handle
+  - Lancer Speark
   - BackFingersR
   - SideFingersR
   - BackFingersL
@@ -2989,6 +3011,7 @@ SpriteAtlas:
   - FrontSleeveR
   - SideLegR
   - NativeWand
+  - Ice Wand
   - WoodcutterIronaxe
   - BackFingersR
   - SideFingersR
@@ -3223,6 +3246,7 @@ SpriteAtlas:
   - Side
   - Front
   - GoldenWingsDagger
+  - Healer Wand
   - Side
   - Back
   - Front

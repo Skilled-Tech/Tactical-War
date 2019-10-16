@@ -1,5 +1,0 @@
-{
-	"scripts": {
-		"minify": "jsmin -o CloudScript.min.js CloudScript.js"
-	}
-}

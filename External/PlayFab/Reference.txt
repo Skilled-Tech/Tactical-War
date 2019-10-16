@@ -1,2 +1,0 @@
-https://api.playfab.com/playstream/docs/PlayStreamEventModels
-https://api.playfab.com/playstream/docs/PlayStreamProfileModels

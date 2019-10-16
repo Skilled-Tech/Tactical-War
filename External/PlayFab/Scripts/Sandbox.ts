@@ -1,7 +1,0 @@
-namespace Sandbox
-{
-    function Call()
-    {
-
-    }
-}
