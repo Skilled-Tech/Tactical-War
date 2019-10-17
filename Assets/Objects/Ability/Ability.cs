@@ -22,8 +22,8 @@ namespace Game
     public class Ability : MonoBehaviour
     {
         [SerializeField]
-        protected int cost = 500;
-        public int Cost { get { return cost; } }
+        protected float cooldown = 20f;
+        public float Cooldown { get { return cooldown; } }
 
         public Proponent User { get; protected set; }
         public virtual bool InUse { get { return User != null; } }
@@ -31,11 +31,6 @@ namespace Game
         public virtual void Activate(Proponent proponent)
         {
             User = proponent;
-
-            if (User.Energy.Value < cost)
-                throw new Exception(proponent.name + " can't afford to use ability " + name);
-
-            User.Energy.Value -= cost;
         }
 
         public event Action OnEnd;

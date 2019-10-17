@@ -19,19 +19,22 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ProponentAbilityCooldown : Proponent.Module
+	public class ProponentAbilityCooldown : ProponentAbility.Module
 	{
-        [SerializeField]
-        protected float duration = 20f;
-        public float Duration { get { return duration; } } 
+        public float Duration { get { return Ability.Selection.Cooldown; } }
 
         public float Timer { get; protected set; }
 
-        public float Rate { get { return Timer / duration; } }
-
-        public ProponentAbility Ability { get { return Proponent.Ability; } }
+        public float Rate { get { return Timer / Duration; } }
 
         public event Action OnStateChange;
+
+        public override void Configure(ProponentAbility reference)
+        {
+            base.Configure(reference);
+
+            Timer = 0f;
+        }
 
         public override void Init()
         {
@@ -48,7 +51,7 @@ namespace Game
         public event Action OnBegin;
         void Begin()
         {
-            Timer = duration;
+            Timer = Duration;
 
             StartCoroutine(Procedure());
 

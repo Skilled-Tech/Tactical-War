@@ -152,7 +152,7 @@ namespace Game
 
                 if (template == null)
                 {
-                    Debug.LogWarning("No Item Template defined for item with ID " + inventory.Items[i].ItemId + ", Skipping");
+                    Debug.LogWarning("No Item Template defined for Inventory Item with ID " + inventory.Items[i].ItemId + ", Skipping");
                     continue;
                 }
 

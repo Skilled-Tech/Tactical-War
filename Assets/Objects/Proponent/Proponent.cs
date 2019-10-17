@@ -26,7 +26,7 @@ namespace Game
 
         public int Layer { get { return gameObject.layer; } }
 
-        public ProponentAbility Ability { get; protected set; }
+        public ProponentAbilities Abilities { get; protected set; }
         public ProponentUnits Units { get; protected set; }
         public ProponentEnergy Energy { get; protected set; }
         public abstract class Module : Module<Proponent>
@@ -44,7 +44,7 @@ namespace Game
 
         protected virtual void Awake()
         {
-            Ability = Dependancy.Get<ProponentAbility>(gameObject);
+            Abilities = Dependancy.Get<ProponentAbilities>(gameObject);
 
             Units = Dependancy.Get<ProponentUnits>(gameObject);
 

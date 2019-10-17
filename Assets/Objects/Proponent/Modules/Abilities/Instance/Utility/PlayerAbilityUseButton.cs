@@ -38,6 +38,10 @@ namespace Game
 
         public Core Core { get { return Core.Instance; } }
 
+        [SerializeField]
+        protected ProponentAbility target;
+        public ProponentAbility Target { get { return target; } }
+
         public Level Level { get { return Level.Instance; } }
         public Proponent Proponent { get { return Level.Proponents.Player; } }
 
@@ -59,9 +63,8 @@ namespace Game
             icon.material = Instantiate(icon.material);
             background.material = Instantiate(background.material);
 
-            Proponent.Ability.OnSelectionChanged += OnAbilitySelectionChanged;
             Proponent.Energy.OnChanged += OnEnergyChanged;
-            Proponent.Ability.Cooldown.OnStateChange += OnStateChange;
+            target.Cooldown.OnStateChange += OnCoolDownStateChange;
         }
 
         void OnEnable()
@@ -71,14 +74,10 @@ namespace Game
 
         void OnClick()
         {
-            Proponent.Ability.Use();
+            target.Use();
         }
 
-        void OnAbilitySelectionChanged(Ability ability)
-        {
-            UpdateState();
-        }
-        void OnStateChange()
+        void OnCoolDownStateChange()
         {
             UpdateState();
         }
@@ -89,25 +88,24 @@ namespace Game
 
         void UpdateState()
         {
-            Button.interactable = Proponent.Ability.CanUse;
+            Button.interactable = target.CanUse;
 
-            if (Proponent.Ability.Cooldown.Rate == 0f)
+            if (target.Cooldown.Rate == 0f)
             {
                 CooldownBar.Value = 0f;
                 GrayscaleController.Ammount = 0f;
             }
             else
             {
-                CooldownBar.Value = Proponent.Ability.Cooldown.Rate;
+                CooldownBar.Value = target.Cooldown.Rate;
                 GrayscaleController.Ammount = 1f;
             }
         }
 
         void OnDestroy()
         {
-            Proponent.Ability.OnSelectionChanged -= OnAbilitySelectionChanged;
             Proponent.Energy.OnChanged -= OnEnergyChanged;
-            Proponent.Ability.Cooldown.OnStateChange -= OnStateChange;
+            target.Cooldown.OnStateChange -= OnCoolDownStateChange;
         }
     }
 }

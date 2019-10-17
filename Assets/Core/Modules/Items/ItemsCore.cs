@@ -81,7 +81,7 @@ namespace Game
 
                 if (catalogItem == null)
                 {
-                    Debug.LogWarning(List[i].name + " Has no item matching it's ID in the catalog recieved, ignoring");
+                    Debug.LogWarning(List[i].name + " Item Template has no Catalog Item matching it's ID in the " + catalog.Version + " catalog, ignoring");
                     continue;
                 }
 

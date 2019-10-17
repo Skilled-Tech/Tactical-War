@@ -165,19 +165,6 @@ namespace Game
         }
 
         public CatalogItem CatalogItem { get; protected set; }
-        public virtual void LoadCatalog(PlayFabCatalogCore catalog)
-        {
-            CatalogItem = null;
-
-            for (int i = 0; i < catalog.Size; i++)
-            {
-                if (catalog[i].ItemId == ID)
-                {
-                    Load(catalog[i]);
-                    break;
-                }
-            }
-        }
         public virtual void Load(CatalogItem item)
         {
             CatalogItem = item;
@@ -259,10 +246,5 @@ namespace Game
 
             image.rectTransform.localEulerAngles = Vector3.forward * tilt;
         }
-    }
-
-    public enum ItemPurchaseLimit
-    {
-        None, Once
     }
 }

@@ -22,29 +22,31 @@ namespace Game
     public class ProponentAbility : Proponent.Module
     {
         [SerializeField]
-        protected Ability _selection;
-        public Ability Selection
-        {
-            get
-            {
-                return _selection;
-            }
-            set
-            {
-                _selection = value;
+        protected Ability selection;
+        public Ability Selection { get { return selection; } }
 
-                if (OnSelectionChanged != null) OnSelectionChanged(Selection);
-            }
-        }
-        public event Action<Ability> OnSelectionChanged;
+        [SerializeField]
+        protected int cost = 500;
+        public int Cost { get { return cost; } }
 
         public ProponentAbilityCooldown Cooldown { get; protected set; }
+
+        public class Module : Module<ProponentAbility>
+        {
+            public ProponentAbility Ability { get { return Reference; } }
+
+            public Proponent Proponent { get { return Ability.Proponent; } }
+        }
 
         public virtual bool CanUse
         {
             get
             {
-                return Cooldown.Timer == 0f && Proponent.Energy.Value > Selection.Cost;
+                if (Cooldown.Timer > 0f) return false;
+
+                if (Proponent.Energy.Value < cost) return false;
+
+                return true;
             }
         }
 
@@ -53,6 +55,15 @@ namespace Game
             base.Configure(data);
 
             Cooldown = Dependancy.Get<ProponentAbilityCooldown>(gameObject);
+
+            Modules.Configure(this);
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            Modules.Init(this);
         }
 
         public event Action OnUse;
@@ -60,6 +71,8 @@ namespace Game
         {
             if (!CanUse)
                 throw new Exception(Proponent.name + " Trying to use ability when they aren't able to");
+
+            Proponent.Energy.Value -= cost;
 
             Selection.Activate(Proponent);
 
