@@ -4017,7 +4017,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 4e5c29233acc0694a9bd2523728664c8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7dc5c087fb44b1f4e8fb198db19c1b5d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9447,9 +9447,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 20
   range: 80
-  prefab: {fileID: 5569147398960292863, guid: c0c148e29c6df624fa761a17e8d65867, type: 3}
-  duration: 2
-  count: 50
+  prefab: {fileID: 5569147398960292863, guid: b8bf27eb04151604bbd14498f346147f, type: 3}
+  duration: 1
+  count: 100
 --- !u!1 &1503529444
 GameObject:
   m_ObjectHideFlags: 0

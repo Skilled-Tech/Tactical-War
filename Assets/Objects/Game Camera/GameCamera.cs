@@ -23,8 +23,6 @@ namespace Game
     [RequireComponent(typeof(Camera))]
     public class GameCamera : MonoBehaviour
     {
-        public Transform target;
-
         public Camera component { get; protected set; }
 
         public GameCameraPanZone PanZone { get; protected set; }

@@ -42,6 +42,8 @@ namespace Game
             base.Activate(proponent);
 
             StartCoroutine(Procedure());
+
+
         }
 
         IEnumerator Procedure()

@@ -13,9 +13,16 @@ namespace Assets.HeroEditor4D.Common.CharacterScripts
 		public void OnValidate()
 		{
 			Parts = new List<CharacterBase> { Front, Back, Left, Right };
-			Parts.ForEach(i => i.BodyRenderers.ForEach(j => j.color = BodyColor));
-			Parts.ForEach(i => i.EarRenderers.ForEach(j => j.color = BodyColor));
-		}
+
+            void SetColor(SpriteRenderer renderer)
+            {
+                if (renderer.color != BodyColor)
+                    renderer.color = BodyColor;
+            }
+
+            Parts.ForEach(i => i.BodyRenderers.ForEach(SetColor));
+            Parts.ForEach(i => i.EarRenderers.ForEach(SetColor));
+        }
 
 		public override void Initialize()
 		{

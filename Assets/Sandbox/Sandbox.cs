@@ -6,6 +6,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditorInternal;
+#endif
+
+using Object = UnityEngine.Object;
+
+public class Sandbox : MonoBehaviour
+{
+    [SerializeField]
+    protected Object[] targets;
+    public Object[] Targets { get { return targets; } }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(Sandbox))]
+    public class Inspector : Editor
+    {
+        new Sandbox target;
+
+        private void OnEnable()
+        {
+            target = base.target as Sandbox;
+        }
+    }
+#endif
+}
+
 public class AndroidIAPExample : MonoBehaviour, IStoreListener
 {
     // Items list, configurable via inspector
