@@ -1,0 +1,13 @@
+{
+    "signup": {
+        "items": [
+            "Wood_Sword",
+            "Wood_Shield",
+            "2K_Gold"
+        ],
+        "droptable": {
+            "ID": "Level-Default-DropTable",
+            "iterations": 2
+        }
+    }
+}

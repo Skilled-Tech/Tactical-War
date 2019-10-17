@@ -1,0 +1,223 @@
+[
+  {
+    "name": "Default",
+    "elements": [
+      {
+        "type": "Damage",
+        "ranks": [
+          {
+            "cost": {
+              "type": "GD",
+              "value": 100
+            },
+            "percentage": 10
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 200
+            },
+            "percentage": 20,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 1
+              }
+            ]
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 30,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 2
+              }
+            ]
+          },
+          {
+            "cost": {
+              "type": "JL",
+              "value": 400
+            },
+            "percentage": 40,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 2
+              },
+              {
+                "item": "Wood_Shield",
+                "count": 1
+              }
+            ]
+          },
+          {
+            "cost": {
+              "type": "JL",
+              "value": 400
+            },
+            "percentage": 50,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 2
+              },
+              {
+                "item": "Wood_Shield",
+                "count": 2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Defense",
+        "ranks": [
+          {
+            "cost": {
+              "type": "GD",
+              "value": 100
+            },
+            "percentage": 10
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 200
+            },
+            "percentage": 20,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 1
+              }
+            ]
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 30,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 2
+              }
+            ]
+          },
+          {
+            "cost": {
+              "type": "JL",
+              "value": 200
+            },
+            "percentage": 40,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 2
+              },
+              {
+                "item": "Wood_Shield",
+                "count": 1
+              }
+            ]
+          },
+          {
+            "cost": {
+              "type": "JL",
+              "value": 400
+            },
+            "percentage": 50,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 2
+              },
+              {
+                "item": "Wood_Shield",
+                "count": 2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Range",
+        "ranks": [
+          {
+            "cost": {
+              "type": "GD",
+              "value": 100
+            },
+            "percentage": 20
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 200
+            },
+            "percentage": 40,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 1
+              }
+            ]
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 60,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 2
+              }
+            ]
+          },
+          {
+            "cost": {
+              "type": "JL",
+              "value": 200
+            },
+            "percentage": 80,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 2
+              },
+              {
+                "item": "Wood_Shield",
+                "count": 1
+              }
+            ]
+          },
+          {
+            "cost": {
+              "type": "JL",
+              "value": 400
+            },
+            "percentage": 100,
+            "requirements": [
+              {
+                "item": "Wood_Sword",
+                "count": 2
+              },
+              {
+                "item": "Wood_Shield",
+                "count": 2
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
