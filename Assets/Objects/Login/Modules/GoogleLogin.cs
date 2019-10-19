@@ -17,14 +17,16 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-using Google;
+#if GOOGLE_PLAY
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+#endif
 
 namespace Game
 {
-	public class GoogleLogin : Login.Module
-	{
+    public class GoogleLogin : Login.Module
+    {
+#if GOOGLE_PLAY
         public override void Show()
         {
             base.Show();
@@ -62,5 +64,6 @@ namespace Game
                 Popup.Show("<Google Error>\n" + error, Login.Retry, "Retry");
             }
         }
+#endif
     }
 }

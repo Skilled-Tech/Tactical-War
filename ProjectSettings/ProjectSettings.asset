@@ -167,7 +167,7 @@ PlayerSettings:
     Android: com.skilledtech.tactics
     Standalone: com.Company.ProductName
   buildNumber: {}
-  AndroidBundleVersionCode: 8
+  AndroidBundleVersionCode: 7
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
@@ -626,14 +626,15 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    7: GOOGLE_PLAY
   platformArchitecture: {}
   scriptingBackend:
     Android: 0
     Standalone: 0
   il2cppCompilerConfiguration: {}
   managedStrippingLevel:
-    Android: 3
+    Android: 0
     Standalone: 3
   incrementalIl2cppBuild: {}
   allowUnsafeCode: 0
