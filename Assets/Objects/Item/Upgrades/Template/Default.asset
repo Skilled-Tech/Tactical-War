@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   elements:
-  - type: {fileID: 0}
+  - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
     ranks:
     - cost:
         type: 0
