@@ -71,6 +71,8 @@ namespace Game
         [Serializable]
         public class UpgradesData
         {
+            public const string Key = ItemsUpgradesCore.Key;
+
             public const string MenuPath = ItemTemplate.MenuPath + "Upgrades/";
 
             [SerializeField]
@@ -80,13 +82,10 @@ namespace Game
             [SerializeField]
             protected ItemUpgradeType[] applicable = new ItemUpgradeType[] { };
             public ItemUpgradeType[] Applicable { get { return applicable; } }
-
             public virtual bool isApplicable(ItemUpgradeType type)
             {
                 return applicable.Contains(type);
             }
-
-            public const string Key = ItemsUpgradesCore.Key;
 
             public virtual void Load(CatalogItem item)
             {
@@ -132,6 +131,13 @@ namespace Game
                         LoadApplicable(jObject[Key][nameof(applicable)] as JArray);
                     }
                 }
+            }
+
+            public virtual ItemUpgradesTemplate.ElementData GetTemplateElement(ItemUpgradeType target)
+            {
+                var element = Template.Find(target);
+
+                return element;
             }
         }
 

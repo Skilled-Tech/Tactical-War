@@ -21,19 +21,17 @@ namespace Game
 {
     public class UnitDefenseUpgrade : Unit.Module, EntityDefense.IModifier
     {
-        [SerializeField]
-        protected ItemUpgradeType type;
-        public ItemUpgradeType Type { get { return type; } }
+        public ItemUpgradeType Type { get { return Core.Items.Upgrades.Types.Common.Defense; } }
 
         public float Value
         {
             get
             {
-                var rank = Unit.Upgrades.FindCurrentRank(type);
+                Upgrades.GetElements(Type, out var template, out var data);
 
-                if (rank == null) return 0f;
+                if (template == null || data == null) return 0f;
 
-                return rank.Percentage;
+                return template.Ranks[data.Value].Percentage;
             }
         }
     }

@@ -21,36 +21,36 @@ namespace Game
 {
 	public class UnitAttack : Unit.Module
 	{
-        public Damage.Method Method { get { return Template.Attack.Method; } }
-
         #region Properties
         [SerializeField]
-        protected DamageProperty damage;
-        public DamageProperty Damage { get { return damage; } }
+        protected PowerProperty power;
+        public PowerProperty Power { get { return power; } }
         [Serializable]
-        public class DamageProperty : Property<float>
+        public class PowerProperty : UnitUpgrades.Property
         {
-            public override float Base => Template.Attack.Damage;
+            public override ItemUpgradeType Type => Core.Items.Upgrades.Types.Common.Power;
 
-            public override float Value => Base * Multiplier;
+            public override float Base => Template.Attack.Power;
         }
 
         [SerializeField]
         protected RangeProperty range;
         public RangeProperty Range { get { return range; } }
         [Serializable]
-        public class RangeProperty : Property<int>
+        public class RangeProperty : UnitUpgrades.Property
         {
+            public override ItemUpgradeType Type => Core.Items.Upgrades.Types.Common.Range;
+
             public override float Base => Template.Attack.Range;
 
-            public static int Formulate(float baseValue, float multiplier)
+            new public int Value
             {
-                return Mathf.RoundToInt(baseValue * multiplier);
+                get
+                {
+                    return Mathf.RoundToInt(base.Value);
+                }
             }
-
-            public override int Value => Formulate(Base, Multiplier);
         }
-        public int BaseRange { get { return Unit.Template.Attack.Range; } }
 
         public float Distance
         {
@@ -59,55 +59,12 @@ namespace Game
                 return Template.Attack.Distance * range.Multiplier;
             }
         }
+        #endregion
 
-        [Serializable]
-        public abstract class Property<TValue>
-        {
-            [SerializeField]
-            protected ItemUpgradeType upgrade;
-            public ItemUpgradeType Upgrade { get { return upgrade; } }
-
-            public ItemUpgradesTemplate.ElementData.RankData GetCurrentRank()
-            {
-                return Upgrades.FindCurrentRank(upgrade);
-            }
-
-            public abstract float Base { get; }
-
-            public virtual float Percentage
-            {
-                get
-                {
-                    var rank = GetCurrentRank();
-
-                    if (rank == null)
-                        return 0f;
-
-                    return rank.Percentage;
-                }
-            }
-
-            public virtual float Multiplier => 1f + (Percentage / 100f); 
-
-            public abstract TValue Value { get; }
-
-            protected UnitAttack attack;
-
-            public Unit Unit { get { return attack.Unit; } }
-            public Proponent Leader { get { return Leader; } }
-            public UnitUpgrades Upgrades { get { return Unit.Upgrades; } }
-
-            public UnitTemplate Template { get { return Unit.Template; } }
-
-            public virtual void Init(UnitAttack attack)
-            {
-                this.attack = attack;
-            }
-        }
-#endregion
+        public Damage.Method Method { get { return Template.Attack.Method; } }
 
         public float Duration { get { return Template.Attack.Duration; } }
-
+        
         public class Module : Module<UnitAttack>
         {
             public UnitAttack Attack { get { return Reference; } }
@@ -122,7 +79,8 @@ namespace Game
             {
                 base.Init();
 
-                Attack.OnAttackConnected += AttackConnected;
+                Attack.OnInitiate += OnInitiated;
+                Attack.OnConnected += OnConnected;
             }
 
             protected virtual void DoDamage(Entity entity)
@@ -130,7 +88,12 @@ namespace Game
                 Attack.DoDamage(entity);
             }
 
-            protected virtual void AttackConnected()
+            protected virtual void OnInitiated()
+            {
+
+            }
+
+            protected virtual void OnConnected()
             {
                 
             }
@@ -147,25 +110,18 @@ namespace Game
         {
             base.Init();
 
-            damage.Init(this);
-            range.Init(this);
+            power.Init(Unit);
+            range.Init(Unit);
 
             Body.AnimationEvents.OnCustomEvent += OnAnimationTrigger;
 
             Modules.Init(this);
         }
 
-        void OnAnimationTrigger(string ID)
+        protected virtual void OnAnimationTrigger(string ID)
         {
-            switch (ID)
-            {
-                case "Hit":
-                    AttackConnected();
-                    break;
-
-                default:
-                    break;
-            }
+            if (ID == "Hit")
+                Connected();
         }
 
         public virtual Coroutine Perform()
@@ -180,27 +136,30 @@ namespace Game
 
         Coroutine coroutine;
         public bool IsProcessing { get { return coroutine != null; } }
+
+        public event Action OnInitiate;
+
         IEnumerator Procedure()
         {
             yield return new WaitForSeconds(Random.Range(0f, 0.5f));
 
-            Body.CharacterAnimation.Attack();
+            if (OnInitiate != null) OnInitiate();
 
             yield return new WaitForSeconds(Duration);
 
             coroutine = null;
         }
 
-        public event Action OnAttackConnected;
-        public virtual void AttackConnected()
+        public event Action OnConnected;
+        public virtual void Connected()
         {
-            if (OnAttackConnected != null) OnAttackConnected();
+            if (OnConnected != null) OnConnected();
         }
 
         public event Entity.DoDamageDelegate OnDoDamage;
         public virtual Damage.Result DoDamage(Entity target)
         {
-            var result = Unit.DoDamage(Damage.Value, Method, target);
+            var result = Unit.DoDamage(Power.Value, Method, target);
 
             ApplyStatusEffects(Template.Attack.StatusEffects, target);
 
@@ -215,7 +174,9 @@ namespace Game
             {
                 Unit.Upgrades.GetElements(list[i].Upgrade, out var template, out var data);
 
-                var probability = list[i].Probability.Sample(data.Value / 1f / template.Ranks.Length);
+                var rate = data == null ? 0f : (data.Value / 1f / template.Ranks.Length);
+
+                var probability = list[i].Probability.Sample(rate);
 
                 if (StatusEffect.CheckProbability(probability))
                 {

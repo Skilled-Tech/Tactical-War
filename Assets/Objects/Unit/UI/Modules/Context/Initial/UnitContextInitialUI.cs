@@ -48,7 +48,7 @@ namespace Game
                 protected TMP_Text label;
                 public TMP_Text Label { get { return label; } }
 
-                protected override float GetBaseValue(UnitTemplate template) => template.Attack.Damage;
+                protected override float GetBaseValue(UnitTemplate template) => template.Attack.Power;
 
                 public override void Apply(UnitTemplate template, float value)
                 {

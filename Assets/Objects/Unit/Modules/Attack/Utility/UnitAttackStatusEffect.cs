@@ -39,7 +39,7 @@ namespace Game
 
         void DoDamageCallback(Damage.Result result)
         {
-            if(StatusEffect.CheckProbability(probabilty + Attack.Damage.Percentage))
+            if(StatusEffect.CheckProbability(probabilty + Attack.Power.Percentage))
             {
                 StatusEffect.Afflict(data, result.Target, result.Source);
             }

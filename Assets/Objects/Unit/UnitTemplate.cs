@@ -87,15 +87,16 @@ namespace Game
         public class AttackData
         {
             [SerializeField]
-            protected float damage;
-            public float Damage { get { return damage; } }
+            [UnityEngine.Serialization.FormerlySerializedAs("damage")]
+            protected float power = 20;
+            public float Power { get { return power; } }
 
             [SerializeField]
-            protected int range;
+            protected int range = 1;
             public int Range { get { return range; } }
 
             [SerializeField]
-            protected float distance;
+            protected float distance = 1f;
             public float Distance { get { return distance; } }
 
             [SerializeField]
@@ -103,7 +104,7 @@ namespace Game
             public float Duration { get { return duration; } }
 
             [SerializeField]
-            protected Damage.Method method;
+            protected Damage.Method method = Damage.Method.Contact;
             public Damage.Method Method { get { return method; } }
 
             [SerializeField]
@@ -112,7 +113,7 @@ namespace Game
             
             public AttackData(float damage, int range, float distance, float duration, Damage.Method method)
             {
-                this.damage = damage;
+                this.power = damage;
                 this.range = range;
                 this.distance = distance;
                 this.duration = duration;
@@ -155,7 +156,7 @@ namespace Game
         }
 
         [SerializeField]
-        protected float speed;
+        protected float speed = 1.5f;
         public float Speed { get { return speed; } }
 
         protected override void Reset()

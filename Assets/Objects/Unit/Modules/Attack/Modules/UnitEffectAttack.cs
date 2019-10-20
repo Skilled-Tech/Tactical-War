@@ -38,9 +38,16 @@ namespace Game
             targets = new List<Entity>();
         }
 
-        protected override void AttackConnected()
+        protected override void OnInitiated()
         {
-            base.AttackConnected();
+            base.OnInitiated();
+
+            Unit.Body.Animator.SetTrigger("Cast");
+        }
+
+        protected override void OnConnected()
+        {
+            base.OnConnected();
 
             AquireTargets();
 

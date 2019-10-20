@@ -3,7 +3,7 @@
     "name": "Default",
     "elements": [
       {
-        "type": "Damage",
+        "type": "Power",
         "ranks": [
           {
             "cost": {

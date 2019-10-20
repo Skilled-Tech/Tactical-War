@@ -504,34 +504,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   list:
-  - template: {fileID: 11400000, guid: a8bd3686eabbb124fbdadcc1c186b7f0, type: 2}
+  - template: {fileID: 11400000, guid: ff2818391be755a41be00c9ba3b4fe93, type: 2}
     upgrade:
-      list:
-      - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-        value: 5
-      - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
-        value: 5
-  - template: {fileID: 11400000, guid: 5817a7f1105a13447bdd801198d49109, type: 2}
+      list: []
+  - template: {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
     upgrade:
-      list:
-      - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-        value: 5
-      - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
-        value: 5
+      list: []
   - template: {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
     upgrade:
-      list:
-      - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-        value: 5
-      - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
-        value: 5
+      list: []
   - template: {fileID: 11400000, guid: 6a36fb4327677d5479e0bbe0ed809fc8, type: 2}
     upgrade:
-      list:
-      - type: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-        value: 5
-      - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
-        value: 5
+      list: []
 --- !u!1 &56280582
 GameObject:
   m_ObjectHideFlags: 0
@@ -4941,7 +4925,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425077079f021d94ca26558cc625bdb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   range: 22
   speed: 1
   deAcceleration: 1

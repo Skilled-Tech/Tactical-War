@@ -25,6 +25,54 @@ namespace Game
 
         public ItemUpgradesData Data { get; protected set; }
 
+        [Serializable]
+        public abstract class Property
+        {
+            public abstract ItemUpgradeType Type { get; }
+
+            public abstract float Base { get; }
+
+            public virtual ItemUpgradesTemplate.ElementData.RankData Rank
+            {
+                get
+                {
+                    Upgrades.GetElements(Type, out var template, out var data);
+
+                    if (template == null) return null;
+
+                    if (data == null) return null;
+
+                    return template.Ranks[data.Value];
+                }
+            }
+
+            public virtual float Percentage
+            {
+                get
+                {
+                    if (Rank == null) return 0f;
+
+                    return Rank.Percentage;
+                }
+            }
+
+            public virtual float Multiplier => 1f + (Percentage / 100f);
+
+            public float Value { get { return Base * Multiplier; } }
+
+            public Unit Unit { get; protected set; }
+            public virtual void Init(Unit unit)
+            {
+                this.Unit = unit;
+            }
+
+            public Proponent Leader { get { return Leader; } }
+            public UnitUpgrades Upgrades { get { return Unit.Upgrades; } }
+            public UnitTemplate Template { get { return Unit.Template; } }
+
+            public static Core Core { get { return Core.Instance; } }
+        }
+
         public virtual ItemUpgradesTemplate.ElementData GetTemplateElement(ItemUpgradeType target)
         {
             var element = Template.Upgrades.Template.Find(target);
@@ -37,7 +85,6 @@ namespace Game
 
             return element;
         }
-
         public virtual void GetElements(ItemUpgradeType target, out ItemUpgradesTemplate.ElementData template, out ItemUpgradesData.ElementData data)
         {
             template = GetTemplateElement(target);
@@ -45,7 +92,7 @@ namespace Game
             data = GetDataElement(target);
         }
 
-        public virtual ItemUpgradesTemplate.ElementData.RankData FindCurrentRank(ItemUpgradeType type)
+        public virtual ItemUpgradesTemplate.ElementData.RankData DEP_FindCurrentRank(ItemUpgradeType type)
         {
             if (Data == null) return null;
 

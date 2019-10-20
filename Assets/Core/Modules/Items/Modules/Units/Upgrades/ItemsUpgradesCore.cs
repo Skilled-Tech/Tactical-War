@@ -39,6 +39,25 @@ namespace Game
             protected ItemUpgradeType[] list;
             public ItemUpgradeType[] List { get { return list; } }
 
+            [SerializeField]
+            protected CommonData common;
+            public CommonData Common { get { return common; } }
+            [Serializable]
+            public class CommonData
+            {
+                [SerializeField]
+                protected ItemUpgradeType power;
+                public ItemUpgradeType Power { get { return power; } }
+
+                [SerializeField]
+                protected ItemUpgradeType defense;
+                public ItemUpgradeType Defense { get { return defense; } }
+
+                [SerializeField]
+                protected ItemUpgradeType range;
+                public ItemUpgradeType Range { get { return range; } }
+            }
+
             public virtual ItemUpgradeType Find(string name)
             {
                 for (int i = 0; i < list.Length; i++)

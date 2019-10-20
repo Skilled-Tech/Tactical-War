@@ -33,9 +33,16 @@ namespace Game
         protected float velocity = 20;
         public float Velocity { get { return velocity; } }
 
-        protected override void AttackConnected()
+        protected override void OnInitiated()
         {
-            base.AttackConnected();
+            base.OnInitiated();
+
+            Unit.Body.CharacterAnimation.Attack();
+        }
+
+        protected override void OnConnected()
+        {
+            base.OnConnected();
 
             var instance = Get();
         }
