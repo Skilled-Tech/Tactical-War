@@ -40,7 +40,7 @@ namespace Game
             Unit.Body.CharacterAnimation.Attack();
         }
 
-        public override void Connected()
+        protected override void Connected()
         {
             base.Connected();
 
@@ -50,6 +50,8 @@ namespace Game
         Projectile Create()
         {
             var instance = Instantiate(prefab, point.position, point.rotation);
+
+            instance.name = "(" + Unit.name + ") " + prefab.name;
 
             var projectile = instance.GetComponent<Projectile>();
 
@@ -69,7 +71,7 @@ namespace Game
             var penetration = Dependancy.Get<ProjectilePenetration>(projectile.gameObject);
             if(penetration != null)
             {
-                penetration.Value = Attack.Range.Value - Unit.Index;
+                penetration.Value = Attack.Range.Value - 1 - Unit.Index;
             }
 
             return projectile;

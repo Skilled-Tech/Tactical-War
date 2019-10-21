@@ -36,7 +36,7 @@ MonoBehaviour:
   attack:
     power: 30
     range: 2
-    distance: 4
+    distance: 0.5
     duration: 1.2
     method: 2
     statusEffects: []

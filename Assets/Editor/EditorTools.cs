@@ -60,5 +60,32 @@ namespace Game
                 }
             }
         }
+
+        public static class SetDirty
+        {
+            public const string MenuName = "Assets/Set Dirty";
+
+            [MenuItem(MenuName)]
+            public static void Execute()
+            {
+                for (int i = 0; i < Selection.objects.Length; i++)
+                {
+                    EditorUtility.SetDirty(Selection.objects[i]);
+                }
+            }
+
+            [MenuItem(MenuName, true)]
+            public static bool Validate()
+            {
+                if (Selection.objects.Length == 0) return false;
+
+                for (int i = 0; i < Selection.objects.Length; i++)
+                {
+
+                }
+
+                return true;
+            }
+        }
 	}
 }

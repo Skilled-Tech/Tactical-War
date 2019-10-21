@@ -25,32 +25,40 @@ namespace Game
         {
             get
             {
-                if(base.CanPerform)
-                {
-                    if (HasTargets == false) return false;
+                if (IsProcessing) return false;
 
-                    return true;
-                }
+                if (TargetsCount == 0) return false;
 
-                return false;
+                return true;
             }
         }
 
-        public bool HasTargets
+        public int TargetsCount
         {
             get
             {
-                for (int i = 1; i < Attack.Range.Value; i++)
+                var count = 0;
+
+                void Process(Entity entity)
                 {
-                    if (Unit.Index - i < 0) //no more allies infront to heal
-                        break;
-
-                    var target = Leader.Units[Unit.Index - i];
-
-                    if (target.Injured) return true;
+                    if (entity.Injured)
+                        count += 1;
                 }
 
-                return false;
+                ForAllTargets(Process);
+
+                return count;
+            }
+        }
+
+        protected virtual void ForAllTargets(Action<Entity> action)
+        {
+            for (int i = 1; i < Attack.Range.Value; i++)
+            {
+                if (Unit.Index - i < 0) //no more allies infront to heal
+                    break;
+
+                action(Leader.Units[Unit.Index - i]);
             }
         }
         
@@ -66,20 +74,17 @@ namespace Game
             Unit.Body.Animator.SetTrigger("Cast");
         }
 
-        public override void Connected()
+        protected override void Connected()
         {
             base.Connected();
 
-            for (int i = 1; i < Attack.Range.Value; i++)
-            {
-                if (Unit.Index - i < 0) //no more allies infront to heal
-                    break;
+            ForAllTargets(Effect);
+        }
 
-                var target = Leader.Units[Unit.Index - i];
-
-                if (target.Injured)
-                    target.Health.Value += Attack.Power.Value;
-            }
+        protected virtual void Effect(Entity entity)
+        {
+            if (entity.Injured)
+                entity.Health.Value += Attack.Power.Value;
         }
     }
 }

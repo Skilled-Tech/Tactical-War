@@ -28,7 +28,7 @@ namespace Game
             Unit.Body.CharacterAnimation.Attack();
         }
 
-        public override void Connected()
+        protected override void Connected()
         {
             base.Connected();
 

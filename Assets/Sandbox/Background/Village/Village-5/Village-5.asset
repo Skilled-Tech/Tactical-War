@@ -18,7 +18,7 @@ MonoBehaviour:
       type: 3}
     anchor: 2
     height: 0
-    parallax: 1
+    parallax: 0.95
   - prefab: {fileID: 8222733172573850480, guid: 8a6c2ef85c091de43b42f4da01b3869a,
       type: 3}
     anchor: 1

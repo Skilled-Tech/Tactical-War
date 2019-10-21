@@ -48,6 +48,8 @@ namespace Game
         }
 
         public Vector3 Size => Bounds.size;
+
+        public virtual float PersonalSpace => Bounds.extents.x;
         
         protected virtual void Awake()
         {

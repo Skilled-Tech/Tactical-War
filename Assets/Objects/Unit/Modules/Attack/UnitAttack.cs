@@ -74,6 +74,11 @@ namespace Game
                 return Template.Attack.Distance * range.Multiplier;
             }
         }
+
+        public float DistanceTo(Entity target)
+        {
+            return Unit.Bounds.extents.x + target.Bounds.extents.x;
+        }
         #endregion
 
         public Damage.Method Method { get { return Template.Attack.Method; } }
@@ -122,9 +127,11 @@ namespace Game
             {
                 if (IsProcessing) return false;
 
-                if (Unit.Index > Range.Value) return false;
+                if (Unit.Index >= Range.Value) return false;
 
                 if (Target == null) return false;
+
+                if (Controller.isMoving) return false;
 
                 return true;
             }
@@ -160,7 +167,7 @@ namespace Game
         }
 
         public event Action OnConnected;
-        public virtual void Connected()
+        protected virtual void Connected()
         {
             if (OnConnected != null) OnConnected();
         }

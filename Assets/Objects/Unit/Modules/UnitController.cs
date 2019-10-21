@@ -27,15 +27,7 @@ namespace Game
 
         public Level Level { get { return Level.Instance; } }
         public LevelProponents Proponents { get { return Level.Proponents; } }
-
-        public float PersonalSpace
-        {
-            get
-            {
-                return Unit.Bounds.extents.x;
-            }
-        }
-
+        
         public override void Init()
         {
             base.Init();
@@ -50,23 +42,20 @@ namespace Game
             else
                 MoveTo(Base.Units.List[Index - 1], 1f);
 
-            if (isMoving)
-            {
-
-            }
-            else
-            {
-                if (Attack.CanPerform)
-                    Attack.Perform();
-            }
+            if (Attack.CanPerform)
+                Attack.Perform();
         }
 
         public bool isMoving { get; protected set; }
-        bool MoveTo(Entity target, float stoppingDistance)
+        protected virtual bool MoveTo(Vector3 target, float stoppingDistance)
         {
-            isMoving = !Navigator.MoveTo(target.Center, PersonalSpace + target.Bounds.extents.x + stoppingDistance);
+            isMoving = !Navigator.MoveTo(target, stoppingDistance);
 
             return !isMoving;
+        }
+        protected virtual bool MoveTo(Entity target, float stoppingDistance)
+        {
+            return MoveTo(target.Center, Unit.PersonalSpace + target.PersonalSpace + stoppingDistance);
         }
     }
 }

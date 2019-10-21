@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range:
     display_value: 0
-  prefab: {fileID: 58614852322497312, guid: f20863690eb9a3d42873ad30dab99044, type: 3}
+  prefab: {fileID: 989591001664000500, guid: 28f815491ca3ec44f9ca31c9a429eae8, type: 3}
   point: {fileID: 3163203657581505342}
   velocity: 12
 --- !u!1 &6197816436517829162

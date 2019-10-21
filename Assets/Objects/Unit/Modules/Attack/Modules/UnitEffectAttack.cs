@@ -45,7 +45,7 @@ namespace Game
             Unit.Body.Animator.SetTrigger("Cast");
         }
 
-        public override void Connected()
+        protected override void Connected()
         {
             base.Connected();
 
