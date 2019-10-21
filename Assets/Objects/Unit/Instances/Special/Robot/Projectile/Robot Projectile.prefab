@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditions: 01000000
-  prefab: {fileID: 6846914995694807298, guid: 5864c4bbfa32c2b4a9fa120831a5b407, type: 3}
+  prefab: {fileID: 6846914995694807298, guid: 872a53b0e9902be4abd10429c6c34732, type: 3}
 --- !u!1001 &6906896556719464510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24,7 +24,7 @@ PrefabInstance:
     - target: {fileID: 58614852322497312, guid: 17f8194ee0663684c976a860cda95022,
         type: 3}
       propertyPath: m_Name
-      value: Magical Spell
+      value: Robot Projectile
       objectReference: {fileID: 0}
     - target: {fileID: 58614852322497343, guid: 17f8194ee0663684c976a860cda95022,
         type: 3}

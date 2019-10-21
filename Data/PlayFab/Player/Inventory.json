@@ -5,6 +5,23 @@
       "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Robot",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Robot",
+      "ItemInstanceId": "22BA7243B1B33222",
+      "PurchaseDate": "2019-10-21T13:53:10.941Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
       "CustomData": {
         "upgrades": "[{\"type\":\"Range\",\"value\":5}]"
       },
@@ -348,7 +365,7 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 1569600,
+    "GD": 1559600,
     "JL": 586500
   },
   "VirtualCurrencyRechargeTimes": {},

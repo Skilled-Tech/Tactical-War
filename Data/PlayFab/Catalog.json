@@ -861,6 +861,34 @@
       "VirtualCurrencyPrices": {
         "GD": 10000
       }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\"upgrades\":{\"template\":\"Default\",\"applicable\":[\"Power\",\"Defense\",\"Range\"]}}",
+      "Description": null,
+      "DisplayName": "Robot",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Robot",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
     }
   ],
   "Request": {

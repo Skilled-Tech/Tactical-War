@@ -1,8 +1,8 @@
 [
-  "Lancer",
-  "Savage",
-  "Knight",
   "Healer_Wizard",
-  "Ice_Wizard",
-  "Earth_Wizard"
+  "Robot",
+  "Archer",
+  "Explosives_Archer",
+  "Fire_Archer",
+  "Toxic_Archer"
 ]
