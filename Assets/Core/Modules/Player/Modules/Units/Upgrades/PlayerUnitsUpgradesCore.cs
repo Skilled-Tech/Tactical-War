@@ -64,6 +64,29 @@ namespace Game
                 }
             }
         }
+
+        public virtual ItemUpgradesTemplate.ElementData GetTemplateElement(ItemTemplate item, ItemUpgradeType type)
+        {
+            var element = item.Upgrades.Template.Find(type);
+
+            return element;
+        }
+        public virtual ItemUpgradesData.ElementData GetDataElement(ItemTemplate item, ItemUpgradeType type)
+        {
+            var data = Find(item);
+
+            if (data == null) return null;
+
+            var element = data.Find(type);
+
+            return element;
+        }
+        public virtual void GetElements(ItemTemplate item, ItemUpgradeType type, out ItemUpgradesTemplate.ElementData template, out ItemUpgradesData.ElementData data)
+        {
+            template = GetTemplateElement(item, type);
+
+            data = GetDataElement(item, type);
+        }
     }
 
     [Serializable]
@@ -89,6 +112,8 @@ namespace Game
             [SerializeField]
             protected int value;
             public int Value { get { return value; } }
+
+            public int Index { get { return value - 1; } }
 
             public ElementData()
             {

@@ -22,6 +22,7 @@ namespace Game
     public class Entity : MonoBehaviour
     {
         public Health Health { get; protected set; }
+        public bool Injured { get { return Health.Value != Health.Max; } }
         public bool IsAlive { get { return Health.Value > 0f; } }
         public bool IsDead { get { return Health.Value == 0f; } }
 
@@ -45,6 +46,8 @@ namespace Game
                 return transform.TransformPoint(Bounds.center);
             }
         }
+
+        public Vector3 Size => Bounds.size;
         
         protected virtual void Awake()
         {
@@ -64,6 +67,15 @@ namespace Game
         protected virtual void Start()
         {
             Modules.Init(this);
+        }
+
+        public virtual float DistanceTo(Entity entity)
+        {
+            return DistanceTo(entity.Center);
+        }
+        public virtual float DistanceTo(Vector3 position)
+        {
+            return Vector3.Distance(transform.position, position);
         }
 
         public delegate void DoDamageDelegate(Damage.Result result);
@@ -112,7 +124,7 @@ namespace Game
         {
             DoDamage(Health.Value, Damage.Method.Contact, this);
         }
-        public virtual void Sudoku()
+        public virtual void Sudoku() //Just like suicide but funnier
         {
             Suicide();
         }

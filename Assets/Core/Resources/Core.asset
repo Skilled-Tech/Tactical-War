@@ -39,19 +39,19 @@ MonoBehaviour:
       funds:
         elements:
         - type: 0
-          _value: 1258300
+          _value: 1569600
         - type: 1
-          _value: 612100
+          _value: 586500
     units:
       selection:
         max: 6
         list:
-        - {fileID: 11400000, guid: a18b282b3af7c0c498515fe805b6faa0, type: 2}
-        - {fileID: 11400000, guid: 06c15cd497f169740ae787e2b109cb06, type: 2}
-        - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
         - {fileID: 11400000, guid: 9e5fbb925de1fbb48be24f19a5101b5e, type: 2}
-        - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
-        - {fileID: 11400000, guid: 503acb4ce6e589f4abe896fada3ef66e, type: 2}
+        - {fileID: 11400000, guid: ff2818391be755a41be00c9ba3b4fe93, type: 2}
+        - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
+        - {fileID: 11400000, guid: 5c8acfd3cef63344f837225d292cfedb, type: 2}
+        - {fileID: 11400000, guid: 6a36fb4327677d5479e0bbe0ed809fc8, type: 2}
+        - {fileID: 11400000, guid: 512c55eea40e4e24bafd6866e382c807, type: 2}
         Context: {fileID: 0}
   shop:
     sections:
@@ -66,6 +66,10 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
         - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
         - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+        common:
+          power: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+          defense: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+          range: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
       templates:
         _default: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
   playFab:

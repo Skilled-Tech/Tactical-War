@@ -6659,15 +6659,9 @@ MonoBehaviour:
   icon: {fileID: 4180033289501270791}
   description: {fileID: 270921353}
   stats:
-    attack:
-      upgrade: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-      label: {fileID: 1941980221}
-    range:
-      upgrade: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
-      label: {fileID: 515017071}
-    defense:
-      upgrade: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
-      label: {fileID: 384972925}
+    power: {fileID: 1941980221}
+    range: {fileID: 384972925}
+    defense: {fileID: 515017071}
     hp: {fileID: 486311917}
     speed: {fileID: 89890651}
     cooldown: {fileID: 441863082}
@@ -7096,7 +7090,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -20.000122, y: -20}
+  m_AnchoredPosition: {x: -20.000244, y: -20}
   m_SizeDelta: {x: 229.26999, y: 50.39}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &908033953
@@ -14758,7 +14752,7 @@ GameObject:
   - component: {fileID: 1941980220}
   - component: {fileID: 1941980221}
   m_Layer: 5
-  m_Name: Attack
+  m_Name: Power
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

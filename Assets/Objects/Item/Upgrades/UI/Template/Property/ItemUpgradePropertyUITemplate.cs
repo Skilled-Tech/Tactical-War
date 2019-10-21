@@ -105,7 +105,7 @@ namespace Game
             }
             else
             {
-                var rank = template.Ranks[data.Value];
+                var rank = template.Ranks[data.Index + 1];
 
                 price.text = rank.Cost.ToString();
 

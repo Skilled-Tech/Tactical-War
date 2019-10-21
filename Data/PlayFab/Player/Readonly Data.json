@@ -1,0 +1,22 @@
+{
+  "Data": {
+    "daily-rewards": {
+      "LastUpdated": "2019-10-21T07:57:46.419Z",
+      "Permission": 0,
+      "Value": "{\"timestamp\":\"2019-10-21T07:57:46.400Z\",\"progress\":2}"
+    },
+    "world": {
+      "LastUpdated": "2019-10-10T07:05:13.92Z",
+      "Permission": 0,
+      "Value": "{\"regions\":[{\"name\":\"Grassland\",\"progress\":{\"count\":5,\"difficulty\":2}}]}"
+    }
+  },
+  "DataVersion": 556,
+  "Request": {
+    "IfChangedFromDataVersion": null,
+    "Keys": null,
+    "PlayFabId": null,
+    "AuthenticationContext": null
+  },
+  "CustomData": null
+}

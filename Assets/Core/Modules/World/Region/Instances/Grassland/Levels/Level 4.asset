@@ -16,4 +16,4 @@ MonoBehaviour:
   scene:
     asset: {fileID: 102900000, guid: e9b64affa49cd884d8adafb0ab167deb, type: 3}
     name: Grass World
-  background: {fileID: 11400000, guid: e7e7d18d12f2b1a43b98a0028da13058, type: 2}
+  background: {fileID: 11400000, guid: ac33c13b05d568541aab3e3713d0149c, type: 2}

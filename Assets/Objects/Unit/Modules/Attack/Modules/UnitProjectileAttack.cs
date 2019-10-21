@@ -19,37 +19,37 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class UnitProjectileAttack : UnitAttack.Module
+	public class UnitProjectileAttack : UnitAttack
 	{
         [SerializeField]
         protected GameObject prefab;
         public GameObject Prefab { get { return prefab; } }
 
         [SerializeField]
-        protected Transform spawn;
-        public Transform Spawn { get { return spawn; } } 
+        protected Transform point;
+        public Transform Point { get { return point; } } 
 
         [SerializeField]
         protected float velocity = 20;
         public float Velocity { get { return velocity; } }
 
-        protected override void OnInitiated()
+        protected override void Initiate()
         {
-            base.OnInitiated();
+            base.Initiate();
 
             Unit.Body.CharacterAnimation.Attack();
         }
 
-        protected override void OnConnected()
+        public override void Connected()
         {
-            base.OnConnected();
+            base.Connected();
 
-            var instance = Get();
+            var instance = Create();
         }
 
-        Projectile Get()
+        Projectile Create()
         {
-            var instance = Instantiate(prefab, spawn.position, spawn.rotation);
+            var instance = Instantiate(prefab, point.position, point.rotation);
 
             var projectile = instance.GetComponent<Projectile>();
 
@@ -69,7 +69,7 @@ namespace Game
             var penetration = Dependancy.Get<ProjectilePenetration>(projectile.gameObject);
             if(penetration != null)
             {
-                penetration.Value = Attack.Range.Value - Unit.Index - 1;
+                penetration.Value = Attack.Range.Value - Unit.Index;
             }
 
             return projectile;

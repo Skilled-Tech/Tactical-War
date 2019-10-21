@@ -19,8 +19,19 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class UnitAttack : Unit.Module
+	public abstract class UnitAttack : Unit.Module
 	{
+        public Entity Target
+        {
+            get
+            {
+                if (Enemy.Base.Units.Count == 0)
+                    return Enemy.Base;
+
+                return Enemy.Base.Units.First;
+            }
+        }
+
         #region Properties
         [SerializeField]
         protected PowerProperty power;
@@ -47,9 +58,13 @@ namespace Game
             {
                 get
                 {
+                    display_value = Mathf.RoundToInt(base.Value);
+
                     return Mathf.RoundToInt(base.Value);
                 }
             }
+
+            public int display_value;
         }
 
         public float Distance
@@ -64,7 +79,9 @@ namespace Game
         public Damage.Method Method { get { return Template.Attack.Method; } }
 
         public float Duration { get { return Template.Attack.Duration; } }
-        
+
+        public Proponent Enemy { get { return Leader.Enemy; } }
+
         public class Module : Module<UnitAttack>
         {
             public UnitAttack Attack { get { return Reference; } }
@@ -72,31 +89,6 @@ namespace Game
             public Unit Unit { get { return Attack.Unit; } }
 
             public Proponent Leader { get { return Unit.Leader; } }
-
-            public Proponent Enemy { get { return Leader.Enemy; } }
-
-            public override void Init()
-            {
-                base.Init();
-
-                Attack.OnInitiate += OnInitiated;
-                Attack.OnConnected += OnConnected;
-            }
-
-            protected virtual void DoDamage(Entity entity)
-            {
-                Attack.DoDamage(entity);
-            }
-
-            protected virtual void OnInitiated()
-            {
-
-            }
-
-            protected virtual void OnConnected()
-            {
-                
-            }
         }
 
         public override void Configure(Unit data)
@@ -124,6 +116,19 @@ namespace Game
                 Connected();
         }
 
+        public virtual bool CanPerform
+        {
+            get
+            {
+                if (IsProcessing) return false;
+
+                if (Unit.Index > Range.Value) return false;
+
+                if (Target == null) return false;
+
+                return true;
+            }
+        }
         public virtual Coroutine Perform()
         {
             if (coroutine != null)
@@ -138,12 +143,16 @@ namespace Game
         public bool IsProcessing { get { return coroutine != null; } }
 
         public event Action OnInitiate;
+        protected virtual void Initiate()
+        {
+            if (OnInitiate != null) OnInitiate();
+        }
 
         IEnumerator Procedure()
         {
             yield return new WaitForSeconds(Random.Range(0f, 0.5f));
 
-            if (OnInitiate != null) OnInitiate();
+            Initiate();
 
             yield return new WaitForSeconds(Duration);
 

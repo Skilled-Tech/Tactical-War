@@ -42,7 +42,9 @@ namespace Game
 
                     if (data == null) return null;
 
-                    return template.Ranks[data.Value];
+                    if (data.Value == 0) return null;
+
+                    return template.Ranks[data.Index];
                 }
             }
 
@@ -56,7 +58,15 @@ namespace Game
                 }
             }
 
-            public virtual float Multiplier => 1f + (Percentage / 100f);
+            public virtual float Multiplier
+            {
+                get
+                {
+                    if (Rank == null) return 1f;
+
+                    return Rank.Multiplier;
+                }
+            }
 
             public float Value { get { return Base * Multiplier; } }
 
@@ -81,6 +91,8 @@ namespace Game
         }
         public virtual ItemUpgradesData.ElementData GetDataElement(ItemUpgradeType target)
         {
+            if (Data == null) return null;
+
             var element = Data.Find(target);
 
             return element;
@@ -105,7 +117,7 @@ namespace Game
             if (data.Value == 0) return null;
             if (data.Value > template.Ranks.Length) return template.Ranks.Last();
 
-            return template.Ranks[data.Value - 1];
+            return template.Ranks[data.Index];
         }
 
         public virtual void Set(ItemUpgradesData data)

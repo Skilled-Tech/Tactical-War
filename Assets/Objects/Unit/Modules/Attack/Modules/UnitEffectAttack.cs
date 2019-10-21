@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class UnitEffectAttack : UnitAttack.Module
-	{
+    public class UnitEffectAttack : UnitAttack
+    {
         [SerializeField]
         protected GameObject prefab;
         public GameObject Prefab { get { return prefab; } }
@@ -31,23 +31,23 @@ namespace Game
 
         List<Entity> targets;
 
-        public override void Configure(UnitAttack data)
+        public override void Configure(Unit data)
         {
             base.Configure(data);
 
             targets = new List<Entity>();
         }
 
-        protected override void OnInitiated()
+        protected override void Initiate()
         {
-            base.OnInitiated();
+            base.Initiate();
 
             Unit.Body.Animator.SetTrigger("Cast");
         }
 
-        protected override void OnConnected()
+        public override void Connected()
         {
-            base.OnConnected();
+            base.Connected();
 
             AquireTargets();
 
@@ -56,6 +56,11 @@ namespace Game
 
         protected virtual void AquireTargets()
         {
+            float DistanceBetween(Entity one, Entity two)
+            {
+                return one.DistanceTo(two);
+            }
+
             targets.Clear();
 
             if (Enemy.Base.Units.Count == 0)
@@ -84,10 +89,6 @@ namespace Game
                 }
             }
         }
-        protected virtual float DistanceBetween(Entity one, Entity two)
-        {
-            return Vector3.Distance(one.Center, two.Center);
-        }
 
         protected virtual void Process()
         {
@@ -98,13 +99,13 @@ namespace Game
         {
             for (int i = 0; i < targets.Count; i++)
             {
-                Perform(targets[i]);
+                Effect(targets[i]);
 
                 yield return new WaitForSeconds(intervals);
             }
         }
 
-        protected virtual void Perform(Entity target)
+        protected virtual void Effect(Entity target)
         {
             Vector3 GetPosition(Entity entity) => target.Center + Vector3.down * target.Bounds.extents.y;
 

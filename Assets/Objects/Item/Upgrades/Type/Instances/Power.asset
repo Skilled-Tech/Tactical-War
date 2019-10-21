@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c5fcb7fd35e2c3419d5dadf99c159ba, type: 3}
-  m_Name: Damage
+  m_Name: Power
   m_EditorClassIdentifier: 
   icon:
     sprite: {fileID: 21300000, guid: da9c7144a72762449938275c1444a7b6, type: 3}

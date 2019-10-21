@@ -25,12 +25,22 @@ namespace Game
     [Serializable]
     public class DataCore : Core.Property
     {
-        public string AbsolutePath { get { return Application.persistentDataPath + "/Data"; } }
+        public string BaseDirectory
+        {
+            get
+            {
+#if UNITY_EDITOR
+                return Directory.GetCurrentDirectory();
+#else
+                return Application.persistentDataPath;
+#endif
+            }
+        }
+
+        public string AbsolutePath { get { return BaseDirectory + "/Data/"; } }
 
         public virtual void Save(string relativePath, byte[] data)
         {
-            relativePath = "/" + relativePath;
-
             var directory = new DirectoryInfo(AbsolutePath + Path.GetDirectoryName(relativePath));
 
             if (directory.Exists == false)
@@ -52,8 +62,6 @@ namespace Game
 
         public virtual byte[] Load(string relativePath)
         {
-            relativePath = "/" + relativePath;
-
             var file = new FileInfo(AbsolutePath + relativePath);
 
             if (file.Exists == false)
@@ -73,6 +81,13 @@ namespace Game
         public virtual string LoadText(string relativePath)
         {
             return Encoding.ASCII.GetString(Load(relativePath));
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Debug.Log(AbsolutePath);
         }
 
         public virtual bool Exists(string relativePath)

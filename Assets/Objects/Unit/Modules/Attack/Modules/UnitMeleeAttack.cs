@@ -19,29 +19,18 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class UnitMeleeAttack : UnitAttack.Module
+	public class UnitMeleeAttack : UnitAttack
 	{
-        public virtual Entity Target
+        protected override void Initiate()
         {
-            get
-            {
-                if (Enemy.Base.Units.Count == 0)
-                    return Leader.Enemy.Base;
-
-                return Enemy.Base.Units.First;
-            }
-        }
-
-        protected override void OnInitiated()
-        {
-            base.OnInitiated();
+            base.Initiate();
 
             Unit.Body.CharacterAnimation.Attack();
         }
 
-        protected override void OnConnected()
+        public override void Connected()
         {
-            base.OnConnected();
+            base.Connected();
 
             if (Target != null) DoDamage(Target);
         }

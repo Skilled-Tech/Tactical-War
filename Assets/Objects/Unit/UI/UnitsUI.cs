@@ -31,10 +31,10 @@ namespace Game
         {
             public UnitsUI UI { get; protected set; }
 
-            public Core Core { get { return Core.Instance; } }
-            public PopupUI Popup { get { return Core.UI.Popup; } }
+            public static Core Core { get { return Core.Instance; } }
+            public static PopupUI Popup { get { return Core.UI.Popup; } }
 
-            public PlayerCore Player { get { return Core.Player; } }
+            public static PlayerCore Player { get { return Core.Player; } }
 
             public virtual void Configure(UnitsUI data)
             {

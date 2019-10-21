@@ -18,7 +18,7 @@ MonoBehaviour:
   description: Basic grunt, low range, medium defense & attack
   prices:
   - type: 0
-    value: 8000
+    value: 10000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
@@ -34,9 +34,9 @@ MonoBehaviour:
     cost: 100
     time: 2
   attack:
-    damage: 20
+    power: 20
     range: 1
-    distance: 0
+    distance: 0.5
     duration: 0.5
     method: 0
     statusEffects:

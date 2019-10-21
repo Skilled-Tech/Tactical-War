@@ -65,6 +65,14 @@ namespace Game
                 float percentage;
                 public float Percentage { get { return percentage; } }
 
+                public float Multiplier
+                {
+                    get
+                    {
+                        return 1f + (Percentage / 100f);
+                    }
+                }
+
                 [JsonProperty]
                 [SerializeField]
                 protected ItemStack[] requirements;

@@ -28,56 +28,45 @@ namespace Game
         public Level Level { get { return Level.Instance; } }
         public LevelProponents Proponents { get { return Level.Proponents; } }
 
-        public Entity Target { get; protected set; }
-
-        public bool isMoving { get; protected set; }
-        public bool isAttacking { get { return Attack.IsProcessing; } }
-
-        void Update()
+        public float PersonalSpace
         {
-            if(Unit.isActiveAndEnabled)
+            get
             {
-                if (isAttacking)
-                {
+                return Unit.Bounds.extents.x;
+            }
+        }
 
-                }
-                else
-                {
-                    if (Index < Attack.Range.Value)
-                    {
-                        if (Enemy.Base.Units.Count == 0)
-                            Target = Enemy.Base;
-                        else
-                            Target = Enemy.Base.Units.First;
-                    }
-                    else
-                    {
-                        Target = null;
-                    }
+        public override void Init()
+        {
+            base.Init();
 
-                    if (Index == 0)
-                        isMoving = !MoveTo(Target, Attack.Distance + 0.5f);
-                    else
-                        isMoving = !MoveTo(Base.Units.List[Index - 1], 1f);
+            Unit.OnProcess += Process;
+        }
 
-                    if (Target != null && !isMoving && !isAttacking && (Index == 0 || !Base.Units.List[Index - 1].Controller.isMoving))
-                        Attack.Perform();
-                }
+        protected virtual void Process()
+        {
+            if (Index == 0)
+                MoveTo(Attack.Target, Attack.Distance);
+            else
+                MoveTo(Base.Units.List[Index - 1], 1f);
+
+            if (isMoving)
+            {
+
             }
             else
             {
-
+                if (Attack.CanPerform)
+                    Attack.Perform();
             }
         }
 
+        public bool isMoving { get; protected set; }
         bool MoveTo(Entity target, float stoppingDistance)
         {
-            return Navigator.MoveTo(target.Center, CalculatePersonalSpace(target) + stoppingDistance);
-        }
+            isMoving = !Navigator.MoveTo(target.Center, PersonalSpace + target.Bounds.extents.x + stoppingDistance);
 
-        float CalculatePersonalSpace(Entity target)
-        {
-            return target.Bounds.extents.x + Unit.Bounds.extents.x;
+            return !isMoving;
         }
     }
 }

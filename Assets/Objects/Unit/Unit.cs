@@ -118,7 +118,7 @@ namespace Game
         {
             if (OnProcess != null) OnProcess();
         }
-
+        
         protected override void Death(Damage.Result result)
         {
             Leader.Enemy.Energy.Value += Template.Deployment.Cost;

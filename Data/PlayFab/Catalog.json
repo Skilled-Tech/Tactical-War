@@ -1,0 +1,871 @@
+{
+  "Catalog": [
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Archer",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Archer",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 4000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Knight",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Knight",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "JL": 6000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "Wood Sword",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": true,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "Wood_Sword",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {}
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "Wood Shield",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": true,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "Wood_Shield",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {}
+    },
+    {
+      "Bundle": {
+        "BundledItems": [],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": {
+          "GD": 1000
+        }
+      },
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": 4,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "1K Gold",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "1K_Gold",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {}
+    },
+    {
+      "Bundle": {
+        "BundledItems": [],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": {
+          "GD": 2000
+        }
+      },
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": 3,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "2K Gold",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "2K_Gold",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {}
+    },
+    {
+      "Bundle": {
+        "BundledItems": [],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": {
+          "GD": 5000
+        }
+      },
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": 3,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "5K Gold",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "5K_Gold",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {}
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Fire Wizard",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Fire_Wizard",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "JL": 12000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Ice Wizard",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Ice_Wizard",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "JL": 16000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Toxic Wizard",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Toxic_Wizard",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "JL": 16000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Thunder Wizard",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Thunder_Wizard",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 20000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Fire Archer",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Fire_Archer",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 8000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Toxic Archer",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Toxic_Archer",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 8000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Heavy Knight",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Heavy_Knight",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Lancer",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Lancer",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 1000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Explosives Archer",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Explosives_Archer",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Berserker",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Berserker",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Savage",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Savage",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": {
+        "BundledItems": [],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": {
+          "GD": 100000
+        }
+      },
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": 4,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "100K Gold",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "100K_Gold",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {
+        "JL": 1000
+      }
+    },
+    {
+      "Bundle": {
+        "BundledItems": [],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": {
+          "JL": 10000
+        }
+      },
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": 4,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "10K Jewels",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "10K_Jewels",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {
+        "RM": 999
+      }
+    },
+    {
+      "Bundle": {
+        "BundledItems": [],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": {
+          "JL": 1000
+        }
+      },
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": 4,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "1K Jewels",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "1K_Jewels",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {
+        "RM": 199
+      }
+    },
+    {
+      "Bundle": {
+        "BundledItems": [],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": {
+          "GD": 20000
+        }
+      },
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": 4,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "20K Gold",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "20K_Gold",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {
+        "JL": 2000
+      }
+    },
+    {
+      "Bundle": {
+        "BundledItems": [],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": {
+          "GD": 50000
+        }
+      },
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": 4,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "50K Gold",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "50K_Gold",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {
+        "JL": 5000
+      }
+    },
+    {
+      "Bundle": {
+        "BundledItems": [],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": {
+          "JL": 5000
+        }
+      },
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": 4,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "5K Jewels",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "5K_Jewels",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {
+        "RM": 499
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Toxic Assassin",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Toxic_Assassin",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 8000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Frantic Assassin",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Frantic_Assassin",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Shadow Assassin",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Shadow_Assassin",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Paralysis Archer",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Paralysis_Archer",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Earth Wizard",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Earth_Wizard",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Healer Wizard",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Healer_Wizard",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    }
+  ],
+  "Request": {
+    "CatalogVersion": "Default",
+    "AuthenticationContext": null
+  },
+  "CustomData": null
+}
