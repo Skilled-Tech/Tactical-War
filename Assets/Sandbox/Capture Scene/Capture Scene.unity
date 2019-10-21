@@ -283,9 +283,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subjects:
-  - {fileID: 8127696124609658847, guid: f0696f845774ddf45a9d5a0a104ebb49, type: 3}
-  - {fileID: 8127696124609658847, guid: f6f450a9054a1254ca428fd526237506, type: 3}
-  - {fileID: 8127696124609658847, guid: 241dd61ec5135d642ac1c1ad1ed1f6d3, type: 3}
-  - {fileID: 5569182392643639925, guid: 52760ff6112bd4d4ca61b8dc9ed51c63, type: 3}
-  - {fileID: 5569182392643639925, guid: acc98495ea6e48d4d83996a81b479d54, type: 3}
-  - {fileID: 5569182392643639925, guid: 81e820b55e567324e822d3c9ec826a67, type: 3}
+  - {fileID: 5569182392643639925, guid: 5dd4f4d046be6794092e94cdced69971, type: 3}
