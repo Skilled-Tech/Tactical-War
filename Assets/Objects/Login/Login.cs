@@ -113,6 +113,8 @@ namespace Game
         {
             PlayFab.Login.OnResponse -= LoginResponseCallback;
 
+            Core.Prefs.NeedOnlineLogin.Value = false;
+
             if (error == null)
             {
                 Popup.Show("Retrieving Title Data");

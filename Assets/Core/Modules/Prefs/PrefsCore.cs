@@ -223,8 +223,6 @@ namespace Game
         public event SetDelegate OnSet;
         public virtual void Set(string key, object value)
         {
-            Debug.Log(key + " : " + value);
-
             if (Contains(key))
                 Dictionary[key] = value;
             else

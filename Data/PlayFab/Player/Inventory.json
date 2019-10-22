@@ -341,7 +341,7 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "F920AF6837AA1FEB",
       "PurchaseDate": "2019-10-05T11:57:43.393Z",
-      "RemainingUses": 222,
+      "RemainingUses": 223,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -358,14 +358,14 @@
       "ItemId": "Wood_Shield",
       "ItemInstanceId": "2F4BB3CDCDBAF33C",
       "PurchaseDate": "2019-10-05T11:57:43.393Z",
-      "RemainingUses": 211,
+      "RemainingUses": 212,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
     }
   ],
   "VirtualCurrency": {
-    "GD": 1559600,
+    "GD": 1560600,
     "JL": 586500
   },
   "VirtualCurrencyRechargeTimes": {},
