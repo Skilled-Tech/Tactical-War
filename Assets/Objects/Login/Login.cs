@@ -30,19 +30,7 @@ namespace Game
 
         public GuestLogin GuestLogin { get; protected set; }
 
-        #region Accessors
-        public static Core Core { get { return Core.Instance; } }
-
-        public static PopupUI Popup { get { return Core.UI.Popup; } }
-
-        public static ScenesCore Scenes { get { return Core.Scenes; } }
-
-        public static PlayerCore Player { get { return Core.Player; } }
-
-        public static PlayFabCore PlayFab { get { return Core.PlayFab; } }
-        #endregion
-
-        public class Module : UIElementModule<Login>
+        public abstract class Module : UIElementModule<Login>
         {
             public Login Login { get { return Reference; } }
 
@@ -58,6 +46,39 @@ namespace Game
             public static PlayFabCore PlayFab { get { return Core.PlayFab; } }
             #endregion
         }
+
+        public abstract class Controller : Module
+        {
+            [SerializeField]
+            protected Button entry;
+            public Button Entry { get { return entry; } }
+
+            public abstract bool IsValid { get; }
+
+            protected virtual void UpdateState()
+            {
+                entry.interactable = IsValid;
+            }
+
+            public override void Init()
+            {
+                base.Init();
+
+                UpdateState();
+            }
+        }
+
+        #region Accessors
+        public static Core Core { get { return Core.Instance; } }
+
+        public static PopupUI Popup { get { return Core.UI.Popup; } }
+
+        public static ScenesCore Scenes { get { return Core.Scenes; } }
+
+        public static PlayerCore Player { get { return Core.Player; } }
+
+        public static PlayFabCore PlayFab { get { return Core.PlayFab; } }
+        #endregion
 
         private void Awake()
         {
@@ -82,7 +103,7 @@ namespace Game
             Popup.Hide();
         }
 
-        public virtual void StartOffline()
+        public virtual void Offline()
         {
             PlayFab.Title.OnResponse += TitleResponseCallback;
             PlayFab.Title.Request();

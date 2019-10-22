@@ -24,8 +24,10 @@ using GooglePlayGames.BasicApi;
 
 namespace Game
 {
-    public class GoogleLogin : Login.Module
+    public class GoogleLogin : Login.Controller
     {
+        public override bool IsValid => true;
+
 #if GOOGLE_PLAY
         public override void Show()
         {

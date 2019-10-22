@@ -21,8 +21,8 @@ using TMPro;
 
 namespace Game
 {
-	public class EmailLogin : Login.Module
-	{
+	public class EmailLogin : Login.Controller
+    {
         [SerializeField]
         protected TMP_InputField email;
         public TMP_InputField Email { get { return email; } }
@@ -34,6 +34,8 @@ namespace Game
         [SerializeField]
         protected Button confirm;
         public Button Confirm { get { return confirm; } }
+
+        public override bool IsValid => true;
 
         public override void Configure(Login reference)
         {
@@ -57,8 +59,10 @@ namespace Game
             UpdateState();
         }
 
-        protected virtual void UpdateState()
+        protected override void UpdateState()
         {
+            base.UpdateState();
+
             bool IsValid()
             {
                 if (string.IsNullOrEmpty(email.text))

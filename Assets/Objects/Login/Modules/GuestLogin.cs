@@ -19,8 +19,10 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class GuestLogin : Login.Module
+	public class GuestLogin : Login.Controller
     {
+        public override bool IsValid => true;
+
         public override void Show()
         {
             base.Show();

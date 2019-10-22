@@ -50,6 +50,10 @@ namespace Game
         public DataCore Data { get { return data; } }
 
         [SerializeField]
+        protected PrefsCore prefs;
+        public PrefsCore Prefs { get { return prefs; } }
+
+        [SerializeField]
         protected UICore _UI;
         public UICore UI { get { return _UI; } }
 
@@ -85,7 +89,13 @@ namespace Game
         {
             void Configure();
 
+            event Action OnInit;
             void Init();
+
+            event Action OnSceneLoad;
+            void SceneLoad();
+
+            void Register(IProperty property);
         }
 
         [Serializable]
@@ -104,11 +114,18 @@ namespace Game
                 if (OnInit != null) OnInit();
             }
 
+            public event Action OnSceneLoad;
+            public virtual void SceneLoad()
+            {
+                if (OnSceneLoad != null) OnSceneLoad();
+            }
+
             public virtual void Register(IProperty module)
             {
                 module.Configure();
 
                 OnInit += module.Init;
+                OnSceneLoad += module.SceneLoad;
             }
         }
 
@@ -129,11 +146,18 @@ namespace Game
                 if (OnInit != null) OnInit();
             }
 
+            public event Action OnSceneLoad;
+            public virtual void SceneLoad()
+            {
+                if (OnSceneLoad != null) OnSceneLoad();
+            }
+
             public virtual void Register(IProperty module)
             {
                 module.Configure();
 
                 OnInit += module.Init;
+                OnSceneLoad += module.SceneLoad;
             }
         }
         #endregion
@@ -149,11 +173,12 @@ namespace Game
 
         void Configure()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneLoaded += SceneLoaded;
 
             Application.runInBackground = true;
 
             Register(data);
+            Register(prefs);
             Register(UI);
             Register(scenes);
             Register(world);
@@ -162,6 +187,8 @@ namespace Game
             Register(player);
             Register(playFab);
             Register(IAP);
+
+            Init();
         }
 
         public virtual void Register(IProperty module)
@@ -169,9 +196,11 @@ namespace Game
             module.Configure();
 
             OnInit += module.Init;
+            OnSceneLoaded += module.SceneLoad;
         }
 
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        public event Action OnSceneLoaded;
+        void SceneLoaded(Scene scene, LoadSceneMode mode)
         {
             Init();
         }
