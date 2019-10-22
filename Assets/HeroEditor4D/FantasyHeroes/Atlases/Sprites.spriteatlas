@@ -297,7 +297,10 @@ SpriteAtlas:
   - {fileID: -2575444795325250252, guid: 2083dd827a2ccb84f9b32f80b1e07c90, type: 3}
   - {fileID: -5695258936679597694, guid: 2083dd827a2ccb84f9b32f80b1e07c90, type: 3}
   - {fileID: 21300000, guid: 051203a2b4b3f89418cd8282a450b1a2, type: 3}
-  - {fileID: 21300000, guid: a0b63cb25afc8a742a7b01cf07c8202e, type: 3}
+  - {fileID: 8180187256336134010, guid: a0b63cb25afc8a742a7b01cf07c8202e, type: 3}
+  - {fileID: -6361939442013360822, guid: a0b63cb25afc8a742a7b01cf07c8202e, type: 3}
+  - {fileID: 7034423813313189624, guid: a0b63cb25afc8a742a7b01cf07c8202e, type: 3}
+  - {fileID: -4746564685177126027, guid: a0b63cb25afc8a742a7b01cf07c8202e, type: 3}
   - {fileID: 21300002, guid: 437aabd250fe0fe4b96cf47ff7c7afb1, type: 3}
   - {fileID: 21300006, guid: 437aabd250fe0fe4b96cf47ff7c7afb1, type: 3}
   - {fileID: 21300004, guid: 437aabd250fe0fe4b96cf47ff7c7afb1, type: 3}
@@ -2248,7 +2251,10 @@ SpriteAtlas:
   - FrontSleeveR
   - SideLegR
   - ClericWand
-  - Bow
+  - Limb
+  - Quiver
+  - Arrow
+  - Handle
   - Limb
   - Quiver
   - Arrow
@@ -2517,7 +2523,7 @@ SpriteAtlas:
   - CataphractSpear
   - Back
   - Front
-  - Fire Staff
+  - Fire Wand
   - BackFingersR
   - SideFingersR
   - BackFingersL
@@ -3944,7 +3950,7 @@ SpriteAtlas:
   - Side
   - Back
   - Front
-  - Toxic Staff
+  - Toxic Wand
   - MountainSword
   - Back
   - Front

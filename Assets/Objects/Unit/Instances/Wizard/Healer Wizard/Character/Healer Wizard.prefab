@@ -70,7 +70,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 560
-  m_Sprite: {fileID: 21300000, guid: d140943fa3a058e4fb442936e1540516, type: 3}
+  m_Sprite: {fileID: 6591478365344907407, guid: 2a4b1984069251b46adca44257eec147,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -590,7 +591,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048355470792989}
-  m_LocalRotation: {x: -0, y: -0, z: -0.017285822, w: 0.9998506}
+  m_LocalRotation: {x: -0, y: -0, z: -0.014362601, w: 0.99989694}
   m_LocalPosition: {x: 0, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -969,7 +970,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074274214347097}
-  m_LocalRotation: {x: -0, y: -0, z: -0.077994555, w: 0.9969538}
+  m_LocalRotation: {x: -0, y: -0, z: -0.1212169, w: 0.9926261}
   m_LocalPosition: {x: -0.45, y: 0.54999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1305,15 +1306,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 165
-  m_Sprite: {fileID: 21300002, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
-  m_Color: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4.8, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &114411450579505593
@@ -1377,8 +1378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Head: {fileID: 0}
-  Ears: {fileID: 21300000, guid: 17d8c1b68153975408b54cbd158b6ce3, type: 3}
-  Hair: {fileID: 21300000, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
+  Ears: {fileID: 0}
+  Hair: {fileID: 0}
   HairCut: {fileID: 21300000, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
   Beard: {fileID: 0}
   Body:
@@ -1416,8 +1417,8 @@ MonoBehaviour:
   Expressions:
   - Name: Default
     Eyebrows: {fileID: 0}
-    Eyes: {fileID: 21300000, guid: 8af072d9e54ae824dbcd4c67c7eac50d, type: 3}
-    Mouth: {fileID: 21300000, guid: d140943fa3a058e4fb442936e1540516, type: 3}
+    Eyes: {fileID: 6591478365344907407, guid: a47b4e295bd4ebd438ac5ddf25692812, type: 3}
+    Mouth: {fileID: 6591478365344907407, guid: 2a4b1984069251b46adca44257eec147, type: 3}
   - Name: Angry
     Eyebrows: {fileID: 0}
     Eyes: {fileID: 0}
@@ -2161,7 +2162,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126680569662337}
-  m_LocalRotation: {x: -0, y: -0, z: -0.027574455, w: 0.9996198}
+  m_LocalRotation: {x: -0, y: -0, z: 0.10256717, w: 0.9947261}
   m_LocalPosition: {x: 0.15, y: 0.59999996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2638,7 +2639,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188333048473265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.00070741365, z: 0}
+  m_LocalPosition: {x: 0, y: -0.008852623, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4240474407226615}
@@ -2781,15 +2782,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 445
-  m_Sprite: {fileID: 21300004, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
-  m_Color: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4.8, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &114663078158447217
@@ -2924,7 +2925,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193638779238983}
-  m_LocalRotation: {x: -0, y: -0, z: 0.07799446, w: 0.9969538}
+  m_LocalRotation: {x: -0, y: -0, z: 0.1212169, w: 0.9926261}
   m_LocalPosition: {x: 0.45000005, y: 0.54999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3349,15 +3350,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 575
-  m_Sprite: {fileID: 21300000, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
-  m_Color: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4.8, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &114412587071672273
@@ -3398,7 +3399,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213848425323103}
-  m_LocalRotation: {x: -0, y: -0, z: -0.017285822, w: 0.9998506}
+  m_LocalRotation: {x: -0, y: -0, z: -0.014362601, w: 0.99989694}
   m_LocalPosition: {x: 0, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3689,7 +3690,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1249829768487167}
-  m_LocalRotation: {x: -0, y: -0, z: 0.027574548, w: 0.9996198}
+  m_LocalRotation: {x: -0, y: -0, z: -0.10256717, w: 0.9947261}
   m_LocalPosition: {x: -0.15, y: 0.04, z: 0}
   m_LocalScale: {x: 0.9, y: 1, z: 1}
   m_Children:
@@ -4243,7 +4244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288747372538929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3, y: -0.044732977, z: 0}
+  m_LocalPosition: {x: -0.3, y: -0.069623396, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4333641291212543}
@@ -4431,7 +4432,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1291294550706051}
-  m_LocalRotation: {x: -0, y: -0, z: 0.027574548, w: 0.9996198}
+  m_LocalRotation: {x: -0, y: -0, z: -0.10256717, w: 0.9947261}
   m_LocalPosition: {x: 0.15, y: 0.59999996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4529,7 +4530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300598846112583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.049292587, z: 0}
+  m_LocalPosition: {x: 0, y: 0.041147377, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4187020505756647}
@@ -4723,7 +4724,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308342444518483}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3, y: 0.055267025, z: 0}
+  m_LocalPosition: {x: -0.3, y: 0.030376602, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4170224731412551}
@@ -5147,7 +5148,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 430
-  m_Sprite: {fileID: 21300002, guid: d140943fa3a058e4fb442936e1540516, type: 3}
+  m_Sprite: {fileID: -4064889734069160559, guid: 2a4b1984069251b46adca44257eec147,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -5625,7 +5627,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394182330887313}
-  m_LocalRotation: {x: -0, y: -0, z: 0.09630964, w: 0.99535143}
+  m_LocalRotation: {x: -0, y: -0, z: 0.052992344, w: 0.99859494}
   m_LocalPosition: {x: 0.45, y: 0.54999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5816,7 +5818,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408202558189865}
-  m_LocalRotation: {x: -0, y: -0, z: -0.027574455, w: 0.9996198}
+  m_LocalRotation: {x: -0, y: -0, z: 0.10256717, w: 0.9947261}
   m_LocalPosition: {x: -0.15, y: 0.59999996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6007,7 +6009,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419012100399357}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.00070741365, z: 0}
+  m_LocalPosition: {x: 0, y: -0.008852623, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4857176263307849}
@@ -6106,7 +6108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419760514789417}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.00070741365, z: 0}
+  m_LocalPosition: {x: 0, y: -0.008852623, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4047696074837303}
@@ -6896,7 +6898,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479702204630327}
-  m_LocalRotation: {x: -0, y: -0, z: -0.027574455, w: 0.9996198}
+  m_LocalRotation: {x: -0, y: -0, z: 0.10256717, w: 0.9947261}
   m_LocalPosition: {x: 0.08, y: -0.025, z: 0}
   m_LocalScale: {x: 0.9, y: 1, z: 1}
   m_Children:
@@ -7310,7 +7312,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1506156759351977}
-  m_LocalRotation: {x: -0, y: -0, z: -0.017285822, w: 0.9998506}
+  m_LocalRotation: {x: -0, y: -0, z: -0.014362601, w: 0.99989694}
   m_LocalPosition: {x: 0, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7528,8 +7530,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Head: {fileID: 0}
-  Ears: {fileID: 21300004, guid: 17d8c1b68153975408b54cbd158b6ce3, type: 3}
-  Hair: {fileID: 21300004, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
+  Ears: {fileID: 0}
+  Hair: {fileID: 0}
   HairCut: {fileID: 21300004, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
   Beard: {fileID: 0}
   Body:
@@ -7567,8 +7569,9 @@ MonoBehaviour:
   Expressions:
   - Name: Default
     Eyebrows: {fileID: 0}
-    Eyes: {fileID: 21300002, guid: 8af072d9e54ae824dbcd4c67c7eac50d, type: 3}
-    Mouth: {fileID: 21300002, guid: d140943fa3a058e4fb442936e1540516, type: 3}
+    Eyes: {fileID: -4064889734069160559, guid: a47b4e295bd4ebd438ac5ddf25692812, type: 3}
+    Mouth: {fileID: -4064889734069160559, guid: 2a4b1984069251b46adca44257eec147,
+      type: 3}
   - Name: Angry
     Eyebrows: {fileID: 0}
     Eyes: {fileID: 0}
@@ -7953,8 +7956,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Head: {fileID: 0}
-  Ears: {fileID: 21300002, guid: 17d8c1b68153975408b54cbd158b6ce3, type: 3}
-  Hair: {fileID: 21300002, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
+  Ears: {fileID: 0}
+  Hair: {fileID: 0}
   HairCut: {fileID: 21300002, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
   Beard: {fileID: 0}
   Body:
@@ -8529,7 +8532,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 435
-  m_Sprite: {fileID: 21300002, guid: 8af072d9e54ae824dbcd4c67c7eac50d, type: 3}
+  m_Sprite: {fileID: -4064889734069160559, guid: a47b4e295bd4ebd438ac5ddf25692812,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -9245,7 +9249,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626499009081651}
-  m_LocalRotation: {x: -0, y: -0, z: -0.017285822, w: 0.9998506}
+  m_LocalRotation: {x: -0, y: -0, z: -0.014362601, w: 0.99989694}
   m_LocalPosition: {x: 0, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9912,7 +9916,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680804395185975}
-  m_LocalRotation: {x: -0, y: -0, z: 0.027574548, w: 0.9996198}
+  m_LocalRotation: {x: -0, y: -0, z: -0.10256717, w: 0.9947261}
   m_LocalPosition: {x: 0.15, y: 0.04, z: 0}
   m_LocalScale: {x: 0.9, y: 1, z: 1}
   m_Children:
@@ -10525,7 +10529,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 240
-  m_Sprite: {fileID: 21300002, guid: d140943fa3a058e4fb442936e1540516, type: 3}
+  m_Sprite: {fileID: -4064889734069160559, guid: 2a4b1984069251b46adca44257eec147,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10671,7 +10676,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732251660275835}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0.044732977, z: 0}
+  m_LocalPosition: {x: 0.3, y: 0.069623396, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4913801331877429}
@@ -10982,8 +10987,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Head: {fileID: 0}
-  Ears: {fileID: 21300004, guid: 17d8c1b68153975408b54cbd158b6ce3, type: 3}
-  Hair: {fileID: 21300004, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
+  Ears: {fileID: 0}
+  Hair: {fileID: 0}
   HairCut: {fileID: 21300004, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
   Beard: {fileID: 0}
   Body:
@@ -11021,8 +11026,9 @@ MonoBehaviour:
   Expressions:
   - Name: Default
     Eyebrows: {fileID: 0}
-    Eyes: {fileID: 21300002, guid: 8af072d9e54ae824dbcd4c67c7eac50d, type: 3}
-    Mouth: {fileID: 21300002, guid: d140943fa3a058e4fb442936e1540516, type: 3}
+    Eyes: {fileID: -4064889734069160559, guid: a47b4e295bd4ebd438ac5ddf25692812, type: 3}
+    Mouth: {fileID: -4064889734069160559, guid: 2a4b1984069251b46adca44257eec147,
+      type: 3}
   - Name: Angry
     Eyebrows: {fileID: 0}
     Eyes: {fileID: 0}
@@ -11336,7 +11342,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 565
-  m_Sprite: {fileID: 21300000, guid: 8af072d9e54ae824dbcd4c67c7eac50d, type: 3}
+  m_Sprite: {fileID: 6591478365344907407, guid: a47b4e295bd4ebd438ac5ddf25692812,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11937,15 +11944,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 255
-  m_Sprite: {fileID: 21300004, guid: 72aa7dbf531a6314080711e386cb4984, type: 3}
-  m_Color: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4.8, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &114335375244522209
@@ -12619,7 +12626,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1850470493521811}
-  m_LocalRotation: {x: -0, y: -0, z: -0.09630964, w: 0.99535143}
+  m_LocalRotation: {x: -0, y: -0, z: -0.05299225, w: 0.99859494}
   m_LocalPosition: {x: -0.45000005, y: 0.54999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -13316,7 +13323,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946386350646183}
-  m_LocalRotation: {x: -0, y: -0, z: -0.027574455, w: 0.9996198}
+  m_LocalRotation: {x: -0, y: -0, z: 0.10256717, w: 0.9947261}
   m_LocalPosition: {x: -0.08, y: -0.025, z: 0}
   m_LocalScale: {x: 0.9, y: 1, z: 1}
   m_Children:
@@ -13601,7 +13608,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968568052485737}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: -0.055267025, z: 0}
+  m_LocalPosition: {x: 0.3, y: -0.030376602, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4582430385312605}
@@ -13773,7 +13780,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 245
-  m_Sprite: {fileID: 21300002, guid: 8af072d9e54ae824dbcd4c67c7eac50d, type: 3}
+  m_Sprite: {fileID: -4064889734069160559, guid: a47b4e295bd4ebd438ac5ddf25692812,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -13822,7 +13830,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1985744815035615}
-  m_LocalRotation: {x: -0, y: -0, z: 0.027574548, w: 0.9996198}
+  m_LocalRotation: {x: -0, y: -0, z: -0.10256717, w: 0.9947261}
   m_LocalPosition: {x: -0.15, y: 0.59999996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
