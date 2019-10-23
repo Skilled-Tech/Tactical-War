@@ -1,8 +1,8 @@
 [
-  "Healer_Wizard",
+  "Lancer",
   "Robot",
-  "Archer",
-  "Explosives_Archer",
-  "Fire_Archer",
-  "Toxic_Archer"
+  null,
+  null,
+  null,
+  null
 ]

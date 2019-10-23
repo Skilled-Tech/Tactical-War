@@ -86,6 +86,28 @@ namespace Game
             }
         }
 
+        [SerializeField]
+        protected OfflineProperty offline;
+        public OfflineProperty Offline { get { return offline; } }
+        [Serializable]
+        public class OfflineProperty : Property
+        {
+            public virtual void Perform()
+            {
+                var result = new ResultData
+                {
+
+                };
+
+                ResultCallback(result);
+            }
+
+            public class ResultData : LoginResult //to differentiate between a normal login result and an offline one
+            {
+
+            }
+        }
+
         [Serializable]
         public class Property : PlayFabCore.Property
         {
@@ -119,6 +141,7 @@ namespace Game
             Register(google);
             Register(email);
             Register(androidDeviceID);
+            Register(offline);
         }
 
         public virtual void Register(Property property)

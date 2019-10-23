@@ -504,16 +504,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   list:
-  - template: {fileID: 11400000, guid: ff2818391be755a41be00c9ba3b4fe93, type: 2}
+  - template: {fileID: 11400000, guid: 6fffb9c921cd64d448f930b8611ff4f1, type: 2}
     upgrade:
       list: []
-  - template: {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+  - template: {fileID: 11400000, guid: d56491ee4aa418c4a8ea48280aba32b8, type: 2}
     upgrade:
       list: []
-  - template: {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
+  - template: {fileID: 11400000, guid: 9766a4e11de834e4fbdcc6c18f7f7d32, type: 2}
     upgrade:
       list: []
-  - template: {fileID: 11400000, guid: 6a36fb4327677d5479e0bbe0ed809fc8, type: 2}
+  - template: {fileID: 11400000, guid: 86299c2e2365bb64ab5f5cabce317612, type: 2}
+    upgrade:
+      list: []
+  - template: {fileID: 11400000, guid: d32043575b05b494ba8907ff5318f80d, type: 2}
+    upgrade:
+      list: []
+  - template: {fileID: 11400000, guid: a60b629bc2b4f5546be00c2b6470ffde, type: 2}
+    upgrade:
+      list: []
+  - template: {fileID: 11400000, guid: e4908d3fcaa8a0143af115637ed9b6b9, type: 2}
     upgrade:
       list: []
 --- !u!1 &56280582

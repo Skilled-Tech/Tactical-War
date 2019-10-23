@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec87b41d67cb414d931b34b4e3192d2, type: 3}
+  m_Name: Region 1-3
+  m_EditorClassIdentifier: 
+  copies: 3
+  elements:
+  - prefab: {fileID: 7756276239379481957, guid: 0c09af81d3f71e24b87e843e628b1ae3,
+      type: 3}
+    anchor: 2
+    height: 0
+    parallax: 0.95
+  - prefab: {fileID: 2984243437246143489, guid: 4cb8cf1f57bd55349960be1c0f418aac,
+      type: 3}
+    anchor: 1
+    height: 0
+    parallax: 0.75
+  - prefab: {fileID: 6831224561314120000, guid: e8e53d1b56a27ce4396958d13d6e57c2,
+      type: 3}
+    anchor: 1
+    height: 0
+    parallax: 0.2
+  - prefab: {fileID: 3326929627039788885, guid: 7398c4302123f1a4697b414d1e2a2e42,
+      type: 3}
+    anchor: 1
+    height: -0.5
+    parallax: 0
+  - prefab: {fileID: 3462129334372063939, guid: e5cefe20411a83d4b9b74cde790709f4,
+      type: 3}
+    anchor: 1
+    height: 0
+    parallax: -0.5

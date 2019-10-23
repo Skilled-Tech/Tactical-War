@@ -18,14 +18,15 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 using TMPro;
+using PlayFab;
 
 namespace Game
 {
 	public class EmailLogin : Login.Controller
     {
         [SerializeField]
-        protected TMP_InputField email;
-        public TMP_InputField Email { get { return email; } }
+        protected TMP_InputField address;
+        public TMP_InputField Address { get { return address; } }
 
         [SerializeField]
         protected TMP_InputField password;
@@ -35,26 +36,28 @@ namespace Game
         protected Button confirm;
         public Button Confirm { get { return confirm; } }
 
-        public override bool IsValid => true;
+        public override bool Accessible => true;
+
+        public override bool Available => true;
 
         public override void Configure(Login reference)
         {
             base.Configure(reference);
 
-            confirm.onClick.AddListener(Action);
+            confirm.onClick.AddListener(Perform);
 
-            email.onValueChanged.AddListener(EmailChangeCallback);
+            address.onValueChanged.AddListener(EmailChangeCallback);
             password.onValueChanged.AddListener(PasswordChangeCallback);
 
             UpdateState();
         }
 
-        void PasswordChangeCallback(string arg0)
+        void PasswordChangeCallback(string value)
         {
             UpdateState();
         }
 
-        void EmailChangeCallback(string arg0)
+        void EmailChangeCallback(string value)
         {
             UpdateState();
         }
@@ -65,7 +68,7 @@ namespace Game
 
             bool IsValid()
             {
-                if (string.IsNullOrEmpty(email.text))
+                if (string.IsNullOrEmpty(address.text))
                     return false;
 
                 if (string.IsNullOrEmpty(password.text))
@@ -77,11 +80,18 @@ namespace Game
             confirm.interactable = IsValid();
         }
 
-        public virtual void Action()
+        public override void Perform()
         {
+            base.Perform();
+
             Popup.Show("Logging In");
 
-            PlayFab.Login.Email.Perform(email.text, password.text);
+            PlayFab.Login.Email.Perform(address.text, password.text);
+        }
+
+        protected override void ErrorProcedure(PlayFabError error)
+        {
+            Popup.Show(error.ErrorMessage, Popup.Hide, "Close");
         }
     }
 }

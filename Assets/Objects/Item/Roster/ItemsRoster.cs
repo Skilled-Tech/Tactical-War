@@ -39,7 +39,8 @@ namespace Game
 
                 var instance = AssetDatabase.LoadAssetAtPath<ItemTemplate>(path);
 
-                list.Add(instance);
+                if(instance.Visiblity.Rotster)
+                    list.Add(instance);
             }
 
             EditorUtility.SetDirty(this);

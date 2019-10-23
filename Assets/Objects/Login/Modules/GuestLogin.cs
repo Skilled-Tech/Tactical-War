@@ -21,11 +21,20 @@ namespace Game
 {
 	public class GuestLogin : Login.Controller
     {
-        public override bool IsValid => true;
+        public override bool Accessible => true;
+
+        public override bool Available => true;
 
         public override void Show()
         {
             base.Show();
+
+            Perform();
+        }
+
+        public override void Perform()
+        {
+            base.Perform();
 
             Popup.Show("Logging In");
 
@@ -33,11 +42,11 @@ namespace Game
             {
                 PlayFab.Login.Email.Perform("Moe4Baker@gmail.com", "Password");
             }
-            else if(Application.platform == RuntimePlatform.Android)
+            else if (Application.platform == RuntimePlatform.Android)
             {
                 PlayFab.Login.AndroidDeviceID.Perform();
             }
-            else if(Application.platform == RuntimePlatform.IPhonePlayer)
+            else if (Application.platform == RuntimePlatform.IPhonePlayer)
             {
                 throw new NotImplementedException();
             }

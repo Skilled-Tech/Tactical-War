@@ -18,10 +18,11 @@ MonoBehaviour:
   description: Five Thousand Jewels
   prices:
   - type: 2
-    value: 5
+    value: 499
   upgrades:
     template: {fileID: 0}
     applicable: []
   visibility:
     inventory: 0
     shop: 0
+    roster: 1

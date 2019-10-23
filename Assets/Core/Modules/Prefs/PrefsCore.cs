@@ -53,7 +53,7 @@ namespace Game
         [Serializable]
         public class NeedOnlineLoginProperty : Property<bool>
         {
-            public override bool Default => false;
+            public override bool Default => true;
 
             public override string Key => "Need Online Login";
         }

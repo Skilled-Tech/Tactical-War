@@ -21,7 +21,7 @@ namespace Game
 {
     public class OfflineLogin : Login.Controller
     {
-        public override bool IsValid
+        public override bool Accessible
         {
             get
             {
@@ -31,13 +31,22 @@ namespace Game
             }
         }
 
+        public override bool Available => true;
+
         public override void Show()
         {
             base.Show();
 
+            Perform();
+        }
+
+        public override void Perform()
+        {
+            base.Perform();
+
             Popup.Show("Logging In");
 
-            Login.Offline();
+            PlayFab.Login.Offline.Perform();
         }
     }
 }

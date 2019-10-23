@@ -25,3 +25,4 @@ MonoBehaviour:
   visibility:
     inventory: 0
     shop: 0
+    roster: 1

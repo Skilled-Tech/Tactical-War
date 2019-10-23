@@ -28,7 +28,9 @@ namespace Game
 
         public EmailLogin Email { get; protected set; }
 
-        public GuestLogin GuestLogin { get; protected set; }
+        public GuestLogin Guest { get; protected set; }
+
+        public OfflineLogin Offline { get; protected set; }
 
         public abstract class Module : UIElementModule<Login>
         {
@@ -53,18 +55,39 @@ namespace Game
             protected Button entry;
             public Button Entry { get { return entry; } }
 
-            public abstract bool IsValid { get; }
+            public abstract bool Accessible { get; }
 
-            protected virtual void UpdateState()
-            {
-                entry.interactable = IsValid;
-            }
+            public abstract bool Available { get; }
 
             public override void Init()
             {
                 base.Init();
 
                 UpdateState();
+            }
+
+            public virtual void Perform()
+            {
+                Login.OnError += ErrorCallback;
+            }
+
+            protected virtual void UpdateState()
+            {
+                entry.interactable = Accessible;
+
+                entry.gameObject.SetActive(Available);
+            }
+
+            void ErrorCallback(PlayFabError error)
+            {
+                Login.OnError -= ErrorCallback;
+
+                ErrorProcedure(error);
+            }
+
+            protected virtual void ErrorProcedure(PlayFabError error)
+            {
+                Popup.Show(error.ErrorMessage, Login.Reload, "Reload");
             }
         }
 
@@ -84,7 +107,8 @@ namespace Game
         {
             Google = Dependancy.Get<GoogleLogin>(gameObject);
             Email = Dependancy.Get<EmailLogin>(gameObject);
-            GuestLogin = Dependancy.Get<GuestLogin>(gameObject);
+            Guest = Dependancy.Get<GuestLogin>(gameObject);
+            Offline = Dependancy.Get<OfflineLogin>(gameObject);
 
             Modules.Configure(this);
         }
@@ -96,35 +120,29 @@ namespace Game
             Modules.Init(this);
         }
 
-        public virtual void Retry()
+        public virtual void Reload()
         {
             Scenes.Load(Scenes.Login);
 
             Popup.Hide();
         }
-
-        public virtual void Offline()
-        {
-            PlayFab.Title.OnResponse += TitleResponseCallback;
-            PlayFab.Title.Request();
-        }
-
+        
         void LoginResponseCallback(LoginResult result, PlayFabError error)
         {
             PlayFab.Login.OnResponse -= LoginResponseCallback;
 
-            Core.Prefs.NeedOnlineLogin.Value = false;
-
             if (error == null)
             {
                 Popup.Show("Retrieving Title Data");
+
+                Core.Prefs.NeedOnlineLogin.Value = false;
 
                 PlayFab.Title.OnResponse += TitleResponseCallback;
                 PlayFab.Title.Request();
             }
             else
             {
-                RaiseError(error);
+                Error(error);
             }
         }
 
@@ -141,7 +159,7 @@ namespace Game
             }
             else
             {
-                RaiseError(error);
+                Error(error);
             }
         }
 
@@ -168,7 +186,7 @@ namespace Game
             }
             else
             {
-                RaiseError(error);
+                Error(error);
             }
         }
 
@@ -188,7 +206,7 @@ namespace Game
             }
             else
             {
-                RaiseError(error);
+                Error(error);
             }
         }
 
@@ -202,7 +220,7 @@ namespace Game
             }
             else
             {
-                RaiseError(error);
+                Error(error);
             }
         }
 
@@ -237,11 +255,13 @@ namespace Game
             }
         }
 
-        void RaiseError(PlayFabError error)
+        public delegate void ErrorDelegate(PlayFabError error);
+        public event ErrorDelegate OnError;
+        void Error(PlayFabError error)
         {
             Debug.LogError("Login Error: " + error.GenerateErrorReport());
 
-            Popup.Show(error.ErrorMessage, Retry, "Retry");
+            if (OnError != null) OnError(error);
         }
     }
 }

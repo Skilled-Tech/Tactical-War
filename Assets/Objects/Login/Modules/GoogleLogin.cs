@@ -26,12 +26,21 @@ namespace Game
 {
     public class GoogleLogin : Login.Controller
     {
-        public override bool IsValid => true;
+        public override bool Accessible => true;
+
+        public override bool Available => Application.platform == RuntimePlatform.Android;
 
 #if GOOGLE_PLAY
         public override void Show()
         {
             base.Show();
+
+            Perform();
+        }
+
+        public override void Perform()
+        {
+            base.Perform();
 
             Popup.Show("Logging In");
 
@@ -63,7 +72,7 @@ namespace Game
             {
                 Debug.LogError("Google Login Error: " + error);
 
-                Popup.Show("<Google Error>\n" + error, Login.Retry, "Retry");
+                Popup.Show("<Google Error>\n" + error, Login.Reload, "Retry");
             }
         }
 #endif

@@ -155,6 +155,10 @@ namespace Game
             protected bool shop;
             public bool Shop { get { return shop; } }
 
+            [SerializeField]
+            protected bool roster;
+            public bool Rotster { get { return roster; } }
+
             public VisibilityData(bool inventory, bool shop)
             {
                 this.inventory = inventory;

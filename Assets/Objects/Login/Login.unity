@@ -1360,6 +1360,7 @@ GameObject:
   - component: {fileID: 419630096}
   - component: {fileID: 419630098}
   - component: {fileID: 419630097}
+  - component: {fileID: 419630099}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1507,6 +1508,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419630095}
   m_CullTransparentMesh: 0
+--- !u!114 &419630099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419630095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0ca56417f69164682e78dddaba4015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 613100611}
+  on: {r: 1, g: 1, b: 1, a: 1}
+  off: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &454839464
 GameObject:
   m_ObjectHideFlags: 0
@@ -2384,7 +2400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &644928197
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4121,6 +4137,7 @@ GameObject:
   - component: {fileID: 1376344393}
   - component: {fileID: 1376344395}
   - component: {fileID: 1376344394}
+  - component: {fileID: 1376344396}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -4268,6 +4285,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1376344392}
   m_CullTransparentMesh: 0
+--- !u!114 &1376344396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376344392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0ca56417f69164682e78dddaba4015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 49479420}
+  on: {r: 1, g: 1, b: 1, a: 1}
+  off: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &1462912220
 GameObject:
   m_ObjectHideFlags: 0
@@ -4404,7 +4436,7 @@ GameObject:
   - component: {fileID: 1479086818}
   - component: {fileID: 1479086820}
   m_Layer: 5
-  m_Name: Email
+  m_Name: Address
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4700,7 +4732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entry: {fileID: 994787348}
-  email: {fileID: 1479086818}
+  address: {fileID: 1479086818}
   password: {fileID: 1183499969}
   confirm: {fileID: 399892345}
 --- !u!1 &1906528944
@@ -4714,6 +4746,7 @@ GameObject:
   - component: {fileID: 1906528945}
   - component: {fileID: 1906528947}
   - component: {fileID: 1906528946}
+  - component: {fileID: 1906528948}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -4861,6 +4894,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1906528944}
   m_CullTransparentMesh: 0
+--- !u!114 &1906528948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906528944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0ca56417f69164682e78dddaba4015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 994787348}
+  on: {r: 1, g: 1, b: 1, a: 1}
+  off: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &1920928861
 GameObject:
   m_ObjectHideFlags: 0
@@ -4872,6 +4920,7 @@ GameObject:
   - component: {fileID: 1920928862}
   - component: {fileID: 1920928864}
   - component: {fileID: 1920928863}
+  - component: {fileID: 1920928865}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -5019,6 +5068,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920928861}
   m_CullTransparentMesh: 0
+--- !u!114 &1920928865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920928861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0ca56417f69164682e78dddaba4015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 517797304}
+  on: {r: 1, g: 1, b: 1, a: 1}
+  off: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &2032423721
 GameObject:
   m_ObjectHideFlags: 0

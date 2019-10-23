@@ -92,7 +92,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: player.inventory.funds.elements.Array.data[0]._value
-    value: 1258300
+    value: 1559600
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: player.inventory.funds.elements.Array.data[1].type
@@ -100,7 +100,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: player.inventory.funds.elements.Array.data[1]._value
-    value: 612100
+    value: 586500
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: player.units.selection.max
@@ -113,27 +113,27 @@ Preset:
   - target: {fileID: 0}
     propertyPath: player.units.selection.list.Array.data[0]
     value: 
-    objectReference: {fileID: 11400000, guid: a18b282b3af7c0c498515fe805b6faa0, type: 2}
+    objectReference: {fileID: 11400000, guid: 5c8acfd3cef63344f837225d292cfedb, type: 2}
   - target: {fileID: 0}
     propertyPath: player.units.selection.list.Array.data[1]
     value: 
-    objectReference: {fileID: 11400000, guid: 06c15cd497f169740ae787e2b109cb06, type: 2}
+    objectReference: {fileID: 11400000, guid: 5691a21f5aa185a42bf3a5ba6f3bec94, type: 2}
   - target: {fileID: 0}
     propertyPath: player.units.selection.list.Array.data[2]
     value: 
-    objectReference: {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
+    objectReference: {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
   - target: {fileID: 0}
     propertyPath: player.units.selection.list.Array.data[3]
     value: 
-    objectReference: {fileID: 11400000, guid: 9e5fbb925de1fbb48be24f19a5101b5e, type: 2}
+    objectReference: {fileID: 11400000, guid: 503acb4ce6e589f4abe896fada3ef66e, type: 2}
   - target: {fileID: 0}
     propertyPath: player.units.selection.list.Array.data[4]
     value: 
-    objectReference: {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+    objectReference: {fileID: 11400000, guid: 294f414a51ca529448bcc2ca2bcc05b8, type: 2}
   - target: {fileID: 0}
     propertyPath: player.units.selection.list.Array.data[5]
     value: 
-    objectReference: {fileID: 11400000, guid: 503acb4ce6e589f4abe896fada3ef66e, type: 2}
+    objectReference: {fileID: 11400000, guid: 5817a7f1105a13447bdd801198d49109, type: 2}
   - target: {fileID: 0}
     propertyPath: player.units.selection.Context
     value: 
@@ -172,6 +172,18 @@ Preset:
     objectReference: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
   - target: {fileID: 0}
     propertyPath: items.upgrades.types.list.Array.data[2]
+    value: 
+    objectReference: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+  - target: {fileID: 0}
+    propertyPath: items.upgrades.types.common.power
+    value: 
+    objectReference: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+  - target: {fileID: 0}
+    propertyPath: items.upgrades.types.common.defense
+    value: 
+    objectReference: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+  - target: {fileID: 0}
+    propertyPath: items.upgrades.types.common.range
     value: 
     objectReference: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
   - target: {fileID: 0}
