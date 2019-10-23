@@ -61,6 +61,31 @@ namespace Game
         protected LevelBackgroundData background;
         public LevelBackgroundData Background { get { return background; } }
 
+        [SerializeField]
+        protected ConfigData config;
+        public ConfigData Config { get { return config; } }
+        [Serializable]
+        public class ConfigData
+        {
+            [SerializeField]
+            protected AIData _AI;
+            public AIData AI { get { return _AI; } }
+            [Serializable]
+            public class AIData
+            {
+                [SerializeField]
+                protected UnitsData units;
+                public UnitsData Units { get { return units; } }
+                [Serializable]
+                public class UnitsData
+                {
+                    [SerializeField]
+                    protected AIProponentUnitsSelection.Element[] list;
+                    public AIProponentUnitsSelection.Element[] List { get { return list; } }
+                }
+            }
+        }
+
         public RegionCore Region { get; protected set; }
         public void Set(RegionCore region)
         {

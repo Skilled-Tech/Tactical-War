@@ -21,9 +21,7 @@ namespace Game
 {
     public class AIProponentUnitsSelection : ProponentUnitsSelection
     {
-        [SerializeField]
-        protected Element[] list;
-        public Element[] List { get { return list; } }
+        public Element[] List { get { return Level.Data.Level.Config.AI.Units.List; } }
 
         [Serializable]
         public class Element : IUnitSelectionData
@@ -35,23 +33,10 @@ namespace Game
             [SerializeField]
             protected ItemUpgradesData upgrade;
             public ItemUpgradesData Upgrade { get { return upgrade; } }
-
-            public virtual void Configure()
-            {
-                upgrade.CheckDefaults(template);
-            }
         }
 
-        public override IUnitSelectionData this[int index] => list[index];
+        public override IUnitSelectionData this[int index] => List[index];
 
-        public override int Count => list.Length;
-
-        public override void Configure(Proponent reference)
-        {
-            base.Configure(reference);
-
-            for (int i = 0; i < list.Length; i++)
-                list[i].Configure();
-        }
+        public override int Count => List.Length;
     }
 }

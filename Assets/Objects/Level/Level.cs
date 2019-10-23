@@ -55,11 +55,7 @@ namespace Game
         {
             Core.PlayFab.EnsureActivation();
 
-            //TODO if (Core.Regions.Current == null) Core.Regions.Load(0);
-
             Instance = this;
-
-            Modules.Configure(this);
 
             Pause = Dependancy.Get<LevelPause>(gameObject);
             Speed = Dependancy.Get<LevelSpeed>(gameObject);
@@ -69,12 +65,12 @@ namespace Game
             Menu.Configure(this);
 
             Background = Dependancy.Get<LevelBackground>(gameObject);
-
             Finish = Dependancy.Get<LevelFinish>(gameObject);
-
             Timer = Dependancy.Get<LevelTimer>(gameObject);
 
             camera = FindObjectOfType<GameCamera>();
+
+            Modules.Configure(this);
         }
 
         protected virtual void Start()

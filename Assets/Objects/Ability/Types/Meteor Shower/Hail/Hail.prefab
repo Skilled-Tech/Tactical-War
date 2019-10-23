@@ -433,7 +433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     type: {fileID: 11400000, guid: 2b68af491ee9b9a40806aad134f092cf, type: 2}
-    potency: 80
+    potency: 100
     iterations: 1
     interval: 10
   probabilty: 100
@@ -758,6 +758,30 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 19900006, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1470433523
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900006, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900002, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1470433523
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900002, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900000, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1470433523
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900000, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 19800006, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
       propertyPath: InitialModule.startRotationX.minMaxState
       value: 3
@@ -774,14 +798,6 @@ PrefabInstance:
       propertyPath: InitialModule.startSizeZ.minMaxState
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
-      propertyPath: InitialModule.startRotationX.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
-      propertyPath: InitialModule.startRotationY.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 19800002, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
       propertyPath: InitialModule.startRotationX.minMaxState
       value: 3
@@ -790,29 +806,13 @@ PrefabInstance:
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 19900006, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1470433523
+    - target: {fileID: 19800000, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 19900006, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 19900000, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1470433523
-      objectReference: {fileID: 0}
-    - target: {fileID: 19900000, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 19900002, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1470433523
-      objectReference: {fileID: 0}
-    - target: {fileID: 19900002, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
+    - target: {fileID: 19800000, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cbc5e57ce812b2499ca293964c1810c, type: 3}
