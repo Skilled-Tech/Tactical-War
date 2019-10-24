@@ -1,8 +1,8 @@
 [
   "Lancer",
-  "Robot",
-  null,
-  null,
-  null,
-  null
+  "Explosives_Archer",
+  "Healer_Wizard",
+  "Ice_Wizard",
+  "Earth_Wizard",
+  "Thunder_Wizard"
 ]

@@ -62,26 +62,53 @@ namespace Game
         public LevelBackgroundData Background { get { return background; } }
 
         [SerializeField]
-        protected ConfigData config;
-        public ConfigData Config { get { return config; } }
+        protected PlayerData player;
+        public PlayerData Player { get { return player; } }
         [Serializable]
-        public class ConfigData
+        public class PlayerData : ProponentData
+        {
+            
+        }
+
+        [SerializeField]
+        protected AIData _AI;
+        public AIData AI { get { return _AI; } }
+        [Serializable]
+        public class AIData : ProponentData
         {
             [SerializeField]
-            protected AIData _AI;
-            public AIData AI { get { return _AI; } }
+            protected UnitsData units;
+            public UnitsData Units { get { return units; } }
             [Serializable]
-            public class AIData
+            public class UnitsData
             {
                 [SerializeField]
-                protected UnitsData units;
-                public UnitsData Units { get { return units; } }
+                protected AIProponentUnitsSelection.Element[] list;
+                public AIProponentUnitsSelection.Element[] List { get { return list; } }
+            }
+        }
+
+        public class ProponentData
+        {
+            [SerializeField]
+            protected BaseData _base;
+            public BaseData Base { get { return _base; } }
+            [Serializable]
+            public class BaseData
+            {
+                [SerializeField]
+                protected GraphicData graphic;
+                public GraphicData Graphic { get { return graphic; } }
                 [Serializable]
-                public class UnitsData
+                public class GraphicData
                 {
                     [SerializeField]
-                    protected AIProponentUnitsSelection.Element[] list;
-                    public AIProponentUnitsSelection.Element[] List { get { return list; } }
+                    protected GameObject prefab;
+                    public GameObject Prefab { get { return prefab; } }
+
+                    [SerializeField]
+                    protected Vector3 position;
+                    public Vector3 Position { get { return position; } }
                 }
             }
         }

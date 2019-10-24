@@ -41,12 +41,9 @@ namespace Game
         {
             get
             {
-                IUnitSelectionData result = null;
+                if (Count == 0) return null;
 
-                while(result == null)
-                    result = this[UnityEngine.Random.Range(0, Count)];
-
-                return result;
+                return this[UnityEngine.Random.Range(0, Count)];
             }
         }
 

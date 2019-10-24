@@ -23,6 +23,8 @@ namespace Game
     {
         public ProponentUnitsSelection Selection { get { return Units.Selection; } }
 
+        public override LevelCore.ProponentData LevelData => Level.Data.Level.AI;
+
         protected override void Start()
         {
             base.Start();
@@ -40,15 +42,18 @@ namespace Game
             {
                 if (Base.Units.Count < Enemy.Base.Units.Count + 4)
                 {
-                    var random = Selection.Random;
-
-                    if (Base.Units.Creator.CanDeploy(random.Template))
+                    if(Selection.Count > 0)
                     {
-                        if (deployment == null)
-                            deployment = Base.Units.Creator.Deploy(random.Template);
-                        else
+                        var random = Selection.Random;
+
+                        if (Base.Units.Creator.CanDeploy(random.Template))
                         {
-                            if (deployment.isComplete) deployment = null;
+                            if (deployment == null)
+                                deployment = Base.Units.Creator.Deploy(random.Template);
+                            else
+                            {
+                                if (deployment.isComplete) deployment = null;
+                            }
                         }
                     }
                 }

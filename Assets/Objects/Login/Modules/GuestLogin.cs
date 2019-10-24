@@ -40,7 +40,9 @@ namespace Game
 
             if (Application.isEditor)
             {
+#if UNITY_EDITOR
                 PlayFab.Login.Email.Perform("Moe4Baker@gmail.com", "Password");
+#endif
             }
             else if (Application.platform == RuntimePlatform.Android)
             {

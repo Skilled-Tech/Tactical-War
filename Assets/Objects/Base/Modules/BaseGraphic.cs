@@ -19,12 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class LevelConfig : MonoBehaviour
+	public class BaseGraphic : Base.Module
 	{
-		[Serializable]
-        public class AIData
-        {
-            
-        }
+		
 	}
 }

@@ -21,7 +21,7 @@ namespace Game
 {
     public class AIProponentUnitsSelection : ProponentUnitsSelection
     {
-        public Element[] List { get { return Level.Data.Level.Config.AI.Units.List; } }
+        public Element[] List { get { return Level.Data.Level.AI.Units.List; } }
 
         [Serializable]
         public class Element : IUnitSelectionData

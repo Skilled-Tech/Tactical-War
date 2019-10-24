@@ -36,6 +36,8 @@ namespace Game
             public Level Level { get { return Level.Instance; } }
         }
 
+        public abstract LevelCore.ProponentData LevelData { get; }
+
         public Base Base { get; protected set; }
 
         public Proponent Enemy { get; protected set; }
