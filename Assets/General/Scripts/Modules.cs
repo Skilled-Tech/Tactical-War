@@ -62,5 +62,11 @@ namespace Game
 
             return targets;
         }
+
+        public static void Setup<TRefrence>(IModule<TRefrence> instance, TRefrence reference)
+        {
+            instance.Configure(reference);
+            instance.Init();
+        }
     }
 }

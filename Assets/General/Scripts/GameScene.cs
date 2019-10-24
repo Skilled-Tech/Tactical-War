@@ -27,6 +27,9 @@ namespace Game
 #if UNITY_EDITOR
         public Object Asset { get { return asset; } }
 
+        /// <summary>
+        /// EDITOR ONLY
+        /// </summary>
         public string Path
         {
             get
@@ -37,37 +40,29 @@ namespace Game
 #endif
 
         [SerializeField]
-        protected string name;
-        public string Name
+        protected string _name;
+        public string name
         {
             get
             {
 #if UNITY_EDITOR
-                var internalName = GetName(asset);
+                if (asset == null) return null;
 
-                if (internalName != name)
+                if(asset.name != this._name)
                 {
-                    Debug.LogWarning("Scene name mismatch, old name: (" + name + "), new name: (" + internalName + "). Please check scene fields");
+                    Debug.LogWarning("Scene name mismatch, old name: (" + _name + "), new name: (" + asset.name + "). Please check scene fields");
 
-                    name = internalName;
+                    _name = asset.name;
                 }
 #endif
 
-                return name;
+                return _name;
             }
         }
 
         public static implicit operator string(GameScene scene)
         {
-            return scene.name;
-        }
-
-        public static string GetName(Object asset)
-        {
-            if (asset == null)
-                return "";
-            else
-                return asset.name;
+            return scene._name;
         }
 
 #if UNITY_EDITOR
@@ -85,11 +80,11 @@ namespace Game
                 asset = property.FindPropertyRelative(nameof(asset));
 
                 SerializedProperty name;
-                name = property.FindPropertyRelative(nameof(name));
+                name = property.FindPropertyRelative("_" + nameof(name));
 
                 asset.objectReferenceValue = EditorGUI.ObjectField(position, property.displayName, asset.objectReferenceValue, typeof(SceneAsset), false);
-
-                name.stringValue = GetName(asset.objectReferenceValue);
+                
+                name.stringValue = asset.objectReferenceValue == null ? string.Empty : asset.objectReferenceValue.name;
             }
         }
 #endif

@@ -15,5 +15,13 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: ce11e41ca5abf084faebc02783784f28, type: 3}
   scene:
     asset: {fileID: 102900000, guid: 2b22f4fc8c1de2c4eb757596c54be13e, type: 3}
-    name: Snow World
+    _name: Snow-World
   background: {fileID: 11400000, guid: eba9839d70219ff46b71dc0c9abbe6d1, type: 2}
+  player:
+    _base:
+      graphic: {fileID: 11400000, guid: 9dae99270d180a64788e349e2161fa26, type: 2}
+  _AI:
+    _base:
+      graphic: {fileID: 11400000, guid: be3f47198f1a2f44892d750158fb8200, type: 2}
+    units:
+      list: []

@@ -36,11 +36,23 @@ namespace Game
 
         public virtual void Load(string name)
         {
-            SceneManager.LoadScene(name);
+            Load(name, LoadSceneMode.Single);
         }
+        public virtual void Load(string name, LoadSceneMode mode)
+        {
+            SceneManager.LoadScene(name, mode);
+        }
+
         public virtual void Load(GameScene scene)
         {
-            Load(scene.Name);
+            Load(scene, LoadSceneMode.Single);
+        }
+        public virtual void Load(GameScene scene, LoadSceneMode mode)
+        {
+            if (scene == null)
+                throw new NullReferenceException("Trying to load null scene");
+
+            Load(scene.name, mode);
         }
     }
 }

@@ -97,19 +97,8 @@ namespace Game
             public class BaseData
             {
                 [SerializeField]
-                protected GraphicData graphic;
-                public GraphicData Graphic { get { return graphic; } }
-                [Serializable]
-                public class GraphicData
-                {
-                    [SerializeField]
-                    protected GameObject prefab;
-                    public GameObject Prefab { get { return prefab; } }
-
-                    [SerializeField]
-                    protected Vector3 position;
-                    public Vector3 Position { get { return position; } }
-                }
+                protected BaseGraphicsData graphic;
+                public BaseGraphicsData Graphic { get { return graphic; } }
             }
         }
 

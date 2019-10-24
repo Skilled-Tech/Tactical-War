@@ -92,9 +92,6 @@ namespace Game
             event Action OnInit;
             void Init();
 
-            event Action OnSceneLoad;
-            void SceneLoad();
-
             void Register(IProperty property);
         }
 
@@ -114,18 +111,11 @@ namespace Game
                 if (OnInit != null) OnInit();
             }
 
-            public event Action OnSceneLoad;
-            public virtual void SceneLoad()
-            {
-                if (OnSceneLoad != null) OnSceneLoad();
-            }
-
             public virtual void Register(IProperty module)
             {
                 module.Configure();
 
                 OnInit += module.Init;
-                OnSceneLoad += module.SceneLoad;
             }
         }
 
@@ -157,7 +147,6 @@ namespace Game
                 module.Configure();
 
                 OnInit += module.Init;
-                OnSceneLoad += module.SceneLoad;
             }
         }
         #endregion
@@ -173,8 +162,6 @@ namespace Game
 
         void Configure()
         {
-            SceneManager.sceneLoaded += SceneLoaded;
-
             Application.runInBackground = true;
 
             Register(data);
@@ -196,13 +183,6 @@ namespace Game
             module.Configure();
 
             OnInit += module.Init;
-            OnSceneLoaded += module.SceneLoad;
-        }
-
-        public event Action OnSceneLoaded;
-        void SceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            Init();
         }
 
         public event Action OnInit;

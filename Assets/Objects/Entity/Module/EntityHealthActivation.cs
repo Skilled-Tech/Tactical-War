@@ -25,11 +25,6 @@ namespace Game
         protected List<GameObject> list;
         public List<GameObject> List { get { return list; } }
 
-        public override void Configure(Entity data)
-        {
-            base.Configure(data);
-        }
-
         public override void Init()
         {
             base.Init();

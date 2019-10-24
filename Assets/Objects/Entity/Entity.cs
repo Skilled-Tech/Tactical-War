@@ -38,7 +38,7 @@ namespace Game
         }
 
         public Bounds Bounds { get; protected set; }
-
+        public virtual void CalculateBounds() => Bounds = Tools.Bounds.FromCollider2D(gameObject);
         public Vector3 Center
         {
             get
@@ -46,7 +46,6 @@ namespace Game
                 return transform.TransformPoint(Bounds.center);
             }
         }
-
         public Vector3 Size => Bounds.size;
 
         public virtual float PersonalSpace => Bounds.extents.x;
@@ -54,14 +53,9 @@ namespace Game
         protected virtual void Awake()
         {
             Health = Dependancy.Get<Health>(gameObject);
-
             Defense = Dependancy.Get<EntityDefense>(gameObject);
-
             StatusEffects = Dependancy.Get<EntityStatusEffects>(gameObject);
-
             TimeScale = Dependancy.Get<EntityTimeScale>(gameObject);
-
-            Bounds = Tools.Bounds.FromCollider2D(gameObject);
 
             Modules.Configure(this);
         }
@@ -69,6 +63,8 @@ namespace Game
         protected virtual void Start()
         {
             Modules.Init(this);
+
+            CalculateBounds();
         }
 
         public virtual float DistanceTo(Entity entity)

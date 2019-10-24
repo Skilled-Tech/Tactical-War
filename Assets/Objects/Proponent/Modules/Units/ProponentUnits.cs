@@ -26,25 +26,11 @@ namespace Game
         #region List
         public IList<Unit> List { get { return Base.Units.List; } }
 
-        public Unit this[int index]
-        {
-            get
-            {
-                return List[index];
-            }
-        }
+        public Unit this[int index] => Base.Units[index];
 
-        public Unit First
-        {
-            get
-            {
-                if (List.Count == 0) return null;
+        public Unit First => Base.Units.First;
 
-                return List.First();
-            }
-        }
-
-        public int Count { get { return List.Count; } }
+        public int Count => Base.Units.Count;
         #endregion
 
         public Base Base { get { return Proponent.Base; } }

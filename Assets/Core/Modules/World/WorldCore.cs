@@ -182,9 +182,8 @@ namespace Game
         {
             Current = new CurrentData(level, difficulty);
 
-            SceneManager.LoadScene(level.Scene.Name, LoadSceneMode.Single);
-
-            SceneManager.LoadScene(Scenes.Level, LoadSceneMode.Additive);
+            Scenes.Load(level.Scene, LoadSceneMode.Single);
+            Scenes.Load(Scenes.Level, LoadSceneMode.Additive);
         }
     }
 }

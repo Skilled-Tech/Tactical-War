@@ -127,7 +127,9 @@ namespace Game
             {
                 if (IsProcessing) return false;
 
-                if (Unit.Index >= Range.Value) return false;
+                if (Index >= Range.Value) return false;
+
+                if(Index > 0 && Leader.Units.First.Controller.isMoving) return false;
 
                 if (Target == null) return false;
 

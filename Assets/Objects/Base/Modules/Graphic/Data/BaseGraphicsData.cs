@@ -19,13 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class LevelLoader : MonoBehaviour
+    [CreateAssetMenu(menuName = BaseGraphic.MenuPath + "Data")]
+	public class BaseGraphicsData : ScriptableObject
 	{
-        public ScenesCore Scenes { get { return Core.Instance.Scenes; } }
+		[SerializeField]
+        protected GameObject prefab;
+        public GameObject Prefab { get { return prefab; } }
 
-        void Awake()
-        {
-            SceneManager.LoadScene(Scenes.Level.Name, LoadSceneMode.Additive);
-        }
+        [SerializeField]
+        protected Vector3 position;
+        public Vector3 Position { get { return position; } }
     }
 }

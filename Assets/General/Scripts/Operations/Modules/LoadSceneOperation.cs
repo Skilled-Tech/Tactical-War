@@ -27,7 +27,7 @@ namespace Game
 
         public override void Execute()
         {
-            SceneManager.LoadScene(target, loadMode);
+            SceneManager.LoadScene(target.name, loadMode);
         }
     }
 }

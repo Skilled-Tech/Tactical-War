@@ -19,31 +19,39 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [DefaultExecutionOrder(PlayerProponent.ExecutionOrder + 1)]
+    [DefaultExecutionOrder(Proponent.ExecutionOrder + 1)]
     public class Base : Entity, IModule<Proponent>
     {
+        public const string MenuPath = Core.GameMenuPath + "Base/";
+
         public Proponent Proponent { get; protected set; }
 
         public BaseUnits Units { get; protected set; }
 
         public BaseTower Tower { get; protected set; }
 
+        public BaseGraphic Graphic { get; protected set; }
+
         public Transform Entrance { get { return Units.Creator.transform; } }
 
         new public abstract class Module : Module<Base>
         {
+            public const string MenuPath = Base.MenuPath + "Modules/";
+
             public Base Base { get { return Reference; } }
 
             public Proponent Proponent { get { return Base.Proponent; } }
         }
+
+        public LevelCore.ProponentData.BaseData LevelData => Proponent.LevelData.Base;
 
         public virtual void Configure(Proponent data)
         {
             Proponent = data;
 
             Units = Dependancy.Get<BaseUnits>(gameObject);
-
             Tower = Dependancy.Get<BaseTower>(gameObject);
+            Graphic = Dependancy.Get<BaseGraphic>(gameObject);
 
             Modules.Configure(this);
         }
