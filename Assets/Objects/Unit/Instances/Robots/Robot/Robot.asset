@@ -29,6 +29,7 @@ MonoBehaviour:
     inventory: 0
     shop: 0
     roster: 1
+  species: {fileID: 11400000, guid: a29534cf9423e8744a120f45ebc28007, type: 2}
   type: {fileID: 11400000, guid: 5d6f48fe6d5c3ac47a030302440a629a, type: 2}
   prefab: {fileID: 5569182392643639925, guid: 5dd4f4d046be6794092e94cdced69971, type: 3}
   health: 80

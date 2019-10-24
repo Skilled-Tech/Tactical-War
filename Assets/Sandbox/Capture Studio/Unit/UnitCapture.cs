@@ -17,10 +17,12 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Game
+using Game;
+
+namespace CaptureStudio
 {
-	public class CaptureStudio : MonoBehaviour
-	{
-		
-	}
+	public class UnitCapture : PrefabCapture<UnitTemplate>
+    {
+        public override GameObject ToPrefab(UnitTemplate type) => type.Prefab;
+    }
 }

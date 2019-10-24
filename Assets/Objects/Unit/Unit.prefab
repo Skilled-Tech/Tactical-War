@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 647081595}
   - component: {fileID: 647081594}
   - component: {fileID: 647081593}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1725266501}
   - component: {fileID: 1725266502}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 1734654851}
   - component: {fileID: 1734654853}
   - component: {fileID: 1734654852}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 2132243743}
   - component: {fileID: 2132243745}
   - component: {fileID: 2132243744}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19590,7 +19590,7 @@ GameObject:
   - component: {fileID: 1996175939066254131}
   - component: {fileID: 2769549510681676433}
   - component: {fileID: 5351704315134448503}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Status Effects
   m_TagString: Untagged
   m_Icon: {fileID: 0}

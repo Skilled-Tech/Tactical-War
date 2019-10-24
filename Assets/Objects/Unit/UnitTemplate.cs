@@ -38,6 +38,10 @@ namespace Game
 
         [Space]
         [SerializeField]
+        protected Species species;
+        public Species Species { get { return species; } }
+
+        [SerializeField]
         protected UnitClass type;
         public UnitClass Type { get { return type; } }
 
