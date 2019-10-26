@@ -19,7 +19,7 @@ MonoBehaviour:
   background: {fileID: 11400000, guid: e7e7d18d12f2b1a43b98a0028da13058, type: 2}
   player:
     _base:
-      graphic: {fileID: 11400000, guid: 9dae99270d180a64788e349e2161fa26, type: 2}
+      graphic: {fileID: 11400000, guid: c7301de778cb1a64e9d7d65ace8b61fb, type: 2}
   _AI:
     _base:
       graphic: {fileID: 11400000, guid: be3f47198f1a2f44892d750158fb8200, type: 2}

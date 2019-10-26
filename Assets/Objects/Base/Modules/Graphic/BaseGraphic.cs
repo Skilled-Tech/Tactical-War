@@ -32,6 +32,14 @@ namespace Game
             Create();
         }
 
+        private void Update()
+        {
+            if(Application.isEditor)
+            {
+                Instance.transform.localPosition = Base.LevelData.Graphic.Position;
+            }
+        }
+
         protected virtual void Create()
         {
             Instance = Instantiate(Base.LevelData.Graphic.Prefab, transform);
