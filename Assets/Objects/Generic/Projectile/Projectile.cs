@@ -17,12 +17,13 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
 namespace Game
 {
     [RequireComponent(typeof(Rigidbody2D))]
 	public class Projectile : MonoBehaviour
 	{
-        new public Rigidbody2D rigidbody { get; protected set; }
+        public Rigidbody2D rigidbody { get; protected set; }
         public void SetVelocity(float velocity)
         {
             rigidbody.velocity = transform.right * velocity;
@@ -144,3 +145,4 @@ namespace Game
         }
     }
 }
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword

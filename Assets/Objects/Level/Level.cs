@@ -17,6 +17,7 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
 namespace Game
 {
     [DefaultExecutionOrder(ExecutionOrder)]
@@ -28,7 +29,7 @@ namespace Game
 
         public static Level Instance { get; protected set; }
 
-        new public GameCamera camera { get; protected set; }
+        public GameCamera camera { get; protected set; }
 
         public LevelPause Pause { get; protected set; }
         public LevelProponents Proponents { get; protected set; }
@@ -114,3 +115,4 @@ namespace Game
         }
     }
 }
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword

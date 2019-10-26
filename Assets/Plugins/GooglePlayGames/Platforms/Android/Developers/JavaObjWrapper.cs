@@ -14,6 +14,7 @@
 //    limitations under the License.
 // </copyright>
 
+#pragma warning disable CS0618 // Type or member is obsolete
 #if UNITY_ANDROID
 namespace Google.Developers
 {
@@ -489,3 +490,4 @@ namespace Google.Developers
     }
 }
 #endif
+#pragma warning restore CS0618 // Type or member is obsolete

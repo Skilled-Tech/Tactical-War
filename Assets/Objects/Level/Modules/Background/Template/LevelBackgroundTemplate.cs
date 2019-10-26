@@ -19,6 +19,7 @@ using Random = UnityEngine.Random;
 
 using UnityEngine.Rendering;
 
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
 namespace Game
 {
 	public class LevelBackgroundTemplate : MonoBehaviour
@@ -36,7 +37,7 @@ namespace Game
 
         public Level Level { get { return Level.Instance; } }
 
-        new public Camera camera { get { return Level.camera.component; } }
+        public Camera camera { get { return Level.camera.component; } }
 
         public Transform Anchor { get { return Level.camera.transform; } }
 
@@ -134,3 +135,4 @@ namespace Game
         }
     }
 }
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword

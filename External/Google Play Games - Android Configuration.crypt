@@ -1,0 +1,9 @@
+<nppcrypt version="1016">
+<encryption cipher="rijndael" key-length="32" mode="gcm" aad="true" encoding="base64" />
+<key algorithm="scrypt" N="16384" r="8" p="1" salt="Z7fV8liS0tH+Q7coR6P+yQ==" />
+<iv value="xHEBya3VrROnr72K/U5blA==" method="random" /><tag value="5NAv4XCc7wV5L3xok0NjKw==" />
+</nppcrypt>
+ywwj/bH8WvleldTesiWORVPMSRKydvOwMvzI6CGi/2NlM8XnyxriLmWtB5c2fQdMjrIz3bMVqHyIIj/qojQAcvTyfXzrEvFmsLJIptFAgts4FAI/xk410aN0lxtMLxaY
+8tqzPONteoXKRnLnGAYydBsfQInpsvEmMLCX8KdryQE3d5s8OPAxVZHXfxnC6eLcM9rkFcnaRqvDNW4P/ipbqkHoeozij1T90F7Sj9s+0tcPwrcrq7bnWWcNdJSenyhi
+2RNzEB+tUIDFeC8LT0bsGtgdsgdyOb8Rv2YuA9rVCw19pw3jCZNaetvLZzBHGs1lmrAQBLW39LhAqaA1urWGt1CwGfS3Ta5uIIBUt+wBbMx/b6AQAkwRyew2zclGHZCH
+rHKkWm8YEh6CaiXwop5KdlqIBf56d4sqD7rIrrROEpo2KcWHw6h9mTngy6Q=

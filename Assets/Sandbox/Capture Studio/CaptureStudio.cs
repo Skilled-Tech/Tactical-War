@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using System.IO;
 using System.Linq;
 using System.Collections;
@@ -9,22 +10,21 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
 
-#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditorInternal;
-#endif
 
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
 namespace CaptureStudio
 {
-	public static class CaptureStudio
+    public static class CaptureStudio
 	{
         [RequireComponent(typeof(Camera))]
         public class Behaviour : MonoBehaviour
         {
-            new Camera camera;
+            Camera camera;
 
             public int Width { get { return Screen.width; } }
             public int Height { get { return Screen.height; } }
@@ -83,3 +83,5 @@ namespace CaptureStudio
         }
     }
 }
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
+#endif
