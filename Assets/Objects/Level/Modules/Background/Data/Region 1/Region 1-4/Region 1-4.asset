@@ -18,16 +18,16 @@ MonoBehaviour:
       type: 3}
     anchor: 2
     height: 0
-    parallax: 0
+    parallax: 0.9
   - prefab: {fileID: 380270816923388102, guid: ac12093b042d0c44f93652852ac99c69, type: 3}
     anchor: 1
-    height: -0.87
-    parallax: 0
+    height: 1.98
+    parallax: 0.75
   - prefab: {fileID: 5821851252979998802, guid: 3f99e82b0a61d9e4ea06e7e292ab88c8,
       type: 3}
     anchor: 1
-    height: -0.87
-    parallax: 0
+    height: 0.08
+    parallax: 0.2
   - prefab: {fileID: 1245731580824517129, guid: aa16eb1b2747115459db229b8d078f40,
       type: 3}
     anchor: 1
