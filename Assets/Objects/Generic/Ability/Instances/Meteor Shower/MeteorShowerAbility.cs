@@ -35,15 +35,22 @@ namespace Game
 
         [SerializeField]
         protected int count = 20;
-        public int Count { get { return count; } } 
+        public int Count { get { return count; } }
 
-        public override void Activate(Proponent proponent)
+        public List<Projectile> Elements { get; protected set; }
+
+        public override void Configure(Proponent user, AbilityTemplate template)
         {
-            base.Activate(proponent);
+            base.Configure(user, template);
+
+            Elements = new List<Projectile>();
+        }
+
+        public override void Init()
+        {
+            base.Init();
 
             StartCoroutine(Procedure());
-
-
         }
 
         IEnumerator Procedure()
@@ -52,15 +59,27 @@ namespace Game
 
             for (int i = 0; i < count; i++)
             {
-                Spawn();
+                var instance = Spawn();
+
+                instance.DestroyEvent += ()=> ProjectileDestroyCallback(instance);
+
+                Elements.Add(instance);
 
                 yield return instruction;
             }
 
+            bool HasElements() => Elements.Count > 0;
+            yield return new WaitWhile(HasElements);
+
             End();
         }
 
-        protected virtual void Spawn()
+        void ProjectileDestroyCallback(Projectile instance)
+        {
+            Elements.Remove(instance);
+        }
+
+        protected virtual Projectile Spawn()
         {
             var instance = Instantiate(prefab);
 
@@ -71,6 +90,8 @@ namespace Game
             script.SetLayer(User.Layer);
 
             instance.transform.position = transform.position + (transform.right * Random.Range(-range / 2f, range / 2f));
+
+            return script;
         }
 
         void OnDrawGizmos()

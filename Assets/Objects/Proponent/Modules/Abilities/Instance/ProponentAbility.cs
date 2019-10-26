@@ -22,12 +22,10 @@ namespace Game
     public class ProponentAbility : Proponent.Module
     {
         [SerializeField]
-        protected Ability selection;
-        public Ability Selection { get { return selection; } }
+        protected AbilityTemplate template;
+        public AbilityTemplate Template { get { return template; } }
 
-        [SerializeField]
-        protected int cost = 500;
-        public int Cost { get { return cost; } }
+        public int Cost => template.Usage.Cost;
 
         public ProponentAbilityCooldown Cooldown { get; protected set; }
 
@@ -44,7 +42,7 @@ namespace Game
             {
                 if (Cooldown.Timer > 0f) return false;
 
-                if (Proponent.Energy.Value < cost) return false;
+                if (Proponent.Energy.Value < Cost) return false;
 
                 return true;
             }
@@ -72,9 +70,9 @@ namespace Game
             if (!CanUse)
                 throw new Exception(Proponent.name + " Trying to use ability when they aren't able to");
 
-            Proponent.Energy.Value -= cost;
+            Proponent.Energy.Value -= Cost;
 
-            Selection.Activate(Proponent);
+            var instance = template.Spawn(Proponent); //TODO
 
             if (OnUse != null) OnUse();
         }

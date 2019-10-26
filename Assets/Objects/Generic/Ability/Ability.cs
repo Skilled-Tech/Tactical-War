@@ -19,18 +19,21 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class Ability : MonoBehaviour
-    {
-        [SerializeField]
-        protected float cooldown = 20f;
-        public float Cooldown { get { return cooldown; } }
-
+	public class Ability : MonoBehaviour
+	{
         public Proponent User { get; protected set; }
-        public virtual bool InUse { get { return User != null; } }
-
-        public virtual void Activate(Proponent proponent)
+        public AbilityTemplate Template { get; protected set; }
+        public virtual void Configure(Proponent user, AbilityTemplate template)
         {
-            User = proponent;
+            this.User = user;
+            this.Template = template;
+        }
+
+        public float Cooldown => Template.Usage.Cooldown;
+
+        public virtual void Init()
+        {
+
         }
 
         public event Action OnEnd;

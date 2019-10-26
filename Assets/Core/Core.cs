@@ -78,6 +78,10 @@ namespace Game
         public ItemsCore Items { get { return items; } }
 
         [SerializeField]
+        protected AbilitiesCore ability;
+        public AbilitiesCore Ability => ability;
+
+        [SerializeField]
         protected PlayFabCore playFab;
         public PlayFabCore PlayFab { get { return playFab; } }
 

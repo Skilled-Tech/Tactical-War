@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7d6562cdcb3c349a58cd9f85eacdda, type: 3}
+  m_Name: Meteor Shower
+  m_EditorClassIdentifier: 
+  icon:
+    sprite: {fileID: 21300000, guid: 4e5c29233acc0694a9bd2523728664c8, type: 3}
+    tilt: 0
+  description: 
+  prices: []
+  upgrades:
+    template: {fileID: 0}
+    applicable: []
+  visibility:
+    inventory: 1
+    shop: 0
+    roster: 1
+  prefab: {fileID: 3338510518456614139, guid: 8e128bd1e22db104ba576979b61bc063, type: 3}
+  usage:
+    cooldown: 1
+    cost: 1000

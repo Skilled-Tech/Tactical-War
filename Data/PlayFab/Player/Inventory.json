@@ -1,23 +1,6 @@
 {
   "Inventory": [
     {
-      "Annotation": "Daily Login Reward",
-      "BundleContents": [],
-      "BundleParent": null,
-      "CatalogVersion": "Default",
-      "CustomData": null,
-      "DisplayName": "2K Gold",
-      "Expiration": "2019-10-24T07:21:05.862Z",
-      "ItemClass": null,
-      "ItemId": "2K_Gold",
-      "ItemInstanceId": "7FCD3DCD1298FFA7",
-      "PurchaseDate": "2019-10-24T07:21:02.862Z",
-      "RemainingUses": null,
-      "UnitCurrency": null,
-      "UnitPrice": 0,
-      "UsesIncrementedBy": null
-    },
-    {
       "Annotation": null,
       "BundleContents": null,
       "BundleParent": null,
@@ -358,7 +341,7 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "F920AF6837AA1FEB",
       "PurchaseDate": "2019-10-05T11:57:43.393Z",
-      "RemainingUses": 227,
+      "RemainingUses": 228,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null

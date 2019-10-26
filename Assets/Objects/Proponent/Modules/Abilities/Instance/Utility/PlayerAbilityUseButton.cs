@@ -88,6 +88,8 @@ namespace Game
 
         void UpdateState()
         {
+            target.Template.Icon.ApplyTo(icon);
+
             Button.interactable = target.CanUse;
 
             if (target.Cooldown.Rate == 0f)

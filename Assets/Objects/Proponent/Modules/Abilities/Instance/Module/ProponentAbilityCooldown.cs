@@ -21,7 +21,7 @@ namespace Game
 {
 	public class ProponentAbilityCooldown : ProponentAbility.Module
 	{
-        public float Duration { get { return Ability.Selection.Cooldown; } }
+        public float Duration { get { return Ability.Template.Usage.Cooldown; ; } }
 
         public float Timer { get; protected set; }
 

@@ -1101,7 +1101,7 @@ Transform:
   m_Children:
   - {fileID: 1449453469}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &120955530
 GameObject:
@@ -1147,8 +1147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd262e010c2d1204d8b8211acc803cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selection: {fileID: 1438555487}
-  cost: 500
+  template: {fileID: 11400000, guid: d2529312bb528f243803050dffb227b0, type: 2}
 --- !u!1 &157374006
 GameObject:
   m_ObjectHideFlags: 0
@@ -3481,38 +3480,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 702560213}
---- !u!1 &454841813
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 454841814}
-  m_Layer: 0
-  m_Name: Abilites
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &454841814
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454841813}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1027775853}
-  - {fileID: 1438555486}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &463214716
 GameObject:
   m_ObjectHideFlags: 0
@@ -4012,7 +3979,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 7dc5c087fb44b1f4e8fb198db19c1b5d, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6115,8 +6082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd262e010c2d1204d8b8211acc803cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selection: {fileID: 1027775854}
-  cost: 500
+  template: {fileID: 11400000, guid: 9e5a3b2d97925ec41af07c39e731bef9, type: 2}
 --- !u!1 &855462219
 GameObject:
   m_ObjectHideFlags: 0
@@ -7475,54 +7441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 322cf854e8e8e054fb67f55a8065dc8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1027775852
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1027775853}
-  - component: {fileID: 1027775854}
-  m_Layer: 0
-  m_Name: Meteor Shower
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1027775853
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1027775852}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 30, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 454841814}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1027775854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1027775852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6beca64d4c818145b2f7107b9b2b6fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldown: 20
-  range: 80
-  prefab: {fileID: 5569147398960292863, guid: c0c148e29c6df624fa761a17e8d65867, type: 3}
-  duration: 2
-  count: 50
 --- !u!1 &1043666778
 GameObject:
   m_ObjectHideFlags: 0
@@ -8312,8 +8230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd262e010c2d1204d8b8211acc803cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selection: {fileID: 1027775854}
-  cost: 500
+  template: {fileID: 11400000, guid: 9e5a3b2d97925ec41af07c39e731bef9, type: 2}
 --- !u!1 &1219413088
 GameObject:
   m_ObjectHideFlags: 0
@@ -9175,54 +9092,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429211418}
   m_CullTransparentMesh: 0
---- !u!1 &1438555485
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1438555486}
-  - component: {fileID: 1438555487}
-  m_Layer: 0
-  m_Name: Hail Shower
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1438555486
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1438555485}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 30, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 454841814}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1438555487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1438555485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6beca64d4c818145b2f7107b9b2b6fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldown: 20
-  range: 80
-  prefab: {fileID: 5569147398960292863, guid: b8bf27eb04151604bbd14498f346147f, type: 3}
-  duration: 1
-  count: 100
 --- !u!1 &1449453468
 GameObject:
   m_ObjectHideFlags: 0
@@ -9948,8 +9817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd262e010c2d1204d8b8211acc803cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selection: {fileID: 1438555487}
-  cost: 500
+  template: {fileID: 11400000, guid: d2529312bb528f243803050dffb227b0, type: 2}
 --- !u!1 &1672655134
 GameObject:
   m_ObjectHideFlags: 0
@@ -12843,7 +12711,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 4e5c29233acc0694a9bd2523728664c8, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
