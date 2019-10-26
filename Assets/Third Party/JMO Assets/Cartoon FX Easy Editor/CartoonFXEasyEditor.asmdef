@@ -1,0 +1,16 @@
+{
+    "name": "CartoonFXEasyEditor",
+    "references": [
+        "GUID:198ff2d6df968b7498bba8e1a935afaf"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

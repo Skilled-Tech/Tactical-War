@@ -1,0 +1,16 @@
+{
+    "name": "CartoonFX-Editor",
+    "references": [
+        "GUID:5594a917006414148a43bbef92c6308a"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
