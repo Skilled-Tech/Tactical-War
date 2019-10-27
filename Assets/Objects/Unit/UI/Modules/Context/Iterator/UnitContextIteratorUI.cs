@@ -29,7 +29,7 @@ namespace Game
         protected Button next;
         public Button Next { get { return next; } }
 
-        public ItemsUnitsCore Units { get { return Core.Items.Units; } }
+        public UnitsItemsCore Units { get { return Core.Items.Units; } }
 
         public override void Configure(UnitsUI data)
         {

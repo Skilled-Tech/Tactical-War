@@ -23,18 +23,18 @@ using Newtonsoft.Json.Linq;
 namespace Game
 {
     [Serializable]
-    public class PlayerUnitsSelectionCore : PlayerUnitsCore.Module
+    public class PlayerAbilitySelectionCore : PlayerAbilityCore.Module
 	{
-		[SerializeField]
-        protected int max = 4;
+        [SerializeField]
+        protected int max = 2;
         public int Max { get { return max; } }
 
         [SerializeField]
         [JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
-        protected UnitTemplate[] list;
-        public UnitTemplate[] List { get { return list; } }
+        protected AbilityTemplate[] list;
+        public AbilityTemplate[] List { get { return list; } }
 
-        public UnitTemplate this[int index]
+        public AbilityTemplate this[int index]
         {
             get
             {
@@ -48,13 +48,13 @@ namespace Game
             }
         }
 
-        public UnitTemplate Context;
+        public AbilityTemplate Context;
 
         public override void Configure()
         {
             base.Configure();
 
-            list = new UnitTemplate[max];
+            list = new AbilityTemplate[max];
 
             Player.Inventory.OnUpdate += OnInventoryUpdated;
 
@@ -85,7 +85,7 @@ namespace Game
             Core.Data.Save(DataPath, json);
         }
 
-        public string DataPath { get { return "Player/Units Selection.json"; } }
+        public string DataPath { get { return "Player/Ability Selection.json"; } }
 
         public virtual void Load()
         {
@@ -99,12 +99,12 @@ namespace Game
                 {
                     if (i >= array.Count) continue;
 
-                    list[i] = Core.Items.Units.Find(array[i].ToString());
+                    list[i] = Core.Items.Abilities.Find(array[i].ToString());
                 }
             }
             else
             {
-                
+
             }
         }
     }

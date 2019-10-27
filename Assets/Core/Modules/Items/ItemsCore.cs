@@ -37,8 +37,12 @@ namespace Game
         #endregion
 
         [SerializeField]
-        protected ItemsUnitsCore units;
-        public ItemsUnitsCore Units { get { return units; } }
+        protected UnitsItemsCore units;
+        public UnitsItemsCore Units { get { return units; } }
+
+        [SerializeField]
+        protected AbilitiesItemsCore abilities;
+        public AbilitiesItemsCore Abilities { get { return abilities; } }
 
         [SerializeField]
         protected ItemsUpgradesCore upgrades;
@@ -56,8 +60,9 @@ namespace Game
 
             Core.PlayFab.Catalog.OnRetrieved += OnCatalogRetrieved;
 
-            Register(upgrades);
             Register(units);
+            Register(abilities);
+            Register(upgrades);
         }
 
         public virtual ItemTemplate Find(CatalogItem item)

@@ -23,12 +23,12 @@ using PlayFab;
 namespace Game
 {
     [Serializable]
-	public class ItemsUnitsCore : ItemsCore.Module
+	public class AbilitiesItemsCore : ItemsCore.Module
 	{
         #region List
-        public List<UnitTemplate> List { get; protected set; }
+        public List<AbilityTemplate> List { get; protected set; }
 
-        public UnitTemplate this[int index] { get { return List[index]; } }
+        public AbilityTemplate this[int index] { get { return List[index]; } }
 
         public int Count { get { return List.Count; } }
         #endregion
@@ -37,16 +37,16 @@ namespace Game
         {
             base.Configure();
 
-            List = new List<UnitTemplate>();
+            List = new List<AbilityTemplate>();
 
             for (int i = 0; i < Items.List.Count; i++)
             {
-                if (Items[i] is UnitTemplate)
-                    List.Add(Items[i] as UnitTemplate);
+                if (Items[i] is AbilityTemplate)
+                    List.Add(Items[i] as AbilityTemplate);
             }
         }
 
-        public virtual UnitTemplate Find(string ID)
+        public virtual AbilityTemplate Find(string ID)
         {
             for (int i = 0; i < List.Count; i++)
                 if (List[i].ID == ID)

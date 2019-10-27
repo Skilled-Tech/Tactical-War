@@ -28,14 +28,6 @@ namespace Game
     [CreateAssetMenu(menuName = Unit.MenuPath + "Template")]
     public class UnitTemplate : ItemTemplate
     {
-        public bool Unlocked
-        {
-            get
-            {
-                return Core.Player.Inventory.Contains(this);
-            }
-        }
-
         [Space]
         [SerializeField]
         protected Species species;

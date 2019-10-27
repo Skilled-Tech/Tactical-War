@@ -35,6 +35,10 @@ namespace Game
         protected PlayerUnitsCore units;
         public PlayerUnitsCore Units { get { return units; } }
 
+        [SerializeField]
+        protected PlayerAbilityCore ability;
+        public PlayerAbilityCore Ability { get { return ability; } }
+
         public class Module : Core.Property
         {
             public PlayerCore Player { get { return Core.Player; } }
@@ -46,6 +50,7 @@ namespace Game
 
             Register(inventory);
             Register(units);
+            Register(ability);
         }
     }
 }
