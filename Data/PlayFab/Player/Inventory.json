@@ -10,8 +10,8 @@
       "Expiration": null,
       "ItemClass": "Ability",
       "ItemId": "Meteor_Shower",
-      "ItemInstanceId": "FAF8D6B067FE0C5E",
-      "PurchaseDate": "2019-10-27T09:22:03.625Z",
+      "ItemInstanceId": "F210BA60821C57C6",
+      "PurchaseDate": "2019-10-27T14:25:32.019Z",
       "RemainingUses": null,
       "UnitCurrency": "GD",
       "UnitPrice": 20000,
@@ -27,8 +27,8 @@
       "Expiration": null,
       "ItemClass": "Ability",
       "ItemId": "Hail_Storm",
-      "ItemInstanceId": "F00F28E77F235973",
-      "PurchaseDate": "2019-10-27T09:21:50.844Z",
+      "ItemInstanceId": "4CCBCB18052D980E",
+      "PurchaseDate": "2019-10-27T14:25:25.367Z",
       "RemainingUses": null,
       "UnitCurrency": "GD",
       "UnitPrice": 20000,
@@ -399,7 +399,7 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 1483600,
+    "GD": 1443600,
     "JL": 586500
   },
   "VirtualCurrencyRechargeTimes": {},
