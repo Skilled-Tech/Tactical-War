@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Item Roster
   m_EditorClassIdentifier: 
   list:
+  - {fileID: 11400000, guid: d2529312bb528f243803050dffb227b0, type: 2}
+  - {fileID: 11400000, guid: 9e5a3b2d97925ec41af07c39e731bef9, type: 2}
   - {fileID: 11400000, guid: 10430b6767664a34682b0394b27bb7f5, type: 2}
   - {fileID: 11400000, guid: cb4153b2c4d496442887b92cbf1ab01e, type: 2}
   - {fileID: 11400000, guid: c92df741545ed7a48840f87a30cb8098, type: 2}
@@ -37,9 +39,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 294f414a51ca529448bcc2ca2bcc05b8, type: 2}
   - {fileID: 11400000, guid: c5f5226b6833b8e4a9c60092dc68e436, type: 2}
   - {fileID: 11400000, guid: 5817a7f1105a13447bdd801198d49109, type: 2}
-  - {fileID: 11400000, guid: 5691a21f5aa185a42bf3a5ba6f3bec94, type: 2}
   - {fileID: 11400000, guid: 512c55eea40e4e24bafd6866e382c807, type: 2}
   - {fileID: 11400000, guid: 8b5bdedbe1f838f4286a37624b062ff2, type: 2}
   - {fileID: 11400000, guid: 5c8acfd3cef63344f837225d292cfedb, type: 2}
   - {fileID: 11400000, guid: 6a36fb4327677d5479e0bbe0ed809fc8, type: 2}
   - {fileID: 11400000, guid: dc8bae592eff22d47894027b21de2791, type: 2}
+  - {fileID: 11400000, guid: 5691a21f5aa185a42bf3a5ba6f3bec94, type: 2}

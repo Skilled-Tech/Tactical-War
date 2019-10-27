@@ -54,6 +54,11 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 512c55eea40e4e24bafd6866e382c807, type: 2}
         - {fileID: 11400000, guid: dc8bae592eff22d47894027b21de2791, type: 2}
         Context: {fileID: 0}
+    ability:
+      selection:
+        max: 2
+        list: []
+        Context: {fileID: 0}
   shop:
     sections:
     - {fileID: 11400000, guid: 5cc6fd3eef9e88b438b6fc16cc21e17b, type: 2}
