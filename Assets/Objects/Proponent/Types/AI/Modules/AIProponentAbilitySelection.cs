@@ -19,15 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ProponentUnitsUI : PlayerUI.Element
+    public class AIProponentAbilitySelection : ProponentAbilitiesSelection
     {
-        public ProponentUnitsCreatorUI Creator { get; protected set; }
-
-        public override void Configure(PlayerUI data)
-        {
-            base.Configure(data);
-
-            Creator = Dependancy.Get<ProponentUnitsCreatorUI>(gameObject);
-        }
+        public override IList<AbilityTemplate> List => Level.Data.Level.AI.Abilities.List;
     }
 }

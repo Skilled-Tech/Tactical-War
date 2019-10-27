@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(Button))]
-    public class PlayerAbilityUseButton : MonoBehaviour
+    public class PlayerAbilityUITemplate : MonoBehaviour
     {
         [SerializeField]
         protected Image icon;
@@ -38,46 +38,40 @@ namespace Game
 
         public Core Core { get { return Core.Instance; } }
 
-        [SerializeField]
-        protected ProponentAbility target;
-        public ProponentAbility Target { get { return target; } }
-
         public Level Level { get { return Level.Instance; } }
         public Proponent Proponent { get { return Level.Proponents.Player; } }
 
-        void Awake()
+        public virtual void Init()
         {
             Button = GetComponent<Button>();
 
             CooldownBar = Dependancy.Get<ProgressBar>(gameObject);
 
             GrayscaleController = new UIGrayscaleController(this);
-        }
 
-        void Start()
-        {
             Button.onClick.AddListener(OnClick);
 
             CooldownBar.Value = 0f;
 
-            icon.material = Instantiate(icon.material);
-            background.material = Instantiate(background.material);
-
             Proponent.Energy.OnChanged += OnEnergyChanged;
-            target.Cooldown.OnStateChange += OnCoolDownStateChange;
         }
 
-        void OnEnable()
+        public ProponentAbility Ability { get; protected set; }
+        public virtual void Set(ProponentAbility reference)
         {
+            this.Ability = reference;
+
+            Ability.Cooldown.OnTick += ElementCoolDownTickCallback;
+
             UpdateState();
         }
 
         void OnClick()
         {
-            target.Use();
+            Ability.Use();
         }
 
-        void OnCoolDownStateChange()
+        private void ElementCoolDownTickCallback()
         {
             UpdateState();
         }
@@ -88,18 +82,18 @@ namespace Game
 
         void UpdateState()
         {
-            target.Template.Icon.ApplyTo(icon);
+            Ability.Template.Icon.ApplyTo(icon);
 
-            Button.interactable = target.CanUse;
+            Button.interactable = Ability.CanUse;
 
-            if (target.Cooldown.Rate == 0f)
+            if (Ability.Cooldown.Timer == 0f)
             {
                 CooldownBar.Value = 0f;
                 GrayscaleController.Ammount = 0f;
             }
             else
             {
-                CooldownBar.Value = target.Cooldown.Rate;
+                CooldownBar.Value = Ability.Cooldown.Rate;
                 GrayscaleController.Ammount = 1f;
             }
         }
@@ -107,7 +101,7 @@ namespace Game
         void OnDestroy()
         {
             Proponent.Energy.OnChanged -= OnEnergyChanged;
-            target.Cooldown.OnStateChange -= OnCoolDownStateChange;
+            Ability.Cooldown.OnTick -= ElementCoolDownTickCallback;
         }
     }
 }

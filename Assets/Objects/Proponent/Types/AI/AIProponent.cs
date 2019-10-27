@@ -24,16 +24,7 @@ namespace Game
         public ProponentUnitsSelection Selection { get { return Units.Selection; } }
 
         public override LevelCore.ProponentData LevelData => Level.Data.Level.AI;
-
-        protected override void Start()
-        {
-            base.Start();
-
-            Base.Tower.Slots[0].Handle.SetActive(false);
-
-            DeployTower(0);
-        }
-
+        
         BaseUnitsCreator.Deployment deployment;
 
         void Update()

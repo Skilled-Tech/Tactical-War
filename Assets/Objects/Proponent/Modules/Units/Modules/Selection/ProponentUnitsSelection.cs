@@ -22,20 +22,8 @@ namespace Game
     public abstract class ProponentUnitsSelection : Proponent.Module
     {
         public abstract int Count { get; }
-
-        public IUnitSelectionData First
-        {
-            get
-            {
-                for (int i = 0; i < Count; i++)
-                {
-                    if (this[i] == null) continue;
-                    else return this[i];
-                }
-
-                return null;
-            }
-        }
+        
+        public abstract IUnitSelectionData this[int index] { get; }
 
         public IUnitSelectionData Random
         {
@@ -46,8 +34,6 @@ namespace Game
                 return this[UnityEngine.Random.Range(0, Count)];
             }
         }
-
-        public abstract IUnitSelectionData this[int index] { get; }
 
         public virtual IUnitSelectionData Find(UnitTemplate template)
         {

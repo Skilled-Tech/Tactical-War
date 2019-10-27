@@ -31,7 +31,9 @@ namespace Game
 
         protected override void Process()
         {
-            Instantiate(prefab, transform.position, transform.rotation);
+            var instance = Instantiate(prefab, transform.position, transform.rotation);
+
+            instance.transform.SetParent(Projectile.transform.parent);
 
             var damage = Dependancy.Get<ProjectileDamage>(Projectile.gameObject);
 

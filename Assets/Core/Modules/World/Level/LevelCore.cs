@@ -86,6 +86,17 @@ namespace Game
                 protected AIProponentUnitsSelection.Element[] list;
                 public AIProponentUnitsSelection.Element[] List { get { return list; } }
             }
+
+            [SerializeField]
+            protected AbilitiesData abilities;
+            public AbilitiesData Abilities { get { return abilities; } }
+            [Serializable]
+            public class AbilitiesData
+            {
+                [SerializeField]
+                protected AbilityTemplate[] list;
+                public AbilityTemplate[] List { get { return list; } }
+            }
         }
 
         public class ProponentData

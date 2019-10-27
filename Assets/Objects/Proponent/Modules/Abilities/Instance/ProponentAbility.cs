@@ -19,38 +19,36 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ProponentAbility : Proponent.Module
-    {
-        [SerializeField]
-        protected AbilityTemplate template;
-        public AbilityTemplate Template { get { return template; } }
-
-        public int Cost => template.Usage.Cost;
-
-        public ProponentAbilityCooldown Cooldown { get; protected set; }
+	public class ProponentAbility : ProponentAbilities.Module
+	{
+        public AbilityTemplate Template { get; protected set; }
+        public virtual void Set(AbilityTemplate reference)
+        {
+            this.Template = reference;
+        }
 
         public class Module : Module<ProponentAbility>
         {
-            public ProponentAbility Ability { get { return Reference; } }
-
-            public Proponent Proponent { get { return Ability.Proponent; } }
+            public ProponentAbility Ability => Reference;
         }
+
+        public ProponentAbilityCooldown Cooldown { get; protected set; }
 
         public virtual bool CanUse
         {
             get
             {
-                if (Cooldown.Timer > 0f) return false;
+                if (Proponent.Energy.Value < Template.Usage.Cost) return false;
 
-                if (Proponent.Energy.Value < Cost) return false;
+                if (Cooldown.Timer > 0f) return false;
 
                 return true;
             }
         }
 
-        public override void Configure(Proponent data)
+        public override void Configure(ProponentAbilities reference)
         {
-            base.Configure(data);
+            base.Configure(reference);
 
             Cooldown = Dependancy.Get<ProponentAbilityCooldown>(gameObject);
 
@@ -64,17 +62,31 @@ namespace Game
             Modules.Init(this);
         }
 
-        public event Action OnUse;
         public virtual void Use()
         {
-            if (!CanUse)
-                throw new Exception(Proponent.name + " Trying to use ability when they aren't able to");
+            Proponent.Energy.Value -= Template.Usage.Cost;
 
-            Proponent.Energy.Value -= Cost;
+            var instance = Template.Spawn(Proponent);
 
-            var instance = template.Spawn(Proponent); //TODO
+            instance.transform.rotation = Proponent.transform.rotation;
 
-            if (OnUse != null) OnUse();
+            Cooldown.Begin();
+        }
+
+        //Static Utility
+        public static ProponentAbility Create(ProponentAbilities abilities, AbilityTemplate template)
+        {
+            var instance = new GameObject(template.name);
+
+            instance.transform.SetParent(abilities.transform);
+
+            var script = instance.AddComponent<ProponentAbility>();
+
+            script.Set(template);
+
+            var cooldown = ProponentAbilityCooldown.Create(script);
+
+            return script;
         }
     }
 }

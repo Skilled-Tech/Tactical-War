@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ProponentUnitsCreatorUI : PlayerUI.Module
+    public class ProponentUnitsCreatorUI : PlayerUI.Element
     {
         [SerializeField]
         protected GameObject template;

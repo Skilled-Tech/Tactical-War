@@ -25,13 +25,29 @@ namespace Game
         protected Vector2 vector;
         public Vector2 Vector { get { return vector; } }
 
+        public Space space = Space.World;
+
         public override void Init()
         {
             base.Init();
 
             Projectile.rigidbody.gravityScale = 0;
 
-            Projectile.rigidbody.velocity = vector;
+            Projectile.rigidbody.velocity = Calculate();
+        }
+
+        public Vector3 Calculate()
+        {
+            switch (space)
+            {
+                case Space.World:
+                    return vector;
+
+                case Space.Self:
+                    return transform.InverseTransformVector(vector);
+            }
+
+            return vector;
         }
     }
 }

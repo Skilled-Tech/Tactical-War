@@ -25,7 +25,7 @@ namespace Game
     {
         public ProponentUnitsUI Units { get; protected set; }
 
-        public abstract class Module : UIElement, IModule<PlayerUI>
+        public abstract class Element : UIElement, IModule<PlayerUI>
         {
             public PlayerUI HUD { get; protected set; }
 

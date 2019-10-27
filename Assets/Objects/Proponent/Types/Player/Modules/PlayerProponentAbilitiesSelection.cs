@@ -19,15 +19,12 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ProponentUnitsUI : PlayerUI.Element
+    public class PlayerProponentAbilitiesSelection : ProponentAbilitiesSelection
     {
-        public ProponentUnitsCreatorUI Creator { get; protected set; }
+        public override IList<AbilityTemplate> List => Player.Ability.Selection.List;
 
-        public override void Configure(PlayerUI data)
-        {
-            base.Configure(data);
+        public static Core Core { get { return Core.Instance; } }
 
-            Creator = Dependancy.Get<ProponentUnitsCreatorUI>(gameObject);
-        }
+        public static PlayerCore Player { get { return Core.Player; } }
     }
 }

@@ -83,13 +83,15 @@ namespace Game
         {
             var instance = Instantiate(prefab);
 
+            instance.transform.SetParent(transform);
+
             var script = instance.GetComponent<Projectile>();
 
             script.Configure(User.Base);
-
             script.SetLayer(User.Layer);
 
             instance.transform.position = transform.position + (transform.right * Random.Range(-range / 2f, range / 2f));
+            instance.transform.rotation = transform.rotation;
 
             return script;
         }

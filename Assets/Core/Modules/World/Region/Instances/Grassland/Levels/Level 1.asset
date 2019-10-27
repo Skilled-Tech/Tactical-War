@@ -46,3 +46,7 @@ MonoBehaviour:
       - template: {fileID: 11400000, guid: e4908d3fcaa8a0143af115637ed9b6b9, type: 2}
         upgrade:
           list: []
+    abilities:
+      list:
+      - {fileID: 11400000, guid: d2529312bb528f243803050dffb227b0, type: 2}
+      - {fileID: 11400000, guid: 9e5a3b2d97925ec41af07c39e731bef9, type: 2}
