@@ -19,19 +19,19 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class AbilitySelectionUI : UnitsUI.Module
+	public class AbilitySelectionUI : AbilitiesUI.Module
 	{
-        public UnitSelectionListUI List { get; protected set; }
+        public AbilitiesSelectionListUI List { get; protected set; }
 
-        public UnitSelectionDragUI Drag { get; protected set; }
+        public AbilitySelectionDragUI Drag { get; protected set; }
 
-        public override void Configure(UnitsUI data)
+        public override void Configure(AbilitiesUI data)
         {
             base.Configure(data);
 
-            List = Dependancy.Get<UnitSelectionListUI>(gameObject);
+            List = Dependancy.Get<AbilitiesSelectionListUI>(gameObject);
 
-            Drag = Dependancy.Get<UnitSelectionDragUI>(gameObject);
+            Drag = Dependancy.Get<AbilitySelectionDragUI>(gameObject);
         }
     }
 }

@@ -30,6 +30,7 @@ namespace Game
 
         public PopupUI Popup { get { return Menu.Popup; } }
         public RewardsUI Rewards { get { return Menu.Rewards; } }
+        public BuyUI Buy => Menu.Buy;
 
         [Serializable]
         public class Module : Core.Property

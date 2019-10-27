@@ -143,8 +143,13 @@ namespace Game
             base.OnEnable();
 
             Player.Funds.OnValueChanged += UpdateState;
+            Player.Inventory.OnUpdate += InventoryUpdateCallback;
         }
 
+        private void InventoryUpdateCallback()
+        {
+            UpdateState();
+        }
         public override void UpdateState()
         {
             base.UpdateState();
@@ -179,41 +184,7 @@ namespace Game
         {
             Popup.Show("Processing Purchase");
 
-            Core.PlayFab.Purchase.OnResponse += PurchaseResponse;
-            Core.PlayFab.Purchase.Perform(Template.CatalogItem);
-        }
-
-        void PurchaseResponse(PurchaseItemResult result, PlayFabError error)
-        {
-            Core.PlayFab.Purchase.OnResponse -= PurchaseResponse;
-
-            if (error == null)
-            {
-                Popup.Show("Retrieving Inventory");
-
-                PlayFab.Player.Inventory.OnResponse += OnInventoryResponse;
-                PlayFab.Player.Inventory.Request();
-            }
-            else
-            {
-                RaiseError(error);
-            }
-        }
-
-        void OnInventoryResponse(PlayFabPlayerInventoryCore result, PlayFab.PlayFabError error)
-        {
-            PlayFab.Player.Inventory.OnResponse -= OnInventoryResponse;
-
-            if (error == null)
-            {
-                Popup.Hide();
-
-                UpdateState();
-            }
-            else
-            {
-                RaiseError(error);
-            }
+            Core.UI.Buy.Show(Template);
         }
         #endregion
 

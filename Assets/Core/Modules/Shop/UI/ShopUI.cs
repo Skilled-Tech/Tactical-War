@@ -29,9 +29,7 @@ namespace Game
         protected ShopSectionUI section;
         public ShopSectionUI Section { get { return section; } }
 
-        [SerializeField]
-        protected BuyItemUI buyItem;
-        public BuyItemUI BuyItem { get { return buyItem; } }
+        public BuyUI Buy => Core.Instance.UI.Buy;
 
         protected virtual void Awake()
         {
@@ -47,13 +45,11 @@ namespace Game
             section.OnSelection += SectionSelectionCallback;
 
             selection.Elements[0].Toggle.isOn = true;
-
-            buyItem.Init();
         }
 
         void SectionSelectionCallback(ItemTemplate template)
         {
-            buyItem.Show(template);
+            Buy.Show(template);
         }
 
         void SelectionCallback(ShopSectionCore value)

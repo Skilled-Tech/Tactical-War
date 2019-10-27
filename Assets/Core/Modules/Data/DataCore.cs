@@ -83,13 +83,6 @@ namespace Game
             return Encoding.ASCII.GetString(Load(relativePath));
         }
 
-        public override void Configure()
-        {
-            base.Configure();
-
-            Debug.Log(AbsolutePath);
-        }
-
         public virtual bool Exists(string relativePath)
         {
             relativePath = "/" + relativePath;

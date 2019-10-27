@@ -60,7 +60,14 @@ namespace Game
 
         void OnListElementClicked(AbilityUITemplate template, AbilityTemplate data)
         {
-            //TODO clicking behaviour
+            if(Core.Player.Inventory.Contains(data))
+            {
+
+            }
+            else
+            {
+                Core.UI.Buy.Show(data);
+            }
         }
     }
 }

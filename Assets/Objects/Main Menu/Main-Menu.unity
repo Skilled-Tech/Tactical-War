@@ -4884,7 +4884,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 474550279}
-  - component: {fileID: 474550280}
   - component: {fileID: 474550281}
   m_Layer: 5
   m_Name: Drag
@@ -4912,21 +4911,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &474550280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474550278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bd5bd8c76291b64baaa792f44bb4f68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  template: {fileID: 4180033289799734693, guid: 7dd2734b9da11274287d1aa77e1ef85c,
-    type: 3}
-  list: {fileID: 0}
 --- !u!114 &474550281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7544,7 +7528,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selection: {fileID: 1251657488}
   section: {fileID: 1016851494}
-  buyItem: {fileID: 689366909}
 --- !u!1 &776846976
 GameObject:
   m_ObjectHideFlags: 0
@@ -12723,7 +12706,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 59.45999, y: -25.195}
+  m_AnchoredPosition: {x: 59.46, y: -25.195}
   m_SizeDelta: {x: 118.92, y: 50.39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1529016624

@@ -29,11 +29,17 @@ namespace Game
         protected PopupUI popup;
         public PopupUI Popup { get { return popup; } }
 
+        [SerializeField]
+        protected BuyUI buy;
+        public BuyUI Buy { get { return buy; } }
+
         public virtual void Init()
         {
             rewards.Hide();
             popup.Hide();
+            buy.Hide();
 
+            buy.Init();
             rewards.Init();
         }
     }

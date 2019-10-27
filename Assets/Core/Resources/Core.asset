@@ -40,24 +40,26 @@ MonoBehaviour:
       funds:
         elements:
         - type: 0
-          _value: 1563600
+          _value: 1543600
         - type: 1
           _value: 586500
     units:
       selection:
         max: 6
         list:
-        - {fileID: 11400000, guid: 9e5fbb925de1fbb48be24f19a5101b5e, type: 2}
-        - {fileID: 11400000, guid: 503acb4ce6e589f4abe896fada3ef66e, type: 2}
-        - {fileID: 11400000, guid: 5c8acfd3cef63344f837225d292cfedb, type: 2}
-        - {fileID: 11400000, guid: 6a36fb4327677d5479e0bbe0ed809fc8, type: 2}
-        - {fileID: 11400000, guid: 512c55eea40e4e24bafd6866e382c807, type: 2}
-        - {fileID: 11400000, guid: dc8bae592eff22d47894027b21de2791, type: 2}
+        - {fileID: 11400000, guid: 5691a21f5aa185a42bf3a5ba6f3bec94, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
         Context: {fileID: 0}
     ability:
       selection:
-        max: 2
-        list: []
+        max: 3
+        list:
+        - {fileID: 11400000, guid: d2529312bb528f243803050dffb227b0, type: 2}
+        - {fileID: 11400000, guid: d2529312bb528f243803050dffb227b0, type: 2}
         Context: {fileID: 0}
   shop:
     sections:

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class AbilitiesSelectionListUI : UnitsUI.Module
+	public class AbilitiesSelectionListUI : AbilitiesUI.Module
 	{
 		[SerializeField]
         protected GameObject template;
@@ -29,15 +29,15 @@ namespace Game
         protected float spacing = -10f;
         public float Spacing { get { return spacing; } }
 
-        public UnitSelectionUITemplate[] Templates { get; protected set; }
+        public AbilitySelectionUITemplate[] Templates { get; protected set; }
 
-        public PlayerUnitsSelectionCore SelectionCore { get { return Core.Player.Units.Selection; } }
+        public PlayerAbilitySelectionCore SelectionCore { get { return Core.Player.Ability.Selection; } }
 
         public override void Init()
         {
             base.Init();
 
-            Templates = new UnitSelectionUITemplate[SelectionCore.Max];
+            Templates = new AbilitySelectionUITemplate[SelectionCore.Max];
 
             var templateWidth = Template.GetComponent<RectTransform>().sizeDelta.x;
 
@@ -67,13 +67,13 @@ namespace Game
                 Templates[i].OnTemplateDragEnd();
         }
 
-        UnitSelectionUITemplate CreateTemplate(UnitTemplate unit, int index)
+        AbilitySelectionUITemplate CreateTemplate(AbilityTemplate unit, int index)
         {
             var instance = Instantiate(template, transform);
 
             instance.name = "Slot " + index.ToString();
 
-            var script = instance.GetComponent<UnitSelectionUITemplate>();
+            var script = instance.GetComponent<AbilitySelectionUITemplate>();
 
             script.Init(index);
             script.Set(unit);

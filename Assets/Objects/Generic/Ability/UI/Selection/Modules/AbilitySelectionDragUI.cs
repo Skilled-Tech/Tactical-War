@@ -128,7 +128,7 @@ namespace Game
 
                 Instance = null;
 
-                Core.Player.Units.Selection.Context = null;
+                Core.Player.Ability.Selection.Context = null;
 
                 if (OnDragEnd != null) OnDragEnd();
             }

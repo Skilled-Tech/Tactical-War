@@ -21,7 +21,7 @@ using UnityEngine.EventSystems;
 namespace Game
 {
     [RequireComponent(typeof(ScrollRect))]
-	public class AbilitiesListUI : UnitsUI.Module
+	public class AbilitiesListUI : AbilitiesUI.Module
     {
         [SerializeField]
         protected GameObject template;
@@ -35,7 +35,7 @@ namespace Game
 
         public IList<AbilityTemplate> List { get { return Core.Items.Abilities.List; } }
 
-        public override void Configure(UnitsUI data)
+        public override void Configure(AbilitiesUI data)
         {
             base.Configure(data);
 

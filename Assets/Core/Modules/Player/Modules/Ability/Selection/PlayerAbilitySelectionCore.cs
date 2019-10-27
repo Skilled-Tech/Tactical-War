@@ -81,8 +81,6 @@ namespace Game
             var json = JsonConvert.SerializeObject(list, Formatting.Indented, new ItemTemplate.Converter());
 
             Core.Data.Save(DataPath, json);
-
-            Core.Data.Save(DataPath, json);
         }
 
         public string DataPath { get { return "Player/Ability Selection.json"; } }

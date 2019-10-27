@@ -22,7 +22,7 @@ using PlayFab;
 
 namespace Game
 {
-	public class BuyItemUI : UIElement
+	public class BuyUI : UIElement
 	{
 		[SerializeField]
         protected TMP_Text label;
@@ -115,7 +115,14 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Show("Purchase Successful", Popup.Hide, "Okay");
+                void Action()
+                {
+                    Popup.Hide();
+
+                    Hide();
+                }
+
+                Popup.Show("Purchase Successful", Action, "Okay");
 
                 UpdateState();
             }
