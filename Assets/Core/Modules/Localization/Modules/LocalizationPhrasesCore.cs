@@ -36,7 +36,7 @@ namespace Game
         {
             base.Configure();
 
-            Dictionary = new Dictionary<string, LocalizedPhrase>();
+            Dictionary = new Dictionary<string, LocalizedPhrase>(StringComparer.OrdinalIgnoreCase);
 
             Load();
         }
@@ -131,7 +131,7 @@ namespace Game
 
         public static LocalizedPhrase Load(JProperty property)
         {
-            var dictionary = new Dictionary<string, string>();
+            var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
             foreach (var child in property.Value.Children<JProperty>())
             {

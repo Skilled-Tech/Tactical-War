@@ -1,4 +1,32 @@
 {
+  "dwarf island": {
+    "en": "Dwarf Island",
+    "ar": "جزيرة الاقزام"
+  },
+  "click to start": {
+    "en": "Click To Start",
+    "ar": "اضغط للمتابعه"
+  },
+  "choose login": {
+    "en": "Choose Login",
+    "ar": "تسجيل الدخول"
+  },
+  "google": {
+    "en": "Google",
+    "ar": "قوقل"
+  },
+  "guest": {
+    "en": "Guest",
+    "ar": "ضيف"
+  },
+  "email": {
+    "en": "Email",
+    "ar": "ايميل"
+  },
+  "offline": {
+    "en": "Offline",
+    "ar": "اوفلاين"
+  },
   "play": {
     "en": "Play",
     "ar": "العب"
@@ -21,6 +49,6 @@
   },
   "return": {
     "en": "Return",
-    "ar" :  "رجوع"
+    "ar": "رجوع"
   }
 }

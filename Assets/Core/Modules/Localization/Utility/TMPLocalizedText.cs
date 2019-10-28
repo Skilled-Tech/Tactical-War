@@ -19,9 +19,11 @@ using Random = UnityEngine.Random;
 
 using TMPro;
 
+using RTLTMPro;
+
 namespace Game
 {
-    [RequireComponent(typeof(TMP_Text))]
+    [RequireComponent(typeof(RTLTextMeshPro))]
 	public class TMPLocalizedText : MonoBehaviour
 	{
         [SerializeField]
@@ -76,7 +78,7 @@ namespace Game
             }
         }
 
-		public TMP_Text Label { get; protected set; }
+		public RTLTextMeshPro Label { get; protected set; }
 
         public LocalizedPhrase Phrase { get; protected set; }
 
@@ -85,14 +87,14 @@ namespace Game
 
         private void Reset()
         {
-            Label = GetComponent<TMP_Text>();
+            Label = GetComponent<RTLTextMeshPro>();
 
             ID = Label.text.ToLower();
         }
 
         private void Start()
         {
-            Label = GetComponent<TMP_Text>();
+            Label = GetComponent<RTLTextMeshPro>();
 
             Phrase = Localization.Phrases.Get(ID);
 
