@@ -1,0 +1,26 @@
+{
+  "play": {
+    "en": "Play",
+    "ar": "العب"
+  },
+  "units": {
+    "en": "units",
+    "ar": "الوحدات"
+  },
+  "abilities": {
+    "en": "Abilities",
+    "ar": "الضربات"
+  },
+  "inventory": {
+    "en": "Inventory",
+    "ar": "الحقيبه"
+  },
+  "shop": {
+    "en": "Shop",
+    "ar": "المتجر"
+  },
+  "return": {
+    "en": "Return",
+    "ar" :  "رجوع"
+  }
+}

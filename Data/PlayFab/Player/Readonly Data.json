@@ -1,9 +1,9 @@
 {
   "Data": {
     "daily-rewards": {
-      "LastUpdated": "2019-10-27T08:29:51.881Z",
+      "LastUpdated": "2019-10-28T08:10:55.852Z",
       "Permission": 0,
-      "Value": "{\"timestamp\":\"2019-10-27T08:29:51.844Z\",\"progress\":2}"
+      "Value": "{\"timestamp\":\"2019-10-28T08:10:55.826Z\",\"progress\":3}"
     },
     "world": {
       "LastUpdated": "2019-10-10T07:05:13.92Z",
@@ -11,7 +11,7 @@
       "Value": "{\"regions\":[{\"name\":\"Grassland\",\"progress\":{\"count\":5,\"difficulty\":2}}]}"
     }
   },
-  "DataVersion": 561,
+  "DataVersion": 562,
   "Request": {
     "IfChangedFromDataVersion": null,
     "Keys": null,

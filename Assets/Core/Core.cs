@@ -89,6 +89,10 @@ namespace Game
         protected IAPCore _IAP;
         public IAPCore IAP { get { return _IAP; } }
 
+        [SerializeField]
+        protected LocalizationCore localization;
+        public LocalizationCore Localization { get { return localization; } }
+
         public interface IProperty
         {
             void Configure();
@@ -178,6 +182,7 @@ namespace Game
             Register(player);
             Register(playFab);
             Register(IAP);
+            Register(localization);
 
             Init();
         }

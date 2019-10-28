@@ -107,9 +107,9 @@ namespace Game
 
         protected virtual void Effect(Entity target)
         {
-            Vector3 GetPosition(Entity entity) => target.Center + Vector3.down * target.Bounds.extents.y;
+            var position = new Vector2(target.Center.x, Unit.Center.y - Unit.Bounds.extents.y);
 
-            var instance = Instantiate(prefab, GetPosition(target), prefab.transform.rotation);
+            var instance = Instantiate(prefab, position, prefab.transform.rotation);
 
             DoDamage(target);
         }
