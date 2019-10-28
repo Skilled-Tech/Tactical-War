@@ -50,5 +50,25 @@
   "return": {
     "en": "Return",
     "ar": "رجوع"
+  },
+  "paused": {
+    "en": "Paused",
+    "ar": "متوقف"
+  },
+  "resume": {
+    "en": "Resume",
+    "ar": "المتابعه"
+  },
+  "retry": {
+    "en": "Retry",
+    "ar": "اعادة"
+  },
+  "next": {
+    "en": "Next",
+    "ar": "تقدم"
+  },
+  "quit": {
+    "en": "Quit",
+    "ar": "خروج"
   }
 }
