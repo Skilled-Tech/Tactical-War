@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
   m_Name: Explosives Archer
   m_EditorClassIdentifier: 
+  localization:
+    _ID: Explosives Archer
   icon:
     sprite: {fileID: 21300000, guid: f65abc70bc876c54caf1db517a549291, type: 3}
     tilt: 0

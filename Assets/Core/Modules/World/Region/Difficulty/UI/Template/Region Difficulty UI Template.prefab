@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 3257910428451323826}
   - component: {fileID: 302446212671018642}
   - component: {fileID: 4089046737625568314}
+  - component: {fileID: 132718060756028423}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -185,7 +186,7 @@ RectTransform:
   m_GameObject: {fileID: 2951640015143498107}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0000799, y: 1.0000799, z: 1.0000799}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6925182092906127373}
   m_RootOrder: 0
@@ -193,7 +194,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -0.0000076293945}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3257910428451323826
 CanvasRenderer:
@@ -212,7 +213,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2951640015143498107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: b9839c2d141529145a431aef4d757ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -316,6 +317,11 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+  preserveNumbers: 0
+  farsi: 1
+  originalText: Skilled
+  fixTags: 1
+  forceFix: 0
 --- !u!114 &4089046737625568314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,3 +337,18 @@ MonoBehaviour:
   source: {fileID: 682416112348041193}
   on: {r: 1, g: 1, b: 1, a: 1}
   off: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
+--- !u!114 &132718060756028423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2951640015143498107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f899fd61e1fe76f4faaeb787e756eba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elements:
+  - localization: 1
+    value: {fileID: 11400000, guid: 3fbde2e562e333d488bc46986fc6f4f1, type: 2}

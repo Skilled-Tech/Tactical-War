@@ -155,6 +155,13 @@ namespace Game
         protected float speed = 1.5f;
         public float Speed { get { return speed; } }
 
+        public override void Init()
+        {
+            base.Init();
+
+            type.Init();
+        }
+
         protected override void Reset()
         {
             base.Reset();

@@ -33,6 +33,8 @@ namespace Game
         protected BuyUI buy;
         public BuyUI Buy { get { return buy; } }
 
+        public Core Core => Core.Instance;
+
         public virtual void Init()
         {
             rewards.Hide();
@@ -41,6 +43,14 @@ namespace Game
 
             buy.Init();
             rewards.Init();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Core.Localization.Progress();
+            }
         }
     }
 }

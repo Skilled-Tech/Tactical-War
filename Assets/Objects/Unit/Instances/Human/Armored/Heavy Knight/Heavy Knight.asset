@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
   m_Name: Heavy Knight
   m_EditorClassIdentifier: 
+  localization:
+    _ID: Heavy Knight
   icon:
     sprite: {fileID: 21300000, guid: b53e5fd58f3178748a5c8a0073664fac, type: 3}
     tilt: 0

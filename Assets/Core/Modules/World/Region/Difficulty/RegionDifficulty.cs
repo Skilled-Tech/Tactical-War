@@ -23,6 +23,8 @@ namespace Game
     [CreateAssetMenu(menuName = RegionCore.MenuPath + "Difficulty")]
 	public class RegionDifficulty : WorldCore.Module
 	{
+        public LocalizationPhraseData DisplayName { get; protected set; }
+
         public static WorldCore.DifficulyElement Difficulty { get { return World.Difficulty; } }
 
         public int Index { get; protected set; }
@@ -55,6 +57,13 @@ namespace Game
             base.Configure();
 
             Index = World.Difficulty.IndexOf(this);
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            DisplayName = LocalizationPhraseData.Create(base.name);
         }
 
         public static bool operator > (RegionDifficulty one, RegionDifficulty two)

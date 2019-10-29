@@ -38,16 +38,13 @@ namespace Game
             }
         }
 
-        public string DisplayName { get { return CatalogItem.DisplayName; } }
+        public LocalizationPhraseData DisplayName { get; protected set; }
 
         [SerializeField]
         protected IconProperty icon;
         public IconProperty Icon { get { return icon; } }
 
-        [SerializeField]
-        [TextArea]
-        protected string description;
-        public string Description { get { return description; } }
+        public LocalizationPhraseData Description { get; protected set; }
 
         [SerializeField]
         protected List<Currency> prices;
@@ -174,6 +171,13 @@ namespace Game
 
         }
 
+        public virtual void Init()
+        {
+            DisplayName = LocalizationPhraseData.Create(base.name);
+
+            Description = LocalizationPhraseData.Create(base.name + " " + "description");
+        }
+
         public CatalogItem CatalogItem { get; protected set; }
         public virtual void Load(CatalogItem item)
         {
@@ -193,9 +197,6 @@ namespace Game
                     prices.Add(element);
                 }
             }
-
-            if (string.IsNullOrEmpty(item.Description) == false)
-                description = item.Description;
 
             upgrades.Load(item);
         }
@@ -255,6 +256,48 @@ namespace Game
             image.sprite = sprite;
 
             image.rectTransform.localEulerAngles = Vector3.forward * tilt;
+        }
+    }
+
+    [Serializable]
+    public class LocalizationPhraseData
+    {
+        [SerializeField]
+        protected string _ID;
+        public string ID => _ID;
+
+        public string Text
+        {
+            get
+            {
+                if (Phrase == null) return "NULL";
+
+                return Phrase[Localization.Target];
+            }
+        }
+
+        public LocalizedPhrase Phrase { get; protected set; }
+
+        public LocalizationCore Localization => Core.Instance.Localization;
+
+        public virtual void Init(string ID)
+        {
+            _ID = ID;
+
+            Init();
+        }
+        public virtual void Init()
+        {
+            Phrase = Localization.Phrases.Get(ID);
+        }
+
+        public static LocalizationPhraseData Create(string ID)
+        {
+            var data = new LocalizationPhraseData();
+
+            data.Init(ID);
+
+            return data;
         }
     }
 }

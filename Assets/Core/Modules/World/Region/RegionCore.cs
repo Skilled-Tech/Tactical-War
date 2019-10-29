@@ -28,6 +28,8 @@ namespace Game
     {
         new public const string MenuPath = WorldCore.MenuPath + "Regions/";
 
+        public LocalizationPhraseData DisplayName { get; protected set; }
+
         [SerializeField]
         protected Sprite icon;
         public Sprite Icon { get { return icon; } }
@@ -200,6 +202,13 @@ namespace Game
 
                 levels[i].OnComplete += LevelCompleteCallback;
             }
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            DisplayName = LocalizationPhraseData.Create(base.name);
         }
 
         public virtual void Parse(JToken jToken)

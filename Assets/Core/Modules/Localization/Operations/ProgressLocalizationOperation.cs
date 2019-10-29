@@ -34,12 +34,7 @@ namespace Game
 
         public override void Execute()
         {
-            var index = values.IndexOf(Localization.Target);
-
-            if (index + 1 < values.Count)
-                Localization.Target = values[index + 1];
-            else
-                Localization.Target = values[0];
+            Localization.Progress();
         }
     }
 }

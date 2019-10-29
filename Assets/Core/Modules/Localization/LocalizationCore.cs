@@ -40,6 +40,18 @@ namespace Game
         public delegate void TargetChangeDelegate(LocalizationType target);
         public event TargetChangeDelegate OnTargetChange;
 
+        public virtual void Progress()
+        {
+            IList values = Enum.GetValues(typeof(LocalizationType));
+
+            var index = values.IndexOf(target);
+
+            if (index + 1 < values.Count)
+                Target = (LocalizationType)values[index + 1];
+            else
+                Target = (LocalizationType)values[0];
+        }
+
         public class Property : Core.Property
         {
             public LocalizationCore Localization => Core.Localization;

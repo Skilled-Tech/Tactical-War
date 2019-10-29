@@ -53,6 +53,13 @@ namespace Game
         public virtual void Init()
         {
             button.onClick.AddListener(ButtonAction);
+
+            Core.Localization.OnTargetChange += LocalizationTargetChangeCallback;
+        }
+
+        private void LocalizationTargetChangeCallback(LocalizationType target)
+        {
+            UpdateState();
         }
 
         public ItemTemplate Template { get; protected set; }
@@ -68,13 +75,13 @@ namespace Game
 
         public virtual void UpdateState()
         {
-            label.text = Template.DisplayName;
+            Template.Icon.ApplyTo(icon);
 
-            description.text = Template.Description;
+            label.text = Template.DisplayName.Text;
+
+            description.text = Template.Description.Text;
 
             price.text = Template.Price.ToString();
-
-            Template.Icon.ApplyTo(icon);
         }
 
         protected virtual void ButtonAction()
@@ -135,6 +142,11 @@ namespace Game
         void RaiseError(PlayFabError error)
         {
             Popup.Show(error.ErrorMessage, Popup.Hide, "Close");
+        }
+
+        private void OnDestroy()
+        {
+            Core.Localization.OnTargetChange -= LocalizationTargetChangeCallback;
         }
     }
 }

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7d6562cdcb3c349a58cd9f85eacdda, type: 3}
   m_Name: Hail Storm
   m_EditorClassIdentifier: 
+  localization:
+    _ID: Hail Storm
   icon:
     sprite: {fileID: 21300000, guid: 7dc5c087fb44b1f4e8fb198db19c1b5d, type: 3}
     tilt: 0

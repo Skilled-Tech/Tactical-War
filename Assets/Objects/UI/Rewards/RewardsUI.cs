@@ -38,6 +38,8 @@ namespace Game
         protected Button next;
         public Button Next { get { return next; } }
 
+        public Core Core => Core.Instance;
+
         public virtual void Init()
         {
             next.onClick.AddListener(OnNextClick);
@@ -71,7 +73,7 @@ namespace Game
 
         public virtual void Set(ItemStack data)
         {
-            label.text = data.Item.DisplayName;
+            label.text = data.Item.DisplayName.Text;
 
             itemStack.Set(data);
         }

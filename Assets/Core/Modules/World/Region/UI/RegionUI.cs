@@ -67,7 +67,14 @@ namespace Game
 
             Levels.OnSelect += OnLevelSelected;
 
+            Core.Localization.OnTargetChange += LocalizationChangeCallback;
+
             Modules.Init(this);
+        }
+
+        private void LocalizationChangeCallback(LocalizationType target)
+        {
+            UpdateState();
         }
 
         public RegionCore Region { get; protected set; }
@@ -76,11 +83,16 @@ namespace Game
         {
             this.Region = data;
 
-            label.text = data.name;
-
             Levels.Set(data);
 
+            UpdateState();
+
             Show();
+        }
+
+        public virtual void UpdateState()
+        {
+            label.text = Region.DisplayName.Text;
         }
 
         void OnLevelSelected(LevelCore level)
@@ -104,6 +116,11 @@ namespace Game
             Difficulty.OnSelect += DifficultySelectionCallback;
             Difficulty.OnHide += DifficultyHideCallback;
             Difficulty.For(level);
+        }
+
+        private void OnDestroy()
+        {
+            Core.Localization.OnTargetChange -= LocalizationChangeCallback;
         }
     }
 }

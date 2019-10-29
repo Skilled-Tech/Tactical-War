@@ -39,11 +39,20 @@ namespace Game
             }
         }
 
+        public Core Core => Core.Instance;
+
         public virtual void Init()
         {
             Button = GetComponent<Button>();
 
             Button.onClick.AddListener(ClickAction);
+
+            Core.Localization.OnTargetChange += LocalizationTargetChangedCallback;
+        }
+
+        private void LocalizationTargetChangedCallback(LocalizationType target)
+        {
+            UpdateState();
         }
 
         public RegionDifficulty Difficulty { get; protected set; }
@@ -51,7 +60,12 @@ namespace Game
         {
             this.Difficulty = difficulty;
 
-            label.text = difficulty.name;
+            UpdateState();
+        }
+
+        protected virtual void UpdateState()
+        {
+            label.text = Difficulty.DisplayName.Text;
         }
 
         public delegate void ClickDelegate(RegionDifficultyUITemplate UITemplate);
@@ -59,6 +73,11 @@ namespace Game
         protected virtual void ClickAction()
         {
             if (OnClick != null) OnClick(this);
+        }
+
+        private void OnDestroy()
+        {
+            Core.Localization.OnTargetChange -= LocalizationTargetChangedCallback;
         }
     }
 }

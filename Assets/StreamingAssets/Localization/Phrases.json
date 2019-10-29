@@ -70,5 +70,69 @@
   "quit": {
     "en": "Quit",
     "ar": "خروج"
+  },
+  "normal": {
+    "en": "Normal",
+    "ar": "طبيعي"
+  },
+  "hard": {
+    "en": "Hard",
+    "ar": "صعب"
+  },
+  "skilled": {
+    "en": "Skilled",
+    "ar": "ماهر"
+  },
+  "snowland": {
+    "en": "Snowland",
+    "ar": "ارض الجليد"
+  },
+  "grassland": {
+    "en": "Forest",
+    "ar": "الغابه"
+  },
+  "choose difficulty": {
+    "en": "Choose Difficulty",
+    "ar": "اختر الصعوبه"
+  },
+  "upgrade": {
+    "en": "Upgrade",
+    "ar": "تطوير"
+  },
+  "required": {
+    "en": "Required",
+    "ar": "متطلبات"
+  },
+  "full": {
+    "en": "Full",
+    "ar": "منتهي"
+  },
+  "armored": {
+    "en": "Armored",
+    "ar": "مدرع"
+  },
+  "assassin": {
+    "en": "Assassin",
+    "ar": "مغتال"
+  },
+  "Ranged": {
+    "en": "Ranged",
+    "ar": "رامي"
+  },
+  "Wizard": {
+    "en": "Wizard",
+    "ar" :  "ساحر"
+  },
+  "Special": {
+    "en": "Special",
+    "ar": "مميز"
+  },
+  "archer": {
+    "en": "Archer",
+    "ar": "رامي سهام"
+  },
+  "archer description": {
+    "en": "Description",
+    "ar": "الوصف"
   }
 }

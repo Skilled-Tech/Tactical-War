@@ -65,6 +65,16 @@ namespace Game
             Register(upgrades);
         }
 
+        public override void Init()
+        {
+            base.Init();
+
+            for (int i = 0; i < List.Count; i++)
+            {
+                List[i].Init();
+            }
+        }
+
         public virtual ItemTemplate Find(CatalogItem item)
         {
             return Find(item.ItemId);

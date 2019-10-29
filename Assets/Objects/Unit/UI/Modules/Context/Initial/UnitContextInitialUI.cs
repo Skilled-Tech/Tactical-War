@@ -156,7 +156,7 @@ namespace Game
 
             Template.Icon.ApplyTo(icon);
 
-            description.text = Template.Description;
+            description.text = Template.Description.Text;
 
             var unlocked = Player.Inventory.Contains(Template.CatalogItem);
 

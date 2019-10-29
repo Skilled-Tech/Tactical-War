@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
   m_Name: Knight
   m_EditorClassIdentifier: 
+  localization:
+    _ID: Knight
   icon:
     sprite: {fileID: 21300000, guid: 786dc58700650f540a9ba9dcdddd64d3, type: 3}
     tilt: 0

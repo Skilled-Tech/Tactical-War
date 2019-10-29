@@ -284,6 +284,20 @@ namespace Game
             this.Dictionary = dictionary;
         }
 
+        public override string ToString()
+        {
+            var text = "";
+
+            foreach (var pair in Dictionary)
+            {
+                text += pair.ToString();
+
+                text += Environment.NewLine;
+            }
+
+            return text;
+        }
+
         public static LocalizedPhrase Load(JProperty property)
         {
             var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);

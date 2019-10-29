@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
   m_Name: Thunder Wizard
   m_EditorClassIdentifier: 
+  localization:
+    _ID: Thunder Wizard
   icon:
     sprite: {fileID: 21300000, guid: 1debbb518249b344f975810ee65fe3c6, type: 3}
     tilt: 0
