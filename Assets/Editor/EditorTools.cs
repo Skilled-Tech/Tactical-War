@@ -13,10 +13,15 @@ using UnityEngine.AI;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEditor.SceneManagement;
+
+using System.Reflection;
 #endif
 
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+
+using TMPro;
+using RTLTMPro;
 
 namespace Game
 {
@@ -61,6 +66,27 @@ namespace Game
             }
         }
 
+        public static class TMP
+        {
+            [MenuItem("CONTEXT/" + nameof(TMP_Text) + "/To RTL")]
+            static void ToRTL(MenuCommand command)
+            {
+                var label = command.context as TMP_Text;
+
+                var text = label.text;
+
+                var serializedObject = new SerializedObject(label);
+
+                var script = MonoScript.Get<RTLTextMeshPro>();
+
+                MonoScript.Set(serializedObject, script);
+
+                var rtl = serializedObject.targetObject as RTLTextMeshPro;
+
+                rtl.text = text;
+            }
+        }
+
         public static class SetDirty
         {
             public const string MenuName = "Assets/Set Dirty";
@@ -85,6 +111,38 @@ namespace Game
                 }
 
                 return true;
+            }
+        }
+
+        public static class MonoScript
+        {
+            public static UnityEditor.MonoScript Get<TMonoBehaviour>()
+            where TMonoBehaviour : MonoBehaviour
+            {
+                var instance = new GameObject();
+
+                var behaviour = instance.AddComponent<TMonoBehaviour>();
+
+                var script = UnityEditor.MonoScript.FromMonoBehaviour(behaviour);
+
+                Object.DestroyImmediate(instance);
+
+                return script;
+            }
+
+            public static void Set(Object target, UnityEditor.MonoScript script)
+            {
+                var serializedObject = new SerializedObject(target);
+
+                Set(serializedObject, script);
+            }
+            public static void Set(SerializedObject target, UnityEditor.MonoScript script)
+            {
+                var property = target.FindProperty("m_Script");
+
+                property.objectReferenceValue = script;
+
+                target.ApplyModifiedProperties();
             }
         }
 	}

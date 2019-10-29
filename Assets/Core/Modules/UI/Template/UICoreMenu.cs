@@ -42,5 +42,14 @@ namespace Game
             buy.Init();
             rewards.Init();
         }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+                Core.Instance.Localization.Target = LocalizationType.English;
+
+            if (Input.GetKeyDown(KeyCode.A))
+                Core.Instance.Localization.Target = LocalizationType.Arabic;
+        }
     }
 }
