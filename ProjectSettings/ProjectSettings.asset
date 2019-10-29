@@ -627,7 +627,8 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    7: GOOGLE_PLAY
+    1: RTL_OVERRIDE
+    7: GOOGLE_PLAY;RTL_OVERRIDE
   platformArchitecture: {}
   scriptingBackend:
     Android: 0

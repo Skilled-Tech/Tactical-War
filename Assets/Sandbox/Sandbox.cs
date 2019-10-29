@@ -13,9 +13,25 @@ using UnityEditorInternal;
 
 using Object = UnityEngine.Object;
 
-public class Sandbox : MonoBehaviour
+using Game;
+using TMPro;
+
+public class Sandbox : LocalizationBehaviour.DataModifer<TMP_Text, TMP_FontAsset, Sandbox.Element>
 {
-    
+    public override TMP_FontAsset Value
+    {
+        get
+        {
+            return Component.font;
+        }
+        protected set
+        {
+            Component.font = value;
+        }
+    }
+
+    [Serializable]
+    public class Element : Element<TMP_FontAsset> { }
 }
 
 public class AndroidIAPExample : MonoBehaviour, IStoreListener

@@ -96,6 +96,161 @@ namespace Game
         }
     }
 
+    public static class LocalizationBehaviour
+    {
+        public abstract class Base : MonoBehaviour
+        {
+            public Core Core => Core.Instance;
+
+            public LocalizationCore Localization => Core.Localization;
+
+            protected virtual void Awake()
+            {
+
+            }
+
+            protected virtual void Start()
+            {
+                Localization.OnTargetChange += TargetChangeCallback;
+            }
+
+            protected virtual void TargetChangeCallback(LocalizationType type)
+            {
+
+            }
+        }
+
+        public abstract class Modifier<TComponent> : Base
+            where TComponent : Component
+        {
+            public TComponent Component { get; protected set; }
+
+            protected virtual void Reset()
+            {
+                Component = GetComponent<TComponent>();
+            }
+
+            protected override void Awake()
+            {
+                base.Awake();
+
+                Component = GetComponent<TComponent>();
+            }
+
+            protected override void Start()
+            {
+                base.Start();
+
+                UpdateState();
+            }
+
+            protected override void TargetChangeCallback(LocalizationType type)
+            {
+                base.TargetChangeCallback(type);
+
+                UpdateState();
+            }
+
+            public virtual void UpdateState()
+            {
+
+            }
+        }
+
+        public abstract class PhraseLabel<TComponent> : Modifier<TComponent>
+            where TComponent : Component
+        {
+            [SerializeField]
+            string _ID;
+            public string ID
+            {
+                get
+                {
+                    return _ID;
+                }
+                set
+                {
+                    _ID = value;
+                }
+            }
+
+            public abstract string Text { get; protected set; }
+
+            public LocalizedPhrase Phrase { get; protected set; }
+
+            protected override void Reset()
+            {
+                base.Reset();
+
+                ID = Text.ToLower();
+            }
+
+            protected override void Start()
+            {
+                Phrase = Localization.Phrases.Get(ID);
+
+                base.Start();
+            }
+
+            public override void UpdateState()
+            {
+                base.UpdateState();
+
+                Text = Phrase[Localization.Target];
+            }
+        }
+
+        public abstract class DataModifer<TComponent, TData, TElement> : Modifier<TComponent>
+            where TComponent : Component
+            where TElement : DataModifer<TComponent, TData, TElement>.Element<TData>
+        {
+            public TData Default { get; protected set; }
+
+            public abstract TData Value { get; protected set; }
+
+            [SerializeField]
+            protected TElement[] elements;
+            public TElement[] Elements { get { return elements; } }
+
+            [Serializable]
+            public class Element<TData>
+            {
+                [SerializeField]
+                protected LocalizationType localization;
+                public LocalizationType Localization { get { return localization; } }
+
+                [SerializeField]
+                protected TData value;
+                public TData Value { get { return value; } }
+            }
+
+            protected override void Start()
+            {
+                Default = Value;
+
+                base.Start();
+            }
+
+            public virtual TData From(LocalizationType localization)
+            {
+                for (int i = 0; i < elements.Length; i++)
+                {
+                    if (elements[i].Localization == localization)
+                        return elements[i].Value;
+                }
+
+                return Default;
+            }
+
+            public override void UpdateState()
+            {
+                base.UpdateState();
+
+                Value = From(Localization.Target);
+            }
+        }
+    }
+
     public class LocalizedPhrase
     {
         public Dictionary<string, string> Dictionary { get; protected set; }
