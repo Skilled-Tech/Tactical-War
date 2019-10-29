@@ -53,13 +53,6 @@ namespace Game
         public virtual void Init()
         {
             button.onClick.AddListener(ButtonAction);
-
-            Core.Localization.OnTargetChange += LocalizationTargetChangeCallback;
-        }
-
-        private void LocalizationTargetChangeCallback(LocalizationType target)
-        {
-            UpdateState();
         }
 
         public ItemTemplate Template { get; protected set; }
@@ -142,11 +135,6 @@ namespace Game
         void RaiseError(PlayFabError error)
         {
             Popup.Show(error.ErrorMessage, Popup.Hide, "Close");
-        }
-
-        private void OnDestroy()
-        {
-            Core.Localization.OnTargetChange -= LocalizationTargetChangeCallback;
         }
     }
 }

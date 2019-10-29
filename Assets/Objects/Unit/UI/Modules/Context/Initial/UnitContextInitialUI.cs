@@ -179,14 +179,10 @@ namespace Game
             }
         }
 
-        #region Unlock
         void UnlockClick()
         {
-            Popup.Show("Processing Purchase");
-
             Core.UI.Buy.Show(Template);
         }
-        #endregion
 
         void RaiseError(PlayFabError error)
         {
