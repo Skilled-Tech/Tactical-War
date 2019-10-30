@@ -83,13 +83,13 @@
     "en": "Skilled",
     "ar": "ماهر"
   },
-  "snowland": {
-    "en": "Snowland",
-    "ar": "ارض الجليد"
-  },
-  "grassland": {
+  "forest": {
     "en": "Forest",
     "ar": "الغابه"
+  },
+  "desert": {
+    "en": "Desert",
+    "ar": "الصحراء"
   },
   "choose difficulty": {
     "en": "Choose Difficulty",

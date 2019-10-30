@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62b4cb5bfe914d49a689ef3e1101c8c, type: 3}
+  m_Name: Forest
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  progress:
+    count: 5
+    difficulty: {fileID: 11400000, guid: c3f29393501112741b155f3c89e2bd05, type: 2}
+  levels:
+  - {fileID: 11400000, guid: e66b8d2185713ec4eb5624afab79d085, type: 2}
+  - {fileID: 11400000, guid: ce534a91810de0a4cabbe3acc483ab60, type: 2}
+  - {fileID: 11400000, guid: 2ae91468f650acc49ab1db88c5e6bb09, type: 2}
+  - {fileID: 11400000, guid: bbdc9a9c4a3e013469b93d17ee2bd7a8, type: 2}
+  - {fileID: 11400000, guid: 5ba1937da82f1d54db52603e1d534fdd, type: 2}
