@@ -51,7 +51,7 @@ namespace Game
 
         void UpdateState()
         {
-            Label.text = Proponent.Energy.Value.ToString("N0") + Core.Localization.Phrases.Get("energy");
+            Label.text = Proponent.Energy.Value.ToString("N0") + " " + Core.Localization.Phrases.Get("energy");
         }
 
         private void OnDestroy()
