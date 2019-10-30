@@ -37,17 +37,17 @@ namespace Game
 
         public virtual void Init()
         {
+            buy.Init();
+            rewards.Init();
+
             rewards.Hide();
             popup.Hide();
             buy.Hide();
-
-            buy.Init();
-            rewards.Init();
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Application.isEditor && Input.GetKeyDown(KeyCode.Space))
             {
                 Core.Localization.Progress();
             }

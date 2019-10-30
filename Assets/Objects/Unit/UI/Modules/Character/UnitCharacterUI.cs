@@ -37,18 +37,6 @@ namespace Game
 
         public UnitTemplate Data { get; protected set; }
 
-        public override void Init()
-        {
-            base.Init();
-
-            Core.Localization.OnTargetChange += LocalizationTargetChangeCallback;
-        }
-
-        private void LocalizationTargetChangeCallback(LocalizationType target)
-        {
-            UpdateState();
-        }
-
         public UnitTemplate Template { get; protected set; }
         public virtual void Set(UnitTemplate data)
         {

@@ -16,23 +16,48 @@ using Object = UnityEngine.Object;
 using Game;
 using TMPro;
 
-public class Sandbox : LocalizationBehaviour.DataModifer<TMP_Text, TMP_FontAsset, Sandbox.Element>
-{
-    public override TMP_FontAsset Value
-    {
-        get
-        {
-            return Component.font;
-        }
-        protected set
-        {
-            Component.font = value;
-        }
-    }
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-    [Serializable]
-    public class Element : Element<TMP_FontAsset> { }
+#if UNITY_EDITOR
+public class Sandbox : MonoBehaviour
+{
+    private void Start()
+    {
+        var GUIDs = AssetDatabase.FindAssets("t:ItemTemplate");
+
+        var jObject = new JObject();
+
+        foreach (var GUID in GUIDs)
+        {
+            var path = AssetDatabase.GUIDToAssetPath(GUID);
+
+            var itemTemplate = AssetDatabase.LoadAssetAtPath<ItemTemplate>(path);
+
+            if (jObject[itemTemplate.name.ToLower()] != null) continue;
+
+            JProperty Add(string name)
+            {
+                var contents = new JObject();
+                contents.Add(new JProperty("en", name));
+                contents.Add(new JProperty("ar", "*" + name + "*"));
+                var property = new JProperty(name.ToLower(), contents);
+                return property;
+            }
+
+            var a = Add(itemTemplate.name);
+            var b = Add(itemTemplate.name + " Description");
+
+            jObject.Add(a);
+            jObject.Add(b);
+        }
+
+        Debug.Log(jObject.ToString());
+
+        Core.Instance.Data.Save("Units R.json", jObject.ToString());
+    }
 }
+#endif
 
 public class AndroidIAPExample : MonoBehaviour, IStoreListener
 {

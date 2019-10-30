@@ -110,6 +110,8 @@ namespace Game
 
             protected virtual void FormatLabel(TMP_Text label, string text, object value)
             {
+                text = Core.Localization.Phrases.Get(text);
+
                 label.text = text + ": " + value.ToString();
             }
         }

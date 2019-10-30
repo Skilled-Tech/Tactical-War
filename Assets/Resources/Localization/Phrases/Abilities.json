@@ -1,0 +1,18 @@
+{
+  "hail storm": {
+    "en": "Hail Storm",
+    "ar": "*Hail Storm*"
+  },
+  "hail storm description": {
+    "en": "Hail Storm Description",
+    "ar": "*Hail Storm Description*"
+  },
+  "meteor shower": {
+    "en": "Meteor Shower",
+    "ar": "*Meteor Shower*"
+  },
+  "meteor shower description": {
+    "en": "Meteor Shower Description",
+    "ar": "*Meteor Shower Description*"
+  }
+}

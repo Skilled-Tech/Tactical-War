@@ -55,6 +55,11 @@ namespace Game
 
             public event Action<long> OnValueChanged;
 
+            public override string ToString()
+            {
+                return Currency.ToString(type, Value, "N0");
+            }
+
             public ElementData(CurrencyType type, long value)
             {
                 this.type = type;

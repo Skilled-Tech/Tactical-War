@@ -30,7 +30,11 @@ namespace Game
 
         TMP_Text label;
 
-        public PlayerCore Player { get { return Core.Instance.Player; } }
+        public Core Core => Core.Instance;
+        public PlayerCore Player => Core.Player;
+        public LocalizationCore Localization => Core.Localization;
+
+        public Funds.ElementData Element => Player.Funds.Find(type);
 
         void Awake()
         {
@@ -40,13 +44,19 @@ namespace Game
         void OnEnable()
         {
             Player.Funds.OnValueChanged += OnChange;
+            Localization.OnTargetChange += LocalizationTargetChanged;
 
             UpdateState();
         }
 
         void UpdateState()
         {
-            label.text = Player.Funds.Find(type).Value.ToString("N0") + " " + type.ToString();
+            label.text = Element.ToString();
+        }
+
+        void LocalizationTargetChanged(LocalizationType target)
+        {
+            UpdateState();
         }
 
         void OnChange()
@@ -57,6 +67,7 @@ namespace Game
         void OnDisable()
         {
             Player.Funds.OnValueChanged -= OnChange;
+            Localization.OnTargetChange -= LocalizationTargetChanged;
         }
     }
 }

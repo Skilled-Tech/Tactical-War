@@ -416,7 +416,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
-  preserveNumbers: 0
+  preserveNumbers: 1
   farsi: 1
   originalText: Description
   fixTags: 1
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elements:
   - localization: 1
-    value: {fileID: 11400000, guid: 3fbde2e562e333d488bc46986fc6f4f1, type: 2}
+    value: {fileID: 11400000, guid: 17cc86be2e8679744a9bc5757b27dbaa, type: 2}
 --- !u!1 &3352624431938584871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1117,6 +1117,7 @@ GameObject:
   - component: {fileID: 3704957903311711181}
   - component: {fileID: 689804576994155226}
   - component: {fileID: 8403137191599900044}
+  - component: {fileID: 6214767497097120066}
   m_Layer: 5
   m_Name: Price
   m_TagString: Untagged
@@ -1160,7 +1161,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7232842233729117996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: b9839c2d141529145a431aef4d757ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -1264,6 +1265,26 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+  preserveNumbers: 1
+  farsi: 1
+  originalText: Price
+  fixTags: 1
+  forceFix: 0
+--- !u!114 &6214767497097120066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232842233729117996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f899fd61e1fe76f4faaeb787e756eba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elements:
+  - localization: 1
+    value: {fileID: 11400000, guid: 17cc86be2e8679744a9bc5757b27dbaa, type: 2}
 --- !u!1 &7719961130857060701
 GameObject:
   m_ObjectHideFlags: 0
@@ -1486,7 +1507,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
-  preserveNumbers: 0
+  preserveNumbers: 1
   farsi: 1
   originalText: Label
   fixTags: 1

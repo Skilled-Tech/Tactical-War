@@ -1,0 +1,90 @@
+{
+  "1k gold": {
+    "en": "1K Gold",
+    "ar": "*1K Gold*"
+  },
+  "1k gold description": {
+    "en": "1K Gold Description",
+    "ar": "*1K Gold Description*"
+  },
+  "2k gold": {
+    "en": "2K Gold",
+    "ar": "*2K Gold*"
+  },
+  "2k gold description": {
+    "en": "2K Gold Description",
+    "ar": "*2K Gold Description*"
+  },
+  "5k gold": {
+    "en": "5K Gold",
+    "ar": "*5K Gold*"
+  },
+  "5k gold description": {
+    "en": "5K Gold Description",
+    "ar": "*5K Gold Description*"
+  },
+  "20k gold": {
+    "en": "20K Gold",
+    "ar": "*20K Gold*"
+  },
+  "20k gold description": {
+    "en": "20K Gold Description",
+    "ar": "*20K Gold Description*"
+  },
+  "50k gold": {
+    "en": "50K Gold",
+    "ar": "*50K Gold*"
+  },
+  "50k gold description": {
+    "en": "50K Gold Description",
+    "ar": "*50K Gold Description*"
+  },
+  "100k gold": {
+    "en": "100K Gold",
+    "ar": "*100K Gold*"
+  },
+  "100k gold description": {
+    "en": "100K Gold Description",
+    "ar": "*100K Gold Description*"
+  },
+  "1k jewels": {
+    "en": "1K Jewels",
+    "ar": "*1K Jewels*"
+  },
+  "1k jewels description": {
+    "en": "1K Jewels Description",
+    "ar": "*1K Jewels Description*"
+  },
+  "5k jewels": {
+    "en": "5K Jewels",
+    "ar": "*5K Jewels*"
+  },
+  "5k jewels description": {
+    "en": "5K Jewels Description",
+    "ar": "*5K Jewels Description*"
+  },
+  "10k jewels": {
+    "en": "10K Jewels",
+    "ar": "*10K Jewels*"
+  },
+  "10k jewels description": {
+    "en": "10K Jewels Description",
+    "ar": "*10K Jewels Description*"
+  },
+  "wood shield": {
+    "en": "Wood Shield",
+    "ar": "*Wood Shield*"
+  },
+  "wood shield description": {
+    "en": "Wood Shield Description",
+    "ar": "*Wood Shield Description*"
+  },
+  "wood sword": {
+    "en": "Wood Sword",
+    "ar": "*Wood Sword*"
+  },
+  "wood sword description": {
+    "en": "Wood Sword Description",
+    "ar": "*Wood Sword Description*"
+  }
+}

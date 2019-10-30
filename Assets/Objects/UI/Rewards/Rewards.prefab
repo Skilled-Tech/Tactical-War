@@ -609,6 +609,7 @@ GameObject:
   - component: {fileID: 5705612149430298898}
   - component: {fileID: 5705612149430298900}
   - component: {fileID: 5705612149430298901}
+  - component: {fileID: 1481322932784839975}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -652,7 +653,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5705612149430298899}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: b9839c2d141529145a431aef4d757ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -756,6 +757,26 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+  preserveNumbers: 1
+  farsi: 1
+  originalText: Title
+  fixTags: 1
+  forceFix: 0
+--- !u!114 &1481322932784839975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5705612149430298899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f899fd61e1fe76f4faaeb787e756eba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elements:
+  - localization: 1
+    value: {fileID: 11400000, guid: 17cc86be2e8679744a9bc5757b27dbaa, type: 2}
 --- !u!1 &5705612149497667670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,7 +1351,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
-  preserveNumbers: 0
+  preserveNumbers: 1
   farsi: 1
   originalText: Next
   fixTags: 1
@@ -1349,7 +1370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elements:
   - localization: 1
-    value: {fileID: 11400000, guid: 3fbde2e562e333d488bc46986fc6f4f1, type: 2}
+    value: {fileID: 11400000, guid: 17cc86be2e8679744a9bc5757b27dbaa, type: 2}
 --- !u!114 &4283075184813943041
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -77,11 +77,15 @@ namespace Game
                     return element[code];
             }
 
-            return "#/#" + ID + "#/#";
+            return "*" + ID + "*";
         }
         public virtual string Get(string ID, LocalizationType code)
         {
             return Get(ID, LocalizationCode.From(code));
+        }
+        public virtual string Get(string ID)
+        {
+            return Get(ID, Localization.Target);
         }
 
         public virtual bool Contains(string ID)
@@ -89,7 +93,7 @@ namespace Game
             return Dictionary.ContainsKey(ID);
         }
 
-        public virtual LocalizedPhrase Get(string ID)
+        public virtual LocalizedPhrase Find(string ID)
         {
             if (Contains(ID))
                 return this[ID];
@@ -189,7 +193,7 @@ namespace Game
 
             protected override void Start()
             {
-                Phrase = Localization.Phrases.Get(ID);
+                Phrase = Localization.Phrases.Find(ID);
 
                 base.Start();
             }
@@ -203,7 +207,7 @@ namespace Game
 
             public virtual string Retrieve()
             {
-                if (Phrase == null) return "#" + ID + "#";
+                if (Phrase == null) return "*" + ID + "*";
 
                 return Phrase[Localization.Target];
             }
@@ -222,15 +226,15 @@ namespace Game
             public TElement[] Elements { get { return elements; } }
 
             [Serializable]
-            public class Element<TData>
+            public class Element<TValue>
             {
                 [SerializeField]
                 protected LocalizationType localization;
                 public LocalizationType Localization { get { return localization; } }
 
                 [SerializeField]
-                protected TData value;
-                public TData Value { get { return value; } }
+                protected TValue value;
+                public TValue Value { get { return value; } }
             }
 
             protected override void Start()

@@ -33,7 +33,7 @@
   },
   "units": {
     "en": "units",
-    "ar": "الوحدات"
+    "ar": "وحدات"
   },
   "abilities": {
     "en": "Abilities",
@@ -86,5 +86,49 @@
   "full": {
     "en": "Full",
     "ar": "منتهي"
+  },
+  "energy": {
+    "en": "Energy",
+    "ar": "طاقه"
+  },
+  "hp": {
+    "en": "HP",
+    "ar": "حياة"
+  },
+  "power": {
+    "en": "Power",
+    "ar": "قوة"
+  },
+  "range": {
+    "en": "Range",
+    "ar": "مدي"
+  },
+  "defense": {
+    "en": "Defense",
+    "ar": "دفاع"
+  },
+  "speed": {
+    "en": "Speed",
+    "ar": "سرعة"
+  },
+  "yes": {
+    "en": "Yes",
+    "ar": "نعم"
+  },
+  "no": {
+    "en": "No",
+    "ar": "لا"
+  },
+  "quit confirmation": {
+    "en": "Are You Sure You Want to Quit ?",
+    "ar": "هل انت متأكد من انك تود الخروج ؟"
+  },
+  "level win dialog": {
+    "en": "You Won",
+    "ar": "لقد فزت"
+  },
+  "level lose dialog": {
+    "en": "You Lost",
+    "ar": "لقد خسرت"
   }
 }

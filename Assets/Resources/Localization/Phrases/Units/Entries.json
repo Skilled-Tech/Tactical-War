@@ -1,0 +1,162 @@
+﻿{
+  "berserker": {
+    "en": "Berserker",
+    "ar": "*Berserker*"
+  },
+  "berserker description": {
+    "en": "Berserker Description",
+    "ar": "*Berserker Description*"
+  },
+  "heavy knight": {
+    "en": "Heavy Knight",
+    "ar": "*Heavy Knight*"
+  },
+  "heavy knight description": {
+    "en": "Heavy Knight Description",
+    "ar": "*Heavy Knight Description*"
+  },
+  "knight": {
+    "en": "Knight",
+    "ar": "*Knight*"
+  },
+  "knight description": {
+    "en": "Knight Description",
+    "ar": "*Knight Description*"
+  },
+  "lancer": {
+    "en": "Lancer",
+    "ar": "*Lancer*"
+  },
+  "lancer description": {
+    "en": "Lancer Description",
+    "ar": "*Lancer Description*"
+  },
+  "savage": {
+    "en": "Savage",
+    "ar": "*Savage*"
+  },
+  "savage description": {
+    "en": "Savage Description",
+    "ar": "*Savage Description*"
+  },
+  "frantic assassin": {
+    "en": "Frantic Assassin",
+    "ar": "*Frantic Assassin*"
+  },
+  "frantic assassin description": {
+    "en": "Frantic Assassin Description",
+    "ar": "*Frantic Assassin Description*"
+  },
+  "shadow assassin": {
+    "en": "Shadow Assassin",
+    "ar": "*Shadow Assassin*"
+  },
+  "shadow assassin description": {
+    "en": "Shadow Assassin Description",
+    "ar": "*Shadow Assassin Description*"
+  },
+  "toxic assassin": {
+    "en": "Toxic Assassin",
+    "ar": "*Toxic Assassin*"
+  },
+  "toxic assassin description": {
+    "en": "Toxic Assassin Description",
+    "ar": "*Toxic Assassin Description*"
+  },
+  "archer": {
+    "en": "Archer",
+    "ar": "*Archer*"
+  },
+  "archer description": {
+    "en": "Archer Description",
+    "ar": "*Archer Description*"
+  },
+  "explosives archer": {
+    "en": "Explosives Archer",
+    "ar": "*Explosives Archer*"
+  },
+  "explosives archer description": {
+    "en": "Explosives Archer Description",
+    "ar": "*Explosives Archer Description*"
+  },
+  "fire archer": {
+    "en": "Fire Archer",
+    "ar": "*Fire Archer*"
+  },
+  "fire archer description": {
+    "en": "Fire Archer Description",
+    "ar": "*Fire Archer Description*"
+  },
+  "paralysis archer": {
+    "en": "Paralysis Archer",
+    "ar": "*Paralysis Archer*"
+  },
+  "paralysis archer description": {
+    "en": "Paralysis Archer Description",
+    "ar": "*Paralysis Archer Description*"
+  },
+  "toxic archer": {
+    "en": "Toxic Archer",
+    "ar": "*Toxic Archer*"
+  },
+  "toxic archer description": {
+    "en": "Toxic Archer Description",
+    "ar": "*Toxic Archer Description*"
+  },
+  "earth wizard": {
+    "en": "Earth Wizard",
+    "ar": "*Earth Wizard*"
+  },
+  "earth wizard description": {
+    "en": "Earth Wizard Description",
+    "ar": "*Earth Wizard Description*"
+  },
+  "fire wizard": {
+    "en": "Fire Wizard",
+    "ar": "*Fire Wizard*"
+  },
+  "fire wizard description": {
+    "en": "Fire Wizard Description",
+    "ar": "*Fire Wizard Description*"
+  },
+  "healer wizard": {
+    "en": "Healer Wizard",
+    "ar": "*Healer Wizard*"
+  },
+  "healer wizard description": {
+    "en": "Healer Wizard Description",
+    "ar": "*Healer Wizard Description*"
+  },
+  "ice wizard": {
+    "en": "Ice Wizard",
+    "ar": "*Ice Wizard*"
+  },
+  "ice wizard description": {
+    "en": "Ice Wizard Description",
+    "ar": "*Ice Wizard Description*"
+  },
+  "thunder wizard": {
+    "en": "Thunder Wizard",
+    "ar": "*Thunder Wizard*"
+  },
+  "thunder wizard description": {
+    "en": "Thunder Wizard Description",
+    "ar": "*Thunder Wizard Description*"
+  },
+  "toxic wizard": {
+    "en": "Toxic Wizard",
+    "ar": "*Toxic Wizard*"
+  },
+  "toxic wizard description": {
+    "en": "Toxic Wizard Description",
+    "ar": "*Toxic Wizard Description*"
+  },
+  "robot": {
+    "en": "Robot",
+    "ar": "*Robot*"
+  },
+  "robot description": {
+    "en": "Robot Description",
+    "ar": "*Robot Description*"
+  }
+}

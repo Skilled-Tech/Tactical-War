@@ -30,23 +30,37 @@ namespace Game
 
         TMP_Text label;
 
+        public Core Core => Core.Instance;
+
         void Start()
         {
             label = GetComponent<TMP_Text>();
 
             Target.Base.Units.OnCountChanged += OnChange;
 
+            Core.Localization.OnTargetChange += LocalizationTargetChangeCallback;
+
+            UpdateState();
+        }
+
+        private void LocalizationTargetChangeCallback(LocalizationType target)
+        {
             UpdateState();
         }
 
         void UpdateState()
         {
-            label.text = target.Base.Units.Count + "/" + target.Base.Units.Max + " Units";
+            label.text = target.Base.Units.Count + "/" + target.Base.Units.Max + " " + Core.Localization.Phrases.Get("units");
         }
 
         void OnChange(int value)
         {
             UpdateState();
+        }
+
+        private void OnDestroy()
+        {
+            Core.Localization.OnTargetChange -= LocalizationTargetChangeCallback;
         }
     }
 }

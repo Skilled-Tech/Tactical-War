@@ -175,7 +175,7 @@ namespace Game
         {
             DisplayName = LocalizationPhraseData.Create(base.name);
 
-            Description = LocalizationPhraseData.Create(base.name + " " + "description");
+            Description = LocalizationPhraseData.Create(base.name + " " + nameof(Description));
         }
 
         public CatalogItem CatalogItem { get; protected set; }
@@ -288,7 +288,7 @@ namespace Game
         }
         public virtual void Init()
         {
-            Phrase = Localization.Phrases.Get(ID);
+            Phrase = Localization.Phrases.Find(ID);
 
             if(Phrase == null)
             {

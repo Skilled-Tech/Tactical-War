@@ -36,6 +36,8 @@ namespace Game
         private int value;
         public int Value { get { return this.value; } }
 
+        public static Core Core => Core.Instance;
+
         public override bool Equals(object obj)
         {
             if (obj.GetType() == GetType())
@@ -64,10 +66,16 @@ namespace Game
                 return ToString("USD", value / 100f, "");
             }
 
-            return ToString(type.ToString(), value, "N0");
+            return ToString(type, value, "N0");
+        }
+        public static string ToString(CurrencyType type, float value, string format)
+        {
+            return ToString(type.ToString(), value, format);
         }
         public static string ToString(string name, float value, string format)
         {
+            name = Core.Localization.Phrases.Get(name);
+
             return value.ToString(format) + " " + name;
         }
 

@@ -28,6 +28,8 @@ namespace Game
 
         public Proponent Proponent { get { return Level.Instance.Proponents.Player; } }
 
+        public Core Core => Core.Instance;
+
         void Awake()
         {
             Label = GetComponent<TMP_Text>();
@@ -37,12 +39,24 @@ namespace Game
         {
             Proponent.Energy.OnChanged += UpdateState;
 
+            Core.Localization.OnTargetChange += LocalizationTargetChangeCallback;
+
+            UpdateState();
+        }
+
+        private void LocalizationTargetChangeCallback(LocalizationType target)
+        {
             UpdateState();
         }
 
         void UpdateState()
         {
-            Label.text = "Energy: " + Proponent.Energy.Value.ToString("N0");
+            Label.text = Proponent.Energy.Value.ToString("N0") + Core.Localization.Phrases.Get("energy");
+        }
+
+        private void OnDestroy()
+        {
+            Core.Localization.OnTargetChange -= LocalizationTargetChangeCallback;
         }
     }
 }
