@@ -53,8 +53,6 @@ namespace Game
 
         void RegionSelected(WorldMapUI.RegionData selection)
         {
-            Map.Hide();
-
             Region.Set(selection.Core);
         }
     }

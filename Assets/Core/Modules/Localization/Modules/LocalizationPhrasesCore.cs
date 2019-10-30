@@ -20,6 +20,8 @@ using Random = UnityEngine.Random;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using UnityEngine.Networking;
+
 namespace Game
 {
     [Serializable]
@@ -29,8 +31,7 @@ namespace Game
 
         public LocalizedPhrase this[string ID] => Dictionary[ID];
 
-        public virtual string FileName => "Phrases Localization.json";
-        public virtual string FilePath => Application.streamingAssetsPath + "/Localization/Phrases.json";
+        public virtual string DirectoryPath => Application.streamingAssetsPath + "/Localization/Phrases/";
 
         public override void Configure()
         {
@@ -43,9 +44,12 @@ namespace Game
 
         void Load()
         {
-            var json = File.ReadAllText(FilePath);
+            var files = Resources.LoadAll<TextAsset>("Localization/Phrases/");
 
-            Load(json);
+            for (int i = 0; i < files.Length; i++)
+            {
+                Load(files[i].text);
+            }
         }
         void Load(string json)
         {
@@ -55,8 +59,6 @@ namespace Game
         }
         void Load(JObject jObject)
         {
-            Dictionary.Clear();
-
             foreach (var child in jObject.Properties())
             {
                 var element = LocalizedPhrase.Load(child);
@@ -196,7 +198,14 @@ namespace Game
             {
                 base.UpdateState();
 
-                Text = Phrase[Localization.Target];
+                Text = Retrieve();
+            }
+
+            public virtual string Retrieve()
+            {
+                if (Phrase == null) return "#" + ID + "#";
+
+                return Phrase[Localization.Target];
             }
         }
 

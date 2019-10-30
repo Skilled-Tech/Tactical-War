@@ -1,4 +1,4 @@
-{
+﻿{
   "dwarf island": {
     "en": "Dwarf Island",
     "ar": "جزيرة الاقزام"
@@ -71,26 +71,6 @@
     "en": "Quit",
     "ar": "خروج"
   },
-  "normal": {
-    "en": "Normal",
-    "ar": "طبيعي"
-  },
-  "hard": {
-    "en": "Hard",
-    "ar": "صعب"
-  },
-  "skilled": {
-    "en": "Skilled",
-    "ar": "ماهر"
-  },
-  "forest": {
-    "en": "Forest",
-    "ar": "الغابه"
-  },
-  "desert": {
-    "en": "Desert",
-    "ar": "الصحراء"
-  },
   "choose difficulty": {
     "en": "Choose Difficulty",
     "ar": "اختر الصعوبه"
@@ -106,33 +86,5 @@
   "full": {
     "en": "Full",
     "ar": "منتهي"
-  },
-  "armored": {
-    "en": "Armored",
-    "ar": "مدرع"
-  },
-  "assassin": {
-    "en": "Assassin",
-    "ar": "مغتال"
-  },
-  "Ranged": {
-    "en": "Ranged",
-    "ar": "رامي"
-  },
-  "Wizard": {
-    "en": "Wizard",
-    "ar" :  "ساحر"
-  },
-  "Special": {
-    "en": "Special",
-    "ar": "مميز"
-  },
-  "archer": {
-    "en": "Archer",
-    "ar": "رامي سهام"
-  },
-  "archer description": {
-    "en": "Description",
-    "ar": "الوصف"
   }
 }

@@ -270,7 +270,7 @@ namespace Game
         {
             get
             {
-                if (Phrase == null) return "NULL";
+                if (Phrase == null) return "#" + ID + "#";
 
                 return Phrase[Localization.Target];
             }
@@ -289,6 +289,11 @@ namespace Game
         public virtual void Init()
         {
             Phrase = Localization.Phrases.Get(ID);
+
+            if(Phrase == null)
+            {
+                Debug.LogWarning("No localization found for " + ID + ", please add");
+            }
         }
 
         public static LocalizationPhraseData Create(string ID)

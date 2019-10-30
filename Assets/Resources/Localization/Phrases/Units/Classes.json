@@ -1,0 +1,22 @@
+﻿{
+  "armored": {
+    "en": "Armored",
+    "ar": "مدرع"
+  },
+  "assassin": {
+    "en": "Assassin",
+    "ar": "مغتال"
+  },
+  "Ranged": {
+    "en": "Ranged",
+    "ar": "رامي"
+  },
+  "Wizard": {
+    "en": "Wizard",
+    "ar": "ساحر"
+  },
+  "Special": {
+    "en": "Special",
+    "ar": "مميز"
+  }
+}

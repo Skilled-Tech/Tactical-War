@@ -1,0 +1,14 @@
+﻿{
+  "normal": {
+    "en": "Normal",
+    "ar": "طبيعي"
+  },
+  "hard": {
+    "en": "Hard",
+    "ar": "صعب"
+  },
+  "skilled": {
+    "en": "Skilled",
+    "ar": "ماهر"
+  }
+}
