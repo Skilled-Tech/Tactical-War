@@ -35,6 +35,21 @@ namespace Game
 
             public override string Key => "Version";
 
+            public override TryParseDelegate<string> TryParse
+            {
+                get
+                {
+                    bool Method(string value, out string result)
+                    {
+                        result = value;
+
+                        return true;
+                    }
+
+                    return Method;
+                }
+            }
+
             public override void Init()
             {
                 base.Init();
@@ -56,6 +71,8 @@ namespace Game
             public override bool Default => true;
 
             public override string Key => "Need Online Login";
+
+            public override TryParseDelegate<bool> TryParse => Boolean.TryParse;
         }
 
         [Serializable]
@@ -79,6 +96,8 @@ namespace Game
             }
 
             public abstract TData Default { get; }
+
+            public abstract TryParseDelegate<TData> TryParse { get; }
 
             public abstract string Key { get; }
 
@@ -110,16 +129,7 @@ namespace Game
                 if(Exists == false)
                     throw new KeyNotFoundException("Trying to load Pref with key: " + Key + " even though it doesn't exist, ignoring");
 
-                var data = Prefs.Get(Key);
-
-                try
-                {
-                    return (TData)data;
-                }
-                catch (InvalidCastException)
-                {
-                    throw new InvalidCastException("Pref data type mismatch, trying to cast " + data.GetType().Name + " to " + typeof(TData).Name + " of key: " + Key);
-                }
+                return Prefs.Get(Key, TryParse, Default);
             }
 
             public virtual void Reset()
@@ -139,17 +149,19 @@ namespace Game
             public PrefsCore Prefs { get { return Core.Prefs; } }
         }
 
-        public Dictionary<string, object> Dictionary { get; protected set; }
-
         public const string FileName = "Prefs.json";
 
         public virtual bool Exists => Core.Data.Exists(FileName);
+
+        public Dictionary<string, string> Dictionary { get; protected set; }
+
+        public string this[string key] => Get(key);
 
         public override void Configure()
         {
             base.Configure();
 
-            Dictionary = new Dictionary<string, object>();
+            Dictionary = new Dictionary<string, string>();
 
             Load();
 
@@ -165,7 +177,7 @@ namespace Game
 
                 try
                 {
-                    Dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+                    Dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
                 }
                 catch (Exception e)
                 {
@@ -198,17 +210,58 @@ namespace Game
             return Dictionary.ContainsKey(key);
         }
 
-        public object this[string key] => Get(key);
-        public virtual object Get(string key)
+        #region Get
+        public virtual string Get(string key)
         {
             if(Contains(key) == false)
-            {
-                Debug.LogError("No Pref data with key: " + key + " found");
-                return null;
-            }
+                throw new Exception("No Pref data with key: " + key + " found");
 
             return Dictionary[key];
         }
+
+        public delegate T ParseDelegate<T>(string value);
+        public virtual T Get<T>(string key, ParseDelegate<T> parse)
+        {
+            var value = Get(key);
+
+            return parse(value);
+        }
+
+        public delegate bool TryParseDelegate<T>(string value, out T result);
+        public virtual T Get<T>(string key, TryParseDelegate<T> tryParse, T defaultvalue)
+        {
+            if(Contains(key))
+            {
+                var value = Get(key);
+
+                if (tryParse(value, out var result))
+                    return result;
+
+                return defaultvalue;
+            }
+            else
+                return defaultvalue;
+        }
+
+        public virtual int GetInt(string key) => Get(key, int.Parse);
+        public virtual int GetInt(string key, int defaultvalue) => Get(key, int.TryParse, defaultvalue);
+
+        public virtual float GetFloat(string key) => Get(key, float.Parse);
+        public virtual float GetFloat(string key, float defaultvalue) => Get(key, float.TryParse, defaultvalue);
+
+        public virtual T GetEnum<T>(string key)
+            where T : struct, IComparable, IConvertible, IFormattable
+        {
+            T Parse(string value) => (T)Enum.Parse(typeof(T), value);
+
+            return Get(key, Parse);
+        }
+        public virtual T GetEnum<T>(string key, T defaultvalue)
+            where T: struct, IComparable, IConvertible, IFormattable
+        {
+            return Get(key, Enum.TryParse, defaultvalue);
+        }
+        #endregion
 
         public delegate void ChangeDelegate(string key);
         public event ChangeDelegate OnChange;
@@ -221,16 +274,25 @@ namespace Game
 
         public delegate void SetDelegate(string key, object value);
         public event SetDelegate OnSet;
-        public virtual void Set(string key, object value)
+        public virtual void Set(string key, string value)
         {
             if (Contains(key))
+            {
+                if(Dictionary[key] == value)
+                    return;
+
                 Dictionary[key] = value;
+            }
             else
                 Dictionary.Add(key, value);
 
             if (OnSet != null) OnSet(key, value);
 
             Change(key);
+        }
+        public virtual void Set(string key, object value)
+        {
+            Set(key, value.ToString());
         }
 
         public delegate void RemoveDelegate(string key);

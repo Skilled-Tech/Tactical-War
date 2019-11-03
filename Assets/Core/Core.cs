@@ -177,10 +177,10 @@ namespace Game
             Register(UI);
             Register(scenes);
             Register(world);
-            Register(shop);
             Register(items);
-            Register(player);
+            Register(shop);
             Register(playFab);
+            Register(player);
             Register(IAP);
             Register(localization);
 

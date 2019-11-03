@@ -22,6 +22,8 @@ namespace Game
     [Serializable]
 	public class LocalizationCore : Core.Property
 	{
+        public const string Key = "Localization";
+
         [SerializeField]
         protected LocalizationType target = LocalizationType.English;
         public LocalizationType Target
@@ -33,6 +35,8 @@ namespace Game
             set
             {
                 target = value;
+
+                Core.Prefs.Set(Key, target);
 
                 if (OnTargetChange != null) OnTargetChange(target);
             }
@@ -64,6 +68,8 @@ namespace Game
         public override void Configure()
         {
             base.Configure();
+
+            Target = Core.Prefs.GetEnum(Key, target);
 
             Register(phrases);
         }

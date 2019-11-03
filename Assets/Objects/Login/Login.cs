@@ -141,8 +141,6 @@ namespace Game
             {
                 Popup.Show(Localization.Phrases.Get("Retrieving Title Data"));
 
-                Core.Prefs.NeedOnlineLogin.Value = false;
-
                 PlayFab.Title.OnResponse += TitleResponseCallback;
                 PlayFab.Title.Request();
             }
@@ -246,8 +244,9 @@ namespace Game
             }
 
             Popup.Hide();
+            Core.Prefs.NeedOnlineLogin.Value = false;
 
-            if(dailyReward == null || dailyReward.Items == null || dailyReward.Items.Length == 0)
+            if (dailyReward == null || dailyReward.Items == null || dailyReward.Items.Length == 0)
             {
                 Progress();
             }
