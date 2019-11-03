@@ -67,13 +67,21 @@ namespace Game
         public event Delegates.ResultDelegate<ResultData> OnResult;
         void ResultCallback(ExecuteCloudScriptResult result)
         {
-            var json = result.FunctionResult.ToString();
+            ResultData instance;
 
-            var instacne = JsonConvert.DeserializeObject<ResultData>(json);
+            if(result.FunctionResult == null)
+            {
+                instance = null;
+            }
+            else
+            {
+                var json = result.FunctionResult.ToString();
 
-            if (OnResult != null) OnResult(instacne);
+                instance = JsonConvert.DeserializeObject<ResultData>(json);
+            }
 
-            Respond(instacne, null);
+            if (OnResult != null) OnResult(instance);
+            Respond(instance, null);
         }
 
         public event Delegates.ErrorDelegate OnError;
@@ -98,6 +106,11 @@ namespace Game
             [JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
             ItemTemplate[] rewards;
             public ItemTemplate[] Rewards => rewards;
+
+            public ResultData()
+            {
+                rewards = new ItemTemplate[] { };
+            }
         }
 #pragma warning restore CS0649
     }

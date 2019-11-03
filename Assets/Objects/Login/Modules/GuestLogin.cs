@@ -36,8 +36,6 @@ namespace Game
         {
             base.Perform();
 
-            Popup.Show("Logging In");
-
             if (Application.isEditor)
             {
 #if UNITY_EDITOR

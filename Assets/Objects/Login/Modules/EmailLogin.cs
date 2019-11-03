@@ -84,8 +84,6 @@ namespace Game
         {
             base.Perform();
 
-            Popup.Show("Logging In");
-
             PlayFab.Login.Email.Perform(address.text, password.text);
         }
 

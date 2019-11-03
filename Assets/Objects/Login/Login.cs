@@ -46,6 +46,8 @@ namespace Game
             public static PlayerCore Player { get { return Core.Player; } }
 
             public static PlayFabCore PlayFab { get { return Core.PlayFab; } }
+
+            public static LocalizationCore Localization => Core.Localization;
             #endregion
         }
 
@@ -69,6 +71,8 @@ namespace Game
             public virtual void Perform()
             {
                 Login.OnError += ErrorCallback;
+
+                Popup.Show(Localization.Phrases.Get("Logging In"));
             }
 
             protected virtual void UpdateState()
@@ -95,6 +99,8 @@ namespace Game
         public static Core Core { get { return Core.Instance; } }
 
         public static PopupUI Popup { get { return Core.UI.Popup; } }
+
+        public static LocalizationCore Localization => Core.Localization;
 
         public static ScenesCore Scenes { get { return Core.Scenes; } }
 
@@ -133,7 +139,7 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Show("Retrieving Title Data");
+                Popup.Show(Localization.Phrases.Get("Retrieving Title Data"));
 
                 Core.Prefs.NeedOnlineLogin.Value = false;
 
@@ -152,7 +158,7 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Show("Retrieving Catalog");
+                Popup.Show(Localization.Phrases.Get("Retrieving Catalog"));
 
                 PlayFab.Catalog.OnResponse += CatalogResponseCallback;
                 PlayFab.Catalog.Request();
@@ -171,23 +177,28 @@ namespace Game
             {
                 if(PlayFab.IsLoggedIn)
                 {
-                    Popup.Show("Retrieving Daily Reward");
+                    Popup.Show(Localization.Phrases.Get("Retrieving Daily Reward"));
 
                     PlayFab.DailyReward.OnResponse += DailyRewardsResponseCallback;
                     PlayFab.DailyReward.Claim();
                 }
                 else
                 {
-                    Popup.Show("Retrieving Player Data");
-
-                    PlayFab.Player.OnResponse += PlayerResponseCallback;
-                    PlayFab.Player.Retrieve();
+                    RetrievePlayerData();
                 }
             }
             else
             {
                 Error(error);
             }
+        }
+
+        void RetrievePlayerData()
+        {
+            Popup.Show(Localization.Phrases.Get("Retrieving Player Data"));
+
+            PlayFab.Player.OnResponse += PlayerResponseCallback;
+            PlayFab.Player.Retrieve();
         }
 
         PlayFabDailyRewardCore.ResultData dailyReward;
@@ -199,10 +210,7 @@ namespace Game
             {
                 dailyReward = result;
 
-                Popup.Show("Retrieving Player Data");
-
-                PlayFab.Player.OnResponse += PlayerResponseCallback;
-                PlayFab.Player.Retrieve();
+                RetrievePlayerData();
             }
             else
             {
@@ -239,7 +247,7 @@ namespace Game
 
             Popup.Hide();
 
-            if(dailyReward == null || dailyReward.Items.Length == 0)
+            if(dailyReward == null || dailyReward.Items == null || dailyReward.Items.Length == 0)
             {
                 Progress();
             }
@@ -247,8 +255,8 @@ namespace Game
             {
                 var stacks = ItemStack.From(dailyReward.Items);
 
-                var title = "Daily Reward" + Environment.NewLine;
-                title += "Day " + (dailyReward.Progress + 1).ToString() + "/" + PlayFab.DailyReward.Max;
+                var title = Localization.Phrases.Get("daily reward") + Environment.NewLine;
+                title += Localization.Phrases.Get("day") + " " + (dailyReward.Progress + 1).ToString() + "\\" + PlayFab.DailyReward.Max;
 
                 Core.UI.Rewards.OnFinish += Progress;
                 Core.UI.Rewards.Show(title, stacks);

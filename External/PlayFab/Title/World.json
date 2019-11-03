@@ -1,7 +1,7 @@
 {
   "regions": [
     {
-      "name": "Grassland",
+      "name": "Forest",
       "levels": [
         {
           "rewards": [
@@ -306,7 +306,7 @@
       ]
     },
     {
-      "name": "Snowland",
+      "name": "Desert",
       "levels": [
         {
           "rewards": [

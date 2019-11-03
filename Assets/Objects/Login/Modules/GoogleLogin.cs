@@ -42,8 +42,6 @@ namespace Game
         {
             base.Perform();
 
-            Popup.Show("Logging In");
-
             var builder = new PlayGamesClientConfiguration.Builder();
 
             builder.AddOauthScope("profile");

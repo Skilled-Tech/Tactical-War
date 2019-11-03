@@ -130,5 +130,33 @@
   "level lose dialog": {
     "en": "You Lost",
     "ar": "لقد خسرت"
+  },
+  "daily reward": {
+    "en": "Daily Reward",
+    "ar": "الجائزه اليوميه"
+  },
+  "day": {
+    "en": "Day",
+    "ar": "اليوم"
+  },
+  "logging in" : {
+    "en": "Logging in",
+    "ar": "جاري تسجيل الدخول"
+  },
+  "Retrieving Title Data": {
+    "en": "Retrieving Title Data",
+    "ar": "جاري قرأة معلومات اللعبه"
+  },
+  "Retrieving Catalog": {
+    "en": "Retrieving Catalog",
+    "ar": "جاري قرأة معلومات السجل"
+  },
+  "Retrieving Daily Reward": {
+    "en": "Retrieving Daily Reward",
+    "ar": "جاري مراجعه جوائزك اليوميه"
+  },
+  "Retrieving Player Data": {
+    "en": "Retrieving Player Data",
+    "ar": "جاري قرأة معلومات حسابك"
   }
 }

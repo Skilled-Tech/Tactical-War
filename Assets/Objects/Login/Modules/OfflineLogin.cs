@@ -44,8 +44,6 @@ namespace Game
         {
             base.Perform();
 
-            Popup.Show("Logging In");
-
             PlayFab.Login.Offline.Perform();
         }
     }
