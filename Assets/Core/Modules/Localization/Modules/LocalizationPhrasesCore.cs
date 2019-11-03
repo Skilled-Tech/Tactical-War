@@ -325,4 +325,51 @@ namespace Game
             return phrase;
         }
     }
+
+    [Serializable]
+    public class LocalizedPhraseProperty
+    {
+        [SerializeField]
+        protected string _ID;
+        public string ID => _ID;
+
+        public string Text
+        {
+            get
+            {
+                if (Phrase == null) return "#" + ID + "#";
+
+                return Phrase[Localization.Target];
+            }
+        }
+
+        public LocalizedPhrase Phrase { get; protected set; }
+
+        public LocalizationCore Localization => Core.Instance.Localization;
+
+        public virtual void Init(string ID)
+        {
+            _ID = ID;
+
+            Init();
+        }
+        public virtual void Init()
+        {
+            Phrase = Localization.Phrases.Find(ID);
+
+            if (Phrase == null)
+            {
+                Debug.LogWarning("No localization found for " + ID + ", please add");
+            }
+        }
+
+        public static LocalizedPhraseProperty Create(string ID)
+        {
+            var data = new LocalizedPhraseProperty();
+
+            data.Init(ID);
+
+            return data;
+        }
+    }
 }

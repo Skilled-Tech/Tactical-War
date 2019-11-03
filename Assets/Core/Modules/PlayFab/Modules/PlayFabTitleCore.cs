@@ -99,7 +99,7 @@ namespace Game
 
         public virtual void Request()
         {
-            if (IsLoggedIn)
+            if (IsOnline)
             {
                 var request = new GetTitleDataRequest
                 {
@@ -123,7 +123,7 @@ namespace Game
 
             Respond(result, null);
 
-            if (IsLoggedIn)
+            if (IsOnline)
                 Save(result, FileName);
         }
 

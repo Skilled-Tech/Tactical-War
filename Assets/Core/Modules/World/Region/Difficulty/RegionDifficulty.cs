@@ -23,7 +23,7 @@ namespace Game
     [CreateAssetMenu(menuName = RegionCore.MenuPath + "Difficulty")]
 	public class RegionDifficulty : WorldCore.Module
 	{
-        public LocalizationPhraseData DisplayName { get; protected set; }
+        public LocalizedPhraseProperty DisplayName { get; protected set; }
 
         public static WorldCore.DifficulyElement Difficulty { get { return World.Difficulty; } }
 
@@ -63,7 +63,7 @@ namespace Game
         {
             base.Init();
 
-            DisplayName = LocalizationPhraseData.Create(base.name);
+            DisplayName = LocalizedPhraseProperty.Create(base.name);
         }
 
         public static bool operator > (RegionDifficulty one, RegionDifficulty two)

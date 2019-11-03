@@ -51,7 +51,7 @@ namespace Game
         #region Request
         public virtual void Request()
         {
-            if (IsLoggedIn)
+            if (IsOnline)
             {
                 var request = new GetCatalogItemsRequest
                 {
@@ -75,7 +75,7 @@ namespace Game
 
             Respond(null);
 
-            if (IsLoggedIn)
+            if (IsOnline)
                 Save(result, FileName);
         }
 

@@ -33,7 +33,8 @@ namespace Game
         protected PlayFabLoginCore login;
         public PlayFabLoginCore Login { get { return login; } }
 
-        public bool IsLoggedIn { get { return PlayFabClientAPI.IsClientLoggedIn(); } }
+        public bool IsOnline { get { return PlayFabClientAPI.IsClientLoggedIn(); } }
+        public bool isOffline { get { return !IsOnline; } }
 
         public bool Activated { get; set; }
 
@@ -70,7 +71,8 @@ namespace Game
         {
             public PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
-            public bool IsLoggedIn { get { return PlayFab.IsLoggedIn; } }
+            public bool IsOnline { get { return PlayFab.IsOnline; } }
+            public bool IsOffline { get { return PlayFab.isOffline; } }
 
             protected virtual string FormatFilePath(string name)
             {

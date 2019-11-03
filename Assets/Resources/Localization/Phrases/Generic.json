@@ -139,7 +139,7 @@
     "en": "Day",
     "ar": "اليوم"
   },
-  "logging in" : {
+  "logging in": {
     "en": "Logging in",
     "ar": "جاري تسجيل الدخول"
   },
@@ -158,5 +158,21 @@
   "Retrieving Player Data": {
     "en": "Retrieving Player Data",
     "ar": "جاري قرأة معلومات حسابك"
+  },
+  "confirm": {
+    "en": "Confirm",
+    "ar": "تأكيد"
+  },
+  "enter address": {
+    "en": "Enter Address...",
+    "ar": "ادخل العنوان..."
+  },
+  "enter password": {
+    "en": "Enter Password...",
+    "ar": "ادخل كلمة السر..."
+  },
+  "email login": {
+    "en": "Email Login",
+    "ar" : "تسجيل الدخول"
   }
 }

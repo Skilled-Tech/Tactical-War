@@ -153,7 +153,7 @@ namespace Game
 
         public virtual void Retrieve()
         {
-            if(IsLoggedIn)
+            if(IsOnline)
             {
                 var request = new GetUserDataRequest
                 {
@@ -178,7 +178,7 @@ namespace Game
 
             Respond(result, null);
 
-            if (IsLoggedIn)
+            if (IsOnline)
                 Save(result, FileName);
         }
 

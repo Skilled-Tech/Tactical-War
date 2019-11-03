@@ -175,7 +175,7 @@ namespace Game
 
             if (error == null)
             {
-                if(PlayFab.IsLoggedIn)
+                if(PlayFab.IsOnline)
                 {
                     Popup.Show(Localization.Phrases.Get("Retrieving Daily Reward"));
 

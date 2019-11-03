@@ -28,7 +28,7 @@ namespace Game
     {
         new public const string MenuPath = WorldCore.MenuPath + "Regions/";
 
-        public LocalizationPhraseData DisplayName { get; protected set; }
+        public LocalizedPhraseProperty DisplayName { get; protected set; }
 
         [SerializeField]
         protected Sprite icon;
@@ -208,7 +208,7 @@ namespace Game
         {
             base.Init();
 
-            DisplayName = LocalizationPhraseData.Create(base.name);
+            DisplayName = LocalizedPhraseProperty.Create(base.name);
         }
 
         public virtual void Parse(JToken jToken)

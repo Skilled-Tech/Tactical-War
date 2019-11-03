@@ -22,11 +22,11 @@ namespace Game
     [CreateAssetMenu(menuName = Unit.MenuPath + "Type")]
 	public class UnitClass : ScriptableObject
 	{
-		public LocalizationPhraseData DisplayName { get; protected set; }
+		public LocalizedPhraseProperty DisplayName { get; protected set; }
 
         public virtual void Init()
         {
-            DisplayName = LocalizationPhraseData.Create(base.name);
+            DisplayName = LocalizedPhraseProperty.Create(base.name);
         }
     }
 }

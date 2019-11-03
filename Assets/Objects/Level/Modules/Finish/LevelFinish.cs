@@ -38,7 +38,7 @@ namespace Game
 
             if(winner is PlayerProponent)
             {
-                if (PlayFab.IsLoggedIn)
+                if (PlayFab.IsOnline)
                 {
                     Menu.Popup.Show("Retrieving End Results");
 

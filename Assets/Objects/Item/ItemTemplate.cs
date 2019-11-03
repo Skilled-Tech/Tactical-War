@@ -38,13 +38,13 @@ namespace Game
             }
         }
 
-        public LocalizationPhraseData DisplayName { get; protected set; }
+        public LocalizedPhraseProperty DisplayName { get; protected set; }
 
         [SerializeField]
         protected IconProperty icon;
         public IconProperty Icon { get { return icon; } }
 
-        public LocalizationPhraseData Description { get; protected set; }
+        public LocalizedPhraseProperty Description { get; protected set; }
 
         [SerializeField]
         protected List<Currency> prices;
@@ -173,9 +173,9 @@ namespace Game
 
         public virtual void Init()
         {
-            DisplayName = LocalizationPhraseData.Create(base.name);
+            DisplayName = LocalizedPhraseProperty.Create(base.name);
 
-            Description = LocalizationPhraseData.Create(base.name + " " + nameof(Description));
+            Description = LocalizedPhraseProperty.Create(base.name + " " + nameof(Description));
         }
 
         public CatalogItem CatalogItem { get; protected set; }
@@ -256,53 +256,6 @@ namespace Game
             image.sprite = sprite;
 
             image.rectTransform.localEulerAngles = Vector3.forward * tilt;
-        }
-    }
-
-    [Serializable]
-    public class LocalizationPhraseData
-    {
-        [SerializeField]
-        protected string _ID;
-        public string ID => _ID;
-
-        public string Text
-        {
-            get
-            {
-                if (Phrase == null) return "#" + ID + "#";
-
-                return Phrase[Localization.Target];
-            }
-        }
-
-        public LocalizedPhrase Phrase { get; protected set; }
-
-        public LocalizationCore Localization => Core.Instance.Localization;
-
-        public virtual void Init(string ID)
-        {
-            _ID = ID;
-
-            Init();
-        }
-        public virtual void Init()
-        {
-            Phrase = Localization.Phrases.Find(ID);
-
-            if(Phrase == null)
-            {
-                Debug.LogWarning("No localization found for " + ID + ", please add");
-            }
-        }
-
-        public static LocalizationPhraseData Create(string ID)
-        {
-            var data = new LocalizationPhraseData();
-
-            data.Init(ID);
-
-            return data;
         }
     }
 }
