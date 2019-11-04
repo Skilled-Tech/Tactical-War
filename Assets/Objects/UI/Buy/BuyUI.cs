@@ -79,9 +79,9 @@ namespace Game
 
         protected virtual void ButtonAction()
         {
-            Popup.Show("Processing Purchase");
+            Popup.Show(Core.Localization.Phrases.Get("Processing Purchase"));
 
-            if(Template.Price.Type == CurrencyType.Cents)
+            if (Template.Price.Type == CurrencyType.Cents)
             {
                 Core.IAP.Purchase(Template.ID);
             }
@@ -98,7 +98,7 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Show("Retrieving Inventory");
+                Popup.Show(Core.Localization.Phrases.Get("Retrieving Inventory"));
 
                 PlayFab.Player.Inventory.OnResponse += OnInventoryResponse;
                 PlayFab.Player.Inventory.Request();
@@ -122,7 +122,7 @@ namespace Game
                     Hide();
                 }
 
-                Popup.Show("Purchase Successful", Action, "Okay");
+                Popup.Show(Core.Localization.Phrases.Get("Purchase Successful"), Action, "Okay");
 
                 UpdateState();
             }

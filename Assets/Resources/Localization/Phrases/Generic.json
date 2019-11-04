@@ -173,6 +173,18 @@
   },
   "email login": {
     "en": "Email Login",
-    "ar" : "تسجيل الدخول"
+    "ar": "تسجيل الدخول"
+  },
+  "Processing Purchase": {
+    "en": "Processing Purchase",
+    "ar": "جاري الشراء"
+  },
+  "Retrieving Inventory": {
+    "en": "Retrieving Inventory",
+    "ar": "جاري مراجعة مشترياتك"
+  },
+  "Purchase Successful": {
+    "en": "Purchase Successful",
+    "ar": "تم الشراء بنجاح"
   }
 }

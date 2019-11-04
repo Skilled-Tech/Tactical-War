@@ -10,8 +10,8 @@
       "Expiration": null,
       "ItemClass": "Ability",
       "ItemId": "Wind_Blast",
-      "ItemInstanceId": "6B83E100E0B271B6",
-      "PurchaseDate": "2019-11-04T12:54:36.368Z",
+      "ItemInstanceId": "696593F3C631524B",
+      "PurchaseDate": "2019-11-04T14:13:10.489Z",
       "RemainingUses": null,
       "UnitCurrency": "GD",
       "UnitPrice": 10000,
@@ -280,7 +280,7 @@
       "BundleParent": null,
       "CatalogVersion": "Default",
       "CustomData": {
-        "upgrades": "[{\"type\":\"Range\",\"value\":5}]"
+        "upgrades": "[{\"type\":\"Range\",\"value\":2}]"
       },
       "DisplayName": "Explosives Archer",
       "Expiration": null,
@@ -394,7 +394,7 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "F920AF6837AA1FEB",
       "PurchaseDate": "2019-10-05T11:57:43.393Z",
-      "RemainingUses": 250,
+      "RemainingUses": 249,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -418,7 +418,7 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 1461500,
+    "GD": 1451300,
     "JL": 586500
   },
   "VirtualCurrencyRechargeTimes": {},
