@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
   m_Name: Robot
   m_EditorClassIdentifier: 
-  localization:
-    _ID: Robot
   icon:
     sprite: {fileID: 21300000, guid: 43796cbbf93e53f40aa492a8d2b4acf1, type: 3}
     tilt: 0
-  description: Magic user, low defense, high range & attack
   prices:
   - type: 0
     value: 10000
@@ -44,5 +41,8 @@ MonoBehaviour:
     distance: 4
     duration: 1.2
     method: 2
+    _SFX:
+      initiate: []
+      connect: []
     statusEffects: []
   speed: 1.8

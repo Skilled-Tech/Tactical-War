@@ -6,6 +6,23 @@
       "BundleParent": null,
       "CatalogVersion": "Default",
       "CustomData": null,
+      "DisplayName": "Wind Blast",
+      "Expiration": null,
+      "ItemClass": "Ability",
+      "ItemId": "Wind_Blast",
+      "ItemInstanceId": "6B83E100E0B271B6",
+      "PurchaseDate": "2019-11-04T12:54:36.368Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
       "DisplayName": "Meteor Shower",
       "Expiration": null,
       "ItemClass": "Ability",
@@ -262,7 +279,9 @@
       "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",
-      "CustomData": null,
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Range\",\"value\":5}]"
+      },
       "DisplayName": "Explosives Archer",
       "Expiration": null,
       "ItemClass": "Unit",
@@ -375,7 +394,7 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "F920AF6837AA1FEB",
       "PurchaseDate": "2019-10-05T11:57:43.393Z",
-      "RemainingUses": 249,
+      "RemainingUses": 250,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -399,7 +418,7 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 1471600,
+    "GD": 1461500,
     "JL": 586500
   },
   "VirtualCurrencyRechargeTimes": {},

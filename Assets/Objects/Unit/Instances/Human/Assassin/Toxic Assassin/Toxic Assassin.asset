@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
   m_Name: Toxic Assassin
   m_EditorClassIdentifier: 
-  localization:
-    _ID: Toxic Assassin
   icon:
     sprite: {fileID: 21300000, guid: 3098de3dc8914494ab66f4ff0c27f743, type: 3}
     tilt: 0
-  description: Basic grunt, low range, medium defense & attack
   prices:
   - type: 0
     value: 8000
@@ -43,6 +40,9 @@ MonoBehaviour:
     distance: 0.5
     duration: 0.5
     method: 0
+    _SFX:
+      initiate: []
+      connect: []
     statusEffects:
     - upgrade: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
       probability:

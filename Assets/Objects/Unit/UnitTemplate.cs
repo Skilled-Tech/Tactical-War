@@ -109,12 +109,12 @@ namespace Game
             public class SFXData
             {
                 [SerializeField]
-                protected AudioClip initiate;
-                public AudioClip Initiate { get { return initiate; } }
+                protected SFXProperty[] initiate;
+                public SFXProperty[] Initiate { get { return initiate; } }
 
                 [SerializeField]
-                protected AudioClip connect;
-                public AudioClip Connect { get { return connect; } }
+                protected SFXProperty[] connect;
+                public SFXProperty[] Connect { get { return connect; } }
             }
 
             [SerializeField]

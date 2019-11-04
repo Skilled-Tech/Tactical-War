@@ -941,6 +941,32 @@
       "VirtualCurrencyPrices": {
         "GD": 20000
       }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "Wind Blast",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Ability",
+      "ItemId": "Wind_Blast",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
     }
   ],
   "Request": {

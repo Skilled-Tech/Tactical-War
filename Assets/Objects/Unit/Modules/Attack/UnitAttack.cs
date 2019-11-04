@@ -154,8 +154,7 @@ namespace Game
         public event Action OnInitiate;
         protected virtual void Initiate()
         {
-            if(Template.Attack.SFX.Initiate != null)
-                audio.PlayOneShot(Template.Attack.SFX.Initiate);
+            audio.SFX.PlayOneShot(Template.Attack.SFX.Initiate);
 
             if (OnInitiate != null) OnInitiate();
         }
@@ -174,8 +173,7 @@ namespace Game
         public event Action OnConnected;
         protected virtual void Connected()
         {
-            if (Template.Attack.SFX.Connect != null)
-                audio.PlayOneShot(Template.Attack.SFX.Connect);
+            audio.SFX.PlayOneShot(Template.Attack.SFX.Connect);
 
             if (OnConnected != null) OnConnected();
         }

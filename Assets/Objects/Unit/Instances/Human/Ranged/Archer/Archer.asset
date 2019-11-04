@@ -41,7 +41,10 @@ MonoBehaviour:
     duration: 1
     method: 2
     _SFX:
-      initiate: {fileID: 0}
-      connect: {fileID: 8300000, guid: addd934584c6468468bf15bf93437815, type: 3}
+      initiate: []
+      connect:
+      - clip: {fileID: 8300000, guid: addd934584c6468468bf15bf93437815, type: 3}
+        volume: 1
+        delay: 0
     statusEffects: []
   speed: 1.8

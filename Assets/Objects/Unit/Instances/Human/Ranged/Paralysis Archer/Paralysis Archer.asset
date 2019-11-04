@@ -17,7 +17,7 @@ MonoBehaviour:
     tilt: 0
   prices:
   - type: 0
-    value: 8000
+    value: 10000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
@@ -41,8 +41,11 @@ MonoBehaviour:
     duration: 1
     method: 2
     _SFX:
-      initiate: {fileID: 0}
-      connect: {fileID: 8300000, guid: addd934584c6468468bf15bf93437815, type: 3}
+      initiate: []
+      connect:
+      - clip: {fileID: 8300000, guid: addd934584c6468468bf15bf93437815, type: 3}
+        volume: 1
+        delay: 0
     statusEffects:
     - upgrade: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
       probability:

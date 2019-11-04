@@ -20,15 +20,20 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(AudioSource))]
-	public class UnitAudio : Unit.Module
-	{
-		public AudioSource Component { get; protected set; }
+    [RequireComponent(typeof(SFXAudioPlayer))]
+    public class UnitAudio : Unit.Module
+    {
+        public AudioSource Component { get; protected set; }
+
+        public SFXAudioPlayer SFX { get; protected set; }
 
         public override void Configure(Unit reference)
         {
             base.Configure(reference);
 
             Component = Dependancy.Get<AudioSource>(gameObject);
+
+            SFX = Dependancy.Get<SFXAudioPlayer>(gameObject);
         }
 
         public override void Init()
@@ -44,8 +49,5 @@ namespace Game
 
             Destroy(gameObject, 2f);
         }
-
-        public virtual void PlayOneShot(AudioClip clip) => Component.PlayOneShot(clip);
-        public virtual void PlayOneShot(AudioClip clip, float volume) => Component.PlayOneShot(clip, volume);
     }
 }

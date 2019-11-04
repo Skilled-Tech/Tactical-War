@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7d6562cdcb3c349a58cd9f85eacdda, type: 3}
+  m_Name: Wind Blast
+  m_EditorClassIdentifier: 
+  icon:
+    sprite: {fileID: 21300000, guid: 952c597e89b247641af63fc5141bf247, type: 3}
+    tilt: 0
+  prices: []
+  upgrades:
+    template: {fileID: 0}
+    applicable: []
+  visibility:
+    inventory: 0
+    shop: 0
+    roster: 1
+  prefab: {fileID: 8352621323534229931, guid: 579ccd2fc5e7eb74ab484192979ee273, type: 3}
+  usage:
+    cooldown: 20
+    cost: 1000
