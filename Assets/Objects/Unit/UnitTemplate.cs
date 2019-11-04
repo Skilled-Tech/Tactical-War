@@ -83,7 +83,6 @@ namespace Game
         public class AttackData
         {
             [SerializeField]
-            [UnityEngine.Serialization.FormerlySerializedAs("damage")]
             protected float power = 20;
             public float Power { get { return power; } }
 
@@ -102,6 +101,21 @@ namespace Game
             [SerializeField]
             protected Damage.Method method = Damage.Method.Contact;
             public Damage.Method Method { get { return method; } }
+
+            [SerializeField]
+            protected SFXData _SFX;
+            public SFXData SFX { get { return _SFX; } }
+            [Serializable]
+            public class SFXData
+            {
+                [SerializeField]
+                protected AudioClip initiate;
+                public AudioClip Initiate { get { return initiate; } }
+
+                [SerializeField]
+                protected AudioClip connect;
+                public AudioClip Connect { get { return connect; } }
+            }
 
             [SerializeField]
             protected StatusEffectProperty[] statusEffects;

@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
   m_Name: Knight
   m_EditorClassIdentifier: 
-  localization:
-    _ID: Knight
   icon:
     sprite: {fileID: 21300000, guid: 786dc58700650f540a9ba9dcdddd64d3, type: 3}
     tilt: 0
-  description: Heavily armored warrior, low range, high attack & defense
   prices:
   - type: 1
     value: 6000
@@ -43,5 +40,8 @@ MonoBehaviour:
     distance: 0.5
     duration: 1
     method: 0
+    _SFX:
+      initiate: {fileID: 8300000, guid: af592df43df8e434fb4f82ecc846bcf1, type: 3}
+      connect: {fileID: 0}
     statusEffects: []
   speed: 1.8

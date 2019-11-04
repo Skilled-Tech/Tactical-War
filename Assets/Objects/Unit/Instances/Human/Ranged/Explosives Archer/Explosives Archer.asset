@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
   m_Name: Explosives Archer
   m_EditorClassIdentifier: 
-  localization:
-    _ID: Explosives Archer
   icon:
     sprite: {fileID: 21300000, guid: f65abc70bc876c54caf1db517a549291, type: 3}
     tilt: 0
-  description: Shoots arrows from a far, low defense, medium range & attack
   prices:
   - type: 0
     value: 10000
@@ -43,6 +40,9 @@ MonoBehaviour:
     distance: 3
     duration: 1
     method: 2
+    _SFX:
+      initiate: {fileID: 0}
+      connect: {fileID: 8300000, guid: addd934584c6468468bf15bf93437815, type: 3}
     statusEffects:
     - upgrade: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
       probability:
