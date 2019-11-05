@@ -270,6 +270,8 @@ GameObject:
   - component: {fileID: 8714000708567731903}
   - component: {fileID: 8714000708567731900}
   - component: {fileID: 8714000708567731901}
+  - component: {fileID: 3074952665443246942}
+  - component: {fileID: 7368987493017353539}
   m_Layer: 5
   m_Name: Ability UI Template
   m_TagString: Untagged
@@ -399,6 +401,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: 0.693
+--- !u!114 &3074952665443246942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8714000708567731899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5b8348c2e3e284e9997957b8a32396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+--- !u!114 &7368987493017353539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8714000708567731899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b8894d2a4296e47a8a3a4e94137f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _SFX:
+    clip: {fileID: 8300000, guid: b447dc7fade58af44b5002a811e48110, type: 3}
+    volume: 1
+    delay: 0
 --- !u!1 &8714000708802355778
 GameObject:
   m_ObjectHideFlags: 0

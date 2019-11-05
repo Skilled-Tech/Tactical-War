@@ -792,6 +792,8 @@ GameObject:
   - component: {fileID: 3100627470964406510}
   - component: {fileID: 3100627470964406515}
   - component: {fileID: 3100627470964406514}
+  - component: {fileID: 1618500717913229770}
+  - component: {fileID: 2533789637269097090}
   m_Layer: 5
   m_Name: Buy
   m_TagString: Untagged
@@ -900,6 +902,35 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1618500717913229770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3100627470964406504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5b8348c2e3e284e9997957b8a32396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+--- !u!114 &2533789637269097090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3100627470964406504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b8894d2a4296e47a8a3a4e94137f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _SFX:
+    clip: {fileID: 8300000, guid: b447dc7fade58af44b5002a811e48110, type: 3}
+    volume: 1
+    delay: 0
 --- !u!1 &3100627471416889710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,6 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   label: {fileID: 2855566435748792806}
+  instruction: {fileID: 0}
   progression: {fileID: 5955943371251053524}
   requiremnets: {fileID: 2130795076756445895}
   buy: {fileID: 3100627470964406510}

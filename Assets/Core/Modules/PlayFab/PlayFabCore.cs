@@ -150,7 +150,7 @@ namespace Game
             }
             else
             {
-                Core.Scenes.Load(Core.Scenes.Login);
+                SceneManager.LoadScene(Core.Scenes.Login.name);
             }
         }
     }

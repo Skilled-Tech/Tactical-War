@@ -4100,6 +4100,7 @@ GameObject:
   - component: {fileID: 988184637}
   - component: {fileID: 988184636}
   - component: {fileID: 988184635}
+  - component: {fileID: 988184642}
   m_Layer: 5
   m_Name: Localization
   m_TagString: Untagged
@@ -4270,6 +4271,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988184633}
   m_CullTransparentMesh: 0
+--- !u!114 &988184642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988184633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b8894d2a4296e47a8a3a4e94137f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _SFX:
+    clip: {fileID: 8300000, guid: b447dc7fade58af44b5002a811e48110, type: 3}
+    volume: 1
+    delay: 0
 --- !u!1 &994787344
 GameObject:
   m_ObjectHideFlags: 0

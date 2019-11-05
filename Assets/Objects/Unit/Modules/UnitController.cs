@@ -37,13 +37,20 @@ namespace Game
 
         protected virtual void Process()
         {
-            if (Index == 0)
-                MoveTo(Attack.Target, Attack.Distance);
-            else
-                MoveTo(Base.Units.List[Index - 1], 1f);
+            if(Attack.Target == null)
+            {
 
-            if (Attack.CanPerform)
-                Attack.Perform();
+            }
+            else
+            {
+                if (Index == 0)
+                    MoveTo(Attack.Target, Attack.Distance);
+                else
+                    MoveTo(Base.Units.List[Index - 1], 1f);
+
+                if (Attack.CanPerform)
+                    Attack.Perform();
+            }
         }
 
         public bool isMoving { get; protected set; }

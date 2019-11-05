@@ -25,28 +25,14 @@ MonoBehaviour:
       graphic: {fileID: 11400000, guid: be3f47198f1a2f44892d750158fb8200, type: 2}
     units:
       list:
-      - template: {fileID: 11400000, guid: 6fffb9c921cd64d448f930b8611ff4f1, type: 2}
-        upgrade:
-          list: []
       - template: {fileID: 11400000, guid: d56491ee4aa418c4a8ea48280aba32b8, type: 2}
         upgrade:
           list: []
-      - template: {fileID: 11400000, guid: 9766a4e11de834e4fbdcc6c18f7f7d32, type: 2}
-        upgrade:
-          list: []
       - template: {fileID: 11400000, guid: 86299c2e2365bb64ab5f5cabce317612, type: 2}
-        upgrade:
-          list: []
-      - template: {fileID: 11400000, guid: d32043575b05b494ba8907ff5318f80d, type: 2}
-        upgrade:
-          list: []
-      - template: {fileID: 11400000, guid: a60b629bc2b4f5546be00c2b6470ffde, type: 2}
-        upgrade:
-          list: []
-      - template: {fileID: 11400000, guid: e4908d3fcaa8a0143af115637ed9b6b9, type: 2}
         upgrade:
           list: []
     abilities:
       list:
       - {fileID: 11400000, guid: d2529312bb528f243803050dffb227b0, type: 2}
       - {fileID: 11400000, guid: 9e5a3b2d97925ec41af07c39e731bef9, type: 2}
+      - {fileID: 11400000, guid: 5387c9befaae86443ab8487393a30663, type: 2}

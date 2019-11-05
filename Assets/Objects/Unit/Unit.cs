@@ -89,6 +89,8 @@ namespace Game
         {
             base.Awake();
 
+            Debug.Log(this.gameObject.scene.name);
+
             audio = Dependancy.Get<UnitAudio>(gameObject);
             Controller = Dependancy.Get<UnitController>(gameObject);
             Body = Dependancy.Get<UnitBody>(gameObject);
@@ -101,6 +103,8 @@ namespace Game
         protected override void Start()
         {
             base.Start();
+
+            Debug.Log("Start " + this);
 
             Health.Value = Health.Max = Template.Health;
 

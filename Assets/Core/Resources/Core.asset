@@ -20,6 +20,9 @@ MonoBehaviour:
     login:
       asset: {fileID: 102900000, guid: 4a3ed4e77f4122b4fa8b8f74b05d1a9f, type: 3}
       _name: Login
+    loadingMenu:
+      asset: {fileID: 102900000, guid: 665c57da4d4e2934e979a059b5f74936, type: 3}
+      _name: Loading-Menu
     mainMenu:
       asset: {fileID: 102900000, guid: 679471899b386524f9ff02e4ea169768, type: 3}
       _name: Main-Menu
@@ -47,10 +50,10 @@ MonoBehaviour:
       selection:
         max: 6
         list:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
+        - {fileID: 11400000, guid: d48cb9cf1e35a5e48bb7607b9a7f4004, type: 2}
+        - {fileID: 11400000, guid: 06c15cd497f169740ae787e2b109cb06, type: 2}
+        - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+        - {fileID: 11400000, guid: 503acb4ce6e589f4abe896fada3ef66e, type: 2}
         - {fileID: 0}
         - {fileID: 0}
         Context: {fileID: 0}
@@ -58,9 +61,9 @@ MonoBehaviour:
       selection:
         max: 3
         list:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
+        - {fileID: 11400000, guid: d2529312bb528f243803050dffb227b0, type: 2}
+        - {fileID: 11400000, guid: 9e5a3b2d97925ec41af07c39e731bef9, type: 2}
+        - {fileID: 11400000, guid: 5387c9befaae86443ab8487393a30663, type: 2}
         Context: {fileID: 0}
   shop:
     sections:
@@ -91,4 +94,4 @@ MonoBehaviour:
   _IAP:
     google: {}
   localization:
-    target: 1
+    target: 0

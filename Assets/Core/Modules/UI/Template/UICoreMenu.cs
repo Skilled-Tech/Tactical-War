@@ -21,7 +21,7 @@ namespace Game
 {
 	public class UICoreMenu : UIElement
 	{
-		[SerializeField]
+        [SerializeField]
         protected RewardsUI rewards;
         public RewardsUI Rewards { get { return rewards; } }
 
@@ -32,6 +32,10 @@ namespace Game
         [SerializeField]
         protected BuyUI buy;
         public BuyUI Buy { get { return buy; } }
+
+        [SerializeField]
+        protected FaderUI fader;
+        public FaderUI Fader { get { return fader; } }
 
         public Core Core => Core.Instance;
 

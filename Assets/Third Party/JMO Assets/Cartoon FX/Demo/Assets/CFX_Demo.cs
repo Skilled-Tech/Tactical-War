@@ -50,8 +50,9 @@ public class CFX_Demo : MonoBehaviour
 	private bool randomSpawns;
 	
 	private bool slowMo;
-	
-	void OnMouseDown()
+
+#if UNITY_EDITOR
+    void OnMouseDown()
 	{
 		RaycastHit hit = new RaycastHit();
 		if(this.GetComponent<Collider>().Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 9999f))
@@ -60,8 +61,9 @@ public class CFX_Demo : MonoBehaviour
 			particle.transform.position = hit.point + particle.transform.position;
 		}
 	}
-	
-	private GameObject spawnParticle()
+#endif
+
+    private GameObject spawnParticle()
 	{
 		GameObject particles = (GameObject)Instantiate(ParticleExamples[exampleIndex]);
 		

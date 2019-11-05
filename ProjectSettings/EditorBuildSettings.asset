@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Objects/Login/Login.unity
     guid: 4a3ed4e77f4122b4fa8b8f74b05d1a9f
   - enabled: 1
+    path: Assets/Objects/Loading Menu/Loading-Menu.unity
+    guid: 665c57da4d4e2934e979a059b5f74936
+  - enabled: 1
     path: Assets/Objects/Main Menu/Main-Menu.unity
     guid: 679471899b386524f9ff02e4ea169768
   - enabled: 1

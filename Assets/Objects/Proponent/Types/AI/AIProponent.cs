@@ -27,13 +27,20 @@ namespace Game
         
         BaseUnitsCreator.Deployment deployment;
 
-        void Update()
+        protected override void Start()
         {
-            if(Base.IsAlive)
+            base.Start();
+
+            StartCoroutine(Procedure());
+        }
+
+        IEnumerator Procedure()
+        {
+            while(Base.IsAlive)
             {
                 if (Base.Units.Count < Enemy.Base.Units.Count + 4)
                 {
-                    if(Selection.Count > 0)
+                    if (Selection.Count > 0)
                     {
                         var random = Selection.Random;
 
@@ -48,6 +55,8 @@ namespace Game
                         }
                     }
                 }
+
+                yield return new WaitForEndOfFrame();
             }
         }
 
