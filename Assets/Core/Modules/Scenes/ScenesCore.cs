@@ -44,8 +44,23 @@ namespace Game
             protected GameScene scene;
             public GameScene Scene { get { return scene; } }
 
-            public ScenesCore Scenes => Core.Scenes;
+            public AsyncOperation[] Operations { get; protected set; }
+            public virtual float Progress
+            {
+                get
+                {
+                    if (Operations == null) return 0;
 
+                    var value = 0f;
+
+                    for (int i = 0; i < Operations.Length; i++)
+                        value += Operations[i].progress;
+
+                    return value / Operations.Length;
+                }
+            }
+
+            public ScenesCore Scenes => Core.Scenes;
             public FaderUI Fader => Core.UI.Fader;
 
             public virtual void One(string name)
@@ -69,13 +84,13 @@ namespace Game
                     SceneManager.LoadScene(scene.name);
                     yield return Fader.To(0f);
 
-                    var operations = new AsyncOperation[names.Length];
+                    Operations = new AsyncOperation[names.Length];
                     for (int i = 0; i < names.Length; i++)
                     {
-                        operations[i] = SceneManager.LoadSceneAsync(names[i], LoadSceneMode.Additive);
-                        operations[i].allowSceneActivation = false;
+                        Operations[i] = SceneManager.LoadSceneAsync(names[i], LoadSceneMode.Additive);
+                        Operations[i].allowSceneActivation = false;
 
-                        bool IsReady() => operations[i].progress == 0.9f;
+                        bool IsReady() => Operations[i].progress == 0.9f;
 
                         yield return new WaitUntil(IsReady);
                     }
@@ -92,12 +107,14 @@ namespace Game
                     }
                     SceneManager.sceneLoaded += SceneLoadedCallback;
 
-                    for (int i = 0; i < operations.Length; i++)
-                        operations[i].allowSceneActivation = true;
+                    for (int i = 0; i < Operations.Length; i++)
+                        Operations[i].allowSceneActivation = true;
 
                     yield return new WaitForSeconds(0.5f);
 
                     yield return Fader.To(0f);
+
+                    Operations = null;
                 }
 
                 Core.SceneAcessor.StartCoroutine(Procedure());

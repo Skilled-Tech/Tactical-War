@@ -25,9 +25,16 @@ namespace Game
         protected ProgressBar progress;
         public ProgressBar Progress { get { return progress; } }
 
+        public Core Core => Core.Instance;
+
+        private void Start()
+        {
+            Core.PlayFab.EnsureActivation();
+        }
+
         private void Update()
         {
-            
+            progress.Value = Core.Scenes.Load.Progress;
         }
     }
 }
