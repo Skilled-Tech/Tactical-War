@@ -100,8 +100,6 @@ namespace Game
                         yield return new WaitUntil(IsReady);
                     }
 
-                    yield return Fader.To(1f);
-
                     void SceneLoadedCallback(Scene scene, LoadSceneMode mode)
                     {
                         SceneManager.sceneLoaded -= SceneLoadedCallback;
@@ -113,13 +111,15 @@ namespace Game
 #pragma warning restore CS0618 // Type or member is obsolete
                     }
                     SceneManager.sceneLoaded += SceneLoadedCallback;
-                    
+
+                    yield return new WaitForSecondsRealtime(0.6f);
+
+                    yield return Fader.To(1f);
+
                     for (int i = 0; i < Operations.Length; i++)
                         Operations[i].allowSceneActivation = true;
 
                     Operations = null;
-
-                    yield return new WaitForSeconds(0.5f);
 
                     yield return Fader.To(0f);
                 }
