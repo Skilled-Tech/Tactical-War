@@ -49,10 +49,9 @@ namespace Game
             {
                 get
                 {
-                    if (Operations == null) return 0;
+                    if (Operations == null) return 1;
 
                     var value = 0f;
-
                     var count = 0;
 
                     for (int i = 0; i < Operations.Length; i++)
@@ -63,7 +62,7 @@ namespace Game
                         value += Operations[i].progress;
                     }
 
-                    return value / count;
+                    return Mathf.InverseLerp(0f, 0.9f, value / count);
                 }
             }
 
