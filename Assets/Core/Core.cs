@@ -44,6 +44,8 @@ namespace Game
             }
         }
 
+        public CoreSceneAccessor SceneAcessor { get; protected set; }
+
         #region Modules
         [SerializeField]
         protected DataCore data;
@@ -92,6 +94,10 @@ namespace Game
         [SerializeField]
         protected LocalizationCore localization;
         public LocalizationCore Localization { get { return localization; } }
+
+        [SerializeField]
+        protected AudioCore audio;
+        public AudioCore Audio { get { return audio; } }
 
         public interface IProperty
         {
@@ -172,6 +178,8 @@ namespace Game
         {
             Application.runInBackground = true;
 
+            SceneAcessor = CoreSceneAccessor.Create();
+
             Register(data);
             Register(prefs);
             Register(UI);
@@ -183,6 +191,7 @@ namespace Game
             Register(player);
             Register(IAP);
             Register(localization);
+            Register(audio);
 
             Init();
         }
