@@ -53,10 +53,17 @@ namespace Game
 
                     var value = 0f;
 
-                    for (int i = 0; i < Operations.Length; i++)
-                        value += Operations[i].progress;
+                    var count = 0;
 
-                    return value / Operations.Length;
+                    for (int i = 0; i < Operations.Length; i++)
+                    {
+                        if (Operations[i] == null) continue;
+
+                        count++;
+                        value += Operations[i].progress;
+                    }
+
+                    return value / count;
                 }
             }
 
@@ -75,7 +82,6 @@ namespace Game
                 One(scene.name);
             }
 
-#pragma warning disable CS0618
             public virtual void All(params string[] names)
             {
                 IEnumerator Procedure()
@@ -103,23 +109,24 @@ namespace Game
 
                         SceneManager.SetActiveScene(scene);
 
-                        SceneManager.UnloadScene(scene.name);
+#pragma warning disable CS0618 // Type or member is obsolete
+                        SceneManager.UnloadScene(this.scene.name);
+#pragma warning restore CS0618 // Type or member is obsolete
                     }
                     SceneManager.sceneLoaded += SceneLoadedCallback;
-
+                    
                     for (int i = 0; i < Operations.Length; i++)
                         Operations[i].allowSceneActivation = true;
+
+                    Operations = null;
 
                     yield return new WaitForSeconds(0.5f);
 
                     yield return Fader.To(0f);
-
-                    Operations = null;
                 }
 
                 Core.SceneAcessor.StartCoroutine(Procedure());
             }
-#pragma warning restore CS0618
             public virtual void All(params GameScene[] scenes)
             {
                 var names = new string[scenes.Length];
