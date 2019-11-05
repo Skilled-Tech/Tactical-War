@@ -96,7 +96,7 @@ namespace Game
         //Utility
         public static void Quit()
         {
-            Core.Scenes.Load(Core.Scenes.MainMenu);
+            Core.Scenes.Load.One(Core.Scenes.MainMenu);
         }
 
         public static void Retry()

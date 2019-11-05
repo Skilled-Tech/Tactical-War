@@ -128,7 +128,7 @@ namespace Game
 
         public virtual void Reload()
         {
-            Scenes.Load(Scenes.Login);
+            Scenes.Load.One(Scenes.Login);
 
             Popup.Hide();
         }
@@ -240,7 +240,7 @@ namespace Game
 
                 PlayFab.Activated = true;
 
-                Scenes.Load(Scenes.MainMenu);
+                Scenes.Load.One(Scenes.MainMenu);
             }
 
             Popup.Hide();

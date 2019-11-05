@@ -27,10 +27,6 @@ namespace Game
         public GameScene Login { get { return login; } }
 
         [SerializeField]
-        protected GameScene loadingMenu;
-        public GameScene LoadingMenu { get { return loadingMenu; } }
-
-        [SerializeField]
         protected GameScene mainMenu;
         public GameScene MainMenu { get { return mainMenu; } }
 
@@ -38,72 +34,84 @@ namespace Game
         protected GameScene level;
         public GameScene Level { get { return level; } }
 
-        public FaderUI Fader => Core.UI.Fader;
-
-        public virtual void Load(string name)
+        [SerializeField]
+        protected LoadCore load;
+        public LoadCore Load { get { return load; } }
+        [Serializable]
+        public class LoadCore : Core.Property
         {
-            LoadAll(name);
-        }
+            [SerializeField]
+            protected GameScene scene;
+            public GameScene Scene { get { return scene; } }
 
-        public virtual void LoadAll(params GameScene[] scenes)
-        {
-            var names = new string[scenes.Length];
+            public ScenesCore Scenes => Core.Scenes;
 
-            for (int i = 0; i < scenes.Length; i++)
-                names[i] = scenes[i];
+            public FaderUI Fader => Core.UI.Fader;
 
-            LoadAll(names);
-        }
-#pragma warning disable CS0618
-        public virtual void LoadAll(params string[] names)
-        {
-            IEnumerator Procedure()
+            public virtual void One(string name)
             {
-                yield return Fader.To(1f);
-                SceneManager.LoadScene(loadingMenu.name);
-                yield return Fader.To(0f);
+                All(name);
+            }
+            public virtual void One(GameScene scene)
+            {
+                if (scene == null)
+                    throw new NullReferenceException("Trying to load null scene");
 
-                var operations = new AsyncOperation[names.Length];
-                for (int i = 0; i < names.Length; i++)
-                {
-                    operations[i] = SceneManager.LoadSceneAsync(names[i], LoadSceneMode.Additive);
-                    operations[i].allowSceneActivation = false;
-
-                    bool IsReady() => operations[i].progress == 0.9f;
-                    
-                    yield return new WaitUntil(IsReady);
-                }
-
-                yield return Fader.To(1f);
-
-                void SceneLoadedCallback(Scene scene, LoadSceneMode mode)
-                {
-                    SceneManager.sceneLoaded -= SceneLoadedCallback;
-
-                    SceneManager.SetActiveScene(scene);
-
-                    SceneManager.UnloadScene(loadingMenu.name);
-                }
-                SceneManager.sceneLoaded += SceneLoadedCallback;
-
-                for (int i = 0; i < operations.Length; i++)
-                    operations[i].allowSceneActivation = true;
-
-                yield return new WaitForSeconds(0.5f);
-
-                yield return Fader.To(0f);
+                One(scene.name);
             }
 
-            Core.SceneAcessor.StartCoroutine(Procedure());
-        }
-#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning disable CS0618
+            public virtual void All(params string[] names)
+            {
+                IEnumerator Procedure()
+                {
+                    yield return Fader.To(1f);
+                    SceneManager.LoadScene(scene.name);
+                    yield return Fader.To(0f);
 
-        public virtual void Load(GameScene scene)
-        {
-            if (scene == null)
-                throw new NullReferenceException("Trying to load null scene");
+                    var operations = new AsyncOperation[names.Length];
+                    for (int i = 0; i < names.Length; i++)
+                    {
+                        operations[i] = SceneManager.LoadSceneAsync(names[i], LoadSceneMode.Additive);
+                        operations[i].allowSceneActivation = false;
 
-            Load(scene.name);
+                        bool IsReady() => operations[i].progress == 0.9f;
+
+                        yield return new WaitUntil(IsReady);
+                    }
+
+                    yield return Fader.To(1f);
+
+                    void SceneLoadedCallback(Scene scene, LoadSceneMode mode)
+                    {
+                        SceneManager.sceneLoaded -= SceneLoadedCallback;
+
+                        SceneManager.SetActiveScene(scene);
+
+                        SceneManager.UnloadScene(scene.name);
+                    }
+                    SceneManager.sceneLoaded += SceneLoadedCallback;
+
+                    for (int i = 0; i < operations.Length; i++)
+                        operations[i].allowSceneActivation = true;
+
+                    yield return new WaitForSeconds(0.5f);
+
+                    yield return Fader.To(0f);
+                }
+
+                Core.SceneAcessor.StartCoroutine(Procedure());
+            }
+#pragma warning restore CS0618
+            public virtual void All(params GameScene[] scenes)
+            {
+                var names = new string[scenes.Length];
+
+                for (int i = 0; i < scenes.Length; i++)
+                    names[i] = scenes[i];
+
+                All(names);
+            }
         }
     }
 }

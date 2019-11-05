@@ -20,15 +20,16 @@ MonoBehaviour:
     login:
       asset: {fileID: 102900000, guid: 4a3ed4e77f4122b4fa8b8f74b05d1a9f, type: 3}
       _name: Login
-    loadingMenu:
-      asset: {fileID: 102900000, guid: 665c57da4d4e2934e979a059b5f74936, type: 3}
-      _name: Loading-Menu
     mainMenu:
       asset: {fileID: 102900000, guid: 679471899b386524f9ff02e4ea169768, type: 3}
       _name: Main-Menu
     level:
       asset: {fileID: 102900000, guid: b4787435801bb7c40812a91cc8e84a8c, type: 3}
       _name: Level
+    load:
+      scene:
+        asset: {fileID: 102900000, guid: 665c57da4d4e2934e979a059b5f74936, type: 3}
+        _name: Loading-Menu
   world:
     regions:
     - {fileID: 11400000, guid: d12dbb645a133814faa51f25497e0283, type: 2}
