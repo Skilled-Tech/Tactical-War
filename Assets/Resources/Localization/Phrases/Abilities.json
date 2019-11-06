@@ -14,5 +14,13 @@
   "meteor shower description": {
     "en": "Meteor Shower Description",
     "ar": "*Meteor Shower Description*"
+  },
+  "wind blast": {
+    "en": "Wind Blast",
+    "ar": "*Wind Blast*"
+  },
+  "wind blast description": {
+    "en": "Wind Blast Description",
+    "ar": "*Wind Blast Description*"
   }
 }

@@ -121,12 +121,19 @@ namespace Game
 
         void OnButon()
         {
-            var data = Player.Inventory.Find(Template.CatalogItem);
+            if(PlayFab.isOffline)
+            {
+                Core.UI.ShowOnlineRequirementPopup();
+            }
+            else
+            {
+                var data = Player.Inventory.Find(Template.CatalogItem);
 
-            Popup.Show("Processing Upgrade");
+                Popup.Show(Core.Localization.Phrases.Get("Processing Upgrade"));
 
-            PlayFab.Upgrade.OnResponse += OnResponse;
-            PlayFab.Upgrade.Perform(data, Type);
+                PlayFab.Upgrade.OnResponse += OnResponse;
+                PlayFab.Upgrade.Perform(data, Type);
+            }
         }
 
         void OnResponse(PlayFabUpgradeCore.ResultData result, PlayFab.PlayFabError error)
@@ -135,7 +142,7 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Show("Retriving Inventory");
+                Popup.Show(Core.Localization.Phrases.Get("Retrieving Inventory"));
 
                 PlayFab.Player.Inventory.Request();
                 PlayFab.Player.Inventory.OnResponse += OnInventoryResponse;

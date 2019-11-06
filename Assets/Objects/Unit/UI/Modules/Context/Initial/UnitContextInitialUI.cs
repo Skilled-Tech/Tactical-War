@@ -201,6 +201,7 @@ namespace Game
         void OnDisable()
         {
             Player.Funds.OnValueChanged -= UpdateState;
+            Player.Inventory.OnUpdate += InventoryUpdateCallback;
         }
     }
 }

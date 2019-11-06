@@ -62,5 +62,10 @@ namespace Game
 
             return script;
         }
+
+        public void ShowOnlineRequirementPopup()
+        {
+            Popup.Show(Core.Localization.Phrases.Get("Need Online Login"), Popup.Hide, Core.Localization.Phrases.Get("Okay"));
+        }
     }
 }

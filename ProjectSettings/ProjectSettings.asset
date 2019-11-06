@@ -631,7 +631,7 @@ PlayerSettings:
     7: GOOGLE_PLAY;RTL_OVERRIDE
   platformArchitecture: {}
   scriptingBackend:
-    Android: 0
+    Android: 1
     Standalone: 0
   il2cppCompilerConfiguration: {}
   managedStrippingLevel:

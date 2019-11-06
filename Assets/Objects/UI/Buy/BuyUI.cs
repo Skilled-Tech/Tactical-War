@@ -79,16 +79,23 @@ namespace Game
 
         protected virtual void ButtonAction()
         {
-            Popup.Show(Core.Localization.Phrases.Get("Processing Purchase"));
-
-            if (Template.Price.Type == CurrencyType.Cents)
+            if(PlayFab.isOffline)
             {
-                Core.IAP.Purchase(Template.ID);
+                Core.UI.ShowOnlineRequirementPopup();
             }
             else
             {
-                PlayFab.Purchase.OnResponse += PurchaseResponse;
-                PlayFab.Purchase.Perform(Template.CatalogItem);
+                Popup.Show(Core.Localization.Phrases.Get("Processing Purchase"));
+
+                if (Template.Price.Type == CurrencyType.Cents)
+                {
+                    Core.IAP.Purchase(Template.ID);
+                }
+                else
+                {
+                    PlayFab.Purchase.OnResponse += PurchaseResponse;
+                    PlayFab.Purchase.Perform(Template.CatalogItem);
+                }
             }
         }
 

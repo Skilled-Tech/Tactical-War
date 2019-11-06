@@ -159,6 +159,10 @@
     "en": "Retrieving Player Data",
     "ar": "جاري قرأة معلومات حسابك"
   },
+  "Retrieving Inventory": {
+    "en": "Retrieving Inventory",
+    "ar": "جاري مراجعة مشترياتك"
+  },
   "confirm": {
     "en": "Confirm",
     "ar": "تأكيد"
@@ -179,12 +183,24 @@
     "en": "Processing Purchase",
     "ar": "جاري الشراء"
   },
-  "Retrieving Inventory": {
-    "en": "Retrieving Inventory",
-    "ar": "جاري مراجعة مشترياتك"
-  },
   "Purchase Successful": {
     "en": "Purchase Successful",
     "ar": "تم الشراء بنجاح"
+  },
+  "Need Online Login": {
+    "en": "You Can't Perform This Operation in Offline Mode",
+    "ar": "لا يمكنك القيام بهذه العمليه في الوضع الاوفلاين"
+  },
+  "okay": {
+    "en": "Okay",
+    "ar": "موافق"
+  },
+  "unlock": {
+    "en": "Unlock",
+    "ar": "اشتري"
+  },
+  "Processing Upgrade": {
+    "en": "Processing Upgrade",
+    "ar": "جاري التطوير"
   }
 }

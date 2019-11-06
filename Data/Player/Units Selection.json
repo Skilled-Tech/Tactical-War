@@ -1,8 +1,8 @@
 [
-  "Healer_Wizard",
+  "Fire_Wizard",
   "Thunder_Wizard",
-  "Ice_Wizard",
-  "Robot",
+  "Healer_Wizard",
+  null,
   null,
   null
 ]
