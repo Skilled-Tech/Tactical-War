@@ -5,6 +5,59 @@
       "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Power\",\"value\":1},{\"type\":\"Defense\",\"value\":1}]"
+      },
+      "DisplayName": "Knight",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Knight",
+      "ItemInstanceId": "4BFAE4BF7C52053A",
+      "PurchaseDate": "2019-11-07T06:59:08.076Z",
+      "RemainingUses": null,
+      "UnitCurrency": "JL",
+      "UnitPrice": 6000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": "Daily Login Reward",
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Wood Sword",
+      "Expiration": null,
+      "ItemClass": null,
+      "ItemId": "Wood_Sword",
+      "ItemInstanceId": "79A8809FEAFDDE21",
+      "PurchaseDate": "2019-11-07T06:57:51.202Z",
+      "RemainingUses": 1,
+      "UnitCurrency": null,
+      "UnitPrice": 0,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": "Daily Login Reward",
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Wood Shield",
+      "Expiration": null,
+      "ItemClass": null,
+      "ItemId": "Wood_Shield",
+      "ItemInstanceId": "368D0DA17470A21F",
+      "PurchaseDate": "2019-11-07T06:57:51.202Z",
+      "RemainingUses": 2,
+      "UnitCurrency": null,
+      "UnitPrice": 0,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
       "CustomData": null,
       "DisplayName": "Meteor Shower",
       "Expiration": null,
@@ -93,8 +146,8 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 1381700,
-    "JL": 574500
+    "GD": 1382500,
+    "JL": 568500
   },
   "VirtualCurrencyRechargeTimes": {},
   "Request": {
