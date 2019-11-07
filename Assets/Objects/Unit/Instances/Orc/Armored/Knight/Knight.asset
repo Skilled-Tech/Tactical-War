@@ -47,7 +47,7 @@ MonoBehaviour:
         delay: 0.2
       connect:
       - clip: {fileID: 8300000, guid: d9433c76c60832f4c996b6c659eeb445, type: 3}
-        volume: 1
+        volume: 0.6
         delay: 0
     statusEffects: []
   speed: 1.8

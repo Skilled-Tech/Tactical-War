@@ -17,6 +17,7 @@ MonoBehaviour:
     asset: {fileID: 102900000, guid: e9b64affa49cd884d8adafb0ab167deb, type: 3}
     _name: Forest-World
   background: {fileID: 11400000, guid: e7e7d18d12f2b1a43b98a0028da13058, type: 2}
+  music: {fileID: 11400000, guid: 801b250d6f57e14418c9baa8b3b0a0a7, type: 2}
   player:
     _base:
       graphic: {fileID: 11400000, guid: c7301de778cb1a64e9d7d65ace8b61fb, type: 2}

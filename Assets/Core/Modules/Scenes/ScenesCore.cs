@@ -100,21 +100,27 @@ namespace Game
                         yield return new WaitUntil(IsReady);
                     }
 
-                    void SceneLoadedCallback(Scene scene, LoadSceneMode mode)
-                    {
-                        SceneManager.sceneLoaded -= SceneLoadedCallback;
-
-                        SceneManager.SetActiveScene(scene);
-
-#pragma warning disable CS0618 // Type or member is obsolete
-                        SceneManager.UnloadScene(this.scene.name);
-#pragma warning restore CS0618 // Type or member is obsolete
-                    }
-                    SceneManager.sceneLoaded += SceneLoadedCallback;
-
                     yield return new WaitForSecondsRealtime(0.6f);
 
                     yield return Fader.To(1f);
+
+                    void SceneLoadedCallback(Scene scene, LoadSceneMode mode)
+                    {
+                        if (scene.name == names.First())
+                        {
+                            SceneManager.SetActiveScene(scene);
+                        }
+
+                        if (scene.name == names.Last())
+                        {
+#pragma warning disable CS0618 // Type or member is obsolete
+                            SceneManager.UnloadScene(this.scene.name);
+#pragma warning restore CS0618 // Type or member is obsolete
+
+                            SceneManager.sceneLoaded -= SceneLoadedCallback;
+                        }
+                    }
+                    SceneManager.sceneLoaded += SceneLoadedCallback;
 
                     for (int i = 0; i < Operations.Length; i++)
                         Operations[i].allowSceneActivation = true;

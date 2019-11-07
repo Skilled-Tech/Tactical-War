@@ -81,6 +81,8 @@ namespace Game
             Menu.Init();
 
             Proponents.OnDefeat += OnProponentDeafeated;
+
+            Core.Audio.Music.Play(Data.Level.Music);
         }
 
         void OnProponentDeafeated(Proponent proponent)
@@ -90,7 +92,9 @@ namespace Game
         
         protected virtual void OnDestroy()
         {
-            Time.timeScale = 1f;
+            Pause.State = LevelPauseState.Soft;
+
+            Core.Audio.Music.Stop();
         }
 
         //Utility

@@ -44,7 +44,7 @@ MonoBehaviour:
       initiate: []
       connect:
       - clip: {fileID: 8300000, guid: addd934584c6468468bf15bf93437815, type: 3}
-        volume: 1
+        volume: 0.8
         delay: 0
     statusEffects:
     - upgrade: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}

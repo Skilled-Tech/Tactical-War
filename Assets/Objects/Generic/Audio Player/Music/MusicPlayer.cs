@@ -41,6 +41,8 @@ namespace Game
         {
             base.Start();
 
+            Priority = 200;
+
             Source.ignoreListenerPause = true;
         }
 
@@ -52,33 +54,50 @@ namespace Game
                 return;
             }
 
-            if (coroutine != null)
-                StopCoroutine(coroutine);
+            if (coroutine != null) StopCoroutine(coroutine);
 
-            coroutine = StartCoroutine(Procedure(track));
+            coroutine = StartCoroutine(Procedure());
+
+            IEnumerator Procedure()
+            {
+                IEnumerator Play(AudioClip clip)
+                {
+                    Source.Stop();
+
+                    Source.clip = clip;
+
+                    Source.Play();
+
+                    yield return Fade(track.Volume);
+
+                    yield return new WaitForSecondsRealtime(clip.length);
+                }
+
+                yield return Fade(0);
+
+                for (int i = 0; i < track.Size; i++)
+                    yield return Play(track[i]);
+
+                while (true)
+                    yield return Play(track.Last);
+            }
         }
 
         Coroutine coroutine;
-        protected virtual IEnumerator Procedure(MusicTrack track)
+
+        public virtual void Stop()
         {
-            IEnumerator Play(AudioClip clip)
+            if (coroutine != null) StopCoroutine(coroutine);
+
+            coroutine = StartCoroutine(Procedure());
+
+            IEnumerator Procedure()
             {
+                yield return Fade(0);
+
                 Source.Stop();
-
-                Source.clip = clip;
-
-                Source.Play();
-
-                yield return new WaitForSeconds(clip.length);
+                Source.clip = null;
             }
-
-            if (IsPlaying) yield return Fade(0);
-
-            for (int i = 0; i < track.Size; i++)
-                yield return Play(track[i]);
-
-            while(true)
-                yield return Play(track.Last);
         }
 
         IEnumerator Fade(float target)

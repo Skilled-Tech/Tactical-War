@@ -30,6 +30,8 @@ namespace Game
 
         public float Pitch { get => Source.pitch; set => Source.pitch = value; }
 
+        public int Priority { get => Source.priority; set => Source.priority = value; }
+
         protected virtual void Start()
         {
             Source = GetComponent<AudioSource>();

@@ -62,6 +62,10 @@ namespace Game
         public LevelBackgroundData Background { get { return background; } }
 
         [SerializeField]
+        protected MusicTrack music;
+        public MusicTrack Music { get { return music; } }
+
+        [SerializeField]
         protected PlayerData player;
         public PlayerData Player { get { return player; } }
         [Serializable]

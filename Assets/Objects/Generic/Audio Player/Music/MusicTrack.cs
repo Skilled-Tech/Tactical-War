@@ -23,6 +23,11 @@ namespace Game
 	public class MusicTrack : ScriptableObject
 	{
         [SerializeField]
+        [Range(0f, 1f)]
+        protected float volume = 1f;
+        public float Volume { get { return volume; } }
+
+        [SerializeField]
         protected AudioClip[] clips;
         public AudioClip[] Clips { get { return clips; } }
 
