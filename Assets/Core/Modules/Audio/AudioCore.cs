@@ -24,9 +24,9 @@ namespace Game
 	{
         public GameObject GameObject { get; protected set; }
 
-		public AudioSource Component { get; protected set; }
+        public SFXPlayer SFX { get; protected set; }
 
-        public SFXAudioPlayer SFX { get; protected set; }
+        public MusicPlayer Music { get; protected set; }
 
         public override void Configure()
         {
@@ -35,9 +35,29 @@ namespace Game
             GameObject = new GameObject("Audio");
             GameObject.transform.SetParent(Core.SceneAcessor.transform);
 
-            Component = GameObject.AddComponent<AudioSource>();
+            ConfigureSFX();
+            ConfigureMusic();
+        }
 
-            SFX = GameObject.AddComponent<SFXAudioPlayer>();
+        protected virtual void ConfigureSFX()
+        {
+            var GameObject = new GameObject("SFX");
+
+            GameObject.transform.SetParent(this.GameObject.transform);
+
+            GameObject.AddComponent<AudioSource>();
+
+            SFX = GameObject.AddComponent<SFXPlayer>();
+        }
+        protected virtual void ConfigureMusic()
+        {
+            var GameObject = new GameObject("Music");
+
+            GameObject.transform.SetParent(this.GameObject.transform);
+
+            GameObject.AddComponent<AudioSource>();
+
+            Music = GameObject.AddComponent<MusicPlayer>();
         }
     }
 }

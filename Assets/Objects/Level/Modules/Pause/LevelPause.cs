@@ -43,9 +43,15 @@ namespace Game
             _state = target;
 
             if (State == LevelPauseState.Hard)
+            {
+                AudioListener.pause = true;
                 Time.timeScale = 0f;
+            }
             else
+            {
+                AudioListener.pause = false;
                 Time.timeScale = Speed.Value;
+            }
 
             if (OnStateChanged != null) OnStateChanged(_state);
         }

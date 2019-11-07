@@ -19,16 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(AudioSource))]
-	public class SFXAudioPlayer : MonoBehaviour
-	{
-        public AudioSource Source { get; protected set; }
-
-        private void Awake()
-        {
-            Source = GetComponent<AudioSource>();
-        }
-
+	public class SFXPlayer : AudioPlayer
+    {
         public virtual Coroutine PlayOneShot(SFXProperty property)
         {
             IEnumerator Procedure()

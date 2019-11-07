@@ -20,12 +20,12 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(AudioSource))]
-    [RequireComponent(typeof(SFXAudioPlayer))]
+    [RequireComponent(typeof(SFXPlayer))]
     public class UnitAudio : Unit.Module
     {
         public AudioSource Component { get; protected set; }
 
-        public SFXAudioPlayer SFX { get; protected set; }
+        public SFXPlayer SFX { get; protected set; }
 
         public override void Configure(Unit reference)
         {
@@ -33,7 +33,7 @@ namespace Game
 
             Component = Dependancy.Get<AudioSource>(gameObject);
 
-            SFX = Dependancy.Get<SFXAudioPlayer>(gameObject);
+            SFX = Dependancy.Get<SFXPlayer>(gameObject);
         }
 
         public override void Init()
