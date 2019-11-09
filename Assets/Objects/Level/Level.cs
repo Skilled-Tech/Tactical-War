@@ -89,8 +89,8 @@ namespace Game
         {
             Finish.Process(Proponents.GetOther(proponent));
         }
-        
-        protected virtual void OnDestroy()
+
+        protected virtual void Exit()
         {
             Pause.State = LevelPauseState.Soft;
 
@@ -100,11 +100,15 @@ namespace Game
         //Utility
         public static void Quit()
         {
+            Instance.Exit();
+
             Core.Scenes.Load.One(Core.Scenes.MainMenu);
         }
 
         public static void Retry()
         {
+            Instance.Exit();
+
             Data.Level.Reload();
         }
 
@@ -112,6 +116,8 @@ namespace Game
         {
             if (Data.Level.IsLast)
                 throw new InvalidOperationException(Data.Level.name + " is the last Level in the " + Data.Region.name + ", Can't Progress any further");
+
+            Instance.Exit();
 
             var target = Data.Level.Next;
 

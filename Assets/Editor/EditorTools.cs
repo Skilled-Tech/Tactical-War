@@ -27,63 +27,43 @@ namespace Game
 {
 	public static class EditorTools
 	{
+        public const string MenuPath = "Tools/";
+
         public static Core Core { get { return Core.Instance; } }
 
-		public static class Tools
+        public static class Scenes
         {
-            public const string MenuPath = "Tools/";
+            public const string MenuPath = EditorTools.MenuPath + "Scenes/";
 
-            public static Core Core { get { return EditorTools.Core; } }
+            public static ScenesCore ScenesCore { get { return Core.Scenes; } }
 
-            public static class Scenes
+            [MenuItem(MenuPath + "Login")]
+            public static void Login()
             {
-                public const string MenuPath = Tools.MenuPath + "Scenes/";
-
-                public static ScenesCore Core { get { return Tools.Core.Scenes; } }
-
-                [MenuItem(MenuPath + "Login")]
-                public static void Login()
-                {
-                    Load(Core.Login);
-                }
-
-                [MenuItem(MenuPath + "Main Menu")]
-                public static void MainMenu()
-                {
-                    Load(Core.MainMenu);
-                }
-
-                [MenuItem(MenuPath + "Level")]
-                public static void Level()
-                {
-                    Load(Core.Level);
-                }
-
-                public static void Load(GameScene scene)
-                {
-                    EditorSceneManager.OpenScene(scene.Path);
-                }
+                Load(ScenesCore.Login);
             }
-        }
 
-        public static class TMP
-        {
-            [MenuItem("CONTEXT/" + nameof(TMP_Text) + "/To RTL")]
-            static void ToRTL(MenuCommand command)
+            [MenuItem(MenuPath + "Main Menu")]
+            public static void MainMenu()
             {
-                var label = command.context as TMP_Text;
+                Load(ScenesCore.MainMenu);
+            }
 
-                var text = label.text;
+            [MenuItem(MenuPath + "Loading Menu")]
+            public static void LoadingMenu()
+            {
+                Load(ScenesCore.Load.Scene);
+            }
 
-                var serializedObject = new SerializedObject(label);
+            [MenuItem(MenuPath + "Level")]
+            public static void Level()
+            {
+                Load(ScenesCore.Level);
+            }
 
-                var script = MonoScript.Get<RTLTextMeshPro>();
-
-                MonoScript.Set(serializedObject, script);
-
-                var rtl = serializedObject.targetObject as RTLTextMeshPro;
-
-                rtl.text = text;
+            public static void Load(GameScene scene)
+            {
+                EditorSceneManager.OpenScene(scene.Path);
             }
         }
 
@@ -111,6 +91,27 @@ namespace Game
                 }
 
                 return true;
+            }
+        }
+
+        public static class TMP
+        {
+            [MenuItem("CONTEXT/" + nameof(TMP_Text) + "/To RTL")]
+            static void ToRTL(MenuCommand command)
+            {
+                var label = command.context as TMP_Text;
+
+                var text = label.text;
+
+                var serializedObject = new SerializedObject(label);
+
+                var script = MonoScript.Get<RTLTextMeshPro>();
+
+                MonoScript.Set(serializedObject, script);
+
+                var rtl = serializedObject.targetObject as RTLTextMeshPro;
+
+                rtl.text = text;
             }
         }
 

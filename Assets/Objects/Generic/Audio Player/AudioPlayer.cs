@@ -20,8 +20,8 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(AudioSource))]
-	public class AudioPlayer : MonoBehaviour
-	{
+    public class AudioPlayer : MonoBehaviour
+    {
         public AudioSource Source { get; protected set; }
 
         public bool IsPlaying => Source.isPlaying;
@@ -32,9 +32,17 @@ namespace Game
 
         public int Priority { get => Source.priority; set => Source.priority = value; }
 
-        protected virtual void Start()
+        public bool IgnoreListenerPause { get => Source.ignoreListenerPause; set => Source.ignoreListenerPause = value; }
+        public bool IgnoreListenerVolume { get => Source.ignoreListenerVolume; set => Source.ignoreListenerVolume = value; }
+
+        protected virtual void Awake()
         {
             Source = GetComponent<AudioSource>();
+        }
+
+        protected virtual void Start()
+        {
+
         }
     }
 }

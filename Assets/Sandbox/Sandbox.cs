@@ -24,6 +24,20 @@ public class Sandbox : MonoBehaviour
 {
     private void Start()
     {
+        string text = "SUPER HOTALLOY, SUPER HOT, SUPER HOT, SUPER HOT, SUPER HOT, SUPER HOT";
+
+        var result = AppenedPhrase(text, "HOT", "xXx", "xXx");
+
+        Debug.Log(result);
+    }
+
+    public string AppenedPhrase(string source, string phrase, string start, string end)
+    {
+        return source.Replace(phrase, start + phrase + end);
+    }
+
+    void Units()
+    {
         var GUIDs = AssetDatabase.FindAssets("t:ItemTemplate");
 
         var jObject = new JObject();

@@ -48,6 +48,8 @@ namespace Game
             GameObject.AddComponent<AudioSource>();
 
             SFX = GameObject.AddComponent<SFXPlayer>();
+
+            SFX.IgnoreListenerPause = true;
         }
         protected virtual void ConfigureMusic()
         {

@@ -43,8 +43,6 @@ namespace Game
         private void Awake()
         {
             Image = GetComponent<Image>();
-
-            Value = 0f;
         }
 
         public virtual Coroutine To(float target) => To(target, 0.4f);

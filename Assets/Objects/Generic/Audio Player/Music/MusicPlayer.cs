@@ -43,7 +43,7 @@ namespace Game
 
             Priority = 200;
 
-            Source.ignoreListenerPause = true;
+            IgnoreListenerPause = true;
         }
 
         public virtual void Play(MusicTrack track)

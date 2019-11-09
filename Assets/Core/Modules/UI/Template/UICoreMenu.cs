@@ -47,6 +47,7 @@ namespace Game
             rewards.Hide();
             popup.Hide();
             buy.Hide();
+            fader.Value = 0f;
         }
 
         private void Update()

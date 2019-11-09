@@ -1,6 +1,23 @@
 {
   "Inventory": [
     {
+      "Annotation": "Level Completion 1 Reward",
+      "BundleContents": [],
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "5K Gold",
+      "Expiration": "2019-11-09T08:19:17.511Z",
+      "ItemClass": null,
+      "ItemId": "5K_Gold",
+      "ItemInstanceId": "AAC4547FD3AE536C",
+      "PurchaseDate": "2019-11-09T08:19:14.511Z",
+      "RemainingUses": null,
+      "UnitCurrency": null,
+      "UnitPrice": 0,
+      "UsesIncrementedBy": null
+    },
+    {
       "Annotation": null,
       "BundleContents": null,
       "BundleParent": null,
@@ -31,7 +48,7 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "79A8809FEAFDDE21",
       "PurchaseDate": "2019-11-07T06:57:51.202Z",
-      "RemainingUses": 1,
+      "RemainingUses": 3,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -48,7 +65,7 @@
       "ItemId": "Wood_Shield",
       "ItemInstanceId": "368D0DA17470A21F",
       "PurchaseDate": "2019-11-07T06:57:51.202Z",
-      "RemainingUses": 2,
+      "RemainingUses": 4,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -146,7 +163,7 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 1382500,
+    "GD": 1389500,
     "JL": 568500
   },
   "VirtualCurrencyRechargeTimes": {},

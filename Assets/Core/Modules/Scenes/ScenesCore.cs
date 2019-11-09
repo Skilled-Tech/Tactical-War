@@ -104,6 +104,8 @@ namespace Game
 
                     yield return Fader.To(1f);
 
+                    yield return new WaitForSeconds(0.2f);
+
                     void SceneLoadedCallback(Scene scene, LoadSceneMode mode)
                     {
                         if (scene.name == names.First())
@@ -113,11 +115,11 @@ namespace Game
 
                         if (scene.name == names.Last())
                         {
+                            SceneManager.sceneLoaded -= SceneLoadedCallback;
+
 #pragma warning disable CS0618 // Type or member is obsolete
                             SceneManager.UnloadScene(this.scene.name);
 #pragma warning restore CS0618 // Type or member is obsolete
-
-                            SceneManager.sceneLoaded -= SceneLoadedCallback;
                         }
                     }
                     SceneManager.sceneLoaded += SceneLoadedCallback;
