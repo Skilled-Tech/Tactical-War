@@ -25,7 +25,7 @@ namespace Game
 
         public override void Execute()
         {
-            Core.Audio.Music.Stop();
+            Core.Audio.Music.FadeOut();
         }
     }
 }

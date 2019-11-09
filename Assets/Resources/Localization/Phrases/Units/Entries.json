@@ -87,6 +87,14 @@
     "en": "Fire Archer Description",
     "ar": "*Fire Archer Description*"
   },
+  "ice archer": {
+    "en": "Ice Archer",
+    "ar": "*Ice Archer*"
+  },
+  "ice archer description": {
+    "en": "Ice Archer Description",
+    "ar": "*Ice Archer Description*"
+  },
   "paralysis archer": {
     "en": "Paralysis Archer",
     "ar": "*Paralysis Archer*"
@@ -158,5 +166,21 @@
   "robot description": {
     "en": "Robot Description",
     "ar": "*Robot Description*"
+  },
+  "hero": {
+    "en": "Hero",
+    "ar": "*Hero*"
+  },
+  "hero description": {
+    "en": "Hero Description",
+    "ar": "*Hero Description*"
+  },
+  "spawner": {
+    "en": "Spawner",
+    "ar": "*Spawner*"
+  },
+  "spawner description": {
+    "en": "Spawner Description",
+    "ar": "*Spawner Description*"
   }
 }

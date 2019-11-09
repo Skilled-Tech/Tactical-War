@@ -104,7 +104,7 @@ namespace Game
 
                     yield return Fader.To(1f);
 
-                    yield return new WaitForSeconds(0.2f);
+                    yield return new WaitForSecondsRealtime(0.2f);
 
                     void SceneLoadedCallback(Scene scene, LoadSceneMode mode)
                     {
@@ -126,8 +126,6 @@ namespace Game
 
                     for (int i = 0; i < Operations.Length; i++)
                         Operations[i].allowSceneActivation = true;
-
-                    Operations = null;
 
                     yield return Fader.To(0f);
                 }

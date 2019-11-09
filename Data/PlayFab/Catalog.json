@@ -967,6 +967,90 @@
       "VirtualCurrencyPrices": {
         "GD": 10000
       }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Hero",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Hero",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Spawner",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Spawner",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": "Ice Archer",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "Ice_Archer",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
     }
   ],
   "Request": {

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
+  m_Name: Hero
+  m_EditorClassIdentifier: 
+  icon:
+    sprite: {fileID: 21300000, guid: a889878d56515614980f15cc20387631, type: 3}
+    tilt: 0
+  prices:
+  - type: 1
+    value: 6000
+  upgrades:
+    template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
+    applicable:
+    - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+    - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
+  visibility:
+    inventory: 0
+    shop: 0
+    roster: 1
+  species: {fileID: 11400000, guid: ae2b960090fb5d94d828518d2edc1d83, type: 2}
+  type: {fileID: 11400000, guid: 5d6f48fe6d5c3ac47a030302440a629a, type: 2}
+  prefab: {fileID: 8127696124609658847, guid: 1578b3f50c34ba94e994486a64331b6e, type: 3}
+  health: 200
+  deployment:
+    cost: 300
+    time: 4
+  attack:
+    power: 50
+    range: 1
+    distance: 0.5
+    duration: 1
+    method: 0
+    _SFX:
+      initiate:
+      - clip: {fileID: 8300000, guid: af592df43df8e434fb4f82ecc846bcf1, type: 3}
+        volume: 0
+        delay: 0.2
+      connect:
+      - clip: {fileID: 8300000, guid: d9433c76c60832f4c996b6c659eeb445, type: 3}
+        volume: 0.6
+        delay: 0
+    statusEffects: []
+  speed: 1.8

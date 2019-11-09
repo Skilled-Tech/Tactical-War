@@ -282,4 +282,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c3617a2fff74548bcd89d18b06dc0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subjects: []
+  subjects:
+  - {fileID: 11400000, guid: 2df66e23b9670dd4c88c7e6d23a68891, type: 2}

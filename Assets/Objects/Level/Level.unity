@@ -2487,7 +2487,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 373617982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: b9839c2d141529145a431aef4d757ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -2530,9 +2530,9 @@ MonoBehaviour:
   m_fontSize: 70
   m_fontSizeBase: 70
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 65
+  m_fontSizeMax: 70
   m_fontStyle: 1
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -2591,6 +2591,11 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+  preserveNumbers: 0
+  farsi: 1
+  originalText: Info
+  fixTags: 1
+  forceFix: 0
 --- !u!222 &373617986
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4264,6 +4269,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca0d68655b817642a0e404e85d3b1d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SFX:
+    win:
+      clip: {fileID: 8300000, guid: 1d6e0e1ab483da44fb3d8767d7a2b63d, type: 3}
+      volume: 1
+      delay: 0
+    lose:
+      clip: {fileID: 8300000, guid: c3d36be4272de5540b0a292b00d9ae44, type: 3}
+      volume: 1
+      delay: 0
 --- !u!1 &650041296
 GameObject:
   m_ObjectHideFlags: 0
@@ -9340,8 +9354,8 @@ MonoBehaviour:
   m_Padding:
     m_Left: 60
     m_Right: 60
-    m_Top: 60
-    m_Bottom: 60
+    m_Top: 45
+    m_Bottom: 50
   m_ChildAlignment: 4
   m_Spacing: 30
   m_ChildForceExpandWidth: 0

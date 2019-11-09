@@ -129,7 +129,7 @@ namespace Game
                     Hide();
                 }
 
-                Popup.Show(Core.Localization.Phrases.Get("Purchase Successful"), Action, "Okay");
+                Popup.Show(Core.Localization.Phrases.Get("Purchase Successful"), Action, Core.Localization.Phrases.Get("Okay"));
 
                 UpdateState();
             }

@@ -1,20 +1,56 @@
 {
   "Inventory": [
     {
-      "Annotation": "Level Completion 1 Reward",
-      "BundleContents": [],
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Range\",\"value\":1},{\"type\":\"Power\",\"value\":1}]"
+      },
+      "DisplayName": "Ice Archer",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Ice_Archer",
+      "ItemInstanceId": "2213BF7F650E31B9",
+      "PurchaseDate": "2019-11-09T13:40:02.55Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",
       "CustomData": null,
-      "DisplayName": "5K Gold",
-      "Expiration": "2019-11-09T08:19:17.511Z",
-      "ItemClass": null,
-      "ItemId": "5K_Gold",
-      "ItemInstanceId": "AAC4547FD3AE536C",
-      "PurchaseDate": "2019-11-09T08:19:14.511Z",
+      "DisplayName": "Spawner",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Spawner",
+      "ItemInstanceId": "EB65B078DBD95874",
+      "PurchaseDate": "2019-11-09T12:20:57.539Z",
       "RemainingUses": null,
-      "UnitCurrency": null,
-      "UnitPrice": 0,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Hero",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Hero",
+      "ItemInstanceId": "6C5AC5029271ACD8",
+      "PurchaseDate": "2019-11-09T12:17:51.117Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
       "UsesIncrementedBy": null
     },
     {
@@ -163,7 +199,7 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 1389500,
+    "GD": 1359300,
     "JL": 568500
   },
   "VirtualCurrencyRechargeTimes": {},

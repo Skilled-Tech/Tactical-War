@@ -94,7 +94,12 @@ namespace Game
         {
             Pause.State = LevelPauseState.Soft;
 
-            Core.Audio.Music.Stop();
+            Core.Audio.Music.FadeOut();
+        }
+
+        private void OnDestroy()
+        {
+            Time.timeScale = 1f;
         }
 
         //Utility

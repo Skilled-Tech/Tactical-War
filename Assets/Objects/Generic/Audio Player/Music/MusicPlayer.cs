@@ -85,7 +85,7 @@ namespace Game
 
         Coroutine coroutine;
 
-        public virtual void Stop()
+        public virtual void FadeOut()
         {
             if (coroutine != null) StopCoroutine(coroutine);
 
@@ -95,9 +95,14 @@ namespace Game
             {
                 yield return Fade(0);
 
-                Source.Stop();
-                Source.clip = null;
+                Stop();
             }
+        }
+
+        public virtual void Stop()
+        {
+            Source.Stop();
+            Source.clip = null;
         }
 
         IEnumerator Fade(float target)

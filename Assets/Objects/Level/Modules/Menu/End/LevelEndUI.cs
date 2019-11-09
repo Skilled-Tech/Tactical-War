@@ -42,7 +42,7 @@ namespace Game
         {
             if (winner is PlayerProponent)
             {
-                info.text = "Level Complete";
+                info.text = Core.Localization.Phrases.Get("level win dialog");
 
                 if (Data.Level.IsLast)
                 {
@@ -59,7 +59,7 @@ namespace Game
             }
             else
             {
-                info.text = "You Lost!";
+                info.text = Core.Localization.Phrases.Get("level lose dialog");
 
                 next.gameObject.SetActive(false);
                 retry.gameObject.SetActive(true);

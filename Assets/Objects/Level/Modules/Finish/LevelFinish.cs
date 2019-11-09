@@ -24,6 +24,21 @@ namespace Game
 {
 	public class LevelFinish : Level.Module
 	{
+        [SerializeField]
+        protected SFXData _SFX;
+        public SFXData SFX { get { return _SFX; } }
+        [Serializable]
+        public class SFXData
+        {
+            [SerializeField]
+            protected SFXProperty win;
+            public SFXProperty Win { get { return win; } }
+
+            [SerializeField]
+            protected SFXProperty lose;
+            public SFXProperty Lose { get { return lose; } }
+        }
+
         public LevelMenu Menu { get { return Level.Menu; } }
 
         public LevelProponents Proponents { get { return Level.Proponents; } }
@@ -36,8 +51,12 @@ namespace Game
         {
             Level.Speed.Value = 0.2f;
 
+            Core.Audio.Music.Stop();
+
             if(winner is PlayerProponent)
             {
+                Core.Audio.SFX.PlayOneShot(SFX.Win);
+
                 if (PlayFab.IsOnline)
                 {
                     Menu.Popup.Show("Retrieving End Results");
@@ -52,7 +71,7 @@ namespace Game
             }
             else
             {
-                Level.Speed.Value = 0f;
+                Core.Audio.SFX.PlayOneShot(SFX.Lose);
 
                 Menu.End.Show(winner);
             }
