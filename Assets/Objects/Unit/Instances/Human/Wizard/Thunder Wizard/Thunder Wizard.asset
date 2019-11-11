@@ -39,7 +39,8 @@ MonoBehaviour:
     range: 2
     distance: 4
     duration: 1.2
-    method: 2
+    method: 1
+    penetrate: 1
     _SFX:
       initiate: []
       connect: []

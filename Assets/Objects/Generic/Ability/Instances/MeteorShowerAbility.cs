@@ -59,7 +59,7 @@ namespace Game
 
             for (int i = 0; i < count; i++)
             {
-                var instance = Spawn();
+                var instance = Create();
 
                 instance.DestroyEvent += ()=> ProjectileDestroyCallback(instance);
 
@@ -79,7 +79,7 @@ namespace Game
             Elements.Remove(instance);
         }
 
-        protected virtual Projectile Spawn()
+        protected virtual Projectile Create()
         {
             var instance = Instantiate(prefab);
 
@@ -89,6 +89,8 @@ namespace Game
 
             script.Configure(User.Base);
             script.SetLayer(User.Layer);
+
+            script.Arm();
 
             instance.transform.position = transform.position + (transform.right * Random.Range(-range / 2f, range / 2f));
             instance.transform.rotation = transform.rotation;

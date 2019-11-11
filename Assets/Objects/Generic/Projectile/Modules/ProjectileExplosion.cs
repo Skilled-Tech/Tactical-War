@@ -43,13 +43,12 @@ namespace Game
 
                 for (int i = 0; i < colliders.Length; i++)
                 {
-                    var entity = colliders[i].GetComponent<Entity>();
+                    var target = colliders[i].GetComponent<Entity>();
 
-                    if (entity == null) continue;
-                    if (Owner is Base && entity is Base) continue; //Same Crudeness as Before
-                    if (entity.gameObject.layer == gameObject.layer) continue;
+                    if (target == null) continue;
+                    if (target.gameObject.layer == gameObject.layer) continue;
 
-                    Owner.DoDamage(damage.Value, Damage.Method.Effect, entity);
+                    Projectile.DoDamage(damage.Value, Damage.Method.Effect, target);
                 }
             }
         }

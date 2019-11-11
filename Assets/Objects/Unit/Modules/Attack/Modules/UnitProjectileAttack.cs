@@ -45,6 +45,8 @@ namespace Game
             base.Connected();
 
             var instance = Create();
+
+            instance.Arm();
         }
 
         Projectile Create()
@@ -60,7 +62,7 @@ namespace Game
             projectile.AmmendLayer(Unit.Leader.Layer);
             projectile.SetVelocity(velocity);
 
-            projectile.OnHit += OnProjectileHit;
+            projectile.OnHit += (Collider2D collider)=> OnProjectileHit(projectile, collider);
 
             var travelDistance = Dependancy.Get<ProjectileTravelDistance>(projectile.gameObject);
             if(travelDistance != null)
@@ -68,26 +70,29 @@ namespace Game
                 travelDistance.Range = Attack.Distance * 2f;
             }
 
-            var penetration = Dependancy.Get<ProjectilePenetration>(projectile.gameObject);
-            if(penetration != null)
+            if(Template.Attack.Penetrate)
             {
-                penetration.Value = Attack.Range.Value - 1 - Unit.Index;
+                var penetration = Dependancy.Get<ProjectilePenetration>(projectile.gameObject);
+                if (penetration != null)
+                {
+                    penetration.Value = Attack.Range.Value - 1 - Unit.Index;
+                }
             }
 
             return projectile;
         }
 
-        void OnProjectileHit(Collider2D collider)
+        void OnProjectileHit(Projectile projectile, Collider2D collider)
         {
-            var entity = Projectile.GetTarget(collider).GetComponent<Entity>();
+            var target = Projectile.GetTarget(collider).GetComponent<Entity>();
 
-            if (entity == null)
+            if (target == null)
             {
 
             }
             else
             {
-                DoDamage(entity);
+                projectile.DoDamage(Power.Value, Method, target);
             }
         }
     }

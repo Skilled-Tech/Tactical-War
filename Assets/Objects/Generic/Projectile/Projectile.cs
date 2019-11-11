@@ -46,26 +46,35 @@ namespace Game
                 base.Init();
 
                 Projectile.OnCollision += CollisionCallback;
+                Projectile.OnTrigger += TriggerCallback;
                 Projectile.OnHit += HitCallback;
                 Projectile.DestroyEvent += DestroyCallback;
             }
 
             protected virtual void HitCallback(Collider2D collider)
             {
-                if (conditions.Contains(Projectile.ActivationCondition.OnHit))
+                if (CheckCondition(ActivationCondition.OnHit))
                     Process();
             }
-
+            protected virtual void TriggerCallback(Collider2D collider)
+            {
+                if (CheckCondition(ActivationCondition.OnTrigger))
+                    Process();
+            }
             protected virtual void CollisionCallback(Collision2D collision)
             {
-                if (conditions.Contains(Projectile.ActivationCondition.OnCollision))
+                if (CheckCondition(ActivationCondition.OnCollision))
+                    Process();
+            }
+            protected virtual void DestroyCallback()
+            {
+                if (CheckCondition(ActivationCondition.OnDestroy))
                     Process();
             }
 
-            protected virtual void DestroyCallback()
+            bool CheckCondition(ActivationCondition condition)
             {
-                if (conditions.Contains(Projectile.ActivationCondition.OnDestroy))
-                    Process();
+                return conditions.Contains(condition);
             }
 
             protected abstract void Process();
@@ -73,7 +82,7 @@ namespace Game
 
         public enum ActivationCondition
         {
-            OnCollision, OnHit, OnDestroy
+            OnCollision, OnTrigger, OnHit, OnDestroy
         }
 
         public Entity Owner { get; protected set; }
@@ -101,9 +110,42 @@ namespace Game
             SetLayer(LayerMask.LayerToName(layer) + " " + nameof(Projectile));
         }
 
+        public bool Armed { get; protected set; } = false;
+
+        public event Action OnArm;
+        public virtual void Arm()
+        {
+            Armed = true;
+
+            OnArm?.Invoke();
+        }
+
+        public event Action OnDisarm;
+        public virtual void Disarm()
+        {
+            Armed = false;
+
+            OnDisarm?.Invoke();
+        }
+
         protected virtual void Start()
         {
             Modules.Init(this);
+        }
+
+        public virtual void DoDamage(float value, Damage.Method method, Entity target)
+        {
+            if(Armed)
+            {
+                if(Owner is Base && target is Base) //Very Crude TODO, cleanup
+                {
+
+                }
+                else
+                {
+                    Owner.DoDamage(value, method, target);
+                }
+            }
         }
 
         public delegate void CollisionDelegate(Collision2D collision);
@@ -135,7 +177,9 @@ namespace Game
         {
             if (DestroyEvent != null) DestroyEvent();
 
-            Destroy(gameObject);
+            GetComponent<Collider2D>().isTrigger = false;
+            Disarm();
+            //Destroy(gameObject);
         }
 
         //Utility

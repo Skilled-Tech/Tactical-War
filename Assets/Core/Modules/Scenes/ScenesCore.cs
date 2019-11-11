@@ -41,8 +41,8 @@ namespace Game
         public class LoadCore : Core.Property
         {
             [SerializeField]
-            protected GameScene scene;
-            public GameScene Scene { get { return scene; } }
+            protected GameScene menu;
+            public GameScene Menu { get { return menu; } }
 
             public AsyncOperation[] Operations { get; protected set; }
             public virtual float Progress
@@ -86,7 +86,7 @@ namespace Game
                 IEnumerator Procedure()
                 {
                     yield return Fader.To(1f);
-                    SceneManager.LoadScene(scene.name);
+                    SceneManager.LoadScene(menu.name);
                     yield return Fader.To(0f);
 
                     Operations = new AsyncOperation[names.Length];
@@ -95,9 +95,9 @@ namespace Game
                         Operations[i] = SceneManager.LoadSceneAsync(names[i], LoadSceneMode.Additive);
                         Operations[i].allowSceneActivation = false;
 
-                        bool IsReady() => Operations[i].progress == 0.9f;
+                        bool IsLoaded() => Operations[i].progress == 0.9f;
 
-                        yield return new WaitUntil(IsReady);
+                        yield return new WaitUntil(IsLoaded);
                     }
 
                     yield return new WaitForSecondsRealtime(0.6f);
@@ -108,6 +108,8 @@ namespace Game
 
                     void SceneLoadedCallback(Scene scene, LoadSceneMode mode)
                     {
+                        var index = Array.IndexOf(names, scene.name);
+
                         if (scene.name == names.First())
                         {
                             SceneManager.SetActiveScene(scene);
@@ -118,14 +120,18 @@ namespace Game
                             SceneManager.sceneLoaded -= SceneLoadedCallback;
 
 #pragma warning disable CS0618 // Type or member is obsolete
-                            SceneManager.UnloadScene(this.scene.name);
+                            SceneManager.UnloadScene(menu.name);
 #pragma warning restore CS0618 // Type or member is obsolete
                         }
+
+                        Operations[index] = null;
                     }
                     SceneManager.sceneLoaded += SceneLoadedCallback;
 
                     for (int i = 0; i < Operations.Length; i++)
                         Operations[i].allowSceneActivation = true;
+
+                    yield return new WaitForSeconds(0.25f);
 
                     yield return Fader.To(0f);
                 }

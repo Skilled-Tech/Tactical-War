@@ -16,8 +16,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 64efaf15d1fc9b3429da7a13abf21d97, type: 3}
     tilt: 0
   prices:
-  - type: 1
-    value: 8000
+  - type: 0
+    value: 10000
   upgrades:
     template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
@@ -40,6 +40,7 @@ MonoBehaviour:
     distance: 4
     duration: 1.2
     method: 2
+    penetrate: 1
     _SFX:
       initiate: []
       connect: []

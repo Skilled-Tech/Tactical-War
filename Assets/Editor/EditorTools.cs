@@ -52,7 +52,7 @@ namespace Game
             [MenuItem(MenuPath + "Loading Menu")]
             public static void LoadingMenu()
             {
-                Load(ScenesCore.Load.Scene);
+                Load(ScenesCore.Load.Menu);
             }
 
             [MenuItem(MenuPath + "Level")]

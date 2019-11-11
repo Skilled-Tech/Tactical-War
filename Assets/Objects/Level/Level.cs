@@ -82,7 +82,8 @@ namespace Game
 
             Proponents.OnDefeat += OnProponentDeafeated;
 
-            Core.Audio.Music.Play(Data.Level.Music);
+            if(Data.Level.Music != null)
+                Core.Audio.Music.Play(Data.Level.Music);
         }
 
         void OnProponentDeafeated(Proponent proponent)

@@ -76,6 +76,7 @@ MonoBehaviour:
   prefab: {fileID: 4465699437711948777, guid: cdd6ffa5100355f48990e5b3a821595a, type: 3}
   point: {fileID: 3163203657581505342}
   velocity: 12
+  rangedBasePenetration: 1
 --- !u!1 &6197816436517829162
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,6 +378,11 @@ PrefabInstance:
     - target: {fileID: 8153571588788076143, guid: eece88ec563127647ab92aff59fa687c,
         type: 3}
       propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036608655643083723, guid: eece88ec563127647ab92aff59fa687c,
+        type: 3}
+      propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8674897446967722178, guid: eece88ec563127647ab92aff59fa687c,
@@ -392,7 +398,7 @@ PrefabInstance:
     - target: {fileID: 7806366321169206576, guid: eece88ec563127647ab92aff59fa687c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1214205262402420888, guid: eece88ec563127647ab92aff59fa687c,
         type: 3}

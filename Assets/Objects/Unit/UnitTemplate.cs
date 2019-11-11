@@ -103,6 +103,10 @@ namespace Game
             public Damage.Method Method { get { return method; } }
 
             [SerializeField]
+            protected bool penetrate = false;
+            public bool Penetrate { get { return penetrate; } }
+
+            [SerializeField]
             protected SFXData _SFX;
             public SFXData SFX { get { return _SFX; } }
             [Serializable]

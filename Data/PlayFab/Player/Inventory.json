@@ -84,7 +84,7 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "79A8809FEAFDDE21",
       "PurchaseDate": "2019-11-07T06:57:51.202Z",
-      "RemainingUses": 3,
+      "RemainingUses": 4,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -129,7 +129,7 @@
       "BundleParent": null,
       "CatalogVersion": "Default",
       "CustomData": {
-        "upgrades": "[{\"type\":\"Power\",\"value\":1},{\"type\":\"Range\",\"value\":1}]"
+        "upgrades": "[{\"type\":\"Power\",\"value\":1},{\"type\":\"Range\",\"value\":5}]"
       },
       "DisplayName": "Thunder Wizard",
       "Expiration": null,
@@ -184,7 +184,7 @@
       "BundleParent": null,
       "CatalogVersion": "Default",
       "CustomData": {
-        "upgrades": "[{\"type\":\"Range\",\"value\":1},{\"type\":\"Power\",\"value\":1}]"
+        "upgrades": "[{\"type\":\"Range\",\"value\":5},{\"type\":\"Power\",\"value\":5}]"
       },
       "DisplayName": "Fire Wizard",
       "Expiration": null,

@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ProjectileDestruction : Projectile.ActivationModule
-	{
+    public class ProjectileDestruction : Projectile.ActivationModule
+    {
         protected override void Process()
         {
             Projectile.Destroy();

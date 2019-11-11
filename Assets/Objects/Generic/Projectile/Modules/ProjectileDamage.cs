@@ -52,13 +52,9 @@ namespace Game
             {
 
             }
-            else if (Owner is Base && entity is Base) //Very Crude, Don't judge me
-            {
-
-            }
             else
             {
-                Owner.DoDamage(Value, Damage.Method.Ranged, entity);
+                Projectile.DoDamage(Value, Damage.Method.Ranged, entity);
             }
         }
     }
