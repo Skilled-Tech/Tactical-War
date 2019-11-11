@@ -1,0 +1,13 @@
+Title Music
+
+Level Music
+Level Win Music
+Level Lose Music
+
+Draw Bow SFX
+
+Cast Magic Spell SFX
+Magic Spell Ambient SFX
+
+Meteorite Ambient Travel SFX
+Meteorite Explosion SFX

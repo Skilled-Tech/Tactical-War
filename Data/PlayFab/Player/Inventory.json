@@ -129,7 +129,7 @@
       "BundleParent": null,
       "CatalogVersion": "Default",
       "CustomData": {
-        "upgrades": "[{\"type\":\"Power\",\"value\":1},{\"type\":\"Range\",\"value\":5}]"
+        "upgrades": "[{\"type\":\"Power\",\"value\":1},{\"type\":\"Range\",\"value\":1}]"
       },
       "DisplayName": "Thunder Wizard",
       "Expiration": null,
@@ -184,7 +184,7 @@
       "BundleParent": null,
       "CatalogVersion": "Default",
       "CustomData": {
-        "upgrades": "[{\"type\":\"Range\",\"value\":5},{\"type\":\"Power\",\"value\":5}]"
+        "upgrades": "[{\"type\":\"Range\",\"value\":1},{\"type\":\"Power\",\"value\":1}]"
       },
       "DisplayName": "Fire Wizard",
       "Expiration": null,
