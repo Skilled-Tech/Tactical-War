@@ -34,6 +34,10 @@ namespace Game
         public BuyUI Buy { get { return buy; } }
 
         [SerializeField]
+        protected DialogUI dialog;
+        public DialogUI Dialog { get { return dialog; } }
+
+        [SerializeField]
         protected FaderUI fader;
         public FaderUI Fader { get { return fader; } }
 

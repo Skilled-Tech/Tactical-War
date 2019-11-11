@@ -5,15 +5,17 @@ using UnityEngine;
 
 namespace Game
 {
-	public class PlaySoundNode : Node
+	public class PlaySFXNode : Node
 	{
-        public AudioClip clip;
+        [SerializeField]
+        protected SFXProperty _SFX;
+        public SFXProperty SFX { get { return _SFX; } }
 
         public override void Execute()
         {
             base.Execute();
 
-            Level.Instance.AudioSource.PlayOneShot(clip);
+            Core.Instance.Audio.SFX.PlayOneShot(SFX);
 
             End();
         }

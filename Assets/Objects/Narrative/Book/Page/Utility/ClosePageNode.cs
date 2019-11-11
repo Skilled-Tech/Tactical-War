@@ -5,15 +5,20 @@ using UnityEngine;
 
 namespace Game
 {
-	public class EndPageNode : Node
+	public class ClosePageNode : Node
 	{
         public Page target;
+
+        protected virtual void Reset()
+        {
+            target = Dependancy.Get<Page>(gameObject, Dependancy.Scope.RecursiveToParents);
+        }
 
         public override void Execute()
         {
             base.Execute();
 
-            target.End();
+            target.Close();
 
             End();
         }

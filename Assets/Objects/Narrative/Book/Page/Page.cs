@@ -9,16 +9,32 @@ namespace Game
 {
 	public class Page : MonoBehaviour
 	{
-        Book book;
-        int index;
+        public Book Book { get; protected set; }
         public void Init(Book book)
         {
-            this.book = book;
+            this.Book = book;
 
-            index = book.Pages.IndexOf(this);
+            Index = Array.IndexOf(book.Pages, this);
         }
+        public int Index { get; protected set; }
 
-        public GameObject scene;
+        [SerializeField]
+        protected Flowchart flowchart;
+        public Flowchart Flowchart { get { return flowchart; } }
+
+        private void Reset()
+        {
+            flowchart = Dependancy.Get<Flowchart>(gameObject);
+
+            if(flowchart == null)
+            {
+                var gameObject = new GameObject(nameof(Flowchart));
+
+                gameObject.transform.SetParent(transform);
+
+                flowchart = gameObject.AddComponent<Flowchart>();
+            }
+        }
 
         public bool Visible
         {
@@ -29,27 +45,25 @@ namespace Game
             set
             {
                 gameObject.SetActive(value);
-
-                if (scene != null)
-                    scene.SetActive(value);
             }
         }
 
-        public UnityEvent OnBegin;
-		public void Begin()
+        public UnityEvent OnShow;
+		public void Show()
         {
-            transform.localPosition = Vector3.zero;
-            transform.localEulerAngles = Vector3.zero;
-
             Visible = true;
 
-            OnBegin.Invoke();
+            flowchart.Execute();
+
+            OnShow.Invoke();
         }
 
-        public UnityEvent OnEnd;
-        public void End()
+        public UnityEvent OnClose;
+        public void Close()
         {
-            OnEnd.Invoke();
+            Visible = false;
+
+            OnClose.Invoke();
         }
 	}
 }

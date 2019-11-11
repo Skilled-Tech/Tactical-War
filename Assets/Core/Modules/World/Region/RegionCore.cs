@@ -264,6 +264,12 @@ namespace Game
                 Complete();
         }
 
+        public event Action OnShowStory;
+        public virtual void ShowStory()
+        {
+            OnShowStory?.Invoke();
+        }
+
         public delegate void CompleteDelegate(RegionCore region);
         public event CompleteDelegate OnComplete;
         protected virtual void Complete()

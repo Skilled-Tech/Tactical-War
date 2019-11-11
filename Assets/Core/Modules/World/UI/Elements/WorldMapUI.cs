@@ -25,18 +25,16 @@ namespace Game
         protected RegionData[] regions;
         public RegionData[] Regions { get { return regions; } }
         [Serializable]
+#pragma warning disable CS0649
         public struct RegionData
         {
             [SerializeField]
-#pragma warning disable CS0649
             RegionCore core;
-
             public RegionCore Core { get { return core; } }
 
             [SerializeField]
             private RegionUITemplate _UITemplate;
             public RegionUITemplate UITemplate { get { return _UITemplate; } }
-#pragma warning restore CS0649
 
             public void Init()
             {
@@ -45,6 +43,7 @@ namespace Game
                 UITemplate.Set(core);
             }
         }
+#pragma warning restore CS0649
 
         public override void Init()
         {

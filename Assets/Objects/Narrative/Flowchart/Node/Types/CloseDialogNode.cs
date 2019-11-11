@@ -7,7 +7,7 @@ namespace Game
 {
 	public class CloseDialogNode : Node
 	{
-        public DialogUI SayDialog => Level.Instance.SayDialog;
+        public DialogUI SayDialog => Core.Instance.UI.Dialog;
 
         public override void Execute()
         {

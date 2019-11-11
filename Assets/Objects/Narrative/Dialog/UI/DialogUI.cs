@@ -15,19 +15,9 @@ namespace Game
         [SerializeField]
         TMP_Text text = null;
 
+        public virtual void Show(Dialog dialog) => Show(dialog as IDialog);
         public virtual void Show(IDialog dialog)
         {
-            character.gameObject.SetActive(dialog.Character != null);
-
-            if (dialog.Character == null)
-            {
-                
-            }
-            else
-            {
-                character.text = dialog.Character.DisplayName + ":";
-            }
-
             text.text = dialog.Text;
 
             Show();

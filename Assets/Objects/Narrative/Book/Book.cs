@@ -8,88 +8,98 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    [RequireComponent(typeof(Animator))]
 	public class Book : MonoBehaviour
 	{
-		public IList<Page> Pages { get; protected set; }
-        int index;
+        [SerializeField]
+        protected RegionCore region;
+        public RegionCore Region { get { return region; } }
 
-        public Animator Animator { get; protected set; }
+        public Page[] Pages { get; protected set; }
+
+        public int Index { get; protected set; }
+
+        public bool Visible
+        {
+            get
+            {
+                return gameObject.activeSelf;
+            }
+            set
+            {
+                gameObject.SetActive(value);
+            }
+        }
 
         private void Awake()
         {
-            Animator = GetComponent<Animator>();
+            
         }
 
         private void Start()
         {
             Pages = GetComponentsInChildren<Page>(true);
 
-            for (int i = 0; i < Pages.Count; i++)
+            region.OnShowStory += Begin;
+
+            for (int i = 0; i < Pages.Length; i++)
             {
                 Pages[i].Init(this);
 
-                Pages[i].Visible = (i == 0);
+                Pages[i].Visible = false;
             }
-        }
 
-        public void Open()
-        {
-            Animator.SetTrigger("Open");
+            Visible = false;
         }
 
         public void Begin()
         {
+            Visible = true;
+
             Begin(0);
         }
 
         public void Begin(Page page)
         {
-            index = Pages.IndexOf(page);
+            Index = Array.IndexOf(Pages, page);
 
-            Begin(index);
+            Begin(Index);
         }
         void Begin(int index)
         {
-            Pages[index].OnEnd.AddListener(PageEndCallback);
+            this.Index = index;
 
-            Pages[index].Begin();
+            Pages[Index].OnClose.AddListener(PageEndCallback);
+
+            Pages[Index].Show();
         }
 
         private void PageEndCallback()
         {
-            Pages[index].OnEnd.RemoveListener(PageEndCallback);
+            Pages[Index].OnClose.RemoveListener(PageEndCallback);
 
             Next();
         }
 
         public void Next()
         {
-            index++;
-
-            if(index >= Pages.Count)
+            if(Index + 1 >= Pages.Length)
             {
-                End();
+                Close();
+
+                Index = Pages.Length;
             }
             else
             {
-                Pages[index - 1].Visible = false;
-
-                Begin(index);
+                Begin(Index + 1);
             }
         }
 
-        public void Restart()
+        public event Action OnClose;
+        void Close()
         {
-            SceneManager.LoadScene(gameObject.scene.name);
-        }
+            Visible = false;
 
-        public event Action OnEnd;
-        void End()
-        {
-            Animator.SetTrigger("Close");
-
-            OnEnd?.Invoke();
+            OnClose?.Invoke();
         }
     }
 }

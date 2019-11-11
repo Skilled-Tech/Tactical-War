@@ -81,7 +81,6 @@ namespace Game
             Instance = this;
 
             void HideAllButTitle(UIElement element) => element.Visibile = element == title;
-
             ForAll(HideAllButTitle);
         }
     }

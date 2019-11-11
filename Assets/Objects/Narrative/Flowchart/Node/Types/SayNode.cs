@@ -8,26 +8,22 @@ namespace Game
 	public class SayNode : Node, IDialog
 	{
         [SerializeField]
-        Character character = null;
-        public Character Character => character;
-
-        [SerializeField]
         string text = "";
         public string Text => text;
 
         [SerializeField]
         bool waitForClick = true;
 
-        public DialogUI SayDialog => Level.Instance.SayDialog;
+        public DialogUI DialogUI => Core.Instance.UI.Dialog;
 
         public override void Execute()
         {
             base.Execute();
 
             if(waitForClick)
-                SayDialog.OnProgress += SayDialogProgressCallback;
+                DialogUI.OnProgress += SayDialogProgressCallback;
 
-            SayDialog.Show(this);
+            DialogUI.Show(this);
 
             if (waitForClick == false)
                 End();
@@ -35,7 +31,7 @@ namespace Game
 
         private void SayDialogProgressCallback()
         {
-            SayDialog.OnProgress -= SayDialogProgressCallback;
+            DialogUI.OnProgress -= SayDialogProgressCallback;
 
             End();
         }

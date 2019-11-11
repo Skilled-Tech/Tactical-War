@@ -31,6 +31,7 @@ namespace Game
         public PopupUI Popup { get { return Menu.Popup; } }
         public RewardsUI Rewards { get { return Menu.Rewards; } }
         public BuyUI Buy => Menu.Buy;
+        public DialogUI Dialog => Menu.Dialog;
         public FaderUI Fader => Menu.Fader;
 
         [Serializable]

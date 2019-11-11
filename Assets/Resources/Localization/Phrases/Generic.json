@@ -202,5 +202,9 @@
   "Processing Upgrade": {
     "en": "Processing Upgrade",
     "ar": "جاري التطوير"
+  },
+  "story": {
+    "en": "Story",
+    "ar": "القصه"
   }
 }
