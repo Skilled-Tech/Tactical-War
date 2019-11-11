@@ -56,7 +56,19 @@ namespace Game
             count++;
 
             if (count >= value)
+                Action();
+        }
+
+        void Action()
+        {
+            IEnumerator Procedure()
+            {
+                yield return new WaitForEndOfFrame();
+
                 Projectile.Destroy();
+            }
+
+            StartCoroutine(Procedure());
         }
     }
 }

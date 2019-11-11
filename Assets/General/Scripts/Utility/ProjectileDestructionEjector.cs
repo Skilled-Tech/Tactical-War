@@ -19,25 +19,27 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(SFXPlayer))]
-	public class ProjectileSFX : Projectile.ActivationModule
+	public class ProjectileDestructionEjector : Projectile.Module
 	{
-        [SerializeField]
-        protected SFXProperty[] _SFX;
-        public SFXProperty[] SFX { get { return _SFX; } }
-
-        SFXPlayer player;
-
         public override void Configure(Projectile reference)
         {
             base.Configure(reference);
 
-            player = GetComponent<SFXPlayer>();
+            Projectile.DestroyEvent += DestroyCallback;
         }
 
-        protected override void Process()
+        private void DestroyCallback()
         {
-            player.PlayOneShot(SFX);
+            transform.SetParent(null);
+
+            IEnumerator Procedure()
+            {
+                yield return new WaitForSeconds(2f);
+
+                Destroy(gameObject);
+            }
+
+            StartCoroutine(Procedure());
         }
     }
 }

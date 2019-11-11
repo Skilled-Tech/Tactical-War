@@ -177,9 +177,7 @@ namespace Game
         {
             if (DestroyEvent != null) DestroyEvent();
 
-            GetComponent<Collider2D>().isTrigger = false;
-            Disarm();
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         //Utility
