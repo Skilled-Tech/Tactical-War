@@ -96,3 +96,18 @@ MonoBehaviour:
     google: {}
   localization:
     target: 1
+  audio:
+    mixer: {fileID: 24100000, guid: cde3bb8d64346054cbcd02acbd3ed92b, type: 2}
+    channels:
+      list:
+      - mixerGroup: {fileID: 24300002, guid: cde3bb8d64346054cbcd02acbd3ed92b, type: 2}
+      - mixerGroup: {fileID: -3514443449018513143, guid: cde3bb8d64346054cbcd02acbd3ed92b,
+          type: 2}
+      - mixerGroup: {fileID: 2718998944723573191, guid: cde3bb8d64346054cbcd02acbd3ed92b,
+          type: 2}
+      common:
+        master: {fileID: 24300002, guid: cde3bb8d64346054cbcd02acbd3ed92b, type: 2}
+        _SFX: {fileID: -3514443449018513143, guid: cde3bb8d64346054cbcd02acbd3ed92b,
+          type: 2}
+        music: {fileID: 2718998944723573191, guid: cde3bb8d64346054cbcd02acbd3ed92b,
+          type: 2}

@@ -51,11 +51,11 @@ namespace Game
         {
             Level.Speed.Value = 0.2f;
 
-            Core.Audio.Music.Stop();
+            Core.Audio.Player.Music.Stop();
 
             if(winner is PlayerProponent)
             {
-                Core.Audio.SFX.PlayOneShot(SFX.Win);
+                Core.Audio.Player.SFX.PlayOneShot(SFX.Win);
 
                 if (PlayFab.IsOnline)
                 {
@@ -71,7 +71,7 @@ namespace Game
             }
             else
             {
-                Core.Audio.SFX.PlayOneShot(SFX.Lose);
+                Core.Audio.Player.SFX.PlayOneShot(SFX.Lose);
 
                 Menu.End.Show(winner);
             }

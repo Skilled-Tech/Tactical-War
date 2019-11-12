@@ -29,7 +29,7 @@ namespace Game
 
         public override void Execute()
         {
-            Core.Audio.Music.Play(track);
+            Core.Audio.Player.Music.Play(track);
         }
     }
 }

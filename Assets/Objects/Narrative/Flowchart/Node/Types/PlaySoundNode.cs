@@ -15,7 +15,7 @@ namespace Game
         {
             base.Execute();
 
-            Core.Instance.Audio.SFX.PlayOneShot(SFX);
+            Core.Instance.Audio.Player.SFX.PlayOneShot(SFX);
 
             End();
         }

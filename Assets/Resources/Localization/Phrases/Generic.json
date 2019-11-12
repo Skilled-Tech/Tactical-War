@@ -206,5 +206,21 @@
   "story": {
     "en": "Story",
     "ar": "القصه"
+  },
+  "options": {
+    "en": "Options",
+    "ar": "الاعدادات"
+  },
+  "master volume": {
+    "en": "Master",
+    "ar": "الرئيسي"
+  },
+  "sfx volume": {
+    "en": "SFX",
+    "ar": "المؤثرات"
+  },
+  "music volume": {
+    "en": "Music",
+    "ar": "الموسيقي"
   }
 }

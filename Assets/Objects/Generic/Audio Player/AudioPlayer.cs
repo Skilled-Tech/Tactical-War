@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using UnityEngine.Audio;
+
 namespace Game
 {
     [RequireComponent(typeof(AudioSource))]
@@ -34,6 +36,8 @@ namespace Game
 
         public bool IgnoreListenerPause { get => Source.ignoreListenerPause; set => Source.ignoreListenerPause = value; }
         public bool IgnoreListenerVolume { get => Source.ignoreListenerVolume; set => Source.ignoreListenerVolume = value; }
+
+        public AudioMixerGroup MixerGroup { get => Source.outputAudioMixerGroup; set => Source.outputAudioMixerGroup = value; }
 
         protected virtual void Awake()
         {

@@ -17,15 +17,19 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using UnityEngine.Events;
+
 namespace Game
 {
-	public class StopMusicOperation : Operation
+	public class UnityEventOperation : Operation
 	{
-        public Core Core => Core.Instance;
+		[SerializeField]
+        protected UnityEvent onExecute;
+        public UnityEvent OnExecute { get { return onExecute; } }
 
         public override void Execute()
         {
-            Core.Audio.Player.Music.FadeOut();
+            OnExecute.Invoke();
         }
     }
 }

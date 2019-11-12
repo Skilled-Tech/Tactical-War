@@ -255,7 +255,7 @@ namespace Game
             if (Contains(level) == false)
                 throw new ArgumentException("Trying to load " + level.name + " But it's not a part of the " + name + " Region");
 
-            World.Load(this, level, difficulty);
+            World.Load(level, difficulty);
         }
 
         void LevelCompleteCallback(LevelCore level)

@@ -37,15 +37,6 @@ namespace Game
             }
         }
 
-        protected override void Start()
-        {
-            base.Start();
-
-            Priority = 200;
-
-            IgnoreListenerPause = true;
-        }
-
         public virtual void Play(MusicTrack track)
         {
             if(track.Size == 0)

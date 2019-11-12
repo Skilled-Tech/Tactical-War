@@ -22,6 +22,10 @@ namespace Game
 	public class UICoreMenu : UIElement
 	{
         [SerializeField]
+        protected OptionsMenu optinosMenu;
+        public OptionsMenu OptionsMenu { get { return optinosMenu; } }
+
+        [SerializeField]
         protected RewardsUI rewards;
         public RewardsUI Rewards { get { return rewards; } }
 
@@ -48,9 +52,12 @@ namespace Game
             buy.Init();
             rewards.Init();
 
+            optinosMenu.Hide();
             rewards.Hide();
             popup.Hide();
             buy.Hide();
+
+            fader.Show();
             fader.Value = 0f;
         }
 

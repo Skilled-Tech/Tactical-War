@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using UnityEngine.Audio;
+
 namespace Game
 {
     [Serializable]
@@ -25,54 +27,137 @@ namespace Game
         public GameObject GameObject { get; protected set; }
 
         [SerializeField]
-        protected SFXCore _SFX;
-        public SFXCore SFX { get { return _SFX; } }
-        [Serializable]
-        public class SFXCore : PlayerProperty<SFXPlayer>
-        {
-            public override string Name => "SFX";
-        }
+        protected AudioMixer mixer;
+        public AudioMixer Mixer { get { return mixer; } }
 
         [SerializeField]
-        protected MusicCore music;
-        public MusicCore Music { get { return music; } }
+        protected ChannelsCore channels;
+        public ChannelsCore Channels { get { return channels; } }
         [Serializable]
-        public class MusicCore : PlayerProperty<MusicPlayer>
+        public class ChannelsCore : Property
         {
-            public override string Name => "Music";
-        }
+            [SerializeField]
+            protected Channel[] list;
+            public Channel[] List { get { return list; } }
 
-        [Serializable]
-        public abstract class PlayerProperty<TComponent> : ProceduralProperty<TComponent>
-            where TComponent : AudioPlayer
-        {
-            public TComponent Player => Component;
-        }
+            public int Count => list.Length;
+            public Channel this[int index] => list[index];
 
-        [Serializable]
-        public abstract class ProceduralProperty<TComponent> : Property
-            where TComponent: Component
-        {
-            public GameObject GameObject { get; protected set; }
+            public virtual Channel Find(AudioMixerGroup mixerGroup)
+            {
+                for (int i = 0; i < Count; i++)
+                    if (this[i].MixerGroup == mixerGroup)
+                        return this[i];
 
-            public TComponent Component { get; protected set; }
+                return null;
+            }
 
-            public abstract string Name { get; }
+            [SerializeField]
+            protected CommonData common;
+            public CommonData Common { get { return common; } }
+            [Serializable]
+            public class CommonData
+            {
+                [SerializeField]
+                protected AudioMixerGroup master;
+                public AudioMixerGroup Master { get { return master; } }
+
+                [SerializeField]
+                protected AudioMixerGroup _SFX;
+                public AudioMixerGroup SFX { get { return _SFX; } }
+
+                [SerializeField]
+                protected AudioMixerGroup music;
+                public AudioMixerGroup Music { get { return music; } }
+            }
 
             public override void Configure()
             {
                 base.Configure();
 
-                Create();
+                for (int i = 0; i < Count; i++)
+                {
+                    Register(this[i]);
+                }
+            }
+        }
+
+        [Serializable]
+        public class Channel : AudioCore.Property
+        {
+            [SerializeField]
+            protected AudioMixerGroup mixerGroup;
+            public AudioMixerGroup MixerGroup { get { return mixerGroup; } }
+
+            public float Volume
+            {
+                get
+                {
+                    Audio.mixer.GetFloat(VolumeID, out var value);
+
+                    value = Tools.Audio.DecibelToLinear(value);
+
+                    return value;
+                }
+                set
+                {
+                    value = Mathf.Clamp01(value);
+
+                    Audio.mixer.SetFloat(VolumeID, Tools.Audio.LinearToDecibel(value));
+
+                    Core.Prefs.Set(VolumeID, value);
+                }
+            }
+            public string VolumeID => mixerGroup.name + " " + nameof(Volume);
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                IEnumerator Procedure()
+                {
+                    //Unity's Audio Mixer Doesn't get initialized so we have to wait one frame before using it
+                    yield return new WaitForEndOfFrame();
+
+                    Volume = Core.Prefs.GetFloat(VolumeID, Volume);
+                }
+
+                Core.SceneAcessor.StartCoroutine(Procedure());
+            }
+        }
+
+        [SerializeField]
+        protected PlayerProperty player;
+        public PlayerProperty Player { get { return player; } }
+        [Serializable]
+        public class PlayerProperty : Property
+        {
+            public SFXPlayer SFX { get; protected set; }
+
+            public MusicPlayer Music { get; protected set; }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                SFX = Create<SFXPlayer>(Audio.Channels.Common.SFX);
+                SFX.IgnoreListenerPause = true;
+
+                Music = Create<MusicPlayer>(Audio.Channels.Common.Music);
             }
 
-            protected virtual void Create()
+            public virtual TPlayer Create<TPlayer>(AudioMixerGroup mixerGroup)
+                where TPlayer : AudioPlayer
             {
-                GameObject = new GameObject(Name);
+                var gameObject = new GameObject(mixerGroup.name);
 
-                GameObject.transform.SetParent(Audio.GameObject.transform);
+                gameObject.transform.SetParent(Audio.GameObject.transform);
 
-                Component = GameObject.AddComponent<TComponent>();
+                var component = gameObject.AddComponent<TPlayer>();
+
+                component.MixerGroup = mixerGroup;
+
+                return component;
             }
         }
 
@@ -89,31 +174,8 @@ namespace Game
             GameObject = new GameObject("Audio");
             GameObject.transform.SetParent(Core.SceneAcessor.transform);
 
-            ConfigureSFX();
-            ConfigureMusic();
-        }
-
-        protected virtual void ConfigureSFX()
-        {
-            var GameObject = new GameObject("SFX");
-
-            GameObject.transform.SetParent(this.GameObject.transform);
-
-            GameObject.AddComponent<AudioSource>();
-
-            SFX = GameObject.AddComponent<SFXPlayer>();
-
-            SFX.IgnoreListenerPause = true;
-        }
-        protected virtual void ConfigureMusic()
-        {
-            var GameObject = new GameObject("Music");
-
-            GameObject.transform.SetParent(this.GameObject.transform);
-
-            GameObject.AddComponent<AudioSource>();
-
-            Music = GameObject.AddComponent<MusicPlayer>();
+            Register(Channels);
+            Register(player);
         }
     }
 }

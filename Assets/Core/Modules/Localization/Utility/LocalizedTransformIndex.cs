@@ -19,13 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class StopMusicOperation : Operation
+	public class LocalizedTransformIndex : LocalizationBehaviour.DataModifer<Transform, int, LocalizedTransformIndex.Element>
 	{
-        public Core Core => Core.Instance;
-
-        public override void Execute()
+        public override int Value
         {
-            Core.Audio.Player.Music.FadeOut();
+            get => Component.GetSiblingIndex();
+            protected set => Component.SetSiblingIndex(value);
         }
+
+        [Serializable]
+        public class Element : Element<int> { }
     }
 }

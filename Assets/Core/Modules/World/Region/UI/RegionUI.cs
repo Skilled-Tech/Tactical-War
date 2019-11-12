@@ -28,8 +28,9 @@ namespace Game
         public TMP_Text Label { get { return label; } }
 
         public LevelsUIList Levels { get; protected set; }
-
         public RegionDifficultyContextUI Difficulty { get; protected set; }
+
+        public WorldCore.SelectionData Selection { get; protected set; }
 
         public class Element : UIElement , IModule<RegionUI>
         {
@@ -55,8 +56,9 @@ namespace Game
             base.Configure(data);
 
             Levels = Dependancy.Get<LevelsUIList>(gameObject);
-
             Difficulty = Dependancy.Get<RegionDifficultyContextUI>(gameObject);
+
+            Selection = new WorldCore.SelectionData();
 
             Modules.Configure(this);
         }
@@ -65,11 +67,18 @@ namespace Game
         {
             base.Init();
 
+            Modules.Init(this);
+        }
+
+        private void OnEnable()
+        {
             Levels.OnSelect += OnLevelSelected;
 
             Core.Localization.OnTargetChange += LocalizationChangeCallback;
 
-            Modules.Init(this);
+            Difficulty.OnSelect += DifficultySelectCallback;
+
+            UpdateState();
         }
 
         private void LocalizationChangeCallback(LocalizationType target)
@@ -97,30 +106,28 @@ namespace Game
 
         void OnLevelSelected(LevelCore level)
         {
-            void DifficultyHideCallback()
-            {
-                Difficulty.OnSelect -= DifficultySelectionCallback;
-            }
-            void DifficultySelectionCallback(RegionDifficulty difficulty)
-            {
-                Difficulty.OnSelect -= DifficultySelectionCallback;
+            Selection.Level = level;
 
-                Load(difficulty);
-            }
-
-            void Load(RegionDifficulty difficulty)
-            {
-                level.Load(difficulty);
-            }
-
-            Difficulty.OnSelect += DifficultySelectionCallback;
-            Difficulty.OnHide += DifficultyHideCallback;
             Difficulty.For(level);
         }
 
-        private void OnDestroy()
+        void DifficultySelectCallback(RegionDifficulty difficulty)
+        {
+            Selection.Difficulty = difficulty;
+
+            LoadSelection();
+        }
+
+        void LoadSelection()
+        {
+            Core.World.Load(Selection);
+        }
+
+        private void OnDisable()
         {
             Core.Localization.OnTargetChange -= LocalizationChangeCallback;
+
+            Difficulty.OnSelect -= DifficultySelectCallback;
         }
     }
 }

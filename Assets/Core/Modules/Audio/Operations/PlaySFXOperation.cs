@@ -29,7 +29,7 @@ namespace Game
 
         public override void Execute()
         {
-            Audio.SFX.PlayOneShot(SFX);
+            Audio.Player.SFX.PlayOneShot(SFX);
         }
     }
 }

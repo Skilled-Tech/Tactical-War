@@ -28,6 +28,7 @@ namespace Game
 
         public UICoreMenu Menu { get; protected set; }
 
+        public OptionsMenu OptionsMenu => Menu.OptionsMenu;
         public PopupUI Popup { get { return Menu.Popup; } }
         public RewardsUI Rewards { get { return Menu.Rewards; } }
         public BuyUI Buy => Menu.Buy;

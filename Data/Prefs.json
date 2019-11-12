@@ -1,5 +1,8 @@
 {
   "Localization": "Arabic",
   "Version": "0.2.13",
-  "Need Online Login": "False"
+  "Need Online Login": "False",
+  "Master Volume": "1",
+  "SFX Volume": "1",
+  "Music Volume": "1"
 }

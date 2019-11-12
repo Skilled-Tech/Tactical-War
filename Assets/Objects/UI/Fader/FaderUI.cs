@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(Image))]
-	public class FaderUI : MonoBehaviour
+	public class FaderUI : UIElement
 	{
 		public Image Image { get; protected set; }
 

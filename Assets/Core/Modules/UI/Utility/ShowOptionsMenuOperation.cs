@@ -19,13 +19,13 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class StopMusicOperation : Operation
+	public class ShowOptionsMenuOperation : Operation
 	{
         public Core Core => Core.Instance;
 
         public override void Execute()
         {
-            Core.Audio.Player.Music.FadeOut();
+            Core.UI.OptionsMenu.Show();
         }
     }
 }

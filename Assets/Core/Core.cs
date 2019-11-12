@@ -174,6 +174,8 @@ namespace Game
         {
             Application.runInBackground = true;
 
+            Application.targetFrameRate = 60;
+
             SceneAcessor = CoreSceneAccessor.Create();
 
             Register(data);

@@ -41,7 +41,7 @@ namespace Game
 
         public static Core Core { get { return Core.Instance; } }
         public static WorldCore World { get { return Core.World; } }
-        public static WorldCore.CurrentData Data { get { return World.Current; } }
+        public static WorldCore.SelectionData Data { get { return World.Current; } }
 
         public abstract class Module : Module<Level>
         {
@@ -49,7 +49,7 @@ namespace Game
 
             public Core Core { get { return Core.Instance; } }
             public WorldCore World { get { return Core.World; } }
-            public WorldCore.CurrentData Data { get { return World.Current; } }
+            public WorldCore.SelectionData Data { get { return World.Current; } }
         }
 
         protected virtual void Awake()
@@ -83,7 +83,7 @@ namespace Game
             Proponents.OnDefeat += OnProponentDeafeated;
 
             if(Data.Level.Music != null)
-                Core.Audio.Music.Play(Data.Level.Music);
+                Core.Audio.Player.Music.Play(Data.Level.Music);
         }
 
         void OnProponentDeafeated(Proponent proponent)
@@ -95,7 +95,7 @@ namespace Game
         {
             Pause.State = LevelPauseState.Soft;
 
-            Core.Audio.Music.FadeOut();
+            Core.Audio.Player.Music.FadeOut();
         }
 
         private void OnDestroy()
@@ -121,7 +121,7 @@ namespace Game
         public static void Next()
         {
             if (Data.Level.IsLast)
-                throw new InvalidOperationException(Data.Level.name + " is the last Level in the " + Data.Region.name + ", Can't Progress any further");
+                throw new InvalidOperationException(Data.Level.name + " is the last Level in the " + Data.Level.Region.name + ", Can't Progress any further");
 
             Instance.Exit();
 

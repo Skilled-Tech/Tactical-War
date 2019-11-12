@@ -36,7 +36,7 @@ namespace Game
 
         public Core Core { get { return Core.Instance; } }
 
-        public WorldCore.CurrentData Data { get { return Level.Data; } }
+        public WorldCore.SelectionData Data { get { return Level.Data; } }
 
         public virtual void Show(Proponent winner)
         {

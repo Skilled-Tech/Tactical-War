@@ -153,34 +153,29 @@ namespace Game
             }
         }
 
-        public CurrentData Current { get; protected set; }
+        public SelectionData Current { get; protected set; }
         [Serializable]
-        public class CurrentData
+        public class SelectionData
         {
             public LevelCore Level { get; set; }
 
-            public RegionDifficulty Difficulty { get; protected set; }
+            public RegionDifficulty Difficulty { get; set; }
 
-            public RegionCore Region { get { return Level.Region; } }
-
-            public virtual void Set(LevelCore level)
+            public SelectionData()
             {
-                
-            }
 
-            public CurrentData(LevelCore level, RegionDifficulty difficulty)
+            }
+            public SelectionData(LevelCore level, RegionDifficulty difficulty) : this()
             {
                 this.Level = level;
                 this.Difficulty = difficulty;
             }
         }
-        public virtual void Load(RegionCore region, LevelCore level)
+        public virtual void Load(SelectionData selection) => Load(selection.Level, selection.Difficulty);
+        public virtual void Load(LevelCore level) => Load(level, level.Region.Progress.Difficulty);
+        public virtual void Load(LevelCore level, RegionDifficulty difficulty)
         {
-            Load(region, level, region.Progress.Difficulty);
-        }
-        public virtual void Load(RegionCore region, LevelCore level, RegionDifficulty difficulty)
-        {
-            Current = new CurrentData(level, difficulty);
+            Current = new SelectionData(level, difficulty);
 
             Scenes.Load.All(level.Scene, Scenes.Level);
         }

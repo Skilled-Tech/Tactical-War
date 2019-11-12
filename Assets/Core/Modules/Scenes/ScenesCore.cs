@@ -81,8 +81,17 @@ namespace Game
                 One(scene.name);
             }
 
+            Coroutine coroutine;
+            public bool IsProcessing => coroutine != null;
+
             public virtual void All(params string[] names)
             {
+                if(IsProcessing)
+                {
+                    Debug.LogError("Trying to load scenes during a scene loading, please wait for current scenes to load");
+                    return;
+                }
+
                 IEnumerator Procedure()
                 {
                     yield return Fader.To(1f);
@@ -134,9 +143,11 @@ namespace Game
                     yield return new WaitForSeconds(0.25f);
 
                     yield return Fader.To(0f);
+
+                    coroutine = null;
                 }
 
-                Core.SceneAcessor.StartCoroutine(Procedure());
+                coroutine = Core.SceneAcessor.StartCoroutine(Procedure());
             }
             public virtual void All(params GameScene[] scenes)
             {
