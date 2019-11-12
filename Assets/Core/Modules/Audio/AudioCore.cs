@@ -24,9 +24,63 @@ namespace Game
 	{
         public GameObject GameObject { get; protected set; }
 
-        public SFXPlayer SFX { get; protected set; }
+        [SerializeField]
+        protected SFXCore _SFX;
+        public SFXCore SFX { get { return _SFX; } }
+        [Serializable]
+        public class SFXCore : PlayerProperty<SFXPlayer>
+        {
+            public override string Name => "SFX";
+        }
 
-        public MusicPlayer Music { get; protected set; }
+        [SerializeField]
+        protected MusicCore music;
+        public MusicCore Music { get { return music; } }
+        [Serializable]
+        public class MusicCore : PlayerProperty<MusicPlayer>
+        {
+            public override string Name => "Music";
+        }
+
+        [Serializable]
+        public abstract class PlayerProperty<TComponent> : ProceduralProperty<TComponent>
+            where TComponent : AudioPlayer
+        {
+            public TComponent Player => Component;
+        }
+
+        [Serializable]
+        public abstract class ProceduralProperty<TComponent> : Property
+            where TComponent: Component
+        {
+            public GameObject GameObject { get; protected set; }
+
+            public TComponent Component { get; protected set; }
+
+            public abstract string Name { get; }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                Create();
+            }
+
+            protected virtual void Create()
+            {
+                GameObject = new GameObject(Name);
+
+                GameObject.transform.SetParent(Audio.GameObject.transform);
+
+                Component = GameObject.AddComponent<TComponent>();
+            }
+        }
+
+        [Serializable]
+        public abstract class Property : Core.Property
+        {
+            public AudioCore Audio => Core.Audio;
+        }
 
         public override void Configure()
         {
