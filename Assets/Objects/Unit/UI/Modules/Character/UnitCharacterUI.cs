@@ -32,8 +32,8 @@ namespace Game
         public TMP_Text Type { get { return type; } }
 
         [SerializeField]
-        protected Transform slot;
-        public Transform Slot { get { return slot; } }
+        protected Image illustration;
+        public Image Illustration { get { return illustration; } }
 
         public UnitTemplate Data { get; protected set; }
 
@@ -42,18 +42,28 @@ namespace Game
         {
             this.Template = data;
 
-            if (Model == null)
+            if(data.Illustration.Sprite == null)
             {
-
+                illustration.color = new Color(1f, 1f, 1f, 0f);
             }
             else
             {
-                Destroy(Model.gameObject);
+                illustration.color = Color.white;
+
+                illustration.sprite = data.Illustration.Sprite;
             }
 
-            Model = InstantiateModel(data);
-
             UpdateState();
+        }
+
+        void Update()
+        {
+            if(Template != null)
+            {
+                illustration.rectTransform.localPosition = Template.Illustration.Offset;
+
+                illustration.rectTransform.localScale = Vector3.one * Template.Illustration.Scale;
+            }
         }
 
         protected virtual void UpdateState()
@@ -61,24 +71,6 @@ namespace Game
             label.text = Template.DisplayName.Text;
 
             type.text = Template.Type.DisplayName.Text;
-        }
-
-        public Unit Model { get; protected set; }
-
-        protected virtual Unit InstantiateModel(UnitTemplate data)
-        {
-            var instance = Instantiate(data.Prefab, slot);
-
-            var unit = instance.GetComponent<Unit>();
-            unit.enabled = false;
-
-            var controller = instance.GetComponent<UnitController>();
-            controller.enabled = false;
-
-            var canvas = Dependancy.Get<Canvas>(instance);
-            canvas.gameObject.SetActive(false);
-
-            return unit;
         }
     }
 }

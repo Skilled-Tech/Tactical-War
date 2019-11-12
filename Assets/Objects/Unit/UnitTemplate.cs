@@ -46,6 +46,10 @@ namespace Game
         public float Health { get { return health; } }
 
         [SerializeField]
+        protected float speed = 1.5f;
+        public float Speed { get { return speed; } }
+
+        [SerializeField]
         protected DeploymentData deployment = new DeploymentData(200, 2f);
         public DeploymentData Deployment { get { return deployment; } }
         [Serializable]
@@ -170,8 +174,23 @@ namespace Game
         }
 
         [SerializeField]
-        protected float speed = 1.5f;
-        public float Speed { get { return speed; } }
+        protected IllustrationData illustration;
+        public IllustrationData Illustration { get { return illustration; } }
+        [Serializable]
+        public class IllustrationData
+        {
+            [SerializeField]
+            protected Sprite sprite;
+            public Sprite Sprite { get { return sprite; } }
+
+            [SerializeField]
+            protected Vector2 offset;
+            public Vector2 Offset { get { return offset; } }
+
+            [SerializeField]
+            protected float scale = 1f;
+            public float Scale { get { return scale; } }
+        }
 
         public override void Init()
         {

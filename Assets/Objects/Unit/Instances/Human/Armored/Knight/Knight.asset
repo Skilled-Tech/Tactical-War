@@ -31,6 +31,7 @@ MonoBehaviour:
   type: {fileID: 11400000, guid: 24de53186882044498807e9ef2186c21, type: 2}
   prefab: {fileID: 8127696124609658847, guid: ffb63b5e209ba8e4592a2e03c6b2bed3, type: 3}
   health: 200
+  speed: 1.8
   deployment:
     cost: 300
     time: 4
@@ -40,6 +41,7 @@ MonoBehaviour:
     distance: 0.5
     duration: 1
     method: 0
+    penetrate: 0
     _SFX:
       initiate:
       - clip: {fileID: 8300000, guid: af592df43df8e434fb4f82ecc846bcf1, type: 3}
@@ -50,4 +52,7 @@ MonoBehaviour:
         volume: 0.6
         delay: 0
     statusEffects: []
-  speed: 1.8
+  illustration:
+    sprite: {fileID: 21300000, guid: 1dcb12b5bef217f49afd3236436f39a1, type: 3}
+    offset: {x: 36.3, y: -17.75}
+    scale: 1

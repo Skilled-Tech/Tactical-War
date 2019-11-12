@@ -31,6 +31,7 @@ MonoBehaviour:
   type: {fileID: 11400000, guid: 8a8d107823b60dc43bc4cefbe290bc42, type: 2}
   prefab: {fileID: 8127696124609658847, guid: f0696f845774ddf45a9d5a0a104ebb49, type: 3}
   health: 140
+  speed: 3
   deployment:
     cost: 100
     time: 2
@@ -40,6 +41,7 @@ MonoBehaviour:
     distance: 0.5
     duration: 0.5
     method: 0
+    penetrate: 0
     _SFX:
       initiate: []
       connect: []
@@ -53,4 +55,7 @@ MonoBehaviour:
         potency: 10
         iterations: 5
         interval: 1
-  speed: 3
+  illustration:
+    sprite: {fileID: 0}
+    offset: {x: 0, y: 0}
+    scale: 1

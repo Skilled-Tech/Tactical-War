@@ -31,6 +31,7 @@ MonoBehaviour:
   type: {fileID: 11400000, guid: d46edbafedd3e1044a159863c637a9e1, type: 2}
   prefab: {fileID: 5569182392643639925, guid: acc98495ea6e48d4d83996a81b479d54, type: 3}
   health: 80
+  speed: 1.8
   deployment:
     cost: 400
     time: 4
@@ -45,4 +46,7 @@ MonoBehaviour:
       initiate: []
       connect: []
     statusEffects: []
-  speed: 1.8
+  illustration:
+    sprite: {fileID: 0}
+    offset: {x: 0, y: 0}
+    scale: 1
