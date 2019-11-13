@@ -5,6 +5,40 @@
       "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Paralysis Archer",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Paralysis_Archer",
+      "ItemInstanceId": "F0CFC67812EFC350",
+      "PurchaseDate": "2019-11-13T09:33:28.272Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Earth Wizard",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Earth_Wizard",
+      "ItemInstanceId": "F9200AC89AE3AADC",
+      "PurchaseDate": "2019-11-13T09:32:15.324Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
       "CustomData": {
         "upgrades": "[{\"type\":\"Range\",\"value\":1},{\"type\":\"Power\",\"value\":1}]"
       },
@@ -84,7 +118,7 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "79A8809FEAFDDE21",
       "PurchaseDate": "2019-11-07T06:57:51.202Z",
-      "RemainingUses": 5,
+      "RemainingUses": 6,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -101,7 +135,7 @@
       "ItemId": "Wood_Shield",
       "ItemInstanceId": "368D0DA17470A21F",
       "PurchaseDate": "2019-11-07T06:57:51.202Z",
-      "RemainingUses": 5,
+      "RemainingUses": 6,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -199,7 +233,7 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 1359300,
+    "GD": 1340300,
     "JL": 568500
   },
   "VirtualCurrencyRechargeTimes": {},

@@ -112,6 +112,8 @@ namespace Game
 
             Body.AnimationEvents.OnCustomEvent += OnAnimationTrigger;
 
+            Unit.OnDoDamage += UnitDoDamageCallback;
+
             Modules.Init(this);
         }
 
@@ -178,18 +180,13 @@ namespace Game
             if (OnConnected != null) OnConnected();
         }
 
-        public event Entity.DoDamageDelegate OnDoDamage;
-        public virtual Damage.Result DoDamage(Entity target)
+        public virtual Damage.Result DoDamage(Entity target) => Unit.DoDamage(Power.Value, Method, target);
+        void UnitDoDamageCallback(Damage.Result result)
         {
-            var result = Unit.DoDamage(Power.Value, Method, target);
-
-            ApplyStatusEffects(Template.Attack.StatusEffects, target);
-
-            if (OnDoDamage != null) OnDoDamage(result);
-
-            return result;
+            ApplyStatusEffects(result.Target);
         }
 
+        protected virtual void ApplyStatusEffects(Entity target) => ApplyStatusEffects(Template.Attack.StatusEffects, target);
         protected virtual void ApplyStatusEffects(IList<UnitTemplate.StatusEffectProperty> list, Entity target)
         {
             for (int i = 0; i < list.Count; i++)

@@ -34,7 +34,7 @@ namespace Game
         {
             base.Init();
 
-            Attack.OnDoDamage += DoDamageCallback;
+            Unit.OnDoDamage += DoDamageCallback;
         }
 
         void DoDamageCallback(Damage.Result result)

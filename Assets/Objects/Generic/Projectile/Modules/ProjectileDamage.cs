@@ -54,7 +54,7 @@ namespace Game
             }
             else
             {
-                Projectile.DoDamage(Value, Damage.Method.Ranged, entity);
+                Projectile.DoDamage(Value, entity);
             }
         }
     }

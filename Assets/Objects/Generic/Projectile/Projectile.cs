@@ -133,19 +133,15 @@ namespace Game
             Modules.Init(this);
         }
 
-        public virtual void DoDamage(float value, Damage.Method method, Entity target)
+        public virtual Damage.Result DoDamage(float value, Entity target) => DoDamage(value, Damage.Method.Ranged, target);
+        public virtual Damage.Result DoDamage(float value, Damage.Method method, Entity target)
         {
-            if(Armed)
-            {
-                if(Owner is Base && target is Base) //Very Crude TODO, cleanup
-                {
+            if (Armed == false)
+                throw new InvalidOperationException("Cannot do damage from projectile " + name + " because it's not Armed yet, please Arm first");
 
-                }
-                else
-                {
-                    Owner.DoDamage(value, method, target);
-                }
-            }
+            var result = Owner.DoDamage(value, method, target);
+
+            return result;
         }
 
         public delegate void CollisionDelegate(Collision2D collision);

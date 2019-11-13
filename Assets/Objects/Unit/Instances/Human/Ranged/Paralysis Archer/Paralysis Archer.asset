@@ -54,7 +54,7 @@ MonoBehaviour:
         min: 40
         max: 80
       data:
-        type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
+        type: {fileID: 11400000, guid: 4e7e8b1da08d1ed449a0fd122928484f, type: 2}
         potency: 10
         iterations: 5
         interval: 1

@@ -222,5 +222,9 @@
   "music volume": {
     "en": "Music",
     "ar": "الموسيقي"
+  },
+  "logout": {
+    "en": "Logout",
+    "ar": "خروج"
   }
 }

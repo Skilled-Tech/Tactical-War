@@ -92,7 +92,7 @@ namespace Game
             }
             else
             {
-                projectile.DoDamage(Power.Value, Method, target);
+                projectile.DoDamage(Power.Value, target);
             }
         }
     }
