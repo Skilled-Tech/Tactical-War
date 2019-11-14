@@ -17,8 +17,11 @@ namespace API
                 {
                     rewards: Array<string>;
 
-                    constructor(reward: Array<string>)
+                    stars: number;
+
+                    constructor(stars: number, reward: Array<string>)
                     {
+                        this.stars = stars;
                         this.rewards = reward;
                     }
                 }

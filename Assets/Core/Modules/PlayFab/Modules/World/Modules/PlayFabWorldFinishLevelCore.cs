@@ -35,33 +35,35 @@ namespace Game
             public string region;
             public int level;
             public int difficulty;
+            public float time;
 
-            public ParametersData(string region, int level, int difficulty)
+            public ParametersData(string region, int level, int difficulty, float time)
             {
                 this.region = region;
                 this.level = level;
                 this.difficulty = difficulty;
+                this.time = time;
             }
         }
         
-        public virtual void Request(string region, int level, int difficulty)
+        public virtual void Request(string region, int level, int difficulty, float time)
         {
             var request = new ExecuteCloudScriptRequest
             {
                 FunctionName = "FinishLevel",
-                FunctionParameter = new ParametersData(region, level, difficulty),
+                FunctionParameter = new ParametersData(region, level, difficulty, time),
                 GeneratePlayStreamEvent = true,
             };
 
             PlayFabClientAPI.ExecuteCloudScript(request, ResultCallback, ErrorCallback);
         }
-        public virtual void Request(LevelCore level, RegionDifficulty difficulty)
+        public virtual void Request(LevelCore level, RegionDifficulty difficulty, float time)
         {
-            Request(level.Region.name, level.Index, difficulty.ID);
+            Request(level.Region.name, level.Index, difficulty.ID, time);
         }
-        public virtual void Request(LevelCore level)
+        public virtual void Request(LevelCore level, float time)
         {
-            Request(level, level.Region.Progress.Difficulty);
+            Request(level, level.Region.Progress.Difficulty, time);
         }
 
         public event Delegates.ResultDelegate<ResultData> OnResult;
@@ -106,6 +108,10 @@ namespace Game
             [JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
             ItemTemplate[] rewards;
             public ItemTemplate[] Rewards => rewards;
+
+            [JsonProperty]
+            protected int stars;
+            public int Stars => stars;
 
             public ResultData()
             {

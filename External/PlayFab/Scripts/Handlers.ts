@@ -119,7 +119,8 @@ handlers.FinishLevel = function (args?: IFinishLevelArguments)
     }
 
     let result: API.World.Level.Finish.Result = {
-        rewards: rewardsIDs
+        rewards: rewardsIDs,
+        stars: playerData.star == null ? 0 : playerData.star.rank
     };
 
     return result;
@@ -129,6 +130,7 @@ interface IFinishLevelArguments
     region: string;
     level: number;
     difficulty: API.Difficulty;
+    time: number;
 }
 
 handlers.UpgradeItem = function (args?: IUpgradeItemArguments)

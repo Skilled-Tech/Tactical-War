@@ -155,14 +155,17 @@ namespace API
                 data: API.World.PlayerData
                 region: API.World.PlayerData.Region;
                 occurrence: API.World.Level.Finish.Occurrence;
+                star: Template.Region.Level.Star | null;
 
                 constructor(data: API.World.PlayerData,
                     region: API.World.PlayerData.Region,
-                    occurrence: API.World.Level.Finish.Occurrence)
+                    occurrence: API.World.Level.Finish.Occurrence,
+                    star: Template.Region.Level.Star | null)
                 {
                     this.data = data;
                     this.region = region;
                     this.occurrence = occurrence;
+                    this.star = star;
                 }
 
                 static Retrieve(args: IFinishLevelArguments, template: Template.Snapshot): Snapshot
@@ -232,7 +235,15 @@ namespace API
                     else
                         occurrence = Level.Finish.Occurrence.Recurring;
 
-                    return new Snapshot(data, region, occurrence);
+                    let star: Template.Region.Level.Star | null = null;
+
+                    for (let i = 0; i < template.level.stars.length; i++)
+                    {
+                        if (args.time <= template.level.stars[i].time)
+                            star = template.level.stars[i];
+                    }
+
+                    return new Snapshot(data, region, occurrence, star);
                 }
             }
         }

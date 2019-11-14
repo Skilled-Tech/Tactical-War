@@ -27,6 +27,10 @@ namespace Game
         public TMP_Text Info { get { return info; } }
 
         [SerializeField]
+        protected StarsUI stars;
+        public StarsUI Stars { get { return stars; } }
+
+        [SerializeField]
         protected Button next;
         public Button Next { get { return next; } }
 

@@ -47,11 +47,14 @@ namespace Game
 
         public delegate void ProcessDelegate(Proponent winner);
         public event ProcessDelegate OnProcess;
+        Proponent winner;
         public virtual void Process(Proponent winner)
         {
             Level.Speed.Value = 0.2f;
 
             Core.Audio.Player.Music.Stop();
+
+            this.winner = winner;
 
             if(winner is PlayerProponent)
             {
@@ -62,7 +65,7 @@ namespace Game
                     Menu.Popup.Show("Retrieving End Results");
 
                     PlayFab.World.FinishLevel.OnResponse += RewardResponseCallback;
-                    PlayFab.World.FinishLevel.Request(Data.Level, Data.Difficulty);
+                    PlayFab.World.FinishLevel.Request(Data.Level, Data.Difficulty, Level.Timer.Value);
                 }
                 else
                 {
@@ -73,7 +76,7 @@ namespace Game
             {
                 Core.Audio.Player.SFX.PlayOneShot(SFX.Lose);
 
-                Menu.End.Show(winner);
+                End();
             }
 
             if (OnProcess != null) OnProcess(winner);
@@ -84,10 +87,10 @@ namespace Game
         {
             PlayFab.World.FinishLevel.OnResponse -= RewardResponseCallback;
 
-            if(error == null)
-            {
-                this.result = result;
+            this.result = result;
 
+            if (error == null)
+            {
                 Menu.Popup.Show("Retrieving Player Data");
 
                 PlayFab.Player.OnResponse += OnPlayFabPlayerResponse;
@@ -122,7 +125,16 @@ namespace Game
                 Menu.Rewards.Hide();
                 Menu.Popup.Hide();
 
-                Menu.End.Show(Proponents.Player);
+                Menu.End.Show(winner);
+                
+                if(PlayFab.IsOnline)
+                {
+                    Menu.End.Stars.Show(result.Stars);
+                }
+                else
+                {
+                    Menu.End.Stars.Hide();
+                }
             }
 
             if (result == null || result.Rewards == null || result.Rewards.Length == 0)

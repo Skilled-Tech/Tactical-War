@@ -128,7 +128,7 @@ namespace Game
 
         public virtual void Reload()
         {
-            Scenes.Load.One(Scenes.Login);
+            SceneManager.LoadScene(Scenes.Login.name);
 
             Popup.Hide();
         }

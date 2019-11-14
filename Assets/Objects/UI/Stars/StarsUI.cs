@@ -19,21 +19,20 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class LevelTimer : Level.Module
+	public class StarsUI : UIElement
 	{
-        public float Value { get; protected set; }
+		[SerializeField]
+        protected Toggle[] toggles;
+        public Toggle[] Toggles { get { return toggles; } }
 
-        public TimeSpan TimeSpan { get; protected set; }
-
-        protected virtual void Update()
+        public virtual void Show(int number)
         {
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.T))
-                Value += 50;
-#endif
+            for (int i = 0; i < toggles.Length; i++)
+            {
+                toggles[i].isOn = number > i;
+            }
 
-            Value += Time.deltaTime;
-            TimeSpan = TimeSpan.FromSeconds(Value);
+            Show();
         }
-	}
+    }
 }

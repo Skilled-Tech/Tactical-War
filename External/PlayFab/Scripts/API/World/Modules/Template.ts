@@ -94,6 +94,7 @@ namespace API
             {
                 export class Level
                 {
+                    stars: Level.Star[];
                     rewards: Level.Reward[];
 
                     GetApplicableRewards(args: IFinishLevelArguments, playerData: PlayerData.Snapshot): Array<Region.Level.Reward>
@@ -131,8 +132,15 @@ namespace API
 
                     constructor(private $region: Region, private $index: number, source: Level)
                     {
-                        this.rewards = [];
+                        this.stars = [];
+                        for (let i = 0; i < source.stars.length; i++)
+                        {
+                            let instance = new Level.Star(i + 1, source.stars[i]);
 
+                            this.stars.push(instance);
+                        }
+
+                        this.rewards = [];
                         for (let i = 0; i < source.rewards.length; i++)
                         {
                             let instance = new Level.Reward(source.rewards[i]);
@@ -143,6 +151,18 @@ namespace API
                 }
                 export namespace Level
                 {
+                    export class Star
+                    {
+                        time: number;
+
+                        public get rank(): number { return this.$rank; };
+
+                        constructor(private $rank: number, source: Star)
+                        {
+                            this.time = source.time;
+                        }
+                    }
+
                     export class Reward
                     {
                         data: API.Reward;
@@ -170,26 +190,38 @@ namespace API
                         export class Requirements
                         {
                             occurrence?: Array<API.World.Level.Finish.Occurrence>
-                            IsValidOccurrence(object: API.World.Level.Finish.Occurrence)
+                            IsValidOccurrence(target: API.World.Level.Finish.Occurrence): boolean
                             {
                                 if (this.occurrence == null) return true;
 
-                                return this.occurrence.indexOf(object) > 0;
+                                return this.occurrence.indexOf(target) >= 0;
                             }
 
                             difficulty?: Array<API.Difficulty>;
-                            IsValidDifficulty(object: API.Difficulty)
+                            IsValidDifficulty(target: API.Difficulty): boolean
                             {
                                 if (this.difficulty == null) return true;
 
-                                return this.difficulty.indexOf(object) > 0;
+                                return this.difficulty.indexOf(target) >= 0;
+                            }
+
+                            stars?: Array<number>;
+                            IsValidStar(target: Region.Level.Star | null): boolean
+                            {
+                                if (this.stars == null) return true;
+
+                                if (target == null) return false;
+
+                                return this.stars.indexOf(target.rank) >= 0;
                             }
 
                             CompliesWith(args: IFinishLevelArguments, playerData: PlayerData.Snapshot)
                             {
-                                if (this.occurrence != null && this.occurrence.indexOf(playerData.occurrence) < 0) return false;
+                                if (this.IsValidOccurrence(playerData.occurrence) == false) return false;
 
-                                if (this.difficulty != null && this.difficulty.indexOf(args.difficulty) < 0) return false;
+                                if (this.IsValidDifficulty(args.difficulty) == false) return false;
+
+                                if (this.IsValidStar(playerData.star) == false) return false;
 
                                 return true;
                             }
@@ -198,6 +230,7 @@ namespace API
                             {
                                 this.occurrence = source.occurrence;
                                 this.difficulty = source.difficulty;
+                                this.stars = source.stars;
                             }
                         }
                     }

@@ -63,10 +63,10 @@ namespace Game
 
         private void Update()
         {
-            if (Application.isEditor && Input.GetKeyDown(KeyCode.Space))
-            {
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.Space))
                 Core.Localization.Progress();
-            }
+#endif
         }
     }
 }

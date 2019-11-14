@@ -4,6 +4,17 @@
       "name": "Forest",
       "levels": [
         {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
           "rewards": [
             {
               "data": {
@@ -58,12 +69,36 @@
                 "occurrence": [
                   1,
                   2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
                 ]
               }
             }
           ]
         },
         {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
           "rewards": [
             {
               "data": {
@@ -118,12 +153,36 @@
                 "occurrence": [
                   1,
                   2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
                 ]
               }
             }
           ]
         },
         {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
           "rewards": [
             {
               "data": {
@@ -178,12 +237,36 @@
                 "occurrence": [
                   1,
                   2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
                 ]
               }
             }
           ]
         },
         {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
           "rewards": [
             {
               "data": {
@@ -238,12 +321,36 @@
                 "occurrence": [
                   1,
                   2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
                 ]
               }
             }
           ]
         },
         {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
           "rewards": [
             {
               "data": {
@@ -298,6 +405,19 @@
                 "occurrence": [
                   1,
                   2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
                 ]
               }
             }
@@ -309,6 +429,17 @@
       "name": "Desert",
       "levels": [
         {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
           "rewards": [
             {
               "data": {
@@ -363,12 +494,36 @@
                 "occurrence": [
                   1,
                   2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
                 ]
               }
             }
           ]
         },
         {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
           "rewards": [
             {
               "data": {
@@ -423,12 +578,36 @@
                 "occurrence": [
                   1,
                   2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
                 ]
               }
             }
           ]
         },
         {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
           "rewards": [
             {
               "data": {
@@ -483,12 +662,36 @@
                 "occurrence": [
                   1,
                   2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
                 ]
               }
             }
           ]
         },
         {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
           "rewards": [
             {
               "data": {
@@ -543,12 +746,36 @@
                 "occurrence": [
                   1,
                   2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
                 ]
               }
             }
           ]
         },
         {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
           "rewards": [
             {
               "data": {
@@ -603,6 +830,19 @@
                 "occurrence": [
                   1,
                   2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
                 ]
               }
             }

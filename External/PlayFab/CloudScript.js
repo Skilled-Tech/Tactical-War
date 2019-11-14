@@ -80,7 +80,8 @@ handlers.FinishLevel = function (args) {
         rewardsIDs = rewardsIDs.concat(itemIDs);
     }
     let result = {
-        rewards: rewardsIDs
+        rewards: rewardsIDs,
+        stars: playerData.star == null ? 0 : playerData.star.rank
     };
     return result;
 };
@@ -641,7 +642,8 @@ var API;
                     Occurrence[Occurrence["Recurring"] = 2] = "Recurring";
                 })(Occurrence = Finish.Occurrence || (Finish.Occurrence = {}));
                 class Result {
-                    constructor(reward) {
+                    constructor(stars, reward) {
+                        this.stars = stars;
                         this.rewards = reward;
                     }
                 }
@@ -741,10 +743,11 @@ var API;
                 Region.Progress = Progress;
             })(Region = PlayerData.Region || (PlayerData.Region = {}));
             class Snapshot {
-                constructor(data, region, occurrence) {
+                constructor(data, region, occurrence, star) {
                     this.data = data;
                     this.region = region;
                     this.occurrence = occurrence;
+                    this.star = star;
                 }
                 static Retrieve(args, template) {
                     let data = API.World.PlayerData.Retrieve(currentPlayerId);
@@ -794,7 +797,12 @@ var API;
                         occurrence = World.Level.Finish.Occurrence.Initial;
                     else
                         occurrence = World.Level.Finish.Occurrence.Recurring;
-                    return new Snapshot(data, region, occurrence);
+                    let star = null;
+                    for (let i = 0; i < template.level.stars.length; i++) {
+                        if (args.time <= template.level.stars[i].time)
+                            star = template.level.stars[i];
+                    }
+                    return new Snapshot(data, region, occurrence, star);
                 }
             }
             PlayerData.Snapshot = Snapshot;
@@ -871,6 +879,11 @@ var API;
                     constructor($region, $index, source) {
                         this.$region = $region;
                         this.$index = $index;
+                        this.stars = [];
+                        for (let i = 0; i < source.stars.length; i++) {
+                            let instance = new Level.Star(i + 1, source.stars[i]);
+                            this.stars.push(instance);
+                        }
                         this.rewards = [];
                         for (let i = 0; i < source.rewards.length; i++) {
                             let instance = new Level.Reward(source.rewards[i]);
@@ -902,6 +915,15 @@ var API;
                 }
                 Region.Level = Level;
                 (function (Level) {
+                    class Star {
+                        constructor($rank, source) {
+                            this.$rank = $rank;
+                            this.time = source.time;
+                        }
+                        get rank() { return this.$rank; }
+                        ;
+                    }
+                    Level.Star = Star;
                     class Reward {
                         constructor(source) {
                             this.data = source.data;
@@ -922,21 +944,31 @@ var API;
                             constructor(source) {
                                 this.occurrence = source.occurrence;
                                 this.difficulty = source.difficulty;
+                                this.stars = source.stars;
                             }
-                            IsValidOccurrence(object) {
+                            IsValidOccurrence(target) {
                                 if (this.occurrence == null)
                                     return true;
-                                return this.occurrence.indexOf(object) > 0;
+                                return this.occurrence.indexOf(target) >= 0;
                             }
-                            IsValidDifficulty(object) {
+                            IsValidDifficulty(target) {
                                 if (this.difficulty == null)
                                     return true;
-                                return this.difficulty.indexOf(object) > 0;
+                                return this.difficulty.indexOf(target) >= 0;
+                            }
+                            IsValidStar(target) {
+                                if (this.stars == null)
+                                    return true;
+                                if (target == null)
+                                    return false;
+                                return this.stars.indexOf(target.rank) >= 0;
                             }
                             CompliesWith(args, playerData) {
-                                if (this.occurrence != null && this.occurrence.indexOf(playerData.occurrence) < 0)
+                                if (this.IsValidOccurrence(playerData.occurrence) == false)
                                     return false;
-                                if (this.difficulty != null && this.difficulty.indexOf(args.difficulty) < 0)
+                                if (this.IsValidDifficulty(args.difficulty) == false)
+                                    return false;
+                                if (this.IsValidStar(playerData.star) == false)
                                     return false;
                                 return true;
                             }
