@@ -47,7 +47,7 @@ namespace Game
 
         public delegate void ProcessDelegate(Proponent winner);
         public event ProcessDelegate OnProcess;
-        Proponent winner;
+        Proponent winner = null;
         public virtual void Process(Proponent winner)
         {
             Level.Speed.Value = 0.2f;
@@ -82,7 +82,7 @@ namespace Game
             if (OnProcess != null) OnProcess(winner);
         }
 
-        PlayFabWorldFinishLevelCore.ResultData result;
+        PlayFabWorldFinishLevelCore.ResultData result = null;
         private void RewardResponseCallback(PlayFabWorldFinishLevelCore.ResultData result, PlayFabError error)
         {
             PlayFab.World.FinishLevel.OnResponse -= RewardResponseCallback;
@@ -126,14 +126,14 @@ namespace Game
                 Menu.Popup.Hide();
 
                 Menu.End.Show(winner);
-                
-                if(PlayFab.IsOnline)
+
+                if (result == null)
                 {
-                    Menu.End.Stars.Show(result.Stars);
+                    Menu.End.Stars.Hide();
                 }
                 else
                 {
-                    Menu.End.Stars.Hide();
+                    Menu.End.Stars.Show(result.Stars);
                 }
             }
 
