@@ -43,7 +43,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: c0f79b50a6113944d8381906203a36e6, type: 3}
-    totalSpriteSurfaceArea: 0
+    totalSpriteSurfaceArea: 40811520
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -530,9 +530,6 @@ SpriteAtlas:
   - {fileID: -1767139198770402998, guid: 3e849e164a2c2f847934e8bfe5be5491, type: 3}
   - {fileID: -2575444795325250252, guid: 3e849e164a2c2f847934e8bfe5be5491, type: 3}
   - {fileID: -5695258936679597694, guid: 3e849e164a2c2f847934e8bfe5be5491, type: 3}
-  - {fileID: -4064889734069160559, guid: 501b4e36ff7cf1f40ab544d0026f1a08, type: 3}
-  - {fileID: -8137581963233685907, guid: 501b4e36ff7cf1f40ab544d0026f1a08, type: 3}
-  - {fileID: 6591478365344907407, guid: 501b4e36ff7cf1f40ab544d0026f1a08, type: 3}
   - {fileID: 21300000, guid: fc095b569962a8f439ecf330988792d6, type: 3}
   - {fileID: 21300000, guid: b4e2c086b2938a347a740a78c3b6e363, type: 3}
   - {fileID: -2943790780882752751, guid: 01586fc6af436e741bd5579d1a331bda, type: 3}
@@ -1624,9 +1621,6 @@ SpriteAtlas:
   - BackLegR
   - FrontSleeveR
   - SideLegR
-  - Side
-  - Back
-  - Front
   - Hammer
   - Fire Wand
   - BackFingersR
