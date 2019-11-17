@@ -281,13 +281,14 @@ namespace Assets.HeroEditor4D.Common.CharacterScripts
 		/// </summary>
 		private void TryInitialize()
         {
-			//if (Expressions.All(i => i.Name != "Default") || Expressions.All(i => i.Name != "Angry") || Expressions.All(i => i.Name != "Dead"))
-			//	throw new Exception("Character must have at least 3 basic expressions: Default, Angry and Dead.");
+            //if (Expressions.All(i => i.Name != "Default") || Expressions.All(i => i.Name != "Angry") || Expressions.All(i => i.Name != "Dead"))
+            //	throw new Exception("Character must have at least 3 basic expressions: Default, Angry and Dead.");
 
-			//HeadRenderer.sprite = Head;
-	        HairRenderer.sprite = Helmet == null || Hair == null ? Hair : HairCut;
-			//HairRenderer.maskInteraction = Helmet == null || Helmet.name.Contains("[FullHair]") ? SpriteMaskInteraction.None : SpriteMaskInteraction.VisibleInsideMask;
-	        EarRenderers.ForEach(i => i.sprite = Ears);
+            //HeadRenderer.sprite = Head;
+            //HairRenderer.sprite = Helmet == null || Hair == null ? Hair : HairCut;
+            HairRenderer.sprite =Hair;
+            //HairRenderer.maskInteraction = Helmet == null || Helmet.name.Contains("[FullHair]") ? SpriteMaskInteraction.None : SpriteMaskInteraction.VisibleInsideMask;
+            EarRenderers.ForEach(i => i.sprite = Ears);
 			SetExpression(Expression);
 			//BeardRenderer.sprite = Beard;
 			MapSprites(BodyRenderers, Body);
@@ -308,7 +309,8 @@ namespace Assets.HeroEditor4D.Common.CharacterScripts
 			SecondaryMeleeWeaponRenderer.enabled = WeaponType == WeaponType.MeleePaired;
 			BowRenderers.ForEach(i => i.enabled = WeaponType == WeaponType.Bow);
 
-			if (Hair != null && Hair.name.Contains("[HideEars]"))
+            /* Don't Want This Behaviour By Default
+            if (Hair != null && Hair.name.Contains("[HideEars]"))
 			{
 				EarRenderers.ForEach(i => i.sprite = null);
 			}
@@ -317,9 +319,10 @@ namespace Assets.HeroEditor4D.Common.CharacterScripts
 	        {
 		        EarRenderers.ForEach(i => i.sprite = null);
 	        }
-		}
+            */
+        }
 
-		private void MapSprites(List<SpriteRenderer> spriteRenderers, List<Sprite> sprites)
+        private void MapSprites(List<SpriteRenderer> spriteRenderers, List<Sprite> sprites)
         {
             foreach (var part in spriteRenderers)
             {
