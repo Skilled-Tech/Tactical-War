@@ -286,7 +286,7 @@ namespace Assets.HeroEditor4D.Common.CharacterScripts
 
             //HeadRenderer.sprite = Head;
             //HairRenderer.sprite = Helmet == null || Hair == null ? Hair : HairCut;
-            HairRenderer.sprite =Hair;
+            HairRenderer.sprite = Hair;
             //HairRenderer.maskInteraction = Helmet == null || Helmet.name.Contains("[FullHair]") ? SpriteMaskInteraction.None : SpriteMaskInteraction.VisibleInsideMask;
             EarRenderers.ForEach(i => i.sprite = Ears);
 			SetExpression(Expression);
