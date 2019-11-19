@@ -44,35 +44,14 @@ namespace Game
             protected GameScene menu;
             public GameScene Menu { get { return menu; } }
 
-            public AsyncOperation[] Operations { get; protected set; }
-            public virtual float Progress
-            {
-                get
-                {
-                    if (Operations == null) return 1;
-
-                    var value = 0f;
-                    var count = 0;
-
-                    for (int i = 0; i < Operations.Length; i++)
-                    {
-                        if (Operations[i] == null) continue;
-
-                        count++;
-                        value += Operations[i].progress;
-                    }
-
-                    return Mathf.InverseLerp(0f, 0.9f, value / count);
-                }
-            }
-
             public ScenesCore Scenes => Core.Scenes;
             public FaderUI Fader => Core.UI.Fader;
 
-            public virtual void One(string name)
-            {
-                All(name);
-            }
+            public List<AsyncOperation> Operations { get; protected set; }
+
+            public float Progress { get; protected set; } = 0f;
+
+            public virtual void One(string name) => All(name);
             public virtual void One(GameScene scene)
             {
                 if (scene == null)
@@ -81,10 +60,20 @@ namespace Game
                 One(scene.name);
             }
 
-            Coroutine coroutine;
-            public bool IsProcessing => coroutine != null;
+            public Coroutine Coroutine { get; protected set; }
+            public bool IsProcessing => Coroutine != null;
 
-            public virtual void All(params string[] names)
+            public virtual void All(params GameScene[] scenes)
+            {
+                var names = new string[scenes.Length];
+
+                for (int i = 0; i < scenes.Length; i++)
+                    names[i] = scenes[i];
+
+                All(names);
+            }
+            public virtual void All(params string[] names) => All(names as IList<string>);
+            public virtual void All(IList<string> names)
             {
                 if(IsProcessing)
                 {
@@ -92,22 +81,37 @@ namespace Game
                     return;
                 }
 
+                Coroutine = Core.SceneAcessor.StartCoroutine(Procedure());
+
                 IEnumerator Procedure()
                 {
+                    Progress = 0f;
+
                     yield return Fader.To(1f);
                     SceneManager.LoadScene(menu.name);
                     yield return Fader.To(0f);
 
-                    Operations = new AsyncOperation[names.Length];
-                    for (int i = 0; i < names.Length; i++)
+                    Operations = new List<AsyncOperation>();
+                    for (int i = 0; i < names.Count; i++)
                     {
-                        Operations[i] = SceneManager.LoadSceneAsync(names[i], LoadSceneMode.Additive);
-                        Operations[i].allowSceneActivation = false;
+                        var operation = SceneManager.LoadSceneAsync(names[i], LoadSceneMode.Additive);
+                        operation.allowSceneActivation = false;
 
-                        bool IsLoaded() => Operations[i].progress == 0.9f;
+                        Operations.Add(operation);
 
-                        yield return new WaitUntil(IsLoaded);
+                        var ratio = 1f / names.Count;
+
+                        while (true)
+                        {
+                            Progress = (Mathf.InverseLerp(0f, 0.9f, operation.progress) * ratio) + ((Operations.Count - 1) * ratio);
+
+                            if (operation.progress == 0.9f) break;
+
+                            yield return new WaitForEndOfFrame();
+                        }
                     }
+
+                    Progress = 1f;
 
                     yield return new WaitForSecondsRealtime(0.6f);
 
@@ -117,7 +121,9 @@ namespace Game
 
                     void SceneLoadedCallback(Scene scene, LoadSceneMode mode)
                     {
-                        var index = Array.IndexOf(names, scene.name);
+                        var index = names.IndexOf(scene.name);
+
+                        Operations[index] = null;
 
                         if (scene.name == names.First())
                         {
@@ -128,35 +134,33 @@ namespace Game
                         {
                             SceneManager.sceneLoaded -= SceneLoadedCallback;
 
+                            Operations.Clear();
+
 #pragma warning disable CS0618 // Type or member is obsolete
                             SceneManager.UnloadScene(menu.name);
 #pragma warning restore CS0618 // Type or member is obsolete
                         }
-
-                        Operations[index] = null;
                     }
                     SceneManager.sceneLoaded += SceneLoadedCallback;
 
-                    for (int i = 0; i < Operations.Length; i++)
+                    for (int i = 0; i < Operations.Count; i++)
                         Operations[i].allowSceneActivation = true;
 
                     yield return new WaitForSeconds(0.25f);
 
                     yield return Fader.To(0f);
 
-                    coroutine = null;
+                    End();
                 }
-
-                coroutine = Core.SceneAcessor.StartCoroutine(Procedure());
             }
-            public virtual void All(params GameScene[] scenes)
+
+            public event Action OnEnd;
+            void End()
             {
-                var names = new string[scenes.Length];
+                Coroutine = null;
+                Operations = null;
 
-                for (int i = 0; i < scenes.Length; i++)
-                    names[i] = scenes[i];
-
-                All(names);
+                OnEnd?.Invoke();
             }
         }
     }

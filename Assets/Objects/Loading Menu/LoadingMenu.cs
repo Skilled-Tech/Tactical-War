@@ -17,34 +17,44 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using UnityEngine.EventSystems;
+using TMPro;
+
 namespace Game
 {
-	public class LoadingMenu : MonoBehaviour
+	public class LoadingMenu : MonoBehaviour, IPointerClickHandler
 	{
         [SerializeField]
-        protected Image background;
-        public Image Background { get { return background; } }
+        protected ProgressData progress;
+        public ProgressData Progress { get { return progress; } }
+        [Serializable]
+        public class ProgressData
+        {
+            [SerializeField]
+            protected TMP_Text label;
+            public TMP_Text Label { get { return label; } }
 
-        [SerializeField]
-        protected ProgressBar progress;
-        public ProgressBar Progress { get { return progress; } }
-
-        [SerializeField]
-        protected Sprite[] sprites;
-        public Sprite[] Sprites { get { return sprites; } }
+            [SerializeField]
+            protected ProgressBar bar;
+            public ProgressBar Bar { get { return bar; } }
+        }
 
         public Core Core => Core.Instance;
 
         private void Start()
         {
             Core.PlayFab.EnsureActivation();
-
-            background.sprite = sprites[Random.Range(0, sprites.Length)];
         }
 
         private void Update()
         {
-            progress.Value = Core.Scenes.Load.Progress;
+            progress.Bar.Value = Core.Scenes.Load.Progress;
+            progress.Label.text = (Core.Scenes.Load.Progress * 100).ToString("N0") + "%";
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            
         }
     }
 }
