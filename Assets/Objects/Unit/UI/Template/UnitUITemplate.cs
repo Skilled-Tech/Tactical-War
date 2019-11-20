@@ -30,6 +30,10 @@ namespace Game
         protected Image icon;
         public Image Icon { get { return icon; } }
 
+        [SerializeField]
+        protected SlotsIndicator rank;
+        public SlotsIndicator Rank { get { return rank; } }
+
         public Button Button { get; protected set; }
 
         public UIGrayscaleController GrayscaleController { get; protected set; }
@@ -65,6 +69,8 @@ namespace Game
             this.Template = template;
 
             template.Icon.ApplyTo(icon);
+
+            rank.Value = template.Rank;
 
             UpdateState();
         }

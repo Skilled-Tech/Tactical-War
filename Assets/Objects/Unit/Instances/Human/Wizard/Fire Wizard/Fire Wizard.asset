@@ -55,6 +55,8 @@ MonoBehaviour:
         potency: 10
         iterations: 5
         interval: 1
+  defense: 0
+  rank: 3
   illustration:
     sprite: {fileID: 21300000, guid: 9adaf526c8096604b9939979a4018147, type: 3}
     offset: {x: 7.48, y: -19.08}

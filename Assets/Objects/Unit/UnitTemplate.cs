@@ -139,11 +139,6 @@ namespace Game
             }
         }
 
-        [SerializeField]
-        [Range(0f, 100f)]
-        protected float defense = 0;
-        public float Defense { get { return defense; } }
-
         [Serializable]
         public class StatusEffectProperty
         {
@@ -177,6 +172,15 @@ namespace Game
             protected StatusEffectData data;
             public StatusEffectData Data { get { return data; } }
         }
+
+        [SerializeField]
+        [Range(0f, 100f)]
+        protected float defense = 0;
+        public float Defense { get { return defense; } }
+
+        [SerializeField]
+        protected int rank = 0;
+        public int Rank { get { return rank; } }
 
         [SerializeField]
         protected IllustrationData illustration;

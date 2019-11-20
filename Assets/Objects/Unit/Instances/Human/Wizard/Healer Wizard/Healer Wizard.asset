@@ -46,6 +46,8 @@ MonoBehaviour:
       initiate: []
       connect: []
     statusEffects: []
+  defense: 0
+  rank: 3
   illustration:
     sprite: {fileID: 21300000, guid: 044809d4b00cfb446b7f9346a53b8384, type: 3}
     offset: {x: 18.91, y: -3.82}

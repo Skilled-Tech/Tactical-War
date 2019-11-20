@@ -53,6 +53,7 @@ MonoBehaviour:
         delay: 0
     statusEffects: []
   defense: 20
+  rank: 2
   illustration:
     sprite: {fileID: 21300000, guid: 1dcb12b5bef217f49afd3236436f39a1, type: 3}
     offset: {x: 36.3, y: -17.75}
