@@ -88,6 +88,10 @@ namespace Game
         public IAPCore IAP { get { return _IAP; } }
 
         [SerializeField]
+        protected AdsCore ads;
+        public AdsCore Ads { get { return ads; } }
+
+        [SerializeField]
         protected LocalizationCore localization;
         public LocalizationCore Localization { get { return localization; } }
 
@@ -188,6 +192,7 @@ namespace Game
             Register(playFab);
             Register(player);
             Register(IAP);
+            Register(ads);
             Register(localization);
             Register(audio);
 

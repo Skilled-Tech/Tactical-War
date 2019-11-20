@@ -20,6 +20,8 @@ using Random = UnityEngine.Random;
 using PlayFab;
 using PlayFab.ClientModels;
 
+using UnityEngine.Advertisements;
+
 namespace Game
 {
 	public class LevelFinish : Level.Module
@@ -126,6 +128,11 @@ namespace Game
                 Menu.Popup.Hide();
 
                 Menu.End.Show(winner);
+
+                if(Advertisement.IsReady())
+                {
+                    Advertisement.Show();
+                }
 
                 if (result == null)
                 {
