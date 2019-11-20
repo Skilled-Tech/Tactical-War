@@ -1051,6 +1051,32 @@
       "VirtualCurrencyPrices": {
         "GD": 10000
       }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "Disable Ads",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "Disable_Ads",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {
+        "JL": 1000
+      }
     }
   ],
   "Request": {

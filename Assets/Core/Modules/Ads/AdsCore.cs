@@ -49,12 +49,11 @@ namespace Game
                 return Core.Player.Inventory.Contains(disableItem);
             }
         }
+        public virtual bool Active => !Ignore;
 
         public override void Configure()
         {
             base.Configure();
-
-            Advertisement.debugMode = true;
 
             Advertisement.Initialize(gameID, TestMode);
         }

@@ -129,7 +129,7 @@ namespace Game
 
                 Menu.End.Show(winner);
 
-                if(Advertisement.IsReady())
+                if(Core.Ads.Active && Advertisement.IsReady())
                 {
                     Advertisement.Show();
                 }

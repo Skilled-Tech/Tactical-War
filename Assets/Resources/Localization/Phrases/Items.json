@@ -1,4 +1,4 @@
-{
+﻿{
   "1k gold": {
     "en": "1K Gold",
     "ar": "*1K Gold*"
@@ -86,5 +86,13 @@
   "wood sword description": {
     "en": "Wood Sword Description",
     "ar": "*Wood Sword Description*"
+  },
+  "Disable Ads": {
+    "en": "Disable Ads",
+    "ar": "ايقافات الدعايات"
+  },
+  "Disable Ads description": {
+    "en": "Aquiring this item will disable all ads",
+    "ar": "شراء هذا المنتج يقوم بي ايقاف كل الدعايات"
   }
 }

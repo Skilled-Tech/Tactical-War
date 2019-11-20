@@ -44,9 +44,9 @@ MonoBehaviour:
       funds:
         elements:
         - type: 0
-          _value: 1359300
+          _value: 1604100
         - type: 1
-          _value: 568500
+          _value: 565100
     units:
       selection:
         max: 6
@@ -96,7 +96,7 @@ MonoBehaviour:
     google: {}
   ads:
     gameID: 3369152
-    disableItem: {fileID: 11400000, guid: b335c5dac55e7104d8c3e1573a1409fc, type: 2}
+    disableItem: {fileID: 11400000, guid: 4c1a155be91ee444191fb26db6b61afc, type: 2}
   localization:
     target: 1
   audio:
