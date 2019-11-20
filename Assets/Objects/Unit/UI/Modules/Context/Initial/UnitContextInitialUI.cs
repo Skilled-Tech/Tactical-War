@@ -59,8 +59,8 @@ namespace Game
             public TMP_Text Speed { get { return speed; } }
 
             [SerializeField]
-            protected TMP_Text cooldown;
-            public TMP_Text Cooldown { get { return cooldown; } }
+            protected TMP_Text deploy;
+            public TMP_Text Deploy { get { return deploy; } }
 
             public virtual void Init()
             {
@@ -71,11 +71,11 @@ namespace Game
             {
                 FormatUpgradeLabel(power, template, Core.Items.Upgrades.Types.Common.Power, template.Attack.Power);
                 FormatUpgradeLabel(range, template, Core.Items.Upgrades.Types.Common.Range, template.Attack.Range);
-                FormatUpgradeLabel(defense, template, Core.Items.Upgrades.Types.Common.Defense, 0);
+                FormatUpgradeLabel(defense, template, Core.Items.Upgrades.Types.Common.Defense, template.Defense);
 
                 FormatLabel(hp, nameof(HP), template.Health);
                 FormatLabel(speed, nameof(Speed), template.Speed);
-                FormatLabel(cooldown, nameof(Cooldown), template.Deployment.Time);
+                FormatLabel(deploy, nameof(Deploy), template.Deployment.Time, "seconds-unit");
             }
 
             public virtual void FormatUpgradeLabel(TMP_Text label, ItemTemplate item, ItemUpgradeType type, float value)
@@ -108,11 +108,15 @@ namespace Game
                 }
             }
 
-            protected virtual void FormatLabel(TMP_Text label, string text, object value)
+            protected virtual void FormatLabel(TMP_Text label, string text, object value) => FormatLabel(label, text, value, "");
+            protected virtual void FormatLabel(TMP_Text label, string text, object value, string unit)
             {
                 text = Core.Localization.Phrases.Get(text);
 
-                label.text = text + ": " + value.ToString();
+                if(string.IsNullOrEmpty(unit) == false)
+                    unit = Core.Localization.Phrases.Get(unit);
+
+                label.text = text + ": " + value.ToString() + unit;
             }
         }
 

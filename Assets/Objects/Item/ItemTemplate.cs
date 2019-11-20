@@ -129,13 +129,6 @@ namespace Game
                     }
                 }
             }
-
-            public virtual ItemUpgradesTemplate.ElementData GetTemplateElement(ItemUpgradeType target)
-            {
-                var element = Template.Find(target);
-
-                return element;
-            }
         }
 
         [SerializeField]

@@ -30,6 +30,12 @@ namespace Game
             {
                 return _base;
             }
+            set
+            {
+                value = Mathf.Clamp(value, 0f, 100f);
+
+                _base = value;
+            }
         }
 
         public float Value
@@ -39,7 +45,9 @@ namespace Game
                 var result = Base;
 
                 for (int i = 0; i < Modifiers.Count; i++)
+                {
                     result += Modifiers[i].Value;
+                }
 
                 return result;
             }
@@ -48,9 +56,6 @@ namespace Game
         public List<IModifier> Modifiers { get; protected set; }
         public interface IModifier
         {
-            /// <summary>
-            /// Percentage value from 0f to 100f
-            /// </summary>
             float Value { get; }
         }
 

@@ -27,11 +27,19 @@ namespace Game
         {
             get
             {
+                return Template.Defense * Multiplier;
+            }
+        }
+
+        public float Multiplier
+        {
+            get
+            {
                 Upgrades.GetElements(Type, out var template, out var data);
 
-                if (template == null || data == null) return 0f;
+                if (template == null || data == null || data.Value == 0) return 1f;
 
-                return template.Ranks[data.Value].Percentage;
+                return template.Ranks[data.Index].Multiplier;
             }
         }
     }

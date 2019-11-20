@@ -111,6 +111,14 @@
     "en": "Speed",
     "ar": "سرعة"
   },
+  "deploy": {
+    "en": "Deploy",
+    "ar": "استخدام"
+  },
+  "seconds-unit": {
+    "en": "s",
+    "ar": "ث"
+  },
   "yes": {
     "en": "Yes",
     "ar": "نعم"

@@ -67,15 +67,6 @@ namespace Game
             CalculateBounds();
         }
 
-        public virtual float DistanceTo(Entity entity)
-        {
-            return DistanceTo(entity.Center);
-        }
-        public virtual float DistanceTo(Vector3 position)
-        {
-            return Vector3.Distance(transform.position, position);
-        }
-
         public delegate void DoDamageDelegate(Damage.Result result);
         public event DoDamageDelegate OnDoDamage;
         public virtual Damage.Result DoDamage(float value, Damage.Method method, Entity target)
@@ -122,10 +113,7 @@ namespace Game
         {
             DoDamage(Health.Value, Damage.Method.Contact, this);
         }
-        public virtual void Sudoku() //Just like suicide but funnier
-        {
-            Suicide();
-        }
+        public virtual void Sudoku() => Suicide(); //Just like suicide but less tragic
 
         public delegate void DeathDelegate(Damage.Result result);
         public event DeathDelegate OnDeath;
@@ -141,6 +129,15 @@ namespace Game
             Gizmos.matrix = transform.localToWorldMatrix;
 
             Gizmos.DrawWireCube(Bounds.center, Bounds.size);
+        }
+
+        public virtual float DistanceTo(Entity entity)
+        {
+            return DistanceTo(entity.Center);
+        }
+        public virtual float DistanceTo(Vector3 position)
+        {
+            return Vector3.Distance(transform.position, position);
         }
     }
 

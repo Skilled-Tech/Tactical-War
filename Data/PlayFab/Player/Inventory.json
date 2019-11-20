@@ -5,6 +5,44 @@
       "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Defense\",\"value\":5}]"
+      },
+      "DisplayName": "Berserker",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Berserker",
+      "ItemInstanceId": "36D73F50DD21DA6C",
+      "PurchaseDate": "2019-11-20T07:51:52.423Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Power\",\"value\":5}]"
+      },
+      "DisplayName": "Heavy Knight",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Heavy_Knight",
+      "ItemInstanceId": "8A95C32ECB05A4BB",
+      "PurchaseDate": "2019-11-20T06:43:10.499Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
       "CustomData": null,
       "DisplayName": "Paralysis Archer",
       "Expiration": null,
@@ -40,7 +78,7 @@
       "BundleParent": null,
       "CatalogVersion": "Default",
       "CustomData": {
-        "upgrades": "[{\"type\":\"Range\",\"value\":1},{\"type\":\"Power\",\"value\":1}]"
+        "upgrades": "[{\"type\":\"Range\",\"value\":5},{\"type\":\"Power\",\"value\":1}]"
       },
       "DisplayName": "Ice Archer",
       "Expiration": null,
@@ -93,7 +131,7 @@
       "BundleParent": null,
       "CatalogVersion": "Default",
       "CustomData": {
-        "upgrades": "[{\"type\":\"Power\",\"value\":1},{\"type\":\"Defense\",\"value\":1}]"
+        "upgrades": "[{\"type\":\"Power\",\"value\":5},{\"type\":\"Defense\",\"value\":5}]"
       },
       "DisplayName": "Knight",
       "Expiration": null,
@@ -118,7 +156,7 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "79A8809FEAFDDE21",
       "PurchaseDate": "2019-11-07T06:57:51.202Z",
-      "RemainingUses": 56,
+      "RemainingUses": 22,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -135,7 +173,7 @@
       "ItemId": "Wood_Shield",
       "ItemInstanceId": "368D0DA17470A21F",
       "PurchaseDate": "2019-11-07T06:57:51.202Z",
-      "RemainingUses": 73,
+      "RemainingUses": 59,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -233,8 +271,8 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 1627300,
-    "JL": 568500
+    "GD": 1604100,
+    "JL": 565100
   },
   "VirtualCurrencyRechargeTimes": {},
   "Request": {

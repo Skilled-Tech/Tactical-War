@@ -52,6 +52,7 @@ MonoBehaviour:
         volume: 0.6
         delay: 0
     statusEffects: []
+  defense: 20
   illustration:
     sprite: {fileID: 21300000, guid: a1b461077afe7104094712495d6aedba, type: 3}
     offset: {x: 39.9, y: 2.1}

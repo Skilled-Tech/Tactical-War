@@ -105,13 +105,13 @@ namespace Game
             }
             else
             {
-                var rank = template.Ranks[data.Index + 1];
+                var nextRank = template.Ranks[data.Value];
 
-                price.text = rank.Cost.ToString();
+                price.text = nextRank.Cost.ToString();
 
-                buy.interactable = Funds.CanAfford(rank.Cost) && Player.Inventory.CompliesWith(rank.Requirements);
+                buy.interactable = Funds.CanAfford(nextRank.Cost) && Player.Inventory.CompliesWith(nextRank.Requirements);
 
-                requiremnets.Set(rank.Requirements);
+                requiremnets.Set(nextRank.Requirements);
             }
 
             progression.Value = data.Value;

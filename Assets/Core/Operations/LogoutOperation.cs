@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using GooglePlayGames;
+
 namespace Game
 {
 	public class LogoutOperation : Operation
@@ -25,6 +27,8 @@ namespace Game
 
         public override void Execute()
         {
+            PlayGamesPlatform.Instance.SignOut();
+
             Scenes.Load.One(Scenes.Login);
         }
     }

@@ -104,22 +104,6 @@ namespace Game
             data = GetDataElement(target);
         }
 
-        public virtual ItemUpgradesTemplate.ElementData.RankData DEP_FindCurrentRank(ItemUpgradeType type)
-        {
-            if (Data == null) return null;
-
-            var template = GetTemplateElement(type);
-            if (template == null) return null;
-
-            var data = GetDataElement(type);
-            if (data == null) return null;
-
-            if (data.Value == 0) return null;
-            if (data.Value > template.Ranks.Length) return template.Ranks.Last();
-
-            return template.Ranks[data.Index];
-        }
-
         public virtual void Set(ItemUpgradesData data)
         {
             this.Data = data;
