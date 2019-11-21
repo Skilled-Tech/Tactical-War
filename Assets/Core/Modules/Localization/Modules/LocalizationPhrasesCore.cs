@@ -124,6 +124,11 @@ namespace Game
             {
 
             }
+
+            void OnDestroy()
+            {
+                Localization.OnTargetChange -= TargetChangeCallback;
+            }
         }
 
         public abstract class Modifier<TComponent> : Base

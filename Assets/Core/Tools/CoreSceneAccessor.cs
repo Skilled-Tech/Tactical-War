@@ -33,7 +33,7 @@ namespace Game
 
         }
 
-		public static CoreSceneAccessor Create()
+        public static CoreSceneAccessor Create()
         {
             var gameObject = new GameObject("Scene Accessor");
 
