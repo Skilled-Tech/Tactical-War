@@ -47,14 +47,38 @@ namespace Game
         public Core Core { get { return Core.Instance; } }
         public PlayerCore Player { get { return Core.Player; } }
 
+        [SerializeField]
+        protected LockProperty _lock;
+        public LockProperty Lock { get { return _lock; } }
+        [Serializable]
+        public class LockProperty
+        {
+            [SerializeField]
+            protected UIElement graphic;
+            public UIElement Graphic { get { return graphic; } }
+
+            public bool Active { get => graphic.Visibile; set => graphic.Visibile = value; }
+        }
+
+        public virtual bool Interactable
+        {
+            get
+            {
+                return Button.interactable;
+            }
+            set
+            {
+                Button.interactable = value;
+                GrayscaleController.On = value;
+            }
+        }
+
         public virtual void Init()
         {
             Button = GetComponent<Button>();
             Button.onClick.AddListener(Click);
 
             GrayscaleController = new UIGrayscaleController(this);
-
-            Player.Inventory.OnUpdate += UpdateState;
 
             CanvasGroup = GetComponent<CanvasGroup>();
 
@@ -77,14 +101,7 @@ namespace Game
 
         protected virtual void UpdateState()
         {
-            if (Template == null)
-            {
-
-            }
-            else
-            {
-                GrayscaleController.Off = Player.Inventory.Contains(Template.CatalogItem);
-            }
+            
         }
 
         public delegate void ClickDelegate(UnitUITemplate template, UnitTemplate data);
@@ -118,7 +135,7 @@ namespace Game
 
         void OnDestroy()
         {
-            Player.Inventory.OnUpdate -= UpdateState;
+            
         }
     }
 }

@@ -25,8 +25,8 @@ namespace Game
     public class UnitContextInitialUI : UnitContextUI.Module
     {
         [SerializeField]
-        protected Image icon;
-        public Image Icon { get { return icon; } }
+        protected UnitUITemplate icon;
+        public UnitUITemplate Icon { get { return icon; } }
 
         [SerializeField]
         protected TMP_Text description;
@@ -138,6 +138,9 @@ namespace Game
         {
             base.Init();
 
+            icon.Init();
+            icon.Lock.Active = false;
+
             stats.Init();
 
             unlock.onClick.AddListener(UnlockClick);
@@ -156,11 +159,12 @@ namespace Game
         {
             UpdateState();
         }
+
         public override void UpdateState()
         {
             base.UpdateState();
 
-            Template.Icon.ApplyTo(icon);
+            icon.Set(Template);
 
             description.text = Template.Description.Text;
 

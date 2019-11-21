@@ -50,6 +50,8 @@ namespace Game
 
             Templates = new UnitUITemplate[List.Count];
 
+            Player.Inventory.OnUpdate += InventroyUpdateCallback;
+
             for (int i = 0; i < List.Count; i++)
             {
                 Templates[i] = CreateTemplate(List[i]);
@@ -58,6 +60,24 @@ namespace Game
                 Templates[i].DragBeginEvent += TemplateDragBegin;
                 Templates[i].DragEvent += TemplateDrag;
                 Templates[i].DragEndEvent += TemplateDragEnd;
+            }
+
+            UpdateState();
+        }
+
+        void InventroyUpdateCallback()
+        {
+            UpdateState();
+        }
+
+        void UpdateState()
+        {
+            for (int i = 0; i < Templates.Length; i++)
+            {
+                var unlocked = Player.Inventory.Contains(Templates[i].Template);
+
+                Templates[i].Lock.Active = !unlocked;
+                Templates[i].GrayscaleController.Ammount = unlocked ? 0f : 0.9f;
             }
         }
 
@@ -97,6 +117,11 @@ namespace Game
         void TemplateDragEnd(UnitUITemplate template, UnitTemplate unit, PointerEventData pointerData)
         {
             if (OnTemplateDragEnd != null) OnTemplateDragEnd(template, unit, pointerData);
+        }
+
+        void OnDestroy()
+        {
+            Player.Inventory.OnUpdate -= InventroyUpdateCallback;
         }
     }
 }
