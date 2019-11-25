@@ -65,6 +65,10 @@ namespace Game
         protected LocalizationPhrasesCore phrases;
         public LocalizationPhrasesCore Phrases { get { return phrases; } }
 
+        [SerializeField]
+        protected LocalizationPresetsCore presets;
+        public LocalizationPresetsCore Presets { get { return presets; } }
+
         public override void Configure()
         {
             base.Configure();
@@ -72,6 +76,7 @@ namespace Game
             Target = Core.Prefs.GetEnum(Key, target);
 
             Register(phrases);
+            Register(presets);
         }
     }
 

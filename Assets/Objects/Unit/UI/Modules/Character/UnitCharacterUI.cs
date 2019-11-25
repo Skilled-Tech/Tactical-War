@@ -53,17 +53,24 @@ namespace Game
                 illustration.sprite = data.Illustration.Sprite;
             }
 
+            UpdateIllustration();
+
             UpdateState();
         }
 
-        void Update()
+        void UpdateIllustration()
         {
-            if(Template != null)
+            if (Template != null)
             {
                 illustration.rectTransform.localPosition = Template.Illustration.Offset;
 
                 illustration.rectTransform.localScale = Vector3.one * Template.Illustration.Scale;
             }
+        }
+
+        void Update()
+        {
+            UpdateIllustration();
         }
 
         protected virtual void UpdateState()

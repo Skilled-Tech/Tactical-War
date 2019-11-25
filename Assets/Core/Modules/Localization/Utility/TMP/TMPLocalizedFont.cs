@@ -35,6 +35,13 @@ namespace Game
             }
         }
 
+        protected override void Start()
+        {
+            base.Start();
+
+            Debug.Log(name);
+        }
+
         [Serializable]
         public class Element : Element<TMP_FontAsset> { }
     }

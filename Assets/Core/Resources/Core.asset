@@ -46,7 +46,7 @@ MonoBehaviour:
         - type: 0
           _value: 1604100
         - type: 1
-          _value: 565100
+          _value: 564100
     units:
       selection:
         max: 6
@@ -99,6 +99,12 @@ MonoBehaviour:
     disableItem: {fileID: 11400000, guid: 4c1a155be91ee444191fb26db6b61afc, type: 2}
   localization:
     target: 1
+    presets:
+      elements:
+      - type: 0
+        font: {fileID: 11400000, guid: c77b63386e9d2fd4f9d041f7b040ad5c, type: 2}
+      - type: 1
+        font: {fileID: 11400000, guid: 17cc86be2e8679744a9bc5757b27dbaa, type: 2}
   audio:
     mixer: {fileID: 24100000, guid: cde3bb8d64346054cbcd02acbd3ed92b, type: 2}
     channels:

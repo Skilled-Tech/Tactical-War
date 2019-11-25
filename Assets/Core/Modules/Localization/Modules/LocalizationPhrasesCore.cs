@@ -240,6 +240,16 @@ namespace Game
                 [SerializeField]
                 protected TValue value;
                 public TValue Value { get { return value; } }
+
+                public Element()
+                {
+
+                }
+                public Element(LocalizationType localization, TValue value)
+                {
+                    this.localization = localization;
+                    this.value = value;
+                }
             }
 
             protected override void Start()

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4335302642033884047}
   - component: {fileID: 4335302642033884045}
   - component: {fileID: 4335302642033884044}
-  - component: {fileID: 9216570863714337542}
+  - component: {fileID: 7045017061559201996}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -164,7 +164,7 @@ MonoBehaviour:
   originalText: Description Label
   fixTags: 1
   forceFix: 0
---- !u!114 &9216570863714337542
+--- !u!114 &7045017061559201996
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,12 +173,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4335302642033884046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f899fd61e1fe76f4faaeb787e756eba8, type: 3}
+  m_Script: {fileID: 11500000, guid: 303ef22f8b51483479b474dddceae2c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elements:
-  - localization: 1
-    value: {fileID: 11400000, guid: 17cc86be2e8679744a9bc5757b27dbaa, type: 2}
 --- !u!1 &4335302642399237261
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,7 +501,7 @@ GameObject:
   - component: {fileID: 4335302643289906122}
   - component: {fileID: 4335302643289906120}
   - component: {fileID: 4335302643289906123}
-  - component: {fileID: 5059868456041526290}
+  - component: {fileID: 9112581762674375086}
   m_Layer: 5
   m_Name: Instructions
   m_TagString: Untagged
@@ -657,7 +654,7 @@ MonoBehaviour:
   originalText: Okay
   fixTags: 1
   forceFix: 0
---- !u!114 &5059868456041526290
+--- !u!114 &9112581762674375086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -666,12 +663,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4335302643289906101}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f899fd61e1fe76f4faaeb787e756eba8, type: 3}
+  m_Script: {fileID: 11500000, guid: 303ef22f8b51483479b474dddceae2c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elements:
-  - localization: 1
-    value: {fileID: 11400000, guid: 17cc86be2e8679744a9bc5757b27dbaa, type: 2}
 --- !u!1 &4335302643617251156
 GameObject:
   m_ObjectHideFlags: 0

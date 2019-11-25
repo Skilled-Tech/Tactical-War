@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4f3718d694656ea4b979ca41872cc12c
+guid: 45fe8f161ba649a4ebea7d1c3d556b8f
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Lalezar
+  fontName: djadli_Tachkili
   fontNames:
-  - Lalezar
+  - Djadli Tachkili
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

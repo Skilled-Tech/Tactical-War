@@ -5,6 +5,23 @@
       "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Disable Ads",
+      "Expiration": null,
+      "ItemClass": null,
+      "ItemId": "Disable_Ads",
+      "ItemInstanceId": "921040C8BCD3B454",
+      "PurchaseDate": "2019-11-20T11:45:41.798Z",
+      "RemainingUses": null,
+      "UnitCurrency": "JL",
+      "UnitPrice": 1000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
       "CustomData": {
         "upgrades": "[{\"type\":\"Defense\",\"value\":5}]"
       },
@@ -156,7 +173,7 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "79A8809FEAFDDE21",
       "PurchaseDate": "2019-11-07T06:57:51.202Z",
-      "RemainingUses": 22,
+      "RemainingUses": 23,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -272,7 +289,7 @@
   ],
   "VirtualCurrency": {
     "GD": 1604100,
-    "JL": 565100
+    "JL": 564100
   },
   "VirtualCurrencyRechargeTimes": {},
   "Request": {
