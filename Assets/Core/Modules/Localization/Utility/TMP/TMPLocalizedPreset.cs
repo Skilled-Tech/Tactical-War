@@ -19,11 +19,35 @@ using Random = UnityEngine.Random;
 
 using TMPro;
 
+using RTLTMPro;
+
 namespace Game
 {
 	public class TMPLocalizedPreset : LocalizationBehaviour.Modifier<TMP_Text>
 	{
         public LocalizationPreset Preset => Localization.Presets.Current;
+
+        RTLTextMeshPro RTL;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            RTL = Component as RTLTextMeshPro;
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+
+            if(RTL)
+            {
+                RTL.Farsi = false;
+                RTL.PreserveNumbers = false;
+
+                RTL.UpdateText();
+            }
+        }
 
         public override void UpdateState()
         {

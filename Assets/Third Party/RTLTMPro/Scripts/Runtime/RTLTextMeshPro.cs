@@ -130,7 +130,7 @@ namespace RTLTMPro
                 return input;
 
             finalText.Clear();
-            RTLSupport.FixRTL(input, finalText, false, fixTags, preserveNumbers); //TODO farsi hard change
+            RTLSupport.FixRTL(input, finalText, farsi, fixTags, preserveNumbers);
             finalText.Reverse();
 
             return finalText.ToString();
