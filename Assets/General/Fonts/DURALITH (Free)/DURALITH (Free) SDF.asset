@@ -27,10 +27,10 @@ MonoBehaviour:
     m_PointSize: 71
     m_Scale: 1
     m_LineHeight: 90
-    m_AscentLine: 70.3125
+    m_AscentLine: 39.34
     m_CapLine: 49.75
     m_MeanLine: 0
-    m_Baseline: 0
+    m_Baseline: -13.67
     m_DescentLine: -19.125
     m_SuperscriptOffset: 70.3125
     m_SuperscriptSize: 0.5
