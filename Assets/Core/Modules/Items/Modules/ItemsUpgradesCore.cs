@@ -70,6 +70,16 @@ namespace Game
             {
                 return Find(token.ToObject<string>());
             }
+
+            public override void Init()
+            {
+                base.Init();
+
+                for (int i = 0; i < list.Length; i++)
+                {
+                    list[i].Init();
+                }
+            }
         }
 
         [SerializeField]

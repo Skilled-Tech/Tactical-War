@@ -1,6 +1,95 @@
 {
   "Inventory": [
     {
+      "Annotation": "Level Completion 2 Reward",
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Wood Sword",
+      "Expiration": null,
+      "ItemClass": null,
+      "ItemId": "Wood_Sword",
+      "ItemInstanceId": "DB312F7FED9A97D5",
+      "PurchaseDate": "2019-11-30T10:56:37.062Z",
+      "RemainingUses": 4,
+      "UnitCurrency": null,
+      "UnitPrice": 0,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Disable Ads",
+      "Expiration": null,
+      "ItemClass": null,
+      "ItemId": "Disable_Ads",
+      "ItemInstanceId": "3F47F3532A3B2B2D",
+      "PurchaseDate": "2019-11-30T10:51:30.972Z",
+      "RemainingUses": null,
+      "UnitCurrency": "JL",
+      "UnitPrice": 1000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Lancer",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Lancer",
+      "ItemInstanceId": "AE16684CE3289C89",
+      "PurchaseDate": "2019-11-30T10:49:39.495Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 1000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Power\",\"value\":5},{\"type\":\"Range\",\"value\":5}]"
+      },
+      "DisplayName": "Ice Wizard",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Ice_Wizard",
+      "ItemInstanceId": "9EFC623569DA249F",
+      "PurchaseDate": "2019-11-30T10:47:09.118Z",
+      "RemainingUses": null,
+      "UnitCurrency": "JL",
+      "UnitPrice": 16000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Range\",\"value\":5},{\"type\":\"Power\",\"value\":5}]"
+      },
+      "DisplayName": "Archer",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Archer",
+      "ItemInstanceId": "4A747A8AFEE84311",
+      "PurchaseDate": "2019-11-30T10:21:55.813Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 4000,
+      "UsesIncrementedBy": null
+    },
+    {
       "Annotation": null,
       "BundleContents": null,
       "BundleParent": null,
@@ -167,30 +256,13 @@
       "BundleParent": null,
       "CatalogVersion": "Default",
       "CustomData": null,
-      "DisplayName": "Wood Sword",
-      "Expiration": null,
-      "ItemClass": null,
-      "ItemId": "Wood_Sword",
-      "ItemInstanceId": "79A8809FEAFDDE21",
-      "PurchaseDate": "2019-11-07T06:57:51.202Z",
-      "RemainingUses": 23,
-      "UnitCurrency": null,
-      "UnitPrice": 0,
-      "UsesIncrementedBy": null
-    },
-    {
-      "Annotation": "Daily Login Reward",
-      "BundleContents": null,
-      "BundleParent": null,
-      "CatalogVersion": "Default",
-      "CustomData": null,
       "DisplayName": "Wood Shield",
       "Expiration": null,
       "ItemClass": null,
       "ItemId": "Wood_Shield",
       "ItemInstanceId": "368D0DA17470A21F",
       "PurchaseDate": "2019-11-07T06:57:51.202Z",
-      "RemainingUses": 59,
+      "RemainingUses": 54,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -288,8 +360,8 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 1604100,
-    "JL": 564100
+    "GD": 1610300,
+    "JL": 544300
   },
   "VirtualCurrencyRechargeTimes": {},
   "Request": {

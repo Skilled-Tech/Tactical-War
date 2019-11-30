@@ -64,7 +64,7 @@ namespace Game
 
                 if (PlayFab.IsOnline)
                 {
-                    Menu.Popup.Show("Retrieving End Results");
+                    Menu.Popup.Show(Core.Localization.Phrases.Get("Retrieving End Results"));
 
                     PlayFab.World.FinishLevel.OnResponse += RewardResponseCallback;
                     PlayFab.World.FinishLevel.Request(Data.Level, Data.Difficulty, Level.Timer.Value);
@@ -93,7 +93,7 @@ namespace Game
 
             if (error == null)
             {
-                Menu.Popup.Show("Retrieving Player Data");
+                Menu.Popup.Show(Core.Localization.Phrases.Get("Retrieving Player Data"));
 
                 PlayFab.Player.OnResponse += OnPlayFabPlayerResponse;
                 PlayFab.Player.Retrieve();
@@ -151,7 +151,7 @@ namespace Game
                 Menu.Popup.Hide();
 
                 Menu.Rewards.OnFinish += Progress;
-                Menu.Rewards.Show("Level Reward", result.Rewards);
+                Menu.Rewards.Show(Core.Localization.Phrases.Get("Level Reward"), result.Rewards);
             }
 
             Level.Speed.Value = 0f;

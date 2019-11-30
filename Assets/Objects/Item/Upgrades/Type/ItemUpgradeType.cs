@@ -19,6 +19,8 @@ using Random = UnityEngine.Random;
 
 using Newtonsoft.Json;
 
+using UnityEngine.Scripting;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = ItemTemplate.UpgradesData.MenuPath + "Type")]
@@ -26,12 +28,19 @@ namespace Game
     {
         public string ID { get { return name; } }
 
+        public LocalizedPhraseProperty DisplayName { get; protected set; }
+
         [SerializeField]
         protected IconProperty icon;
         public IconProperty Icon { get { return icon; } }
 
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }
+
+        public virtual void Init()
+        {
+            DisplayName = LocalizedPhraseProperty.Create(base.name + " upgrade");
+        }
 
         [Preserve]
         public class Converter : JsonConverter
@@ -64,9 +73,5 @@ namespace Game
 
             }
         }
-    }
-
-    internal class PreserveAttribute : Attribute
-    {
     }
 }

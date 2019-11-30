@@ -23,6 +23,8 @@ using PlayFab.ClientModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using UnityEngine.Scripting;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Template")]

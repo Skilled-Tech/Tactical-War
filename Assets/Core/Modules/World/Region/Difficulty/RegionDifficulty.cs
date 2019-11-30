@@ -18,6 +18,8 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using Newtonsoft.Json;
 
+using UnityEngine.Scripting;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = RegionCore.MenuPath + "Difficulty")]

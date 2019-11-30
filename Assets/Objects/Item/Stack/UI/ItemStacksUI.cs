@@ -33,6 +33,8 @@ namespace Game
 
         public List<ItemStackUITemplate> Elements { get; protected set; }
 
+        public Core Core => Core.Instance;
+
         public virtual void Init()
         {
             Elements = new List<ItemStackUITemplate>();
@@ -44,11 +46,11 @@ namespace Game
 
             if(requirements == null || requirements.Length == 0)
             {
-                label.text = "No Requirements";
+                label.text = Core.Localization.Phrases.Get("No Requirements");
             }
             else
             {
-                label.text = "Required";
+                label.text = Core.Localization.Phrases.Get("Required");
 
                 for (int i = 0; i < requirements.Length; i++)
                 {

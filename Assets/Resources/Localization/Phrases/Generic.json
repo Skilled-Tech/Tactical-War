@@ -81,11 +81,11 @@
   },
   "required": {
     "en": "Required",
-    "ar": "متطلبات"
+    "ar": "متطلب"
   },
   "full": {
     "en": "Full",
-    "ar": "منتهي"
+    "ar": "مكتمل"
   },
   "energy": {
     "en": "Energy",
@@ -234,5 +234,17 @@
   "logout": {
     "en": "Logout",
     "ar": "خروج"
+  },
+  "no requirements": {
+    "en": "No Requirements",
+    "ar": "لا متطلبات"
+  },
+  "Retrieving End Results": {
+    "en": "Retrieving End Results",
+    "ar": "مراجعة نتائج المرحلة"
+  },
+  "Level Reward": {
+    "en": "Level Rewards",
+    "ar": "جوائز المرحلة"
   }
 }

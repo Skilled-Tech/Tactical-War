@@ -1,17 +1,17 @@
 {
   "Data": {
     "daily-rewards": {
-      "LastUpdated": "2019-11-25T06:42:56.771Z",
+      "LastUpdated": "2019-11-30T10:21:18.881Z",
       "Permission": 0,
-      "Value": "{\"timestamp\":\"2019-11-25T06:42:56.754Z\",\"progress\":1}"
+      "Value": "{\"timestamp\":\"2019-11-30T10:21:18.869Z\",\"progress\":1}"
     },
     "world": {
-      "LastUpdated": "2019-11-14T13:35:19.576Z",
+      "LastUpdated": "2019-11-30T10:50:28.216Z",
       "Permission": 0,
-      "Value": "{\"regions\":[{\"name\":\"Forest\",\"progress\":{\"count\":5,\"difficulty\":2}},{\"name\":\"Desert\",\"progress\":{\"count\":3,\"difficulty\":1}}]}"
+      "Value": "{\"regions\":[{\"name\":\"Forest\",\"progress\":{\"count\":1,\"difficulty\":3}},{\"name\":\"Desert\",\"progress\":{\"count\":3,\"difficulty\":1}}]}"
     }
   },
-  "DataVersion": 599,
+  "DataVersion": 601,
   "Request": {
     "IfChangedFromDataVersion": null,
     "Keys": null,

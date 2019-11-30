@@ -80,7 +80,7 @@ namespace Game
             this.Template = template;
             this.Type = type;
 
-            label.text = type.name + " Upgrade";
+            label.text = type.DisplayName.Text;
 
             UpdateState();
         }
@@ -101,7 +101,7 @@ namespace Game
 
                 requiremnets.Hide();
 
-                instruction.text = data.Value + "/" + template.Ranks.Length + " Full";
+                instruction.text = data.Value + "/" + template.Ranks.Length + " " + Core.Localization.Phrases.Get("Full");
             }
             else
             {
