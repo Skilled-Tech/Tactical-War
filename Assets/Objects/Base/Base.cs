@@ -43,7 +43,7 @@ namespace Game
             public Proponent Proponent { get { return Base.Proponent; } }
         }
 
-        public LevelCore.ProponentData.BaseData LevelData => Proponent.LevelData.Base;
+        public LevelCore.ProponentProperty.BaseProperty LevelData => Proponent.LevelData.Base;
 
         public virtual void Configure(Proponent data)
         {

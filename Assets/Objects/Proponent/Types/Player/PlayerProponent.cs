@@ -30,7 +30,7 @@ namespace Game
             public PlayerProponent Player { get { return Reference; } }
         }
 
-        public override LevelCore.ProponentData LevelData => Level.Data.Level.Player;
+        public override LevelCore.ProponentProperty LevelData => Level.Data.Level.Player;
 
         protected override void Awake()
         {

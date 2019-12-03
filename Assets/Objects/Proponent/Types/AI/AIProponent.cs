@@ -23,7 +23,7 @@ namespace Game
     {
         public ProponentUnitsSelection Selection { get { return Units.Selection; } }
 
-        public override LevelCore.ProponentData LevelData => Level.Data.Level.AI;
+        public override LevelCore.ProponentProperty LevelData => Level.Data.Level.AI;
         
         BaseUnitsCreator.Deployment deployment;
 

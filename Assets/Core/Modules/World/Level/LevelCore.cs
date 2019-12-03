@@ -29,7 +29,6 @@ namespace Game
                 return Region.Progress.Initial >= Index;
             }
         }
-
         public bool UnlockedOn(RegionDifficulty difficulty)
         {
             if (difficulty == null) return true;
@@ -43,7 +42,6 @@ namespace Game
                 return Region.Progress.At(difficulty) >= Index;
             }
         }
-
         public virtual void Unlock()
         {
             Region.Unlock(this);
@@ -69,7 +67,7 @@ namespace Game
         protected PlayerData player;
         public PlayerData Player { get { return player; } }
         [Serializable]
-        public class PlayerData : ProponentData
+        public class PlayerData : ProponentProperty
         {
             
         }
@@ -78,43 +76,74 @@ namespace Game
         protected AIData _AI;
         public AIData AI { get { return _AI; } }
         [Serializable]
-        public class AIData : ProponentData
+        public class AIData : ProponentProperty
         {
             [SerializeField]
-            protected UnitsData units;
-            public UnitsData Units { get { return units; } }
+            protected UnitsProperty units;
+            public UnitsProperty Units { get { return units; } }
             [Serializable]
-            public class UnitsData
+            public class UnitsProperty : Property
             {
                 [SerializeField]
                 protected AIProponentUnitsSelection.Element[] list;
                 public AIProponentUnitsSelection.Element[] List { get { return list; } }
+
+                public override void Configure()
+                {
+                    base.Configure();
+
+                    for (int i = 0; i < list.Length; i++)
+                        list[i].Init();
+                }
             }
 
             [SerializeField]
-            protected AbilitiesData abilities;
-            public AbilitiesData Abilities { get { return abilities; } }
+            protected AbilitiesProperty abilities;
+            public AbilitiesProperty Abilities { get { return abilities; } }
             [Serializable]
-            public class AbilitiesData
+            public class AbilitiesProperty : Property
             {
                 [SerializeField]
                 protected AbilityTemplate[] list;
                 public AbilityTemplate[] List { get { return list; } }
             }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                Register(units);
+                Register(abilities);
+            }
         }
 
-        public class ProponentData
+        public class ProponentProperty : Property
         {
             [SerializeField]
-            protected BaseData _base;
-            public BaseData Base { get { return _base; } }
+            protected BaseProperty _base;
+            public BaseProperty Base { get { return _base; } }
             [Serializable]
-            public class BaseData
+            public class BaseProperty : Property
             {
                 [SerializeField]
                 protected BaseGraphicsData graphic;
                 public BaseGraphicsData Graphic { get { return graphic; } }
             }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                Register(_base);
+            }
+        }
+
+        public class Property : Core.Property
+        {
+            public LevelCore Level { get; protected set; }
+            public virtual void Set(LevelCore reference) => Level = reference;
+
+            public virtual void Register(Property property) => Level.Register(property);
         }
 
         public RegionCore Region { get; protected set; }
@@ -149,6 +178,21 @@ namespace Game
 
                 return Region[Index + 1];
             }
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Register(player);
+            Register(AI);
+        }
+
+        public virtual void Register(Property property)
+        {
+            property.Set(this);
+
+            base.Register(property);
         }
 
         public delegate void CompleteDelegate(LevelCore level);

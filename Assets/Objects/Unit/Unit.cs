@@ -82,7 +82,7 @@ namespace Game
             this.Template = data.Template;
 
             Upgrades = Dependancy.Get<UnitUpgrades>(gameObject);
-            Upgrades.Set(data.Upgrade);
+            Upgrades.Set(data.Upgrades);
         }
 
         protected override void Awake()

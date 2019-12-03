@@ -22,7 +22,8 @@ namespace CaptureStudio
     {
         public List<TSubject> subjects;
 
-        public abstract GameObject ToPrefab(TSubject subject);
+        public abstract GameObject GetPrefab(TSubject subject);
+        public virtual GameObject GetInstance(TSubject subject) => Instantiate(GetPrefab(subject));
 
         protected override IEnumerator Procedure()
         {
@@ -32,9 +33,7 @@ namespace CaptureStudio
             {
                 var path = GetPath(subject);
 
-                var prefab = ToPrefab(subject);
-
-                var instance = Instantiate(prefab);
+                var instance = GetInstance(subject);
 
                 Capture(path);
 
@@ -46,7 +45,7 @@ namespace CaptureStudio
 
         protected virtual string GetPath(TSubject subject)
         {
-            var prefab = ToPrefab(subject);
+            var prefab = GetPrefab(subject);
 
             var result = AssetDatabase.GetAssetPath(prefab);
 
@@ -58,7 +57,7 @@ namespace CaptureStudio
 
     public class PrefabCapture : PrefabCapture<GameObject>
     {
-        public override GameObject ToPrefab(GameObject type) => type;
+        public override GameObject GetPrefab(GameObject type) => type;
     }
 }
 #endif

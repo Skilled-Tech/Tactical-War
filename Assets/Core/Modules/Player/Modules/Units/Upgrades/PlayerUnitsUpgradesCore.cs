@@ -71,7 +71,7 @@ namespace Game
 
             return element;
         }
-        public virtual ItemUpgradesData.ElementData GetDataElement(ItemTemplate item, ItemUpgradeType type)
+        public virtual ItemUpgradesData.Element GetDataElement(ItemTemplate item, ItemUpgradeType type)
         {
             var data = Find(item);
 
@@ -81,7 +81,7 @@ namespace Game
 
             return element;
         }
-        public virtual void GetElements(ItemTemplate item, ItemUpgradeType type, out ItemUpgradesTemplate.ElementData template, out ItemUpgradesData.ElementData data)
+        public virtual void GetElements(ItemTemplate item, ItemUpgradeType type, out ItemUpgradesTemplate.ElementData template, out ItemUpgradesData.Element data)
         {
             template = GetTemplateElement(item, type);
 
@@ -97,10 +97,10 @@ namespace Game
 
         [JsonProperty]
         [SerializeField]
-        protected List<ElementData> list;
-        public List<ElementData> List { get { return list; } }
+        protected List<Element> list;
+        public List<Element> List { get { return list; } }
         [Serializable]
-        public class ElementData
+        public class Element
         {
             [JsonProperty]
             [JsonConverter(typeof(ItemUpgradeType.Converter))]
@@ -115,25 +115,23 @@ namespace Game
 
             public int Index { get { return value - 1; } }
 
-            public ElementData()
+            public Element()
             {
 
             }
-
-            public ElementData(ItemUpgradeType type, int value)
+            public Element(ItemUpgradeType type, int value)
             {
                 this.type = type;
 
                 this.value = value;
             }
-
-            public ElementData(ItemUpgradeType type) : this(type, 0)
+            public Element(ItemUpgradeType type) : this(type, 0)
             {
                 
             }
         }
 
-        public virtual ElementData Find(ItemUpgradeType type)
+        public virtual Element Find(ItemUpgradeType type)
         {
             for (int i = 0; i < list.Count; i++)
                 if (list[i].Type == type)
@@ -173,7 +171,7 @@ namespace Game
 
                 if (element == null)
                 {
-                    var instance = new ElementData(types[i]);
+                    var instance = new Element(types[i]);
 
                     list.Add(instance);
                 }
@@ -182,17 +180,28 @@ namespace Game
 
         public ItemUpgradesData(PlayerInventoryCore.ItemData item)
         {
-            list = new List<ElementData>();
+            list = new List<Element>();
 
             Load(item.Instance);
 
             CheckDefaults(item.Template);
         }
-        public ItemUpgradesData(UnitTemplate template, List<ElementData> list)
+        public ItemUpgradesData(UnitTemplate template, List<Element> list)
         {
             this.list = list;
 
             CheckDefaults(template);
+        }
+        public ItemUpgradesData(ItemTemplate template, int rank)
+        {
+            list = new List<Element>();
+
+            for (int i = 0; i < template.Upgrades.Applicable.Length; i++)
+            {
+                var instance = new Element(template.Upgrades.Applicable[i], rank);
+
+                list.Add(instance);
+            }
         }
     }
 }

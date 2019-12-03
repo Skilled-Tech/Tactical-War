@@ -22,7 +22,7 @@ namespace CaptureStudio
 {
 	public class UnitCapture : PrefabCapture<UnitTemplate>
     {
-        public override GameObject ToPrefab(UnitTemplate type) => type.Prefab;
+        public override GameObject GetPrefab(UnitTemplate type) => type.Prefab;
     }
 }
 #endif

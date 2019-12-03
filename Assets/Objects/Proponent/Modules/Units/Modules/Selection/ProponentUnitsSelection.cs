@@ -49,6 +49,6 @@ namespace Game
     {
         UnitTemplate Template { get; }
 
-        ItemUpgradesData Upgrade { get; }
+        ItemUpgradesData Upgrades { get; }
     }
 }

@@ -89,7 +89,7 @@ namespace Game
 
             return element;
         }
-        public virtual ItemUpgradesData.ElementData GetDataElement(ItemUpgradeType target)
+        public virtual ItemUpgradesData.Element GetDataElement(ItemUpgradeType target)
         {
             if (Data == null) return null;
 
@@ -97,7 +97,7 @@ namespace Game
 
             return element;
         }
-        public virtual void GetElements(ItemUpgradeType target, out ItemUpgradesTemplate.ElementData template, out ItemUpgradesData.ElementData data)
+        public virtual void GetElements(ItemUpgradeType target, out ItemUpgradesTemplate.ElementData template, out ItemUpgradesData.Element data)
         {
             template = GetTemplateElement(target);
 

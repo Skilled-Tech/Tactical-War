@@ -21,8 +21,7 @@ namespace Game
 {
     public class AIProponentUnitsSelection : ProponentUnitsSelection
     {
-        public Element[] List { get { return Level.Data.Level.AI.Units.List; } }
-
+        public Element[] List => Level.Data.Level.AI.Units.List;
         [Serializable]
         public class Element : IUnitSelectionData
         {
@@ -31,8 +30,15 @@ namespace Game
             public UnitTemplate Template { get { return template; } }
 
             [SerializeField]
-            protected ItemUpgradesData upgrade;
-            public ItemUpgradesData Upgrade { get { return upgrade; } }
+            protected int rank;
+            public int Rank { get { return rank; } }
+
+            public ItemUpgradesData Upgrades { get; protected set; }
+
+            public virtual void Init()
+            {
+                Upgrades = new ItemUpgradesData(template, rank);
+            }
         }
 
         public override IUnitSelectionData this[int index] => List[index];

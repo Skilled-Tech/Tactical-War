@@ -35,7 +35,7 @@ namespace Game
         {
             public UnitTemplate Template => Player.Units.Selection[Index];
 
-            public ItemUpgradesData Upgrade => Player.Units.Upgrades.Find(Template);
+            public ItemUpgradesData Upgrades => Player.Units.Upgrades.Find(Template);
 
             public int Index { get; protected set; }
 
