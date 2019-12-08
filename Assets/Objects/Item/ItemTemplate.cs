@@ -234,6 +234,7 @@ namespace Game
         }
     }
 
+    //TODO move to appropriate folder
     [Serializable]
     public class IconProperty
     {

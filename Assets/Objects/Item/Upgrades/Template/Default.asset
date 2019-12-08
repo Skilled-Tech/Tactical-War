@@ -24,34 +24,22 @@ MonoBehaviour:
         type: 0
         value: 200
       percentage: 20
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 1
+      requirements: []
     - cost:
         type: 0
         value: 400
       percentage: 30
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 2
+      requirements: []
     - cost:
-        type: 1
+        type: 0
         value: 400
       percentage: 40
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 2
-      - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
-        count: 1
+      requirements: []
     - cost:
-        type: 1
+        type: 0
         value: 400
       percentage: 50
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 2
-      - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
-        count: 2
+      requirements: []
   - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
     ranks:
     - cost:
@@ -63,34 +51,22 @@ MonoBehaviour:
         type: 0
         value: 200
       percentage: 20
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 1
+      requirements: []
     - cost:
         type: 0
         value: 400
       percentage: 30
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 2
+      requirements: []
     - cost:
-        type: 1
+        type: 0
         value: 200
       percentage: 40
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 2
-      - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
-        count: 1
+      requirements: []
     - cost:
-        type: 1
+        type: 0
         value: 400
       percentage: 50
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 2
-      - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
-        count: 2
+      requirements: []
   - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
     ranks:
     - cost:
@@ -102,31 +78,19 @@ MonoBehaviour:
         type: 0
         value: 200
       percentage: 40
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 1
+      requirements: []
     - cost:
         type: 0
         value: 400
       percentage: 60
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 2
+      requirements: []
     - cost:
-        type: 1
+        type: 0
         value: 200
       percentage: 80
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 2
-      - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
-        count: 1
+      requirements: []
     - cost:
-        type: 1
+        type: 0
         value: 400
       percentage: 100
-      requirements:
-      - item: {fileID: 11400000, guid: 730fc2a1007217f4c990ef2b1abdec04, type: 2}
-        count: 2
-      - item: {fileID: 11400000, guid: f89fa835dd7826047ab21d05b48c6134, type: 2}
-        count: 2
+      requirements: []

@@ -1,6 +1,25 @@
 {
   "Inventory": [
     {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Power\",\"value\":5},{\"type\":\"Range\",\"value\":5}]"
+      },
+      "DisplayName": "Archer",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Archer",
+      "ItemInstanceId": "A762F73783F2258F",
+      "PurchaseDate": "2019-12-08T11:37:11.439Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 4000,
+      "UsesIncrementedBy": null
+    },
+    {
       "Annotation": "Level Completion 2 Reward",
       "BundleContents": null,
       "BundleParent": null,
@@ -12,7 +31,7 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "DB312F7FED9A97D5",
       "PurchaseDate": "2019-11-30T10:56:37.062Z",
-      "RemainingUses": 4,
+      "RemainingUses": 5,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -68,25 +87,6 @@
       "RemainingUses": null,
       "UnitCurrency": "JL",
       "UnitPrice": 16000,
-      "UsesIncrementedBy": null
-    },
-    {
-      "Annotation": null,
-      "BundleContents": null,
-      "BundleParent": null,
-      "CatalogVersion": "Default",
-      "CustomData": {
-        "upgrades": "[{\"type\":\"Range\",\"value\":5},{\"type\":\"Power\",\"value\":5}]"
-      },
-      "DisplayName": "Archer",
-      "Expiration": null,
-      "ItemClass": "Unit",
-      "ItemId": "Archer",
-      "ItemInstanceId": "4A747A8AFEE84311",
-      "PurchaseDate": "2019-11-30T10:21:55.813Z",
-      "RemainingUses": null,
-      "UnitCurrency": "GD",
-      "UnitPrice": 4000,
       "UsesIncrementedBy": null
     },
     {
@@ -360,8 +360,8 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 1610300,
-    "JL": 544300
+    "GD": 1605700,
+    "JL": 543900
   },
   "VirtualCurrencyRechargeTimes": {},
   "Request": {

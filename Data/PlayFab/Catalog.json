@@ -10,7 +10,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"1 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Archer",
       "InitialLimitedEditionCount": 0,
@@ -38,7 +38,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Knight",
       "InitialLimitedEditionCount": 0,
@@ -204,7 +204,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Fire Wizard",
       "InitialLimitedEditionCount": 0,
@@ -232,7 +232,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Ice Wizard",
       "InitialLimitedEditionCount": 0,
@@ -260,35 +260,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
-      "Description": null,
-      "DisplayName": "Toxic Wizard",
-      "InitialLimitedEditionCount": 0,
-      "IsLimitedEdition": false,
-      "IsStackable": false,
-      "IsTradable": false,
-      "ItemClass": "Unit",
-      "ItemId": "Toxic_Wizard",
-      "ItemImageUrl": null,
-      "RealCurrencyPrices": null,
-      "Tags": [
-        "upgradable"
-      ],
-      "VirtualCurrencyPrices": {
-        "JL": 16000
-      }
-    },
-    {
-      "Bundle": null,
-      "CanBecomeCharacter": false,
-      "CatalogVersion": "Default",
-      "Consumable": {
-        "UsageCount": null,
-        "UsagePeriod": null,
-        "UsagePeriodGroup": null
-      },
-      "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Thunder Wizard",
       "InitialLimitedEditionCount": 0,
@@ -316,7 +288,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Fire Archer",
       "InitialLimitedEditionCount": 0,
@@ -344,7 +316,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Toxic Archer",
       "InitialLimitedEditionCount": 0,
@@ -372,7 +344,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Heavy Knight",
       "InitialLimitedEditionCount": 0,
@@ -400,7 +372,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Lancer",
       "InitialLimitedEditionCount": 0,
@@ -428,7 +400,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Explosives Archer",
       "InitialLimitedEditionCount": 0,
@@ -456,7 +428,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"1 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Berserker",
       "InitialLimitedEditionCount": 0,
@@ -484,7 +456,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"1 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Savage",
       "InitialLimitedEditionCount": 0,
@@ -704,7 +676,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Toxic Assassin",
       "InitialLimitedEditionCount": 0,
@@ -732,7 +704,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Frantic Assassin",
       "InitialLimitedEditionCount": 0,
@@ -760,7 +732,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Shadow Assassin",
       "InitialLimitedEditionCount": 0,
@@ -788,7 +760,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Paralysis Archer",
       "InitialLimitedEditionCount": 0,
@@ -816,7 +788,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Earth Wizard",
       "InitialLimitedEditionCount": 0,
@@ -844,7 +816,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Healer Wizard",
       "InitialLimitedEditionCount": 0,
@@ -872,7 +844,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\"upgrades\":{\"template\":\"Default\",\"applicable\":[\"Power\",\"Defense\",\"Range\"]}}",
+      "CustomData": "{\"upgrades\":{\"template\":\"4 Star\",\"applicable\":[\"Power\",\"Defense\",\"Range\"]}}",
       "Description": null,
       "DisplayName": "Robot",
       "InitialLimitedEditionCount": 0,
@@ -978,7 +950,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"4 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Hero",
       "InitialLimitedEditionCount": 0,
@@ -1006,7 +978,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"4 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Spawner",
       "InitialLimitedEditionCount": 0,
@@ -1034,7 +1006,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Ice Archer",
       "InitialLimitedEditionCount": 0,
