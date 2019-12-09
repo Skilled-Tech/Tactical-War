@@ -30,13 +30,13 @@ MonoBehaviour:
   species: {fileID: 11400000, guid: ae2b960090fb5d94d828518d2edc1d83, type: 2}
   type: {fileID: 11400000, guid: 24de53186882044498807e9ef2186c21, type: 2}
   prefab: {fileID: 8127696124609658847, guid: 84c291b554bb77a489cb8c9db9805b34, type: 3}
-  health: 200
+  health: 180
   speed: 1.8
   deployment:
     cost: 300
-    time: 4
+    time: 6
   attack:
-    power: 50
+    power: 60
     range: 1
     distance: 0.5
     duration: 1

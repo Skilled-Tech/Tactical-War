@@ -36,7 +36,7 @@ MonoBehaviour:
     cost: 100
     time: 2
   attack:
-    power: 20
+    power: 30
     range: 1
     distance: 0.5
     duration: 0.5

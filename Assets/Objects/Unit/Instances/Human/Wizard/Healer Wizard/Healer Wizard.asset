@@ -30,16 +30,16 @@ MonoBehaviour:
   species: {fileID: 11400000, guid: ae2b960090fb5d94d828518d2edc1d83, type: 2}
   type: {fileID: 11400000, guid: d46edbafedd3e1044a159863c637a9e1, type: 2}
   prefab: {fileID: 5569182392643639925, guid: 81e820b55e567324e822d3c9ec826a67, type: 3}
-  health: 80
+  health: 120
   speed: 1.8
   deployment:
     cost: 400
-    time: 4
+    time: 6
   attack:
-    power: 30
+    power: 40
     range: 2
     distance: 0.5
-    duration: 1.2
+    duration: 2
     method: 1
     penetrate: 1
     _SFX:

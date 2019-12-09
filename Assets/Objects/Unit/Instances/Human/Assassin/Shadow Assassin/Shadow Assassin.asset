@@ -34,12 +34,12 @@ MonoBehaviour:
   speed: 3
   deployment:
     cost: 100
-    time: 2
+    time: 10
   attack:
-    power: 20
+    power: 30
     range: 1
     distance: 0.5
-    duration: 0.5
+    duration: 0.7
     method: 0
     penetrate: 0
     _SFX:

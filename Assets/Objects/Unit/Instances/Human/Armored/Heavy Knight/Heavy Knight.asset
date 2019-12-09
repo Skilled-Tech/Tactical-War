@@ -34,9 +34,9 @@ MonoBehaviour:
   speed: 1.8
   deployment:
     cost: 300
-    time: 4
+    time: 6
   attack:
-    power: 50
+    power: 60
     range: 1
     distance: 0.5
     duration: 1
