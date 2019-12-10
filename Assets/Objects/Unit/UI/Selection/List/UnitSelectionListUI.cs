@@ -57,14 +57,6 @@ namespace Game
 
                 Templates[i].RectTransform.anchoredPosition = new Vector2(xPosition, 0f);
             }
-
-            UI.Selection.Drag.OnDragEnd += OnTemplateDragEnd;
-        }
-
-        void OnTemplateDragEnd()
-        {
-            for (int i = 0; i < Templates.Length; i++)
-                Templates[i].OnTemplateDragEnd();
         }
 
         UnitSelectionUITemplate CreateTemplate(UnitTemplate unit, int index)

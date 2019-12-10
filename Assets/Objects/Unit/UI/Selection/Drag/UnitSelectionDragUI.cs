@@ -42,6 +42,8 @@ namespace Game
                 Instance.transform.localPosition = localPoint;
         }
 
+        public PlayerUnitsSelectionCore Selection => Core.Player.Units.Selection;
+
         public override void Configure(UnitsUI data)
         {
             base.Configure(data);
@@ -73,6 +75,8 @@ namespace Game
             script.CanvasGroup.blocksRaycasts = false;
             script.CanvasGroup.alpha = 0.6f;
 
+            script.Lock.Active = false;
+
             script.RectTransform.sizeDelta = source.RectTransform.sizeDelta * 0.8f;
 
             return script;
@@ -85,7 +89,7 @@ namespace Game
             {
                 if(Player.Inventory.Contains(template.CatalogItem))
                 {
-                    Core.Player.Units.Selection.Context = UITemplate.Template;
+                    Selection.Context.Start(UITemplate.Template);
 
                     Instance = CreateTemplate(UITemplate);
 
@@ -125,10 +129,9 @@ namespace Game
             else
             {
                 Destroy(Instance.gameObject);
-
                 Instance = null;
 
-                Core.Player.Units.Selection.Context = null;
+                Selection.Context.Apply();
 
                 if (OnDragEnd != null) OnDragEnd();
             }

@@ -31,24 +31,23 @@ namespace Game
 
         public RateTransition Transition { get; protected set; }
 
-        public PlayerUnitsSelectionCore SelectionCore { get { return Core.Player.Units.Selection; } }
-
         new public UnitTemplate Target
         {
             get
             {
-                return SelectionCore[Index];
+                return Selection[Index];
             }
             set
             {
-                SelectionCore[Index] = value;
+                Selection[Index] = value;
 
                 Set(Target);
             }
         }
-        public UnitTemplate Context { get { return SelectionCore.Context; } }
 
         public int Index { get; protected set; }
+
+        public PlayerUnitsSelectionCore Selection => Core.Player.Units.Selection;
 
         public virtual void Init(int index)
         {
@@ -56,38 +55,44 @@ namespace Game
 
             Transition = new RateTransition(this, 1f);
             Transition.Speed = 15f;
-            Transition.OnValueChanged += OnTransition;
+            Transition.OnValueChanged += TransitionCallback;
 
-            Init();
+            Selection.OnChange += SelectionChangeCallback;
+
+            base.Init();
         }
 
-        void OnTransition(float value)
+        void OnEnable()
+        {
+            StartCoroutine(Procedure());
+
+            IEnumerator Procedure()
+            {
+                yield return new WaitForEndOfFrame();
+
+                Transition.Value = 1f;
+
+                yield return new WaitForSeconds(0.35f);
+
+                Transition.To(0f);
+            }
+        }
+
+        void SelectionChangeCallback(int index, UnitTemplate target)
+        {
+            if(this.Index == index)
+            {
+                Set(Target);
+            }
+        }
+
+        void TransitionCallback(float value)
         {
             CanvasGroup.alpha = Mathf.Lerp(0.65f, 1f, value);
 
             RectTransform.anchoredPosition = new Vector2(RectTransform.anchoredPosition.x, Mathf.Lerp(-RectTransform.sizeDelta.y / 3f, 0f, value));
         }
-
-        public void OnTemplateDragEnd()
-        {
-            if (Template != Target) Target = Template;
-        }
-
-        void OnEnable()
-        {
-            StartCoroutine(OnEnableProcedure());
-        }
-        IEnumerator OnEnableProcedure()
-        {
-            yield return new WaitForEndOfFrame();
-
-            Transition.Value = 1f;
-
-            yield return new WaitForSeconds(0.35f);
-
-            Transition.To(0f);
-        }
-
+        
         public override void Set(UnitTemplate data)
         {
             if(data == null)
@@ -101,6 +106,7 @@ namespace Game
                 base.Set(data);
             }
 
+            rank.gameObject.SetActive(data != null);
             icon.gameObject.SetActive(data != null);
             label.gameObject.SetActive(data == null);
 
@@ -120,13 +126,15 @@ namespace Game
 
             RectTransform.SetAsLastSibling();
 
-            if (Context == null)
+            if (Selection.Context.Template == null)
             {
 
             }
             else
             {
-                Set(Context);
+                Set(Selection.Context.Template);
+
+                Selection.Context.SetSlot(Index);
             }
         }
 
@@ -136,14 +144,21 @@ namespace Game
 
             RectTransform.SetSiblingIndex(Index);
 
-            if (Context == null)
+            if (Selection.Context.Template == null)
             {
 
             }
             else
             {
                 Set(Target);
+
+                Selection.Context.SetSlot(null);
             }
+        }
+
+        void OnDestroy()
+        {
+            Selection.OnChange -= SelectionChangeCallback;
         }
     }
 }

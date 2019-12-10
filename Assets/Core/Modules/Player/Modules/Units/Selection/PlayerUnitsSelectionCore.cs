@@ -34,6 +34,8 @@ namespace Game
         protected UnitTemplate[] list;
         public UnitTemplate[] List { get { return list; } }
 
+        public int Count => List.Length;
+
         public UnitTemplate this[int index]
         {
             get
@@ -42,13 +44,63 @@ namespace Game
             }
             set
             {
+                if(allowDuplicates == false) ClearAny(value);
+
                 list[index] = value;
 
                 Save();
+
+                OnChange.Invoke(index, value);
+            }
+        }
+        public delegate void ChangeDelegate(int index, UnitTemplate target);
+        public event ChangeDelegate OnChange;
+
+        [SerializeField]
+        protected bool allowDuplicates = false;
+        public bool AllowDuplicates { get { return allowDuplicates; } }
+
+        [SerializeField]
+        protected ContextCore context;
+        public ContextCore Context { get { return context; } }
+        [Serializable]
+        public class ContextCore : Property
+        {
+            public UnitTemplate Template { get; protected set; }
+
+            public int? Slot { get; protected set; }
+
+            public virtual void Start(UnitTemplate target)
+            {
+                Template = target;
+            }
+
+            public virtual void SetSlot(int? value)
+            {
+                Slot = value;
+            }
+
+            public virtual void Apply()
+            {
+                if(Slot.HasValue)
+                {
+                    Units[Slot.Value] = Template;
+                }
+                else
+                {
+
+                }
+
+                Template = null;
+                Slot = null;
             }
         }
 
-        public UnitTemplate Context;
+        [Serializable]
+        public class Property : Core.Property
+        {
+            public PlayerUnitsSelectionCore Units => Core.Player.Units.Selection;
+        }
 
         public override void Configure()
         {
@@ -59,6 +111,10 @@ namespace Game
             Player.Inventory.OnUpdate += OnInventoryUpdated;
 
             Load();
+
+            if (allowDuplicates == false) ClearDuplicates();
+
+            Register(context);
         }
 
         void OnInventoryUpdated()
@@ -76,22 +132,44 @@ namespace Game
             Save();
         }
 
+        public virtual void ClearAny(UnitTemplate target)
+        {
+            if (target == null) return;
+
+            for (int i = 0; i < Count; i++)
+                if (this[i] == target) this[i] = null;
+        }
+        public virtual void ClearDuplicates()
+        {
+            var hash = new HashSet<UnitTemplate>();
+
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i] == null) continue;
+
+                if (hash.Contains(this[i]))
+                {
+                    this[i] = null;
+                }
+                else
+                {
+                    hash.Add(this[i]);
+                }
+            }
+        }
+
+        public string FileRelativePath { get { return "Player/Units Selection.json"; } }
         public virtual void Save()
         {
             var json = JsonConvert.SerializeObject(list, Formatting.Indented, new ItemTemplate.Converter());
 
-            Core.Data.Save(DataPath, json);
-
-            Core.Data.Save(DataPath, json);
+            Core.Data.Save(FileRelativePath, json);
         }
-
-        public string DataPath { get { return "Player/Units Selection.json"; } }
-
         public virtual void Load()
         {
-            if (Core.Data.Exists(DataPath))
+            if (Core.Data.Exists(FileRelativePath))
             {
-                var json = Core.Data.LoadText(DataPath);
+                var json = Core.Data.LoadText(FileRelativePath);
 
                 var array = JArray.Parse(json);
 
