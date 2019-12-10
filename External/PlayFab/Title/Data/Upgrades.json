@@ -260,13 +260,6 @@
               "type": "GD",
               "value": 200
             },
-            "percentage": 5
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
             "percentage": 10
           },
           {
@@ -289,6 +282,13 @@
               "value": 200
             },
             "percentage": 25
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 200
+            },
+            "percentage": 30
           }
         ]
       },
@@ -300,13 +300,6 @@
               "type": "GD",
               "value": 200
             },
-            "percentage": 5
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
             "percentage": 10
           },
           {
@@ -329,19 +322,19 @@
               "value": 200
             },
             "percentage": 25
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 200
+            },
+            "percentage": 30
           }
         ]
       },
       {
         "type": "Range",
         "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 10
-          },
           {
             "cost": {
               "type": "GD",
@@ -369,6 +362,13 @@
               "value": 200
             },
             "percentage": 50
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 200
+            },
+            "percentage": 60
           }
         ]
       }
@@ -385,20 +385,6 @@
               "type": "GD",
               "value": 300
             },
-            "percentage": 5
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
             "percentage": 15
           },
           {
@@ -414,6 +400,20 @@
               "value": 300
             },
             "percentage": 25
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 300
+            },
+            "percentage": 30
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 300
+            },
+            "percentage": 35
           }
         ]
       },
@@ -425,20 +425,6 @@
               "type": "GD",
               "value": 300
             },
-            "percentage": 5
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
             "percentage": 15
           },
           {
@@ -454,26 +440,26 @@
               "value": 300
             },
             "percentage": 25
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 300
+            },
+            "percentage": 30
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 300
+            },
+            "percentage": 35
           }
         ]
       },
       {
         "type": "Range",
         "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 20
-          },
           {
             "cost": {
               "type": "GD",
@@ -494,6 +480,20 @@
               "value": 300
             },
             "percentage": 50
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 300
+            },
+            "percentage": 60
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 300
+            },
+            "percentage": 80
           }
         ]
       }
@@ -510,27 +510,6 @@
               "type": "GD",
               "value": 400
             },
-            "percentage": 5
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 15
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
             "percentage": 20
           },
           {
@@ -539,65 +518,6 @@
               "value": 400
             },
             "percentage": 25
-          }
-        ]
-      },
-      {
-        "type": "Defense",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 5
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 15
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 25
-          }
-        ]
-      },
-      {
-        "type": "Range",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 20
           },
           {
             "cost": {
@@ -611,14 +531,94 @@
               "type": "GD",
               "value": 400
             },
-            "percentage": 40
+            "percentage": 35
           },
           {
             "cost": {
               "type": "GD",
               "value": 400
             },
-            "percentage": 50
+            "percentage": 40
+          }
+        ]
+      },
+      {
+        "type": "Defense",
+        "ranks": [
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 20
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 25
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 30
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 35
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 40
+          }
+        ]
+      },
+      {
+        "type": "Range",
+        "ranks": [
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 60
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 70
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 80
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 90
+          },
+          {
+            "cost": {
+              "type": "GD",
+              "value": 400
+            },
+            "percentage": 100
           }
         ]
       }
