@@ -31,7 +31,7 @@ MonoBehaviour:
   type: {fileID: 11400000, guid: 24de53186882044498807e9ef2186c21, type: 2}
   prefab: {fileID: 8127696124609658847, guid: 84c291b554bb77a489cb8c9db9805b34, type: 3}
   health: 180
-  speed: 1.8
+  movementMethod: 0
   deployment:
     cost: 300
     time: 6

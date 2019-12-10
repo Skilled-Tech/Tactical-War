@@ -23,11 +23,23 @@ namespace Game
 {
 	public class UnitNavigator : Unit.Module
 	{
-        [SerializeField]
-        protected bool sprint;
-        public bool Sprint { get { return sprint; } }
+        public float BaseSpeed
+        {
+            get
+            {
+                switch (Template.MovementMethod)
+                {
+                    case UnitMovementMethod.Walk:
+                        return 1.6f;
 
-        public float BaseSpeed => Template.Speed;
+                    case UnitMovementMethod.Sprint:
+                        return 3f;
+                }
+
+                Debug.LogError("No case defined for converting unit movement method: " + Template.MovementMethod.ToString() + " to Unit Navigator Base Speed, returning 0");
+                return 0f;
+            }
+        }
         public float Speed
         {
             get
@@ -72,7 +84,7 @@ namespace Game
             {
                 XPosition = Mathf.MoveTowards(XPosition, destination, Speed * Time.deltaTime);
 
-                Body.CharacterAnimation.SetState(sprint ? CharacterState.Run : CharacterState.Walk);
+                Body.CharacterAnimation.SetState(MovementMethodToCharacterState(Template.MovementMethod));
 
                 return false;
             }
@@ -82,6 +94,21 @@ namespace Game
 
                 return true;
             }
+        }
+
+        public static CharacterState MovementMethodToCharacterState(UnitMovementMethod method)
+        {
+            switch (method)
+            {
+                case UnitMovementMethod.Walk:
+                    return CharacterState.Walk;
+
+                case UnitMovementMethod.Sprint:
+                    return CharacterState.Run;
+            }
+
+            Debug.LogError("No case defined for converting unit movement method: " + method.ToString() + " to Unit Navigator Base Speed, returning Walk State");
+            return CharacterState.Walk;
         }
     }
 }

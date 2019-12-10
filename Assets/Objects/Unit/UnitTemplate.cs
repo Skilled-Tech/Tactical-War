@@ -46,8 +46,8 @@ namespace Game
         public float Health { get { return health; } }
 
         [SerializeField]
-        protected float speed = 1.5f;
-        public float Speed { get { return speed; } }
+        protected UnitMovementMethod movementMethod = UnitMovementMethod.Walk;
+        public UnitMovementMethod MovementMethod { get { return movementMethod; } }
 
         [SerializeField]
         protected DeploymentData deployment = new DeploymentData(200, 2f);
@@ -214,5 +214,10 @@ namespace Game
 
             visibility = new VisibilityData(false, false);
         }
+    }
+
+    public enum UnitMovementMethod
+    {
+        Walk, Sprint
     }
 }

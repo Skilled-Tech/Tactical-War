@@ -74,7 +74,7 @@ namespace Game
                 FormatUpgradeLabel(defense, template, Core.Items.Upgrades.Types.Common.Defense, template.Defense);
 
                 FormatLabel(hp, nameof(HP), template.Health);
-                FormatLabel(speed, nameof(Speed), template.Speed);
+                FormatLabel(speed, nameof(Speed), template.MovementMethod);
                 FormatLabel(deploy, nameof(Deploy), template.Deployment.Time, "seconds-unit");
             }
 
