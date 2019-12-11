@@ -37,10 +37,10 @@ MonoBehaviour:
     cost: 400
     time: 8
   attack:
-    power: 10
+    power: 15
     range: 2
     distance: 4
-    duration: 0.4
+    duration: 0.2
     method: 2
     penetrate: 0
     _SFX:
