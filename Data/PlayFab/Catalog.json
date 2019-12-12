@@ -1049,6 +1049,30 @@
       "VirtualCurrencyPrices": {
         "JL": 1000
       }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "New Player Reward",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "New_Player_Reward",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {}
     }
   ],
   "Request": {

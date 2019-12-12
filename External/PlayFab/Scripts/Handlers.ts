@@ -252,3 +252,31 @@ handlers.Reward = function (args?: Array<string>)
 
     PlayFab.Catalog.Item.GrantAll(currentPlayerId, args, "Reward");
 }
+
+handlers.WelcomeNewPlayer = function (args?: IWelcomeNewPlayerArguments)
+{
+    var inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
+
+    var token = "New_Player_Reward";
+
+    if (inventory.Contains(token))
+    {
+        log.error("player " + currentPlayerId + " has already been rewarded a " + token);
+        return;
+    }
+
+    var rewards = [token, "Savage", "Archer"];
+
+    PlayFab.Catalog.Item.GrantAll(currentPlayerId, rewards, "New Player Welcome Reward");
+
+    var result =
+    {
+        rewards: rewards,
+    };
+
+    return result;
+}
+interface IWelcomeNewPlayerArguments
+{
+
+}

@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   progress:
     count: 1
-    difficulty: {fileID: 11400000, guid: b5da3c47ed0172d4abc1332a17aef7eb, type: 2}
+    difficulty: {fileID: 11400000, guid: 74bf909b5e8c6434080c4489c4cee8dc, type: 2}
   levels:
   - {fileID: 11400000, guid: e66b8d2185713ec4eb5624afab79d085, type: 2}
   - {fileID: 11400000, guid: ce534a91810de0a4cabbe3acc483ab60, type: 2}

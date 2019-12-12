@@ -24,6 +24,13 @@ namespace PlayFab
                 return null;
             }
 
+            public Contains(itemID: string): boolean
+            {
+                if (this.FindWithID(itemID) == null) return false;
+
+                return true;
+            }
+
             public CompliesWith(requirements: API.ItemStack[]): boolean
             {
                 if (requirements == null || requirements.length == 0) return true;

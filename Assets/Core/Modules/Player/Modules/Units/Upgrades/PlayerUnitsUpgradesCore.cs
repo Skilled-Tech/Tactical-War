@@ -60,6 +60,12 @@ namespace Game
                 {
                     var data = new ItemUpgradesData(Inventory.Items[i]);
 
+                    if(Dictionary.ContainsKey(Inventory.Items[i].Template))
+                    {
+                        Debug.LogWarning("Duplicate Unit found, duplicate: " + Inventory.Items[i].Template);
+                        continue;
+                    }
+
                     Dictionary.Add(Inventory.Items[i].Template, data);
                 }
             }

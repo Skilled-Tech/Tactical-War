@@ -66,6 +66,10 @@ namespace Game
         protected PlayFabWorldCore world;
         public PlayFabWorldCore World { get { return world; } }
 
+        [SerializeField]
+        protected PlayFabNewPlayerReward newPlayerReward;
+        public PlayFabNewPlayerReward NewPlayerReward { get { return newPlayerReward; } }
+
         [Serializable]
         public class Property : Core.Property
         {
@@ -140,6 +144,7 @@ namespace Game
             Register(upgrade);
             Register(dailyReward);
             Register(world);
+            Register(newPlayerReward);
         }
 
         public virtual void EnsureActivation()

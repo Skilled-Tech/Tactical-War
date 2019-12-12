@@ -146,7 +146,7 @@ namespace Game
             }
             else
             {
-                Error(error);
+                ErrorCallback(error);
             }
         }
 
@@ -163,7 +163,7 @@ namespace Game
             }
             else
             {
-                Error(error);
+                ErrorCallback(error);
             }
         }
 
@@ -187,7 +187,7 @@ namespace Game
             }
             else
             {
-                Error(error);
+                ErrorCallback(error);
             }
         }
 
@@ -199,20 +199,20 @@ namespace Game
             PlayFab.Player.Retrieve();
         }
 
-        PlayFabDailyRewardCore.ResultData dailyReward;
+        public PlayFabDailyRewardCore.ResultData DailyReward { get; protected set; }
         void DailyRewardsResponseCallback(PlayFabDailyRewardCore.ResultData result, PlayFabError error)
         {
             PlayFab.DailyReward.OnResponse -= DailyRewardsResponseCallback;
 
             if(error == null)
             {
-                dailyReward = result;
+                DailyReward = result;
 
                 RetrievePlayerData();
             }
             else
             {
-                Error(error);
+                ErrorCallback(error);
             }
         }
 
@@ -222,11 +222,64 @@ namespace Game
 
             if (error == null)
             {
-                Finish();
+                if(PlayFab.NewPlayerReward.CanRequest)
+                {
+                    PlayFab.NewPlayerReward.OnResponse += NewPlayerRewardCallback;
+                    PlayFab.NewPlayerReward.Request();
+                }
+                else
+                    Finish();
             }
             else
             {
-                Error(error);
+                ErrorCallback(error);
+            }
+        }
+
+        void NewPlayerRewardCallback(PlayFabNewPlayerReward.ResultData result, PlayFabError error)
+        {
+            PlayFab.NewPlayerReward.OnResponse -= NewPlayerRewardCallback;
+
+            if(error == null)
+            {
+                RetrieveInventory(InventoryCallback);
+
+                void InventoryCallback(PlayFabPlayerInventoryCore inventory)
+                {
+                    for (int i = 0; i < result.Rewards.Length; i++)
+                    {
+                        if(result.Rewards[i] is UnitTemplate)
+                        {
+                            Player.Units.Selection.Add(result.Rewards[i] as UnitTemplate);
+                        }
+                    }
+
+                    Finish();
+                }
+            }
+            else
+            {
+                ErrorCallback(error);
+            }
+        }
+
+        void RetrieveInventory(Action<PlayFabPlayerInventoryCore> Callback)
+        {
+            PlayFab.Player.Inventory.OnResponse += ResponseCallback;
+            PlayFab.Player.Inventory.Request();
+
+            void ResponseCallback(PlayFabPlayerInventoryCore result, PlayFabError error)
+            {
+                PlayFab.Player.Inventory.OnResponse -= ResponseCallback;
+
+                if(error == null)
+                {
+                    Callback(result);
+                }
+                else
+                {
+                    ErrorCallback(error);
+                }
             }
         }
 
@@ -246,16 +299,16 @@ namespace Game
             Popup.Hide();
             Core.Prefs.NeedOnlineLogin.Value = false;
 
-            if (dailyReward == null || dailyReward.Items == null || dailyReward.Items.Length == 0)
+            if (DailyReward == null || DailyReward.Items == null || DailyReward.Items.Length == 0)
             {
                 Progress();
             }
             else
             {
-                var stacks = ItemStack.From(dailyReward.Items);
+                var stacks = ItemStack.From(DailyReward.Items);
 
                 var title = Localization.Phrases.Get("daily reward") + Environment.NewLine;
-                title += Localization.Phrases.Get("day") + " " + (dailyReward.Progress + 1).ToString() + "\\" + PlayFab.DailyReward.Max;
+                title += Localization.Phrases.Get("day") + " " + (DailyReward.Progress + 1).ToString() + "\\" + PlayFab.DailyReward.Max;
 
                 Core.UI.Rewards.OnFinish += Progress;
                 Core.UI.Rewards.Show(title, stacks);
@@ -264,7 +317,7 @@ namespace Game
 
         public delegate void ErrorDelegate(PlayFabError error);
         public event ErrorDelegate OnError;
-        void Error(PlayFabError error)
+        void ErrorCallback(PlayFabError error)
         {
             Debug.LogError("Login Error: " + error.GenerateErrorReport());
 

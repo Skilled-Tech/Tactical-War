@@ -162,6 +162,20 @@ handlers.Reward = function (args) {
     }
     PlayFab.Catalog.Item.GrantAll(currentPlayerId, args, "Reward");
 };
+handlers.WelcomeNewPlayer = function (args) {
+    var inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
+    var token = "New_Player_Reward";
+    if (inventory.Contains(token)) {
+        log.error("player " + currentPlayerId + " has already been rewarded a " + token);
+        return;
+    }
+    var rewards = [token, "Savage", "Archer"];
+    PlayFab.Catalog.Item.GrantAll(currentPlayerId, rewards, "New Player Welcome Reward");
+    var result = {
+        rewards: rewards,
+    };
+    return result;
+};
 var Sandbox;
 (function (Sandbox) {
     function Call() {
@@ -1097,6 +1111,11 @@ var PlayFab;
                     if (this.items[i].ItemInstanceId == itemInstanceID)
                         return this.items[i];
                 return null;
+            }
+            Contains(itemID) {
+                if (this.FindWithID(itemID) == null)
+                    return false;
+                return true;
             }
             CompliesWith(requirements) {
                 if (requirements == null || requirements.length == 0)

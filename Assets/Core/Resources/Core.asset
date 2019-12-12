@@ -44,26 +44,25 @@ MonoBehaviour:
       funds:
         elements:
         - type: 0
-          _value: 1539700
+          _value: 102000
         - type: 1
-          _value: 543900
+          _value: 100000
     units:
       selection:
         max: 6
         list:
-        - {fileID: 11400000, guid: 512c55eea40e4e24bafd6866e382c807, type: 2}
-        - {fileID: 11400000, guid: 8b5bdedbe1f838f4286a37624b062ff2, type: 2}
-        - {fileID: 11400000, guid: 5c8acfd3cef63344f837225d292cfedb, type: 2}
-        - {fileID: 11400000, guid: 5691a21f5aa185a42bf3a5ba6f3bec94, type: 2}
-        - {fileID: 11400000, guid: 6a36fb4327677d5479e0bbe0ed809fc8, type: 2}
-        - {fileID: 11400000, guid: dc8bae592eff22d47894027b21de2791, type: 2}
+        - {fileID: 11400000, guid: ff2818391be755a41be00c9ba3b4fe93, type: 2}
+        - {fileID: 11400000, guid: 2fd0d456cb07d984abf429902985c179, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
         allowDuplicates: 0
     ability:
       selection:
         max: 3
         list:
-        - {fileID: 11400000, guid: d2529312bb528f243803050dffb227b0, type: 2}
-        - {fileID: 11400000, guid: 9e5a3b2d97925ec41af07c39e731bef9, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
         - {fileID: 0}
         Context: {fileID: 0}
   shop:
@@ -92,6 +91,8 @@ MonoBehaviour:
     catalog:
       version: Default
     world: {}
+    newPlayerReward:
+      token: {fileID: 11400000, guid: 35a904febe5028a489f975eaea4600a4, type: 2}
   _IAP:
     google: {}
   ads:

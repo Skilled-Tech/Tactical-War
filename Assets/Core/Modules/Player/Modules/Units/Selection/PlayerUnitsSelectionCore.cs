@@ -50,7 +50,7 @@ namespace Game
 
                 Save();
 
-                OnChange.Invoke(index, value);
+                OnChange?.Invoke(index, value);
             }
         }
         public delegate void ChangeDelegate(int index, UnitTemplate target);
@@ -184,6 +184,23 @@ namespace Game
             {
                 
             }
+        }
+
+        public virtual void Add(UnitTemplate unit)
+        {
+            Debug.Log(unit);
+            Debug.Log(Count);
+
+            for (int i = 0; i < Count; i++)
+            {
+                if(this[i] == null)
+                {
+                    this[i] = unit;
+                    return;
+                }
+            }
+
+            this[0] = unit;
         }
     }
 }
