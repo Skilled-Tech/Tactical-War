@@ -20,59 +20,27 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 #if UNITY_EDITOR
-public class Sandbox : MonoBehaviour
+public class SandboxBase : MonoBehaviour
 {
-    private void Start()
+    protected virtual void OnDestroy()
     {
-        string text = "SUPER HOTALLOY, SUPER HOT, SUPER HOT, SUPER HOT, SUPER HOT, SUPER HOT";
-
-        var result = AppenedPhrase(text, "HOT", "xXx", "xXx");
-
-        Debug.Log(result);
+        Debug.Log("base class action");
     }
+}
 
-    public string AppenedPhrase(string source, string phrase, string start, string end)
+public class Sandbox : SandboxBase
+{
+    protected override void OnDestroy()
     {
-        return source.Replace(phrase, start + phrase + end);
-    }
+        base.OnDestroy();
 
-    void Units()
-    {
-        var GUIDs = AssetDatabase.FindAssets("t:ItemTemplate");
-
-        var jObject = new JObject();
-
-        foreach (var GUID in GUIDs)
-        {
-            var path = AssetDatabase.GUIDToAssetPath(GUID);
-
-            var itemTemplate = AssetDatabase.LoadAssetAtPath<ItemTemplate>(path);
-
-            if (jObject[itemTemplate.name.ToLower()] != null) continue;
-
-            JProperty Add(string name)
-            {
-                var contents = new JObject();
-                contents.Add(new JProperty("en", name));
-                contents.Add(new JProperty("ar", "*" + name + "*"));
-                var property = new JProperty(name.ToLower(), contents);
-                return property;
-            }
-
-            var a = Add(itemTemplate.name);
-            var b = Add(itemTemplate.name + " Description");
-
-            jObject.Add(a);
-            jObject.Add(b);
-        }
-
-        Debug.Log(jObject.ToString());
-
-        Core.Instance.Data.Save("Units R.json", jObject.ToString());
+        Debug.Log("child class action");
     }
 }
 #endif
 
+#region IAP EXAMPLE
+/*
 public class AndroidIAPExample : MonoBehaviour, IStoreListener
 {
     // Items list, configurable via inspector
@@ -292,3 +260,5 @@ public class GooglePurchase
         return purchase;
     }
 }
+*/
+#endregion

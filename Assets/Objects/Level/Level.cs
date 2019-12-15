@@ -98,7 +98,7 @@ namespace Game
             Core.Audio.Player.Music.FadeOut();
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Time.timeScale = 1f;
         }

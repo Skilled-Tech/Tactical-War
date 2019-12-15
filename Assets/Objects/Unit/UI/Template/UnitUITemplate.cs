@@ -133,7 +133,7 @@ namespace Game
         }
         #endregion
 
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             
         }

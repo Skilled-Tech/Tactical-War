@@ -84,7 +84,7 @@ namespace Game
             Upgrade.UpdateState();
         }
 
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             
         }

@@ -42,6 +42,8 @@ namespace Game
                 Instance.transform.localPosition = localPoint;
         }
 
+        public PlayerAbilitySelectionCore Selection => Core.Player.Ability.Selection;
+
         public override void Configure(AbilitiesUI data)
         {
             base.Configure(data);
@@ -85,7 +87,7 @@ namespace Game
             {
                 if(Player.Inventory.Contains(template.CatalogItem))
                 {
-                    Core.Player.Ability.Selection.Context = UITemplate.Template;
+                    Selection.Context.Start(UITemplate.Template);
 
                     Instance = CreateTemplate(UITemplate);
 
@@ -128,7 +130,7 @@ namespace Game
 
                 Instance = null;
 
-                Core.Player.Ability.Selection.Context = null;
+                Selection.Context.Apply();
 
                 if (OnDragEnd != null) OnDragEnd();
             }

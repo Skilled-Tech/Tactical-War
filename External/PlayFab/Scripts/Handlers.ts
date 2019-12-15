@@ -265,7 +265,7 @@ handlers.WelcomeNewPlayer = function (args?: IWelcomeNewPlayerArguments)
         return;
     }
 
-    var rewards = [token, "Savage", "Archer"];
+    var rewards = [token, "Savage", "Archer", "Meteor_Shower"];
 
     PlayFab.Catalog.Item.GrantAll(currentPlayerId, rewards, "New Player Welcome Reward");
 

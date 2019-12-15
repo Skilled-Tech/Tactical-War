@@ -58,7 +58,7 @@ namespace Game
             UpdateState();
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Core.Localization.OnTargetChange -= LocalizationTargetChangeCallback;
         }

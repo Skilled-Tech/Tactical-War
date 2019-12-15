@@ -31,22 +31,21 @@ namespace Game
 
         public RateTransition Transition { get; protected set; }
 
-        public PlayerAbilitySelectionCore SelectionCore { get { return Core.Player.Ability.Selection; } }
-
         new public AbilityTemplate Target
         {
             get
             {
-                return SelectionCore[Index];
+                return Selection[Index];
             }
             set
             {
-                SelectionCore[Index] = value;
+                Selection[Index] = value;
 
                 Set(Target);
             }
         }
-        public AbilityTemplate Context { get { return SelectionCore.Context; } }
+
+        public PlayerAbilitySelectionCore Selection { get { return Core.Player.Ability.Selection; } }
 
         public int Index { get; protected set; }
 
@@ -58,7 +57,9 @@ namespace Game
             Transition.Speed = 15f;
             Transition.OnValueChanged += OnTransition;
 
-            Init();
+            base.Init();
+
+            Selection.OnChange += SelectionChangeCallback;
         }
 
         void OnTransition(float value)
@@ -68,24 +69,28 @@ namespace Game
             RectTransform.anchoredPosition = new Vector2(RectTransform.anchoredPosition.x, Mathf.Lerp(-RectTransform.sizeDelta.y / 3f, 0f, value));
         }
 
-        public void OnTemplateDragEnd()
-        {
-            if (Template != Target) Target = Template;
-        }
-
         void OnEnable()
         {
-            StartCoroutine(OnEnableProcedure());
+            StartCoroutine(Procedure());
+
+            IEnumerator Procedure()
+            {
+                yield return new WaitForEndOfFrame();
+
+                Transition.Value = 1f;
+
+                yield return new WaitForSeconds(0.35f);
+
+                Transition.To(0f);
+            }
         }
-        IEnumerator OnEnableProcedure()
+
+        void SelectionChangeCallback(int index, AbilityTemplate target)
         {
-            yield return new WaitForEndOfFrame();
-
-            Transition.Value = 1f;
-
-            yield return new WaitForSeconds(0.35f);
-
-            Transition.To(0f);
+            if (this.Index == index)
+            {
+                Set(Target);
+            }
         }
 
         public override void Set(AbilityTemplate data)
@@ -120,13 +125,15 @@ namespace Game
 
             RectTransform.SetAsLastSibling();
 
-            if (Context == null)
+            if (Selection.Context.Template == null)
             {
 
             }
             else
             {
-                Set(Context);
+                Set(Selection.Context.Template);
+
+                Selection.Context.SetSlot(Index);
             }
         }
 
@@ -136,14 +143,23 @@ namespace Game
 
             RectTransform.SetSiblingIndex(Index);
 
-            if (Context == null)
+            if (Selection.Context.Template == null)
             {
 
             }
             else
             {
                 Set(Target);
+
+                Selection.Context.SetSlot(null);
             }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            Selection.OnChange -= SelectionChangeCallback;
         }
     }
 }

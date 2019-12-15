@@ -75,7 +75,7 @@ namespace Game
             if (OnClick != null) OnClick(this);
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Core.Localization.OnTargetChange -= LocalizationTargetChangedCallback;
         }

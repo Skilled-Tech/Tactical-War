@@ -54,7 +54,7 @@ namespace Game
             Label.text = Proponent.Energy.Value.ToString("N0") + " " + Core.Localization.Phrases.Get("energy");
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Core.Localization.OnTargetChange -= LocalizationTargetChangeCallback;
         }

@@ -156,8 +156,10 @@ namespace Game
             }
         }
 
-        void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             Selection.OnChange -= SelectionChangeCallback;
         }
     }

@@ -169,7 +169,7 @@ handlers.WelcomeNewPlayer = function (args) {
         log.error("player " + currentPlayerId + " has already been rewarded a " + token);
         return;
     }
-    var rewards = [token, "Savage", "Archer"];
+    var rewards = [token, "Savage", "Archer", "Meteor_Shower"];
     PlayFab.Catalog.Item.GrantAll(currentPlayerId, rewards, "New Player Welcome Reward");
     var result = {
         rewards: rewards,

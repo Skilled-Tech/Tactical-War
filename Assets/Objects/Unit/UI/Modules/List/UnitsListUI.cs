@@ -119,7 +119,7 @@ namespace Game
             if (OnTemplateDragEnd != null) OnTemplateDragEnd(template, unit, pointerData);
         }
 
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Player.Inventory.OnUpdate -= InventroyUpdateCallback;
         }

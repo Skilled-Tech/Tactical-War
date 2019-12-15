@@ -98,7 +98,7 @@ namespace Game
             }
         }
 
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Proponent.Energy.OnChanged -= OnEnergyChanged;
             Ability.Cooldown.OnTick -= ElementCoolDownTickCallback;

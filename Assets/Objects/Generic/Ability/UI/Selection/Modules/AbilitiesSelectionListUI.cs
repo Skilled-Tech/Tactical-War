@@ -31,25 +31,25 @@ namespace Game
 
         public AbilitySelectionUITemplate[] Templates { get; protected set; }
 
-        public PlayerAbilitySelectionCore SelectionCore { get { return Core.Player.Ability.Selection; } }
+        public PlayerAbilitySelectionCore Selection { get { return Core.Player.Ability.Selection; } }
 
         public override void Init()
         {
             base.Init();
 
-            Templates = new AbilitySelectionUITemplate[SelectionCore.Max];
+            Templates = new AbilitySelectionUITemplate[Selection.Max];
 
             var templateWidth = Template.GetComponent<RectTransform>().sizeDelta.x;
 
             var templateSpace = templateWidth + spacing;
 
-            var totalWidth = templateSpace * (SelectionCore.Max - 1);
+            var totalWidth = templateSpace * (Selection.Max - 1);
 
-            for (int i = 0; i < SelectionCore.Max; i++)
+            for (int i = 0; i < Selection.Max; i++)
             {
-                var rate = i / (SelectionCore.Max - 1f);
+                var rate = i / (Selection.Max - 1f);
 
-                Templates[i] = CreateTemplate(SelectionCore.List[i], i);
+                Templates[i] = CreateTemplate(Selection.List[i], i);
 
                 Templates[i].RectTransform.localEulerAngles = Vector3.forward * Mathf.Lerp(10, -10, rate);
 
@@ -57,14 +57,6 @@ namespace Game
 
                 Templates[i].RectTransform.anchoredPosition = new Vector2(xPosition, 0f);
             }
-
-            UI.Selection.Drag.OnDragEnd += OnTemplateDragEnd;
-        }
-
-        void OnTemplateDragEnd()
-        {
-            for (int i = 0; i < Templates.Length; i++)
-                Templates[i].OnTemplateDragEnd();
         }
 
         AbilitySelectionUITemplate CreateTemplate(AbilityTemplate unit, int index)

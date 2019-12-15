@@ -125,7 +125,7 @@ namespace Game
 
             }
 
-            void OnDestroy()
+            protected virtual void OnDestroy()
             {
                 Localization.OnTargetChange -= TargetChangeCallback;
             }

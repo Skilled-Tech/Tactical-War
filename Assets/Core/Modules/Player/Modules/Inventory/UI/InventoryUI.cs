@@ -82,7 +82,7 @@ namespace Game
             return script;
         }
 
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Player.Inventory.OnUpdate -= UpdateState;
         }

@@ -250,7 +250,15 @@ namespace Game
                     {
                         if(result.Rewards[i] is UnitTemplate)
                         {
-                            Player.Units.Selection.Add(result.Rewards[i] as UnitTemplate);
+                            var unit = result.Rewards[i] as UnitTemplate;
+
+                            Player.Units.Selection.Add(unit);
+                        }
+                        else if(result.Rewards[i] is AbilityTemplate)
+                        {
+                            var ability = result.Rewards[i] as AbilityTemplate;
+
+                            Player.Ability.Selection.Add(ability);
                         }
                     }
 

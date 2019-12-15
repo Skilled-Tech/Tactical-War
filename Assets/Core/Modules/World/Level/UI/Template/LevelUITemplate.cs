@@ -71,7 +71,7 @@ namespace Game
             if (OnClick != null) OnClick(this);
         }
 
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             
         }

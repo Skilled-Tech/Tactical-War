@@ -29,12 +29,11 @@ namespace Game
         protected int max = 4;
         public int Max { get { return max; } }
 
+        #region List
         [SerializeField]
         [JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
         protected UnitTemplate[] list;
         public UnitTemplate[] List { get { return list; } }
-
-        public int Count => List.Length;
 
         public UnitTemplate this[int index]
         {
@@ -55,6 +54,9 @@ namespace Game
         }
         public delegate void ChangeDelegate(int index, UnitTemplate target);
         public event ChangeDelegate OnChange;
+
+        public int Count => List.Length;
+        #endregion
 
         [SerializeField]
         protected bool allowDuplicates = false;
@@ -186,21 +188,18 @@ namespace Game
             }
         }
 
-        public virtual void Add(UnitTemplate unit)
+        public virtual void Add(UnitTemplate template)
         {
-            Debug.Log(unit);
-            Debug.Log(Count);
-
             for (int i = 0; i < Count; i++)
             {
                 if(this[i] == null)
                 {
-                    this[i] = unit;
+                    this[i] = template;
                     return;
                 }
             }
 
-            this[0] = unit;
+            this[0] = template;
         }
     }
 }
