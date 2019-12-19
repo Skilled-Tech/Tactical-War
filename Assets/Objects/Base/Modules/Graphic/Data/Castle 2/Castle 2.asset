@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Castle 2
   m_EditorClassIdentifier: 
   prefab: {fileID: 3949896245978839223, guid: 2bd7754514064124d8692a26fb783861, type: 3}
-  position: {x: -2.78, y: 4.14, z: 0}
+  position: {x: 0, y: 3.9, z: 0}

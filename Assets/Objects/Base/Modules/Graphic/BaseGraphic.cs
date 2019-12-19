@@ -44,6 +44,10 @@ namespace Game
         {
             Instance = Instantiate(Base.LevelData.Graphic.Prefab, transform);
 
+            Instance.name = Base.LevelData.Graphic.Prefab.name;
+
+            Tools.Layer.Set(Instance, Proponent.Layer);
+
             Instance.transform.localPosition = Base.LevelData.Graphic.Position;
             Instance.transform.localEulerAngles = Vector3.zero;
 
