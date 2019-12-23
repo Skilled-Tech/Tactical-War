@@ -91,8 +91,21 @@ namespace Game
             [Serializable]
             public class ValidateCore : PlayFabCore.Property
             {
+                public void Request(Product product)
+                {
+                    var reciept = GooglePurchase.FromJson(product.receipt);
+
+                    var currencyCode = product.metadata.isoCurrencyCode;
+                    var purchaseprice = (uint)product.metadata.localizedPrice * 100;
+                    var recieptJson = reciept.PayloadData.json;
+                    var signature = reciept.PayloadData.signature;
+
+                    Request(currencyCode, purchaseprice, recieptJson, signature);
+                }
                 public void Request(string currencyCode, uint purchasePrice, string reciept, string signature)
                 {
+                    Debug.Log("Validating " + Environment.NewLine + reciept + Environment.NewLine + signature);
+
                     var request = new ValidateGooglePlayPurchaseRequest
                     {
                         CatalogVersion = PlayFab.Catalog.Version,
@@ -103,10 +116,6 @@ namespace Game
                     };
 
                     PlayFabClientAPI.ValidateGooglePlayPurchase(request, RetrieveCallback, ErrorCallback);
-                }
-                public void Request(Product product)
-                {
-
                 }
 
                 public event Delegates.RetrievedDelegate<ValidateGooglePlayPurchaseResult> OnRetrieved;
@@ -132,12 +141,46 @@ namespace Game
                 }
             }
 
-            [Serializable]
-            public class PurchaseData
+            public class JsonData
             {
-                public PurchaseData()
-                {
+                // Json Fields, ! Case-sensetive
 
+                public string orderId;
+                public string packageName;
+                public string productId;
+                public long purchaseTime;
+                public int purchaseState;
+                public string purchaseToken;
+            }
+            public class PayloadData
+            {
+                public JsonData JsonData;
+
+                // Json Fields, ! Case-sensetive
+                public string signature;
+                public string json;
+
+                public static PayloadData FromJson(string json)
+                {
+                    var payload = JsonUtility.FromJson<PayloadData>(json);
+                    payload.JsonData = JsonUtility.FromJson<JsonData>(payload.json);
+                    return payload;
+                }
+            }
+            public class GooglePurchase
+            {
+                public PayloadData PayloadData;
+
+                // Json Fields, ! Case-sensetive
+                public string Store;
+                public string TransactionID;
+                public string Payload;
+
+                public static GooglePurchase FromJson(string json)
+                {
+                    var purchase = JsonUtility.FromJson<GooglePurchase>(json);
+                    purchase.PayloadData = PayloadData.FromJson(purchase.Payload);
+                    return purchase;
                 }
             }
 
@@ -156,6 +199,8 @@ namespace Game
                 return StoreController != null;
             }
         }
+
+        public PopupUI Popup => Core.UI.Popup;
 
         public override void Configure()
         {
@@ -188,7 +233,11 @@ namespace Game
             var builder = ConfigurationBuilder.Instance(module);
 
             for (int i = 0; i < PlayFab.Catalog.Size; i++)
+            {
+                if (PlayFab.Catalog[i].VirtualCurrencyPrices.ContainsKey("RM") == false) continue;
+
                 builder.AddProduct(PlayFab.Catalog[i].ItemId, ProductType.Consumable);
+            }
 
             UnityPurchasing.Initialize(Listener, builder);
         }
@@ -206,34 +255,84 @@ namespace Game
             Debug.LogError("Store initialization failed, reason: " + error);
         }
 
-        PurchaseProcessingResult ProcessPurchaseHandler(Product prodcut)
-        {
-            if (prodcut == null)
-            {
-                Debug.LogWarning("Attempted to process purchase with unknown product, ignoring");
-                return PurchaseProcessingResult.Complete;
-            }
-
-            if (string.IsNullOrEmpty(prodcut.receipt))
-            {
-                Debug.LogWarning("Attempted to process purchase with no receipt, ignoring");
-                return PurchaseProcessingResult.Complete;
-            }
-
-            Debug.Log("Processing purchase for item: " + prodcut.definition.storeSpecificId + " with transaction ID: " + prodcut.transactionID);
-
-            return PurchaseProcessingResult.Complete;
-        }
-        void PurchaseFailedCallback(Product product, PurchaseFailureReason reason)
-        {
-            Debug.LogError("Purchase of prodcut " + product.definition.storeSpecificId + " failed, reason: " + reason);
-        }
-
         public void Purchase(string productID)
         {
             if (Active == false) throw new Exception("IAP Core is not initialized");
 
             StoreController.InitiatePurchase(productID);
+        }
+
+        PurchaseProcessingResult ProcessPurchaseHandler(Product product)
+        {
+            if (product == null)
+            {
+                Debug.LogWarning("Attempted to process purchase with unknown product, ignoring");
+                return PurchaseProcessingResult.Complete;
+            }
+
+            if (string.IsNullOrEmpty(product.receipt))
+            {
+                Debug.LogWarning("Attempted to process purchase with no receipt, ignoring");
+                return PurchaseProcessingResult.Complete;
+            }
+
+            Debug.Log("Processing purchase for item: " + product.definition.storeSpecificId + " with transaction ID: " + product.transactionID);
+
+            Google.Validate.OnResponse += ValidateResponseCallback;
+            Google.Validate.Request(product);
+
+            return PurchaseProcessingResult.Complete;
+        }
+
+        #region Validate
+        void ValidateResponseCallback(ValidateGooglePlayPurchaseResult result, PlayFabError error)
+        {
+            Google.Validate.OnResponse -= ValidateResponseCallback;
+
+            if (error == null)
+            {
+                Debug.Log("Successfully Validated IAP Purchase");
+
+                ValidateAction();
+            }
+            else
+            {
+                Debug.LogError("Error Validating IAP, report: " + error.GenerateErrorReport());
+
+                ErrorCallback(error.ErrorMessage);
+            }
+        }
+
+        public delegate void ValidateDelegate();
+        public event ValidateDelegate OnValidate;
+        void ValidateAction()
+        {
+            OnValidate?.Invoke();
+
+            ResponseAction(null);
+        }
+        #endregion
+        
+        void PurchaseFailedCallback(Product product, PurchaseFailureReason reason)
+        {
+            Debug.LogError("Purchase of prodcut " + product.definition.storeSpecificId + " failed, reason: " + reason);
+
+            ErrorCallback(reason.ToString());
+        }
+
+        public event Action<string> OnError;
+        void ErrorCallback(string error)
+        {
+            if (OnError != null) OnError(error);
+
+            ResponseAction(error);
+        }
+
+        public delegate void ResponseDelegate(string error);
+        public event ResponseDelegate OnResponse;
+        void ResponseAction(string error)
+        {
+            OnResponse?.Invoke(error);
         }
     }
 }

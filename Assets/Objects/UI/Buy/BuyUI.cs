@@ -52,7 +52,7 @@ namespace Game
 
         public virtual void Init()
         {
-            button.onClick.AddListener(ButtonAction);
+            button.onClick.AddListener(OnButton);
         }
 
         public ItemTemplate Template { get; protected set; }
@@ -77,7 +77,7 @@ namespace Game
             price.text = Template.Price.ToString();
         }
 
-        protected virtual void ButtonAction()
+        protected virtual void OnButton()
         {
             if(PlayFab.isOffline)
             {
@@ -89,6 +89,7 @@ namespace Game
 
                 if (Template.Price.Type == CurrencyType.Cents)
                 {
+                    Core.IAP.OnResponse += IAPResponseCallback;
                     Core.IAP.Purchase(Template.ID);
                 }
                 else
@@ -105,20 +106,37 @@ namespace Game
 
             if (error == null)
             {
-                Popup.Show(Core.Localization.Phrases.Get("Retrieving Inventory"));
-
-                PlayFab.Player.Inventory.OnResponse += OnInventoryResponse;
-                PlayFab.Player.Inventory.Request();
+                RefreshInventory();
             }
             else
             {
                 RaiseError(error);
             }
         }
-
-        void OnInventoryResponse(PlayFabPlayerInventoryCore result, PlayFab.PlayFabError error)
+        void IAPResponseCallback(string error)
         {
-            PlayFab.Player.Inventory.OnResponse -= OnInventoryResponse;
+            Core.IAP.OnResponse -= IAPResponseCallback;
+
+            if(string.IsNullOrEmpty(error))
+            {
+                RefreshInventory();
+            }
+            else
+            {
+                RaiseError("IAP Error" + Environment.NewLine + error);
+            }
+        }
+
+        void RefreshInventory()
+        {
+            Popup.Show(Core.Localization.Phrases.Get("Retrieving Inventory"));
+
+            PlayFab.Player.Inventory.OnResponse += InventoryResponseCallback;
+            PlayFab.Player.Inventory.Request();
+        }
+        void InventoryResponseCallback(PlayFabPlayerInventoryCore result, PlayFab.PlayFabError error)
+        {
+            PlayFab.Player.Inventory.OnResponse -= InventoryResponseCallback;
 
             if (error == null)
             {
@@ -130,8 +148,6 @@ namespace Game
                 }
 
                 Popup.Show(Core.Localization.Phrases.Get("Purchase Successful"), Action, Core.Localization.Phrases.Get("Okay"));
-
-                UpdateState();
             }
             else
             {
@@ -139,9 +155,10 @@ namespace Game
             }
         }
 
-        void RaiseError(PlayFabError error)
+        void RaiseError(PlayFabError error) => RaiseError(error.ErrorMessage);
+        void RaiseError(string message)
         {
-            Popup.Show(error.ErrorMessage, Popup.Hide, "Close");
+            Popup.Show(message, Popup.Hide, "Close");
         }
     }
 }

@@ -36,10 +36,6 @@ namespace Game
         protected Button confirm;
         public Button Confirm { get { return confirm; } }
 
-        public override bool Accessible => true;
-
-        public override bool Available => true;
-
         public override void Configure(Login reference)
         {
             base.Configure(reference);
@@ -49,6 +45,11 @@ namespace Game
             address.onValueChanged.AddListener(EmailChangeCallback);
             password.onValueChanged.AddListener(PasswordChangeCallback);
 
+#if UNITY_EDITOR
+            address.text = "sandbox@skilled.com";
+            password.text = "password";
+#endif
+
             UpdateState();
         }
 
@@ -56,12 +57,10 @@ namespace Game
         {
             UpdateState();
         }
-
         void EmailChangeCallback(string value)
         {
             UpdateState();
         }
-
         protected override void UpdateState()
         {
             base.UpdateState();

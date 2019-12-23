@@ -44,9 +44,9 @@ MonoBehaviour:
       funds:
         elements:
         - type: 0
-          _value: 102000
+          _value: 1545700
         - type: 1
-          _value: 100000
+          _value: 543900
     units:
       selection:
         max: 6
@@ -56,15 +56,16 @@ MonoBehaviour:
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
+        - {fileID: 0}
         allowDuplicates: 0
     ability:
       selection:
         max: 3
         list:
+        - {fileID: 11400000, guid: 9e5a3b2d97925ec41af07c39e731bef9, type: 2}
         - {fileID: 0}
         - {fileID: 0}
-        - {fileID: 0}
-        Context: {fileID: 0}
+        allowDuplicates: 0
   shop:
     sections:
     - {fileID: 11400000, guid: 5cc6fd3eef9e88b438b6fc16cc21e17b, type: 2}

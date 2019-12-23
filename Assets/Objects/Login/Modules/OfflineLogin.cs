@@ -31,8 +31,6 @@ namespace Game
             }
         }
 
-        public override bool Available => true;
-
         public override void Show()
         {
             base.Show();

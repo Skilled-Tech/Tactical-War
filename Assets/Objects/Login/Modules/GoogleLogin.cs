@@ -26,8 +26,6 @@ namespace Game
 {
     public class GoogleLogin : Login.Controller
     {
-        public override bool Accessible => true;
-
         public override bool Available => Application.platform == RuntimePlatform.Android;
 
 #if GOOGLE_PLAY

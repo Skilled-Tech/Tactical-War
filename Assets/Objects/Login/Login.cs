@@ -57,9 +57,8 @@ namespace Game
             protected Button entry;
             public Button Entry { get { return entry; } }
 
-            public abstract bool Accessible { get; }
-
-            public abstract bool Available { get; }
+            public virtual bool Accessible { get => true; }
+            public virtual bool Available { get => true; }
 
             public override void Init()
             {
@@ -121,7 +120,8 @@ namespace Game
 
         private void Start()
         {
-            PlayFab.Login.OnResponse += LoginResponseCallback;
+            PlayFab.Login.OnResult += LoginResultCallback;
+            PlayFab.Login.OnError += ErrorCallback;
 
             Modules.Init(this);
         }
@@ -133,21 +133,12 @@ namespace Game
             Popup.Hide();
         }
         
-        void LoginResponseCallback(LoginResult result, PlayFabError error)
+        void LoginResultCallback(LoginResult result)
         {
-            PlayFab.Login.OnResponse -= LoginResponseCallback;
+            Popup.Show(Localization.Phrases.Get("Retrieving Title Data"));
 
-            if (error == null)
-            {
-                Popup.Show(Localization.Phrases.Get("Retrieving Title Data"));
-
-                PlayFab.Title.OnResponse += TitleResponseCallback;
-                PlayFab.Title.Request();
-            }
-            else
-            {
-                ErrorCallback(error);
-            }
+            PlayFab.Title.OnResponse += TitleResponseCallback;
+            PlayFab.Title.Request();
         }
 
         void TitleResponseCallback(PlayFabTitleCore data, PlayFabError error)
@@ -321,6 +312,12 @@ namespace Game
                 Core.UI.Rewards.OnFinish += Progress;
                 Core.UI.Rewards.Show(title, stacks);
             }
+        }
+
+        void OnDestroy()
+        {
+            PlayFab.Login.OnResult -= LoginResultCallback;
+            PlayFab.Login.OnError -= ErrorCallback;
         }
 
         public delegate void ErrorDelegate(PlayFabError error);

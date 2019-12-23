@@ -21,10 +21,6 @@ namespace Game
 {
 	public class GuestLogin : Login.Controller
     {
-        public override bool Accessible => true;
-
-        public override bool Available => true;
-
         public override void Show()
         {
             base.Show();
