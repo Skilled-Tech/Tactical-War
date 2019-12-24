@@ -108,6 +108,24 @@ namespace Game
             }
         }
 
+        public static class Text
+        {
+            public static string AddSpacesToCamelCase(string text)
+            {
+                var result = "";
+
+                for (int i = 0; i < text.Length; i++)
+                {
+                    if (i > 0 && char.IsUpper(text[i]))
+                        result += " ";
+
+                    result += text[i];
+                }
+
+                return result;
+            }
+        }
+
         public static class TextMeshPro
         {
             public static class Font

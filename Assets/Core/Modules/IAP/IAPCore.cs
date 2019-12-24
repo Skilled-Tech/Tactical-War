@@ -29,8 +29,17 @@ namespace Game
     {
 		public static PlayFabCore PlayFab { get { return Core.PlayFab; } }
 
-        private IStoreController StoreController;
-        private IGooglePlayStoreExtensions PlayStoreExtensions;
+        public AppStore Store { get; protected set; }
+        public IStoreController StoreController { get; protected set; }
+        public IGooglePlayStoreExtensions PlayStoreExtensions { get; protected set; }
+
+        public bool Active
+        {
+            get
+            {
+                return StoreController != null;
+            }
+        }
 
         public ListenerCore Listener { get; protected set; }
         public class ListenerCore : Core.Property, IStoreListener
@@ -192,14 +201,6 @@ namespace Game
             }
         }
 
-        public bool Active
-        {
-            get
-            {
-                return StoreController != null;
-            }
-        }
-
         public PopupUI Popup => Core.UI.Popup;
 
         public override void Configure()
@@ -224,11 +225,22 @@ namespace Game
 
         void Initialize()
         {
-            var store = AppStore.GooglePlay;
+            switch (Application.platform)
+            {
+                case RuntimePlatform.Android:
+                    Store = AppStore.GooglePlay;
+                    break;
 
-            store = AppStore.GooglePlay;
+                case RuntimePlatform.IPhonePlayer:
+                    Store = AppStore.AppleAppStore;
+                    break;
 
-            var module = StandardPurchasingModule.Instance(store);
+                default:
+                    Store = AppStore.NotSpecified;
+                    break;
+            }
+
+            var module = StandardPurchasingModule.Instance(Store);
 
             var builder = ConfigurationBuilder.Instance(module);
 
@@ -278,16 +290,28 @@ namespace Game
 
             Debug.Log("Processing purchase for item: " + product.definition.storeSpecificId + " with transaction ID: " + product.transactionID);
 
-            Google.Validate.OnResponse += ValidateResponseCallback;
-            Google.Validate.Request(product);
+            switch (Store)
+            {
+                case AppStore.GooglePlay:
+                    Google.Validate.OnResponse += GoogleValidateResponseCallback;
+                    Google.Validate.Request(product);
+                    break;
+
+                case AppStore.AppleAppStore: //TODO implement Apple App Store Purchase Process
+
+                default:
+                    Debug.LogError("IAP Purchase Process not implemented for " + Application.platform);
+                    ErrorCallback("Not Implemented On Platform");
+                    break;
+            }
 
             return PurchaseProcessingResult.Complete;
         }
 
         #region Validate
-        void ValidateResponseCallback(ValidateGooglePlayPurchaseResult result, PlayFabError error)
+        void GoogleValidateResponseCallback(ValidateGooglePlayPurchaseResult result, PlayFabError error)
         {
-            Google.Validate.OnResponse -= ValidateResponseCallback;
+            Google.Validate.OnResponse -= GoogleValidateResponseCallback;
 
             if (error == null)
             {
@@ -317,7 +341,7 @@ namespace Game
         {
             Debug.LogError("Purchase of prodcut " + product.definition.storeSpecificId + " failed, reason: " + reason);
 
-            ErrorCallback(reason.ToString());
+            ErrorCallback(Tools.Text.AddSpacesToCamelCase(reason.ToString()));
         }
 
         public event Action<string> OnError;

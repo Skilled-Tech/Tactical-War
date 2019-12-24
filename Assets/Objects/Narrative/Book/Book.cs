@@ -101,5 +101,10 @@ namespace Game
 
             OnClose?.Invoke();
         }
+
+        void OnDestroy()
+        {
+            region.OnShowStory -= Begin;
+        }
     }
 }

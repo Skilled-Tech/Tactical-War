@@ -114,6 +114,12 @@ public class Sandbox : MonoBehaviour
     {
         
     }
+
+    [RuntimeInitializeOnLoadMethod]
+    static void OnLoad()
+    {
+        
+    }
 }
 
 #region IAP EXAMPLE
