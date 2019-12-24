@@ -212,6 +212,11 @@ namespace Game
 
                 var template = Items.Find(ID);
 
+                if(template == null && string.IsNullOrEmpty(ID) == false)
+                {
+                    Debug.LogError("JSON Convert Error, No Item Template found with ID: " + ID);
+                }
+
                 return template;
             }
 

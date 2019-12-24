@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   progress:
-    count: 1
+    count: 9
     difficulty: {fileID: 11400000, guid: 74bf909b5e8c6434080c4489c4cee8dc, type: 2}
   levels:
   - {fileID: 11400000, guid: e66b8d2185713ec4eb5624afab79d085, type: 2}

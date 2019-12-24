@@ -78,7 +78,7 @@ namespace Game
         }
         public static List<ItemStack> From(IList<ItemTemplate> templates)
         {
-            string AquireID(ItemTemplate template) => template.ID;
+            string AquireID(ItemTemplate template) => template == null ? null : template.ID;
 
             return From(templates, AquireID);
         }
@@ -98,6 +98,13 @@ namespace Game
             for (int i = 0; i < list.Count; i++)
             {
                 var ID = aquireID(list[i]);
+
+                if (ID == null)
+                {
+                    Debug.LogWarning("Null ID found when getting ItemStack from: " + list + ", ignoring");
+                    continue;
+                }
+
                 var existing = Find(ID);
 
                 if (existing == null)

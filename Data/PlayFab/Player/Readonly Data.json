@@ -6,12 +6,12 @@
       "Value": "{\"timestamp\":\"2019-12-24T08:09:43.290Z\",\"progress\":2}"
     },
     "world": {
-      "LastUpdated": "2019-11-30T10:50:28.216Z",
+      "LastUpdated": "2019-12-24T13:48:54.156Z",
       "Permission": 0,
-      "Value": "{\"regions\":[{\"name\":\"Forest\",\"progress\":{\"count\":1,\"difficulty\":3}},{\"name\":\"Desert\",\"progress\":{\"count\":3,\"difficulty\":1}}]}"
+      "Value": "{\"regions\":[{\"name\":\"Forest\",\"progress\":{\"count\":9,\"difficulty\":3}}]}"
     }
   },
-  "DataVersion": 609,
+  "DataVersion": 620,
   "Request": {
     "IfChangedFromDataVersion": null,
     "Keys": null,

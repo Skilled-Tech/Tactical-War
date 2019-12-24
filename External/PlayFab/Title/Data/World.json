@@ -32,7 +32,7 @@
             {
               "data": {
                 "items": [
-                  "2K_Gold"
+                  "2k_gold"
                 ],
                 "droptable": {
                   "ID": "Level-Default-DropTable",
@@ -59,91 +59,7 @@
             {
               "data": {
                 "items": [
-                  "5K_Gold"
-                ]
-              },
-              "requirements": {
-                "difficulty": [
-                  2
-                ],
-                "occurrence": [
-                  1,
-                  2
-                ]
-              }
-            },
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "stars": [
-                  3
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "stars": [
-            {
-              "time": 300
-            },
-            {
-              "time": 200
-            },
-            {
-              "time": 100
-            }
-          ],
-          "rewards": [
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "occurrence": [
-                  1
-                ]
-              }
-            },
-            {
-              "data": {
-                "items": [
-                  "2K_Gold"
-                ],
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              }
-            },
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "difficulty": [
-                  2
-                ],
-                "occurrence": [
-                  1
-                ]
-              }
-            },
-            {
-              "data": {
-                "items": [
-                  "5K_Gold"
+                  "5k_gold"
                 ]
               },
               "requirements": {
@@ -200,7 +116,7 @@
             {
               "data": {
                 "items": [
-                  "2K_Gold"
+                  "2k_gold"
                 ],
                 "droptable": {
                   "ID": "Level-Default-DropTable",
@@ -227,91 +143,7 @@
             {
               "data": {
                 "items": [
-                  "5K_Gold"
-                ]
-              },
-              "requirements": {
-                "difficulty": [
-                  2
-                ],
-                "occurrence": [
-                  1,
-                  2
-                ]
-              }
-            },
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "stars": [
-                  3
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "stars": [
-            {
-              "time": 300
-            },
-            {
-              "time": 200
-            },
-            {
-              "time": 100
-            }
-          ],
-          "rewards": [
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "occurrence": [
-                  1
-                ]
-              }
-            },
-            {
-              "data": {
-                "items": [
-                  "2K_Gold"
-                ],
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              }
-            },
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "difficulty": [
-                  2
-                ],
-                "occurrence": [
-                  1
-                ]
-              }
-            },
-            {
-              "data": {
-                "items": [
-                  "5K_Gold"
+                  "5k_gold"
                 ]
               },
               "requirements": {
@@ -368,7 +200,7 @@
             {
               "data": {
                 "items": [
-                  "2K_Gold"
+                  "2k_gold"
                 ],
                 "droptable": {
                   "ID": "Level-Default-DropTable",
@@ -395,7 +227,595 @@
             {
               "data": {
                 "items": [
-                  "5K_Gold"
+                  "5k_gold"
+                ]
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1,
+                  2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
+          "rewards": [
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "2k_gold"
+                ],
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "5k_gold"
+                ]
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1,
+                  2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
+          "rewards": [
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "2k_gold"
+                ],
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "5k_gold"
+                ]
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1,
+                  2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
+          "rewards": [
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "2k_gold"
+                ],
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "5k_gold"
+                ]
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1,
+                  2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
+          "rewards": [
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "2k_gold"
+                ],
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "5k_gold"
+                ]
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1,
+                  2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
+          "rewards": [
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "2k_gold"
+                ],
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "5k_gold"
+                ]
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1,
+                  2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
+          "rewards": [
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "2k_gold"
+                ],
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "5k_gold"
+                ]
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1,
+                  2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
+          "rewards": [
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "2k_gold"
+                ],
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "5k_gold"
                 ]
               },
               "requirements": {
@@ -457,7 +877,7 @@
             {
               "data": {
                 "items": [
-                  "2K_Gold"
+                  "2k_gold"
                 ],
                 "droptable": {
                   "ID": "Level-Default-DropTable",
@@ -484,91 +904,7 @@
             {
               "data": {
                 "items": [
-                  "5K_Gold"
-                ]
-              },
-              "requirements": {
-                "difficulty": [
-                  2
-                ],
-                "occurrence": [
-                  1,
-                  2
-                ]
-              }
-            },
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "stars": [
-                  3
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "stars": [
-            {
-              "time": 300
-            },
-            {
-              "time": 200
-            },
-            {
-              "time": 100
-            }
-          ],
-          "rewards": [
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "occurrence": [
-                  1
-                ]
-              }
-            },
-            {
-              "data": {
-                "items": [
-                  "2K_Gold"
-                ],
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              }
-            },
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "difficulty": [
-                  2
-                ],
-                "occurrence": [
-                  1
-                ]
-              }
-            },
-            {
-              "data": {
-                "items": [
-                  "5K_Gold"
+                  "5k_gold"
                 ]
               },
               "requirements": {
@@ -625,7 +961,7 @@
             {
               "data": {
                 "items": [
-                  "2K_Gold"
+                  "2k_gold"
                 ],
                 "droptable": {
                   "ID": "Level-Default-DropTable",
@@ -652,91 +988,7 @@
             {
               "data": {
                 "items": [
-                  "5K_Gold"
-                ]
-              },
-              "requirements": {
-                "difficulty": [
-                  2
-                ],
-                "occurrence": [
-                  1,
-                  2
-                ]
-              }
-            },
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "stars": [
-                  3
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "stars": [
-            {
-              "time": 300
-            },
-            {
-              "time": 200
-            },
-            {
-              "time": 100
-            }
-          ],
-          "rewards": [
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "occurrence": [
-                  1
-                ]
-              }
-            },
-            {
-              "data": {
-                "items": [
-                  "2K_Gold"
-                ],
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              }
-            },
-            {
-              "data": {
-                "droptable": {
-                  "ID": "Level-Default-DropTable",
-                  "iterations": 1
-                }
-              },
-              "requirements": {
-                "difficulty": [
-                  2
-                ],
-                "occurrence": [
-                  1
-                ]
-              }
-            },
-            {
-              "data": {
-                "items": [
-                  "5K_Gold"
+                  "5k_gold"
                 ]
               },
               "requirements": {
@@ -793,7 +1045,7 @@
             {
               "data": {
                 "items": [
-                  "2K_Gold"
+                  "2k_gold"
                 ],
                 "droptable": {
                   "ID": "Level-Default-DropTable",
@@ -820,7 +1072,175 @@
             {
               "data": {
                 "items": [
-                  "5K_Gold"
+                  "5k_gold"
+                ]
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1,
+                  2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
+          "rewards": [
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "2k_gold"
+                ],
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "5k_gold"
+                ]
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1,
+                  2
+                ]
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "stars": [
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "stars": [
+            {
+              "time": 300
+            },
+            {
+              "time": 200
+            },
+            {
+              "time": 100
+            }
+          ],
+          "rewards": [
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "2k_gold"
+                ],
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              }
+            },
+            {
+              "data": {
+                "droptable": {
+                  "ID": "Level-Default-DropTable",
+                  "iterations": 1
+                }
+              },
+              "requirements": {
+                "difficulty": [
+                  2
+                ],
+                "occurrence": [
+                  1
+                ]
+              }
+            },
+            {
+              "data": {
+                "items": [
+                  "5k_gold"
                 ]
               },
               "requirements": {
