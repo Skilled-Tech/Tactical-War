@@ -184,7 +184,7 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "DB312F7FED9A97D5",
       "PurchaseDate": "2019-11-30T10:56:37.062Z",
-      "RemainingUses": 16,
+      "RemainingUses": 17,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -396,7 +396,7 @@
       "ItemId": "Wood_Shield",
       "ItemInstanceId": "368D0DA17470A21F",
       "PurchaseDate": "2019-11-07T06:57:51.202Z",
-      "RemainingUses": 62,
+      "RemainingUses": 63,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null

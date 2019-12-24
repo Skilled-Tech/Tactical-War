@@ -17,6 +17,9 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using PlayFab;
+using PlayFab.ClientModels;
+
 namespace Game
 {
     [DefaultExecutionOrder(ExecutionOrder)]
