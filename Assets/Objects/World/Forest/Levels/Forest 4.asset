@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb4d06f9115bf44dbb5045ec8607739, type: 3}
+  m_Name: Forest 4
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: ce11e41ca5abf084faebc02783784f28, type: 3}
+  scene:
+    asset: {fileID: 102900000, guid: e9b64affa49cd884d8adafb0ab167deb, type: 3}
+    _name: Forest-World
+  background: {fileID: 11400000, guid: e7e7d18d12f2b1a43b98a0028da13058, type: 2}
+  music: {fileID: 11400000, guid: 801b250d6f57e14418c9baa8b3b0a0a7, type: 2}
+  player:
+    _base:
+      graphic: {fileID: 11400000, guid: c7301de778cb1a64e9d7d65ace8b61fb, type: 2}
+  _AI:
+    _base:
+      graphic: {fileID: 11400000, guid: be3f47198f1a2f44892d750158fb8200, type: 2}
+    units:
+      list:
+      - template: {fileID: 11400000, guid: 9766a4e11de834e4fbdcc6c18f7f7d32, type: 2}
+        rank: 0
+      - template: {fileID: 11400000, guid: d56491ee4aa418c4a8ea48280aba32b8, type: 2}
+        rank: 0
+      - template: {fileID: 11400000, guid: 6fffb9c921cd64d448f930b8611ff4f1, type: 2}
+        rank: 0
+      - template: {fileID: 11400000, guid: 86299c2e2365bb64ab5f5cabce317612, type: 2}
+        rank: 0
+      - template: {fileID: 11400000, guid: d32043575b05b494ba8907ff5318f80d, type: 2}
+        rank: 0
+      - template: {fileID: 11400000, guid: a60b629bc2b4f5546be00c2b6470ffde, type: 2}
+        rank: 0
+      - template: {fileID: 11400000, guid: e4908d3fcaa8a0143af115637ed9b6b9, type: 2}
+        rank: 0
+    abilities:
+      list: []
