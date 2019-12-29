@@ -2,23 +2,6 @@
   "Inventory": [
     {
       "Annotation": "Level Completion 1 Reward",
-      "BundleContents": [],
-      "BundleParent": null,
-      "CatalogVersion": "Default",
-      "CustomData": null,
-      "DisplayName": "2K Gold",
-      "Expiration": "2019-12-29T11:25:00.202Z",
-      "ItemClass": null,
-      "ItemId": "2k_gold",
-      "ItemInstanceId": "22592EBF432C2E29",
-      "PurchaseDate": "2019-12-29T11:24:57.202Z",
-      "RemainingUses": null,
-      "UnitCurrency": null,
-      "UnitPrice": 0,
-      "UsesIncrementedBy": null
-    },
-    {
-      "Annotation": "Level Completion 1 Reward",
       "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",

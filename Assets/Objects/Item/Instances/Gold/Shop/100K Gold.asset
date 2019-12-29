@@ -17,7 +17,7 @@ MonoBehaviour:
     tilt: 0
   prices:
   - type: 1
-    value: 1000
+    value: 10000
   upgrades:
     template: {fileID: 0}
     applicable: []
