@@ -120,7 +120,7 @@ namespace Game
         
         protected override void Death(Damage.Result result)
         {
-            Leader.Enemy.Energy.Value += Template.Deployment.Cost;
+            Leader.Enemy.Energy.Value += Template.Deployment.Cost / 2;
 
             base.Death(result);
 

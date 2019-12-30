@@ -37,10 +37,31 @@ namespace Game
             }
         }
 
-        public event Action OnChanged;
+        public event Action OnValueChanged;
         protected virtual void TriggerChange()
         {
-            if (OnChanged != null) OnChanged();
+            if (OnValueChanged != null) OnValueChanged();
+        }
+
+        public LevelCore.ProponentProperty LevelData => Proponent.LevelData;
+
+        public override void Configure(Proponent reference)
+        {
+            base.Configure(reference);
+
+            Value = LevelData.Energy.Initial;
+
+            StartCoroutine(IncreaseProcedure());
+        }
+
+        IEnumerator IncreaseProcedure()
+        {
+            while(true)
+            {
+                yield return new WaitForSeconds(LevelData.Energy.Increase.Interval);
+
+                Value += LevelData.Energy.Increase.Value;
+            }
         }
     }
 }

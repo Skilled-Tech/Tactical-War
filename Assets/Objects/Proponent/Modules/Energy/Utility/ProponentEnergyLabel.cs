@@ -37,7 +37,7 @@ namespace Game
 
         void Start()
         {
-            Proponent.Energy.OnChanged += UpdateState;
+            Proponent.Energy.OnValueChanged += UpdateState;
 
             Core.Localization.OnTargetChange += LocalizationTargetChangeCallback;
 

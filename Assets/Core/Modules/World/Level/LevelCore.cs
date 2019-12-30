@@ -79,6 +79,10 @@ namespace Game
         public class AIData : ProponentProperty
         {
             [SerializeField]
+            protected int agression = 1; //a value to describe how many units the AI will overtake you with
+            public int Agression { get { return agression; } }
+
+            [SerializeField]
             protected UnitsProperty units;
             public UnitsProperty Units { get { return units; } }
             [Serializable]
@@ -96,7 +100,7 @@ namespace Game
                         list[i].Init();
                 }
             }
-
+            
             [SerializeField]
             protected AbilitiesProperty abilities;
             public AbilitiesProperty Abilities { get { return abilities; } }
@@ -119,6 +123,32 @@ namespace Game
 
         public class ProponentProperty : Property
         {
+            [SerializeField]
+            protected EnergyProperty energy;
+            public EnergyProperty Energy { get { return energy; } }
+            [Serializable]
+            public class EnergyProperty
+            {
+                [SerializeField]
+                protected int initial;
+                public int Initial { get { return initial; } }
+
+                [SerializeField]
+                protected IncreaseData increase;
+                public IncreaseData Increase { get { return increase; } }
+                [Serializable]
+                public class IncreaseData
+                {
+                    [SerializeField]
+                    protected float interval = 4f;
+                    public float Interval { get { return interval; } }
+
+                    [SerializeField]
+                    protected int value = 200;
+                    public int Value { get { return value; } }
+                }
+            }
+
             [SerializeField]
             protected BaseProperty _base;
             public BaseProperty Base { get { return _base; } }

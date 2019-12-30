@@ -23,8 +23,9 @@ namespace Game
     {
         public ProponentUnitsSelection Selection { get { return Units.Selection; } }
 
-        public override LevelCore.ProponentProperty LevelData => Level.Data.Level.AI;
-        
+        public override LevelCore.ProponentProperty LevelData => AILevelData;
+        public LevelCore.AIData AILevelData => Level.Data.Level.AI;
+
         BaseUnitsCreator.Deployment deployment;
 
         protected override void Start()
@@ -38,7 +39,7 @@ namespace Game
         {
             while(Base.IsAlive)
             {
-                if (Base.Units.Count < Enemy.Base.Units.Count + 4)
+                if (Base.Units.Count < Enemy.Base.Units.Count + AILevelData.Agression)
                 {
                     if (Selection.Count > 0)
                     {

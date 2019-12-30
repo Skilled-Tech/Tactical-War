@@ -44,10 +44,9 @@ namespace Game
         void OnEnable()
         {
             Proponent.Base.Units.Creator.OnDeployment += UnitDeploymentCallback;
-
             Proponent.Base.Units.OnUnitDeath += UnitDeathCallback;
 
-            Player.Funds.OnValueChanged += FundsChangedCallback;
+            Proponent.Energy.OnValueChanged += FundsChangedCallback;
         }
 
         protected virtual void Set(ProponentUnitsSelection selection)
@@ -86,19 +85,9 @@ namespace Game
             return script;
         }
 
-        void UnitDeathCallback(Unit unit, Damage.Result damage)
-        {
-            UpdateState();
-        }
-        void FundsChangedCallback()
-        {
-            UpdateState();
-        }
-        void UnitDeploymentCallback(BaseUnitsCreator.Deployment deployment)
-        {
-            UpdateState();
-        }
-
+        void UnitDeathCallback(Unit unit, Damage.Result damage) => UpdateState();
+        void FundsChangedCallback() => UpdateState();
+        void UnitDeploymentCallback(BaseUnitsCreator.Deployment deployment) => UpdateState();
         void UpdateState()
         {
             for (int i = 0; i < Elements.Count; i++)
@@ -111,7 +100,7 @@ namespace Game
 
             Proponent.Base.Units.OnUnitDeath -= UnitDeathCallback;
 
-            Player.Funds.OnValueChanged -= FundsChangedCallback;
+            Proponent.Energy.OnValueChanged -= FundsChangedCallback;
         }
     }
 }

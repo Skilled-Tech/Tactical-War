@@ -53,7 +53,7 @@ namespace Game
 
             CooldownBar.Value = 0f;
 
-            Proponent.Energy.OnChanged += OnEnergyChanged;
+            Proponent.Energy.OnValueChanged += OnEnergyChanged;
         }
 
         public ProponentAbility Ability { get; protected set; }
@@ -100,7 +100,7 @@ namespace Game
 
         protected virtual void OnDestroy()
         {
-            Proponent.Energy.OnChanged -= OnEnergyChanged;
+            Proponent.Energy.OnValueChanged -= OnEnergyChanged;
             Ability.Cooldown.OnTick -= ElementCoolDownTickCallback;
         }
     }

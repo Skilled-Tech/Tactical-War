@@ -19,26 +19,25 @@ MonoBehaviour:
   background: {fileID: 11400000, guid: 81478e5c9099d374ab9d1777bb959d96, type: 2}
   music: {fileID: 11400000, guid: 801b250d6f57e14418c9baa8b3b0a0a7, type: 2}
   player:
+    energy:
+      initial: 800
+      increase:
+        interval: 10
+        value: 100
     _base:
       graphic: {fileID: 11400000, guid: 9dae99270d180a64788e349e2161fa26, type: 2}
   _AI:
+    energy:
+      initial: 1400
+      increase:
+        interval: 10
+        value: 80
     _base:
       graphic: {fileID: 11400000, guid: be3f47198f1a2f44892d750158fb8200, type: 2}
+    agression: 1
     units:
       list:
       - template: {fileID: 11400000, guid: 9766a4e11de834e4fbdcc6c18f7f7d32, type: 2}
-        rank: 0
-      - template: {fileID: 11400000, guid: d56491ee4aa418c4a8ea48280aba32b8, type: 2}
-        rank: 0
-      - template: {fileID: 11400000, guid: 6fffb9c921cd64d448f930b8611ff4f1, type: 2}
-        rank: 0
-      - template: {fileID: 11400000, guid: 86299c2e2365bb64ab5f5cabce317612, type: 2}
-        rank: 0
-      - template: {fileID: 11400000, guid: d32043575b05b494ba8907ff5318f80d, type: 2}
-        rank: 0
-      - template: {fileID: 11400000, guid: a60b629bc2b4f5546be00c2b6470ffde, type: 2}
-        rank: 0
-      - template: {fileID: 11400000, guid: e4908d3fcaa8a0143af115637ed9b6b9, type: 2}
         rank: 0
     abilities:
       list: []

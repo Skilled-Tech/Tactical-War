@@ -45,7 +45,7 @@ namespace Game
 
         void OnEnable()
         {
-            Proponent.Energy.OnChanged += UpdateState;
+            Proponent.Energy.OnValueChanged += UpdateState;
 
             UpdateState();
         }
@@ -66,7 +66,7 @@ namespace Game
 
         void OnDisable()
         {
-            Proponent.Energy.OnChanged -= UpdateState;
+            Proponent.Energy.OnValueChanged -= UpdateState;
         }
     }
 }
