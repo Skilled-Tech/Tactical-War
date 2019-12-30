@@ -29,5 +29,9 @@ namespace Game
         [SerializeField]
         protected Vector3 position;
         public Vector3 Position { get { return position; } }
+
+        [SerializeField]
+        protected float scale = 1f;
+        public float Scale { get { return scale; } }
     }
 }

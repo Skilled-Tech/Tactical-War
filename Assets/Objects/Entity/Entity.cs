@@ -38,7 +38,19 @@ namespace Game
         }
 
         public Bounds Bounds { get; protected set; }
-        public virtual void CalculateBounds() => Bounds = Tools.Bounds.FromCollider2D(gameObject);
+        public virtual void CalculateBounds()
+        {
+            var customBounds = Dependancy.Get<EntityCustomBounds>(gameObject);
+
+            if(customBounds == null)
+            {
+                Bounds = Tools.Bounds.FromCollider2D(gameObject);
+            }
+            else
+            {
+                Bounds = customBounds.Value;
+            }
+        }
         public Vector3 Center
         {
             get

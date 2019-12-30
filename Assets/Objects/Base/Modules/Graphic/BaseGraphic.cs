@@ -36,8 +36,15 @@ namespace Game
         {
             if(Application.isEditor)
             {
-                Instance.transform.localPosition = Base.LevelData.Graphic.Position;
+                UpdateState();
             }
+        }
+
+        protected virtual void UpdateState()
+        {
+            Instance.transform.localPosition = Base.LevelData.Graphic.Position;
+
+            Instance.transform.localScale = Vector3.one * Base.LevelData.Graphic.Scale;
         }
 
         protected virtual void Create()
@@ -50,6 +57,8 @@ namespace Game
 
             Instance.transform.localPosition = Base.LevelData.Graphic.Position;
             Instance.transform.localEulerAngles = Vector3.zero;
+
+            UpdateState();
 
             var script = Instance.GetComponent<EntityHealthActivation>();
 
