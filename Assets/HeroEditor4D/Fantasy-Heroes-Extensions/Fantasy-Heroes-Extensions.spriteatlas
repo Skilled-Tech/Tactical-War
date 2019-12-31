@@ -43,7 +43,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: c0f79b50a6113944d8381906203a36e6, type: 3}
-    totalSpriteSurfaceArea: 42654720
+    totalSpriteSurfaceArea: 42753024
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -1142,6 +1142,10 @@ SpriteAtlas:
   - {fileID: -4064889734069160559, guid: d92e344fed256324bb359c780c6b5683, type: 3}
   - {fileID: -8137581963233685907, guid: d92e344fed256324bb359c780c6b5683, type: 3}
   - {fileID: 6591478365344907407, guid: d92e344fed256324bb359c780c6b5683, type: 3}
+  - {fileID: 8180187256336134010, guid: c75d1cbf220cf914999ddd60457fed8f, type: 3}
+  - {fileID: -6361939442013360822, guid: c75d1cbf220cf914999ddd60457fed8f, type: 3}
+  - {fileID: 7034423813313189624, guid: c75d1cbf220cf914999ddd60457fed8f, type: 3}
+  - {fileID: -4746564685177126027, guid: c75d1cbf220cf914999ddd60457fed8f, type: 3}
   - {fileID: 21300000, guid: 26938fcfcc7219247b1e22237a465035, type: 3}
   m_PackedSpriteNamesToIndex:
   - BackFingersR
@@ -2239,6 +2243,10 @@ SpriteAtlas:
   - Side
   - Back
   - Front
+  - Limb
+  - Quiver
+  - Arrow
+  - Handle
   - Toxic Wand
   m_Tag: Fantasy-Heroes-Extensions
   m_IsVariant: 0
