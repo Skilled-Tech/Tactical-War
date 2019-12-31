@@ -45,9 +45,9 @@ namespace Game
 
         public LevelCore.ProponentProperty LevelData => Proponent.LevelData;
 
-        public override void Configure(Proponent reference)
+        public override void Init()
         {
-            base.Configure(reference);
+            base.Init();
 
             Value = LevelData.Energy.Initial;
 

@@ -42,6 +42,10 @@ namespace Game
         protected ProgressBar progress;
         public ProgressBar Progress { get { return progress; } }
 
+        [SerializeField]
+        protected TMP_Text price;
+        public TMP_Text Price { get { return price; } }
+
         public Proponent Player { get; protected set; }
         public UnitTemplate Template { get; protected set; }
 
@@ -65,6 +69,8 @@ namespace Game
             {
                 button.interactable = Player.Base.Units.Creator.CanDeploy(Template);
 
+                price.color = button.interactable ? Color.white : Color.grey;
+
                 GrayscaleController.Off = button.interactable;
 
                 Progress.Value = 0f;
@@ -81,6 +87,8 @@ namespace Game
         {
             this.Player = player;
             this.Template = template;
+
+            price.text = template.Deployment.Cost.ToString("N0");
 
             template.Icon.ApplyTo(icon);
 
