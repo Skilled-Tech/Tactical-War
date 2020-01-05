@@ -58,6 +58,8 @@ namespace Game
                 else
                     target.Show();
 
+                yield return new WaitForSeconds(0.2f);
+
                 yield return Fader.To(0f, duration);
             }
         }

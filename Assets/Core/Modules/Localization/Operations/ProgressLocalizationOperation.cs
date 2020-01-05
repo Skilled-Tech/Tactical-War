@@ -42,11 +42,13 @@ namespace Game
 
             IEnumerator Procedure()
             {
-                yield return Fader.To(1f);
+                yield return Fader.To(1f, 0.2f);
 
                 Localization.Progress();
 
-                yield return Fader.To(0f);
+                yield return new WaitForSeconds(0.2f);
+
+                yield return Fader.To(0f, 0.2f);
             }
         }
     }
