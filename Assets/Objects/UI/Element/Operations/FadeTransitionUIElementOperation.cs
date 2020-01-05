@@ -32,6 +32,7 @@ namespace Game
         public float Duration { get { return duration; } }
 
         public Core Core => Core.Instance;
+
         public FaderUI Fader => Core.UI.Fader;
 
         protected virtual void Reset()

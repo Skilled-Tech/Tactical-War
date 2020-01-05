@@ -25,6 +25,10 @@ namespace Game
 
         List<LocalizationType> values;
 
+        public Core Core => Core.Instance;
+
+        public FaderUI Fader => Core.UI.Fader;
+
         private void Start()
         {
             values = new List<LocalizationType>();
@@ -34,7 +38,16 @@ namespace Game
 
         public override void Execute()
         {
-            Localization.Progress();
+            Core.SceneAcessor.StartCoroutine(Procedure());
+
+            IEnumerator Procedure()
+            {
+                yield return Fader.To(1f);
+
+                Localization.Progress();
+
+                yield return Fader.To(0f);
+            }
         }
     }
 }
