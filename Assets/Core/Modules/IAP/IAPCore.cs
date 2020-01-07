@@ -341,6 +341,8 @@ namespace Game
         {
             Debug.LogError("Purchase of prodcut " + product.definition.storeSpecificId + " failed, reason: " + reason);
 
+            if (reason == PurchaseFailureReason.UserCancelled) return;
+
             ErrorCallback(Tools.Text.AddSpacesToCamelCase(reason.ToString()));
         }
 
