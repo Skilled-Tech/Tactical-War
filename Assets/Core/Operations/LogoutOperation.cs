@@ -23,11 +23,15 @@ namespace Game
 {
 	public class LogoutOperation : Operation
 	{
-        public ScenesCore Scenes => Core.Instance.Scenes;
+        public Core Core => Core.Instance;
+
+        public ScenesCore Scenes => Core.Scenes;
 
         public override void Execute()
         {
             PlayGamesPlatform.Instance.SignOut();
+
+            Core.PlayFab.Logout();
 
             Scenes.Load.One(Scenes.Login);
         }

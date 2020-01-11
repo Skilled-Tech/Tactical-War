@@ -36,6 +36,11 @@ namespace Game
         public bool IsOnline { get { return PlayFabClientAPI.IsClientLoggedIn(); } }
         public bool isOffline { get { return !IsOnline; } }
 
+        public virtual void Logout()
+        {
+            PlayFabAuthenticationAPI.ForgetAllCredentials();
+        }
+
         public bool Activated { get; set; }
 
         [SerializeField]
