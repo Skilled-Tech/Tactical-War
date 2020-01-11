@@ -25,9 +25,11 @@ namespace Game
         protected RegionUI _UI;
         public RegionUI UI { get { return _UI; } }
 
+        public Core Core => Core.Instance;
+
         public override void Execute()
         {
-            UI.Region.ShowStory();
+            Core.UI.Fader.Operate(UI.Region.ShowStory);
         }
     }
 }

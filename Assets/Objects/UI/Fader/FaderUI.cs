@@ -40,12 +40,14 @@ namespace Game
             }
         }
 
+        public const float Duration = 0.4f;
+
         private void Awake()
         {
             Image = GetComponent<Image>();
         }
 
-        public virtual Coroutine To(float target) => To(target, 0.4f);
+        public virtual Coroutine To(float target) => To(target, Duration);
         public virtual Coroutine To(float target, float duration)
         {
             IEnumerator Procedure()
@@ -65,6 +67,22 @@ namespace Game
             }
 
             return StartCoroutine(Procedure());
+        }
+
+        public virtual Coroutine Operate(Action action)
+        {
+            return StartCoroutine(Procedure());
+
+            IEnumerator Procedure()
+            {
+                yield return To(1f, 0.2f);
+
+                action();
+
+                yield return new WaitForSecondsRealtime(0.2f);
+
+                yield return To(0f, 0.2f);
+            }
         }
     }
 }

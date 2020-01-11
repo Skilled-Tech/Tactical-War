@@ -38,18 +38,7 @@ namespace Game
 
         public override void Execute()
         {
-            Core.SceneAcessor.StartCoroutine(Procedure());
-
-            IEnumerator Procedure()
-            {
-                yield return Fader.To(1f, 0.2f);
-
-                Localization.Progress();
-
-                yield return new WaitForSeconds(0.2f);
-
-                yield return Fader.To(0f, 0.2f);
-            }
+            Fader.Operate(Localization.Progress);
         }
     }
 }
