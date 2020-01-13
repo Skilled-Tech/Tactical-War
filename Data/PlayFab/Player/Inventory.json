@@ -1,23 +1,6 @@
 {
   "Inventory": [
     {
-      "Annotation": "Level Completion 1 Reward",
-      "BundleContents": [],
-      "BundleParent": null,
-      "CatalogVersion": "Default",
-      "CustomData": null,
-      "DisplayName": "2K Gold",
-      "Expiration": "2020-01-13T12:51:45.823Z",
-      "ItemClass": null,
-      "ItemId": "2k_gold",
-      "ItemInstanceId": "D756D12970E8950E",
-      "PurchaseDate": "2020-01-13T12:51:42.823Z",
-      "RemainingUses": null,
-      "UnitCurrency": null,
-      "UnitPrice": 0,
-      "UsesIncrementedBy": null
-    },
-    {
       "Annotation": "New Player Welcome Reward",
       "BundleContents": null,
       "BundleParent": null,

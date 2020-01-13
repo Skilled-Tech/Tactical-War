@@ -4,14 +4,9 @@
       "LastUpdated": "2020-01-13T08:35:55.878Z",
       "Permission": 0,
       "Value": "{\"timestamp\":\"2020-01-13T08:35:55.850Z\",\"progress\":1}"
-    },
-    "world": {
-      "LastUpdated": "2020-01-13T12:51:42.567Z",
-      "Permission": 0,
-      "Value": "{\"regions\":[{\"name\":\"Forest\",\"progress\":{\"count\":3,\"difficulty\":1}}]}"
     }
   },
-  "DataVersion": 25,
+  "DataVersion": 26,
   "Request": {
     "IfChangedFromDataVersion": null,
     "Keys": null,
