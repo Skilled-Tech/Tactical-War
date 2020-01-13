@@ -27,11 +27,11 @@ namespace Game
         public Selectable Source { get { return source; } }
 
         [SerializeField]
-        protected Color on;
+        protected Color on = Color.white;
         public Color On { get { return on; } }
 
         [SerializeField]
-        protected Color off;
+        protected Color off = Color.white;
         public Color Off { get { return off; } }
 
         public Graphic Graphic { get; protected set; }

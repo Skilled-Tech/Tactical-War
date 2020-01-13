@@ -101,7 +101,7 @@ namespace Game
 
         protected virtual void UpdateState()
         {
-            
+            Button.interactable = Template.Unlock.Available;
         }
 
         public delegate void ClickDelegate(UnitUITemplate template, UnitTemplate data);

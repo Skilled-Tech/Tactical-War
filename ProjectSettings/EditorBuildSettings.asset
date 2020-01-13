@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/Objects/World/Forest/Forest-World.unity
     guid: e9b64affa49cd884d8adafb0ab167deb
   - enabled: 1
-    path: Assets/Objects/World/Desert/Levels/Desert-World.unity
+    path: Assets/Objects/World/Desert/Desert-World.unity
     guid: 2b22f4fc8c1de2c4eb757596c54be13e
   m_configObjects: {}

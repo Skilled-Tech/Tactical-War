@@ -30,12 +30,20 @@ namespace Game
         [SerializeField]
         Color off = Color.red;
 
+        [SerializeField]
+        protected bool deActivate;
+        public bool DeActivate { get { return deActivate; } }
+
         public int Value
         {
             set
             {
                 for (int i = 0; i < images.Length; i++)
+                {
+                    if(deActivate) images[i].gameObject.SetActive(i >= value ? false : true);
+
                     images[i].color = i >= value ? off : on;
+                }
             }
         }
     }

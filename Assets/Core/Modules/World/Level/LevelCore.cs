@@ -63,6 +63,7 @@ namespace Game
         protected MusicTrack music;
         public MusicTrack Music { get { return music; } }
 
+        #region Proponents
         [SerializeField]
         protected PlayerData player;
         public PlayerData Player { get { return player; } }
@@ -167,6 +168,7 @@ namespace Game
                 Register(_base);
             }
         }
+        #endregion
 
         public class Property : Core.Property
         {
@@ -184,8 +186,7 @@ namespace Game
             this.Index = region.IndexOf(this);
         }
 
-        public Level Instance { get { return Level.Instance; } }
-
+        #region Query
         public int Index { get; protected set; }
 
         public virtual bool IsFirst { get { return Index == 0; } }
@@ -209,6 +210,7 @@ namespace Game
                 return Region[Index + 1];
             }
         }
+        #endregion
 
         public override void Configure()
         {

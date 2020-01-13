@@ -181,7 +181,7 @@ namespace Game
             }
             else
             {
-                unlock.interactable = Player.Funds.CanAfford(Template.Price);
+                //unlock.interactable = Player.Funds.CanAfford(Template.Price);
 
                 price.color = unlock.interactable ? Color.white : Color.grey;
 

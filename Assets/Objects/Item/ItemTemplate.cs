@@ -158,6 +158,27 @@ namespace Game
             }
         }
 
+        [SerializeField]
+        protected UnlockData unlock;
+        public UnlockData Unlock { get { return unlock; } }
+        [Serializable]
+        public class UnlockData
+        {
+            [SerializeField]
+            protected LevelCore level;
+            public LevelCore Level { get { return level; } }
+
+            public bool Available
+            {
+                get
+                {
+                    if (level == null) return true;
+
+                    return level.Unlocked;
+                }
+            }
+        }
+
         public static Core Core { get { return Core.Instance; } }
         public static ItemsCore Items { get { return Core.Items; } }
 

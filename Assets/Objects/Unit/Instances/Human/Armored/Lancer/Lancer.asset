@@ -27,6 +27,8 @@ MonoBehaviour:
     inventory: 0
     shop: 0
     roster: 1
+  unlock:
+    level: {fileID: 11400000, guid: 934f3e16052d58c4897f2d95a5471e28, type: 2}
   species: {fileID: 11400000, guid: ae2b960090fb5d94d828518d2edc1d83, type: 2}
   type: {fileID: 11400000, guid: 24de53186882044498807e9ef2186c21, type: 2}
   prefab: {fileID: 8127696124609658847, guid: 84c291b554bb77a489cb8c9db9805b34, type: 3}
