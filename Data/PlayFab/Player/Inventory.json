@@ -1,6 +1,23 @@
 {
   "Inventory": [
     {
+      "Annotation": "Level Completion 1 Reward",
+      "BundleContents": [],
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "2K Gold",
+      "Expiration": "2020-01-13T12:51:45.823Z",
+      "ItemClass": null,
+      "ItemId": "2k_gold",
+      "ItemInstanceId": "D756D12970E8950E",
+      "PurchaseDate": "2020-01-13T12:51:42.823Z",
+      "RemainingUses": null,
+      "UnitCurrency": null,
+      "UnitPrice": 0,
+      "UsesIncrementedBy": null
+    },
+    {
       "Annotation": "New Player Welcome Reward",
       "BundleContents": null,
       "BundleParent": null,
@@ -63,7 +80,7 @@
       "ItemId": "Wood_Shield",
       "ItemInstanceId": "799CA337140DA53B",
       "PurchaseDate": "2019-12-29T11:24:57.069Z",
-      "RemainingUses": 10,
+      "RemainingUses": 22,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -80,14 +97,14 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "337B97F1A4B20AE8",
       "PurchaseDate": "2019-12-29T11:14:52.957Z",
-      "RemainingUses": 20,
+      "RemainingUses": 36,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
     }
   ],
   "VirtualCurrency": {
-    "GD": 15900,
+    "GD": 35900,
     "JL": 0
   },
   "VirtualCurrencyRechargeTimes": {},

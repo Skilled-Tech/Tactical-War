@@ -47,6 +47,14 @@ namespace Game
             Region.Unlock(this);
         }
 
+        public bool Completed
+        {
+            get
+            {
+                return Region.Progress.Initial > Index;
+            }
+        }
+
         [SerializeField]
         protected Sprite icon;
         public Sprite Icon { get { return icon; } }
@@ -170,6 +178,8 @@ namespace Game
         }
         #endregion
 
+        public List<ItemTemplate> Unlocks { get; protected set; }
+
         public class Property : Core.Property
         {
             public LevelCore Level { get; protected set; }
@@ -218,6 +228,12 @@ namespace Game
 
             Register(player);
             Register(AI);
+
+            Unlocks = new List<ItemTemplate>();
+
+            for (int i = 0; i < Core.Items.Count; i++)
+                if (Core.Items[i].Unlock.Level == this)
+                    Unlocks.Add(Core.Items[i]);
         }
 
         public virtual void Register(Property property)

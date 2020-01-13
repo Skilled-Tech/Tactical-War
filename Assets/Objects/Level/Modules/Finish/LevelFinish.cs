@@ -63,12 +63,7 @@ namespace Game
                 Core.Audio.Player.SFX.PlayOneShot(SFX.Win);
 
                 if (PlayFab.IsOnline)
-                {
-                    Menu.Popup.Show(Core.Localization.Phrases.Get("Retrieving End Results"));
-
-                    PlayFab.World.FinishLevel.OnResponse += RewardResponseCallback;
-                    PlayFab.World.FinishLevel.Request(Data.Level, Data.Difficulty, Level.Timer.Value);
-                }
+                    Request();
                 else
                 {
                     End();
@@ -84,75 +79,99 @@ namespace Game
             if (OnProcess != null) OnProcess(winner);
         }
 
-        PlayFabWorldFinishLevelCore.ResultData result = null;
-        private void RewardResponseCallback(PlayFabWorldFinishLevelCore.ResultData result, PlayFabError error)
+        public PlayFabWorldFinishLevelCore.ResultData result;
+        public List<ItemTemplate> rewards = new List<ItemTemplate>();
+        protected virtual void Request()
         {
-            PlayFab.World.FinishLevel.OnResponse -= RewardResponseCallback;
+            Menu.Popup.Show(Core.Localization.Phrases.Get("Retrieving End Results"));
 
-            this.result = result;
+            PlayFab.World.FinishLevel.OnResponse += Callback;
+            PlayFab.World.FinishLevel.Request(Data.Level, Data.Difficulty, Level.Timer.Value);
 
-            if (error == null)
+            void Callback(PlayFabWorldFinishLevelCore.ResultData result, PlayFabError error)
             {
-                Menu.Popup.Show(Core.Localization.Phrases.Get("Retrieving Player Data"));
+                PlayFab.World.FinishLevel.OnResponse -= Callback;
 
-                PlayFab.Player.OnResponse += OnPlayFabPlayerResponse;
-                PlayFab.Player.Retrieve();
-            }
-            else
-            {
-                RaiseError(error);
+                this.result = result;
+
+                if (error == null)
+                {
+                    rewards.AddRange(result.Rewards);
+
+                    if(Data.Level.Completed == false) //This is going to be the first time we complete this level
+                    {
+                        rewards.AddRange(Data.Level.Unlocks);
+                    }
+
+                    RetrivePlayerData();
+                }
+                else
+                {
+                    RaiseError(error);
+                }
             }
         }
-
-        void OnPlayFabPlayerResponse(PlayFabPlayerCore result, PlayFabError error)
+        
+        void RetrivePlayerData()
         {
-            PlayFab.Player.OnResponse -= OnPlayFabPlayerResponse;
+            Menu.Popup.Show(Core.Localization.Phrases.Get("Retrieving Player Data"));
 
-            if (error == null)
+            PlayFab.Player.OnResponse += Callback;
+            PlayFab.Player.Retrieve();
+
+            void Callback(PlayFabPlayerCore result, PlayFabError error)
+            {
+                PlayFab.Player.OnResponse -= Callback;
+
+                if (error == null)
+                {
+                    ShowRewards();
+                }
+                else
+                {
+
+                }
+            }
+        }
+        
+        void ShowRewards()
+        {
+            if (rewards.Count == 0)
             {
                 End();
             }
             else
             {
+                Menu.Popup.Hide();
 
+                Menu.Rewards.OnFinish += Callback;
+                Menu.Rewards.Show(Core.Localization.Phrases.Get("Level Reward"), rewards);
+
+                void Callback()
+                {
+                    Menu.Rewards.OnFinish -= Callback;
+
+                    End();
+                }
             }
         }
 
         void End()
         {
-            void Progress()
+            Menu.Rewards.Hide();
+            Menu.Popup.Hide();
+
+            Menu.End.Show(winner);
+
+            if (Core.Ads.Active && Advertisement.IsReady())
             {
-                Menu.Rewards.OnFinish -= Progress;
-
-                Menu.Rewards.Hide();
-                Menu.Popup.Hide();
-
-                Menu.End.Show(winner);
-
-                if(Core.Ads.Active && Advertisement.IsReady())
-                {
-                    Advertisement.Show();
-                }
-
-                if (result == null)
-                {
-                    Menu.End.Stars.Hide();
-                }
-                else
-                {
-                    Menu.End.Stars.Show(result.Stars);
-                }
+                Advertisement.Show();
             }
 
-            if (result == null || result.Rewards == null || result.Rewards.Length == 0)
-                Progress();
+            if (result == null)
+                Menu.End.Stars.Hide();
             else
-            {
-                Menu.Popup.Hide();
-
-                Menu.Rewards.OnFinish += Progress;
-                Menu.Rewards.Show(Core.Localization.Phrases.Get("Level Reward"), result.Rewards);
-            }
+                Menu.End.Stars.Show(result.Stars);
 
             Level.Speed.Value = 0f;
         }

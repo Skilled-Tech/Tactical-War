@@ -15,6 +15,7 @@ MonoBehaviour:
   icon:
     sprite: {fileID: 21300000, guid: da9c7144a72762449938275c1444a7b6, type: 3}
     tilt: 30
+    scale: 0.9
   prices: []
   upgrades:
     template: {fileID: 0}
@@ -23,3 +24,5 @@ MonoBehaviour:
     inventory: 1
     shop: 0
     roster: 1
+  unlock:
+    level: {fileID: 0}

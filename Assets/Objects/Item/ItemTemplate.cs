@@ -174,7 +174,7 @@ namespace Game
                 {
                     if (level == null) return true;
 
-                    return level.Unlocked;
+                    return level.Completed;
                 }
             }
         }
@@ -273,11 +273,18 @@ namespace Game
         protected float tilt;
         public float Tilt { get { return tilt; } }
 
+        [SerializeField]
+        [Range(0f, 1f)]
+        protected float scale = 1f;
+        public float Scale { get { return scale; } }
+
         public virtual void ApplyTo(Image image)
         {
             image.sprite = sprite;
 
             image.rectTransform.localEulerAngles = Vector3.forward * tilt;
+
+            image.rectTransform.localScale = Vector3.one * scale;
         }
     }
 }
