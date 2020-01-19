@@ -56,6 +56,10 @@ namespace Game
                 [SerializeField]
                 protected ItemUpgradeType range;
                 public ItemUpgradeType Range { get { return range; } }
+
+                [SerializeField]
+                protected ItemUpgradeType speed;
+                public ItemUpgradeType Speed { get { return speed; } }
             }
 
             public virtual ItemUpgradeType Find(string name)

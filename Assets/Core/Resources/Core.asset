@@ -79,10 +79,12 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
         - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
         - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+        - {fileID: 11400000, guid: d881f25cec88c374b86afdf3140769d2, type: 2}
         common:
           power: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
           defense: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
           range: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+          speed: {fileID: 11400000, guid: d881f25cec88c374b86afdf3140769d2, type: 2}
       templates:
         _default: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
   playFab:

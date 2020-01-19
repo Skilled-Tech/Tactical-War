@@ -1,6 +1,23 @@
 {
   "Inventory": [
     {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Shadow Assassin",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Shadow_Assassin",
+      "ItemInstanceId": "D83EE66A4706A119",
+      "PurchaseDate": "2020-01-19T12:24:04.137Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
       "Annotation": "New Player Welcome Reward",
       "BundleContents": null,
       "BundleParent": null,
@@ -80,14 +97,14 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "337B97F1A4B20AE8",
       "PurchaseDate": "2019-12-29T11:14:52.957Z",
-      "RemainingUses": 38,
+      "RemainingUses": 39,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
     }
   ],
   "VirtualCurrency": {
-    "GD": 37900,
+    "GD": 27900,
     "JL": 0
   },
   "VirtualCurrencyRechargeTimes": {},

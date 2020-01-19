@@ -10,7 +10,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"1 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Archer",
       "InitialLimitedEditionCount": 0,
@@ -22,7 +22,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "archer"
       ],
       "VirtualCurrencyPrices": {
         "GD": 4000
@@ -38,7 +40,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Knight",
       "InitialLimitedEditionCount": 0,
@@ -50,7 +52,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "melee",
+        "knight"
       ],
       "VirtualCurrencyPrices": {
         "JL": 6000
@@ -114,7 +118,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Fire Wizard",
       "InitialLimitedEditionCount": 0,
@@ -126,7 +130,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "wizard"
       ],
       "VirtualCurrencyPrices": {
         "JL": 12000
@@ -142,7 +148,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Ice Wizard",
       "InitialLimitedEditionCount": 0,
@@ -154,7 +160,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "wizard"
       ],
       "VirtualCurrencyPrices": {
         "JL": 16000
@@ -170,7 +178,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Thunder Wizard",
       "InitialLimitedEditionCount": 0,
@@ -182,7 +190,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "wizard"
       ],
       "VirtualCurrencyPrices": {
         "GD": 20000
@@ -198,7 +208,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Fire Archer",
       "InitialLimitedEditionCount": 0,
@@ -210,7 +220,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "archer"
       ],
       "VirtualCurrencyPrices": {
         "GD": 8000
@@ -226,7 +238,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Toxic Archer",
       "InitialLimitedEditionCount": 0,
@@ -238,7 +250,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "archer"
       ],
       "VirtualCurrencyPrices": {
         "GD": 8000
@@ -254,7 +268,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Heavy Knight",
       "InitialLimitedEditionCount": 0,
@@ -266,7 +280,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "melee",
+        "knight"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -282,7 +298,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Lancer",
       "InitialLimitedEditionCount": 0,
@@ -294,7 +310,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "melee",
+        "knight"
       ],
       "VirtualCurrencyPrices": {
         "GD": 1000
@@ -310,7 +328,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Explosives Archer",
       "InitialLimitedEditionCount": 0,
@@ -322,7 +340,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "archer"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -338,7 +358,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"1 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Berserker",
       "InitialLimitedEditionCount": 0,
@@ -350,7 +370,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "melee",
+        "knight"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -366,7 +388,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"1 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Savage",
       "InitialLimitedEditionCount": 0,
@@ -378,7 +400,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "melee",
+        "knight"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -422,7 +446,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Speed\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Frantic Assassin",
       "InitialLimitedEditionCount": 0,
@@ -434,7 +458,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "melee",
+        "assassin"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -450,7 +476,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Speed\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Shadow Assassin",
       "InitialLimitedEditionCount": 0,
@@ -462,7 +488,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "melee",
+        "assassin"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -478,7 +506,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Paralysis Archer",
       "InitialLimitedEditionCount": 0,
@@ -490,7 +518,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "archer"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -506,7 +536,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Earth Wizard",
       "InitialLimitedEditionCount": 0,
@@ -518,7 +548,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "wizard"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -534,7 +566,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"3 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Healer Wizard",
       "InitialLimitedEditionCount": 0,
@@ -546,7 +578,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "wizard"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -574,7 +608,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "special"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -668,7 +704,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"4 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Hero",
       "InitialLimitedEditionCount": 0,
@@ -680,7 +716,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "melee",
+        "special"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -696,7 +734,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"4 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\"upgrades\":{\"template\":\"Default\",\"applicable\":[\"Power\",\"Range\"]}}",
       "Description": null,
       "DisplayName": "Spawner",
       "InitialLimitedEditionCount": 0,
@@ -708,7 +746,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "special"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000
@@ -724,7 +764,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"2 Star\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
       "Description": null,
       "DisplayName": "Ice Archer",
       "InitialLimitedEditionCount": 0,
@@ -736,7 +776,9 @@
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
-        "upgradable"
+        "upgradable",
+        "ranged",
+        "archer"
       ],
       "VirtualCurrencyPrices": {
         "GD": 10000

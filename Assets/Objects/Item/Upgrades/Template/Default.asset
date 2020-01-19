@@ -27,7 +27,7 @@ MonoBehaviour:
       requirements: []
     - cost:
         type: 0
-        value: 400
+        value: 300
       percentage: 30
       requirements: []
     - cost:
@@ -37,7 +37,7 @@ MonoBehaviour:
       requirements: []
     - cost:
         type: 0
-        value: 400
+        value: 500
       percentage: 50
       requirements: []
   - type: {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
@@ -54,17 +54,17 @@ MonoBehaviour:
       requirements: []
     - cost:
         type: 0
-        value: 400
+        value: 300
       percentage: 30
       requirements: []
     - cost:
         type: 0
-        value: 200
+        value: 400
       percentage: 40
       requirements: []
     - cost:
         type: 0
-        value: 400
+        value: 500
       percentage: 50
       requirements: []
   - type: {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
@@ -81,16 +81,43 @@ MonoBehaviour:
       requirements: []
     - cost:
         type: 0
-        value: 400
+        value: 300
       percentage: 60
       requirements: []
     - cost:
         type: 0
-        value: 200
+        value: 400
       percentage: 80
       requirements: []
     - cost:
         type: 0
-        value: 400
+        value: 500
       percentage: 100
+      requirements: []
+  - type: {fileID: 11400000, guid: d881f25cec88c374b86afdf3140769d2, type: 2}
+    ranks:
+    - cost:
+        type: 0
+        value: 100
+      percentage: 10
+      requirements: []
+    - cost:
+        type: 0
+        value: 200
+      percentage: 20
+      requirements: []
+    - cost:
+        type: 0
+        value: 300
+      percentage: 30
+      requirements: []
+    - cost:
+        type: 0
+        value: 400
+      percentage: 40
+      requirements: []
+    - cost:
+        type: 0
+        value: 500
+      percentage: 50
       requirements: []
