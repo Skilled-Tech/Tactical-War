@@ -113,11 +113,11 @@ namespace Game
 
             return Contains(requirement.Item.ID, requirement.Count);
         }
-        public virtual bool CompliesWith(ItemStack[] requirements)
+        public virtual bool CompliesWith(IList<ItemStack> requirements)
         {
             if (requirements == null) return true;
 
-            for (int i = 0; i < requirements.Length; i++)
+            for (int i = 0; i < requirements.Count; i++)
             {
                 if (CompliesWith(requirements[i]))
                     continue;

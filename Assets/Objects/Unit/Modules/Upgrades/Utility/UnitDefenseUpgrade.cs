@@ -39,7 +39,7 @@ namespace Game
 
                 if (template == null || data == null || data.Value == 0) return 1f;
 
-                return template.Ranks[data.Index].Multiplier;
+                return template.Percentage.CalculateMultiplier(data.Index);
             }
         }
     }

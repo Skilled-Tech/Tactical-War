@@ -35,6 +35,7 @@ namespace Game
         public UnitNavigator Navigator { get; protected set; }
         public UnitAttack Attack { get; protected set; }
         public UnitUpgrades Upgrades { get; protected set; }
+        public UnitSpeed Speed { get; protected set; }
 
         new public abstract class Module : Module<Unit>
         {
@@ -94,6 +95,7 @@ namespace Game
             Body = Dependancy.Get<UnitBody>(gameObject);
             Navigator = Dependancy.Get<UnitNavigator>(gameObject);
             Attack = Dependancy.Get<UnitAttack>(gameObject);
+            Speed = Dependancy.Get<UnitSpeed>(gameObject);
 
             Modules.Configure(this);
         }

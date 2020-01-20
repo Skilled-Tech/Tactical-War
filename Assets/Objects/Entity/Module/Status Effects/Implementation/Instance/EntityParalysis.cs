@@ -21,13 +21,13 @@ namespace Game
 {
 	public class EntityParalysis : EntityStatusEffectImplementation<ParalysisStatusEffect>, EntityTimeScale.IModifer
 	{
-		public float Slowdown { get; protected set; }
+		public float Percentage { get; protected set; }
 
         public override void Configure(Entity data)
         {
             base.Configure(data);
 
-            Slowdown = 0f;
+            Percentage = 0f;
         }
 
         public override void Init()
@@ -54,11 +54,11 @@ namespace Game
         Coroutine coroutine;
         IEnumerator Procedure()
         {
-            Slowdown = 100f;
+            Percentage = -100f;
 
             yield return new WaitForSeconds(type.Delay);
 
-            Slowdown = 0f;
+            Percentage = 0f;
 
             coroutine = null;
         }

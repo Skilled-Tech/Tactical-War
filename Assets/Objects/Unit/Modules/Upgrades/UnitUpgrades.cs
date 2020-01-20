@@ -38,6 +38,8 @@ namespace Game
                 {
                     Upgrades.GetElements(Type, out var template, out var data);
 
+                    if (data == null) return 0f;
+
                     return template.Percentage.Calculate(data.Value);
                 }
             }

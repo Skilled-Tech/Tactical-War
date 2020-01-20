@@ -596,7 +596,7 @@
         "UsagePeriodGroup": null
       },
       "Container": null,
-      "CustomData": "{\"upgrades\":{\"template\":\"4 Star\",\"applicable\":[\"Power\",\"Defense\",\"Range\"]}}",
+      "CustomData": "{\"upgrades\":{\"template\":\"Default\",\"applicable\":[\"Power\",\"Defense\",\"Range\"]}}",
       "Description": null,
       "DisplayName": "Robot",
       "InitialLimitedEditionCount": 0,

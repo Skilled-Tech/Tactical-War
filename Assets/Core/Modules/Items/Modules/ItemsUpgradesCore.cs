@@ -29,6 +29,10 @@ namespace Game
     {
         public const string Key = "upgrades";
 
+        public const int Max = 5;
+
+        public const CurrencyType Currency = CurrencyType.Gold;
+
         [SerializeField]
         protected TypesCore types;
         public TypesCore Types { get { return types; } }

@@ -85,13 +85,15 @@ namespace API
                     this.type = source.type;
 
                     this.cost = FactorialValue.Create(source.cost);
-
                     this.percentage = FactorialValue.Create(source.percentage);
 
                     this.requirements = [];
                     for (let x = 0; x < source.requirements.length; x++)
                     {
                         this.requirements.push([]);
+
+                        if (source.requirements[x] == null) continue;
+
                         for (let y = 0; y < source.requirements[x].length; y++)
                         {
                             var stack = ItemStack.FromText(source.requirements[x][y]);

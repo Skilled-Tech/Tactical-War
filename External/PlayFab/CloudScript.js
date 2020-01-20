@@ -200,7 +200,7 @@ class Sandbox {
         }
     }
     static Execute() {
-        var json = "{ \"name\": \"Default\", \"elements\": [ { \"type\": \"Power\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] }, { \"type\": \"Defense\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] }, { \"type\": \"Range\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] }, { \"type\": \"Speed\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] } ] }";
+        var json = "{ \"name\": \"Default\", \"elements\": [ { \"type\": \"Power\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ null, [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] }, { \"type\": \"Defense\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] }, { \"type\": \"Range\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] }, { \"type\": \"Speed\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] } ] }";
         var instance = JSON.parse(json);
         var template = new API.Upgrades.Template(instance);
         console.log(MyJSON.Stringfy(template));
@@ -291,7 +291,7 @@ var API;
                     IDs.push(stacks[x].item);
             PlayFab.Catalog.Item.GrantAll(playerID, IDs, annotation);
         }
-        static FromString(text) {
+        static FromText(text) {
             let start = text.indexOf('[');
             if (start < 0)
                 return new ItemStack(text, 1);
@@ -636,8 +636,10 @@ var API;
                     this.requirements = [];
                     for (let x = 0; x < source.requirements.length; x++) {
                         this.requirements.push([]);
+                        if (source.requirements[x] == null)
+                            continue;
                         for (let y = 0; y < source.requirements[x].length; y++) {
-                            var stack = API.ItemStack.FromString(source.requirements[x][y]);
+                            var stack = API.ItemStack.FromText(source.requirements[x][y]);
                             this.requirements[x].push(stack);
                         }
                     }

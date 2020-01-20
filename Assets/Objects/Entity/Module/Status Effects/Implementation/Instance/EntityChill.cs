@@ -21,13 +21,13 @@ namespace Game
 {
 	public class EntityChill : EntityStatusEffectImplementation<ChillStatusEffect>, EntityTimeScale.IModifer
 	{
-        public virtual float Slowdown
+        public virtual float Percentage
         {
             get
             {
                 if (Effect == null) return 0f;
 
-                return Effect.Data.Potency;
+                return -Effect.Data.Potency;
             }
         }
     }

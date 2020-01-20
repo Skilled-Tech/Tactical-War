@@ -26,12 +26,12 @@ namespace Game
         {
             get
             {
-                var modifier = 0f;
+                var percentage = 0f;
 
                 for (int i = 0; i < Modifiers.Count; i++)
-                        modifier += Modifiers[i].Slowdown;
+                    percentage += Modifiers[i].Percentage;
 
-                return Mathf.Lerp(1f, 0f, modifier / 100f);
+                return 1f + Mathf.LerpUnclamped(0f, 1f, percentage / 100f);
             }
         }
 
@@ -42,7 +42,7 @@ namespace Game
             /// <summary>
             /// To be implemeted as a value from 0% to 100% or beyond if you're into things not working :)
             /// </summary>
-            float Slowdown { get; }
+            float Percentage { get; }
         }
 
         public override void Init()

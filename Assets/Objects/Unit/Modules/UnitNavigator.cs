@@ -23,31 +23,6 @@ namespace Game
 {
 	public class UnitNavigator : Unit.Module
 	{
-        public float BaseSpeed
-        {
-            get
-            {
-                switch (Template.MovementMethod)
-                {
-                    case UnitMovementMethod.Walk:
-                        return 1.6f;
-
-                    case UnitMovementMethod.Sprint:
-                        return 3f;
-                }
-
-                Debug.LogError("No case defined for converting unit movement method: " + Template.MovementMethod.ToString() + " to Unit Navigator Base Speed, returning 0");
-                return 0f;
-            }
-        }
-        public float Speed
-        {
-            get
-            {
-                return BaseSpeed * Unit.TimeScale.Rate;
-            }
-        }
-
         public float XPosition
         {
             get
@@ -68,6 +43,8 @@ namespace Game
 
         public float Direction { get; protected set; }
 
+        public UnitSpeed Speed => Unit.Speed;
+
         public virtual bool MoveTo(Vector3 destination, float stoppingDistance)
         {
             return MoveTo(destination.x, stoppingDistance);
@@ -82,7 +59,7 @@ namespace Game
 
             if (DistanceLeft > stoppingDistance)
             {
-                XPosition = Mathf.MoveTowards(XPosition, destination, Speed * Time.deltaTime);
+                XPosition = Mathf.MoveTowards(XPosition, destination, Speed.Value * Time.deltaTime);
 
                 Body.CharacterAnimation.SetState(MovementMethodToCharacterState(Template.MovementMethod));
 

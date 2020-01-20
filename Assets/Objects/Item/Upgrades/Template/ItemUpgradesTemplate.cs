@@ -20,6 +20,8 @@ using Random = UnityEngine.Random;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using UnityEngine.Scripting;
+
 namespace Game
 {
     [CreateAssetMenu(menuName = ItemTemplate.UpgradesData.MenuPath + "Template")]
@@ -32,12 +34,7 @@ namespace Game
 
         [JsonProperty]
         [SerializeField]
-        protected ElementData[] elements = new ElementData[]
-        {
-            new ElementData(5, new Currency(0, 200), 10),
-            new ElementData(5, new Currency(0, 200), 10),
-            new ElementData(5, new Currency(0, 200), 20),
-        };
+        protected ElementData[] elements;
         public ElementData[] Elements { get { return elements; } }
         [Serializable]
         public class ElementData
@@ -60,10 +57,44 @@ namespace Game
 
             public float CalculateMultiplier(float percentage) => 1f + (percentage / 100f);
 
-            [JsonProperty(ItemConverterType = typeof(ItemStack.TextListConverter))]
+            [JsonProperty(PropertyName = "requirements")]
+            public string[][] requirementsText;
+            public virtual void CalculateRequirements()
+            {
+                requirements = CalculateRequirements(requirementsText);
+            }
+            public virtual RequirementsData[] CalculateRequirements(string[][] data)
+            {
+                var result = new RequirementsData[data.Length];
+
+                for (int i = 0; i < requirementsText.Length; i++)
+                    result[i] = RequirementsData.From(requirementsText[i]);
+
+                return result;
+            }
+
             [SerializeField]
-            protected ItemStack[][] requirements;
-            public ItemStack[][] Requirements { get { return requirements; } }
+            protected RequirementsData[] requirements;
+            public RequirementsData[] Requirements { get { return requirements; } }
+
+            public class RequirementsData : List<ItemStack>
+            {
+                public static RequirementsData From(IList<string> list)
+                {
+                    var result = new RequirementsData();
+
+                    if (list == null) return result;
+
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        var stack = ItemStack.From(list[i]);
+
+                        result.Add(stack);
+                    }
+
+                    return result;
+                }
+            }
 
             public ElementData()
             {
@@ -83,6 +114,9 @@ namespace Game
         public virtual void Load(string json)
         {
             JsonConvert.PopulateObject(json, this);
+
+            for (int i = 0; i < elements.Length; i++)
+                elements[i].CalculateRequirements();
         }
     }
 

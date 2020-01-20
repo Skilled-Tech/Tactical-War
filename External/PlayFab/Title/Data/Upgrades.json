@@ -13,10 +13,7 @@
           "multiplier": 5
         },
         "requirements": [
-          [
-            "[2]Wood_Sword",
-            "[2]Wood_Shield"
-          ],
+          null,
           [
             "[2]Wood_Sword",
             "[2]Wood_Shield"
@@ -46,10 +43,7 @@
           "multiplier": 5
         },
         "requirements": [
-          [
-            "[2]Wood_Sword",
-            "[2]Wood_Shield"
-          ],
+          null,
           [
             "[2]Wood_Sword",
             "[2]Wood_Shield"
@@ -79,10 +73,7 @@
           "multiplier": 5
         },
         "requirements": [
-          [
-            "[2]Wood_Sword",
-            "[2]Wood_Shield"
-          ],
+          null,
           [
             "[2]Wood_Sword",
             "[2]Wood_Shield"
@@ -112,10 +103,7 @@
           "multiplier": 5
         },
         "requirements": [
-          [
-            "[2]Wood_Sword",
-            "[2]Wood_Shield"
-          ],
+          null,
           [
             "[2]Wood_Sword",
             "[2]Wood_Shield"

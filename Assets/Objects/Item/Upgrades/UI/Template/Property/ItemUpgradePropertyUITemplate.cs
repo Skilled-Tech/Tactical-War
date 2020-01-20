@@ -90,28 +90,31 @@ namespace Game
             var data = Player.Units.Upgrades.Find(Template).Find(Type);
             var template = Template.Upgrades.Template.Find(Type);
 
-            var isFull = data.Value >= template.Ranks.Length;
+            var isFull = data.Value >= ItemsUpgradesCore.Max;
 
             instruction.gameObject.SetActive(isFull);
-            buy.gameObject.SetActive(!isFull);
+            //buy.gameObject.SetActive(!isFull);
 
             if (isFull)
             {
                 buy.interactable = false;
 
+                price.text = "---------";
+
                 requiremnets.Hide();
 
-                instruction.text = data.Value + "/" + template.Ranks.Length + " " + Core.Localization.Phrases.Get("Full");
+                instruction.text = data.Value + "/" + ItemsUpgradesCore.Max + " " + Core.Localization.Phrases.Get("Full");
             }
             else
             {
-                var nextRank = template.Ranks[data.Value];
+                var cost = new Currency(ItemsUpgradesCore.Currency, (int)template.Cost.Calculate(data.Value));
+                var requirements = template.Requirements[data.Value];
 
-                price.text = nextRank.Cost.ToString();
+                price.text = template.Cost.Calculate(data.Value).ToString();
 
-                buy.interactable = Funds.CanAfford(nextRank.Cost) && Player.Inventory.CompliesWith(nextRank.Requirements);
+                buy.interactable = Funds.CanAfford(cost) && Player.Inventory.CompliesWith(requirements);
 
-                requiremnets.Set(nextRank.Requirements);
+                requiremnets.Set(requirements);
             }
 
             progression.Value = data.Value;

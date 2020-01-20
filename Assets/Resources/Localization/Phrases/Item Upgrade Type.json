@@ -1,7 +1,7 @@
 ﻿{
   "power upgrade": {
     "en": "Power Upgrade",
-    "ar": "تطوير الطاقه"
+    "ar": "تطوير الطاقة"
   },
   "defense upgrade": {
     "en": "Defense Upgrade",
@@ -10,5 +10,9 @@
   "range upgrade": {
     "en": "Range Upgrade",
     "ar": "تطوير المدى"
+  },
+  "speed upgrade": {
+    "en": "Speed Upgrade",
+    "ar" : "تطوير السرعة"
   }
 }

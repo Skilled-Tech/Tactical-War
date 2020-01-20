@@ -5,6 +5,59 @@
       "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Frantic Assassin",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Frantic_Assassin",
+      "ItemInstanceId": "6CB88508A327290E",
+      "PurchaseDate": "2020-01-20T14:33:13.551Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Power\",\"value\":1},{\"type\":\"Range\",\"value\":5}]"
+      },
+      "DisplayName": "Ice Wizard",
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "Ice_Wizard",
+      "ItemInstanceId": "BC623AED986BF1A2",
+      "PurchaseDate": "2020-01-20T14:22:27.18Z",
+      "RemainingUses": null,
+      "UnitCurrency": "JL",
+      "UnitPrice": 16000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Hail Storm",
+      "Expiration": null,
+      "ItemClass": "Ability",
+      "ItemId": "Hail_Storm",
+      "ItemInstanceId": "29E412A01D4BE24A",
+      "PurchaseDate": "2020-01-20T13:00:23.967Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 20000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
       "CustomData": {
         "upgrades": "[{\"type\":\"Speed\",\"value\":5}]"
       },
@@ -24,7 +77,9 @@
       "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",
-      "CustomData": null,
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Power\",\"value\":5},{\"type\":\"Defense\",\"value\":5}]"
+      },
       "DisplayName": "Hero",
       "Expiration": null,
       "ItemClass": "Unit",
@@ -82,7 +137,7 @@
       "ItemId": "Wood_Shield",
       "ItemInstanceId": "799CA337140DA53B",
       "PurchaseDate": "2019-12-29T11:24:57.069Z",
-      "RemainingUses": 14,
+      "RemainingUses": 12,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -99,15 +154,15 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "337B97F1A4B20AE8",
       "PurchaseDate": "2019-12-29T11:14:52.957Z",
-      "RemainingUses": 30,
+      "RemainingUses": 26,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
     }
   ],
   "VirtualCurrency": {
-    "GD": 26400,
-    "JL": 0
+    "GD": 328400,
+    "JL": 24000
   },
   "VirtualCurrencyRechargeTimes": {},
   "Request": {

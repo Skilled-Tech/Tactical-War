@@ -106,46 +106,6 @@ namespace Game
             }
         }
 
-        [Preserve]
-        public class TextListConverter : JsonConverter
-        {
-            public override bool CanConvert(Type objectType)
-            {
-                return typeof(IList<ItemStack>).IsAssignableFrom(objectType);
-            }
-
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-            {
-                if (reader.Value == null) return null;
-
-                var list = reader.Value as IList<string>;
-
-                var result = new ItemStack[list.Count];
-
-                for (int i = 0; i < list.Count; i++)
-                    result[i] = ItemStack.From(list[i]);
-
-                return list;
-            }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                var list = value as IList<ItemStack>;
-
-                var result = new string[list.Count];
-
-                for (int i = 0; i < list.Count; i++)
-                    result[i] = ItemStack.ToText(list[i]);
-
-                serializer.Serialize(writer, result);
-            }
-
-            public TextListConverter()
-            {
-
-            }
-        }
-
         //Static Utility
         public static List<ItemStack> From(IList<string> IDs)
         {

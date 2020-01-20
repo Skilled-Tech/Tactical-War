@@ -49,6 +49,24 @@ namespace Game
         protected UnitMovementMethod movementMethod = UnitMovementMethod.Walk;
         public UnitMovementMethod MovementMethod { get { return movementMethod; } }
 
+        public float MovementSpeed
+        {
+            get
+            {
+                switch (movementMethod)
+                {
+                    case UnitMovementMethod.Walk:
+                        return 1.6f;
+
+                    case UnitMovementMethod.Sprint:
+                        return 3f;
+                }
+
+                Debug.LogError("No case defined for converting unit movement method: " + movementMethod.ToString() + " to Unit Navigator Base Speed, returning 0");
+                return 0f;
+            }
+        }
+
         [SerializeField]
         protected DeploymentData deployment = new DeploymentData(200, 2f);
         public DeploymentData Deployment { get { return deployment; } }

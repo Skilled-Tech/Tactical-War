@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Speed
   m_EditorClassIdentifier: 
   icon:
-    sprite: {fileID: 21300000, guid: 0ded733c73404cf2890a012b51681995, type: 3}
+    sprite: {fileID: 21300000, guid: 65b5355b6d8f11b48a38796d1590ee1e, type: 3}
     tilt: 0
     scale: 1

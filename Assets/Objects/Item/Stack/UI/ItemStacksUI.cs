@@ -40,11 +40,11 @@ namespace Game
             Elements = new List<ItemStackUITemplate>();
         }
 
-        public virtual void Set(ItemStack[] requirements)
+        public virtual void Set(IList<ItemStack> requirements)
         {
             Clear();
 
-            if(requirements == null || requirements.Length == 0)
+            if(requirements == null || requirements.Count == 0)
             {
                 label.text = Core.Localization.Phrases.Get("No Requirements");
             }
@@ -52,7 +52,7 @@ namespace Game
             {
                 label.text = Core.Localization.Phrases.Get("Required");
 
-                for (int i = 0; i < requirements.Length; i++)
+                for (int i = 0; i < requirements.Count; i++)
                 {
                     var instance = Create(requirements[i]);
 
