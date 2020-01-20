@@ -1,84 +1,257 @@
 {
-    "stars": [
+    "name": "Default",
+    "elements": [
         {
-            "time": 300
-        },
-        {
-            "time": 200
-        },
-        {
-            "time": 100
-        }
-    ],
-    "rewards": [
-        {
-            "data": {
-                "droptable": {
-                    "ID": "Level-Default-DropTable",
-                    "iterations": 1
-                }
+            "type": "Power",
+            "cost": {
+                "initial": 100,
+                "multiplier": 100
             },
-            "requirements": {
-                "occurrence": [
-                    1
-                ]
-            }
-        },
-        {
-            "data": {
-                "items": [
-                    "2K_Gold"
+            "percentage": {
+                "initial": 10,
+                "multiplier": 5
+            },
+            "requirements": [
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
                 ],
-                "droptable": {
-                    "ID": "Level-Default-DropTable",
-                    "iterations": 1
-                }
-            }
-        },
-        {
-            "data": {
-                "droptable": {
-                    "ID": "Level-Default-DropTable",
-                    "iterations": 1
-                }
-            },
-            "requirements": {
-                "difficulty": [
-                    2
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
                 ],
-                "occurrence": [
-                    1
-                ]
-            }
-        },
-        {
-            "data": {
-                "items": [
-                    "5K_Gold"
-                ]
-            },
-            "requirements": {
-                "difficulty": [
-                    2
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
                 ],
-                "occurrence": [
-                    1,
-                    2
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
                 ]
-            }
+            ]
         },
         {
-            "data": {
-                "droptable": {
-                    "ID": "Level-Default-DropTable",
-                    "iterations": 1
-                }
+            "type": "Defense",
+            "cost": {
+                "initial": 100,
+                "multiplier": 100
             },
-            "requirements": {
-                "stars": [
-                    3
+            "percentage": {
+                "initial": 10,
+                "multiplier": 5
+            },
+            "requirements": [
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
                 ]
-            }
+            ]
+        },
+        {
+            "type": "Range",
+            "cost": {
+                "initial": 100,
+                "multiplier": 100
+            },
+            "percentage": {
+                "initial": 10,
+                "multiplier": 5
+            },
+            "requirements": [
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ]
+            ]
+        },
+        {
+            "type": "Speed",
+            "cost": {
+                "initial": 100,
+                "multiplier": 100
+            },
+            "percentage": {
+                "initial": 10,
+                "multiplier": 5
+            },
+            "requirements": [
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ],
+                [
+                    {
+                        "item": "Wood_Sword",
+                        "count": 2
+                    },
+                    {
+                        "item": "Wood_Shield",
+                        "count": 2
+                    }
+                ]
+            ]
         }
     ]
 }

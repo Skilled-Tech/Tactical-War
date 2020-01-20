@@ -54,7 +54,7 @@ namespace API
 
                 if (json == null) return null;
 
-                var instance = MyJSON.Read(PlayerData, json);
+                var instance = MyJSON.Parse(PlayerData, json);
 
                 return instance;
             }
@@ -73,7 +73,7 @@ namespace API
 
             static Save(playerID: string, data: PlayerData)
             {
-                let json = MyJSON.Write(data);
+                let json = MyJSON.Stringfy(data);
 
                 PlayFab.Player.Data.ReadOnly.Write(playerID, API.World.ID, json);
             }

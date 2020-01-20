@@ -49,10 +49,55 @@ namespace API
 
             PlayFab.Catalog.Item.GrantAll(playerID, IDs, annotation);
         }
+
+        static FromText(text: string): ItemStack
+        {
+            let start = text.indexOf('[');
+
+            if (start < 0)
+                return new ItemStack(text, 1);
+
+            let end = text.indexOf(']');
+
+            if (end < 0)
+                return new ItemStack(text, 1);
+
+            let count = Number.parseInt(text.substring(start + 1, end));
+            let id = text.substring(end + 1, text.length);
+
+            return new ItemStack(id, count);
+        }
     }
 
     export enum Difficulty
     {
         Normal = 1, Hard = 2, Skilled = 3
+    }
+
+    export class FactorialValue
+    {
+        initial: number;
+        multiplier: number;
+
+        Calculate(i: number)
+        {
+            return this.initial + (this.multiplier * i);
+        }
+
+        constructor(initial: number, multiplier: number)
+        {
+            this.initial = initial;
+            this.multiplier = multiplier;
+        }
+
+        public static Create(object: IFactorialValue): FactorialValue
+        {
+            return new FactorialValue(object.initial, object.multiplier);
+        }
+    }
+    export interface IFactorialValue
+    {
+        initial: number;
+        multiplier: number;
     }
 }

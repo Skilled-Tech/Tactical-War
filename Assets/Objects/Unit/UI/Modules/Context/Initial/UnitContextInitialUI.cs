@@ -98,7 +98,9 @@ namespace Game
                         }
                         else
                         {
-                            FormatLabel(label, type.name, value * template.Ranks[data.Index].Multiplier);
+                            var multiplier = template.Percentage.CalculateMultiplier(data.Index);
+
+                            FormatLabel(label, type.name, value * multiplier);
                         }
                     }
                 }

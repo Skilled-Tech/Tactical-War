@@ -2,7 +2,7 @@ namespace API
 {
     export namespace Upgrades
     {
-        export class Template implements ITemplate
+        export class Template
         {
             name: string;
             elements: Template.Element[];
@@ -16,14 +16,14 @@ namespace API
                 return null;
             }
 
-            constructor(object: ITemplate)
+            constructor(source: ITemplate)
             {
-                this.name = object.name;
+                this.name = source.name;
 
                 this.elements = [];
-                for (let i = 0; i < object.elements.length; i++)
+                for (let i = 0; i < source.elements.length; i++)
                 {
-                    let instance = new Template.Element(this, i, object.elements[i]);
+                    let instance = new Template.Element(this, i, source.elements[i]);
 
                     this.elements.push(instance);
                 }
@@ -70,10 +70,12 @@ namespace API
                 return object;
             }
 
-            export class Element implements IElement
+            export class Element
             {
                 type: string;
-                ranks: Element.Rank[];
+                cost: FactorialValue;
+                percentage: FactorialValue;
+                requirements: ItemStack[][];
 
                 public get template(): Template { return this.$template; }
                 public get index(): number { return this.$index; }
@@ -82,61 +84,35 @@ namespace API
                 {
                     this.type = source.type;
 
-                    this.ranks = [];
-                    for (let i = 0; i < source.ranks.length; i++)
-                    {
-                        let instance = new Element.Rank(this, i, source.ranks[i]);
+                    this.cost = FactorialValue.Create(source.cost);
 
-                        this.ranks.push(instance);
+                    this.percentage = FactorialValue.Create(source.percentage);
+
+                    this.requirements = [];
+                    for (let x = 0; x < source.requirements.length; x++)
+                    {
+                        this.requirements.push([]);
+                        for (let y = 0; y < source.requirements[x].length; y++)
+                        {
+                            var stack = ItemStack.FromText(source.requirements[x][y]);
+
+                            this.requirements[x].push(stack);
+                        }
                     }
                 }
             }
             export interface IElement
             {
                 type: string;
-                ranks: Element.IRank[];
+
+                cost: IFactorialValue;
+                percentage: IFactorialValue;
+
+                requirements: string[][];
             }
             export namespace Element
             {
-                export class Rank implements IRank
-                {
-                    cost: API.Cost;
-                    percentage: number;
-                    requirements: API.ItemStack[]
 
-                    public get element(): Element { return this.$element; }
-                    public get index(): number { return this.$index; }
-
-                    public get previous(): Rank | null
-                    {
-                        if (this.index == 0) return null;
-
-                        return this.$element.ranks[this.index - 1];
-                    }
-
-                    public get next(): Rank | null
-                    {
-                        if (this.index + 1 == this.element.ranks.length) return null;
-
-                        return this.element.ranks[this.index + 1];
-                    }
-
-                    public get isFirst(): boolean { return this.index == 0; }
-                    public get isLast(): boolean { return this.index + 1 >= this.element.ranks.length; }
-
-                    constructor(private $element: Element, private $index: number, source: IRank)
-                    {
-                        this.cost = source.cost;
-                        this.percentage = source.percentage;
-                        this.requirements = source.requirements;
-                    }
-                }
-                export interface IRank
-                {
-                    cost: API.Cost;
-                    percentage: number;
-                    requirements: API.ItemStack[]
-                }
             }
 
             export class Snapshot

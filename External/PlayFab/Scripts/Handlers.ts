@@ -1,4 +1,4 @@
-handlers.ClaimDailyReward = function (args?: any, context?: IPlayFabContext | undefined): API.DailyReward.Result
+function ClaimDailyReward(args?: any, context?: IPlayFabContext | undefined): API.DailyReward.Result
 {
     let template = API.DailyReward.Template.Retrieve();
 
@@ -49,7 +49,7 @@ handlers.ClaimDailyReward = function (args?: any, context?: IPlayFabContext | un
     return result;
 }
 
-handlers.FinishLevel = function (args?: IFinishLevelArguments)
+function FinishLevel(args?: IFinishLevelArguments)
 {
     if (args == null)
     {
@@ -133,7 +133,7 @@ interface IFinishLevelArguments
     time: number;
 }
 
-handlers.UpgradeItem = function (args?: IUpgradeItemArguments)
+function UpgradeItem(args?: IUpgradeItemArguments)
 {
     if (args == null)
     {
@@ -210,19 +210,23 @@ handlers.UpgradeItem = function (args?: IUpgradeItemArguments)
         return;
     }
 
-    let rank = template.element.ranks[instanceData.element.value];
-
-    if (rank == null)
-    {
-        log.error("rank of index " + instanceData.element.value + " can't be null");
-        return;
+    let rank = {
+        requirements: template.element.requirements[instanceData.element.value],
+        cost: {
+            value: template.element.cost.Calculate(instanceData.element.value),
+            type: "GD",
+        }
     }
+
+    log.info("rank:" + MyJSON.Stringfy(rank));
 
     if (inventory.CompliesWith(rank.requirements) == false)
     {
         log.error("inventory doesn't comply with upgrade requirements");
         return;
     }
+
+    log.info(currentPlayerId + " - " + rank.cost.type + " - " + rank.cost.value);
 
     PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
 
@@ -242,7 +246,7 @@ interface IUpgradeItemArguments
     upgradeType: string;
 }
 
-handlers.Reward = function (args?: Array<string>)
+function Reward(args?: Array<string>)
 {
     if (args == null)
     {
@@ -253,7 +257,7 @@ handlers.Reward = function (args?: Array<string>)
     PlayFab.Catalog.Item.GrantAll(currentPlayerId, args, "Reward");
 }
 
-handlers.WelcomeNewPlayer = function (args?: IWelcomeNewPlayerArguments)
+function WelcomeNewPlayer(args?: IWelcomeNewPlayerArguments)
 {
     var inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
 
@@ -280,3 +284,21 @@ interface IWelcomeNewPlayerArguments
 {
 
 }
+
+function Register()
+{
+    handlers[ClaimDailyReward.name] = ClaimDailyReward;
+
+    handlers[FinishLevel.name] = FinishLevel;
+
+    handlers[UpgradeItem.name] = UpgradeItem;
+
+    handlers[Reward.name] = Reward;
+
+    handlers[WelcomeNewPlayer.name] = WelcomeNewPlayer;
+}
+
+if (IsOnPlayFab())
+    Register();
+else
+    console.warn("No handlers object found, will not add any handlers");

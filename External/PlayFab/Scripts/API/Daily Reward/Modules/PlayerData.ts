@@ -32,7 +32,7 @@ namespace API
 
                 if (json == null) return null;
 
-                let instance = MyJSON.Read(PlayerData, json);
+                let instance = MyJSON.Parse(PlayerData, json);
 
                 return instance;
             }

@@ -32,7 +32,7 @@ namespace API
 
             public toJSON(): string
             {
-                return MyJSON.Write(this.list);
+                return MyJSON.Stringfy(this.list);
             }
 
             constructor(source: Array<InstanceData.IElement>)
@@ -143,7 +143,7 @@ namespace API
                         element = data.Add(args.upgradeType);
                     }
 
-                    if (element.value >= template.element.ranks.length)
+                    if (element.value >= Upgrades.Max)
                         throw ("can't upgrade " + itemInstance.ItemId + " any further");
 
                     return {

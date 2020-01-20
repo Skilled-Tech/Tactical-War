@@ -20,6 +20,8 @@ using Random = UnityEngine.Random;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
+using UnityEngine.Scripting;
+
 namespace Game
 {
     [Serializable]
@@ -67,6 +69,81 @@ namespace Game
         public ItemStack(ItemTemplate template) : this(template, 1)
         {
 
+        }
+
+        [Preserve]
+        public class TextConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return typeof(ItemTemplate).IsAssignableFrom(objectType);
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                if (reader.Value == null) return null;
+
+                var text = reader.Value as string;
+
+                return ItemStack.From(text);
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                if (value == null)
+                    serializer.Serialize(writer, string.Empty);
+                else
+                {
+                    var stack = value as ItemStack;
+
+                    serializer.Serialize(writer, ItemStack.ToText(stack));
+                }
+            }
+
+            public TextConverter()
+            {
+
+            }
+        }
+
+        [Preserve]
+        public class TextListConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return typeof(IList<ItemStack>).IsAssignableFrom(objectType);
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                if (reader.Value == null) return null;
+
+                var list = reader.Value as IList<string>;
+
+                var result = new ItemStack[list.Count];
+
+                for (int i = 0; i < list.Count; i++)
+                    result[i] = ItemStack.From(list[i]);
+
+                return list;
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                var list = value as IList<ItemStack>;
+
+                var result = new string[list.Count];
+
+                for (int i = 0; i < list.Count; i++)
+                    result[i] = ItemStack.ToText(list[i]);
+
+                serializer.Serialize(writer, result);
+            }
+
+            public TextListConverter()
+            {
+
+            }
         }
 
         //Static Utility
@@ -127,6 +204,42 @@ namespace Game
             }
 
             return result;
+        }
+
+        public static ItemStack From(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return null;
+
+            string id;
+            uint count;
+
+            if (text[0] == '[')
+            {
+                text = text.Remove(0, 1);
+
+                var values = text.Split(']');
+
+                count = uint.Parse(values[0]);
+                id = values[1];
+            }
+            else
+            {
+                id = text;
+                count = 1;
+            }
+
+            var item = Items.Find(id);
+
+            return new ItemStack(item, count);
+        }
+
+        public static string ToText(ItemStack stack)
+        {
+            if (stack.item == null)
+                return string.Empty;
+            else
+                return '[' + stack.count + ']' + stack.item.ID;
         }
     }
 }

@@ -1,5 +1,5 @@
 "use strict";
-handlers.ClaimDailyReward = function (args, context) {
+function ClaimDailyReward(args, context) {
     let template = API.DailyReward.Template.Retrieve();
     let playerData = API.DailyReward.PlayerData.Retrieve(currentPlayerId);
     let reward = null;
@@ -30,8 +30,8 @@ handlers.ClaimDailyReward = function (args, context) {
     }
     let result = new API.DailyReward.Result(progress, itemIDs);
     return result;
-};
-handlers.FinishLevel = function (args) {
+}
+function FinishLevel(args) {
     if (args == null) {
         log.error("no arguments specified");
         return;
@@ -84,8 +84,8 @@ handlers.FinishLevel = function (args) {
         stars: playerData.star == null ? 0 : playerData.star.rank
     };
     return result;
-};
-handlers.UpgradeItem = function (args) {
+}
+function UpgradeItem(args) {
     if (args == null) {
         log.error("no arguments specified");
         return;
@@ -139,30 +139,34 @@ handlers.UpgradeItem = function (args) {
         log.error(error);
         return;
     }
-    let rank = template.element.ranks[instanceData.element.value];
-    if (rank == null) {
-        log.error("rank of index " + instanceData.element.value + " can't be null");
-        return;
-    }
+    let rank = {
+        requirements: template.element.requirements[instanceData.element.value],
+        cost: {
+            value: template.element.cost.Calculate(instanceData.element.value),
+            type: "GD",
+        }
+    };
+    log.info("rank:" + MyJSON.Stringfy(rank));
     if (inventory.CompliesWith(rank.requirements) == false) {
         log.error("inventory doesn't comply with upgrade requirements");
         return;
     }
+    log.info(currentPlayerId + " - " + rank.cost.type + " - " + rank.cost.value);
     PlayFab.Player.Currency.Subtract(currentPlayerId, rank.cost.type, rank.cost.value);
     PlayFab.Player.Inventory.ConsumeAll(inventory, rank.requirements);
     instanceData.element.Increment();
     API.Upgrades.InstanceData.Save(currentPlayerId, itemInstance, instanceData.data);
     let result = new API.Upgrades.Result(true);
     return result;
-};
-handlers.Reward = function (args) {
+}
+function Reward(args) {
     if (args == null) {
         log.error("no arguments specified");
         return;
     }
     PlayFab.Catalog.Item.GrantAll(currentPlayerId, args, "Reward");
-};
-handlers.WelcomeNewPlayer = function (args) {
+}
+function WelcomeNewPlayer(args) {
     var inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
     var token = "New_Player_Reward";
     if (inventory.Contains(token)) {
@@ -175,16 +179,38 @@ handlers.WelcomeNewPlayer = function (args) {
         rewards: rewards,
     };
     return result;
-};
-var Sandbox;
-(function (Sandbox) {
-    function Call() {
+}
+function Register() {
+    handlers[ClaimDailyReward.name] = ClaimDailyReward;
+    handlers[FinishLevel.name] = FinishLevel;
+    handlers[UpgradeItem.name] = UpgradeItem;
+    handlers[Reward.name] = Reward;
+    handlers[WelcomeNewPlayer.name] = WelcomeNewPlayer;
+}
+if (IsOnPlayFab())
+    Register();
+else
+    console.warn("No handlers object found, will not add any handlers");
+class Sandbox {
+    static Init() {
+        if (IsOnPlayFab()) {
+        }
+        else {
+            setTimeout(this.Execute, 50);
+        }
     }
-})(Sandbox || (Sandbox = {}));
+    static Execute() {
+        var json = "{ \"name\": \"Default\", \"elements\": [ { \"type\": \"Power\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] }, { \"type\": \"Defense\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] }, { \"type\": \"Range\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] }, { \"type\": \"Speed\", \"cost\": { \"initial\": 100, \"multiplier\": 100 }, \"percentage\": { \"initial\": 10, \"multiplier\": 5 }, \"requirements\": [ [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ], [ \"[2]Wood_Sword\", \"[2]Wood_Shield\" ] ] } ] }";
+        var instance = JSON.parse(json);
+        var template = new API.Upgrades.Template(instance);
+        console.log(MyJSON.Stringfy(template));
+    }
+}
+Sandbox.Init();
 var MyJSON;
 (function (MyJSON) {
     MyJSON.IgnoreCharacter = '$';
-    function Write(object) {
+    function Stringfy(object) {
         function Replacer(key, value) {
             if (key[0] == MyJSON.IgnoreCharacter)
                 return undefined;
@@ -193,13 +219,13 @@ var MyJSON;
         var json = JSON.stringify(object, Replacer);
         return json;
     }
-    MyJSON.Write = Write;
-    function Read(constructor, json) {
+    MyJSON.Stringfy = Stringfy;
+    function Parse(constructor, json) {
         var object = JSON.parse(json);
         var instance = new constructor(object);
         return instance;
     }
-    MyJSON.Read = Read;
+    MyJSON.Parse = Parse;
 })(MyJSON || (MyJSON = {}));
 var Utility;
 (function (Utility) {
@@ -231,6 +257,9 @@ var Utility;
         Class.WriteProperty = WriteProperty;
     })(Class = Utility.Class || (Utility.Class = {}));
 })(Utility || (Utility = {}));
+function IsOnPlayFab() {
+    return globalThis.handlers != null;
+}
 var API;
 (function (API) {
     class DropTable {
@@ -262,6 +291,17 @@ var API;
                     IDs.push(stacks[x].item);
             PlayFab.Catalog.Item.GrantAll(playerID, IDs, annotation);
         }
+        static FromString(text) {
+            let start = text.indexOf('[');
+            if (start < 0)
+                return new ItemStack(text, 1);
+            let end = text.indexOf(']');
+            if (end < 0)
+                return new ItemStack(text, 1);
+            let count = Number.parseInt(text.substring(start + 1, end));
+            let id = text.substring(end + 1, text.length);
+            return new ItemStack(id, count);
+        }
     }
     API.ItemStack = ItemStack;
     let Difficulty;
@@ -270,6 +310,19 @@ var API;
         Difficulty[Difficulty["Hard"] = 2] = "Hard";
         Difficulty[Difficulty["Skilled"] = 3] = "Skilled";
     })(Difficulty = API.Difficulty || (API.Difficulty = {}));
+    class FactorialValue {
+        constructor(initial, multiplier) {
+            this.initial = initial;
+            this.multiplier = multiplier;
+        }
+        Calculate(i) {
+            return this.initial + (this.multiplier * i);
+        }
+        static Create(object) {
+            return new FactorialValue(object.initial, object.multiplier);
+        }
+    }
+    API.FactorialValue = FactorialValue;
 })(API || (API = {}));
 var API;
 (function (API) {
@@ -306,7 +359,7 @@ var API;
                 let json = PlayFab.Player.Data.ReadOnly.Read(playerID, API.DailyReward.ID);
                 if (json == null)
                     return null;
-                let instance = MyJSON.Read(PlayerData, json);
+                let instance = MyJSON.Parse(PlayerData, json);
                 return instance;
             }
             static Create() {
@@ -388,6 +441,7 @@ var API;
     let Upgrades;
     (function (Upgrades) {
         Upgrades.ID = "upgrades";
+        Upgrades.Max = 5;
         class Result {
             constructor(success) {
                 this.success = success;
@@ -424,7 +478,7 @@ var API;
                 return instance;
             }
             toJSON() {
-                return MyJSON.Write(this.list);
+                return MyJSON.Stringfy(this.list);
             }
             static Load(itemInstance) {
                 let data = null;
@@ -483,7 +537,7 @@ var API;
                      {
                         element = data.Add(args.upgradeType);
                     }
-                    if (element.value >= template.element.ranks.length)
+                    if (element.value >= Upgrades.Max)
                         throw ("can't upgrade " + itemInstance.ItemId + " any further");
                     return {
                         data: data,
@@ -531,11 +585,11 @@ var API;
     let Upgrades;
     (function (Upgrades) {
         class Template {
-            constructor(object) {
-                this.name = object.name;
+            constructor(source) {
+                this.name = source.name;
                 this.elements = [];
-                for (let i = 0; i < object.elements.length; i++) {
-                    let instance = new Template.Element(this, i, object.elements[i]);
+                for (let i = 0; i < source.elements.length; i++) {
+                    let instance = new Template.Element(this, i, source.elements[i]);
                     this.elements.push(instance);
                 }
             }
@@ -577,42 +631,21 @@ var API;
                     this.$template = $template;
                     this.$index = $index;
                     this.type = source.type;
-                    this.ranks = [];
-                    for (let i = 0; i < source.ranks.length; i++) {
-                        let instance = new Element.Rank(this, i, source.ranks[i]);
-                        this.ranks.push(instance);
+                    this.cost = API.FactorialValue.Create(source.cost);
+                    this.percentage = API.FactorialValue.Create(source.percentage);
+                    this.requirements = [];
+                    for (let x = 0; x < source.requirements.length; x++) {
+                        this.requirements.push([]);
+                        for (let y = 0; y < source.requirements[x].length; y++) {
+                            var stack = API.ItemStack.FromString(source.requirements[x][y]);
+                            this.requirements[x].push(stack);
+                        }
                     }
                 }
                 get template() { return this.$template; }
                 get index() { return this.$index; }
             }
             Template.Element = Element;
-            (function (Element) {
-                class Rank {
-                    constructor($element, $index, source) {
-                        this.$element = $element;
-                        this.$index = $index;
-                        this.cost = source.cost;
-                        this.percentage = source.percentage;
-                        this.requirements = source.requirements;
-                    }
-                    get element() { return this.$element; }
-                    get index() { return this.$index; }
-                    get previous() {
-                        if (this.index == 0)
-                            return null;
-                        return this.$element.ranks[this.index - 1];
-                    }
-                    get next() {
-                        if (this.index + 1 == this.element.ranks.length)
-                            return null;
-                        return this.element.ranks[this.index + 1];
-                    }
-                    get isFirst() { return this.index == 0; }
-                    get isLast() { return this.index + 1 >= this.element.ranks.length; }
-                }
-                Element.Rank = Rank;
-            })(Element = Template.Element || (Template.Element = {}));
             class Snapshot {
                 constructor(data, element) {
                     this.data = data;
@@ -701,7 +734,7 @@ var API;
                 var json = PlayFab.Player.Data.ReadOnly.Read(playerID, API.World.ID);
                 if (json == null)
                     return null;
-                var instance = MyJSON.Read(PlayerData, json);
+                var instance = MyJSON.Parse(PlayerData, json);
                 return instance;
             }
             static Create() {
@@ -712,7 +745,7 @@ var API;
                 return instance;
             }
             static Save(playerID, data) {
-                let json = MyJSON.Write(data);
+                let json = MyJSON.Stringfy(data);
                 PlayFab.Player.Data.ReadOnly.Write(playerID, API.World.ID, json);
             }
         }
@@ -849,7 +882,7 @@ var API;
                 var json = PlayFab.Title.Data.Retrieve(API.World.ID);
                 if (json == null)
                     throw ("no World Template data defined within PlayFab Title Data");
-                var instance = MyJSON.Read(Template, json);
+                var instance = MyJSON.Parse(Template, json);
                 return instance;
             }
             Template.Retrieve = Retrieve;

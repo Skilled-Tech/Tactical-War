@@ -37,7 +37,7 @@ namespace API
                 if (json == null)
                     throw ("no World Template data defined within PlayFab Title Data");
 
-                var instance = MyJSON.Read(Template, json);
+                var instance = MyJSON.Parse(Template, json);
 
                 return instance;
             }

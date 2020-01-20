@@ -4,622 +4,134 @@
     "elements": [
       {
         "type": "Power",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 30
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 40
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 50
-          }
+        "cost": {
+          "initial": 100,
+          "multiplier": 100
+        },
+        "percentage": {
+          "initial": 10,
+          "multiplier": 5
+        },
+        "requirements": [
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ]
         ]
       },
       {
         "type": "Defense",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 30
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 40
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 50
-          }
+        "cost": {
+          "initial": 100,
+          "multiplier": 100
+        },
+        "percentage": {
+          "initial": 10,
+          "multiplier": 5
+        },
+        "requirements": [
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ]
         ]
       },
       {
         "type": "Range",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 40
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 60
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 80
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 100
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "1 Star",
-    "elements": [
-      {
-        "type": "Power",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 5
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 15
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 25
-          }
+        "cost": {
+          "initial": 100,
+          "multiplier": 100
+        },
+        "percentage": {
+          "initial": 10,
+          "multiplier": 5
+        },
+        "requirements": [
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ]
         ]
       },
       {
-        "type": "Defense",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 5
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 15
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 25
-          }
-        ]
-      },
-      {
-        "type": "Range",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 30
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 40
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 100
-            },
-            "percentage": 50
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "2 Star",
-    "elements": [
-      {
-        "type": "Power",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 15
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 25
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 30
-          }
-        ]
-      },
-      {
-        "type": "Defense",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 10
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 15
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 25
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 30
-          }
-        ]
-      },
-      {
-        "type": "Range",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 30
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 40
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 50
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 200
-            },
-            "percentage": 60
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "3 Star",
-    "elements": [
-      {
-        "type": "Power",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 15
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 25
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 30
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 35
-          }
-        ]
-      },
-      {
-        "type": "Defense",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 15
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 25
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 30
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 35
-          }
-        ]
-      },
-      {
-        "type": "Range",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 30
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 40
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 50
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 60
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 300
-            },
-            "percentage": 80
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "4 Star",
-    "elements": [
-      {
-        "type": "Power",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 25
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 30
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 35
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 40
-          }
-        ]
-      },
-      {
-        "type": "Defense",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 20
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 25
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 30
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 35
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 40
-          }
-        ]
-      },
-      {
-        "type": "Range",
-        "ranks": [
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 60
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 70
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 80
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 90
-          },
-          {
-            "cost": {
-              "type": "GD",
-              "value": 400
-            },
-            "percentage": 100
-          }
+        "type": "Speed",
+        "cost": {
+          "initial": 100,
+          "multiplier": 100
+        },
+        "percentage": {
+          "initial": 10,
+          "multiplier": 5
+        },
+        "requirements": [
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ],
+          [
+            "[2]Wood_Sword",
+            "[2]Wood_Shield"
+          ]
         ]
       }
     ]

@@ -32,41 +32,17 @@ namespace Game
 
             public abstract float Base { get; }
 
-            public virtual ItemUpgradesTemplate.ElementData.RankData Rank
+            public virtual float Percentage
             {
                 get
                 {
                     Upgrades.GetElements(Type, out var template, out var data);
 
-                    if (template == null) return null;
-
-                    if (data == null) return null;
-
-                    if (data.Value == 0) return null;
-
-                    return template.Ranks[data.Index];
+                    return template.Percentage.Calculate(data.Value);
                 }
             }
 
-            public virtual float Percentage
-            {
-                get
-                {
-                    if (Rank == null) return 0f;
-
-                    return Rank.Percentage;
-                }
-            }
-
-            public virtual float Multiplier
-            {
-                get
-                {
-                    if (Rank == null) return 1f;
-
-                    return Rank.Multiplier;
-                }
-            }
+            public virtual float Multiplier => 1f + (Percentage / 100f);
 
             public float Value { get { return Base * Multiplier; } }
 

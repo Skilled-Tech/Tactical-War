@@ -5,7 +5,9 @@
       "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",
-      "CustomData": null,
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Speed\",\"value\":5}]"
+      },
       "DisplayName": "Shadow Assassin",
       "Expiration": null,
       "ItemClass": "Unit",
@@ -80,7 +82,7 @@
       "ItemId": "Wood_Shield",
       "ItemInstanceId": "799CA337140DA53B",
       "PurchaseDate": "2019-12-29T11:24:57.069Z",
-      "RemainingUses": 23,
+      "RemainingUses": 14,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -97,14 +99,14 @@
       "ItemId": "Wood_Sword",
       "ItemInstanceId": "337B97F1A4B20AE8",
       "PurchaseDate": "2019-12-29T11:14:52.957Z",
-      "RemainingUses": 39,
+      "RemainingUses": 30,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
     }
   ],
   "VirtualCurrency": {
-    "GD": 27900,
+    "GD": 26400,
     "JL": 0
   },
   "VirtualCurrencyRechargeTimes": {},

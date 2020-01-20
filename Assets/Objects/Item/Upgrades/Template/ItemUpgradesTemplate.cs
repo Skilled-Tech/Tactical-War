@@ -50,56 +50,24 @@ namespace Game
 
             [JsonProperty]
             [SerializeField]
-            protected RankData[] ranks;
-            public RankData[] Ranks { get { return ranks; } }
-            [Serializable]
-            public class RankData
-            {
-                [JsonProperty]
-                [SerializeField]
-                Currency cost;
-                public Currency Cost { get { return cost; } }
+            protected FactorialValue cost;
+            public FactorialValue Cost { get { return cost; } }
 
-                [JsonProperty]
-                [SerializeField]
-                float percentage;
-                public float Percentage { get { return percentage; } }
+            [JsonProperty]
+            [SerializeField]
+            protected FactorialValue percentage;
+            public FactorialValue Percentage { get { return percentage; } }
 
-                public float Multiplier
-                {
-                    get
-                    {
-                        return 1f + (Percentage / 100f);
-                    }
-                }
+            public float CalculateMultiplier(float percentage) => 1f + (percentage / 100f);
 
-                [JsonProperty]
-                [SerializeField]
-                protected ItemStack[] requirements;
-                public ItemStack[] Requirements { get { return requirements; } }
-
-                public RankData()
-                {
-
-                }
-                public RankData(Currency cost, float percentage)
-                {
-                    this.cost = cost;
-
-                    this.percentage = percentage;
-                }
-            }
+            [JsonProperty(ItemConverterType = typeof(ItemStack.TextListConverter))]
+            [SerializeField]
+            protected ItemStack[][] requirements;
+            public ItemStack[][] Requirements { get { return requirements; } }
 
             public ElementData()
             {
 
-            }
-            public ElementData(int count, Currency initalCost, float initialPercentage)
-            {
-                ranks = new RankData[count];
-
-                for (int i = 0; i < ranks.Length; i++)
-                    ranks[i] = new RankData(initalCost * (i + 1), initialPercentage * (i + 1));
             }
         }
 
@@ -115,6 +83,32 @@ namespace Game
         public virtual void Load(string json)
         {
             JsonConvert.PopulateObject(json, this);
+        }
+    }
+
+    public class FactorialValue
+    {
+        [JsonProperty]
+        [SerializeField]
+        protected float initial;
+        public float Initial { get { return initial; } }
+
+        [JsonProperty]
+        [SerializeField]
+        protected float multiplier;
+        public float Multiplier { get { return multiplier; } }
+
+        public virtual float Calculate(int i)
+        {
+            return this.initial + (this.multiplier * i);
+        }
+
+        public virtual float CalculateMultiplier(int i) => 1f + (Calculate(i) / 100f);
+
+        public FactorialValue(float initial, float multiplier)
+        {
+            this.initial = initial;
+            this.multiplier = multiplier;
         }
     }
 }

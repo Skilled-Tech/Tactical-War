@@ -2,7 +2,7 @@ namespace MyJSON
 {
     export const IgnoreCharacter = '$';
 
-    export function Write(object: any): string
+    export function Stringfy(object: any): string
     {
         function Replacer(key: string, value: any)
         {
@@ -16,7 +16,7 @@ namespace MyJSON
         return json;
     }
 
-    export function Read<TObject>(constructor: new (instance: TObject) => TObject, json: string): TObject
+    export function Parse<TObject>(constructor: new (instance: TObject) => TObject, json: string): TObject
     {
         var object = <TObject>JSON.parse(json);
 
@@ -59,4 +59,9 @@ namespace Utility
             Object.defineProperty(target, name, descriptor);
         }
     }
+}
+
+function IsOnPlayFab()
+{
+    return globalThis.handlers != null;
 }

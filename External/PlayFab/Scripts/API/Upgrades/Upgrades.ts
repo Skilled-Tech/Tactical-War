@@ -4,6 +4,8 @@ namespace API
     {
         export const ID = "upgrades";
 
+        export const Max = 5;
+
         export class Result
         {
             success: boolean;
