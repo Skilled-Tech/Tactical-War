@@ -278,13 +278,15 @@ namespace Game
         {
             if (product == null)
             {
-                Debug.LogWarning("Attempted to process purchase with unknown product, ignoring");
+                Debug.LogError("Attempted to process purchase with unknown product, ignoring");
+                ErrorCallback("Unknown Product");
                 return PurchaseProcessingResult.Complete;
             }
 
             if (string.IsNullOrEmpty(product.receipt))
             {
-                Debug.LogWarning("Attempted to process purchase with no receipt, ignoring");
+                Debug.LogError("Attempted to process purchase with no receipt, ignoring");
+                ErrorCallback("No Reciept Found");
                 return PurchaseProcessingResult.Complete;
             }
 
@@ -340,8 +342,6 @@ namespace Game
         void PurchaseFailedCallback(Product product, PurchaseFailureReason reason)
         {
             Debug.LogError("Purchase of prodcut " + product.definition.storeSpecificId + " failed, reason: " + reason);
-
-            if (reason == PurchaseFailureReason.UserCancelled) return;
 
             ErrorCallback(Tools.Text.AddSpacesToCamelCase(reason.ToString()));
         }

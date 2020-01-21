@@ -120,6 +120,7 @@ namespace Game
         }
     }
 
+    [Preserve]
     public class FactorialValue
     {
         [JsonProperty]
@@ -141,6 +142,10 @@ namespace Game
 
         public virtual float CalculateMultiplier(int i) => 1f + (Calculate(i) / 100f);
 
+        public FactorialValue()
+        {
+
+        }
         public FactorialValue(float initial, float multiplier)
         {
             this.initial = initial;

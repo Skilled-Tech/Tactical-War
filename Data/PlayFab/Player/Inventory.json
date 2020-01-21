@@ -1,6 +1,59 @@
 {
   "Inventory": [
     {
+      "Annotation": null,
+      "BundleContents": [],
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "50K Gold",
+      "Expiration": "2020-01-21T11:42:35.041Z",
+      "ItemClass": null,
+      "ItemId": "50k_gold",
+      "ItemInstanceId": "4B157A54F670C72",
+      "PurchaseDate": "2020-01-21T11:42:31.041Z",
+      "RemainingUses": null,
+      "UnitCurrency": "JL",
+      "UnitPrice": 5000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": "Frantic Assassin",
+      "Expiration": null,
+      "ItemClass": "unit",
+      "ItemId": "frantic_assassin",
+      "ItemInstanceId": "3F37F653B255E41D",
+      "PurchaseDate": "2020-01-21T10:06:16.26Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": {
+        "upgrades": "[{\"type\":\"Speed\",\"value\":5},{\"type\":\"Defense\",\"value\":5}]"
+      },
+      "DisplayName": "Shadow Assassin",
+      "Expiration": null,
+      "ItemClass": "unit",
+      "ItemId": "shadow_assassin",
+      "ItemInstanceId": "99FCFDBE8B989FD5",
+      "PurchaseDate": "2020-01-21T10:04:56.881Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
       "Annotation": "New Player Welcome Reward",
       "BundleContents": null,
       "BundleParent": null,
@@ -23,7 +76,7 @@
       "BundleParent": null,
       "CatalogVersion": "Default",
       "CustomData": {
-        "upgrades": "[{\"type\":\"Power\",\"value\":3}]"
+        "upgrades": "[{\"type\":\"Power\",\"value\":5},{\"type\":\"Defense\",\"value\":5}]"
       },
       "DisplayName": "Hero",
       "Expiration": null,
@@ -65,7 +118,7 @@
       "ItemId": "wood_sword",
       "ItemInstanceId": "7982811D84BC332F",
       "PurchaseDate": "2020-01-21T09:20:06.095Z",
-      "RemainingUses": 46,
+      "RemainingUses": 18,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
@@ -82,15 +135,15 @@
       "ItemId": "wood_shield",
       "ItemInstanceId": "CAB25CE856CED137",
       "PurchaseDate": "2020-01-21T09:19:04.287Z",
-      "RemainingUses": 46,
+      "RemainingUses": 18,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
     }
   ],
   "VirtualCurrency": {
-    "GD": 317300,
-    "JL": 24000
+    "GD": 341900,
+    "JL": 19000
   },
   "VirtualCurrencyRechargeTimes": {},
   "Request": {

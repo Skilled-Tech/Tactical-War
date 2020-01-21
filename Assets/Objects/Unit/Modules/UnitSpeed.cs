@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class UnitSpeed : Unit.Module, EntityTimeScale.IModifer
+	public class UnitSpeed : Unit.Module
 	{
         public float Initial => Template.MovementSpeed;
 
@@ -42,6 +42,13 @@ namespace Game
             {
                 return Initial * Multiplier * Unit.TimeScale.Rate;
             }
+        }
+
+        public const string AnimatorFieldID = "Movement Speed Multiplier";
+
+        void Update()
+        {
+            Unit.Body.Animator.SetFloat(AnimatorFieldID, Multiplier);
         }
     }
 }
