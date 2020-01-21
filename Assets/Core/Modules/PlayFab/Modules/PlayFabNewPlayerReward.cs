@@ -32,7 +32,19 @@ namespace Game
         protected ItemTemplate token;
         public ItemTemplate Toekn { get { return token; } }
 
-        public virtual bool CanRequest => PlayFab.IsOnline && PlayFab.Player.Inventory.Contains(token.CatalogItem.ItemId) == false;
+        public virtual bool CanRequest
+        {
+            get
+            {
+                if (PlayFab.isOffline)
+                    return false;
+
+                if (PlayFab.Player.Inventory.Contains(token.CatalogItem.ItemId))
+                    return false;
+
+                return true;
+            }
+        }
 
         class ParametersData
         {
@@ -107,8 +119,8 @@ namespace Game
         public class ResultData
         {
             [JsonProperty(ItemConverterType = typeof(ItemTemplate.Converter))]
-            protected ItemTemplate[] rewards;
-            public ItemTemplate[] Rewards { get { return rewards; } }
+            protected ItemTemplate[] items;
+            public ItemTemplate[] Items { get { return items; } }
 
             public ResultData()
             {

@@ -28,6 +28,11 @@ namespace Game
     {
         public string ID { get { return name; } }
 
+        public static bool CompareID(string id1, string id2)
+        {
+            return String.Equals(id1, id2, StringComparison.OrdinalIgnoreCase);
+        }
+
         public LocalizedPhraseProperty DisplayName { get; protected set; }
 
         [SerializeField]

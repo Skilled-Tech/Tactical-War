@@ -42,7 +42,7 @@ namespace Game
         public virtual CatalogItem Find(string itemID)
         {
             for (int i = 0; i < Items.Count; i++)
-                if (Items[i].ItemId == itemID)
+                if (ItemTemplate.CompareID(Items[i].ItemId, itemID))
                     return Items[i];
 
             return null;

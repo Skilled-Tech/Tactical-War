@@ -79,9 +79,11 @@ namespace API
         initial: number;
         multiplier: number;
 
-        Calculate(i: number)
+        Calculate(value: number)
         {
-            return this.initial + (this.multiplier * i);
+            if (value == 0) return 0;
+
+            return this.initial + (this.multiplier * (value - 1));
         }
 
         constructor(initial: number, multiplier: number)
@@ -90,9 +92,9 @@ namespace API
             this.multiplier = multiplier;
         }
 
-        public static Create(object: IFactorialValue): FactorialValue
+        public static Create(source: IFactorialValue): FactorialValue
         {
-            return new FactorialValue(object.initial, object.multiplier);
+            return new FactorialValue(source.initial, source.multiplier);
         }
     }
     export interface IFactorialValue

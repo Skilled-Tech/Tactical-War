@@ -61,6 +61,14 @@ namespace Utility
     }
 }
 
+function CompareIgnoreCase(text1: string | undefined, text2: string | undefined)
+{
+    if (text1 == null || text2 == null)
+        return text1 == text2;
+
+    return text1.toLowerCase() == text2.toLowerCase();
+}
+
 function IsOnPlayFab()
 {
     return globalThis.handlers != null;

@@ -87,21 +87,12 @@ namespace Game
                     label.gameObject.SetActive(true);
 
                     if (template == null || data == null)
-                    {
                         FormatLabel(label, type.name, value);
-                    }
                     else
                     {
-                        if (data.Value == 0)
-                        {
-                            FormatLabel(label, type.name, value);
-                        }
-                        else
-                        {
-                            var multiplier = template.Percentage.CalculateMultiplier(data.Index);
+                        var multiplier = template.Percentage.CalculateMultiplier(data.Value);
 
-                            FormatLabel(label, type.name, value * multiplier);
-                        }
+                        FormatLabel(label, type.name, value * multiplier);
                     }
                 }
                 else

@@ -119,7 +119,7 @@ namespace Game
             protected int value;
             public int Value { get { return value; } }
 
-            public int Index { get { return value - 1; } }
+            public int Index => value - 1;
 
             public Element()
             {

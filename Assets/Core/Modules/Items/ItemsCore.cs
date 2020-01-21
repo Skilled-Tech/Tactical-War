@@ -82,7 +82,7 @@ namespace Game
         public virtual ItemTemplate Find(string itemID)
         {
             for (int i = 0; i < List.Count; i++)
-                if (List[i].ID == itemID)
+                if (ItemTemplate.CompareID(List[i].ID, itemID))
                     return List[i];
 
             return null;
@@ -96,7 +96,7 @@ namespace Game
 
                 if (catalogItem == null)
                 {
-                    Debug.LogWarning(List[i].name + " Item Template has no Catalog Item matching it's ID in the " + catalog.Version + " catalog, ignoring");
+                    Debug.LogWarning(List[i].ID + " Item Template has no Catalog Item matching it's ID in the " + catalog.Version + " catalog, ignoring");
                     continue;
                 }
 

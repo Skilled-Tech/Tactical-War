@@ -37,9 +37,9 @@ namespace Game
             {
                 Upgrades.GetElements(Type, out var template, out var data);
 
-                if (template == null || data == null || data.Value == 0) return 1f;
+                if (template == null || data == null) return 1f;
 
-                return template.Percentage.CalculateMultiplier(data.Index);
+                return template.Percentage.CalculateMultiplier(data.Value);
             }
         }
     }

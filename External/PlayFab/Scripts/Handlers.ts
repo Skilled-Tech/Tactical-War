@@ -213,14 +213,14 @@ function UpgradeItem(args?: IUpgradeItemArguments)
     let rank = {
         requirements: template.element.requirements[instanceData.element.value],
         cost: {
-            value: template.element.cost.Calculate(instanceData.element.value),
+            value: template.element.cost.Calculate(instanceData.element.value + 1),
             type: "GD",
         }
     }
 
     log.info("rank:" + MyJSON.Stringfy(rank));
 
-    if (inventory.CompliesWith(rank.requirements) == false)
+    if (inventory.CompliesWithAll(rank.requirements) == false)
     {
         log.error("inventory doesn't comply with upgrade requirements");
         return;
@@ -261,22 +261,21 @@ function WelcomeNewPlayer(args?: IWelcomeNewPlayerArguments)
 {
     var inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
 
-    var token = "New_Player_Reward";
+    var template = API.NewPlayerReward.Template.Retrieve();
 
-    if (inventory.Contains(token))
+    if (inventory.Contains(template.token))
     {
-        log.error("player " + currentPlayerId + " has already been rewarded a " + token);
+        log.error("player " + currentPlayerId + " has already been rewarded a " + template.token);
         return;
     }
 
-    var rewards = [token, "Hero", "Meteor_Shower"];
+    var rewards = [template.token, "hero", "meteor_shower"];
 
     PlayFab.Catalog.Item.GrantAll(currentPlayerId, rewards, "New Player Welcome Reward");
 
-    var result =
-    {
-        rewards: rewards,
-    };
+    var result: API.NewPlayerReward.Result = {
+        items: rewards
+    }
 
     return result;
 }

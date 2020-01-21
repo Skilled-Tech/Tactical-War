@@ -10,7 +10,7 @@ namespace PlayFab
             public FindWithID(itemID: string): PlayFabServerModels.ItemInstance | null
             {
                 for (let i = 0; i < this.items.length; i++)
-                    if (this.items[i].ItemId == itemID)
+                    if (CompareIgnoreCase(this.items[i].ItemId, itemID))
                         return this.items[i];
 
                 return null;
@@ -18,7 +18,7 @@ namespace PlayFab
             public FindWithInstanceID(itemInstanceID: string): PlayFabServerModels.ItemInstance | null
             {
                 for (let i = 0; i < this.items.length; i++)
-                    if (this.items[i].ItemInstanceId == itemInstanceID)
+                    if (CompareIgnoreCase(this.items[i].ItemInstanceId, itemInstanceID))
                         return this.items[i];
 
                 return null;
@@ -31,26 +31,31 @@ namespace PlayFab
                 return true;
             }
 
-            public CompliesWith(requirements: API.ItemStack[]): boolean
+            public CompliesWith(requirement: API.ItemStack): boolean
+            {
+                if (requirement == null) return true;
+
+                let instance = this.FindWithID(requirement.item);
+
+                if (instance == null) return false;
+
+                if (instance.RemainingUses == null)
+                {
+                    if (requirement.count > 1)
+                        return false;
+                    else
+                        return true;
+                }
+
+                return instance.RemainingUses >= requirement.count;
+            }
+            public CompliesWithAll(requirements: API.ItemStack[]): boolean
             {
                 if (requirements == null || requirements.length == 0) return true;
 
                 for (let i = 0; i < requirements.length; i++)
-                {
-                    let instance = this.FindWithID(requirements[i].item);
-
-                    if (instance == null) return false;
-
-                    if (instance.RemainingUses == null)
-                    {
-                        if (requirements[i].count > 1)
-                            return false;
-                        else
-                            continue;
-                    }
-
-                    if (instance.RemainingUses < requirements[i].count) return false;
-                }
+                    if (this.CompliesWith(requirements[i]) == false)
+                        return false;
 
                 return true;
             }

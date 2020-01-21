@@ -7,7 +7,7 @@ namespace PlayFab
         public FindWithID(itemID: string): PlayFabServerModels.CatalogItem | null
         {
             for (let i = 0; i < this.items.length; i++)
-                if (this.items[i].ItemId == itemID)
+                if (CompareIgnoreCase(this.items[i].ItemId, itemID))
                     return this.items[i];
 
             return null;

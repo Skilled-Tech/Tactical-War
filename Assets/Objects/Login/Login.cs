@@ -237,17 +237,17 @@ namespace Game
 
                 void InventoryCallback(PlayFabPlayerInventoryCore inventory)
                 {
-                    for (int i = 0; i < result.Rewards.Length; i++)
+                    for (int i = 0; i < result.Items.Length; i++)
                     {
-                        if(result.Rewards[i] is UnitTemplate)
+                        if(result.Items[i] is UnitTemplate)
                         {
-                            var unit = result.Rewards[i] as UnitTemplate;
+                            var unit = result.Items[i] as UnitTemplate;
 
                             Player.Units.Selection.Add(unit);
                         }
-                        else if(result.Rewards[i] is AbilityTemplate)
+                        else if(result.Items[i] is AbilityTemplate)
                         {
-                            var ability = result.Rewards[i] as AbilityTemplate;
+                            var ability = result.Items[i] as AbilityTemplate;
 
                             Player.Ability.Selection.Add(ability);
                         }

@@ -1,9 +1,9 @@
 {
   "Data": {
     "daily-rewards": {
-      "LastUpdated": "2020-01-20T09:08:59.004Z",
+      "LastUpdated": "2020-01-21T07:37:18.483Z",
       "Permission": 0,
-      "Value": "{\"timestamp\":\"2020-01-20T09:08:58.995Z\",\"progress\":2}"
+      "Value": "{\"timestamp\":\"2020-01-21T07:37:18.445Z\",\"progress\":3}"
     },
     "world": {
       "LastUpdated": "2020-01-19T12:21:13.061Z",
@@ -11,7 +11,7 @@
       "Value": "{\"regions\":[{\"name\":\"Forest\",\"progress\":{\"count\":1,\"difficulty\":2}}]}"
     }
   },
-  "DataVersion": 30,
+  "DataVersion": 33,
   "Request": {
     "IfChangedFromDataVersion": null,
     "Keys": null,

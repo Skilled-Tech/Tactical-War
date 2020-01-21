@@ -29,9 +29,9 @@ namespace Game
             {
                 Upgrades.GetElements(Core.Items.Upgrades.Types.Common.Speed, out var template, out var data);
 
-                if (data == null) return 0f;
+                if (template == null || data == null) return 0f;
 
-                return template.Percentage.Calculate(data.Index);
+                return template.Percentage.Calculate(data.Value);
             }
         }
         public float Multiplier => 1f + (Percentage / 100f);

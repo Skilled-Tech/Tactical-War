@@ -142,12 +142,12 @@ function UpgradeItem(args) {
     let rank = {
         requirements: template.element.requirements[instanceData.element.value],
         cost: {
-            value: template.element.cost.Calculate(instanceData.element.value),
+            value: template.element.cost.Calculate(instanceData.element.value + 1),
             type: "GD",
         }
     };
     log.info("rank:" + MyJSON.Stringfy(rank));
-    if (inventory.CompliesWith(rank.requirements) == false) {
+    if (inventory.CompliesWithAll(rank.requirements) == false) {
         log.error("inventory doesn't comply with upgrade requirements");
         return;
     }
@@ -168,15 +168,15 @@ function Reward(args) {
 }
 function WelcomeNewPlayer(args) {
     var inventory = PlayFab.Player.Inventory.Retrieve(currentPlayerId);
-    var token = "New_Player_Reward";
-    if (inventory.Contains(token)) {
-        log.error("player " + currentPlayerId + " has already been rewarded a " + token);
+    var template = API.NewPlayerReward.Template.Retrieve();
+    if (inventory.Contains(template.token)) {
+        log.error("player " + currentPlayerId + " has already been rewarded a " + template.token);
         return;
     }
-    var rewards = [token, "Hero", "Meteor_Shower"];
+    var rewards = [template.token, "hero", "meteor_shower"];
     PlayFab.Catalog.Item.GrantAll(currentPlayerId, rewards, "New Player Welcome Reward");
     var result = {
-        rewards: rewards,
+        items: rewards
     };
     return result;
 }
@@ -257,6 +257,11 @@ var Utility;
         Class.WriteProperty = WriteProperty;
     })(Class = Utility.Class || (Utility.Class = {}));
 })(Utility || (Utility = {}));
+function CompareIgnoreCase(text1, text2) {
+    if (text1 == null || text2 == null)
+        return text1 == text2;
+    return text1.toLowerCase() == text2.toLowerCase();
+}
 function IsOnPlayFab() {
     return globalThis.handlers != null;
 }
@@ -315,11 +320,13 @@ var API;
             this.initial = initial;
             this.multiplier = multiplier;
         }
-        Calculate(i) {
-            return this.initial + (this.multiplier * i);
+        Calculate(value) {
+            if (value == 0)
+                return 0;
+            return this.initial + (this.multiplier * (value - 1));
         }
-        static Create(object) {
-            return new FactorialValue(object.initial, object.multiplier);
+        static Create(source) {
+            return new FactorialValue(source.initial, source.multiplier);
         }
     }
     API.FactorialValue = FactorialValue;
@@ -407,6 +414,40 @@ var API;
         }
         DailyReward.Template = Template;
     })(DailyReward = API.DailyReward || (API.DailyReward = {}));
+})(API || (API = {}));
+var API;
+(function (API) {
+    let NewPlayerReward;
+    (function (NewPlayerReward) {
+        NewPlayerReward.ID = "new-player-reward";
+        class Result {
+            constructor(progress, items) {
+                this.items = items;
+            }
+        }
+        NewPlayerReward.Result = Result;
+    })(NewPlayerReward = API.NewPlayerReward || (API.NewPlayerReward = {}));
+})(API || (API = {}));
+var API;
+(function (API) {
+    let NewPlayerReward;
+    (function (NewPlayerReward) {
+        class Template {
+            constructor(source) {
+                this.token = source.token;
+                this.items = source.items;
+            }
+            static Retrieve() {
+                var json = PlayFab.Title.Data.Retrieve(API.NewPlayerReward.ID);
+                if (json == null)
+                    throw ("no new player reward template defined");
+                var source = JSON.parse(json);
+                var instance = new Template(source);
+                return instance;
+            }
+        }
+        NewPlayerReward.Template = Template;
+    })(NewPlayerReward = API.NewPlayerReward || (API.NewPlayerReward = {}));
 })(API || (API = {}));
 var API;
 (function (API) {
@@ -1058,7 +1099,7 @@ var PlayFab;
         }
         FindWithID(itemID) {
             for (let i = 0; i < this.items.length; i++)
-                if (this.items[i].ItemId == itemID)
+                if (CompareIgnoreCase(this.items[i].ItemId, itemID))
                     return this.items[i];
             return null;
         }
@@ -1137,13 +1178,13 @@ var PlayFab;
             }
             FindWithID(itemID) {
                 for (let i = 0; i < this.items.length; i++)
-                    if (this.items[i].ItemId == itemID)
+                    if (CompareIgnoreCase(this.items[i].ItemId, itemID))
                         return this.items[i];
                 return null;
             }
             FindWithInstanceID(itemInstanceID) {
                 for (let i = 0; i < this.items.length; i++)
-                    if (this.items[i].ItemInstanceId == itemInstanceID)
+                    if (CompareIgnoreCase(this.items[i].ItemInstanceId, itemInstanceID))
                         return this.items[i];
                 return null;
             }
@@ -1152,22 +1193,26 @@ var PlayFab;
                     return false;
                 return true;
             }
-            CompliesWith(requirements) {
+            CompliesWith(requirement) {
+                if (requirement == null)
+                    return true;
+                let instance = this.FindWithID(requirement.item);
+                if (instance == null)
+                    return false;
+                if (instance.RemainingUses == null) {
+                    if (requirement.count > 1)
+                        return false;
+                    else
+                        return true;
+                }
+                return instance.RemainingUses >= requirement.count;
+            }
+            CompliesWithAll(requirements) {
                 if (requirements == null || requirements.length == 0)
                     return true;
-                for (let i = 0; i < requirements.length; i++) {
-                    let instance = this.FindWithID(requirements[i].item);
-                    if (instance == null)
+                for (let i = 0; i < requirements.length; i++)
+                    if (this.CompliesWith(requirements[i]) == false)
                         return false;
-                    if (instance.RemainingUses == null) {
-                        if (requirements[i].count > 1)
-                            return false;
-                        else
-                            continue;
-                    }
-                    if (instance.RemainingUses < requirements[i].count)
-                        return false;
-                }
                 return true;
             }
         }

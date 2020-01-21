@@ -69,7 +69,7 @@ namespace Game
             public virtual ItemUpgradeType Find(string name)
             {
                 for (int i = 0; i < list.Length; i++)
-                    if (list[i].name == name)
+                    if (ItemUpgradeType.CompareID(list[i].name, name))
                         return list[i];
 
                 return null;

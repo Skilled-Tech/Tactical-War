@@ -80,7 +80,7 @@ namespace Game
         {
             for (int i = 0; i < Items.Count; i++)
             {
-                if (Items[i].ItemID == itemID)
+                if (ItemTemplate.CompareID(Items[i].ItemID, itemID))
                 {
                     if (count <= 1) return true;
 
@@ -101,7 +101,7 @@ namespace Game
         public virtual ItemData Find(string itemID)
         {
             for (int i = 0; i < Items.Count; i++)
-                if (Items[i].ItemID == itemID)
+                if (ItemTemplate.CompareID(Items[i].ItemID, itemID))
                     return Items[i];
 
             throw new ArgumentException();

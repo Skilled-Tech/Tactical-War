@@ -193,7 +193,12 @@ namespace Game
             {
                 Unit.Upgrades.GetElements(list[i].Upgrade, out var template, out var data);
 
-                var rate = (data == null ? 0f : (data.Value / 1f / ItemsUpgradesCore.Max));
+                float rate;
+
+                if (template == null || data == null)
+                    rate = 0f;
+                else
+                    rate = data.Value / 1f / ItemsUpgradesCore.Max;
 
                 var probability = list[i].Probability.Sample(rate);
 

@@ -49,7 +49,7 @@ namespace Game
         public virtual AbilityTemplate Find(string ID)
         {
             for (int i = 0; i < List.Count; i++)
-                if (List[i].ID == ID)
+                if (ItemTemplate.CompareID(List[i].ID, ID))
                     return List[i];
 
             return null;

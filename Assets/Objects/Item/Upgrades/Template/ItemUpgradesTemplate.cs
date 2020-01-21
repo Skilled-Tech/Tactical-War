@@ -132,9 +132,11 @@ namespace Game
         protected float multiplier;
         public float Multiplier { get { return multiplier; } }
 
-        public virtual float Calculate(int i)
+        public virtual float Calculate(int value)
         {
-            return this.initial + (this.multiplier * i);
+            if (value == 0) return 0f;
+
+            return this.initial + (this.multiplier * (value - 1));
         }
 
         public virtual float CalculateMultiplier(int i) => 1f + (Calculate(i) / 100f);

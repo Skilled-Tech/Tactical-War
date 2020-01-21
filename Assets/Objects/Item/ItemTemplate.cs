@@ -36,8 +36,18 @@ namespace Game
         {
             get
             {
-                return base.name.Replace(' ', '_');
+                return base.name.Replace(' ', '_').ToLower();
             }
+        }
+
+        public virtual bool CompareID(string value)
+        {
+            return CompareID(ID, value);
+        }
+
+        public static bool CompareID(string id1, string id2)
+        {
+            return String.Equals(id1, id2, StringComparison.OrdinalIgnoreCase);
         }
 
         public LocalizedPhraseProperty DisplayName { get; protected set; }

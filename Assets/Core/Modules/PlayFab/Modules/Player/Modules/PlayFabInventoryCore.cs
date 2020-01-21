@@ -41,7 +41,7 @@ namespace Game
         public virtual bool Contains(string itemID)
         {
             for (int i = 0; i < Items.Count; i++)
-                if (Items[i].ItemId == itemID)
+                if (ItemTemplate.CompareID(Items[i].ItemId, itemID))
                     return true;
 
             return false;
@@ -49,7 +49,7 @@ namespace Game
         public virtual bool Contains(string itemID, int count)
         {
             for (int i = 0; i < Items.Count; i++)
-                if (Items[i].ItemId == itemID)
+                if (ItemTemplate.CompareID(Items[i].ItemId, itemID))
                     if (Items[i].RemainingUses >= count)
                         return true;
 
@@ -65,7 +65,7 @@ namespace Game
         public virtual ItemInstance Find(string itemID)
         {
             for (int i = 0; i < Items.Count; i++)
-                if (Items[i].ItemId == itemID)
+                if (ItemTemplate.CompareID(Items[i].ItemId, itemID))
                     return Items[i];
 
             return null;

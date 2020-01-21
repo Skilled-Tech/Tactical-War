@@ -107,10 +107,10 @@ namespace Game
             }
             else
             {
-                var cost = new Currency(ItemsUpgradesCore.Currency, (int)template.Cost.Calculate(data.Value));
+                var cost = new Currency(ItemsUpgradesCore.Currency, (int)template.Cost.Calculate(data.Value + 1));
                 var requirements = template.Requirements[data.Value];
 
-                price.text = template.Cost.Calculate(data.Value).ToString();
+                price.text = cost.ToString();
 
                 buy.interactable = Funds.CanAfford(cost) && Player.Inventory.CompliesWith(requirements);
 
