@@ -41,7 +41,7 @@ namespace Game
         {
             this.Section = section;
 
-            icon.sprite = section.Icon;
+            section.Icon.ApplyTo(icon);
         }
 
         public delegate void ActivateDelegate(ShopSectionHandleUITemplate template);

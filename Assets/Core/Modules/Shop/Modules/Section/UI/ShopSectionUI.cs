@@ -28,10 +28,6 @@ namespace Game
         public TMP_Text Label { get { return label; } }
 
         [SerializeField]
-        protected Image icon;
-        public Image Icon { get { return icon; } }
-
-        [SerializeField]
         protected ItemsListUI items;
         public ItemsListUI Items { get { return items; } }
 
@@ -49,10 +45,7 @@ namespace Game
             this.Section = section;
 
             if(label != null)
-            label.text = section.name;
-
-            if(icon != null)
-                icon.sprite = section.Icon;
+            label.text = section.DisplayName.Text;
 
             items.Set(section.Items);
         }

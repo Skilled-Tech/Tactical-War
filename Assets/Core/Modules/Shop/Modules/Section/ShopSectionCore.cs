@@ -22,12 +22,28 @@ namespace Game
     [CreateAssetMenu(menuName = MenuPath + "Section")]
 	public class ShopSectionCore : ShopCore.Module
 	{
+        public string ID { get { return name; } }
+
+        public static bool CompareID(string id1, string id2)
+        {
+            return String.Equals(id1, id2, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public LocalizedPhraseProperty DisplayName { get; protected set; }
+
         [SerializeField]
-        protected Sprite icon;
-        public Sprite Icon { get { return icon; } }
+        protected IconProperty icon;
+        public IconProperty Icon { get { return icon; } }
 
         [SerializeField]
         protected List<ItemTemplate> items;
         public List<ItemTemplate> Items { get { return items; } }
+
+        public override void Init()
+        {
+            base.Init();
+
+            DisplayName = LocalizedPhraseProperty.Create(ID);
+        }
     }
 }
