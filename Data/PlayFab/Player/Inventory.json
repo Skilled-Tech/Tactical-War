@@ -2,23 +2,6 @@
   "Inventory": [
     {
       "Annotation": null,
-      "BundleContents": [],
-      "BundleParent": null,
-      "CatalogVersion": "Default",
-      "CustomData": null,
-      "DisplayName": "50K Gold",
-      "Expiration": "2020-01-21T11:42:35.041Z",
-      "ItemClass": null,
-      "ItemId": "50k_gold",
-      "ItemInstanceId": "4B157A54F670C72",
-      "PurchaseDate": "2020-01-21T11:42:31.041Z",
-      "RemainingUses": null,
-      "UnitCurrency": "JL",
-      "UnitPrice": 5000,
-      "UsesIncrementedBy": null
-    },
-    {
-      "Annotation": null,
       "BundleContents": null,
       "BundleParent": null,
       "CatalogVersion": "Default",
@@ -118,7 +101,7 @@
       "ItemId": "wood_sword",
       "ItemInstanceId": "7982811D84BC332F",
       "PurchaseDate": "2020-01-21T09:20:06.095Z",
-      "RemainingUses": 18,
+      "RemainingUses": 19,
       "UnitCurrency": null,
       "UnitPrice": 0,
       "UsesIncrementedBy": null
