@@ -1,0 +1,402 @@
+﻿{
+  "gold arrow": {
+    "en": "Gold Arrow",
+    "ar": "#Gold Arrow#"
+  },
+  "gold arrow description": {
+    "en": "Gold Arrow Description",
+    "ar": "#Gold Arrow Description#"
+  },
+  "gold axe": {
+    "en": "Gold Axe",
+    "ar": "#Gold Axe#"
+  },
+  "gold axe description": {
+    "en": "Gold Axe Description",
+    "ar": "#Gold Axe Description#"
+  },
+  "gold bow": {
+    "en": "Gold Bow",
+    "ar": "#Gold Bow#"
+  },
+  "gold bow description": {
+    "en": "Gold Bow Description",
+    "ar": "#Gold Bow Description#"
+  },
+  "gold dagger": {
+    "en": "Gold Dagger",
+    "ar": "#Gold Dagger#"
+  },
+  "gold dagger description": {
+    "en": "Gold Dagger Description",
+    "ar": "#Gold Dagger Description#"
+  },
+  "gold glove": {
+    "en": "Gold Glove",
+    "ar": "#Gold Glove#"
+  },
+  "gold glove description": {
+    "en": "Gold Glove Description",
+    "ar": "#Gold Glove Description#"
+  },
+  "gold hammer": {
+    "en": "Gold Hammer",
+    "ar": "#Gold Hammer#"
+  },
+  "gold hammer description": {
+    "en": "Gold Hammer Description",
+    "ar": "#Gold Hammer Description#"
+  },
+  "gold shield": {
+    "en": "Gold Shield",
+    "ar": "#Gold Shield#"
+  },
+  "gold shield description": {
+    "en": "Gold Shield Description",
+    "ar": "#Gold Shield Description#"
+  },
+  "gold spear": {
+    "en": "Gold Spear",
+    "ar": "#Gold Spear#"
+  },
+  "gold spear description": {
+    "en": "Gold Spear Description",
+    "ar": "#Gold Spear Description#"
+  },
+  "gold staff": {
+    "en": "Gold Staff",
+    "ar": "#Gold Staff#"
+  },
+  "gold staff description": {
+    "en": "Gold Staff Description",
+    "ar": "#Gold Staff Description#"
+  },
+  "gold sword": {
+    "en": "Gold Sword",
+    "ar": "#Gold Sword#"
+  },
+  "gold sword description": {
+    "en": "Gold Sword Description",
+    "ar": "#Gold Sword Description#"
+  },
+  "iron arrow": {
+    "en": "Iron Arrow",
+    "ar": "#Iron Arrow#"
+  },
+  "iron arrow description": {
+    "en": "Iron Arrow Description",
+    "ar": "#Iron Arrow Description#"
+  },
+  "iron axe": {
+    "en": "Iron Axe",
+    "ar": "#Iron Axe#"
+  },
+  "iron axe description": {
+    "en": "Iron Axe Description",
+    "ar": "#Iron Axe Description#"
+  },
+  "iron bow": {
+    "en": "Iron Bow",
+    "ar": "#Iron Bow#"
+  },
+  "iron bow description": {
+    "en": "Iron Bow Description",
+    "ar": "#Iron Bow Description#"
+  },
+  "iron dagger": {
+    "en": "Iron Dagger",
+    "ar": "#Iron Dagger#"
+  },
+  "iron dagger description": {
+    "en": "Iron Dagger Description",
+    "ar": "#Iron Dagger Description#"
+  },
+  "iron glove": {
+    "en": "Iron Glove",
+    "ar": "#Iron Glove#"
+  },
+  "iron glove description": {
+    "en": "Iron Glove Description",
+    "ar": "#Iron Glove Description#"
+  },
+  "iron hammer": {
+    "en": "Iron Hammer",
+    "ar": "#Iron Hammer#"
+  },
+  "iron hammer description": {
+    "en": "Iron Hammer Description",
+    "ar": "#Iron Hammer Description#"
+  },
+  "iron shield": {
+    "en": "Iron Shield",
+    "ar": "#Iron Shield#"
+  },
+  "iron shield description": {
+    "en": "Iron Shield Description",
+    "ar": "#Iron Shield Description#"
+  },
+  "iron spear": {
+    "en": "Iron Spear",
+    "ar": "#Iron Spear#"
+  },
+  "iron spear description": {
+    "en": "Iron Spear Description",
+    "ar": "#Iron Spear Description#"
+  },
+  "iron staff": {
+    "en": "Iron Staff",
+    "ar": "#Iron Staff#"
+  },
+  "iron staff description": {
+    "en": "Iron Staff Description",
+    "ar": "#Iron Staff Description#"
+  },
+  "iron sword": {
+    "en": "Iron Sword",
+    "ar": "#Iron Sword#"
+  },
+  "iron sword description": {
+    "en": "Iron Sword Description",
+    "ar": "#Iron Sword Description#"
+  },
+  "legendary arrow": {
+    "en": "Legendary Arrow",
+    "ar": "#Legendary Arrow#"
+  },
+  "legendary arrow description": {
+    "en": "Legendary Arrow Description",
+    "ar": "#Legendary Arrow Description#"
+  },
+  "legendary axe": {
+    "en": "Legendary Axe",
+    "ar": "#Legendary Axe#"
+  },
+  "legendary axe description": {
+    "en": "Legendary Axe Description",
+    "ar": "#Legendary Axe Description#"
+  },
+  "legendary bow": {
+    "en": "Legendary Bow",
+    "ar": "#Legendary Bow#"
+  },
+  "legendary bow description": {
+    "en": "Legendary Bow Description",
+    "ar": "#Legendary Bow Description#"
+  },
+  "legendary dagger": {
+    "en": "Legendary Dagger",
+    "ar": "#Legendary Dagger#"
+  },
+  "legendary dagger description": {
+    "en": "Legendary Dagger Description",
+    "ar": "#Legendary Dagger Description#"
+  },
+  "legendary glove": {
+    "en": "Legendary Glove",
+    "ar": "#Legendary Glove#"
+  },
+  "legendary glove description": {
+    "en": "Legendary Glove Description",
+    "ar": "#Legendary Glove Description#"
+  },
+  "legendary hammer": {
+    "en": "Legendary Hammer",
+    "ar": "#Legendary Hammer#"
+  },
+  "legendary hammer description": {
+    "en": "Legendary Hammer Description",
+    "ar": "#Legendary Hammer Description#"
+  },
+  "legendary shield": {
+    "en": "Legendary Shield",
+    "ar": "#Legendary Shield#"
+  },
+  "legendary shield description": {
+    "en": "Legendary Shield Description",
+    "ar": "#Legendary Shield Description#"
+  },
+  "legendary spear": {
+    "en": "Legendary Spear",
+    "ar": "#Legendary Spear#"
+  },
+  "legendary spear description": {
+    "en": "Legendary Spear Description",
+    "ar": "#Legendary Spear Description#"
+  },
+  "legendary staff": {
+    "en": "Legendary Staff",
+    "ar": "#Legendary Staff#"
+  },
+  "legendary staff description": {
+    "en": "Legendary Staff Description",
+    "ar": "#Legendary Staff Description#"
+  },
+  "legendary sword": {
+    "en": "Legendary Sword",
+    "ar": "#Legendary Sword#"
+  },
+  "legendary sword description": {
+    "en": "Legendary Sword Description",
+    "ar": "#Legendary Sword Description#"
+  },
+  "luminous arrow": {
+    "en": "Luminous Arrow",
+    "ar": "#Luminous Arrow#"
+  },
+  "luminous arrow description": {
+    "en": "Luminous Arrow Description",
+    "ar": "#Luminous Arrow Description#"
+  },
+  "luminous axe": {
+    "en": "Luminous Axe",
+    "ar": "#Luminous Axe#"
+  },
+  "luminous axe description": {
+    "en": "Luminous Axe Description",
+    "ar": "#Luminous Axe Description#"
+  },
+  "luminous bow": {
+    "en": "Luminous Bow",
+    "ar": "#Luminous Bow#"
+  },
+  "luminous bow description": {
+    "en": "Luminous Bow Description",
+    "ar": "#Luminous Bow Description#"
+  },
+  "luminous dagger": {
+    "en": "Luminous Dagger",
+    "ar": "#Luminous Dagger#"
+  },
+  "luminous dagger description": {
+    "en": "Luminous Dagger Description",
+    "ar": "#Luminous Dagger Description#"
+  },
+  "luminous glove": {
+    "en": "Luminous Glove",
+    "ar": "#Luminous Glove#"
+  },
+  "luminous glove description": {
+    "en": "Luminous Glove Description",
+    "ar": "#Luminous Glove Description#"
+  },
+  "luminous hammer": {
+    "en": "Luminous Hammer",
+    "ar": "#Luminous Hammer#"
+  },
+  "luminous hammer description": {
+    "en": "Luminous Hammer Description",
+    "ar": "#Luminous Hammer Description#"
+  },
+  "luminous shield": {
+    "en": "Luminous Shield",
+    "ar": "#Luminous Shield#"
+  },
+  "luminous shield description": {
+    "en": "Luminous Shield Description",
+    "ar": "#Luminous Shield Description#"
+  },
+  "luminous spear": {
+    "en": "Luminous Spear",
+    "ar": "#Luminous Spear#"
+  },
+  "luminous spear description": {
+    "en": "Luminous Spear Description",
+    "ar": "#Luminous Spear Description#"
+  },
+  "luminous staff": {
+    "en": "Luminous Staff",
+    "ar": "#Luminous Staff#"
+  },
+  "luminous staff description": {
+    "en": "Luminous Staff Description",
+    "ar": "#Luminous Staff Description#"
+  },
+  "luminous sword": {
+    "en": "Luminous Sword",
+    "ar": "#Luminous Sword#"
+  },
+  "luminous sword description": {
+    "en": "Luminous Sword Description",
+    "ar": "#Luminous Sword Description#"
+  },
+  "wood arrow": {
+    "en": "Wood Arrow",
+    "ar": "#Wood Arrow#"
+  },
+  "wood arrow description": {
+    "en": "Wood Arrow Description",
+    "ar": "#Wood Arrow Description#"
+  },
+  "wood axe": {
+    "en": "Wood Axe",
+    "ar": "#Wood Axe#"
+  },
+  "wood axe description": {
+    "en": "Wood Axe Description",
+    "ar": "#Wood Axe Description#"
+  },
+  "wood bow": {
+    "en": "Wood Bow",
+    "ar": "#Wood Bow#"
+  },
+  "wood bow description": {
+    "en": "Wood Bow Description",
+    "ar": "#Wood Bow Description#"
+  },
+  "wood dagger": {
+    "en": "Wood Dagger",
+    "ar": "#Wood Dagger#"
+  },
+  "wood dagger description": {
+    "en": "Wood Dagger Description",
+    "ar": "#Wood Dagger Description#"
+  },
+  "wood glove": {
+    "en": "Wood Glove",
+    "ar": "#Wood Glove#"
+  },
+  "wood glove description": {
+    "en": "Wood Glove Description",
+    "ar": "#Wood Glove Description#"
+  },
+  "wood hammer": {
+    "en": "Wood Hammer",
+    "ar": "#Wood Hammer#"
+  },
+  "wood hammer description": {
+    "en": "Wood Hammer Description",
+    "ar": "#Wood Hammer Description#"
+  },
+  "wood shield": {
+    "en": "Wood Shield",
+    "ar": "#Wood Shield#"
+  },
+  "wood shield description": {
+    "en": "Wood Shield Description",
+    "ar": "#Wood Shield Description#"
+  },
+  "wood spear": {
+    "en": "Wood Spear",
+    "ar": "#Wood Spear#"
+  },
+  "wood spear description": {
+    "en": "Wood Spear Description",
+    "ar": "#Wood Spear Description#"
+  },
+  "wood staff": {
+    "en": "Wood Staff",
+    "ar": "#Wood Staff#"
+  },
+  "wood staff description": {
+    "en": "Wood Staff Description",
+    "ar": "#Wood Staff Description#"
+  },
+  "wood sword": {
+    "en": "Wood Sword",
+    "ar": "#Wood Sword#"
+  },
+  "wood sword description": {
+    "en": "Wood Sword Description",
+    "ar": "#Wood Sword Description#"
+  }
+}

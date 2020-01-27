@@ -288,7 +288,6 @@ namespace Game
         public float Tilt { get { return tilt; } }
 
         [SerializeField]
-        [Range(0f, 1f)]
         protected float scale = 1f;
         public float Scale { get { return scale; } }
 

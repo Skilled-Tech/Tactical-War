@@ -18,23 +18,33 @@ using System.IO;
 
 public class Sandbox : MonoBehaviour
 {
-    public Sprite[] list;
+    public ItemTemplate[] list;
+
+    JObject jObject;
 
     void Process()
     {
+        jObject = new JObject();
+
         foreach (var child in list)
-            Create(child);
+        {
+            Process(child, "");
+            Process(child, " Description");
+        }
+
+        Debug.Log(jObject.ToString());
     }
 
-    void Create(Sprite sprite)
+    void Process(ItemTemplate element, string f)
     {
-        var path = AssetDatabase.GetAssetPath(sprite);
+        var en = new JProperty("en", element.name + f);
+        var ar = new JProperty("ar", "#" + element.name + f + "#");
 
-        var item = ScriptableObject.CreateInstance<ItemTemplate>();
+        var value = new JObject(en, ar);
 
-        ItemTemplate.INNI(ref item, sprite);
+        var property = new JProperty(element.name.ToLower() + f.ToLower(), value);
 
-        AssetDatabase.CreateAsset(item, Path.ChangeExtension(path, ".asset"));
+        jObject.Add(property.Name, property.Value);
     }
 
     [CustomEditor(typeof(Sandbox))]
@@ -48,20 +58,6 @@ public class Sandbox : MonoBehaviour
             {
                 ((Sandbox)target).Process();
             }
-        }
-    }
-}
-
-namespace Game
-{
-    public partial class ItemTemplate
-    {
-        public static void INNI(ref ItemTemplate template, Sprite sprite)
-        {
-            template.name = sprite.name;
-
-            template.icon = new IconProperty();
-            template.icon.Sprite = sprite;
         }
     }
 }

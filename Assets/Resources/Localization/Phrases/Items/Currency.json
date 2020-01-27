@@ -70,37 +70,5 @@
   "10k jewels description": {
     "en": "10K Jewels Description",
     "ar": "*10K Jewels Description*"
-  },
-  "wood shield": {
-    "en": "Wood Shield",
-    "ar": "*Wood Shield*"
-  },
-  "wood shield description": {
-    "en": "Wood Shield Description",
-    "ar": "*Wood Shield Description*"
-  },
-  "wood sword": {
-    "en": "Wood Sword",
-    "ar": "*Wood Sword*"
-  },
-  "wood sword description": {
-    "en": "Wood Sword Description",
-    "ar": "*Wood Sword Description*"
-  },
-  "Disable Ads": {
-    "en": "Disable Ads",
-    "ar": "ايقافات الاعلانات"
-  },
-  "Disable Ads description": {
-    "en": "Aquiring this item will disable all ads",
-    "ar": "شراء هذا المنتج يقوم بايقاف كل الاعلانات"
-  },
-  "New Player Reward": {
-    "en": "New Player Reward",
-    "ar": "*New Player Reward*"
-  },
-  "New Player Reward description": {
-    "en": "New Player Reward Description",
-    "ar": "*New Player Reward Description*"
   }
 }
