@@ -2041,6 +2041,32 @@
       "RealCurrencyPrices": null,
       "Tags": null,
       "VirtualCurrencyPrices": null
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": null,
+      "Description": null,
+      "DisplayName": "Meteor Shower",
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": null,
+      "ItemId": "meteor_shower",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "VirtualCurrencyPrices": {
+        "GD": 20000
+      }
     }
   ],
   "Request": {
