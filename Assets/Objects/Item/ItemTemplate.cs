@@ -28,7 +28,7 @@ using UnityEngine.Scripting;
 namespace Game
 {
     [CreateAssetMenu(menuName = MenuPath + "Template")]
-    public class ItemTemplate : ScriptableObject
+    public partial class ItemTemplate : ScriptableObject
     {
         public const string MenuPath = Core.GameMenuPath + "Item/";
 
@@ -276,7 +276,11 @@ namespace Game
     {
         [SerializeField]
         protected Sprite sprite;
-        public Sprite Sprite { get { return sprite; } }
+        public Sprite Sprite
+        {
+            get => sprite;
+            set => sprite = value;
+        }
 
         [SerializeField]
         [Range(-360f, 360f)]

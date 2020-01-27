@@ -1,29 +1,40 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
-#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditorInternal;
-#endif
 
 using Object = UnityEngine.Object;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using Game;
+
+using System.IO;
+
 public class Sandbox : MonoBehaviour
 {
-    public DefaultAsset folder;
+    public Sprite[] list;
 
     void Process()
     {
-        var path = AssetDatabase.GetAssetPath(folder);
+        foreach (var child in list)
+            Create(child);
+    }
 
-        Debug.Log(path);
+    void Create(Sprite sprite)
+    {
+        var path = AssetDatabase.GetAssetPath(sprite);
 
-        Debug.Log(folder.GetType());
+        var item = ScriptableObject.CreateInstance<ItemTemplate>();
+
+        ItemTemplate.INNI(ref item, sprite);
+
+        AssetDatabase.CreateAsset(item, Path.ChangeExtension(path, ".asset"));
     }
 
     [CustomEditor(typeof(Sandbox))]
@@ -37,6 +48,20 @@ public class Sandbox : MonoBehaviour
             {
                 ((Sandbox)target).Process();
             }
+        }
+    }
+}
+
+namespace Game
+{
+    public partial class ItemTemplate
+    {
+        public static void INNI(ref ItemTemplate template, Sprite sprite)
+        {
+            template.name = sprite.name;
+
+            template.icon = new IconProperty();
+            template.icon.Sprite = sprite;
         }
     }
 }
@@ -264,3 +289,4 @@ public class GooglePurchase
 }
 */
 #endregion
+#endif
