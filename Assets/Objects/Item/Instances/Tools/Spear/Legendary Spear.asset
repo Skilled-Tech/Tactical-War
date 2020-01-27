@@ -15,7 +15,7 @@ MonoBehaviour:
   icon:
     sprite: {fileID: 21300000, guid: 29627383a71da1d43b7e9e16c0afa5ec, type: 3}
     tilt: 0
-    scale: 1
+    scale: 2
   prices: []
   upgrades:
     template: {fileID: 0}

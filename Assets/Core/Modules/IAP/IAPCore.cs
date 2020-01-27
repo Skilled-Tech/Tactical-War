@@ -246,6 +246,7 @@ namespace Game
 
             for (int i = 0; i < PlayFab.Catalog.Size; i++)
             {
+                if (PlayFab.Catalog[i].VirtualCurrencyPrices == null) continue;
                 if (PlayFab.Catalog[i].VirtualCurrencyPrices.ContainsKey("RM") == false) continue;
 
                 builder.AddProduct(PlayFab.Catalog[i].ItemId, ProductType.Consumable);

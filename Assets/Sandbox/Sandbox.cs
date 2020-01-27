@@ -20,31 +20,20 @@ public class Sandbox : MonoBehaviour
 {
     public ItemTemplate[] list;
 
-    JObject jObject;
+    JArray array;
+
+    string template = "{      \"ItemId\": \"$id\",      \"ItemClass\": \"$class\",      \"DisplayName\": \"$name\",      \"Description\": \"\",      \"CanBecomeCharacter\": false,\"IsStackable\": true,      \"IsTradable\": false,      \"IsLimitedEdition\": false,      \"InitialLimitedEditionCount\": 0}";
 
     void Process()
     {
-        jObject = new JObject();
+        string text = "";
 
         foreach (var child in list)
         {
-            Process(child, "");
-            Process(child, " Description");
+            text += template.Replace("$id", child.ID).Replace("$class", "Tool").Replace("$name", child.name) + Environment.NewLine;
         }
 
-        Debug.Log(jObject.ToString());
-    }
-
-    void Process(ItemTemplate element, string f)
-    {
-        var en = new JProperty("en", element.name + f);
-        var ar = new JProperty("ar", "#" + element.name + f + "#");
-
-        var value = new JObject(en, ar);
-
-        var property = new JProperty(element.name.ToLower() + f.ToLower(), value);
-
-        jObject.Add(property.Name, property.Value);
+        Debug.Log(text);
     }
 
     [CustomEditor(typeof(Sandbox))]
