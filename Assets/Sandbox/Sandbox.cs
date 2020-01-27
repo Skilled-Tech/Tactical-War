@@ -10,119 +10,39 @@ using UnityEditorInternal;
 
 using Object = UnityEngine.Object;
 
-using Game;
-using TMPro;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-using PlayFab;
-using PlayFab.ClientModels;
-using PlayFab.Json;
-
-#region PlayFab Request
-public abstract class PlayFabRequest
-{
-    
-}
-
-public abstract class PlayFabRequest<TRequest, TResult> : PlayFabRequest
-    where TRequest : class
-    where TResult : class
-{
-    public delegate void MethodDelegate (TRequest request, Action<TResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null);
-
-    public abstract MethodDelegate Method { get; }
-
-    public static void Send(MethodDelegate method, TRequest request, ResponseDelegate callback)
-    {
-        method.Invoke(request, ResultCallback, ErrorCallback);
-
-        void ResultCallback(TResult result)
-        {
-            callback(result, null);
-        }
-
-        void ErrorCallback(PlayFabError error)
-        {
-            callback(null, error);
-        }
-    }
-
-    public virtual void Send(TRequest request)
-    {
-        Method.Invoke(request, ResultCallback, ErrorCallback);
-    }
-
-    public delegate void ResultDelegate(TResult result);
-    public event ResultDelegate OnResult;
-    public virtual void ResultCallback(TResult result)
-    {
-        Response(result, null);
-
-        if (OnResult != null) OnResult(result);
-    }
-    
-    public delegate void ErrorDelegate(PlayFabError error);
-    public event ErrorDelegate OnError;
-    public virtual void ErrorCallback(PlayFabError error)
-    {
-        Response(null, error);
-
-        if (OnError != null) OnError(error);
-    }
-
-    public delegate void ResponseDelegate(TResult result, PlayFabError error);
-    public event ResponseDelegate OnResponse;
-    public virtual void Response(TResult result, PlayFabError error)
-    {
-        if (OnResponse != null) OnResponse(result, error);
-    }
-}
-
-public class PlayFabInventoryRequest : PlayFabRequest<GetUserInventoryRequest, GetUserInventoryResult>
-{
-    public override MethodDelegate Method => PlayFabClientAPI.GetUserInventory;
-
-    public virtual void Send() => Send(new GetUserInventoryRequest() { });
-}
-
-public class PlayFabPurchaseItemRequest : PlayFabRequest<PurchaseItemRequest, PurchaseItemResult>
-{
-    public override MethodDelegate Method => PlayFabClientAPI.PurchaseItem;
-
-    public virtual void Send(string itemID, string virtualCurrency, int price) => Send("Default", itemID, virtualCurrency, price, string.Empty);
-    public virtual void Send(string catalogVersion, string itemID, string virtualCurrency, int price, string storeID)
-    {
-        var request = new PurchaseItemRequest()
-        {
-            CatalogVersion = catalogVersion,
-            ItemId = itemID,
-            VirtualCurrency = virtualCurrency,
-            Price = price,
-            StoreId = storeID
-        };
-
-        Send(request);
-    }
-}
-#endregion
-
 public class Sandbox : MonoBehaviour
 {
-    void Start()
+    public DefaultAsset folder;
+
+    void Process()
     {
-        
+        var path = AssetDatabase.GetAssetPath(folder);
+
+        Debug.Log(path);
+
+        Debug.Log(folder.GetType());
     }
 
-    [RuntimeInitializeOnLoadMethod]
-    static void OnLoad()
+    [CustomEditor(typeof(Sandbox))]
+    public class Inspector : Editor
     {
-        
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            if(GUILayout.Button("Process"))
+            {
+                ((Sandbox)target).Process();
+            }
+        }
     }
 }
 
 #region IAP EXAMPLE
+/*
 public class AndroidIAPExample : MonoBehaviour, IStoreListener
 {
     // Items list, configurable via inspector
@@ -342,4 +262,5 @@ public class GooglePurchase
         return purchase;
     }
 }
+*/
 #endregion
