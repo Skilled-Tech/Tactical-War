@@ -1,5 +1,8 @@
 fileFormatVersion: 2
 guid: 2fd0d456cb07d984abf429902985c179
+labels:
+- Hero
+- Human
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

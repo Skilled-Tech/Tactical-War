@@ -1,5 +1,8 @@
 fileFormatVersion: 2
 guid: 5691a21f5aa185a42bf3a5ba6f3bec94
+labels:
+- Hero
+- Robot
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0

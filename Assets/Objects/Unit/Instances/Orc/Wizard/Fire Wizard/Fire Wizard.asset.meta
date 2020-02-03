@@ -1,5 +1,8 @@
 fileFormatVersion: 2
 guid: a60b629bc2b4f5546be00c2b6470ffde
+labels:
+- Enemy
+- Orc
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0

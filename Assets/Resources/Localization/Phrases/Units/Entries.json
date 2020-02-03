@@ -175,12 +175,12 @@
     "en": "Hero Description",
     "ar": "*Hero Description*"
   },
-  "spawner": {
-    "en": "Spawner",
-    "ar": "*Spawner*"
+  "spawner wizard": {
+    "en": "Spawner Wizard",
+    "ar": "*Spawner Wizard*"
   },
-  "spawner description": {
-    "en": "Spawner Description",
-    "ar": "*Spawner Description*"
+  "spawner wizard description": {
+    "en": "Spawner Wizard Description",
+    "ar": "*Spawner Wizard Description*"
   }
 }
