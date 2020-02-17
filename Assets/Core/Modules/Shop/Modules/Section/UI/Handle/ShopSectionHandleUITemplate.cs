@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using TMPro;
+
 namespace Game
 {
     [RequireComponent(typeof(Toggle))]
@@ -25,6 +27,10 @@ namespace Game
 		[SerializeField]
         protected Image icon;
         public Image Icon { get { return icon; } }
+
+        [SerializeField]
+        protected TMP_Text label;
+        public TMP_Text Label { get { return label; } }
 
         public Toggle Toggle { get; protected set; }
 
@@ -41,7 +47,8 @@ namespace Game
         {
             this.Section = section;
 
-            section.Icon.ApplyTo(icon);
+            if(label) label.text = section.DisplayName.Text;
+            if(icon) section.Icon.ApplyTo(icon);
         }
 
         public delegate void ActivateDelegate(ShopSectionHandleUITemplate template);

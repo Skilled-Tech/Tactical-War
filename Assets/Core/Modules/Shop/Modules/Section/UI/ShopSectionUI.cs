@@ -44,8 +44,7 @@ namespace Game
         {
             this.Section = section;
 
-            if(label != null)
-            label.text = section.DisplayName.Text;
+            if(label) label.text = section.DisplayName.Text;
 
             items.Set(section.Items);
         }
