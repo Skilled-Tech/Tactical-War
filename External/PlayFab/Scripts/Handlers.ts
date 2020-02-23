@@ -284,6 +284,41 @@ interface IWelcomeNewPlayerArguments
 
 }
 
+function ClearPlayer(args?: IClearPlayerArguments)
+{
+    var inventory = server.GetUserInventory({ PlayFabId: currentPlayerId }).Inventory;
+
+    if (inventory == null)
+    {
+        return;
+    }
+
+    var items: Array<PlayFabServerModels.RevokeInventoryItem> = [];
+
+    for (let i = 0; i < inventory.length; i++)
+    {
+        var instanceID = inventory[i].ItemInstanceId;
+
+        if (instanceID == null) continue;
+
+        let instance: PlayFabServerModels.RevokeInventoryItem =
+        {
+            PlayFabId: currentPlayerId,
+            ItemInstanceId: instanceID,
+        }
+    }
+
+    server.RevokeInventoryItems({ Items: items });
+
+    var data = server.GetUserData({ PlayFabId: currentPlayerId }).Data;
+
+    server.data
+}
+interface IClearPlayerArguments
+{
+
+}
+
 function Register()
 {
     handlers[ClaimDailyReward.name] = ClaimDailyReward;
