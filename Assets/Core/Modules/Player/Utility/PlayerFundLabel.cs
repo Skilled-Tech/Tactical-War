@@ -51,7 +51,7 @@ namespace Game
 
         void UpdateState()
         {
-            label.text = Element.ToString();
+            label.text = Element.Value.ToString("N0");
         }
 
         void LocalizationTargetChanged(LocalizationType target)
