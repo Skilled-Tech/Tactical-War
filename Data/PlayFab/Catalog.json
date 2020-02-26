@@ -18,7 +18,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "archer",
+      "ItemId": "human_archer",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -48,7 +48,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "knight",
+      "ItemId": "human_knight",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -78,7 +78,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "fire_wizard",
+      "ItemId": "human_fire_wizard",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -108,7 +108,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "ice_wizard",
+      "ItemId": "human_ice_wizard",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -138,7 +138,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "thunder_wizard",
+      "ItemId": "human_thunder_wizard",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -168,7 +168,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "fire_archer",
+      "ItemId": "human_fire_archer",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -198,7 +198,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "toxic_archer",
+      "ItemId": "human_toxic_archer",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -228,7 +228,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "heavy_knight",
+      "ItemId": "human_heavy_knight",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -258,7 +258,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "lancer",
+      "ItemId": "human_lancer",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -288,7 +288,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "explosives_archer",
+      "ItemId": "human_explosives_archer",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -318,7 +318,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "berserker",
+      "ItemId": "human_berserker",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -348,7 +348,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "savage",
+      "ItemId": "human_savage",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -378,7 +378,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "toxic_assassin",
+      "ItemId": "human_toxic_assassin",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -406,7 +406,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "frantic_assassin",
+      "ItemId": "human_frantic_assassin",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -436,7 +436,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "shadow_assassin",
+      "ItemId": "human_shadow_assassin",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -466,7 +466,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "paralysis_archer",
+      "ItemId": "human_paralysis_archer",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -496,7 +496,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "earth_wizard",
+      "ItemId": "human_earth_wizard",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -526,7 +526,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "healer_wizard",
+      "ItemId": "human_healer_wizard",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -638,7 +638,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "hero",
+      "ItemId": "human_hero",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -668,7 +668,7 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "ice_archer",
+      "ItemId": "human_ice_archer",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
@@ -2056,12 +2056,42 @@
       "IsStackable": false,
       "IsTradable": false,
       "ItemClass": "Unit",
-      "ItemId": "spawner_wizard",
+      "ItemId": "human_spawner_wizard",
       "ItemImageUrl": null,
       "RealCurrencyPrices": null,
       "Tags": [
         "upgradable",
         "ranged",
+        "special"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\"upgrades\":{\"template\":\"Default\",\"applicable\":[\"Power\",\"Defense\",\"Speed\"]}}",
+      "Description": null,
+      "DisplayName": null,
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "demon",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable",
+        "melee",
         "special"
       ],
       "VirtualCurrencyPrices": {

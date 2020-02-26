@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
+  m_Name: Orc Toxic Wizard
+  m_EditorClassIdentifier: 
+  icon:
+    sprite: {fileID: 21300000, guid: e7bc6cfa5d2b25a4b80650479ba0a965, type: 3}
+    tilt: 0
+    scale: 1
+  prices:
+  - type: 1
+    value: 16000
+  upgrades:
+    template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
+    applicable:
+    - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+    - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
+  visibility:
+    inventory: 0
+    shop: 0
+    roster: 1
+  unlock:
+    level: {fileID: 0}
+  species: {fileID: 11400000, guid: 460b7aad98f820048b85fd4b1295b83d, type: 2}
+  type: {fileID: 11400000, guid: d46edbafedd3e1044a159863c637a9e1, type: 2}
+  prefab: {fileID: 5569182392643639925, guid: a01366aea08796441847365a75840388, type: 3}
+  health: 80
+  movementMethod: 0
+  deployment:
+    cost: 400
+    time: 4
+  attack:
+    power: 30
+    range: 2
+    distance: 4
+    duration: 1.2
+    method: 2
+    penetrate: 0
+    _SFX:
+      initiate: []
+      connect: []
+    statusEffects:
+    - upgrade: {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
+      probability:
+        min: 40
+        max: 80
+      data:
+        type: {fileID: 11400000, guid: 9ff797c4432e3864ca38a4bcf165fa86, type: 2}
+        potency: 50
+        iterations: 1
+        interval: 10
+  defense: 0
+  rank: 0
+  illustration:
+    sprite: {fileID: 0}
+    offset: {x: 0, y: 0}
+    scale: 1

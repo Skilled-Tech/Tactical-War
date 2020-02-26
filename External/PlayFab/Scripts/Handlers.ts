@@ -269,7 +269,8 @@ function WelcomeNewPlayer(args?: IWelcomeNewPlayerArguments)
         return;
     }
 
-    var rewards = [template.token, "hero", "meteor_shower"];
+    var rewards = template.items.slice();
+    rewards.push(template.token);
 
     PlayFab.Catalog.Item.GrantAll(currentPlayerId, rewards, "New Player Welcome Reward");
 
@@ -280,41 +281,6 @@ function WelcomeNewPlayer(args?: IWelcomeNewPlayerArguments)
     return result;
 }
 interface IWelcomeNewPlayerArguments
-{
-
-}
-
-function ClearPlayer(args?: IClearPlayerArguments)
-{
-    var inventory = server.GetUserInventory({ PlayFabId: currentPlayerId }).Inventory;
-
-    if (inventory == null)
-    {
-        return;
-    }
-
-    var items: Array<PlayFabServerModels.RevokeInventoryItem> = [];
-
-    for (let i = 0; i < inventory.length; i++)
-    {
-        var instanceID = inventory[i].ItemInstanceId;
-
-        if (instanceID == null) continue;
-
-        let instance: PlayFabServerModels.RevokeInventoryItem =
-        {
-            PlayFabId: currentPlayerId,
-            ItemInstanceId: instanceID,
-        }
-    }
-
-    server.RevokeInventoryItems({ Items: items });
-
-    var data = server.GetUserData({ PlayFabId: currentPlayerId }).Data;
-
-    server.data
-}
-interface IClearPlayerArguments
 {
 
 }

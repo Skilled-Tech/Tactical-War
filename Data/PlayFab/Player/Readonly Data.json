@@ -1,12 +1,12 @@
 {
   "Data": {
     "daily-rewards": {
-      "LastUpdated": "2020-02-23T12:30:33.565Z",
+      "LastUpdated": "2020-02-26T14:41:39.95Z",
       "Permission": 0,
-      "Value": "{\"timestamp\":\"2020-02-23T12:30:33.545Z\",\"progress\":1}"
+      "Value": "{\"timestamp\":\"2020-02-26T14:41:39.918Z\",\"progress\":1}"
     }
   },
-  "DataVersion": 1,
+  "DataVersion": 2,
   "Request": {
     "IfChangedFromDataVersion": null,
     "Keys": null,

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
-  m_Name: Robot
+  m_Name: Human Healer Wizard
   m_EditorClassIdentifier: 
   icon:
-    sprite: {fileID: 21300000, guid: 43796cbbf93e53f40aa492a8d2b4acf1, type: 3}
+    sprite: {fileID: 21300000, guid: e15a7f51ce6fbcc4caf1de4a8e5b9604, type: 3}
     tilt: 0
     scale: 1
   prices:
@@ -23,36 +23,35 @@ MonoBehaviour:
     template: {fileID: 0}
     applicable:
     - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
-    - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
     - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
   visibility:
     inventory: 0
     shop: 0
     roster: 1
   unlock:
-    level: {fileID: 11400000, guid: 6d186ce6e126b6047b3afe0c94338a3e, type: 2}
-  species: {fileID: 11400000, guid: a29534cf9423e8744a120f45ebc28007, type: 2}
-  type: {fileID: 11400000, guid: 5d6f48fe6d5c3ac47a030302440a629a, type: 2}
-  prefab: {fileID: 5569182392643639925, guid: 5dd4f4d046be6794092e94cdced69971, type: 3}
-  health: 180
+    level: {fileID: 11400000, guid: 4dd808285874551468159294235d7ea4, type: 2}
+  species: {fileID: 11400000, guid: ae2b960090fb5d94d828518d2edc1d83, type: 2}
+  type: {fileID: 11400000, guid: d46edbafedd3e1044a159863c637a9e1, type: 2}
+  prefab: {fileID: 5569182392643639925, guid: 81e820b55e567324e822d3c9ec826a67, type: 3}
+  health: 120
   movementMethod: 0
   deployment:
     cost: 400
-    time: 8
+    time: 6
   attack:
-    power: 15
+    power: 40
     range: 2
-    distance: 4
-    duration: 0.2
-    method: 2
-    penetrate: 0
+    distance: 0.5
+    duration: 2
+    method: 1
+    penetrate: 1
     _SFX:
       initiate: []
       connect: []
     statusEffects: []
-  defense: 20
-  rank: 4
+  defense: 0
+  rank: 3
   illustration:
-    sprite: {fileID: 21300000, guid: 61e3a2cd5de60754283b2921a6436670, type: 3}
-    offset: {x: 47.77, y: -12.9}
+    sprite: {fileID: 21300000, guid: 044809d4b00cfb446b7f9346a53b8384, type: 3}
+    offset: {x: 18.91, y: -3.82}
     scale: 1

@@ -10,49 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6667ad0579d358b44a01530a046cbd9d, type: 3}
-  m_Name: Robot
+  m_Name: Orc Savage
   m_EditorClassIdentifier: 
   icon:
-    sprite: {fileID: 21300000, guid: 43796cbbf93e53f40aa492a8d2b4acf1, type: 3}
+    sprite: {fileID: 21300000, guid: cb9815e48ceb40d49bbe4734e5676671, type: 3}
     tilt: 0
     scale: 1
   prices:
   - type: 0
     value: 10000
   upgrades:
-    template: {fileID: 0}
+    template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
     - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
     - {fileID: 11400000, guid: 35d5b13cb5a471347ac182a1653e4b5c, type: 2}
-    - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
   visibility:
     inventory: 0
     shop: 0
     roster: 1
   unlock:
-    level: {fileID: 11400000, guid: 6d186ce6e126b6047b3afe0c94338a3e, type: 2}
-  species: {fileID: 11400000, guid: a29534cf9423e8744a120f45ebc28007, type: 2}
-  type: {fileID: 11400000, guid: 5d6f48fe6d5c3ac47a030302440a629a, type: 2}
-  prefab: {fileID: 5569182392643639925, guid: 5dd4f4d046be6794092e94cdced69971, type: 3}
-  health: 180
+    level: {fileID: 0}
+  species: {fileID: 11400000, guid: 460b7aad98f820048b85fd4b1295b83d, type: 2}
+  type: {fileID: 11400000, guid: 24de53186882044498807e9ef2186c21, type: 2}
+  prefab: {fileID: 8127696124609658847, guid: 6d4d9cf2ebeb877448ec7b19414ecb44, type: 3}
+  health: 120
   movementMethod: 0
   deployment:
-    cost: 400
-    time: 8
+    cost: 300
+    time: 4
   attack:
-    power: 15
-    range: 2
-    distance: 4
-    duration: 0.2
-    method: 2
+    power: 50
+    range: 1
+    distance: 0.5
+    duration: 1
+    method: 0
     penetrate: 0
     _SFX:
       initiate: []
       connect: []
     statusEffects: []
-  defense: 20
-  rank: 4
+  defense: 0
+  rank: 0
   illustration:
-    sprite: {fileID: 21300000, guid: 61e3a2cd5de60754283b2921a6436670, type: 3}
-    offset: {x: 47.77, y: -12.9}
+    sprite: {fileID: 0}
+    offset: {x: 0, y: 0}
     scale: 1

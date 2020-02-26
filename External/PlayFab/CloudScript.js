@@ -173,7 +173,8 @@ function WelcomeNewPlayer(args) {
         log.error("player " + currentPlayerId + " has already been rewarded a " + template.token);
         return;
     }
-    var rewards = [template.token, "hero", "meteor_shower"];
+    var rewards = template.items.slice();
+    rewards.push(template.token);
     PlayFab.Catalog.Item.GrantAll(currentPlayerId, rewards, "New Player Welcome Reward");
     var result = {
         items: rewards
