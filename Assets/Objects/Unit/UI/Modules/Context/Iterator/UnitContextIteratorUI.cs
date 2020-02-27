@@ -43,18 +43,63 @@ namespace Game
         {
             var index = Units.List.IndexOf(Template);
 
-            var target = index == 0 ? Units.List.Last() : Units.List[index - 1];
+            var target = GetIteration(index, -1);
 
-            Context.Show(target);
+            if (target == null)
+            {
+                //TODO provide some feedback
+            }
+            else
+            {
+                Context.Show(target);
+            }
         }
 
         protected virtual void NextCallback()
         {
             var index = Units.List.IndexOf(Template);
 
-            var target = index + 1 == Units.Count ? Units.List.First() : Units.List[index + 1];
+            var target = GetIteration(index, 1);
 
-            Context.Show(target);
+            if (target == null)
+            {
+                //TODO provide some feedback
+            }
+            else
+            {
+                Context.Show(target);
+            }
+        }
+
+        protected virtual UnitTemplate GetIteration(int index, int increment)
+        {
+            bool IsValid(UnitTemplate unit)
+            {
+                if (unit == null) return false;
+                if (unit.Unlock.Available == false) return false;
+
+                return true;
+            }
+
+            var i = index + increment;
+            while (i >= 0 && i < Units.Count)
+            {
+                if (IsValid(Units[i]))
+                    return Units[i];
+
+                i += increment;
+            }
+
+            i = index > 0 ? 0 : Units.Count - 1;
+            while (i >= 0 && i < Units.Count)
+            {
+                if (IsValid(Units[i]))
+                    return Units[i];
+
+                i += increment;
+            }
+
+            return null;
         }
     }
 }

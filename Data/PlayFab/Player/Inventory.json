@@ -1,6 +1,57 @@
 {
   "Inventory": [
     {
+      "Annotation": null,
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": null,
+      "Expiration": null,
+      "ItemClass": "Unit",
+      "ItemId": "orc_berserker",
+      "ItemInstanceId": "C8D8C1DBD7146A58",
+      "PurchaseDate": "2020-02-27T07:15:49.252Z",
+      "RemainingUses": null,
+      "UnitCurrency": "GD",
+      "UnitPrice": 10000,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": "Daily Login Reward",
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": null,
+      "Expiration": null,
+      "ItemClass": "Tool",
+      "ItemId": "wood_shield",
+      "ItemInstanceId": "F7CE0A7931640F0E",
+      "PurchaseDate": "2020-02-27T07:13:37.093Z",
+      "RemainingUses": 1,
+      "UnitCurrency": null,
+      "UnitPrice": 0,
+      "UsesIncrementedBy": null
+    },
+    {
+      "Annotation": "Daily Login Reward",
+      "BundleContents": null,
+      "BundleParent": null,
+      "CatalogVersion": "Default",
+      "CustomData": null,
+      "DisplayName": null,
+      "Expiration": null,
+      "ItemClass": "Tool",
+      "ItemId": "wood_sword",
+      "ItemInstanceId": "85A8415DB44340F3",
+      "PurchaseDate": "2020-02-27T07:13:37.093Z",
+      "RemainingUses": 1,
+      "UnitCurrency": null,
+      "UnitPrice": 0,
+      "UsesIncrementedBy": null
+    },
+    {
       "Annotation": "New Player Welcome Reward",
       "BundleContents": null,
       "BundleParent": null,
@@ -53,7 +104,7 @@
     }
   ],
   "VirtualCurrency": {
-    "GD": 10000,
+    "GD": 0,
     "JL": 1000
   },
   "VirtualCurrencyRechargeTimes": {},

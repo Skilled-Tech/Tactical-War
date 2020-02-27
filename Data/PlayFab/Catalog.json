@@ -2097,6 +2097,216 @@
       "VirtualCurrencyPrices": {
         "GD": 10000
       }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": null,
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "orc_fire_archer",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable",
+        "ranged",
+        "archer"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 8000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": null,
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "orc_berserker",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable",
+        "melee",
+        "knight"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": null,
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "orc_fire_wizard",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable",
+        "ranged",
+        "wizard"
+      ],
+      "VirtualCurrencyPrices": {
+        "JL": 12000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": null,
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "orc_knight",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable",
+        "melee",
+        "knight"
+      ],
+      "VirtualCurrencyPrices": {
+        "JL": 6000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Defense\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": null,
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "orc_savage",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable",
+        "melee",
+        "knight"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 10000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": null,
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "orc_toxic_archer",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable",
+        "ranged",
+        "archer"
+      ],
+      "VirtualCurrencyPrices": {
+        "GD": 8000
+      }
+    },
+    {
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "CatalogVersion": "Default",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "CustomData": "{\n  \"upgrades\": {\n    \"template\": \"Default\",\n    \"applicable\": [\n      \"Power\",\n      \"Range\"\n    ]\n  }\n}",
+      "Description": null,
+      "DisplayName": null,
+      "InitialLimitedEditionCount": 0,
+      "IsLimitedEdition": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemClass": "Unit",
+      "ItemId": "orc_toxic_wizard",
+      "ItemImageUrl": null,
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "upgradable",
+        "ranged",
+        "wizard"
+      ],
+      "VirtualCurrencyPrices": {
+        "JL": 16000
+      }
     }
   ],
   "Request": {
