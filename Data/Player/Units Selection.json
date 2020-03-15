@@ -1,8 +1,8 @@
 [
-  "human_hero",
-  "orc_berserker",
-  null,
-  null,
-  null,
-  null
+  "human_shadow_assassin",
+  "human_explosives_archer",
+  "human_healer_wizard",
+  "human_ice_wizard",
+  "human_thunder_wizard",
+  "robot"
 ]

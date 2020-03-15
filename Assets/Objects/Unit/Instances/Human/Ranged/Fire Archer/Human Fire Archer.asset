@@ -20,7 +20,7 @@ MonoBehaviour:
   - type: 0
     value: 8000
   upgrades:
-    template: {fileID: 0}
+    template: {fileID: 11400000, guid: 82ce165c0cec05c4caa1e4eae3d01266, type: 2}
     applicable:
     - {fileID: 11400000, guid: 8ab13829f141592409d731cb606776fd, type: 2}
     - {fileID: 11400000, guid: 46f09b8bfb12e8d458c1bd1dd6a60089, type: 2}
